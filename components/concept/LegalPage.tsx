@@ -11,14 +11,16 @@ export default function LegalPage({
   eyebrow,
   title,
   updated = "July 2026",
+  intro,
   sections,
-  gradient = "linear-gradient(90deg,#161616,#2E2E2E)",
+  gradient = "linear-gradient(90deg,#161616,#2E4A5E)",
 }: {
   eyebrow: string;
   title: string;
   updated?: string;
+  /** Unnumbered preamble paragraphs shown before the sections. */
+  intro?: string[];
   sections: LegalSection[];
-  /** Left-to-right page wash; each legal page carries its own hue. */
   gradient?: string;
 }) {
   return (
@@ -35,6 +37,17 @@ export default function LegalPage({
             {site.legalName} · Last updated {updated}
           </p>
         </Reveal>
+        {intro && intro.length > 0 && (
+          <Reveal>
+            <div className="mt-10 space-y-4">
+              {intro.map((para, i) => (
+                <p key={i} className="leading-relaxed text-graywarm-light">
+                  {para}
+                </p>
+              ))}
+            </div>
+          </Reveal>
+        )}
         <div className="mt-12 space-y-10">
           {sections.map((s) => (
             <Reveal key={s.heading}>

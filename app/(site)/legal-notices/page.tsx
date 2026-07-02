@@ -1,52 +1,47 @@
 import type { Metadata } from "next";
 import LegalPage from "@/components/concept/LegalPage";
 import { site } from "@/lib/site";
-import PageClosing from "@/components/concept/PageClosing";
 
 export const metadata: Metadata = { title: "Legal Notices & Disclaimers" };
 
 // Draft for client and attorney review before launch.
 export default function LegalNotices() {
   return (
-    <>
-      <LegalPage
-        gradient="linear-gradient(90deg,#161616,#2E4A5E)"
-        eyebrow="Legal"
-        title="Legal Notices & Disclaimers"
-        sections={[
-          {
-            heading: "Operating authority",
-            body: [
-              `KUL Enterprises LLC operates as a for-hire interstate motor carrier under USDOT ${site.usdot} and MC ${site.mc}, based in ${site.location}. Authority and safety records are public and can be verified through the FMCSA SAFER system.`,
-            ],
-          },
-          {
-            heading: "Insurance",
-            body: [
-              "Auto liability and cargo coverage are maintained as required by federal regulation. Certificates of insurance are issued directly by our insurer on request, with your company listed as certificate holder where applicable.",
-            ],
-          },
-          {
-            heading: "Forward-looking statements",
-            body: [
-              "Statements about our plans, including fleet growth goals, describe intentions rather than guarantees. They reflect what we are building toward and may change with market conditions.",
-            ],
-          },
-          {
-            heading: "Third-party links",
-            body: [
-              "Links to external sites, such as government verification systems, are provided for convenience. We are not responsible for their content or availability.",
-            ],
-          },
-          {
-            heading: "Contact",
-            body: [
-              `Notices and legal correspondence: ${site.email}, or by phone at ${site.phone}.`,
-            ],
-          },
-        ]}
-      />
-      <PageClosing />
-    </>
+    <LegalPage
+      eyebrow="Legal"
+      title="Legal Notices & Disclaimers"
+      sections={[
+        {
+          heading: "Pictures & Wordmark",
+          body: [
+            "The photography featured on this website includes images taken personally by our founder while traveling the United States, together with licensed imagery. Equipment shown may differ in specification, configuration, or livery from the equipment assigned to any particular load. All third-party word marks and logos that may appear remain the property of their respective owners, and any use of such marks is under license or by permission.",
+          ],
+        },
+        {
+          heading: "Service Information",
+          body: [
+            "Service descriptions, coverage areas, capacity, and transit expectations presented on this website are obtained under normal operating conditions and may vary depending on the lane, season, weather, road and environmental conditions, and applicable hours-of-service regulations. Nothing on this website constitutes a rate quotation or a commitment of capacity. Freight moves under signed agreements, including rate confirmations and broker-carrier agreements, and those documents govern in the event of any difference.",
+          ],
+        },
+        {
+          heading: "Copyright & IP",
+          body: [
+            `This website and its contents are protected by various intellectual property rights, including without limitation copyright, design rights, and trademarks, that are owned or licensed by ${site.legalName}. You may not copy or use this website or any of its contents for any commercial purpose without our prior written consent. The KUL Enterprises name, the lion mark, and the Doctor Bird device are marks of ${site.legalName}.`,
+          ],
+        },
+        {
+          heading: "Brokers & Partners",
+          body: [
+            `Freight brokers, agents, and partner carriers are not agents of ${site.legalName} and have no authority to bind ${site.legalName} by any express or implied undertaking or representation. Arrangements made through brokers or agents are subject to their own terms and conditions.`,
+          ],
+        },
+        {
+          heading: "Operating Authority & Verification",
+          body: [
+            `${site.legalName} operates as a for-hire interstate motor carrier under USDOT ${site.usdot} and MC ${site.mc}, based in ${site.location}. Authority and safety records are public and can be verified through the FMCSA SAFER system. Auto liability and cargo coverage are maintained as required by federal regulation, and certificates of insurance are issued directly by our insurer on request. Notices and legal correspondence: ${site.email}.`,
+          ],
+        },
+      ]}
+    />
   );
 }

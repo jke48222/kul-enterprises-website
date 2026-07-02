@@ -1,46 +1,38 @@
 import type { Metadata } from "next";
 import LegalPage from "@/components/concept/LegalPage";
 import { site } from "@/lib/site";
-import PageClosing from "@/components/concept/PageClosing";
 
 export const metadata: Metadata = { title: "Manage Cookies" };
 
 // Draft for client and attorney review before launch.
 export default function ManageCookies() {
   return (
-    <>
-      <LegalPage
-        gradient="linear-gradient(90deg,#161616,#5A1D1D)"
-        eyebrow="Legal"
-        title="Manage Cookies"
-        sections={[
-          {
-            heading: "The short version",
-            body: [
-              "This site does not use advertising cookies, analytics trackers, or third-party profiling. There is nothing to opt out of, because we never opted you in.",
-            ],
-          },
-          {
-            heading: "The one thing we store",
-            body: [
-              "A single sessionStorage flag named kul-intro-seen remembers that our intro animation already played, so it does not replay on every page. It contains no personal data, is never sent anywhere, and clears itself when you close the browser tab.",
-            ],
-          },
-          {
-            heading: "How to clear it",
-            body: [
-              "Close the tab and it is gone. To clear it immediately, use your browser's site-data controls or open a private window.",
-            ],
-          },
-          {
-            heading: "If this changes",
-            body: [
-              `If we ever add measurement tools, this page and our Privacy Policy will say so plainly first. Questions: ${site.email}.`,
-            ],
-          },
-        ]}
-      />
-      <PageClosing />
-    </>
+    <LegalPage
+      eyebrow="Legal"
+      title="Manage Cookies"
+      intro={[
+        "This page explains what is stored in your browser when you use our website, why it is stored, and how you can control it. We believe in being transparent about this: our website does not use advertising cookies, cross-site trackers, or third-party profiling of any kind.",
+      ]}
+      sections={[
+        {
+          heading: "1. WHAT WE STORE",
+          body: [
+            "Our website sets a single session flag, named kul-intro-seen, which remembers that our opening animation has already played so that it does not replay on every page you visit. It contains no personal information, is never transmitted to us or to anyone else, and is deleted automatically when you close your browser tab.",
+          ],
+        },
+        {
+          heading: "2. HOW TO CONTROL IT",
+          body: [
+            "You do not need to take any action: the flag clears itself when your browsing session ends. To remove it immediately, use your browser's site-data or privacy controls, or browse in a private window. Blocking storage entirely will not prevent you from using any part of our website.",
+          ],
+        },
+        {
+          heading: "3. CHANGES TO THIS PAGE",
+          body: [
+            `If we introduce measurement tools such as analytics in the future, this page and our Privacy Policy will be updated to say so plainly before they are used. Questions about this page can be sent to ${site.email}.`,
+          ],
+        },
+      ]}
+    />
   );
 }

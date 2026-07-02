@@ -1,45 +1,21 @@
 import type { Metadata } from "next";
 import LegalPage from "@/components/concept/LegalPage";
-import PageClosing from "@/components/concept/PageClosing";
 
 export const metadata: Metadata = { title: "Climate Statement" };
 
 // Draft for client and attorney review before launch.
 export default function ClimateStatement() {
   return (
-    <>
-      <LegalPage
-        gradient="linear-gradient(90deg,#161616,#3D2A5A)"
-        eyebrow="Responsibility"
-        title="Climate Statement"
-        sections={[
-          {
-            heading: "Where we stand",
-            body: [
-              "Trucking moves the country, and it burns fuel doing it. We do not pretend otherwise. Our responsibility as a growing carrier is to move every load with as little waste as the job allows.",
-            ],
-          },
-          {
-            heading: "What we practice today",
-            body: [
-              "Disciplined route planning that cuts empty miles. Preventive maintenance that keeps engines running clean and tires at pressure. Idle-reduction habits at docks and rest stops. Right-sized equipment for the load, so we are not pulling more truck than the freight needs.",
-            ],
-          },
-          {
-            heading: "As we grow",
-            body: [
-              "Our fleet plan through 2029 prioritizes newer, cleaner tractors as we add capacity. We evaluate fuel efficiency at every purchase and will adopt cleaner technology as it becomes practical for the lanes we run.",
-            ],
-          },
-          {
-            heading: "Honesty over slogans",
-            body: [
-              "We would rather report real practices than print a green logo. As our sustainability work matures, this page will grow with it.",
-            ],
-          },
-        ]}
-      />
-      <PageClosing />
-    </>
+    <LegalPage
+      eyebrow="Responsibility"
+      title="KUL Enterprises Climate Statement"
+      intro={[
+        "KUL Enterprises believes that climate change is one of the most fundamental threats facing our planet and the communities we serve. Our leadership has spent years on America's highways and has seen the effects of weather extremes firsthand, from flooded interstates to heat that punishes equipment and drivers alike. We are committed to doing everything in our power to be part of the answer.",
+        "The transportation industry carries a great deal of responsibility when it comes to tackling climate change, and KUL Enterprises intends to play its part. As a growing carrier, we have a clear opportunity to build our fleet the right way from the start: disciplined route planning that eliminates empty miles, preventive maintenance that keeps engines running clean and tires at pressure, idle-reduction practices at docks and rest stops, and right-sized equipment so we never pull more truck than the freight requires.",
+        "As we expand toward fifty tractors by the end of 2029, fuel efficiency is weighed in every purchasing decision, and we are watching the development of cleaner drivetrain technology closely. We will adopt lower-emission equipment as it becomes practical for the lanes we run, and we are exploring long-term approaches to recycling, materials, and equipment longevity for the best lasting results.",
+        "We would rather report real practices than print slogans. As our sustainability work matures, this statement will grow with it.",
+      ]}
+      sections={[]}
+    />
   );
 }
