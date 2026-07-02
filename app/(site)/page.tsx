@@ -387,8 +387,8 @@ export default function ConceptHome() {
               className="mx-auto h-auto w-24"
             />
             <p className="mx-auto mt-6 max-w-xl text-[15px] leading-relaxed text-graywarm-deep">
-              Reach out about a load, a lane, or anything else. Dispatch
-              replies the same business day.
+              Tell us about your freight, your lane, or whatever you need.
+              Dispatch replies the same business day.
             </p>
           </Reveal>
           <Reveal className="mt-10 rounded-2xl border border-ink/10 bg-white p-8 md:p-10">
