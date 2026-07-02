@@ -327,11 +327,11 @@ export default function ConceptHome() {
           className="absolute inset-0 bg-[linear-gradient(270deg,rgba(22,22,22,0.8),rgba(22,22,22,0.35)_55%,transparent)]"
         />
         <Reveal className="relative mx-auto w-full max-w-[1470px] px-6 lg:px-[180px]">
-          <div className="ml-auto max-w-[560px]">
+          <div className="ml-auto max-w-[560px] text-right">
             <h2 className="kul-grad-text font-omnibus text-[clamp(2.1rem,3.2vw,2.9rem)] leading-[1.15]">
               A foundation that doesn&apos;t move
             </h2>
-            <p className="mt-6 max-w-[520px] text-[15px] leading-[1.7] text-graywarm-light">
+            <p className="ml-auto mt-6 max-w-[520px] text-[15px] leading-[1.7] text-graywarm-light">
               Pre-trip inspections. Legal hours. Weather calls made early and
               on the side of caution. The most important delivery on any route
               is the driver coming home.
