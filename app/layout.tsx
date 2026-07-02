@@ -1,12 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import { Sora, Inter } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
 import MotionProvider from "@/components/motion/MotionProvider";
 import LoadingOverlay from "@/components/brand/LoadingOverlay";
 
-const sora = Sora({ subsets: ["latin"], variable: "--font-sora", display: "swap" });
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+// Montserrat is the site-wide body font (intro overlay included). The
+// legacy /concept tree loads its own Sora/Inter in app/concept/layout.tsx,
+// keeping those bytes off main-site visits.
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-mont",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -77,9 +84,9 @@ export default function RootLayout({
       // The pre-paint intro gate script sets data-intro on <html> before
       // hydration; suppress React's root attribute mismatch warning for it.
       suppressHydrationWarning
-      className={`${sora.variable} ${inter.variable}`}
+      className={montserrat.variable}
     >
-      <body className="min-h-screen bg-ink font-sans text-white antialiased">
+      <body className="min-h-screen bg-ink font-mont text-white antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -99,6 +106,15 @@ export default function RootLayout({
           }}
         />
         <LoadingOverlay />
+        {/* First visits only: attach the intro film's src pre-paint so it
+            buffers at parse time. Repeat visits leave it src-less, so the
+            hidden overlay fetches and decodes nothing. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(document.documentElement.getAttribute('data-intro')==='1'){var v=document.querySelector('.kul-intro-root video');if(v){v.muted=true;v.src=v.getAttribute('data-src');}}}catch(e){}",
+          }}
+        />
         <MotionProvider>{children}</MotionProvider>
       </body>
     </html>

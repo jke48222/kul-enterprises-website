@@ -18,12 +18,31 @@ export default function BirdModel({ className = "" }: { className?: string }) {
   const [ready, setReady] = useState(false);
   const reduceRef = useRef(false);
   const elRef = useRef<ModelViewerEl | null>(null);
+  const holderRef = useRef<HTMLDivElement | null>(null);
 
+  // The viewer chunk (three.js inside, ~1MB) and the 2MB GLB stay off the
+  // initial load: import only once the section is within ~600px of view.
   useEffect(() => {
     reduceRef.current = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
-    import("@google/model-viewer").then(() => setReady(true));
+    const load = () => import("@google/model-viewer").then(() => setReady(true));
+    const holder = holderRef.current;
+    if (!holder || !("IntersectionObserver" in window)) {
+      load();
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          io.disconnect();
+          load();
+        }
+      },
+      { rootMargin: "600px 0px" }
+    );
+    io.observe(holder);
+    return () => io.disconnect();
   }, []);
 
   // Force the model to load: retry until the element reports loaded.
@@ -38,7 +57,7 @@ export default function BirdModel({ className = "" }: { className?: string }) {
     return () => timers.forEach(clearTimeout);
   }, [ready]);
 
-  if (!ready) return <div aria-hidden className={className} />;
+  if (!ready) return <div ref={holderRef} aria-hidden className={className} />;
 
   return (
     // @ts-expect-error model-viewer is a custom element

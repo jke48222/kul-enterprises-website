@@ -15,8 +15,22 @@ export default function HeroVideo() {
     const v = ref.current;
     if (!v) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Phones get the 720p rendition: same loop at roughly a third of the
+    // decode work and bytes. preload="metadata" keeps the swap cheap.
+    if (window.matchMedia("(max-width: 768px)").matches) {
+      v.src = "/videos/kul-hero-720.mp4";
+    }
     v.muted = true;
     v.play().catch(() => {});
+    // Decode only while on screen: pause the loop once the hero scrolls
+    // out of view, resume when it comes back.
+    if (!("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) v.play().catch(() => {});
+      else v.pause();
+    });
+    io.observe(v);
+    return () => io.disconnect();
   }, []);
 
   return (

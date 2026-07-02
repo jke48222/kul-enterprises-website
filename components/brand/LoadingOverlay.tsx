@@ -11,8 +11,12 @@ const SEEN_KEY = "kul-intro-seen";
  *
  * Primary: the generated intro film (bird flies in trailing gold, dissolves
  * into particles, the KUL logo and tagline resolve), played at a contained
- * size on a pure black stage. mix-blend-screen melts the film's black into
- * the stage so there are no visible edges.
+ * size on a pure black stage. The film's own black background matches the
+ * stage, so its edges are invisible without any blend mode.
+ *
+ * The <video> ships without src (data-src only); an inline script in the
+ * root layout attaches it pre-paint on first visits. Repeat visits never
+ * fetch or decode the film even though the element is in the server HTML.
  *
  * Fallback: the CSS build of the same sequence using Mark's actual artwork.
  * Used automatically if the video errors or has not started within a second.
@@ -157,19 +161,29 @@ export default function LoadingOverlay() {
         <video
           ref={(el) => {
             videoRef.current = el;
-            // React does not serialize `muted` into server HTML, so the
-            // browser blocks the pre-hydration autoplay as an unmuted video.
-            // Re-mute and (re)start unconditionally on hydration — calling
-            // play() on an already-playing element is a harmless no-op, and
-            // the `paused`-guarded version raced the browser and stuck at 0.
-            if (el) {
+            // Only wire the film up when this visit actually shows the
+            // intro (data-intro set pre-paint). Repeat visits keep the
+            // element src-less: zero fetch, zero decode.
+            if (
+              el &&
+              document.documentElement.getAttribute("data-intro") === "1"
+            ) {
+              if (!el.getAttribute("src")) el.src = el.dataset.src ?? "";
+              // React does not serialize `muted` into server HTML, so the
+              // browser blocks the pre-hydration autoplay as an unmuted
+              // video. Re-mute and (re)start unconditionally — play() on an
+              // already-playing element is a harmless no-op, and the
+              // `paused`-guarded version raced the browser and stuck at 0.
               el.muted = true;
               const p = el.play();
               if (p) p.catch(() => {});
             }
           }}
           // REPLACEABLE ASSET: generated intro film; regenerate or reshoot as brand evolves
-          src="/videos/intro.mp4"
+          data-src="/videos/intro.mp4"
+          // The root-layout inline script attaches src pre-paint on first
+          // visits; tell React that mismatch is intentional.
+          suppressHydrationWarning
           autoPlay
           muted
           playsInline
@@ -181,7 +195,7 @@ export default function LoadingOverlay() {
             setMode("css");
             startCssClock(reduceRef.current);
           }}
-          className="kul-intro-content absolute inset-0 z-10 h-full w-full object-contain mix-blend-screen"
+          className="kul-intro-content absolute inset-0 z-10 h-full w-full object-contain"
         />
       ) : (
         <div className="kul-intro-content relative z-10 h-full w-full">

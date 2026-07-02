@@ -46,7 +46,7 @@ export default function ConceptNav() {
     <div className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-10 sm:pt-6">
       <div
         ref={ref}
-        className="relative mx-auto flex h-12 max-w-[1120px] items-center justify-between rounded-full bg-ink/90 pl-3 pr-2 shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur sm:pl-5 sm:pr-2"
+        className="relative mx-auto flex h-12 max-w-[1120px] items-center justify-between rounded-full bg-ink/95 pl-3 pr-2 shadow-[0_8px_30px_rgba(0,0,0,0.35)] sm:pl-5 sm:pr-2"
       >
         {/* Hamburger */}
         <button

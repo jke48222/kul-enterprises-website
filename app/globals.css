@@ -284,7 +284,14 @@ html[data-intro="1"] .kul-intro-root {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: kul-grad-slide 18s ease-in-out infinite;
+  /* background-position is paint-bound: every tick re-rasterizes the
+     glyph-masked gradient. steps() drops that from ~60 to ~9 repaints/s;
+     each hop moves the soft ramp ~1.5% of the width, invisible at 18s. */
+  animation: kul-grad-slide 18s steps(80) infinite;
+}
+/* No point painting the shimmer under the opaque intro cover. */
+html[data-intro="1"] .kul-grad-text {
+  animation-play-state: paused;
 }
 
 /* Concept hero title: pure opacity fade. While the intro overlay is up

@@ -382,8 +382,8 @@ export default function ConceptHome() {
               src="/images/brand/lion-head.png"
               alt=""
               aria-hidden
-              width={500}
-              height={500}
+              width={96}
+              height={96}
               className="mx-auto h-auto w-24"
             />
             <p className="mx-auto mt-6 max-w-xl text-[15px] leading-relaxed text-graywarm-deep">
