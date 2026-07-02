@@ -42,7 +42,7 @@ export default function Footer() {
               ))}
               <li>
                 <Link
-                  href="/quote"
+                  href="/concept/quote"
                   className="text-sm text-white/80 transition-colors hover:text-gold"
                 >
                   Request a Quote
@@ -57,7 +57,7 @@ export default function Footer() {
               {services.map((s) => (
                 <li key={s.slug}>
                   <Link
-                    href={`/services/${s.slug}`}
+                    href={`/concept/services/${s.slug}`}
                     className="text-sm text-white/80 transition-colors hover:text-gold"
                   >
                     {s.name}

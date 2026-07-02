@@ -100,7 +100,7 @@ export default function CareersPage() {
                   </a>{" "}
                   or read our{" "}
                   <Link
-                    href="/safety"
+                    href="/concept/safety"
                     className="font-semibold text-ink underline underline-offset-4 hover:text-gold-dim"
                   >
                     safety practices

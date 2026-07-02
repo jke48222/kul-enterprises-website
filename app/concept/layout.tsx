@@ -1,33 +1,15 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
-import { Montserrat } from "next/font/google";
-import ConceptNav from "@/components/concept/ConceptNav";
-import ConceptFooter from "@/components/concept/ConceptFooter";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 
 /**
- * Concept route: the reference-structure recreation carrying KUL content.
- * Type per client direction: Omnibus Bold for headings (user-supplied file),
- * Montserrat for body and tracked-caps labels (OFL family, 400 + 600).
- * Both are scoped to this subtree; the main site keeps Sora/Inter.
+ * Legacy tree: the original Sora/Inter build, preserved for comparison at
+ * /concept. Not indexed.
  */
-const omnibus = localFont({
-  src: "../fonts/Omnibus-Bold.ttf",
-  weight: "700",
-  variable: "--font-omnibus",
-  display: "swap",
-});
-
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-mont",
-  display: "swap",
-});
-
 export const metadata: Metadata = {
   title: {
-    default: "Concept | KUL Enterprises",
-    template: "%s | KUL Concept",
+    absolute: "Classic Concept | KUL Enterprises",
+    template: "%s | KUL Classic Concept",
   },
   robots: { index: false, follow: false },
 };
@@ -38,12 +20,10 @@ export default function ConceptLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div
-      className={`${omnibus.variable} ${montserrat.variable} bg-ink2 font-mont text-[15px] leading-[1.5] text-white antialiased`}
-    >
-      <ConceptNav />
-      <main>{children}</main>
-      <ConceptFooter />
-    </div>
+    <>
+      <Header />
+      <main id="main">{children}</main>
+      <Footer />
+    </>
   );
 }

@@ -46,7 +46,7 @@ export default function Vision() {
             companies: 50 tractors by the end of 2029, with the same commitment
             to safety, integrity, and dependable service we run today.
           </p>
-          <Link href="/about" className="btn-ghost-dark mt-10">
+          <Link href="/concept/about" className="btn-ghost-dark mt-10">
             Read our story
           </Link>
         </div>
@@ -82,7 +82,7 @@ export default function Vision() {
               companies: 50 tractors by the end of 2029, with the same commitment
               to safety, integrity, and dependable service we run today.
             </p>
-            <Link href="/about" className="btn-ghost-dark mt-10">
+            <Link href="/concept/about" className="btn-ghost-dark mt-10">
               Read our story
             </Link>
           </m.div>

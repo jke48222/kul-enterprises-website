@@ -84,10 +84,10 @@ export default async function ServicePage({
               </ul>
 
               <div className="mt-12 flex flex-col gap-4 sm:flex-row">
-                <Link href="/quote" className="btn-gold">
+                <Link href="/concept/quote" className="btn-gold">
                   Quote a {service.name} load
                 </Link>
-                <Link href="/contact" className="btn-ghost-light">
+                <Link href="/concept/contact" className="btn-ghost-light">
                   Ask a question first
                 </Link>
               </div>
@@ -101,7 +101,7 @@ export default async function ServicePage({
                   {others.map((s) => (
                     <li key={s.slug}>
                       <Link
-                        href={`/services/${s.slug}`}
+                        href={`/concept/services/${s.slug}`}
                         className="group flex items-center justify-between gap-4 text-sm font-medium text-ink transition-colors hover:text-gold-dim"
                       >
                         {s.name}

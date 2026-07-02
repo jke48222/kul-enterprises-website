@@ -29,7 +29,7 @@ export default function ServicesGrid() {
           {services.map((s) => (
             <RevealItem key={s.slug} className="bg-paper">
               <Link
-                href={`/services/${s.slug}`}
+                href={`/concept/services/${s.slug}`}
                 className="group flex h-full flex-col p-7 transition-colors duration-300 hover:bg-white"
               >
                 <ServiceIcon
@@ -57,7 +57,7 @@ export default function ServicesGrid() {
           {/* 8th cell: quote CTA completes the grid */}
           <RevealItem className="bg-ink">
             <Link
-              href="/quote"
+              href="/concept/quote"
               className="group flex h-full flex-col justify-between p-7"
             >
               <div>

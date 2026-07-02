@@ -89,10 +89,10 @@ export default function Hero() {
             variants={staggerItem}
             className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center"
           >
-            <Link href="/quote" className="btn-gold">
+            <Link href="/concept/quote" className="btn-gold">
               Request a Freight Quote
             </Link>
-            <Link href="/careers" className="btn-ghost-dark group">
+            <Link href="/concept/careers" className="btn-ghost-dark group">
               Become a Driver
               <span
                 aria-hidden

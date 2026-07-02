@@ -17,10 +17,10 @@ export default function ClosingCTA() {
             the lane.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Link href="/quote" className="btn-gold">
+            <Link href="/concept/quote" className="btn-gold">
               Request a Freight Quote
             </Link>
-            <Link href="/careers" className="btn-ghost-dark">
+            <Link href="/concept/careers" className="btn-ghost-dark">
               Drive for KUL
             </Link>
           </div>

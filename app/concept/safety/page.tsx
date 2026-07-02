@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
-import { Reveal } from "@/components/motion/Reveal";
+import PageHero from "@/components/layout/PageHero";
+import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = { title: "Safety & Compliance" };
+export const metadata: Metadata = {
+  title: "Safety & Compliance",
+  description: `KUL Enterprises operates under USDOT ${site.usdot} and MC ${site.mc}. Fully licensed and insured, with safety practices that treat compliance as the floor, not the ceiling.`,
+};
 
 const pillars = [
   {
@@ -25,53 +28,36 @@ const pillars = [
   },
 ];
 
-export default function ConceptSafety() {
+const stats = [
+  { label: "USDOT Number", value: site.usdot },
+  { label: "MC Number", value: site.mc },
+  { label: "Coverage", value: "Licensed & Insured" },
+  { label: "Dispatch", value: "24/7 Communication" },
+];
+
+export default function SafetyPage() {
   return (
     <>
-      <section className="relative flex min-h-[70svh] items-end overflow-hidden">
-        <Image
-          src="/images/photos/desert-rock-formation.jpg"
-          alt="Sculpted rock formations standing over quiet sand at dusk"
-          fill
-          priority
-          quality={82}
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,rgba(22,22,22,0.5),transparent_45%,rgba(22,22,22,0.92))]" />
-        <Reveal className="relative mx-auto w-full max-w-6xl px-6 pb-16">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">
-            Safety &amp; Compliance
-          </p>
-          <h1 className="kul-grad-text mt-4 max-w-2xl font-omnibus text-[clamp(2.2rem,4.5vw,3.4rem)] leading-tight">
-            Compliance is the floor. Safety is the culture.
-          </h1>
-          <p className="mt-4 max-w-xl text-graywarm-light">
-            Anyone can print a safety slogan. We would rather show you our
-            numbers, our practices, and where to verify both.
-          </p>
-        </Reveal>
-      </section>
+      <PageHero
+        eyebrow="Safety & Compliance"
+        title="Compliance is the floor. Safety is the culture."
+        lede="Anyone can print a safety slogan. We would rather show you our numbers, our practices, and where to verify both."
+      />
 
-      <section className="bg-[linear-gradient(90deg,#161616_0%,#2E2E2E_100%)]">
-        <div className="mx-auto max-w-6xl px-6 py-12 text-center">
-          <Reveal>
-            <ul className="grid grid-cols-2 gap-8 lg:grid-cols-4">
-              {[
-                ["USDOT Number", site.usdot],
-                ["MC Number", site.mc],
-                ["Coverage", "Licensed & Insured"],
-                ["Dispatch", "24/7 Communication"],
-              ].map(([label, value]) => (
-                <li key={label}>
-                  <p className="font-omnibus text-xl text-cream sm:text-2xl">{value}</p>
-                  <p className="mt-2 font-mont text-[11px] font-semibold uppercase tracking-[0.25em] text-graywarm">
-                    {label}
-                  </p>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-10 text-sm text-graywarm">
+      <section className="border-y border-white/10 bg-charcoal">
+        <div className="mx-auto max-w-content px-6 py-12">
+          <RevealGroup className="grid grid-cols-2 gap-8 lg:grid-cols-4">
+            {stats.map((s) => (
+              <RevealItem key={s.label} className="text-center">
+                <p className="font-display text-2xl font-bold text-white sm:text-3xl">
+                  {s.value}
+                </p>
+                <p className="mt-2 eyebrow text-graywarm">{s.label}</p>
+              </RevealItem>
+            ))}
+          </RevealGroup>
+          <Reveal className="mt-10 text-center">
+            <p className="text-sm text-graywarm">
               Verify our authority anytime on the FMCSA&apos;s public SAFER
               system at{" "}
               <a
@@ -88,31 +74,45 @@ export default function ConceptSafety() {
         </div>
       </section>
 
-      <section className="bg-ink2">
-        <div className="mx-auto max-w-6xl px-6 py-20 md:py-24">
+      <div className="section-light">
+        <div className="mx-auto max-w-content px-6 py-20 md:py-28">
           <Reveal>
-            <h2 className="kul-grad-text font-omnibus text-[clamp(1.8rem,3vw,2.3rem)] leading-tight">
-              Four pillars, practiced daily
+            <div className="flex items-center gap-4">
+              <span className="gold-rule" />
+              <span className="eyebrow text-gold-dim">How we operate</span>
+            </div>
+            <h2 className="mt-5 max-w-2xl font-display text-display-l font-bold">
+              Four pillars, practiced daily.
             </h2>
           </Reveal>
-          <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2">
+
+          <RevealGroup className="mt-12 grid gap-px border border-ink/10 bg-ink/10 sm:grid-cols-2">
             {pillars.map((p) => (
-              <Reveal key={p.name} className="bg-ink2 p-8">
-                <h3 className="font-omnibus text-xl text-cream">{p.name}</h3>
-                <p className="mt-3 leading-relaxed text-graywarm-light">{p.body}</p>
-              </Reveal>
+              <RevealItem key={p.name} className="bg-paper p-8">
+                <h3 className="font-display text-lg font-bold">{p.name}</h3>
+                <p className="mt-3 leading-relaxed text-graywarm-deep">{p.body}</p>
+              </RevealItem>
             ))}
-          </div>
-          <Reveal className="mt-14 text-center">
-            <Link
-              href="/concept/carrier-packet"
-              className="inline-flex items-center rounded-[100px] border border-gold/60 px-8 py-3 text-xs font-semibold uppercase tracking-[3px] text-gold transition-colors hover:bg-gold hover:text-ink"
-            >
-              Get Our Carrier Packet
-            </Link>
+          </RevealGroup>
+
+          <Reveal className="mx-auto mt-20 max-w-measure text-center">
+            <p className="text-lg leading-relaxed text-graywarm-deep">
+              Our tagline ends with <em>&quot;Driven by Safety&quot;</em> on
+              purpose. It is the part everything else depends on. Ship with a
+              carrier that treats your freight, and its people, like they
+              matter.
+            </p>
+            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <Link href="/concept/quote" className="btn-gold">
+                Request a Quote
+              </Link>
+              <Link href="/concept/carrier-packet" className="btn-ghost-light">
+                Get our Carrier Packet
+              </Link>
+            </div>
           </Reveal>
         </div>
-      </section>
+      </div>
     </>
   );
 }

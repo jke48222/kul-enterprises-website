@@ -287,19 +287,38 @@ html[data-intro="1"] .kul-intro-root {
   animation: kul-grad-slide 18s ease-in-out infinite;
 }
 
-/* Concept hero title: slow, quiet fade up. */
-@keyframes kul-fade-up-slow {
+/* Concept hero title: pure opacity fade. While the intro overlay is up
+   (html[data-intro]) the animation is paused, so on first visits the title
+   fades in right AFTER the letterbox transition ends. */
+@keyframes kul-fade-slow {
   from {
     opacity: 0;
-    transform: translateY(14px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 .kul-fade-slow {
-  animation: kul-fade-up-slow 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+  animation: kul-fade-slow 2.4s ease 0.2s both;
+}
+html[data-intro="1"] .kul-fade-slow {
+  animation-play-state: paused;
+}
+
+/* Metallic gold: brushed gradient with inner highlight and lower bevel. */
+.kul-gold-metal {
+  background: linear-gradient(
+    165deg,
+    #f0dca8 0%,
+    #d9bc7a 22%,
+    #b59352 48%,
+    #8f7038 72%,
+    #c9a55c 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.28),
+    0 2px 12px rgba(0, 0, 0, 0.35);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -3,9 +3,6 @@ import { Sora, Inter } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
 import MotionProvider from "@/components/motion/MotionProvider";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import Chrome from "@/components/layout/Chrome";
 import LoadingOverlay from "@/components/brand/LoadingOverlay";
 
 const sora = Sora({ subsets: ["latin"], variable: "--font-sora", display: "swap" });
@@ -102,11 +99,7 @@ export default function RootLayout({
           }}
         />
         <LoadingOverlay />
-        <MotionProvider>
-          <Chrome header={<Header />} footer={<Footer />}>
-            {children}
-          </Chrome>
-        </MotionProvider>
+        <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
   );

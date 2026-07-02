@@ -87,7 +87,7 @@ export default function Header() {
 
           <div className="hidden lg:flex">
             <Link
-              href="/quote"
+              href="/concept/quote"
               className="inline-flex items-center bg-gold px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:bg-gold-soft"
             >
               Request a Quote
@@ -137,7 +137,7 @@ export default function Header() {
               </Link>
             ))}
             <Link
-              href="/quote"
+              href="/concept/quote"
               className="mt-4 inline-flex items-center justify-center bg-gold px-5 py-3 text-sm font-semibold text-ink"
             >
               Request a Quote

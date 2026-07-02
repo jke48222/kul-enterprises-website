@@ -6,13 +6,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const menu = [
-  { label: "About", href: "/concept/about" },
-  { label: "Services", href: "/concept/services" },
-  { label: "Drive With KUL", href: "/concept/drivers" },
-  { label: "Safety & Compliance", href: "/concept/safety" },
-  { label: "Carrier Packet", href: "/concept/carrier-packet" },
-  { label: "Contact", href: "/concept/contact" },
-  { label: "Request a Quote", href: "/concept/quote", gold: true },
+  { label: "About", href: "/about" },
+  { label: "Services", href: "/services" },
+  { label: "Drive With KUL", href: "/drivers" },
+  { label: "Safety & Compliance", href: "/safety" },
+  { label: "Carrier Packet", href: "/carrier-packet" },
+  { label: "Contact", href: "/contact" },
+  { label: "Request a Quote", href: "/quote", gold: true },
 ];
 
 /**
@@ -82,7 +82,7 @@ export default function ConceptNav() {
 
         {/* Centered lockup */}
         <Link
-          href="/concept"
+          href="/"
           aria-label="KUL Enterprises concept home"
           className="absolute left-1/2 -translate-x-1/2"
         >
@@ -98,8 +98,8 @@ export default function ConceptNav() {
 
         {/* Gold pill CTA */}
         <Link
-          href="/concept/quote"
-          className="rounded-full bg-gold px-4 py-2 font-mont text-[11px] font-semibold uppercase tracking-[0.2em] text-[#F8F8F8] transition-colors hover:bg-gold-soft hover:text-ink sm:px-5 sm:text-xs"
+          href="/quote"
+          className="kul-gold-metal rounded-full px-4 py-2 font-mont text-[11px] font-semibold uppercase tracking-[0.2em] text-[#F8F8F8] transition-[filter] duration-300 [text-shadow:0_1px_2px_rgba(0,0,0,0.35)] hover:brightness-110 sm:px-5 sm:text-xs"
         >
           <span className="sm:hidden">Quote</span>
           <span className="hidden sm:inline">Request a Quote</span>

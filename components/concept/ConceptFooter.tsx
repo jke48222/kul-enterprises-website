@@ -3,11 +3,11 @@ import Link from "next/link";
 import { site } from "@/lib/site";
 
 const legal = [
-  { label: "Manage Cookies", href: "/concept/cookies" },
-  { label: "Climate Statement", href: "/concept/climate-statement" },
-  { label: "Legal Notices & Disclaimers", href: "/concept/legal-notices" },
-  { label: "Privacy Policy", href: "/concept/privacy-policy" },
-  { label: "Terms & Conditions", href: "/concept/terms-conditions" },
+  { label: "Manage Cookies", href: "/cookies" },
+  { label: "Climate Statement", href: "/climate-statement" },
+  { label: "Legal Notices & Disclaimers", href: "/legal-notices" },
+  { label: "Privacy Policy", href: "/privacy-policy" },
+  { label: "Terms & Conditions", href: "/terms-conditions" },
 ];
 
 /** Small stroke icons for the socials row and contact column. */
@@ -104,7 +104,7 @@ export default function ConceptFooter() {
           </div>
 
           <div className="flex justify-center">
-            <Link href="/concept" aria-label="KUL Enterprises concept home">
+            <Link href="/" aria-label="KUL Enterprises concept home">
               <Image
                 src="/images/brand/kul-logo-lockup.png"
                 alt="KUL Enterprises LLC"

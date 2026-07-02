@@ -22,12 +22,12 @@ export const site = {
 } as const;
 
 export const navItems = [
-  { label: "Services", href: "/services" },
-  { label: "Safety & Compliance", href: "/safety" },
-  { label: "Carrier Packet", href: "/carrier-packet" },
-  { label: "Driver Careers", href: "/careers" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Services", href: "/concept/services" },
+  { label: "Safety & Compliance", href: "/concept/safety" },
+  { label: "Carrier Packet", href: "/concept/carrier-packet" },
+  { label: "Driver Careers", href: "/concept/careers" },
+  { label: "About", href: "/concept/about" },
+  { label: "Contact", href: "/concept/contact" },
 ] as const;
 
 /** Trust bar directly below the hero. Compliance and reassurance facts. */

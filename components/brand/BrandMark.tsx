@@ -9,7 +9,7 @@ import Link from "next/link";
 export default function BrandMark({ large = false }: { large?: boolean }) {
   return (
     <Link
-      href="/"
+      href="/concept"
       aria-label="KUL Enterprises home"
       className="inline-flex items-center"
     >
