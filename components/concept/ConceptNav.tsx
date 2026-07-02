@@ -109,13 +109,13 @@ export default function ConceptNav() {
         {open && (
           <nav
             aria-label="Concept"
-            className="absolute left-2 top-[calc(100%+8px)] w-64 overflow-hidden rounded-2xl bg-paper shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
+            className="absolute left-2 top-[calc(100%+8px)] w-max overflow-hidden rounded-2xl bg-white shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
           >
             {menu.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`block border-b border-ink/5 px-6 py-4 text-sm font-medium transition-colors last:border-0 hover:bg-white ${
+                className={`block whitespace-nowrap border-b border-ink/5 px-6 py-4 pr-10 text-sm font-medium transition-colors last:border-0 hover:text-gold ${
                   item.gold ? "text-gold-dim" : "text-ink"
                 }`}
               >

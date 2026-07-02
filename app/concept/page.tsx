@@ -5,7 +5,7 @@ import HashScroll from "@/components/concept/HashScroll";
 import Faq from "@/components/concept/Faq";
 import HeroVideo from "@/components/concept/HeroVideo";
 import BirdModel from "@/components/concept/BirdModel";
-import QuoteForm from "@/components/forms/QuoteForm";
+import ContactForm from "@/components/forms/ContactForm";
 import { site } from "@/lib/site";
 
 /**
@@ -211,7 +211,7 @@ export default function ConceptHome() {
         ].map((p) => (
           <div
             key={p.name}
-            className="relative flex h-[711px] flex-col items-center overflow-hidden pt-16"
+            className="relative flex h-[711px] flex-col items-center justify-between overflow-hidden py-16"
           >
             <Image
               src={p.img}
@@ -226,11 +226,13 @@ export default function ConceptHome() {
               aria-hidden
               className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.55),rgba(0,0,0,0.15)_45%,rgba(0,0,0,0.5))]"
             />
-            <Reveal className="relative flex flex-col items-center text-center">
+            <Reveal className="relative text-center">
               <h3 className="kul-grad-text font-omnibus text-[clamp(2rem,3.2vw,3rem)] uppercase leading-none tracking-[0.5em]">
                 {p.name}
               </h3>
-              <p className="mt-3 max-w-[190px] text-[13px] leading-snug text-cream">
+            </Reveal>
+            <Reveal className="relative flex flex-col items-center text-center">
+              <p className="max-w-[220px] text-[13px] leading-snug text-cream">
                 {p.line}
               </p>
               <Pill href={p.href} className="mt-5">
@@ -366,14 +368,14 @@ export default function ConceptHome() {
               <Pill href="/concept/contact">Contact KUL</Pill>
             </div>
           </Reveal>
-          <Reveal className="absolute inset-x-0 bottom-0 top-[240px] flex items-center justify-center">
+          <Reveal className="absolute inset-x-0 bottom-[140px] top-[130px] flex items-center justify-center">
             <BirdModel className="h-[440px] w-[640px] md:h-[520px] md:w-[800px]" />
           </Reveal>
         </div>
       </section>
 
-      {/* 08b Quote form: lion mark above, form on the light ground */}
-      <section id="quote" className="bg-[#F8F8F8]">
+      {/* 08b Contact form: lion mark above, form on the light ground */}
+      <section id="contact" className="bg-[#F8F8F8]">
         <div className="mx-auto max-w-3xl px-6 pb-4 pt-20">
           <Reveal className="text-center">
             <Image
@@ -385,12 +387,12 @@ export default function ConceptHome() {
               className="mx-auto h-auto w-24"
             />
             <p className="mx-auto mt-6 max-w-xl text-[15px] leading-relaxed text-graywarm-deep">
-              Tell us the lane and dispatch will get back to you the same
-              business day.
+              Questions, quotes, anything in between: send it over and
+              dispatch answers the same business day.
             </p>
           </Reveal>
           <Reveal className="mt-10 rounded-2xl border border-ink/10 bg-white p-8 md:p-10">
-            <QuoteForm />
+            <ContactForm />
           </Reveal>
         </div>
       </section>
