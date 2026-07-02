@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/motion/Reveal";
 import { site } from "@/lib/site";
+import PageClosing from "@/components/concept/PageClosing";
 
 export const metadata: Metadata = { title: "Safety & Compliance" };
 
@@ -113,6 +114,8 @@ export default function ConceptSafety() {
           </Reveal>
         </div>
       </section>
+
+      <PageClosing />
     </>
   );
 }

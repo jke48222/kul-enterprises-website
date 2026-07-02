@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/motion/Reveal";
 import { site, stories } from "@/lib/site";
+import PageClosing from "@/components/concept/PageClosing";
 
 export const metadata: Metadata = { title: "About" };
 
@@ -151,6 +152,8 @@ export default function ConceptAbout() {
           </Reveal>
         </div>
       </section>
+
+      <PageClosing />
     </>
   );
 }

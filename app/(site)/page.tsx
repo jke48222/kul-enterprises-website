@@ -1,12 +1,14 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Reveal } from "@/components/motion/Reveal";
 import HashScroll from "@/components/concept/HashScroll";
-import Faq from "@/components/concept/Faq";
 import HeroVideo from "@/components/concept/HeroVideo";
-import BirdModel from "@/components/concept/BirdModel";
-import ContactForm from "@/components/forms/ContactForm";
-import { site } from "@/lib/site";
+import {
+  Pill,
+  PathsPanels,
+  StrengthStatement,
+  ContactBand,
+  FaqBand,
+} from "@/components/concept/PageClosing";
 
 /**
  * Concept homepage, rebuilt to the measured reference skeleton:
@@ -18,43 +20,9 @@ import { site } from "@/lib/site";
  * 08 big centered statement over sky, pivot to light
  * 09 light FAQ: hairline rule, gold caps heading left, boxed accordion
  * 10 full-bleed lifestyle band
- * All copy and imagery are KUL's own.
+ * All copy and imagery are KUL's own. Sections 04/08/08b/09 live in
+ * components/concept/PageClosing.tsx, shared with every other page.
  */
-
-const faqs = [
-  {
-    q: "How fast do I get a freight quote?",
-    a: "The same business day. Send the lane through the quote form or call dispatch, and a person who can actually commit capacity prices it and answers.",
-  },
-  {
-    q: "What freight does KUL haul?",
-    a: "Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited, and Over-the-Road full truckloads. If you are not sure which fits, describe the load and we will advise.",
-  },
-  {
-    q: "Are you licensed and insured?",
-    a: `Fully. We operate under USDOT ${site.usdot} and MC ${site.mc}, with auto liability and cargo coverage. Verify our authority anytime on the FMCSA SAFER system, and request a certificate of insurance with your company listed as holder.`,
-  },
-  {
-    q: "Where do you run?",
-    a: "Home base is Loganville, Georgia. We run the Southeast like a home route and carry nationwide authority for coast-to-coast lanes.",
-  },
-  {
-    q: "How do brokers set KUL up as a carrier?",
-    a: "One email. Send your company name and MC or USDOT number to dispatch and the full carrier packet comes back the same business day: authority, COI, W-9, references, and signed agreements.",
-  },
-  {
-    q: "How do I start driving for KUL?",
-    a: "A thirty-second form. Tell us your name, contact, and CDL-A experience, and we call you back to talk lanes, home time, and equipment.",
-  },
-  {
-    q: "What happens if something changes in transit?",
-    a: "You hear it from us first. Weather, traffic, dock delays: dispatch calls before you have to ask, with a new ETA you can plan around.",
-  },
-  {
-    q: "Can I get updates while my freight moves?",
-    a: "Yes. Milestone updates at pickup, in transit, and delivery are standard, and 24/7 dispatch means a person answers whenever you call.",
-  },
-];
 
 /** Quiet line-art marks for the credentials band, one per item. */
 function CredIcon({ name, small = false }: { name: string; small?: boolean }) {
@@ -116,26 +84,6 @@ function CredIcon({ name, small = false }: { name: string; small?: boolean }) {
   }
 }
 
-/** Reference-metric pill button: radius 100px, 12px caps, 3px tracking. */
-function Pill({
-  href,
-  children,
-  className = "",
-}: {
-  href: string;
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <Link
-      href={href}
-      className={`inline-flex items-center rounded-[100px] bg-gold px-5 py-[9px] font-mont text-xs font-semibold uppercase tracking-[3px] text-[#F8F8F8] transition-colors hover:bg-gold-soft hover:text-ink ${className}`}
-    >
-      {children}
-    </Link>
-  );
-}
-
 export default function ConceptHome() {
   return (
     <>
@@ -187,61 +135,8 @@ export default function ConceptHome() {
         </div>
       </section>
 
-      {/* 04 Two-up panels on pure black, centered stacks */}
-      <section id="paths" className="grid bg-black md:grid-cols-2">
-        {[
-          {
-            name: "Freight",
-            line: "Ship with a carrier that answers.",
-            href: "/quote",
-            cta: "Request a Quote",
-            img: "/images/stock/road-night-light-trails.jpg",
-            alt: "Highway light trails at night",
-            pos: "center 60%",
-          },
-          {
-            name: "Drivers",
-            line: "Drive for a company that knows your name.",
-            href: "/drivers",
-            cta: "Drive With KUL",
-            img: "/images/stock/driver-portrait-semi-cab-night.jpg",
-            alt: "A professional driver standing at his cab",
-            pos: "center 30%",
-          },
-        ].map((p) => (
-          <div
-            key={p.name}
-            className="relative flex h-[711px] flex-col items-center justify-between overflow-hidden py-16"
-          >
-            <Image
-              src={p.img}
-              alt={p.alt}
-              fill
-              quality={80}
-              sizes="(min-width: 768px) 50vw, 100vw"
-              className="object-cover opacity-70"
-              style={{ objectPosition: p.pos }}
-            />
-            <div
-              aria-hidden
-              className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.55),rgba(0,0,0,0.15)_45%,rgba(0,0,0,0.5))]"
-            />
-            <Reveal className="relative text-center">
-              <h3 className="kul-grad-text font-omnibus text-[clamp(2rem,3.2vw,3rem)] uppercase leading-none tracking-[0.5em]">
-                {p.name}
-              </h3>
-            </Reveal>
-            <Reveal className="relative flex flex-col items-center text-center">
-              <p className="max-w-[220px] text-[13px] leading-snug text-cream">
-                {p.line}
-              </p>
-              <Pill href={p.href} className="mt-5">
-                {p.cta}
-              </Pill>
-            </Reveal>
-          </div>
-        ))}
-      </section>
+      {/* 04 Two-up Freight/Drivers panels (shared) */}
+      <PathsPanels />
 
       {/* 05 Proof band: small gray caps heading, six dim marks, quote */}
       <section id="credentials" className="bg-[linear-gradient(90deg,#161616_0%,#3B3B3B_100%)]">
@@ -343,74 +238,10 @@ export default function ConceptHome() {
         </Reveal>
       </section>
 
-      {/* 08 Big centered statement over sky, pivot to light */}
-      <section className="relative overflow-hidden">
-        <div className="relative flex h-[860px] flex-col items-center justify-start pt-[71px]">
-          <Image
-            src="/images/photos/cliffs-over-water.jpg"
-            alt="Cliffs over blue water under a wide sky"
-            fill
-            quality={80}
-            sizes="100vw"
-            className="object-cover object-[center_30%]"
-          />
-          <div
-            aria-hidden
-            className="absolute inset-0 bg-[linear-gradient(180deg,rgba(22,22,22,0.45),rgba(22,22,22,0.1)_35%,rgba(248,248,248,1)_97%)]"
-          />
-          <Reveal className="relative px-6 text-center">
-            <h2 className="kul-grad-text mx-auto max-w-4xl font-omnibus text-[clamp(2rem,3.8vw,55px)] leading-[1.1]">
-              Strength in Motion. Built on Integrity. Driven by Safety.
-            </h2>
-          </Reveal>
-          <Reveal className="relative mt-6">
-            <div className="text-center">
-              <Pill href="/contact">Contact KUL</Pill>
-            </div>
-          </Reveal>
-          <Reveal className="absolute inset-x-0 bottom-[140px] top-[130px] flex items-center justify-center md:bottom-[100px] md:top-[190px]">
-            <BirdModel className="h-[440px] w-[640px] md:h-[520px] md:w-[800px]" />
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 08b Contact form: lion mark above, form on the light ground */}
-      <section id="contact" className="bg-[#F8F8F8]">
-        <div className="mx-auto max-w-3xl px-6 pb-4 pt-20">
-          <Reveal className="text-center">
-            <Image
-              src="/images/brand/lion-head.png"
-              alt=""
-              aria-hidden
-              width={96}
-              height={96}
-              className="mx-auto h-auto w-24"
-            />
-            <p className="mx-auto mt-6 max-w-xl text-[15px] leading-relaxed text-graywarm-deep">
-              Tell us about your freight, your lane, or whatever you need.
-              Dispatch replies the same business day.
-            </p>
-          </Reveal>
-          <Reveal className="mt-10 rounded-2xl border border-ink/10 bg-white p-8 md:p-10">
-            <ContactForm />
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 09 FAQ: light band, hairline rule, gold caps heading left, boxed list */}
-      <section className="bg-[#F8F8F8]">
-        <div className="mx-auto max-w-[1230px] px-6 py-20 md:py-24">
-          <Reveal>
-            <div id="faq" className="h-px w-full bg-ink/70" />
-            <h2 className="mt-10 font-mont text-[15px] font-semibold uppercase tracking-[0.35em] text-gold-dim">
-              Frequently Asked Questions
-            </h2>
-            <div className="mt-8 border border-ink/80">
-              <Faq items={faqs} boxed />
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      {/* 08 Tagline statement, 08b contact form, 09 FAQ (shared) */}
+      <StrengthStatement />
+      <ContactBand />
+      <FaqBand />
 
       {/* 10 Lifestyle band: full-bleed, the human behind the wheel */}
       <section className="relative flex h-[629px] items-end overflow-hidden">

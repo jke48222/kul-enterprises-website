@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import FadeIn from "@/components/motion/FadeIn";
 import { site } from "@/lib/site";
 
 const legal = [
@@ -86,7 +87,8 @@ const socials = [
 export default function ConceptFooter() {
   return (
     <footer className="bg-[linear-gradient(90deg,#161616_0%,#3B3B3B_100%)]">
-      <div className="mx-auto max-w-[1360px] px-6 pb-10 pt-16">
+      {/* Everything fades in slowly on approach, like the hero title. */}
+      <FadeIn className="mx-auto max-w-[1360px] px-6 pb-10 pt-16">
         {/* Top row: socials | centered lockup | contact column */}
         <div className="grid items-center gap-12 md:grid-cols-3">
           <div className="flex justify-center gap-3 md:justify-start">
@@ -180,7 +182,7 @@ export default function ConceptFooter() {
             </a>
           </p>
         </div>
-      </div>
+      </FadeIn>
     </footer>
   );
 }

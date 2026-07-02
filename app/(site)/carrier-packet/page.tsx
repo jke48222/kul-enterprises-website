@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Reveal } from "@/components/motion/Reveal";
 import { site } from "@/lib/site";
+import PageClosing from "@/components/concept/PageClosing";
 
 export const metadata: Metadata = { title: "Carrier Packet" };
 
@@ -108,6 +109,8 @@ export default function ConceptCarrierPacket() {
           </div>
         </div>
       </section>
+
+      <PageClosing />
     </>
   );
 }

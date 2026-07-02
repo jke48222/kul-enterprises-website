@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Reveal } from "@/components/motion/Reveal";
 import QuoteForm from "@/components/forms/QuoteForm";
 import { site } from "@/lib/site";
+import PageClosing from "@/components/concept/PageClosing";
 
 export const metadata: Metadata = { title: "Request a Quote" };
 
@@ -53,6 +54,8 @@ export default function ConceptQuote() {
           </Reveal>
         </div>
       </section>
+
+      <PageClosing />
     </>
   );
 }

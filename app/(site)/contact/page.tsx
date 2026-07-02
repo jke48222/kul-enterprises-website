@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Reveal } from "@/components/motion/Reveal";
 import ContactForm from "@/components/forms/ContactForm";
 import { site } from "@/lib/site";
+import PageClosing from "@/components/concept/PageClosing";
 
 export const metadata: Metadata = { title: "Contact" };
 
@@ -98,6 +99,8 @@ export default function ConceptContact() {
           </div>
         </div>
       </section>
+
+      <PageClosing />
     </>
   );
 }

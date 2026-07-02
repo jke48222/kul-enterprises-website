@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Reveal } from "@/components/motion/Reveal";
 import HashScroll from "@/components/concept/HashScroll";
 import { services } from "@/lib/services";
+import PageClosing from "@/components/concept/PageClosing";
 
 export const metadata: Metadata = { title: "Services" };
 
@@ -119,6 +120,8 @@ export default function ConceptServices() {
           </Reveal>
         </div>
       </section>
+
+      <PageClosing />
     </>
   );
 }

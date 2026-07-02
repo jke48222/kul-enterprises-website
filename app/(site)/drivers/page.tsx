@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Reveal } from "@/components/motion/Reveal";
 import DriverForm from "@/components/forms/DriverForm";
 import { site } from "@/lib/site";
+import PageClosing from "@/components/concept/PageClosing";
 
 export const metadata: Metadata = { title: "Drive With KUL" };
 
@@ -90,6 +91,8 @@ export default function ConceptDrivers() {
           </Reveal>
         </div>
       </section>
+
+      <PageClosing />
     </>
   );
 }
