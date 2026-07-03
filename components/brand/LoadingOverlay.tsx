@@ -98,9 +98,29 @@ export default function LoadingOverlay() {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") dismiss();
     };
+    const onPointer = () => dismiss();
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener("pointerdown", onPointer);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("pointerdown", onPointer);
+    };
   });
+
+  // The cover is opaque but the page beneath stays in the tab order and
+  // scrollable without this: inert + scroll lock while covered, released
+  // the moment the reveal starts opening (same pattern as PageReveal).
+  useEffect(() => {
+    if (phase !== "show") return;
+    const frame = document.querySelector("[data-kul-frame]");
+    frame?.setAttribute("inert", "");
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      frame?.removeAttribute("inert");
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [phase]);
 
   // Guards the intro from finishing twice (the timeupdate freeze below plus
   // the native `ended` fallback can both fire).
@@ -195,6 +215,9 @@ export default function LoadingOverlay() {
           onTimeUpdate={onVideoTime}
           onEnded={dismiss}
           onError={() => {
+            // A late decode error after the intro already finished must not
+            // restart the CSS clock and replay the sequence.
+            if (finishedRef.current) return;
             setMode("css");
             startCssClock(reduceRef.current);
           }}

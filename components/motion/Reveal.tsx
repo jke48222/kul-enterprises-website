@@ -21,6 +21,7 @@ export function Reveal({ children, className, delay = 0 }: RevealProps) {
   return (
     <m.div
       className={className}
+      data-reveal-failsafe
       variants={fadeUp}
       initial={reduce ? false : "hidden"}
       whileInView="show"
@@ -50,7 +51,7 @@ export function RevealGroup({ children, className }: RevealProps) {
 
 export function RevealItem({ children, className }: RevealProps) {
   return (
-    <m.div className={className} variants={staggerItem}>
+    <m.div className={className} data-reveal-failsafe variants={staggerItem}>
       {children}
     </m.div>
   );

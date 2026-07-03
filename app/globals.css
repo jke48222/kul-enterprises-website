@@ -276,8 +276,26 @@ html[data-page-reveal="1"] .kul-page-reveal {
 html[data-intro="1"] .kul-page-reveal {
   display: none;
 }
+/* Same pure-CSS failsafe as the curtain: if the bundle never hydrates, the
+   first-visit intro self-dismisses instead of trapping the visitor on black.
+   12s clears the longest legitimate run (6.2s cap + 1.75s reveal). */
 html[data-intro="1"] .kul-intro-root {
   display: flex;
+  animation: kul-curtain-failsafe 0s linear 12s forwards;
+}
+
+/* Framer Motion serializes the hidden state (opacity 0) into the server
+   HTML. If hydration never happens — bundle failed or JS disabled — this
+   delayed animation lifts the content anyway. MotionProvider stamps
+   html[data-hydrated] on mount, which disarms it for working visits. */
+@keyframes kul-reveal-failsafe {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+html:not([data-hydrated="1"]) [data-reveal-failsafe] {
+  animation: kul-reveal-failsafe 0.8s ease 6s forwards;
 }
 
 /* Concept: premium gold-to-white moving gradient for display headings. */

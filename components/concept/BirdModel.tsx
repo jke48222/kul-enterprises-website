@@ -26,7 +26,12 @@ export default function BirdModel({ className = "" }: { className?: string }) {
     reduceRef.current = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
-    const load = () => import("@google/model-viewer").then(() => setReady(true));
+    const load = () =>
+      import("@google/model-viewer")
+        .then(() => setReady(true))
+        // Chunk failed to load (flaky network): the bird is decorative, so
+        // leave the empty placeholder rather than surface an error.
+        .catch(() => {});
     const holder = holderRef.current;
     if (!holder || !("IntersectionObserver" in window)) {
       load();

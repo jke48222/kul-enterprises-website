@@ -27,6 +27,7 @@ export default function FadeIn({
     <m.div
       key={pathname}
       className={className}
+      data-reveal-failsafe
       initial={reduce ? false : { opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={viewportOnce}

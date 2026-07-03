@@ -53,6 +53,7 @@ export default function ConceptNav() {
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
+          aria-controls="kul-nav-menu"
           className="relative inline-flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-white/5"
         >
           {/* Doctor Bird morph: display pose at rest, flight pose while the
@@ -83,7 +84,7 @@ export default function ConceptNav() {
         {/* Centered lockup */}
         <Link
           href="/"
-          aria-label="KUL Enterprises concept home"
+          aria-label="KUL Enterprises home"
           className="absolute left-1/2 -translate-x-1/2"
         >
           <Image
@@ -96,34 +97,37 @@ export default function ConceptNav() {
           />
         </Link>
 
-        {/* Gold pill CTA */}
+        {/* Gold pill CTA. Ink text: white on this gold fails WCAG AA (~2.6:1). */}
         <Link
           href="/quote"
-          className="kul-gold-metal rounded-full px-4 py-2 font-mont text-[11px] font-semibold uppercase tracking-[0.2em] text-[#F8F8F8] transition-[filter] duration-300 [text-shadow:0_1px_2px_rgba(0,0,0,0.35)] hover:brightness-110 sm:px-5 sm:text-xs"
+          className="kul-gold-metal rounded-full px-4 py-2 font-mont text-[11px] font-bold uppercase tracking-[0.2em] text-ink transition-[filter] duration-300 hover:brightness-110 sm:px-5 sm:text-xs"
         >
           <span className="sm:hidden">Quote</span>
           <span className="hidden sm:inline">Request a Quote</span>
         </Link>
 
-        {/* Dropdown */}
-        {open && (
-          <nav
-            aria-label="Concept"
-            className="absolute left-2 top-[calc(100%+8px)] w-max overflow-hidden rounded-2xl bg-white shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
-          >
-            {menu.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`block whitespace-nowrap border-b border-ink/5 px-6 py-4 pr-10 text-sm font-medium transition-colors last:border-0 hover:text-gold ${
-                  item.gold ? "text-gold-dim" : "text-ink"
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-        )}
+        {/* Dropdown: always in the DOM (hidden when closed) so the button's
+            aria-controls target exists for assistive tech. */}
+        <nav
+          id="kul-nav-menu"
+          aria-label="Site"
+          hidden={!open}
+          className="absolute left-2 top-[calc(100%+8px)] w-max overflow-hidden rounded-2xl bg-white shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
+        >
+          {menu.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              // Route-change effect misses same-page clicks; close explicitly.
+              onClick={() => setOpen(false)}
+              className={`block whitespace-nowrap border-b border-ink/5 px-6 py-4 pr-10 text-sm font-medium transition-colors last:border-0 hover:text-gold ${
+                item.gold ? "text-gold-dim" : "text-ink"
+              }`}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
       </div>
     </div>
   );

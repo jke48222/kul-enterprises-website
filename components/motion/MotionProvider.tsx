@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { LazyMotion, domAnimation } from "framer-motion";
 
 /**
@@ -13,6 +14,12 @@ export default function MotionProvider({
 }: {
   children: React.ReactNode;
 }) {
+  // Disarms the pure-CSS reveal failsafe (globals.css): once hydration is
+  // real, Framer Motion owns the reveal animations again.
+  useEffect(() => {
+    document.documentElement.setAttribute("data-hydrated", "1");
+  }, []);
+
   return (
     <LazyMotion features={domAnimation} strict>
       {children}

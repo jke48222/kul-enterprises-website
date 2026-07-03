@@ -95,13 +95,26 @@ function TailCurtain() {
     // like the homepage film does via html[data-page-intro].
     document.documentElement.setAttribute("data-page-intro", "1");
     const t1 = setTimeout(() => setPhase("exit"), HOLD_MS);
-    const t2 = setTimeout(() => setPhase("done"), HOLD_MS + REVEAL_MS);
+    // Any input skips straight to the reveal: the page under the curtain is
+    // fully rendered, so never make an impatient visitor wait for it.
+    const skip = () => setPhase("exit");
+    window.addEventListener("pointerdown", skip);
+    window.addEventListener("wheel", skip, { passive: true });
+    window.addEventListener("keydown", skip);
     return () => {
       clearTimeout(t1);
-      clearTimeout(t2);
+      window.removeEventListener("pointerdown", skip);
+      window.removeEventListener("wheel", skip);
+      window.removeEventListener("keydown", skip);
       document.documentElement.removeAttribute("data-page-intro");
     };
   }, []);
+
+  useEffect(() => {
+    if (phase !== "exit") return;
+    const t = setTimeout(() => setPhase("done"), REVEAL_MS);
+    return () => clearTimeout(t);
+  }, [phase]);
 
   useEffect(() => {
     if (phase === "done") {
@@ -171,14 +184,17 @@ function FilmCurtain() {
       const v = videoRef.current;
       if (!v || v.readyState < 2 || v.currentTime === 0) finish();
     }, 1400);
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") finish();
-    };
-    window.addEventListener("keydown", onKey);
+    // Any input skips the film: the page beneath is already rendered.
+    const skip = () => finish();
+    window.addEventListener("keydown", skip);
+    window.addEventListener("pointerdown", skip);
+    window.addEventListener("wheel", skip, { passive: true });
     return () => {
       clearTimeout(cap);
       clearTimeout(watchdog);
-      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("keydown", skip);
+      window.removeEventListener("pointerdown", skip);
+      window.removeEventListener("wheel", skip);
       document.documentElement.removeAttribute("data-page-intro");
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps

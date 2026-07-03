@@ -25,6 +25,16 @@ export default function HashScroll() {
     // The router's own scroll handling can land after (and override) a
     // single attempt, so retry until the target actually sits in view.
     const timers: ReturnType<typeof setTimeout>[] = [];
+    // The moment the visitor scrolls or types on their own, every pending
+    // corrective jump is off: never fight the user for the scroll position.
+    const events = ["wheel", "touchstart", "keydown", "pointerdown"] as const;
+    const cancel = () => {
+      timers.forEach(clearTimeout);
+      events.forEach((e) => window.removeEventListener(e, cancel));
+    };
+    events.forEach((e) =>
+      window.addEventListener(e, cancel, { passive: true })
+    );
     [150, 500, 1000].forEach((delay) =>
       timers.push(
         setTimeout(() => {
@@ -37,7 +47,7 @@ export default function HashScroll() {
         }, delay)
       )
     );
-    return () => timers.forEach(clearTimeout);
+    return cancel;
   }, []);
   return null;
 }

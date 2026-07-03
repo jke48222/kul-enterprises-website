@@ -3,10 +3,12 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Full-bleed background hero video. The poster paints instantly (LCP), the
- * loop plays muted once it can. React does not serialize `muted` into server
- * HTML, so we re-mute and call play() on mount to survive autoplay policies.
- * Reduced-motion users keep the still poster.
+ * Full-bleed background hero video. The poster paints instantly (LCP); the
+ * loop's src attaches only on the client, after the arrival curtain (first
+ * visit intro or the homepage film) has cleared, so the 5MB loop never
+ * competes with the intro film for bandwidth and phones never touch the
+ * desktop rendition. Reduced-motion users keep the still poster: with no
+ * src ever attached, nothing plays or downloads.
  */
 export default function HeroVideo() {
   const ref = useRef<HTMLVideoElement>(null);
@@ -15,22 +17,61 @@ export default function HeroVideo() {
     const v = ref.current;
     if (!v) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    // Phones get the 720p rendition: same loop at roughly a third of the
-    // decode work and bytes. preload="metadata" keeps the swap cheap.
-    if (window.matchMedia("(max-width: 768px)").matches) {
-      v.src = "/videos/kul-hero-720.mp4";
-    }
-    v.muted = true;
-    v.play().catch(() => {});
-    // Decode only while on screen: pause the loop once the hero scrolls
-    // out of view, resume when it comes back.
-    if (!("IntersectionObserver" in window)) return;
-    const io = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) v.play().catch(() => {});
-      else v.pause();
-    });
-    io.observe(v);
-    return () => io.disconnect();
+
+    let io: IntersectionObserver | undefined;
+    const attach = () => {
+      if (v.src) return;
+      // Phones get the 720p rendition: same loop at roughly a third of the
+      // decode work and bytes.
+      v.src = window.matchMedia("(max-width: 768px)").matches
+        ? "/videos/kul-hero-720.mp4"
+        : "/videos/kul-hero.mp4";
+      // React does not serialize `muted` into server HTML; re-mute so
+      // autoplay policies allow playback.
+      v.muted = true;
+      v.play().catch(() => {});
+      // Decode only while on screen: pause the loop once the hero scrolls
+      // out of view, resume when it comes back.
+      if (!("IntersectionObserver" in window)) return;
+      io = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) v.play().catch(() => {});
+        else v.pause();
+      });
+      io.observe(v);
+    };
+
+    const html = document.documentElement;
+    const covered = () =>
+      html.hasAttribute("data-intro") || html.hasAttribute("data-page-intro");
+    let mo: MutationObserver | undefined;
+    let safety: ReturnType<typeof setTimeout> | undefined;
+    // Small delay lets PageReveal's effect raise data-page-intro first
+    // (page effects run before layout effects).
+    const start = setTimeout(() => {
+      if (!covered()) {
+        attach();
+        return;
+      }
+      mo = new MutationObserver(() => {
+        if (!covered()) {
+          mo?.disconnect();
+          attach();
+        }
+      });
+      mo.observe(html, {
+        attributes: true,
+        attributeFilter: ["data-intro", "data-page-intro"],
+      });
+      // Never let a stuck curtain attribute keep the hero frozen forever.
+      safety = setTimeout(attach, 9000);
+    }, 120);
+
+    return () => {
+      clearTimeout(start);
+      if (safety) clearTimeout(safety);
+      mo?.disconnect();
+      io?.disconnect();
+    };
   }, []);
 
   return (
@@ -39,14 +80,11 @@ export default function HeroVideo() {
       className="absolute inset-0 h-full w-full object-cover object-[62%_center]"
       // REPLACEABLE ASSET: aerial stock reel; swap for KUL fleet footage
       poster="/images/stock/kul-hero-poster.jpg"
-      autoPlay
       muted
       loop
       playsInline
-      preload="metadata"
+      preload="none"
       aria-hidden
-    >
-      <source src="/videos/kul-hero.mp4" type="video/mp4" />
-    </video>
+    />
   );
 }

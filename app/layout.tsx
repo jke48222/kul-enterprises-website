@@ -103,6 +103,12 @@ export default function RootLayout({
               "try{if(sessionStorage.getItem('kul-intro-seen')!=='1')document.documentElement.setAttribute('data-intro','1')}catch(e){}try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.setAttribute('data-page-reveal','1')}catch(e){}",
           }}
         />
+        {/* No JS at all: kill the intro cover and lift the serialized
+            opacity-0 reveal states immediately (the CSS failsafes cover the
+            slower bundle-failed-to-load case). */}
+        <noscript>
+          <style>{`.kul-intro-root{display:none!important}[data-reveal-failsafe]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
         <LoadingOverlay />
         {/* First visits only: attach the intro film's src pre-paint so it
             buffers at parse time. Repeat visits leave it src-less, so the
