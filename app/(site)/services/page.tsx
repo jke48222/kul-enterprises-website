@@ -8,6 +8,38 @@ import PageClosing from "@/components/concept/PageClosing";
 
 export const metadata: Metadata = { title: "Services" };
 
+/** Placeholder tile imagery, one per service; swap for KUL fleet shots. */
+const tileImages: Record<string, { src: string; alt: string }> = {
+  "power-only": {
+    src: "/images/stock/road-night-light-trails.jpg",
+    alt: "Highway light trails at night",
+  },
+  "dry-van": {
+    src: "/images/stock/hero-semi-truck-dusk-mountains.jpg",
+    alt: "A tractor-trailer crossing a mountain road at dusk",
+  },
+  reefer: {
+    src: "/images/stock/hero-alt-semi-night-gold-lights.jpg",
+    alt: "A semi truck under warm lights at night",
+  },
+  dedicated: {
+    src: "/images/stock/driver-in-cab-gold-truck.jpg",
+    alt: "A driver at the wheel of his cab in warm evening light",
+  },
+  regional: {
+    src: "/images/stock/kul-hero-poster.jpg",
+    alt: "An aerial view of trucks running a highway",
+  },
+  expedited: {
+    src: "/images/stock/driver-portrait-semi-cab-night.jpg",
+    alt: "A professional driver standing at his cab at night",
+  },
+  otr: {
+    src: "/images/photos/desert-rock-formation.jpg",
+    alt: "Desert rock formations on a cross-country route",
+  },
+};
+
 /**
  * Full service content inline, one anchored block per line, so every
  * service is deep-linkable: /services#reefer etc.
@@ -39,18 +71,52 @@ export default function ConceptServices() {
 
       <section className="bg-ink2">
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-24">
-          {/* Anchor index for deep links */}
+          {/* Anchor index: image tiles, two rows of four. Clicking a tile
+              scrolls to that service's section below; the eighth tile is
+              the quote CTA in the nav button's metallic gold. */}
           <Reveal>
-            <nav aria-label="Service index" className="flex flex-wrap gap-x-6 gap-y-3">
+            <nav
+              aria-label="Service index"
+              className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6"
+            >
               {services.map((s) => (
                 <a
                   key={s.slug}
                   href={`#${s.slug}`}
-                  className="text-[11px] font-semibold uppercase tracking-[0.25em] text-graywarm transition-colors hover:text-gold"
+                  className="group relative block aspect-square overflow-hidden rounded-2xl"
                 >
-                  {s.name}
+                  <Image
+                    src={tileImages[s.slug].src}
+                    alt={tileImages[s.slug].alt}
+                    fill
+                    quality={78}
+                    sizes="(min-width: 768px) 25vw, 50vw"
+                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                  />
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 bg-[linear-gradient(180deg,transparent_55%,rgba(0,0,0,0.72))]"
+                  />
+                  <span className="absolute inset-x-0 bottom-0 p-4 font-mont text-[11px] font-semibold uppercase tracking-[0.22em] text-white sm:p-5 sm:text-xs">
+                    {s.name}
+                  </span>
                 </a>
               ))}
+              <a
+                href="/quote"
+                className="kul-gold-metal group flex aspect-square flex-col items-center justify-center gap-3 rounded-2xl p-6 text-center transition-[filter] duration-300 hover:brightness-110"
+              >
+                <span className="font-mont text-xs font-semibold uppercase tracking-[0.22em] text-[#F8F8F8] [text-shadow:0_1px_2px_rgba(0,0,0,0.35)] sm:text-sm">
+                  Request a<br />
+                  Freight Quote
+                </span>
+                <span
+                  aria-hidden
+                  className="text-lg text-[#F8F8F8] transition-transform duration-300 [text-shadow:0_1px_2px_rgba(0,0,0,0.35)] group-hover:translate-x-1"
+                >
+                  →
+                </span>
+              </a>
             </nav>
           </Reveal>
 
