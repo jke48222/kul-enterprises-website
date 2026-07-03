@@ -16,7 +16,7 @@ import {
  * forms convert; detail can follow in the reply.
  */
 export default function QuoteForm() {
-  const { state, submit } = useFormSubmit("/api/quote");
+  const { state, serverError, submit } = useFormSubmit("/api/quote");
   // Instance-scoped ids: pages can render several forms without collisions.
   const uid = useId();
 
@@ -116,6 +116,7 @@ export default function QuoteForm() {
 
       <FormStatus
         state={state}
+        serverError={serverError}
         successMessage="Quote request received. Dispatch will reply the same business day."
       />
       <SubmitButton state={state}>Request My Quote</SubmitButton>

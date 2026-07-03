@@ -1,3 +1,4 @@
+import { after } from "next/server";
 import { site } from "./site";
 
 /**
@@ -78,11 +79,16 @@ export function recordLead(kind: string, data: Record<string, string>): void {
 
   const webhook = process.env.LEAD_WEBHOOK_URL;
   if (webhook) {
-    fetch(webhook, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(entry),
-    }).catch((err) => console.error("[lead] webhook mirror failed:", err));
+    // after(): a bare fire-and-forget fetch would be frozen with the
+    // serverless instance the moment the route responds — precisely in the
+    // fast-failure paths this mirror exists for.
+    after(() =>
+      fetch(webhook, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(entry),
+      }).catch((err) => console.error("[lead] webhook mirror failed:", err))
+    );
   }
 }
 
@@ -103,10 +109,11 @@ export async function readForm(
   }
   const raw = (body ?? {}) as Record<string, unknown>;
 
-  // Honeypot: real users never fill this hidden field. Log the payload before
-  // discarding so an autofill false positive is still recoverable.
+  // Honeypot: real users never fill this hidden field. Log a bounded slice
+  // of the payload before discarding, so an autofill false positive is
+  // recoverable but a bot can't flood the logs with multi-MB bodies.
   if (typeof raw.botcheck === "string" && raw.botcheck.trim()) {
-    console.log(`[lead:honeypot] ${JSON.stringify(raw)}`);
+    console.log(`[lead:honeypot] ${JSON.stringify(raw).slice(0, 2000)}`);
     return { data: null, spam: true };
   }
 

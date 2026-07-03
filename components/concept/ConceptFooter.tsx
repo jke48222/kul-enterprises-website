@@ -92,7 +92,16 @@ export default function ConceptFooter() {
       <FadeIn className="mx-auto max-w-[1360px] px-6 pb-10 pt-16">
         {/* Top row: socials | centered lockup | contact column */}
         <div className="grid items-center gap-12 md:grid-cols-3">
-          <div className="flex justify-center gap-3 md:justify-start">
+          {/* Empty until real profiles exist: hidden on mobile (a bare grid
+              row still costs 48px of gap), kept on md+ as the column that
+              balances the lockup into the center. */}
+          <div
+            className={
+              socials.length
+                ? "flex justify-center gap-3 md:justify-start"
+                : "hidden md:block"
+            }
+          >
             {socials.map((s) => (
               <a
                 key={s.name}

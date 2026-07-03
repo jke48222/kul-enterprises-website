@@ -42,13 +42,14 @@ export default function Faq({
                 >
                   +
                 </span>
-                <span className="font-mont text-[15px] font-medium text-ink2">
+                <span id={`${panelId}-label`} className="font-mont text-[15px] font-medium text-ink2">
                   {item.q}
                 </span>
               </button>
               <div
                 id={panelId}
                 role="region"
+                aria-labelledby={`${panelId}-label`}
                 aria-hidden={!open}
                 className={`grid transition-[grid-template-rows] duration-300 ease-out ${
                   open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
@@ -80,7 +81,9 @@ export default function Faq({
               aria-controls={panelId}
               className="flex w-full items-center justify-between gap-6 py-5 text-left"
             >
-              <span className="text-base font-semibold text-ink">{item.q}</span>
+              <span id={`${panelId}-label`} className="text-base font-semibold text-ink">
+                {item.q}
+              </span>
               <span
                 aria-hidden
                 className={`text-xl font-light text-gold-dim transition-transform duration-300 ${
@@ -93,6 +96,7 @@ export default function Faq({
             <div
               id={panelId}
               role="region"
+              aria-labelledby={`${panelId}-label`}
               aria-hidden={!open}
               className={`grid transition-[grid-template-rows] duration-300 ease-out ${
                 open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"

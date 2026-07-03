@@ -17,16 +17,12 @@ export async function POST(req: Request) {
   if (parsed.spam) return NextResponse.json({ ok: true });
 
   const d = parsed.data;
-  if (!isEmail(d.email)) {
-    return NextResponse.json(
-      { ok: false, error: "Please enter a valid email address." },
-      { status: 400 }
-    );
-  }
   recordLead("contact", d);
+  // isEmail gates reply_to only — an unusual-but-real address (the browser's
+  // type=email is looser than the regex) must never cost KUL the lead.
   const result = await sendViaResend({
     subject: `Website Contact: ${d.name}`,
-    replyTo: d.email,
+    replyTo: isEmail(d.email) ? d.email : undefined,
     text: [
       "New contact message from kulenterprises.com",
       "",

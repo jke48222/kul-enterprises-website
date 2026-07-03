@@ -94,10 +94,12 @@ function TailCurtain() {
     // Hold the hero title's slow fade until the reveal finishes, exactly
     // like the homepage film does via html[data-page-intro].
     document.documentElement.setAttribute("data-page-intro", "1");
-    const t1 = setTimeout(() => setPhase("exit"), HOLD_MS);
+    const t1 = setTimeout(() => setPhase((p) => (p === "cover" ? "exit" : p)), HOLD_MS);
     // Any input skips straight to the reveal: the page under the curtain is
-    // fully rendered, so never make an impatient visitor wait for it.
-    const skip = () => setPhase("exit");
+    // fully rendered, so never make an impatient visitor wait for it. The
+    // functional guard makes post-curtain input a no-op — without it, any
+    // later click would flip done -> exit and replay the black flash.
+    const skip = () => setPhase((p) => (p === "cover" ? "exit" : p));
     window.addEventListener("pointerdown", skip);
     window.addEventListener("wheel", skip, { passive: true });
     window.addEventListener("keydown", skip);

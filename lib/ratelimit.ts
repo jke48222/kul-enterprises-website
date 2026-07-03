@@ -16,7 +16,14 @@ export function rateLimit(
   const now = Date.now();
   const windowStart = now - windowMs;
 
-  if (hits.size > MAX_KEYS) hits.clear();
+  // Bound memory by evicting only STALE keys: clearing the whole map would
+  // also erase active windows, letting a capped client reset its own limit
+  // by flooding the map with fresh keys.
+  if (hits.size > MAX_KEYS) {
+    for (const [k, stamps] of hits) {
+      if (!stamps.some((t) => t > windowStart)) hits.delete(k);
+    }
+  }
 
   const stamps = (hits.get(key) ?? []).filter((t) => t > windowStart);
   if (stamps.length >= max) {

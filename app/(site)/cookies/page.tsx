@@ -19,30 +19,36 @@ export default function ManageCookies() {
       ]}
       sections={[
         {
-          heading: "1. WHAT WE STORE",
+          heading: "WHAT WE STORE",
           body: [
             "Our website sets a single session flag, named kul-intro-seen, which remembers that our opening animation has already played so that it does not replay on every page you visit. It contains no personal information, is never transmitted to us or to anyone else, and is deleted automatically when you close your browser tab.",
           ],
         },
         {
-          heading: "2. HOW TO CONTROL IT",
+          heading: "HOW TO CONTROL IT",
           body: [
             "You do not need to take any action: the flag clears itself when your browsing session ends. To remove it immediately, use your browser's site-data or privacy controls, or browse in a private window. Blocking storage entirely will not prevent you from using any part of our website.",
           ],
         },
+        // Rendered only when GA is actually enabled (same build-time flag
+        // that renders the tag), so this page never overstates what runs.
+        ...(process.env.NEXT_PUBLIC_GA_ID
+          ? [
+              {
+                heading: "TRAFFIC MEASUREMENT",
+                body: [
+                  "We use Google Analytics to understand how many people visit our website and which pages they find useful. It sets its own cookies to tell returning visitors apart from new ones. We do not use this information for advertising or sell it to anyone. You can block these cookies in your browser settings or with Google's opt-out browser add-on without losing any part of our website.",
+                ],
+              },
+            ]
+          : []),
         {
-          heading: "3. TRAFFIC MEASUREMENT",
-          body: [
-            "We use Google Analytics to understand how many people visit our website and which pages they find useful. It sets its own cookies to tell returning visitors apart from new ones. We do not use this information for advertising or sell it to anyone. You can block these cookies in your browser settings or with Google's opt-out browser add-on without losing any part of our website.",
-          ],
-        },
-        {
-          heading: "4. CHANGES TO THIS PAGE",
+          heading: "CHANGES TO THIS PAGE",
           body: [
             `If what we store or measure changes, this page and our Privacy Policy will be updated to say so plainly before the change takes effect. Questions about this page can be sent to ${site.email}.`,
           ],
         },
-      ]}
+      ].map((s, i) => ({ ...s, heading: `${i + 1}. ${s.heading}` }))}
     />
   );
 }

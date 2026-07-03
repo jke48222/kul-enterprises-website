@@ -11,7 +11,7 @@ import {
 
 /** Driver inquiry. Deliberately short; the page above does the recruiting. */
 export default function DriverForm() {
-  const { state, submit } = useFormSubmit("/api/driver");
+  const { state, serverError, submit } = useFormSubmit("/api/driver");
   // Instance-scoped ids: the drivers page also renders the closing contact form.
   const uid = useId();
 
@@ -82,6 +82,7 @@ export default function DriverForm() {
 
       <FormStatus
         state={state}
+        serverError={serverError}
         successMessage="Thanks. We'll reach out to talk about driving for KUL."
       />
       <SubmitButton state={state}>Start the Conversation</SubmitButton>

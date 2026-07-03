@@ -10,11 +10,13 @@ export type FormState = "idle" | "submitting" | "success" | "error";
 
 export function useFormSubmit(endpoint: string) {
   const [state, setState] = useState<FormState>("idle");
+  const [serverError, setServerError] = useState<string | null>(null);
 
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (state === "submitting") return;
     setState("submitting");
+    setServerError(null);
     const form = e.currentTarget;
     const payload = Object.fromEntries(new FormData(form).entries());
     try {
@@ -26,7 +28,12 @@ export function useFormSubmit(endpoint: string) {
       // The server reports delivery failures in the body (ok: false), so a
       // 200 alone is not proof the lead went anywhere.
       const body = await res.json().catch(() => null);
-      if (!res.ok || !body?.ok) throw new Error(String(res.status));
+      if (!res.ok || !body?.ok) {
+        // Actionable server messages ("Too many requests...") beat the
+        // generic copy: a specific reason tells the user what to do next.
+        if (typeof body?.error === "string") setServerError(body.error);
+        throw new Error(String(res.status));
+      }
       form.reset();
       setState("success");
     } catch {
@@ -34,7 +41,7 @@ export function useFormSubmit(endpoint: string) {
     }
   };
 
-  return { state, submit, reset: () => setState("idle") };
+  return { state, serverError, submit, reset: () => setState("idle") };
 }
 
 export function Honeypot() {
@@ -51,9 +58,11 @@ export function Honeypot() {
 export function FormStatus({
   state,
   successMessage,
+  serverError,
 }: {
   state: FormState;
   successMessage: string;
+  serverError?: string | null;
 }) {
   return (
     <div className="min-h-6">
@@ -68,8 +77,8 @@ export function FormStatus({
       <div role="alert">
         {state === "error" && (
           <p className="border border-red-800/40 bg-red-50 px-4 py-3 text-sm font-medium text-red-900">
-            Something went wrong sending your message. Please try again, or call
-            us directly at 678-972-1148.
+            {serverError ??
+              "Something went wrong sending your message. Please try again, or call us directly at 678-972-1148."}
           </p>
         )}
       </div>

@@ -34,12 +34,14 @@ export const metadata: Metadata = {
   // Relative canonical: resolves per route against metadataBase, so every
   // page self-canonicalizes without repeating the URL in 13 files.
   alternates: { canonical: "./" },
+  // og/twitter title + description are deliberately NOT set here: Next
+  // falls back to each page's resolved title/description, so shares of
+  // /services/reefer carry reefer copy instead of homepage copy. url "./"
+  // resolves per route exactly like the canonical.
   openGraph: {
     type: "website",
     siteName: site.name,
-    title: `${site.name} | Reliable Freight Transportation Built on Trust`,
-    description: site.tagline,
-    url: site.url,
+    url: "./",
     images: [
       {
         url: "/og.jpg",
@@ -51,8 +53,6 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} | Reliable Freight Transportation Built on Trust`,
-    description: site.tagline,
     images: ["/og.jpg"],
   },
   // Search Console ownership: set NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION in

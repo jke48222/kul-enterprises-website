@@ -287,7 +287,11 @@ html[data-intro="1"] .kul-intro-root {
 /* Framer Motion serializes the hidden state (opacity 0) into the server
    HTML. If hydration never happens — bundle failed or JS disabled — this
    delayed animation lifts the content anyway. MotionProvider stamps
-   html[data-hydrated] on mount, which disarms it for working visits. */
+   html[data-hydrated] on mount, which disarms it for working visits.
+   Known trade-off: if hydration lands AFTER the 6s failsafe has fired,
+   revealed content snaps back to its hidden state for a beat before
+   Framer's whileInView animates it in — acceptable on connections that
+   pathological, and strictly better than staying blank. */
 @keyframes kul-reveal-failsafe {
   to {
     opacity: 1;
@@ -350,6 +354,15 @@ html[data-intro="1"] .kul-grad-text {
 html[data-intro="1"] .kul-fade-slow,
 html[data-page-intro="1"] .kul-fade-slow {
   animation-play-state: paused;
+}
+/* No-hydration companion to the 12s intro failsafe: data-intro never gets
+   removed when the bundle dies, so the paused rule above would hold the
+   hero title at opacity 0 forever. Once the failsafe has hidden the cover,
+   let the fade run. Hydrated visits set data-hydrated early and never
+   match. */
+html[data-intro="1"]:not([data-hydrated="1"]) .kul-fade-slow {
+  animation-play-state: running;
+  animation-delay: 12.4s;
 }
 
 /* Metallic gold: brushed gradient with inner highlight and lower bevel. */

@@ -227,6 +227,8 @@ export default defineConfig({
                 type: "string",
                 name: "a",
                 label: "Answer",
+                description:
+                  "Heads up: the licensed-and-insured answer spells out the USDOT and MC numbers. If those ever change in Business Facts, update them here too.",
                 required: true,
                 ui: { component: "textarea" },
               },

@@ -16,6 +16,10 @@ export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
 }
 
+// Unknown slugs get the fully prerendered 404 page at the routing layer
+// (a runtime notFound() here streams an empty shell to no-JS visitors).
+export const dynamicParams = false;
+
 export async function generateMetadata({
   params,
 }: {

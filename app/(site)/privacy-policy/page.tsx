@@ -42,8 +42,14 @@ export default function PrivacyPolicy() {
         {
           heading: "3. HOW WE COLLECT YOUR DATA",
           body: [
-            "Information you give us. When you request a freight quote, send a message through our contact form, submit a driver inquiry, or correspond with dispatch by email or phone, we store the personal information you choose to give us.",
-            "Information collected automatically. We use Google Analytics to understand, in aggregate, how visitors find and use our website — for example which pages are read most. This data does not identify you personally to us, and we do not use it for advertising. The cookies involved, and how to block them, are described on the Manage Cookies page.",
+            "Information you give us. When you request a freight quote, send a message through our contact form, submit a driver inquiry, or correspond with dispatch by email or phone, we store the personal information you choose to give us. To make sure no inquiry is ever lost, submissions are also recorded in our website's operational logs and may be mirrored to a service provider that processes them on our behalf.",
+            // The GA paragraph tracks the same build-time flag that renders
+            // the tag, so the policy never claims measurement that is off.
+            ...(process.env.NEXT_PUBLIC_GA_ID
+              ? [
+                  "Information collected automatically. We use Google Analytics to understand, in aggregate, how visitors find and use our website — for example which pages are read most. This data does not identify you personally to us, and we do not use it for advertising. The cookies involved, and how to block them, are described on the Manage Cookies page.",
+                ]
+              : []),
             "We do not require you to create an account, and we do not collect payment card details through this website. We do not use advertising cookies or cross-site trackers.",
           ],
         },

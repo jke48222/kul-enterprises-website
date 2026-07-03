@@ -10,7 +10,7 @@ import {
 } from "./FormShell";
 
 export default function ContactForm() {
-  const { state, submit } = useFormSubmit("/api/contact");
+  const { state, serverError, submit } = useFormSubmit("/api/contact");
   // Instance-scoped ids: this form renders twice on some pages (body + closing).
   const uid = useId();
 
@@ -59,6 +59,7 @@ export default function ContactForm() {
 
       <FormStatus
         state={state}
+        serverError={serverError}
         successMessage="Message received. We'll get back to you shortly."
       />
       <SubmitButton state={state}>Send Message</SubmitButton>
