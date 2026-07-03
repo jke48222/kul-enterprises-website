@@ -255,6 +255,27 @@ body {
 .kul-intro-root {
   display: none;
 }
+/* The page-arrival curtain is opt-in: hidden until the pre-paint script
+   confirms JS is running (html[data-page-reveal]), so visitors without JS
+   never get a stuck black cover. A zero-duration delayed animation is the
+   pure-CSS failsafe if the bundle never hydrates. */
+.kul-page-reveal {
+  display: none;
+}
+html[data-page-reveal="1"] .kul-page-reveal {
+  display: flex;
+  animation: kul-curtain-failsafe 0s linear 10s forwards;
+}
+@keyframes kul-curtain-failsafe {
+  to {
+    visibility: hidden;
+  }
+}
+/* Never stack under the full first-visit intro: it already ends with the
+   identical letterbox reveal. Keep this after the opt-in rule. */
+html[data-intro="1"] .kul-page-reveal {
+  display: none;
+}
 html[data-intro="1"] .kul-intro-root {
   display: flex;
 }
@@ -308,7 +329,8 @@ html[data-intro="1"] .kul-grad-text {
 .kul-fade-slow {
   animation: kul-fade-slow 2.4s ease 0.2s both;
 }
-html[data-intro="1"] .kul-fade-slow {
+html[data-intro="1"] .kul-fade-slow,
+html[data-page-intro="1"] .kul-fade-slow {
   animation-play-state: paused;
 }
 
@@ -329,6 +351,11 @@ html[data-intro="1"] .kul-fade-slow {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /* The JS skip only runs after hydration; this keeps the arrival curtain
+     from ever painting for reduced-motion visitors, SSR included. */
+  .kul-page-reveal {
+    display: none !important;
+  }
   .kul-grad-text {
     animation: none;
   }

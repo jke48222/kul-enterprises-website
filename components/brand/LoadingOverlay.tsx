@@ -163,9 +163,12 @@ export default function LoadingOverlay() {
             videoRef.current = el;
             // Only wire the film up when this visit actually shows the
             // intro (data-intro set pre-paint). Repeat visits keep the
-            // element src-less: zero fetch, zero decode.
+            // element src-less: zero fetch, zero decode. finishedRef stops
+            // the re-invoked inline ref from resuming the deliberately
+            // frozen final frame on the exit re-render.
             if (
               el &&
+              !finishedRef.current &&
               document.documentElement.getAttribute("data-intro") === "1"
             ) {
               if (!el.getAttribute("src")) el.src = el.dataset.src ?? "";

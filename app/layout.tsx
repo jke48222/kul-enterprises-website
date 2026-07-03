@@ -102,7 +102,7 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "try{if(sessionStorage.getItem('kul-intro-seen')!=='1')document.documentElement.setAttribute('data-intro','1')}catch(e){}",
+              "try{if(sessionStorage.getItem('kul-intro-seen')!=='1')document.documentElement.setAttribute('data-intro','1')}catch(e){}try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.setAttribute('data-page-reveal','1')}catch(e){}",
           }}
         />
         <LoadingOverlay />
