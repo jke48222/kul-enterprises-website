@@ -1,7 +1,15 @@
 import { NextResponse } from "next/server";
-import { readForm, sendViaResend } from "@/lib/email";
+import { isEmail, readForm, recordLead, sendViaResend } from "@/lib/email";
+import { clientIp, rateLimit } from "@/lib/ratelimit";
 
 export async function POST(req: Request) {
+  if (!rateLimit(`contact:${clientIp(req)}`).allowed) {
+    return NextResponse.json(
+      { ok: false, error: "Too many requests. Please try again shortly." },
+      { status: 429 }
+    );
+  }
+
   const parsed = await readForm(req, ["name", "email", "message"]);
   if ("error" in parsed) {
     return NextResponse.json({ ok: false, error: parsed.error }, { status: 400 });
@@ -9,6 +17,13 @@ export async function POST(req: Request) {
   if (parsed.spam) return NextResponse.json({ ok: true });
 
   const d = parsed.data;
+  if (!isEmail(d.email)) {
+    return NextResponse.json(
+      { ok: false, error: "Please enter a valid email address." },
+      { status: 400 }
+    );
+  }
+  recordLead("contact", d);
   const result = await sendViaResend({
     subject: `Website Contact: ${d.name}`,
     replyTo: d.email,

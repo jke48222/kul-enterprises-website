@@ -23,7 +23,10 @@ export function useFormSubmit(endpoint: string) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      if (!res.ok) throw new Error(String(res.status));
+      // The server reports delivery failures in the body (ok: false), so a
+      // 200 alone is not proof the lead went anywhere.
+      const body = await res.json().catch(() => null);
+      if (!res.ok || !body?.ok) throw new Error(String(res.status));
       form.reset();
       setState("success");
     } catch {
@@ -39,7 +42,7 @@ export function Honeypot() {
     <div aria-hidden="true" className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden">
       <label>
         Leave this field empty
-        <input type="text" name="company_website" tabIndex={-1} autoComplete="off" />
+        <input type="text" name="botcheck" tabIndex={-1} autoComplete="off" />
       </label>
     </div>
   );
@@ -53,18 +56,23 @@ export function FormStatus({
   successMessage: string;
 }) {
   return (
-    <div role="status" aria-live="polite" className="min-h-6">
-      {state === "success" && (
-        <p className="border border-gold-dim/40 bg-gold/10 px-4 py-3 text-sm font-medium text-ink">
-          {successMessage}
-        </p>
-      )}
-      {state === "error" && (
-        <p className="border border-red-800/40 bg-red-50 px-4 py-3 text-sm font-medium text-red-900">
-          Something went wrong sending your message. Please try again, or call
-          us directly at 678-972-1148.
-        </p>
-      )}
+    <div className="min-h-6">
+      <div role="status" aria-live="polite">
+        {state === "success" && (
+          <p className="border border-gold-dim/40 bg-gold/10 px-4 py-3 text-sm font-medium text-ink">
+            {successMessage}
+          </p>
+        )}
+      </div>
+      {/* Errors interrupt: rendered into an always-present assertive region. */}
+      <div role="alert">
+        {state === "error" && (
+          <p className="border border-red-800/40 bg-red-50 px-4 py-3 text-sm font-medium text-red-900">
+            Something went wrong sending your message. Please try again, or call
+            us directly at 678-972-1148.
+          </p>
+        )}
+      </div>
     </div>
   );
 }

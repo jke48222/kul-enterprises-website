@@ -1,7 +1,15 @@
 import { NextResponse } from "next/server";
-import { readForm, sendViaResend } from "@/lib/email";
+import { isEmail, readForm, recordLead, sendViaResend } from "@/lib/email";
+import { clientIp, rateLimit } from "@/lib/ratelimit";
 
 export async function POST(req: Request) {
+  if (!rateLimit(`driver:${clientIp(req)}`).allowed) {
+    return NextResponse.json(
+      { ok: false, error: "Too many requests. Please try again shortly." },
+      { status: 429 }
+    );
+  }
+
   const parsed = await readForm(req, ["name", "contact", "experience"]);
   if ("error" in parsed) {
     return NextResponse.json({ ok: false, error: parsed.error }, { status: 400 });
@@ -9,9 +17,10 @@ export async function POST(req: Request) {
   if (parsed.spam) return NextResponse.json({ ok: true });
 
   const d = parsed.data;
+  recordLead("driver", d);
   const result = await sendViaResend({
     subject: `Driver Inquiry: ${d.name} (${d.experience})`,
-    replyTo: d.contact.includes("@") ? d.contact : undefined,
+    replyTo: isEmail(d.contact) ? d.contact : undefined,
     text: [
       "New driver inquiry from kulenterprises.com",
       "",

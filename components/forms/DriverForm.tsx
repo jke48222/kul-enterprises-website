@@ -1,5 +1,6 @@
 "use client";
 
+import { useId } from "react";
 import {
   useFormSubmit,
   Honeypot,
@@ -11,6 +12,8 @@ import {
 /** Driver inquiry. Deliberately short; the page above does the recruiting. */
 export default function DriverForm() {
   const { state, submit } = useFormSubmit("/api/driver");
+  // Instance-scoped ids: the drivers page also renders the closing contact form.
+  const uid = useId();
 
   return (
     <form onSubmit={submit} className="space-y-6">
@@ -18,23 +21,25 @@ export default function DriverForm() {
 
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
-          <Label htmlFor="name">Your name</Label>
+          <Label htmlFor={`${uid}-name`}>Your name</Label>
           <input
-            id="name"
+            id={`${uid}-name`}
             name="name"
             type="text"
             required
+            maxLength={200}
             autoComplete="name"
             className="field-light"
           />
         </div>
         <div>
-          <Label htmlFor="contact">Phone or email</Label>
+          <Label htmlFor={`${uid}-contact`}>Phone or email</Label>
           <input
-            id="contact"
+            id={`${uid}-contact`}
             name="contact"
             type="text"
             required
+            maxLength={200}
             autoComplete="tel"
             className="field-light"
           />
@@ -42,9 +47,9 @@ export default function DriverForm() {
       </div>
 
       <div>
-        <Label htmlFor="experience">CDL-A experience</Label>
+        <Label htmlFor={`${uid}-experience`}>CDL-A experience</Label>
         <select
-          id="experience"
+          id={`${uid}-experience`}
           name="experience"
           required
           className="field-light"
@@ -62,13 +67,14 @@ export default function DriverForm() {
       </div>
 
       <div>
-        <Label htmlFor="note" optional>
+        <Label htmlFor={`${uid}-note`} optional>
           Anything you want us to know
         </Label>
         <textarea
-          id="note"
+          id={`${uid}-note`}
           name="note"
           rows={3}
+          maxLength={2000}
           placeholder="Endorsements, preferred lanes, home-time needs…"
           className="field-light resize-y"
         />

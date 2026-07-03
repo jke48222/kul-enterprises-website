@@ -1,5 +1,6 @@
 "use client";
 
+import { useId } from "react";
 import { services } from "@/lib/services";
 import {
   useFormSubmit,
@@ -16,31 +17,35 @@ import {
  */
 export default function QuoteForm() {
   const { state, submit } = useFormSubmit("/api/quote");
+  // Instance-scoped ids: pages can render several forms without collisions.
+  const uid = useId();
 
   return (
-    <form onSubmit={submit} noValidate={false} className="space-y-6">
+    <form onSubmit={submit} className="space-y-6">
       <Honeypot />
 
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
-          <Label htmlFor="origin">Origin (city, state)</Label>
+          <Label htmlFor={`${uid}-origin`}>Origin (city, state)</Label>
           <input
-            id="origin"
+            id={`${uid}-origin`}
             name="origin"
             type="text"
             required
+            maxLength={200}
             autoComplete="off"
             placeholder="Atlanta, GA"
             className="field-light"
           />
         </div>
         <div>
-          <Label htmlFor="destination">Destination (city, state)</Label>
+          <Label htmlFor={`${uid}-destination`}>Destination (city, state)</Label>
           <input
-            id="destination"
+            id={`${uid}-destination`}
             name="destination"
             type="text"
             required
+            maxLength={200}
             autoComplete="off"
             placeholder="Charlotte, NC"
             className="field-light"
@@ -50,9 +55,9 @@ export default function QuoteForm() {
 
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
-          <Label htmlFor="freightType">Freight type</Label>
+          <Label htmlFor={`${uid}-freightType`}>Freight type</Label>
           <select
-            id="freightType"
+            id={`${uid}-freightType`}
             name="freightType"
             required
             className="field-light"
@@ -70,9 +75,9 @@ export default function QuoteForm() {
           </select>
         </div>
         <div>
-          <Label htmlFor="pickupDate">Target pickup date</Label>
+          <Label htmlFor={`${uid}-pickupDate`}>Target pickup date</Label>
           <input
-            id="pickupDate"
+            id={`${uid}-pickupDate`}
             name="pickupDate"
             type="date"
             required
@@ -82,12 +87,13 @@ export default function QuoteForm() {
       </div>
 
       <div>
-        <Label htmlFor="contact">Your email or phone</Label>
+        <Label htmlFor={`${uid}-contact`}>Your email or phone</Label>
         <input
-          id="contact"
+          id={`${uid}-contact`}
           name="contact"
           type="text"
           required
+          maxLength={200}
           autoComplete="email"
           placeholder="you@company.com or 555-123-4567"
           className="field-light"
@@ -95,13 +101,14 @@ export default function QuoteForm() {
       </div>
 
       <div>
-        <Label htmlFor="details" optional>
+        <Label htmlFor={`${uid}-details`} optional>
           Weight, dimensions, commodity
         </Label>
         <textarea
-          id="details"
+          id={`${uid}-details`}
           name="details"
           rows={3}
+          maxLength={2000}
           placeholder="e.g. 24 pallets, 38,000 lbs, packaged food product"
           className="field-light resize-y"
         />

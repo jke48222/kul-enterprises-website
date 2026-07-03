@@ -1,7 +1,15 @@
 import { NextResponse } from "next/server";
-import { readForm, sendViaResend } from "@/lib/email";
+import { isEmail, readForm, recordLead, sendViaResend } from "@/lib/email";
+import { clientIp, rateLimit } from "@/lib/ratelimit";
 
 export async function POST(req: Request) {
+  if (!rateLimit(`quote:${clientIp(req)}`).allowed) {
+    return NextResponse.json(
+      { ok: false, error: "Too many requests. Please try again shortly." },
+      { status: 429 }
+    );
+  }
+
   const parsed = await readForm(req, [
     "origin",
     "destination",
@@ -16,9 +24,10 @@ export async function POST(req: Request) {
   if (parsed.spam) return NextResponse.json({ ok: true });
 
   const d = parsed.data;
+  recordLead("quote", d);
   const result = await sendViaResend({
     subject: `Freight Quote Request: ${d.origin} to ${d.destination}`,
-    replyTo: d.contact.includes("@") ? d.contact : undefined,
+    replyTo: isEmail(d.contact) ? d.contact : undefined,
     text: [
       "New freight quote request from kulenterprises.com",
       "",
