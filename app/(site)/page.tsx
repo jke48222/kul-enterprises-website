@@ -104,52 +104,10 @@ export default function ConceptHome() {
       {/* 03 Two-up Freight/Drivers panels (shared) */}
       <PathsPanels />
 
-      {/* 04 Statement band: narrow left column over right-weighted visual.
-          The extra bottom padding is the runway the ocean band cross-fades
-          in over — content stays clear of the feather. */}
-      <section className="relative overflow-hidden bg-ink2">
-        <div aria-hidden className="absolute inset-0">
-          {/* Same photo as the About opener: Mark's cliffs over blue water.
-              The scrim stays darker on the right than the truck shot needed,
-              because the paragraph sits over the sunlit cliff face. */}
-          <Image
-            src="/images/photos/cliffs-over-water.jpg"
-            alt=""
-            fill
-            quality={82}
-            sizes="100vw"
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(22,22,22,0.96)_0%,rgba(22,22,22,0.8)_34%,rgba(22,22,22,0.55)_65%,rgba(22,22,22,0.5)_100%)]" />
-        </div>
-        <div className="relative mx-auto grid min-h-[440px] max-w-[1000px] items-center gap-10 px-6 pb-48 pt-24 md:grid-cols-2 md:pb-56 md:pt-28">
-          <Reveal>
-            <h2 className="kul-grad-text font-omnibus text-[clamp(2rem,3vw,2.75rem)] leading-[1.15]">
-              Trust is in our DNA
-            </h2>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <div className="max-w-[380px]">
-              <p className="text-[15px] leading-[1.6] text-cream">
-                KUL Enterprises is a Georgia freight carrier built by a driver.
-                Every load carries three commitments: safety first, honest
-                communication, and delivery when we said it would.
-              </p>
-              <Pill href="/about" className="mt-7">
-                About
-              </Pill>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 05 Statement band A: left column w-468 over full-bleed visual.
-          Cross-fades in over the truck band above (overlap + mask-feathered
-          top); its own bottom stays untouched for the desert's fade. */}
-      <section
-        id="vision"
-        className="relative -mt-40 flex h-[748px] items-center overflow-hidden [-webkit-mask-image:linear-gradient(180deg,transparent,black_10rem)] [mask-image:linear-gradient(180deg,transparent,black_10rem)]"
-      >
+      {/* 04 Statement band A: left column w-468 over full-bleed visual.
+          Light scrim only; the body copy carries a soft dark text-shadow
+          for readability over the brighter, barely-filtered photo. */}
+      <section id="vision" className="relative flex h-[748px] items-center overflow-hidden">
         <Image
           src="/images/photos/ocean-waves-rocks.jpg"
           alt="A wave breaking against a rock cliff at dusk"
@@ -160,18 +118,18 @@ export default function ConceptHome() {
         />
         <div
           aria-hidden
-          className="absolute inset-0 bg-[linear-gradient(90deg,rgba(22,22,22,0.8),rgba(22,22,22,0.35)_55%,transparent)]"
+          className="absolute inset-0 bg-[linear-gradient(90deg,rgba(22,22,22,0.5),rgba(22,22,22,0.2)_55%,transparent)]"
         />
         <Reveal className="relative mx-auto w-full max-w-[1470px] px-6 lg:px-[180px]">
           <div className="max-w-[560px]">
             {/* The Blueprint asks for a section literally titled Our Vision. */}
-            <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold [text-shadow:0_1px_4px_rgba(0,0,0,0.55)]">
               Our Vision
             </p>
             <h2 className="kul-grad-text mt-3 font-omnibus text-[clamp(2.1rem,3.2vw,2.9rem)] leading-[1.15]">
               Building the Southeast&apos;s most trusted carrier
             </h2>
-            <p className="mt-6 max-w-[520px] text-[15px] leading-[1.7] text-graywarm-light">
+            <p className="mt-6 max-w-[520px] text-[15px] leading-[1.7] text-graywarm-light [text-shadow:0_1px_4px_rgba(0,0,0,0.55)]">
               Fifty tractors by the end of 2029, one kept promise at a time.
               We grow on purpose, load by load, relationship by relationship,
               so the service never falls behind the name on the door.
@@ -183,7 +141,7 @@ export default function ConceptHome() {
         </Reveal>
       </section>
 
-      {/* 06 Statement band B: same structure, safety message. True
+      {/* 05 Statement band B: same structure, safety message. True
           cross-fade: the section overlaps the ocean band above by 14rem and
           its own top edge is mask-feathered, so the desert dissolves
           directly over the water — photo into photo, no dark valley. */}
@@ -198,14 +156,14 @@ export default function ConceptHome() {
         />
         <div
           aria-hidden
-          className="absolute inset-0 bg-[linear-gradient(270deg,rgba(22,22,22,0.8),rgba(22,22,22,0.35)_55%,transparent)]"
+          className="absolute inset-0 bg-[linear-gradient(270deg,rgba(22,22,22,0.5),rgba(22,22,22,0.2)_55%,transparent)]"
         />
         <Reveal className="relative mx-auto w-full max-w-[1470px] px-6 lg:px-[180px]">
           <div className="ml-auto max-w-[560px] text-right">
             <h2 className="kul-grad-text font-omnibus text-[clamp(2.1rem,3.2vw,2.9rem)] leading-[1.15]">
               A foundation that doesn&apos;t move
             </h2>
-            <p className="ml-auto mt-6 max-w-[520px] text-[15px] leading-[1.7] text-graywarm-light">
+            <p className="ml-auto mt-6 max-w-[520px] text-[15px] leading-[1.7] text-graywarm-light [text-shadow:0_1px_4px_rgba(0,0,0,0.55)]">
               Pre-trip inspections. Legal hours. Weather calls made early and
               on the side of caution. The most important delivery on any route
               is the driver coming home.
@@ -215,6 +173,44 @@ export default function ConceptHome() {
             </Pill>
           </div>
         </Reveal>
+      </section>
+
+      {/* 06 Statement band: narrow left column, Mark's cliffs photo (same
+          as the About opener). Cross-fades in over the desert band above;
+          the tall top padding keeps the copy below the feather. */}
+      <section className="relative -mt-40 overflow-hidden bg-ink2 [-webkit-mask-image:linear-gradient(180deg,transparent,black_10rem)] [mask-image:linear-gradient(180deg,transparent,black_10rem)]">
+        <div aria-hidden className="absolute inset-0">
+          <Image
+            src="/images/photos/cliffs-over-water.jpg"
+            alt=""
+            fill
+            quality={82}
+            sizes="100vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(22,22,22,0.55)_0%,rgba(22,22,22,0.4)_34%,rgba(22,22,22,0.3)_65%,rgba(22,22,22,0.25)_100%)]" />
+        </div>
+        <div className="relative mx-auto grid min-h-[440px] max-w-[1000px] items-center gap-10 px-6 pb-24 pt-48 md:grid-cols-2 md:pb-28 md:pt-56">
+          <Reveal>
+            <h2 className="kul-grad-text font-omnibus text-[clamp(2rem,3vw,2.75rem)] leading-[1.15]">
+              Trust is in our DNA
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <div className="max-w-[380px]">
+              {/* Dark ink copy: this column sits over the sunlit cliff face,
+                  so darker text beats a heavier scrim for readability. */}
+              <p className="text-[15px] font-medium leading-[1.6] text-ink">
+                KUL Enterprises is a Georgia freight carrier built by a driver.
+                Every load carries three commitments: safety first, honest
+                communication, and delivery when we said it would.
+              </p>
+              <Pill href="/about" className="mt-7">
+                About
+              </Pill>
+            </div>
+          </Reveal>
+        </div>
       </section>
 
       {/* 07 Proof band: small gray caps heading, six dim marks, quote.
@@ -262,8 +258,8 @@ export default function ConceptHome() {
       <FaqBand />
 
       {/* 10 Lifestyle band: full-bleed, the human behind the wheel.
-          Deliberately unblended: hard edges, with only the original
-          legibility fade anchoring the headline at the bottom. */}
+          Deliberately unblended: hard edges; a light bottom fade keeps the
+          headline readable without burying the photo. */}
       <section className="relative flex h-[629px] items-end overflow-hidden">
         <Image
           src="/images/stock/driver-in-cab-gold-truck.jpg"
@@ -275,7 +271,7 @@ export default function ConceptHome() {
         />
         <div
           aria-hidden
-          className="absolute inset-x-0 bottom-0 h-56 bg-[linear-gradient(180deg,transparent,#161616)]"
+          className="absolute inset-x-0 bottom-0 h-56 bg-[linear-gradient(180deg,transparent,rgba(22,22,22,0.8))]"
         />
         <Reveal className="relative mx-auto w-full max-w-6xl px-6 pb-14 text-center">
           <h2 className="kul-grad-text font-omnibus text-[clamp(2.3rem,4vw,3.4rem)] leading-tight">

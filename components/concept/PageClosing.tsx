@@ -77,7 +77,7 @@ export function PathsPanels() {
           />
           <div
             aria-hidden
-            className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.55),rgba(0,0,0,0.15)_45%,rgba(0,0,0,0.5))]"
+            className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.35),rgba(0,0,0,0.1)_45%,rgba(0,0,0,0.3))]"
           />
           <Reveal className="relative text-center">
             {/* h2, not h3: this is the first section heading after the h1
@@ -115,7 +115,7 @@ export function StrengthStatement() {
         />
         <div
           aria-hidden
-          className="absolute inset-0 bg-[linear-gradient(180deg,rgba(22,22,22,0.45),rgba(22,22,22,0.1)_35%,rgba(248,248,248,1)_97%)]"
+          className="absolute inset-0 bg-[linear-gradient(180deg,rgba(22,22,22,0.25),rgba(22,22,22,0.05)_35%,rgba(248,248,248,1)_97%)]"
         />
         <Reveal className="relative px-6 text-center">
           <h2 className="kul-grad-text mx-auto max-w-4xl font-omnibus text-[clamp(2rem,3.8vw,55px)] leading-[1.1]">
