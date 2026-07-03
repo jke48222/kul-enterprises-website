@@ -95,8 +95,6 @@ export default function ConceptHome() {
           {/* KUL aerial fleet footage, full screen, no overlay */}
           <HeroVideo />
         </div>
-        {/* The film settles into the dark ground the panels rise out of. */}
-        <Seam edge="bottom" background="#161616" />
         <div className="kul-fade-slow relative px-6 pt-[15vh] text-center">
           <h1 className="kul-grad-text font-mont text-[clamp(1.35rem,2.3vw,2.05rem)] font-semibold uppercase tracking-[0.3em] [text-shadow:none]">
             Strength in Motion
@@ -108,8 +106,8 @@ export default function ConceptHome() {
       <PathsPanels />
 
       {/* 04 Statement band: narrow left column over right-weighted visual.
-          Seams dissolve the truck photo out of the panels' dark ground and
-          into the credentials band's gradient below. */}
+          The truck photo dissolves into the credentials band's own gradient
+          below, so the two share one surface. */}
       <section className="relative overflow-hidden bg-ink2">
         <div aria-hidden className="absolute inset-0">
           <Image
@@ -122,7 +120,6 @@ export default function ConceptHome() {
           />
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(22,22,22,0.96)_0%,rgba(22,22,22,0.8)_34%,rgba(22,22,22,0.25)_65%,rgba(22,22,22,0.15)_100%)]" />
         </div>
-        <Seam edge="top" background="#161616" />
         <Seam edge="bottom" background="linear-gradient(90deg,#161616 0%,#3B3B3B 100%)" />
         <div className="relative mx-auto grid min-h-[440px] max-w-[1000px] items-center gap-10 px-6 py-24 md:grid-cols-2 md:py-28">
           <Reveal>
@@ -184,8 +181,8 @@ export default function ConceptHome() {
       </section>
 
       {/* 06 Statement band A: left column w-468 over full-bleed visual.
-          The ocean rises out of the credentials gradient and settles back
-          into ink before the desert band. */}
+          The ocean rises out of the credentials band's gradient; its bottom
+          stays untouched — the desert band cross-fades in over it. */}
       <section id="vision" className="relative flex h-[748px] items-center overflow-hidden">
         <Image
           src="/images/photos/ocean-waves-rocks.jpg"
@@ -200,7 +197,6 @@ export default function ConceptHome() {
           className="absolute inset-0 bg-[linear-gradient(90deg,rgba(22,22,22,0.8),rgba(22,22,22,0.35)_55%,transparent)]"
         />
         <Seam edge="top" background="linear-gradient(90deg,#161616 0%,#3B3B3B 100%)" />
-        <Seam edge="bottom" background="#161616" />
         <Reveal className="relative mx-auto w-full max-w-[1470px] px-6 lg:px-[180px]">
           <div className="max-w-[560px]">
             {/* The Blueprint asks for a section literally titled Our Vision. */}
@@ -222,9 +218,11 @@ export default function ConceptHome() {
         </Reveal>
       </section>
 
-      {/* 07 Statement band B: same structure, safety message. Melts through
-          ink on both edges: out of the ocean band, into the tagline sky. */}
-      <section className="relative flex h-[707px] items-center overflow-hidden">
+      {/* 07 Statement band B: same structure, safety message. True
+          cross-fade: the section overlaps the ocean band above by 14rem and
+          its own top edge is mask-feathered, so the desert dissolves
+          directly over the water — photo into photo, no dark valley. */}
+      <section className="relative -mt-56 flex h-[707px] items-center overflow-hidden [-webkit-mask-image:linear-gradient(180deg,transparent,black_14rem)] [mask-image:linear-gradient(180deg,transparent,black_14rem)]">
         <Image
           src="/images/photos/desert-rock-formation.jpg"
           alt="Sculpted rock formations standing over quiet sand at dusk"
@@ -237,8 +235,6 @@ export default function ConceptHome() {
           aria-hidden
           className="absolute inset-0 bg-[linear-gradient(270deg,rgba(22,22,22,0.8),rgba(22,22,22,0.35)_55%,transparent)]"
         />
-        <Seam edge="top" background="#161616" />
-        <Seam edge="bottom" background="#161616" />
         <Reveal className="relative mx-auto w-full max-w-[1470px] px-6 lg:px-[180px]">
           <div className="ml-auto max-w-[560px] text-right">
             <h2 className="kul-grad-text font-omnibus text-[clamp(2.1rem,3.2vw,2.9rem)] leading-[1.15]">

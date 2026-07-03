@@ -4,7 +4,6 @@ import { Reveal } from "@/components/motion/Reveal";
 import Faq from "@/components/concept/Faq";
 import BirdModel from "@/components/concept/BirdModel";
 import ContactForm from "@/components/forms/ContactForm";
-import Seam from "@/components/concept/Seam";
 import faqContent from "@/content/faq.json";
 
 /**
@@ -38,10 +37,11 @@ export function Pill({
 // FAQ copy lives in content/faq.json, editable through the CMS (/admin).
 const faqs = faqContent.items;
 
-/** Two-up Freight/Drivers panels on pure black, centered stacks. */
+/** Two-up Freight/Drivers panels on pure black, centered stacks.
+    Deliberately unblended: these panels keep their hard edges. */
 export function PathsPanels() {
   return (
-    <section id="paths" className="relative grid overflow-hidden bg-black md:grid-cols-2">
+    <section id="paths" className="grid bg-black md:grid-cols-2">
       {[
         {
           name: "Freight",
@@ -79,14 +79,14 @@ export function PathsPanels() {
             aria-hidden
             className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.55),rgba(0,0,0,0.15)_45%,rgba(0,0,0,0.5))]"
           />
-          <Reveal className="relative z-10 text-center">
+          <Reveal className="relative text-center">
             {/* h2, not h3: this is the first section heading after the h1
                 on several pages, and heading levels must not skip. */}
             <h2 className="kul-grad-text font-omnibus text-[clamp(2rem,3.2vw,3rem)] uppercase leading-none tracking-[0.5em]">
               {p.name}
             </h2>
           </Reveal>
-          <Reveal className="relative z-10 flex flex-col items-center text-center">
+          <Reveal className="relative flex flex-col items-center text-center">
             <p className="max-w-[220px] text-[13px] leading-snug text-cream">
               {p.line}
             </p>
@@ -96,10 +96,6 @@ export function PathsPanels() {
           </Reveal>
         </div>
       ))}
-      {/* Both edges melt into the ink ground the neighboring sections share
-          (z-10 above keeps the panel copy clear of the feather). */}
-      <Seam edge="top" background="#161616" />
-      <Seam edge="bottom" background="#161616" />
     </section>
   );
 }
@@ -121,8 +117,6 @@ export function StrengthStatement() {
           aria-hidden
           className="absolute inset-0 bg-[linear-gradient(180deg,rgba(22,22,22,0.45),rgba(22,22,22,0.1)_35%,rgba(248,248,248,1)_97%)]"
         />
-        {/* The sky rises out of the ink the section above settled into. */}
-        <Seam edge="top" background="#161616" />
         <Reveal className="relative px-6 text-center">
           <h2 className="kul-grad-text mx-auto max-w-4xl font-omnibus text-[clamp(2rem,3.8vw,55px)] leading-[1.1]">
             Strength in Motion. Built on Integrity. Driven by Safety.
