@@ -2,7 +2,6 @@ import Image from "next/image";
 import { Reveal } from "@/components/motion/Reveal";
 import HashScroll from "@/components/concept/HashScroll";
 import HeroVideo from "@/components/concept/HeroVideo";
-import Seam from "@/components/concept/Seam";
 import {
   Pill,
   PathsPanels,
@@ -259,9 +258,9 @@ export default function ConceptHome() {
       <ContactBand />
       <FaqBand />
 
-      {/* 10 Lifestyle band: full-bleed, the human behind the wheel. Rises
-          out of the light FAQ ground and settles into the footer's exact
-          gradient so the page ends on one continuous surface. */}
+      {/* 10 Lifestyle band: full-bleed, the human behind the wheel.
+          Deliberately unblended: hard edges, with only the original
+          legibility fade anchoring the headline at the bottom. */}
       <section className="relative flex h-[629px] items-end overflow-hidden">
         <Image
           src="/images/stock/driver-in-cab-gold-truck.jpg"
@@ -271,11 +270,9 @@ export default function ConceptHome() {
           sizes="100vw"
           className="object-cover object-[center_30%]"
         />
-        <Seam edge="top" background="#F8F8F8" />
-        <Seam
-          edge="bottom"
-          background="linear-gradient(90deg,#161616 0%,#3B3B3B 100%)"
-          height="14rem"
+        <div
+          aria-hidden
+          className="absolute inset-x-0 bottom-0 h-56 bg-[linear-gradient(180deg,transparent,#161616)]"
         />
         <Reveal className="relative mx-auto w-full max-w-6xl px-6 pb-14 text-center">
           <h2 className="kul-grad-text font-omnibus text-[clamp(2.3rem,4vw,3.4rem)] leading-tight">
