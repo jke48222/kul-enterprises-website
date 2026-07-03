@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Reveal } from "@/components/motion/Reveal";
 import HashScroll from "@/components/concept/HashScroll";
 import HeroVideo from "@/components/concept/HeroVideo";
+import Seam from "@/components/concept/Seam";
 import {
   Pill,
   PathsPanels,
@@ -94,6 +95,8 @@ export default function ConceptHome() {
           {/* KUL aerial fleet footage, full screen, no overlay */}
           <HeroVideo />
         </div>
+        {/* The film settles into the dark ground the panels rise out of. */}
+        <Seam edge="bottom" background="#161616" />
         <div className="kul-fade-slow relative px-6 pt-[15vh] text-center">
           <h1 className="kul-grad-text font-mont text-[clamp(1.35rem,2.3vw,2.05rem)] font-semibold uppercase tracking-[0.3em] [text-shadow:none]">
             Strength in Motion
@@ -104,7 +107,9 @@ export default function ConceptHome() {
       {/* 03 Two-up Freight/Drivers panels (shared) */}
       <PathsPanels />
 
-      {/* 04 Statement band: narrow left column over right-weighted visual */}
+      {/* 04 Statement band: narrow left column over right-weighted visual.
+          Seams dissolve the truck photo out of the panels' dark ground and
+          into the credentials band's gradient below. */}
       <section className="relative overflow-hidden bg-ink2">
         <div aria-hidden className="absolute inset-0">
           <Image
@@ -117,6 +122,8 @@ export default function ConceptHome() {
           />
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(22,22,22,0.96)_0%,rgba(22,22,22,0.8)_34%,rgba(22,22,22,0.25)_65%,rgba(22,22,22,0.15)_100%)]" />
         </div>
+        <Seam edge="top" background="#161616" />
+        <Seam edge="bottom" background="linear-gradient(90deg,#161616 0%,#3B3B3B 100%)" />
         <div className="relative mx-auto grid min-h-[440px] max-w-[1000px] items-center gap-10 px-6 py-24 md:grid-cols-2 md:py-28">
           <Reveal>
             <h2 className="kul-grad-text font-omnibus text-[clamp(2rem,3vw,2.75rem)] leading-[1.15]">
@@ -176,7 +183,9 @@ export default function ConceptHome() {
         </div>
       </section>
 
-      {/* 06 Statement band A: left column w-468 over full-bleed visual */}
+      {/* 06 Statement band A: left column w-468 over full-bleed visual.
+          The ocean rises out of the credentials gradient and settles back
+          into ink before the desert band. */}
       <section id="vision" className="relative flex h-[748px] items-center overflow-hidden">
         <Image
           src="/images/photos/ocean-waves-rocks.jpg"
@@ -190,6 +199,8 @@ export default function ConceptHome() {
           aria-hidden
           className="absolute inset-0 bg-[linear-gradient(90deg,rgba(22,22,22,0.8),rgba(22,22,22,0.35)_55%,transparent)]"
         />
+        <Seam edge="top" background="linear-gradient(90deg,#161616 0%,#3B3B3B 100%)" />
+        <Seam edge="bottom" background="#161616" />
         <Reveal className="relative mx-auto w-full max-w-[1470px] px-6 lg:px-[180px]">
           <div className="max-w-[560px]">
             {/* The Blueprint asks for a section literally titled Our Vision. */}
@@ -211,7 +222,8 @@ export default function ConceptHome() {
         </Reveal>
       </section>
 
-      {/* 07 Statement band B: same structure, safety message */}
+      {/* 07 Statement band B: same structure, safety message. Melts through
+          ink on both edges: out of the ocean band, into the tagline sky. */}
       <section className="relative flex h-[707px] items-center overflow-hidden">
         <Image
           src="/images/photos/desert-rock-formation.jpg"
@@ -225,6 +237,8 @@ export default function ConceptHome() {
           aria-hidden
           className="absolute inset-0 bg-[linear-gradient(270deg,rgba(22,22,22,0.8),rgba(22,22,22,0.35)_55%,transparent)]"
         />
+        <Seam edge="top" background="#161616" />
+        <Seam edge="bottom" background="#161616" />
         <Reveal className="relative mx-auto w-full max-w-[1470px] px-6 lg:px-[180px]">
           <div className="ml-auto max-w-[560px] text-right">
             <h2 className="kul-grad-text font-omnibus text-[clamp(2.1rem,3.2vw,2.9rem)] leading-[1.15]">
@@ -247,7 +261,9 @@ export default function ConceptHome() {
       <ContactBand />
       <FaqBand />
 
-      {/* 10 Lifestyle band: full-bleed, the human behind the wheel */}
+      {/* 10 Lifestyle band: full-bleed, the human behind the wheel. Rises
+          out of the light FAQ ground and settles into the footer's exact
+          gradient so the page ends on one continuous surface. */}
       <section className="relative flex h-[629px] items-end overflow-hidden">
         <Image
           src="/images/stock/driver-in-cab-gold-truck.jpg"
@@ -257,9 +273,11 @@ export default function ConceptHome() {
           sizes="100vw"
           className="object-cover object-[center_30%]"
         />
-        <div
-          aria-hidden
-          className="absolute inset-x-0 bottom-0 h-56 bg-[linear-gradient(180deg,transparent,#161616)]"
+        <Seam edge="top" background="#F8F8F8" />
+        <Seam
+          edge="bottom"
+          background="linear-gradient(90deg,#161616 0%,#3B3B3B 100%)"
+          height="14rem"
         />
         <Reveal className="relative mx-auto w-full max-w-6xl px-6 pb-14 text-center">
           <h2 className="kul-grad-text font-omnibus text-[clamp(2.3rem,4vw,3.4rem)] leading-tight">
