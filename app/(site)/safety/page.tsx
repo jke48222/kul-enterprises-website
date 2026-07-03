@@ -29,7 +29,7 @@ const pillars = [
 export default function ConceptSafety() {
   return (
     <>
-      <section className="relative flex min-h-[70svh] items-end overflow-hidden">
+      <section className="relative min-h-[70svh] overflow-hidden">
         <Image
           src="/images/photos/desert-rock-formation.jpg"
           alt="Sculpted rock formations standing over quiet sand at dusk"
@@ -40,18 +40,11 @@ export default function ConceptSafety() {
           className="object-cover"
         />
         <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,rgba(22,22,22,0.5),transparent_45%,rgba(22,22,22,0.92))]" />
-        <Reveal className="relative mx-auto w-full max-w-6xl px-6 pb-16">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">
+        <div className="kul-fade-slow relative px-6 pt-[15vh] text-center">
+          <h1 className="kul-grad-text font-mont text-[clamp(1.35rem,2.3vw,2.05rem)] font-semibold uppercase tracking-[0.3em] [text-shadow:none]">
             Safety &amp; Compliance
-          </p>
-          <h1 className="kul-grad-text mt-4 max-w-2xl font-omnibus text-[clamp(2.2rem,4.5vw,3.4rem)] leading-tight">
-            Compliance is the floor. Safety is the culture.
           </h1>
-          <p className="mt-4 max-w-xl text-graywarm-light">
-            Anyone can print a safety slogan. We would rather show you our
-            numbers, our practices, and where to verify both.
-          </p>
-        </Reveal>
+        </div>
       </section>
 
       <section className="bg-[linear-gradient(90deg,#161616_0%,#2E2E2E_100%)]">

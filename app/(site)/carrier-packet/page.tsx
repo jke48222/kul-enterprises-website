@@ -32,7 +32,7 @@ const documents = [
 export default function ConceptCarrierPacket() {
   return (
     <>
-      <section className="relative flex min-h-[60svh] items-end overflow-hidden">
+      <section className="relative min-h-[60svh] overflow-hidden">
         <Image
           src="/images/photos/tree-open-landscape.jpg"
           alt="A wide oak tree standing over open green land"
@@ -43,18 +43,11 @@ export default function ConceptCarrierPacket() {
           className="object-cover"
         />
         <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,rgba(22,22,22,0.5),transparent_45%,rgba(22,22,22,0.92))]" />
-        <Reveal className="relative mx-auto w-full max-w-6xl px-6 pb-16">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">
+        <div className="kul-fade-slow relative px-6 pt-[15vh] text-center">
+          <h1 className="kul-grad-text font-mont text-[clamp(1.35rem,2.3vw,2.05rem)] font-semibold uppercase tracking-[0.3em] [text-shadow:none]">
             Carrier Packet
-          </p>
-          <h1 className="kul-grad-text mt-4 max-w-2xl font-omnibus text-[clamp(2.2rem,4.5vw,3.4rem)] leading-tight">
-            Set us up in one email.
           </h1>
-          <p className="mt-4 max-w-xl text-graywarm-light">
-            Brokers and shippers: the complete KUL carrier packet is one
-            request away, delivered the same business day.
-          </p>
-        </Reveal>
+        </div>
       </section>
 
       <section className="bg-ink2">

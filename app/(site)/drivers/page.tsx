@@ -29,7 +29,7 @@ const props = [
 export default function ConceptDrivers() {
   return (
     <>
-      <section className="relative flex min-h-[80svh] items-end overflow-hidden">
+      <section className="relative min-h-[80svh] overflow-hidden">
         <Image
           src="/images/stock/driver-portrait-semi-cab-night.jpg"
           alt="A professional driver standing at his semi cab"
@@ -40,18 +40,11 @@ export default function ConceptDrivers() {
           className="object-cover object-[center_25%]"
         />
         <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,rgba(22,22,22,0.45),transparent_40%,rgba(22,22,22,0.92))]" />
-        <Reveal className="relative mx-auto w-full max-w-6xl px-6 pb-16">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">
+        <div className="kul-fade-slow relative px-6 pt-[15vh] text-center">
+          <h1 className="kul-grad-text font-mont text-[clamp(1.35rem,2.3vw,2.05rem)] font-semibold uppercase tracking-[0.3em] [text-shadow:none]">
             Drive With KUL
-          </p>
-          <h1 className="mt-4 max-w-2xl font-omnibus text-[clamp(2.2rem,4.5vw,3.4rem)] leading-tight text-[#F8F8F8]">
-            Drive for a company that knows your name.
           </h1>
-          <p className="mt-4 max-w-xl text-graywarm-light">
-            KUL was founded by a driver. That changes how drivers get treated,
-            starting with a dispatch line where a person answers.
-          </p>
-        </Reveal>
+        </div>
       </section>
 
       <section className="bg-ink2">

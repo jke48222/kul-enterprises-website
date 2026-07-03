@@ -91,13 +91,23 @@ function TailCurtain() {
       setPhase("done");
       return;
     }
+    // Hold the hero title's slow fade until the reveal finishes, exactly
+    // like the homepage film does via html[data-page-intro].
+    document.documentElement.setAttribute("data-page-intro", "1");
     const t1 = setTimeout(() => setPhase("exit"), HOLD_MS);
     const t2 = setTimeout(() => setPhase("done"), HOLD_MS + REVEAL_MS);
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
+      document.documentElement.removeAttribute("data-page-intro");
     };
   }, []);
+
+  useEffect(() => {
+    if (phase === "done") {
+      document.documentElement.removeAttribute("data-page-intro");
+    }
+  }, [phase]);
 
   if (phase === "done") return null;
 

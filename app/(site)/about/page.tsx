@@ -30,7 +30,7 @@ export default function ConceptAbout() {
   return (
     <>
       {/* Full-bleed opener */}
-      <section className="relative flex min-h-[80svh] items-end overflow-hidden">
+      <section className="relative min-h-[80svh] overflow-hidden">
         <Image
           src="/images/photos/cliffs-over-water.jpg"
           alt="Rocky cliffs rising over deep blue water"
@@ -41,14 +41,11 @@ export default function ConceptAbout() {
           className="object-cover"
         />
         <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,rgba(22,22,22,0.5),transparent_45%,rgba(22,22,22,0.9))]" />
-        <Reveal className="relative mx-auto w-full max-w-6xl px-6 pb-20">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">
+        <div className="kul-fade-slow relative px-6 pt-[15vh] text-center">
+          <h1 className="kul-grad-text font-mont text-[clamp(1.35rem,2.3vw,2.05rem)] font-semibold uppercase tracking-[0.3em] [text-shadow:none]">
             About KUL Enterprises
-          </p>
-          <h1 className="mt-4 max-w-2xl font-omnibus text-[clamp(2.2rem,4.5vw,3.4rem)] leading-tight text-[#F8F8F8]">
-            Every mile teaches something new.
           </h1>
-        </Reveal>
+        </div>
       </section>
 
       {/* Founder story */}
