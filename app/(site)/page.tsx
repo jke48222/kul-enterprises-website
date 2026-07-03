@@ -101,7 +101,10 @@ export default function ConceptHome() {
         </div>
       </section>
 
-      {/* 03 Statement band: narrow left column over right-weighted visual */}
+      {/* 03 Two-up Freight/Drivers panels (shared) */}
+      <PathsPanels />
+
+      {/* 04 Statement band: narrow left column over right-weighted visual */}
       <section className="relative overflow-hidden bg-ink2">
         <div aria-hidden className="absolute inset-0">
           <Image
@@ -134,9 +137,6 @@ export default function ConceptHome() {
           </Reveal>
         </div>
       </section>
-
-      {/* 04 Two-up Freight/Drivers panels (shared) */}
-      <PathsPanels />
 
       {/* 05 Proof band: small gray caps heading, six dim marks, quote */}
       <section id="credentials" className="bg-[linear-gradient(90deg,#161616_0%,#3B3B3B_100%)]">

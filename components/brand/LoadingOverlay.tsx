@@ -198,7 +198,7 @@ export default function LoadingOverlay() {
             setMode("css");
             startCssClock(reduceRef.current);
           }}
-          className="kul-intro-content absolute inset-0 z-10 h-full w-full object-contain"
+          className="kul-intro-content absolute inset-0 z-10 h-full w-full object-cover"
         />
       ) : (
         <div className="kul-intro-content relative z-10 h-full w-full">

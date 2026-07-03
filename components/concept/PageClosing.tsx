@@ -76,8 +76,8 @@ export function PathsPanels() {
         {
           name: "Freight",
           line: "Ship with a carrier that answers.",
-          href: "/quote",
-          cta: "Request a Quote",
+          href: "/services",
+          cta: "Services",
           img: "/images/stock/road-night-light-trails.jpg",
           alt: "Highway light trails at night",
           pos: "center 60%",
