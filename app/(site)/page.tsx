@@ -109,15 +109,18 @@ export default function ConceptHome() {
           in over — content stays clear of the feather. */}
       <section className="relative overflow-hidden bg-ink2">
         <div aria-hidden className="absolute inset-0">
+          {/* Same photo as the About opener: Mark's cliffs over blue water.
+              The scrim stays darker on the right than the truck shot needed,
+              because the paragraph sits over the sunlit cliff face. */}
           <Image
-            src="/images/stock/hero-semi-truck-dusk-mountains.jpg"
+            src="/images/photos/cliffs-over-water.jpg"
             alt=""
             fill
             quality={82}
             sizes="100vw"
-            className="object-cover object-[75%_center]"
+            className="object-cover"
           />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(22,22,22,0.96)_0%,rgba(22,22,22,0.8)_34%,rgba(22,22,22,0.25)_65%,rgba(22,22,22,0.15)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(22,22,22,0.96)_0%,rgba(22,22,22,0.8)_34%,rgba(22,22,22,0.55)_65%,rgba(22,22,22,0.5)_100%)]" />
         </div>
         <div className="relative mx-auto grid min-h-[440px] max-w-[1000px] items-center gap-10 px-6 pb-48 pt-24 md:grid-cols-2 md:pb-56 md:pt-28">
           <Reveal>
