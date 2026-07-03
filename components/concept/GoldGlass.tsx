@@ -16,8 +16,13 @@ import { mountMetal, NATIVE_TONES, type MetalMount } from "./liquidMetal";
  * — SSR, no WebGL2 — a static gold gradient stands in.
  */
 
-const IDLE_SPEED = 0.55;
-const HOVER_SPEED = 1.6;
+// A lazy, heavy pour — barely moving at rest, waking gently under the pointer.
+const IDLE_SPEED = 0.12;
+const HOVER_SPEED = 0.4;
+
+// Richer than the stock argent gold: more saturated highlight, deeper bronze
+// shadow, so the bands pop through the glass instead of whispering.
+const GOLD = { light: "#ffd76a", dark: "#5c4406" };
 
 export default function GoldGlass({
   children,
@@ -55,6 +60,7 @@ export default function GoldGlass({
     ).matches;
     mountRef.current = mountMetal(canvas, {
       ...NATIVE_TONES.gold,
+      ...GOLD,
       speed: reducedRef.current ? 0 : IDLE_SPEED,
       scale: 1.1,
     });
@@ -99,12 +105,12 @@ export default function GoldGlass({
         <canvas
           ref={canvasRef}
           aria-hidden
-          className="pointer-events-none absolute inset-0 block h-full w-full opacity-45"
+          className="pointer-events-none absolute inset-0 block h-full w-full opacity-65"
         />
       )}
       {/* A whisper of ink over the metal keeps the copy comfortable when a
           bright band flows beneath it. */}
-      <span aria-hidden className="pointer-events-none absolute inset-0 bg-ink/15" />
+      <span aria-hidden className="pointer-events-none absolute inset-0 bg-ink/10" />
       {/* Reactive sheen: gold light pooling under the cursor. */}
       <span
         aria-hidden
