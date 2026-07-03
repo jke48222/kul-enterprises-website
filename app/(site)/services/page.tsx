@@ -95,9 +95,10 @@ export default function ConceptServices() {
                   />
                   <div
                     aria-hidden
-                    className="absolute inset-0 bg-[linear-gradient(180deg,transparent_55%,rgba(0,0,0,0.72))]"
+                    className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.45),rgba(0,0,0,0.3)_50%,rgba(0,0,0,0.55))]"
                   />
-                  <span className="absolute inset-x-0 bottom-0 p-4 font-mont text-[11px] font-semibold uppercase tracking-[0.22em] text-white sm:p-5 sm:text-xs">
+                  {/* Same treatment as the section title this tile jumps to */}
+                  <span className="kul-grad-text absolute inset-0 flex items-center justify-center px-4 text-center font-omnibus text-[clamp(1.4rem,2vw,1.9rem)] uppercase leading-tight">
                     {s.name}
                   </span>
                 </a>
@@ -106,7 +107,7 @@ export default function ConceptServices() {
                 href="/quote"
                 className="kul-gold-metal group flex aspect-square flex-col items-center justify-center gap-3 rounded-2xl p-6 text-center transition-[filter] duration-300 hover:brightness-110"
               >
-                <span className="font-mont text-xs font-semibold uppercase tracking-[0.22em] text-[#F8F8F8] [text-shadow:0_1px_2px_rgba(0,0,0,0.35)] sm:text-sm">
+                <span className="font-omnibus text-[clamp(1.1rem,1.5vw,1.45rem)] uppercase leading-tight text-[#F8F8F8] [text-shadow:0_1px_2px_rgba(0,0,0,0.35)]">
                   Request a<br />
                   Freight Quote
                 </span>
