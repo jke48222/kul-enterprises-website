@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Reveal } from "@/components/motion/Reveal";
+import GoldGlass from "@/components/concept/GoldGlass";
 import HashScroll from "@/components/concept/HashScroll";
 import HeroVideo from "@/components/concept/HeroVideo";
 import {
@@ -129,11 +130,13 @@ export default function ConceptHome() {
             <h2 className="kul-grad-text mt-3 font-omnibus text-[clamp(2.1rem,3.2vw,2.9rem)] leading-[1.15]">
               Building the Southeast&apos;s most trusted carrier
             </h2>
-            <p className="mt-6 max-w-[520px] text-[15px] leading-[1.7] text-graywarm-light [text-shadow:0_1px_4px_rgba(0,0,0,0.55)]">
-              Fifty tractors by the end of 2029, one kept promise at a time.
-              We grow on purpose, load by load, relationship by relationship,
-              so the service never falls behind the name on the door.
-            </p>
+            <GoldGlass className="mt-6 max-w-[520px]">
+              <p className="text-[15px] leading-[1.7] text-graywarm-light">
+                Fifty tractors by the end of 2029, one kept promise at a time.
+                We grow on purpose, load by load, relationship by relationship,
+                so the service never falls behind the name on the door.
+              </p>
+            </GoldGlass>
             <Pill href="/about" className="mt-8">
               Discover Our Vision
             </Pill>
@@ -163,11 +166,13 @@ export default function ConceptHome() {
             <h2 className="kul-grad-text font-omnibus text-[clamp(2.1rem,3.2vw,2.9rem)] leading-[1.15]">
               A foundation that doesn&apos;t move
             </h2>
-            <p className="ml-auto mt-6 max-w-[520px] text-[15px] leading-[1.7] text-graywarm-light [text-shadow:0_1px_4px_rgba(0,0,0,0.55)]">
-              Pre-trip inspections. Legal hours. Weather calls made early and
-              on the side of caution. The most important delivery on any route
-              is the driver coming home.
-            </p>
+            <GoldGlass className="ml-auto mt-6 max-w-[520px]">
+              <p className="text-[15px] leading-[1.7] text-graywarm-light">
+                Pre-trip inspections. Legal hours. Weather calls made early and
+                on the side of caution. The most important delivery on any route
+                is the driver coming home.
+              </p>
+            </GoldGlass>
             <Pill href="/safety" className="mt-8">
               Explore Safety &amp; Compliance
             </Pill>
@@ -197,14 +202,14 @@ export default function ConceptHome() {
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
-            <div className="max-w-[380px]">
-              {/* Dark ink copy: this column sits over the sunlit cliff face,
-                  so darker text beats a heavier scrim for readability. */}
-              <p className="text-[15px] font-medium leading-[1.6] text-ink">
-                KUL Enterprises is a Georgia freight carrier built by a driver.
-                Every load carries three commitments: safety first, honest
-                communication, and delivery when we said it would.
-              </p>
+            <div className="max-w-[420px]">
+              <GoldGlass>
+                <p className="text-[15px] leading-[1.6] text-cream">
+                  KUL Enterprises is a Georgia freight carrier built by a driver.
+                  Every load carries three commitments: safety first, honest
+                  communication, and delivery when we said it would.
+                </p>
+              </GoldGlass>
               <Pill href="/about" className="mt-7">
                 About
               </Pill>
