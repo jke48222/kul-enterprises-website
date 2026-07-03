@@ -5,7 +5,11 @@ import { Reveal } from "@/components/motion/Reveal";
 import { site, stories } from "@/lib/site";
 import PageClosing from "@/components/concept/PageClosing";
 
-export const metadata: Metadata = { title: "About" };
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "The story behind KUL Enterprises: a Georgia freight carrier built from years on the road, run on integrity, safety, communication, and excellence.",
+};
 
 const values = [
   {

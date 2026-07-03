@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import LegalPage from "@/components/concept/LegalPage";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = { title: "Terms & Conditions" };
+export const metadata: Metadata = {
+  title: "Terms & Conditions",
+  description: "The terms that govern use of the KUL Enterprises LLC website.",
+};
 
 // Draft for client and attorney review before launch.
 export default function TermsConditions() {

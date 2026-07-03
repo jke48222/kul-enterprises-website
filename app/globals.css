@@ -33,7 +33,7 @@ body {
 @layer components {
   /* Eyebrow label: uppercase, wide tracking, light. */
   .eyebrow {
-    @apply font-sans text-xs font-medium uppercase tracking-eyebrow;
+    @apply font-mont text-xs font-medium uppercase tracking-eyebrow;
   }
 
   /* Hairline gold rule used as sparse punctuation, one per section max. */

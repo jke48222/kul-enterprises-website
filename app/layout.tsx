@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
+import localFont from "next/font/local";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import { site } from "@/lib/site";
 import MotionProvider from "@/components/motion/MotionProvider";
@@ -13,6 +15,15 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
+// Omnibus carries the display headings. Loaded here (not the site layout)
+// so the variable exists on every route, the 404 page included.
+const omnibus = localFont({
+  src: "./fonts/Omnibus-Bold.ttf",
+  weight: "700",
+  variable: "--font-omnibus",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
@@ -20,13 +31,39 @@ export const metadata: Metadata = {
     template: `%s | ${site.name}`,
   },
   description: `${site.legalName} is a licensed and insured freight carrier based in ${site.location}. Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited, and Over-the-Road service. Southeast based, nationwide. USDOT ${site.usdot}, MC ${site.mc}.`,
+  // Relative canonical: resolves per route against metadataBase, so every
+  // page self-canonicalizes without repeating the URL in 13 files.
+  alternates: { canonical: "./" },
   openGraph: {
     type: "website",
     siteName: site.name,
     title: `${site.name} | Reliable Freight Transportation Built on Trust`,
     description: site.tagline,
     url: site.url,
+    images: [
+      {
+        url: "/og.jpg",
+        width: 1200,
+        height: 630,
+        alt: `${site.name} — ${site.tagline}`,
+      },
+    ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: `${site.name} | Reliable Freight Transportation Built on Trust`,
+    description: site.tagline,
+    images: ["/og.jpg"],
+  },
+  // Search Console ownership: set NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION in
+  // the hosting env at launch and the tag renders on every page.
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? {
+        verification: {
+          google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+        },
+      }
+    : {}),
 };
 
 export const viewport: Viewport = {
@@ -42,7 +79,11 @@ const jsonLd = {
   slogan: site.tagline,
   url: site.url,
   email: site.email,
-  telephone: "+1-678-972-1148",
+  telephone: site.phoneHref.replace("tel:", ""),
+  image: `${site.url}/og.jpg`,
+  logo: `${site.url}/images/brand/kul-logo-lockup.png`,
+  // streetAddress intentionally omitted until the client confirms the
+  // publishable business address (locality-level NAP is valid schema).
   address: {
     "@type": "PostalAddress",
     addressLocality: site.city,
@@ -82,7 +123,7 @@ export default function RootLayout({
       // The pre-paint intro gate script sets data-intro on <html> before
       // hydration; suppress React's root attribute mismatch warning for it.
       suppressHydrationWarning
-      className={montserrat.variable}
+      className={`${montserrat.variable} ${omnibus.variable}`}
     >
       <body className="min-h-screen bg-ink font-mont text-white antialiased">
         <script
@@ -120,6 +161,12 @@ export default function RootLayout({
           }}
         />
         <MotionProvider>{children}</MotionProvider>
+        {/* GA4: renders only when the property id is configured (set
+            NEXT_PUBLIC_GA_ID in the hosting env after creating the
+            property under the client's Google account). */}
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        )}
       </body>
     </html>
   );

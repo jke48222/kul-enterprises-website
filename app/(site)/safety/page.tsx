@@ -5,7 +5,11 @@ import { Reveal } from "@/components/motion/Reveal";
 import { site } from "@/lib/site";
 import PageClosing from "@/components/concept/PageClosing";
 
-export const metadata: Metadata = { title: "Safety & Compliance" };
+export const metadata: Metadata = {
+  title: "Safety & Compliance",
+  description:
+    "Licensed and insured under USDOT 7638788 and MC 66389691. Pre-trip discipline, legal hours, protected cargo, and drivers who go home.",
+};
 
 const pillars = [
   {
@@ -59,13 +63,13 @@ export default function ConceptSafety() {
               ].map(([label, value]) => (
                 <li key={label}>
                   <p className="font-omnibus text-xl text-cream sm:text-2xl">{value}</p>
-                  <p className="mt-2 font-mont text-[11px] font-semibold uppercase tracking-[0.25em] text-graywarm">
+                  <p className="mt-2 font-mont text-[11px] font-semibold uppercase tracking-[0.25em] text-graywarm-light">
                     {label}
                   </p>
                 </li>
               ))}
             </ul>
-            <p className="mt-10 text-sm text-graywarm">
+            <p className="mt-10 text-sm text-graywarm-light">
               Verify our authority anytime on the FMCSA&apos;s public SAFER
               system at{" "}
               <a

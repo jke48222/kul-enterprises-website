@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import LegalPage from "@/components/concept/LegalPage";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = { title: "Privacy Policy" };
+export const metadata: Metadata = {
+  title: "Privacy Policy",
+  description:
+    "How KUL Enterprises LLC collects, uses, and protects information submitted through this website.",
+};
 
 // Draft for client and attorney review before launch.
 export default function PrivacyPolicy() {
@@ -39,7 +43,8 @@ export default function PrivacyPolicy() {
           heading: "3. HOW WE COLLECT YOUR DATA",
           body: [
             "Information you give us. When you request a freight quote, send a message through our contact form, submit a driver inquiry, or correspond with dispatch by email or phone, we store the personal information you choose to give us.",
-            "We do not require you to create an account, and we do not collect payment card details through this website. We do not use advertising cookies or cross-site trackers; the single session flag our website stores is described on the Manage Cookies page.",
+            "Information collected automatically. We use Google Analytics to understand, in aggregate, how visitors find and use our website — for example which pages are read most. This data does not identify you personally to us, and we do not use it for advertising. The cookies involved, and how to block them, are described on the Manage Cookies page.",
+            "We do not require you to create an account, and we do not collect payment card details through this website. We do not use advertising cookies or cross-site trackers.",
           ],
         },
         {

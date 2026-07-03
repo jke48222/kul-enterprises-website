@@ -33,7 +33,7 @@ export default function LegalPage({
           <h1 className="kul-grad-text mt-4 font-omnibus text-[clamp(2rem,3.6vw,2.8rem)] leading-tight">
             {title}
           </h1>
-          <p className="mt-3 text-xs uppercase tracking-[0.2em] text-graywarm">
+          <p className="mt-3 text-xs uppercase tracking-[0.2em] text-graywarm-light">
             {site.legalName} · Last updated {updated}
           </p>
         </Reveal>

@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import LegalPage from "@/components/concept/LegalPage";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = { title: "Manage Cookies" };
+export const metadata: Metadata = {
+  title: "Manage Cookies",
+  description:
+    "What this website stores in your browser, why, and how to control it.",
+};
 
 // Draft for client and attorney review before launch.
 export default function ManageCookies() {
@@ -27,9 +31,15 @@ export default function ManageCookies() {
           ],
         },
         {
-          heading: "3. CHANGES TO THIS PAGE",
+          heading: "3. TRAFFIC MEASUREMENT",
           body: [
-            `If we introduce measurement tools such as analytics in the future, this page and our Privacy Policy will be updated to say so plainly before they are used. Questions about this page can be sent to ${site.email}.`,
+            "We use Google Analytics to understand how many people visit our website and which pages they find useful. It sets its own cookies to tell returning visitors apart from new ones. We do not use this information for advertising or sell it to anyone. You can block these cookies in your browser settings or with Google's opt-out browser add-on without losing any part of our website.",
+          ],
+        },
+        {
+          heading: "4. CHANGES TO THIS PAGE",
+          body: [
+            `If what we store or measure changes, this page and our Privacy Policy will be updated to say so plainly before the change takes effect. Questions about this page can be sent to ${site.email}.`,
           ],
         },
       ]}

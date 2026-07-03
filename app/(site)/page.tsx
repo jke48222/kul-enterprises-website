@@ -168,7 +168,7 @@ export default function ConceptHome() {
                 family waiting, a business depending, a customer trusting
                 someone to keep their word.&rdquo;
               </p>
-              <footer className="mt-5 font-mont text-[12px] font-semibold uppercase tracking-[0.3em] text-graywarm">
+              <footer className="mt-5 font-mont text-[12px] font-semibold uppercase tracking-[0.3em] text-graywarm-light">
                 Mark S. Brown, Founder
               </footer>
             </blockquote>

@@ -5,7 +5,11 @@ import QuoteForm from "@/components/forms/QuoteForm";
 import { site } from "@/lib/site";
 import PageClosing from "@/components/concept/PageClosing";
 
-export const metadata: Metadata = { title: "Request a Quote" };
+export const metadata: Metadata = {
+  title: "Request a Quote",
+  description:
+    "Send your lane and a person prices it the same business day. Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited, and OTR.",
+};
 
 export default function ConceptQuote() {
   return (

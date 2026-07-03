@@ -26,7 +26,8 @@ export function Pill({
   return (
     <Link
       href={href}
-      className={`inline-flex items-center rounded-[100px] bg-gold px-5 py-[9px] font-mont text-xs font-semibold uppercase tracking-[3px] text-[#F8F8F8] transition-colors hover:bg-gold-soft hover:text-ink ${className}`}
+      // Ink text: white on this gold reads at ~2.6:1, below WCAG AA.
+      className={`inline-flex items-center rounded-[100px] bg-gold px-5 py-[9px] font-mont text-xs font-bold uppercase tracking-[3px] text-ink transition-colors hover:bg-gold-soft ${className}`}
     >
       {children}
     </Link>
@@ -110,9 +111,11 @@ export function PathsPanels() {
             className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.55),rgba(0,0,0,0.15)_45%,rgba(0,0,0,0.5))]"
           />
           <Reveal className="relative text-center">
-            <h3 className="kul-grad-text font-omnibus text-[clamp(2rem,3.2vw,3rem)] uppercase leading-none tracking-[0.5em]">
+            {/* h2, not h3: this is the first section heading after the h1
+                on several pages, and heading levels must not skip. */}
+            <h2 className="kul-grad-text font-omnibus text-[clamp(2rem,3.2vw,3rem)] uppercase leading-none tracking-[0.5em]">
               {p.name}
-            </h3>
+            </h2>
           </Reveal>
           <Reveal className="relative flex flex-col items-center text-center">
             <p className="max-w-[220px] text-[13px] leading-snug text-cream">

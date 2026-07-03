@@ -5,7 +5,11 @@ import DriverForm from "@/components/forms/DriverForm";
 import { site } from "@/lib/site";
 import PageClosing from "@/components/concept/PageClosing";
 
-export const metadata: Metadata = { title: "Drive With KUL" };
+export const metadata: Metadata = {
+  title: "Drive With KUL",
+  description:
+    "Drive for a Georgia carrier that knows your name: honest dispatch, home time that holds, safe equipment, and room to grow. CDL-A.",
+};
 
 const props = [
   {

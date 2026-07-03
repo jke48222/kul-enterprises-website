@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import FadeIn from "@/components/motion/FadeIn";
+import YearStamp from "@/components/concept/YearStamp";
 import { site } from "@/lib/site";
 
 const legal = [
@@ -77,12 +78,12 @@ function Icon({ name }: { name: string }) {
   }
 }
 
-const socials = [
-  { name: "x", label: "KUL on X" },
-  { name: "instagram", label: "KUL on Instagram" },
-  { name: "youtube", label: "KUL on YouTube" },
-  { name: "linkedin", label: "KUL on LinkedIn" },
-];
+/**
+ * Social profiles: none exist yet, so none render. When the client provides
+ * real URLs, add entries here and the row comes back with its icons (x,
+ * instagram, youtube, linkedin cases are kept in <Icon /> above).
+ */
+const socials: { name: string; label: string; href: string }[] = [];
 
 export default function ConceptFooter() {
   return (
@@ -92,11 +93,12 @@ export default function ConceptFooter() {
         {/* Top row: socials | centered lockup | contact column */}
         <div className="grid items-center gap-12 md:grid-cols-3">
           <div className="flex justify-center gap-3 md:justify-start">
-            {/* Social profiles pending; placeholders hold the layout. */}
             {socials.map((s) => (
               <a
                 key={s.name}
-                href="#"
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label={s.label}
                 className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/25 text-white/70 transition-colors hover:border-gold-soft hover:text-gold-soft"
               >
@@ -106,7 +108,7 @@ export default function ConceptFooter() {
           </div>
 
           <div className="flex justify-center">
-            <Link href="/" aria-label="KUL Enterprises concept home">
+            <Link href="/" aria-label="KUL Enterprises home">
               <Image
                 src="/images/brand/kul-logo-lockup.png"
                 alt="KUL Enterprises LLC"
@@ -169,7 +171,7 @@ export default function ConceptFooter() {
             </ul>
           </nav>
           <p className="text-xs text-white/60">
-            © Copyright {site.legalName} {new Date().getFullYear()}
+            © Copyright {site.legalName} <YearStamp />
             <span aria-hidden className="mx-2 text-white/30">|</span>
             Website designed and built by{" "}
             <a

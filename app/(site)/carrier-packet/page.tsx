@@ -4,7 +4,11 @@ import { Reveal } from "@/components/motion/Reveal";
 import { site } from "@/lib/site";
 import PageClosing from "@/components/concept/PageClosing";
 
-export const metadata: Metadata = { title: "Carrier Packet" };
+export const metadata: Metadata = {
+  title: "Carrier Packet",
+  description:
+    "Set KUL Enterprises up as a carrier in one email: authority, COI, W-9, profile, and references back the same business day.",
+};
 
 const documents = [
   {
@@ -83,7 +87,7 @@ export default function ConceptCarrierPacket() {
                 </p>
                 <a
                   href={`mailto:${site.email}?subject=Carrier%20Packet%20Request`}
-                  className="mt-6 inline-flex w-full items-center justify-center rounded-[100px] bg-gold px-6 py-3 text-xs font-semibold uppercase tracking-[3px] text-[#F8F8F8] transition-colors hover:bg-gold-soft hover:text-ink"
+                  className="mt-6 inline-flex w-full items-center justify-center rounded-[100px] bg-gold px-6 py-3 text-xs font-bold uppercase tracking-[3px] text-ink transition-colors hover:bg-gold-soft"
                 >
                   Email Dispatch
                 </a>

@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 
 export type QA = { q: string; a: string };
 
 /**
  * FAQ accordion. `boxed` renders the reference treatment: a bordered group,
  * plus marker on the left of each 15px question, hairline dividers.
+ * Collapsed answers are aria-hidden so assistive tech only reads what a
+ * sighted visitor can see; ids wire each button to its panel.
  */
 export default function Faq({
   items,
@@ -16,17 +18,20 @@ export default function Faq({
   boxed?: boolean;
 }) {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
+  const uid = useId();
 
   if (boxed) {
     return (
       <div className="divide-y divide-ink/10 bg-[#F8F8F8]">
         {items.map((item, i) => {
           const open = openIdx === i;
+          const panelId = `${uid}-faq-${i}`;
           return (
             <div key={item.q}>
               <button
                 onClick={() => setOpenIdx(open ? null : i)}
                 aria-expanded={open}
+                aria-controls={panelId}
                 className="flex w-full items-baseline gap-4 px-4 py-[14px] text-left sm:px-6"
               >
                 <span
@@ -42,6 +47,9 @@ export default function Faq({
                 </span>
               </button>
               <div
+                id={panelId}
+                role="region"
+                aria-hidden={!open}
                 className={`grid transition-[grid-template-rows] duration-300 ease-out ${
                   open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
                 }`}
@@ -63,11 +71,13 @@ export default function Faq({
     <div className="mx-auto max-w-3xl divide-y divide-ink/10 border-y border-ink/10">
       {items.map((item, i) => {
         const open = openIdx === i;
+        const panelId = `${uid}-faq-${i}`;
         return (
           <div key={item.q}>
             <button
               onClick={() => setOpenIdx(open ? null : i)}
               aria-expanded={open}
+              aria-controls={panelId}
               className="flex w-full items-center justify-between gap-6 py-5 text-left"
             >
               <span className="text-base font-semibold text-ink">{item.q}</span>
@@ -81,6 +91,9 @@ export default function Faq({
               </span>
             </button>
             <div
+              id={panelId}
+              role="region"
+              aria-hidden={!open}
               className={`grid transition-[grid-template-rows] duration-300 ease-out ${
                 open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
               }`}

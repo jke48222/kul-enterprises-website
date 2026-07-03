@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import LegalPage from "@/components/concept/LegalPage";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = { title: "Legal Notices & Disclaimers" };
+export const metadata: Metadata = {
+  title: "Legal Notices & Disclaimers",
+  description: "Legal notices and disclaimers for the KUL Enterprises LLC website.",
+};
 
 // Draft for client and attorney review before launch.
 export default function LegalNotices() {

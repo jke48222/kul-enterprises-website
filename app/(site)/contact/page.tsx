@@ -6,7 +6,11 @@ import ContactForm from "@/components/forms/ContactForm";
 import { site } from "@/lib/site";
 import PageClosing from "@/components/concept/PageClosing";
 
-export const metadata: Metadata = { title: "Contact" };
+export const metadata: Metadata = {
+  title: "Contact",
+  description:
+    "Reach KUL Enterprises dispatch 24/7: 678-972-1148 or dispatch@kulenterprises.com. Home base Loganville, GA; nationwide service.",
+};
 
 export default function ConceptContact() {
   return (

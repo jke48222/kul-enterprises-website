@@ -29,9 +29,6 @@ const config: Config = {
         },
       },
       fontFamily: {
-        display: ["var(--font-sora)", "system-ui", "sans-serif"],
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        trenda: ["var(--font-trenda)", "system-ui", "sans-serif"],
         omnibus: ["var(--font-omnibus)", "Georgia", "serif"],
         mont: ["var(--font-mont)", "system-ui", "sans-serif"],
       },

@@ -3,7 +3,8 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <section className="flex min-h-[100svh] items-center bg-ink">
+    // main#main: the root layout's skip link needs its target here too.
+    <main id="main" className="flex min-h-[100svh] items-center bg-ink">
       <div className="mx-auto w-full max-w-content px-6 py-32 text-center">
         <Image
           src="/images/brand/doctor-bird-display.png"
@@ -14,7 +15,7 @@ export default function NotFound() {
           className="mx-auto h-auto w-44"
         />
         <p className="eyebrow mt-8 text-graywarm">404. Off the route.</p>
-        <h1 className="mx-auto mt-4 max-w-2xl font-display text-display-l font-bold text-white">
+        <h1 className="mx-auto mt-4 max-w-2xl font-omnibus text-display-l font-bold text-white">
           This page isn&apos;t on the manifest.
         </h1>
         <p className="mx-auto mt-4 max-w-md text-graywarm-light">
@@ -30,6 +31,6 @@ export default function NotFound() {
           </Link>
         </div>
       </div>
-    </section>
+    </main>
   );
 }

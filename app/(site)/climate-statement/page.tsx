@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import LegalPage from "@/components/concept/LegalPage";
 
-export const metadata: Metadata = { title: "Climate Statement" };
+export const metadata: Metadata = {
+  title: "Climate Statement",
+  description:
+    "KUL Enterprises' commitments to responsible, efficient freight operations.",
+};
 
 // Draft for client and attorney review before launch.
 export default function ClimateStatement() {

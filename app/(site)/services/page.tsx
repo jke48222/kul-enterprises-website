@@ -6,7 +6,11 @@ import HashScroll from "@/components/concept/HashScroll";
 import { services } from "@/lib/services";
 import PageClosing from "@/components/concept/PageClosing";
 
-export const metadata: Metadata = { title: "Services" };
+export const metadata: Metadata = {
+  title: "Services",
+  description:
+    "Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited, and Over-the-Road freight. Southeast based with nationwide authority. USDOT 7638788.",
+};
 
 /** Placeholder tile imagery, one per service; swap for KUL fleet shots. */
 const tileImages: Record<string, { src: string; alt: string }> = {
