@@ -1,14 +1,24 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { mountMetal, NATIVE_TONES, type MetalMount } from "./liquidMetal";
 
 /**
- * Reactive gold liquid glass: a translucent, backdrop-blurred panel with a
- * gold hairline edge, an inner specular highlight, and a soft gold sheen
- * that follows the pointer (CSS vars --gx/--gy, no re-renders). Used around
- * the statement-band descriptions so the copy reads over bright photography
- * without a heavy scrim. Touch devices simply get the static glass.
+ * Reactive gold liquid glass. The fill is Argent's liquid-metal shader in its
+ * gold tone (vendored engine, see ./liquidMetal.ts) — flowing reflection
+ * bands with chromatic fringe — poured behind the copy at partial opacity
+ * over a backdrop-blurred base, so it reads as molten gold under glass.
+ *
+ * Reactive twice over: the metal itself flows (and quickens under the
+ * pointer), and a gold sheen pools where the cursor sits (CSS vars, no
+ * re-renders). The shader mounts only while the panel is near the viewport
+ * (WebGL context cap) and freezes for reduced-motion users. Until it mounts
+ * — SSR, no WebGL2 — a static gold gradient stands in.
  */
+
+const IDLE_SPEED = 0.55;
+const HOVER_SPEED = 1.6;
+
 export default function GoldGlass({
   children,
   className = "",
@@ -17,6 +27,47 @@ export default function GoldGlass({
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const mountRef = useRef<MetalMount | null>(null);
+  const reducedRef = useRef(false);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !("IntersectionObserver" in window)) {
+      setInView(true);
+      return;
+    }
+    const io = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { rootMargin: "250px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!inView) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    reducedRef.current = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    mountRef.current = mountMetal(canvas, {
+      ...NATIVE_TONES.gold,
+      speed: reducedRef.current ? 0 : IDLE_SPEED,
+      scale: 1.1,
+    });
+    return () => {
+      mountRef.current?.destroy();
+      mountRef.current = null;
+    };
+  }, [inView]);
+
+  const setSpeed = (speed: number) => {
+    if (reducedRef.current) return;
+    mountRef.current?.update({ speed });
+  };
 
   const onPointerMove = (e: React.PointerEvent) => {
     const el = ref.current;
@@ -30,14 +81,30 @@ export default function GoldGlass({
     <div
       ref={ref}
       onPointerMove={onPointerMove}
-      className={`group relative overflow-hidden rounded-2xl border border-gold/35 bg-gold/10 p-5 backdrop-blur-md [box-shadow:inset_0_1px_0_rgba(255,255,255,0.25),inset_0_-1px_0_rgba(181,147,82,0.25),0_10px_36px_rgba(0,0,0,0.25)] sm:p-6 ${className}`}
+      onPointerEnter={() => setSpeed(HOVER_SPEED)}
+      onPointerLeave={() => setSpeed(IDLE_SPEED)}
+      className={`group relative overflow-hidden rounded-2xl border border-gold/40 p-5 backdrop-blur-md [box-shadow:inset_0_1px_0_rgba(255,255,255,0.25),inset_0_-1px_0_rgba(181,147,82,0.25),0_10px_36px_rgba(0,0,0,0.25)] sm:p-6 ${className}`}
     >
-      {/* Standing glass tint: a faint gold wash so the panel reads warm
-          even before the pointer arrives. */}
+      {/* Static gold stand-in: shows during SSR and wherever WebGL2 is
+          unavailable; the canvas paints over it once mounted. */}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(120deg,rgba(240,220,168,0.1),rgba(181,147,82,0.04)_45%,rgba(240,220,168,0.08))]"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(120deg,rgba(240,220,168,0.18),rgba(181,147,82,0.08)_45%,rgba(240,220,168,0.14))]"
       />
+      {/* Argent's liquid gold, poured behind the glass. The canvas element
+          itself unmounts when the panel leaves the viewport: a destroyed
+          WebGL context sticks to its canvas, so re-entry needs a fresh one
+          (same pattern as upstream's MetalFill). */}
+      {inView && (
+        <canvas
+          ref={canvasRef}
+          aria-hidden
+          className="pointer-events-none absolute inset-0 block h-full w-full opacity-45"
+        />
+      )}
+      {/* A whisper of ink over the metal keeps the copy comfortable when a
+          bright band flows beneath it. */}
+      <span aria-hidden className="pointer-events-none absolute inset-0 bg-ink/15" />
       {/* Reactive sheen: gold light pooling under the cursor. */}
       <span
         aria-hidden
