@@ -192,7 +192,11 @@ export default function ConceptHome() {
         />
         <Reveal className="relative mx-auto w-full max-w-[1470px] px-6 lg:px-[180px]">
           <div className="max-w-[560px]">
-            <h2 className="kul-grad-text font-omnibus text-[clamp(2.1rem,3.2vw,2.9rem)] leading-[1.15]">
+            {/* The Blueprint asks for a section literally titled Our Vision. */}
+            <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">
+              Our Vision
+            </p>
+            <h2 className="kul-grad-text mt-3 font-omnibus text-[clamp(2.1rem,3.2vw,2.9rem)] leading-[1.15]">
               Building the Southeast&apos;s most trusted carrier
             </h2>
             <p className="mt-6 max-w-[520px] text-[15px] leading-[1.7] text-graywarm-light">

@@ -12,6 +12,38 @@ export type Service = {
   commitments: string[];
 };
 
+/** Placeholder imagery, one per service; swap for KUL fleet shots. */
+export const serviceImages: Record<string, { src: string; alt: string }> = {
+  "power-only": {
+    src: "/images/stock/road-night-light-trails.jpg",
+    alt: "Highway light trails at night",
+  },
+  "dry-van": {
+    src: "/images/stock/hero-semi-truck-dusk-mountains.jpg",
+    alt: "A tractor-trailer crossing a mountain road at dusk",
+  },
+  reefer: {
+    src: "/images/stock/hero-alt-semi-night-gold-lights.jpg",
+    alt: "A semi truck under warm lights at night",
+  },
+  dedicated: {
+    src: "/images/stock/driver-in-cab-gold-truck.jpg",
+    alt: "A driver at the wheel of his cab in warm evening light",
+  },
+  regional: {
+    src: "/images/stock/kul-hero-poster.jpg",
+    alt: "An aerial view of trucks running a highway",
+  },
+  expedited: {
+    src: "/images/stock/driver-portrait-semi-cab-night.jpg",
+    alt: "A professional driver standing at his cab at night",
+  },
+  otr: {
+    src: "/images/photos/desert-rock-formation.jpg",
+    alt: "Desert rock formations on a cross-country route",
+  },
+};
+
 export const services: Service[] = [
   {
     slug: "power-only",

@@ -33,11 +33,13 @@ const values = [
 export default function ConceptAbout() {
   return (
     <>
-      {/* Full-bleed opener */}
-      <section className="relative min-h-[80svh] overflow-hidden">
+      {/* Full-bleed opener. The cliffs photo carries the Blueprint's mapped
+          headline (stories[0]: "Every mile teaches something new.") at the
+          bottom of the frame, in the same treatment as the story bands. */}
+      <section className="relative flex min-h-[80svh] flex-col justify-between overflow-hidden">
         <Image
-          src="/images/photos/cliffs-over-water.jpg"
-          alt="Rocky cliffs rising over deep blue water"
+          src={stories[0].image}
+          alt={stories[0].alt}
           fill
           priority
           quality={82}
@@ -50,6 +52,14 @@ export default function ConceptAbout() {
             About KUL Enterprises
           </h1>
         </div>
+        <Reveal className="relative mx-auto w-full max-w-6xl px-6 pb-16">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">
+            {stories[0].eyebrow}
+          </p>
+          <h2 className="mt-3 max-w-lg font-omnibus text-[clamp(1.6rem,2.6vw,2.2rem)] leading-tight text-[#F8F8F8]">
+            {stories[0].title}
+          </h2>
+        </Reveal>
       </section>
 
       {/* Founder story */}

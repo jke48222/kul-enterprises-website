@@ -3,45 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/motion/Reveal";
 import HashScroll from "@/components/concept/HashScroll";
-import { services } from "@/lib/services";
+import { services, serviceImages } from "@/lib/services";
 import PageClosing from "@/components/concept/PageClosing";
 
 export const metadata: Metadata = {
   title: "Services",
   description:
     "Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited, and Over-the-Road freight. Southeast based with nationwide authority. USDOT 7638788.",
-};
-
-/** Placeholder tile imagery, one per service; swap for KUL fleet shots. */
-const tileImages: Record<string, { src: string; alt: string }> = {
-  "power-only": {
-    src: "/images/stock/road-night-light-trails.jpg",
-    alt: "Highway light trails at night",
-  },
-  "dry-van": {
-    src: "/images/stock/hero-semi-truck-dusk-mountains.jpg",
-    alt: "A tractor-trailer crossing a mountain road at dusk",
-  },
-  reefer: {
-    src: "/images/stock/hero-alt-semi-night-gold-lights.jpg",
-    alt: "A semi truck under warm lights at night",
-  },
-  dedicated: {
-    src: "/images/stock/driver-in-cab-gold-truck.jpg",
-    alt: "A driver at the wheel of his cab in warm evening light",
-  },
-  regional: {
-    src: "/images/stock/kul-hero-poster.jpg",
-    alt: "An aerial view of trucks running a highway",
-  },
-  expedited: {
-    src: "/images/stock/driver-portrait-semi-cab-night.jpg",
-    alt: "A professional driver standing at his cab at night",
-  },
-  otr: {
-    src: "/images/photos/desert-rock-formation.jpg",
-    alt: "Desert rock formations on a cross-country route",
-  },
 };
 
 /**
@@ -87,8 +55,11 @@ export default function ConceptServices() {
                   className="group relative block aspect-square overflow-hidden rounded-2xl"
                 >
                   <Image
-                    src={tileImages[s.slug].src}
-                    alt={tileImages[s.slug].alt}
+                    src={serviceImages[s.slug].src}
+                    // Decorative behind the tile label: a real alt would be
+                    // read into the link name ("Highway light trails at
+                    // night Power Only").
+                    alt=""
                     fill
                     quality={78}
                     sizes="(min-width: 768px) 25vw, 50vw"
@@ -104,21 +75,21 @@ export default function ConceptServices() {
                   </span>
                 </a>
               ))}
-              <a
+              <Link
                 href="/quote"
                 className="kul-gold-metal group flex aspect-square flex-col items-center justify-center gap-3 rounded-2xl p-6 text-center transition-[filter] duration-300 hover:brightness-110"
               >
-                <span className="font-omnibus text-[clamp(1.1rem,1.5vw,1.45rem)] uppercase leading-tight text-[#F8F8F8] [text-shadow:0_1px_2px_rgba(0,0,0,0.35)]">
+                <span className="font-omnibus text-[clamp(1.1rem,1.5vw,1.45rem)] uppercase leading-tight text-ink">
                   Request a<br />
                   Freight Quote
                 </span>
                 <span
                   aria-hidden
-                  className="text-lg text-[#F8F8F8] transition-transform duration-300 [text-shadow:0_1px_2px_rgba(0,0,0,0.35)] group-hover:translate-x-1"
+                  className="text-lg text-ink transition-transform duration-300 group-hover:translate-x-1"
                 >
                   →
                 </span>
-              </a>
+              </Link>
             </nav>
           </Reveal>
 
@@ -142,6 +113,14 @@ export default function ConceptServices() {
                       </p>
                       <p className="mt-5 max-w-2xl leading-relaxed text-graywarm-light">
                         {s.description}
+                      </p>
+                      <p className="mt-4">
+                        <Link
+                          href={`/services/${s.slug}`}
+                          className="text-sm font-semibold text-gold-soft underline-offset-4 transition-colors hover:text-gold hover:underline"
+                        >
+                          More about {s.name} →
+                        </Link>
                       </p>
                       <div className="mt-8 grid gap-10 md:grid-cols-2">
                         <div>
@@ -181,7 +160,7 @@ export default function ConceptServices() {
           <Reveal className="mt-20 text-center">
             <Link
               href="/quote"
-              className="inline-flex items-center rounded-[100px] bg-gold px-8 py-3 text-xs font-semibold uppercase tracking-[3px] text-[#F8F8F8] transition-colors hover:bg-gold-soft hover:text-ink"
+              className="inline-flex items-center rounded-[100px] bg-gold px-8 py-3 text-xs font-bold uppercase tracking-[3px] text-ink transition-colors hover:bg-gold-soft"
             >
               Request a Freight Quote
             </Link>
