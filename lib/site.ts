@@ -1,6 +1,6 @@
 /**
- * Single source of truth for KUL business facts, navigation, and the
- * homepage story sections. Feeds the header, footer, JSON-LD, and pages.
+ * Single source of truth for KUL business facts and the story sections.
+ * Feeds the nav, footer, JSON-LD, and pages.
  */
 export const site = {
   name: "KUL Enterprises",
@@ -20,25 +20,6 @@ export const site = {
   // Loganville, GA city-center coordinates for LocalBusiness geo.
   geo: { latitude: 33.839, longitude: -83.9002 },
 } as const;
-
-export const navItems = [
-  { label: "Services", href: "/concept/services" },
-  { label: "Safety & Compliance", href: "/concept/safety" },
-  { label: "Carrier Packet", href: "/concept/carrier-packet" },
-  { label: "Driver Careers", href: "/concept/careers" },
-  { label: "About", href: "/concept/about" },
-  { label: "Contact", href: "/concept/contact" },
-] as const;
-
-/** Trust bar directly below the hero. Compliance and reassurance facts. */
-export const trustPoints = [
-  `USDOT ${site.usdot}`,
-  `MC ${site.mc}`,
-  "Licensed & Insured",
-  "Southeast Based",
-  "Nationwide Service",
-  "24/7 Communication",
-] as const;
 
 /**
  * REPLACEABLE ASSET: Mark's five photos, upscale when hi-res originals arrive.
@@ -85,33 +66,5 @@ export const stories = [
     eyebrow: "Driven by Safety",
     title: "A foundation that doesn't move.",
     body: "Some things are not up for negotiation. Pre-trip inspections. Legal hours. Weather calls made early and on the side of caution. The most important delivery on any route is the driver coming home.",
-  },
-] as const;
-
-/** The four beats of the scroll journey section. */
-export const journeyBeats = [
-  {
-    step: "01",
-    label: "Quote",
-    title: "Send the lane.",
-    body: "Origin, destination, freight, date. A person prices it and answers the same business day.",
-  },
-  {
-    step: "02",
-    label: "Dispatch",
-    title: "We commit.",
-    body: "Your load gets a driver, a truck, and a plan before the wheels ever turn.",
-  },
-  {
-    step: "03",
-    label: "In Transit",
-    title: "You stay informed.",
-    body: "Tracked and communicated the whole way. You always know where your freight is.",
-  },
-  {
-    step: "04",
-    label: "Delivered",
-    title: "Signed and done.",
-    body: "On the dock when we said it would be. Proof of delivery in your inbox.",
   },
 ] as const;

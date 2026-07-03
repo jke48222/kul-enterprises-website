@@ -5,9 +5,7 @@ import { site } from "@/lib/site";
 import MotionProvider from "@/components/motion/MotionProvider";
 import LoadingOverlay from "@/components/brand/LoadingOverlay";
 
-// Montserrat is the site-wide body font (intro overlay included). The
-// legacy /concept tree loads its own Sora/Inter in app/concept/layout.tsx,
-// keeping those bytes off main-site visits.
+// Montserrat is the site-wide body font (intro overlay included).
 const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
