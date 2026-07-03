@@ -4,7 +4,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import Faq from "@/components/concept/Faq";
 import BirdModel from "@/components/concept/BirdModel";
 import ContactForm from "@/components/forms/ContactForm";
-import { site } from "@/lib/site";
+import faqContent from "@/content/faq.json";
 
 /**
  * The site's shared closing sequence. The homepage composes these sections
@@ -34,40 +34,8 @@ export function Pill({
   );
 }
 
-const faqs = [
-  {
-    q: "How fast do I get a freight quote?",
-    a: "The same business day. Send the lane through the quote form or call dispatch, and a person who can actually commit capacity prices it and answers.",
-  },
-  {
-    q: "What freight does KUL haul?",
-    a: "Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited, and Over-the-Road full truckloads. If you are not sure which fits, describe the load and we will advise.",
-  },
-  {
-    q: "Are you licensed and insured?",
-    a: `Fully. We operate under USDOT ${site.usdot} and MC ${site.mc}, with auto liability and cargo coverage. Verify our authority anytime on the FMCSA SAFER system, and request a certificate of insurance with your company listed as holder.`,
-  },
-  {
-    q: "Where do you run?",
-    a: "Home base is Loganville, Georgia. We run the Southeast like a home route and carry nationwide authority for coast-to-coast lanes.",
-  },
-  {
-    q: "How do brokers set KUL up as a carrier?",
-    a: "One email. Send your company name and MC or USDOT number to dispatch and the full carrier packet comes back the same business day: authority, COI, W-9, references, and signed agreements.",
-  },
-  {
-    q: "How do I start driving for KUL?",
-    a: "A thirty-second form. Tell us your name, contact, and CDL-A experience, and we call you back to talk lanes, home time, and equipment.",
-  },
-  {
-    q: "What happens if something changes in transit?",
-    a: "You hear it from us first. Weather, traffic, dock delays: dispatch calls before you have to ask, with a new ETA you can plan around.",
-  },
-  {
-    q: "Can I get updates while my freight moves?",
-    a: "Yes. Milestone updates at pickup, in transit, and delivery are standard, and 24/7 dispatch means a person answers whenever you call.",
-  },
-];
+// FAQ copy lives in content/faq.json, editable through the CMS (/admin).
+const faqs = faqContent.items;
 
 /** Two-up Freight/Drivers panels on pure black, centered stacks. */
 export function PathsPanels() {

@@ -29,3 +29,7 @@ next-env.d.ts
 
 # vercel
 .vercel
+
+# TinaCMS generated output
+tina/__generated__
+public/admin
