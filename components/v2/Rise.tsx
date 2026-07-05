@@ -19,6 +19,9 @@ export type RiseProps = {
   delay?: number;
   as?: keyof JSX.IntrinsicElements;
   className?: string;
+  /** Animate on mount instead of whileInView — above-the-fold hero content
+      only (whileInView is unreliable for elements already in view at load). */
+  immediate?: boolean;
 };
 
 export type RiseGroupProps = {
@@ -50,6 +53,7 @@ export function Rise({
   delay = 0,
   as = "div",
   className,
+  immediate = false,
 }: RiseProps) {
   const reduced = useReducedMotion();
   const inGroup = useContext(RiseGroupContext);
@@ -60,6 +64,19 @@ export function Rise({
     // Parent RiseGroup orchestrates initial/whileInView + stagger.
     return (
       <MTag variants={variants} className={className}>
+        {children}
+      </MTag>
+    );
+  }
+
+  if (immediate) {
+    return (
+      <MTag
+        variants={variants}
+        initial="hidden"
+        animate="show"
+        className={className}
+      >
         {children}
       </MTag>
     );

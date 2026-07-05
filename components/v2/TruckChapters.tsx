@@ -107,6 +107,7 @@ function PinnedScene({ chapters }: { chapters: Chapter[] }) {
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
+    layoutEffect: false,
   });
   const chapterIndex = useTransform(scrollYProgress, (v) =>
     Math.min(
@@ -276,6 +277,7 @@ function StackedScene({
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
+    layoutEffect: false,
   });
 
   return (

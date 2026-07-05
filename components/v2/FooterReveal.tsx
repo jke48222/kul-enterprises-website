@@ -28,6 +28,7 @@ function useContentEndProgress() {
   const { scrollYProgress } = useScroll({
     target: ref as RefObject<HTMLElement>,
     offset: ["start end", "end start"],
+    layoutEffect: false,
   });
   return scrollYProgress;
 }

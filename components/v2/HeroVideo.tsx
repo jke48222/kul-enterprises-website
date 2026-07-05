@@ -29,6 +29,7 @@ export function HeroVideo({ children }: HeroVideoProps) {
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
+    layoutEffect: false,
   });
   const mediaScale = useTransform(scrollYProgress, [0, 1], [1, 0.95]);
   const headY = useTransform(scrollYProgress, [0.7, 1], ["0vh", "-8vh"]);

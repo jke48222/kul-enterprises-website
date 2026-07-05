@@ -28,6 +28,7 @@ export function Parallax({ children, range = 8, className }: ParallaxProps) {
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
+    layoutEffect: false,
   });
   const y = useTransform(
     scrollYProgress,
@@ -35,8 +36,16 @@ export function Parallax({ children, range = 8, className }: ParallaxProps) {
     [`${-range}%`, `${range}%`],
   );
 
+  // Callers that pass `absolute inset-0` must not also receive `relative`:
+  // Tailwind's .relative outranks .absolute in the stylesheet, and a
+  // relative wrapper here has zero content height (its only child is
+  // absolutely positioned), which collapses fill images to 0px.
+  const positioned = /\babsolute\b|\bfixed\b/.test(className ?? "");
   return (
-    <div ref={ref} className={cx("relative overflow-hidden", className)}>
+    <div
+      ref={ref}
+      className={cx(!positioned && "relative", "overflow-hidden", className)}
+    >
       <m.div
         className="absolute inset-0 -top-[10%] h-[120%] will-change-transform"
         style={reduced ? undefined : { y }}

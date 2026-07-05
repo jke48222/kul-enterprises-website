@@ -89,17 +89,18 @@ export function PageHero({
               as="h1"
               lines={titleLines}
               delay={baseDelay}
+              immediate
               className="mt-6 max-w-[14ch] font-omnibus text-display-l text-cream"
             />
             {deck && (
-              <Rise delay={baseDelay + 0.25}>
+              <Rise immediate delay={baseDelay + 0.25}>
                 <p className="mt-6 max-w-[52ch] text-body-l text-paper/80">
                   {deck}
                 </p>
               </Rise>
             )}
             {children && (
-              <Rise delay={baseDelay + 0.45}>
+              <Rise immediate delay={baseDelay + 0.45}>
                 <div className="mt-8 flex flex-wrap items-center gap-4">
                   {children}
                 </div>
@@ -151,7 +152,7 @@ export function PageHero({
               />
             </ClipReveal>
             {deck && (
-              <Rise delay={baseDelay + 0.35}>
+              <Rise immediate delay={baseDelay + 0.35}>
                 <p className="mt-6 max-w-[320px] text-sm leading-relaxed text-paper/70">
                   {deck}
                 </p>
@@ -164,10 +165,11 @@ export function PageHero({
               as="h1"
               lines={lines}
               delay={baseDelay}
+              immediate
               className="mt-6 font-omnibus text-display-l uppercase text-cream"
             />
             {children && (
-              <Rise delay={baseDelay + 0.45}>
+              <Rise immediate delay={baseDelay + 0.45}>
                 <div className="mt-8 flex flex-wrap items-center gap-4">
                   {children}
                 </div>
@@ -191,17 +193,18 @@ export function PageHero({
           as="h1"
           lines={titleLines}
           delay={baseDelay}
+          immediate
           className="mt-6 max-w-[14ch] font-omnibus text-display-l text-cream"
         />
         {deck && (
-          <Rise delay={baseDelay + 0.25}>
+          <Rise immediate delay={baseDelay + 0.25}>
             <p className="mt-6 max-w-[52ch] text-body-l text-paper/80">
               {deck}
             </p>
           </Rise>
         )}
         {children && (
-          <Rise delay={baseDelay + 0.45}>
+          <Rise immediate delay={baseDelay + 0.45}>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               {children}
             </div>
