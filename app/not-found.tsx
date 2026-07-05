@@ -63,10 +63,10 @@ export default function NotFound() {
                 get you back on the road.
               </p>
               <div className="mt-10 flex flex-wrap items-center gap-4">
-                <Link href="/" className="btn-gold">
+                <Link href="/v2" className="btn-gold">
                   Back home
                 </Link>
-                <Link href="/quote" className="btn-ghost-dark">
+                <Link href="/v2/quote" className="btn-ghost-dark">
                   Request a quote
                 </Link>
               </div>

@@ -30,7 +30,7 @@ export default function ContactPage() {
         <p className="max-w-[52ch] text-body-l text-paper/80">
           Dispatch answers around the clock. Freight quotes have a faster
           lane —{" "}
-          <Link href="/quote" className="link-hairline text-paper">
+          <Link href="/v2/quote" className="link-hairline text-paper">
             send the lane here &rarr;
           </Link>
         </p>

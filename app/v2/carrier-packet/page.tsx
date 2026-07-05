@@ -141,7 +141,7 @@ export default function CarrierPacketPage() {
           />
           <Rise delay={0.15}>
             <Link
-              href="/quote"
+              href="/v2/quote"
               className="link-hairline mt-8 inline-flex min-h-11 items-center gap-3 text-label uppercase text-paper"
             >
               Send the first lane <span aria-hidden>&rarr;</span>

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Reveal } from "@/components/motion/Reveal";
 import Faq from "@/components/concept/Faq";
 import BirdModel from "@/components/concept/BirdModel";
-import ContactForm from "@/components/forms/ContactForm";
+import ContactForm from "@/components/concept/forms/ContactForm";
 import faqContent from "@/content/faq.json";
 
 /**
@@ -46,7 +46,7 @@ export function PathsPanels() {
         {
           name: "Freight",
           line: "Ship with a carrier that answers.",
-          href: "/services",
+          href: "/v1/services",
           cta: "Services",
           img: "/images/stock/road-night-light-trails.jpg",
           alt: "Highway light trails at night",
@@ -55,7 +55,7 @@ export function PathsPanels() {
         {
           name: "Drivers",
           line: "Drive for a company that knows your name.",
-          href: "/drivers",
+          href: "/v1/drivers",
           cta: "Drive With KUL",
           img: "/images/stock/driver-portrait-semi-cab-night.jpg",
           alt: "A professional driver standing at his cab",
@@ -124,7 +124,7 @@ export function StrengthStatement() {
         </Reveal>
         <Reveal className="relative mt-6">
           <div className="text-center">
-            <Pill href="/contact">Contact KUL</Pill>
+            <Pill href="/v1/contact">Contact KUL</Pill>
           </div>
         </Reveal>
         <Reveal className="absolute inset-x-0 bottom-[140px] top-[130px] flex items-center justify-center md:bottom-[100px] md:top-[190px]">

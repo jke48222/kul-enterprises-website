@@ -17,13 +17,13 @@ import { site } from "@/lib/site";
 type MenuOverlayProps = { open: boolean; onClose(): void };
 
 const LINKS = [
-  { label: "Home", href: "/" },
-  { label: "Services", href: "/services" },
-  { label: "About", href: "/about" },
-  { label: "Safety", href: "/safety" },
-  { label: "Drivers", href: "/drivers" },
-  { label: "Carrier Packet", href: "/carrier-packet" },
-  { label: "Contact", href: "/contact" },
+  { label: "Home", href: "/v2" },
+  { label: "Services", href: "/v2/services" },
+  { label: "About", href: "/v2/about" },
+  { label: "Safety", href: "/v2/safety" },
+  { label: "Drivers", href: "/v2/drivers" },
+  { label: "Carrier Packet", href: "/v2/carrier-packet" },
+  { label: "Contact", href: "/v2/contact" },
 ] as const;
 
 function Panel({ onClose }: { onClose(): void }) {
@@ -100,7 +100,7 @@ function Panel({ onClose }: { onClose(): void }) {
       {/* Top zone: wordmark + CLOSE */}
       <div className="flex h-14 shrink-0 items-center justify-between px-[clamp(20px,5vw,90px)]">
         <Link
-          href="/"
+          href="/v2"
           aria-label="KUL Enterprises — home"
           onClick={onClose}
           className="inline-flex h-11 flex-col items-end justify-center leading-none"
@@ -131,7 +131,7 @@ function Panel({ onClose }: { onClose(): void }) {
           {LINKS.map((link, i) => {
             const active =
               pathname === link.href ||
-              (link.href !== "/" && pathname.startsWith(`${link.href}/`));
+              (link.href !== "/v2" && pathname.startsWith(`${link.href}/`));
             return (
               <li key={link.href} className="overflow-hidden">
                 <m.div
@@ -185,7 +185,7 @@ function Panel({ onClose }: { onClose(): void }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: EASE.out, delay: 0.7 }}
         >
-          <Link href="/quote" onClick={onClose} className="btn-gold uppercase">
+          <Link href="/v2/quote" onClick={onClose} className="btn-gold uppercase">
             Request a Quote
           </Link>
           <a href={site.phoneHref} className="btn-ghost-dark uppercase tabular-nums">

@@ -12,6 +12,32 @@ const nextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     contentDispositionType: "attachment",
   },
+  // Demo period: the site lives twice — /v1 (original) and /v2 (redesign),
+  // with a chooser at /. Old un-prefixed URLs land on the redesign.
+  // Temporary (307) on purpose: once a winner is picked these flip to the
+  // real routes and must not have been cached as permanent.
+  async redirects() {
+    const routes = [
+      "about",
+      "services",
+      "services/:slug",
+      "drivers",
+      "safety",
+      "carrier-packet",
+      "quote",
+      "contact",
+      "privacy-policy",
+      "terms-conditions",
+      "legal-notices",
+      "climate-statement",
+      "cookies",
+    ];
+    return routes.map((r) => ({
+      source: `/${r}`,
+      destination: `/v2/${r}`,
+      permanent: false,
+    }));
+  },
 };
 
 export default nextConfig;

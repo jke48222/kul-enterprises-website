@@ -3,9 +3,9 @@ import { Montserrat } from "next/font/google";
 import localFont from "next/font/local";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
+import "./v1-legacy.css";
 import { site } from "@/lib/site";
 import MotionProvider from "@/components/motion/MotionProvider";
-import LoadingOverlay from "@/components/brand/LoadingOverlay";
 
 // Montserrat is the site-wide body font (intro overlay included).
 const montserrat = Montserrat({
@@ -120,6 +120,9 @@ export default function RootLayout({
     <html
       lang="en"
       data-scroll-behavior="smooth"
+      // /v1's pre-paint intro gate sets data-intro on <html> before
+      // hydration; suppress React's root attribute mismatch warning for it.
+      suppressHydrationWarning
       className={`${montserrat.variable} ${omnibus.variable}`}
     >
       <body className="min-h-screen bg-ink font-mont text-white antialiased">
@@ -138,7 +141,6 @@ export default function RootLayout({
             callback, so the hero poster paints and is measured as LCP before
             the film appears. Crawlers, Lighthouse and no-JS visitors never
             see it. ≤2.5s cap with a visible skip; RouteVeil never replays it. */}
-        <LoadingOverlay />
         <MotionProvider>{children}</MotionProvider>
         {/* GA4: renders only when the property id is configured (set
             NEXT_PUBLIC_GA_ID in the hosting env after creating the

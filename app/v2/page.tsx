@@ -136,10 +136,10 @@ export default function HomePage() {
               </Rise>
               <Rise delay={baseDelay + 0.45}>
                 <div className="mt-8 flex flex-wrap items-center gap-4">
-                  <Link href="/quote" className="btn-gold">
+                  <Link href="/v2/quote" className="btn-gold">
                     Request a Quote
                   </Link>
-                  <Link href="/drivers" className="btn-ghost-dark">
+                  <Link href="/v2/drivers" className="btn-ghost-dark">
                     Drive with KUL
                   </Link>
                 </div>
@@ -283,7 +283,7 @@ export default function HomePage() {
         titleLines={["Driven by people", "who keep their word."]}
         body="CDL-A, Southeast regional and OTR. The most important delivery on any route is the driver coming home."
         align="right"
-        cta={{ label: "Drive with KUL", href: "/drivers", style: "ghost" }}
+        cta={{ label: "Drive with KUL", href: "/v2/drivers", style: "ghost" }}
       />
 
       {/* 9 · ENDING — §4.1.9. CtaBand renders its own ink section (92svh).

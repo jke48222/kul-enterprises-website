@@ -114,7 +114,7 @@ export function ServiceIndex({ services }: ServiceIndexProps) {
             return (
               <li key={s.slug} className="border-t border-ink/15">
                 <Link
-                  href={`/services/${s.slug}`}
+                  href={`/v2/services/${s.slug}`}
                   className="block"
                   onPointerEnter={(e) => {
                     if (!followerOn || e.pointerType === "touch") return;

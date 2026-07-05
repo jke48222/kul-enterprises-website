@@ -154,7 +154,7 @@ export default async function ServiceDetail({
           <Rise delay={0.2}>
             <p className="mt-12 flex justify-end text-micro uppercase">
               <Link
-                href={`/services/${prev.slug}`}
+                href={`/v2/services/${prev.slug}`}
                 className="link-hairline text-ink/60"
               >
                 Previous: {prev.name}

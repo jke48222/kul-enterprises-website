@@ -4,6 +4,7 @@ import Nav from "@/components/v2/Nav";
 import Footer from "@/components/v2/Footer";
 import StickyMobileBar from "@/components/v2/StickyMobileBar";
 import RouteVeil from "@/components/v2/RouteVeil";
+import LoadingOverlay from "@/components/brand/LoadingOverlay";
 
 /**
  * v2 site chrome (design bible §5.1.3).
@@ -29,6 +30,7 @@ export default function SiteLayout({
 }) {
   return (
     <MotionConfig reducedMotion="user">
+      <LoadingOverlay />
       <Grain />
       <Nav />
       <RouteVeil>

@@ -6,13 +6,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const menu = [
-  { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "Drive With KUL", href: "/drivers" },
-  { label: "Safety & Compliance", href: "/safety" },
-  { label: "Carrier Packet", href: "/carrier-packet" },
-  { label: "Contact", href: "/contact" },
-  { label: "Request a Quote", href: "/quote", gold: true },
+  { label: "About", href: "/v1/about" },
+  { label: "Services", href: "/v1/services" },
+  { label: "Drive With KUL", href: "/v1/drivers" },
+  { label: "Safety & Compliance", href: "/v1/safety" },
+  { label: "Carrier Packet", href: "/v1/carrier-packet" },
+  { label: "Contact", href: "/v1/contact" },
+  { label: "Request a Quote", href: "/v1/quote", gold: true },
 ];
 
 /**
@@ -83,7 +83,7 @@ export default function ConceptNav() {
 
         {/* Centered lockup */}
         <Link
-          href="/"
+          href="/v1"
           aria-label="KUL Enterprises home"
           className="absolute left-1/2 -translate-x-1/2"
         >
@@ -99,7 +99,7 @@ export default function ConceptNav() {
 
         {/* Gold pill CTA. Ink text: white on this gold fails WCAG AA (~2.6:1). */}
         <Link
-          href="/quote"
+          href="/v1/quote"
           className="kul-gold-metal rounded-full px-4 py-2 font-mont text-[11px] font-bold uppercase tracking-[0.2em] text-ink transition-[filter] duration-300 hover:brightness-110 sm:px-5 sm:text-xs"
         >
           <span className="sm:hidden">Quote</span>

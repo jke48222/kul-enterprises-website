@@ -18,24 +18,24 @@ import FooterReveal, { FooterWordmark, LocalClock } from "./FooterReveal";
  */
 
 const COMPANY_LINKS = [
-  { label: "About", href: "/about" },
-  { label: "Safety", href: "/safety" },
-  { label: "Carrier Packet", href: "/carrier-packet" },
-  { label: "Contact", href: "/contact" },
+  { label: "About", href: "/v2/about" },
+  { label: "Safety", href: "/v2/safety" },
+  { label: "Carrier Packet", href: "/v2/carrier-packet" },
+  { label: "Contact", href: "/v2/contact" },
 ] as const;
 
 const DRIVER_LINKS = [
-  { label: "Drive with KUL", href: "/drivers" },
-  { label: "Request a Quote", href: "/quote" },
-  { label: "FAQ", href: "/quote#faq" },
+  { label: "Drive with KUL", href: "/v2/drivers" },
+  { label: "Request a Quote", href: "/v2/quote" },
+  { label: "FAQ", href: "/v2/quote#faq" },
 ] as const;
 
 const LEGAL_LINKS = [
-  { label: "Privacy", href: "/privacy-policy" },
-  { label: "Terms", href: "/terms-conditions" },
-  { label: "Cookies", href: "/cookies" },
-  { label: "Legal Notices", href: "/legal-notices" },
-  { label: "Climate", href: "/climate-statement" },
+  { label: "Privacy", href: "/v2/privacy-policy" },
+  { label: "Terms", href: "/v2/terms-conditions" },
+  { label: "Cookies", href: "/v2/cookies" },
+  { label: "Legal Notices", href: "/v2/legal-notices" },
+  { label: "Climate", href: "/v2/climate-statement" },
 ] as const;
 
 function LinkColumn({

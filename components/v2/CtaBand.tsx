@@ -76,7 +76,7 @@ export function CtaBand({ variant, next }: CtaBandProps) {
           />
           <Rise delay={0.3}>
             <Link
-              href="/quote"
+              href="/v2/quote"
               className="group relative mt-12 inline-block pb-3 font-omnibus text-h2 text-cream"
             >
               Request a quote{" "}
@@ -119,7 +119,7 @@ export function CtaBand({ variant, next }: CtaBandProps) {
           />
           <Rise delay={0.3}>
             <div className="mt-10">
-              <Link href="/drivers" className="btn-ghost-dark">
+              <Link href="/v2/drivers" className="btn-ghost-dark">
                 Drive with KUL
               </Link>
             </div>
@@ -140,7 +140,7 @@ export function CtaBand({ variant, next }: CtaBandProps) {
           />
           <Rise delay={0.3}>
             <div className="mt-10">
-              <Link href="/carrier-packet" className="btn-ghost-dark">
+              <Link href="/v2/carrier-packet" className="btn-ghost-dark">
                 Request the packet
               </Link>
             </div>
@@ -178,7 +178,7 @@ export function CtaBand({ variant, next }: CtaBandProps) {
                 </span>
               </a>
               <Link
-                href="/quote"
+                href="/v2/quote"
                 className="link-hairline text-label uppercase text-paper/80"
               >
                 Or send a lane →

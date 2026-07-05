@@ -199,7 +199,7 @@ function PinnedScene({ chapters }: { chapters: Chapter[] }) {
                     {c.body}
                   </p>
                   <Link
-                    href={`/services/${c.slug}`}
+                    href={`/v2/services/${c.slug}`}
                     tabIndex={isActive ? 0 : -1}
                     className="link-hairline mt-6 py-1 text-label uppercase text-paper/80"
                   >
@@ -248,7 +248,7 @@ function PinnedScene({ chapters }: { chapters: Chapter[] }) {
         {/* stage footer */}
         <div className="absolute bottom-[5vh] left-[clamp(20px,5vw,90px)] z-[2]">
           <Link
-            href="/services"
+            href="/v2/services"
             className="link-hairline py-1 text-micro uppercase text-paper/60"
           >
             ALL SEVEN SERVICES <span aria-hidden>→</span>
@@ -344,7 +344,7 @@ function StackedScene({
                     {c.body}
                   </p>
                   <Link
-                    href={`/services/${c.slug}`}
+                    href={`/v2/services/${c.slug}`}
                     className="link-hairline mt-6 py-1 text-label uppercase text-paper/80"
                   >
                     + MORE
@@ -357,7 +357,7 @@ function StackedScene({
 
         <div className="mt-[clamp(4rem,12vw,7rem)]">
           <Link
-            href="/services"
+            href="/v2/services"
             className="link-hairline py-1 text-micro uppercase text-paper/60"
           >
             ALL SEVEN SERVICES <span aria-hidden>→</span>

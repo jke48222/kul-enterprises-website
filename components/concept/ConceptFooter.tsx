@@ -5,11 +5,11 @@ import YearStamp from "@/components/concept/YearStamp";
 import { site } from "@/lib/site";
 
 const legal = [
-  { label: "Manage Cookies", href: "/cookies" },
-  { label: "Climate Statement", href: "/climate-statement" },
-  { label: "Legal Notices & Disclaimers", href: "/legal-notices" },
-  { label: "Privacy Policy", href: "/privacy-policy" },
-  { label: "Terms & Conditions", href: "/terms-conditions" },
+  { label: "Manage Cookies", href: "/v1/cookies" },
+  { label: "Climate Statement", href: "/v1/climate-statement" },
+  { label: "Legal Notices & Disclaimers", href: "/v1/legal-notices" },
+  { label: "Privacy Policy", href: "/v1/privacy-policy" },
+  { label: "Terms & Conditions", href: "/v1/terms-conditions" },
 ];
 
 /** Small stroke icons for the socials row and contact column. */
@@ -117,7 +117,7 @@ export default function ConceptFooter() {
           </div>
 
           <div className="flex justify-center">
-            <Link href="/" aria-label="KUL Enterprises home">
+            <Link href="/v1" aria-label="KUL Enterprises home">
               <Image
                 src="/images/brand/kul-logo-lockup.png"
                 alt="KUL Enterprises LLC"

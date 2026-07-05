@@ -213,7 +213,7 @@ export default function AboutPage() {
         variant="next"
         next={{
           label: "Services",
-          href: "/services",
+          href: "/v2/services",
           image: {
             src: "/images/stock/hero-semi-truck-dusk-mountains.jpg",
             alt: "A tractor-trailer crossing a mountain road at dusk",
