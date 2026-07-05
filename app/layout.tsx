@@ -120,9 +120,6 @@ export default function RootLayout({
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      // The pre-paint intro gate script sets data-intro on <html> before
-      // hydration; suppress React's root attribute mismatch warning for it.
-      suppressHydrationWarning
       className={`${montserrat.variable} ${omnibus.variable}`}
     >
       <body className="min-h-screen bg-ink font-mont text-white antialiased">
@@ -136,30 +133,12 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        {/* Runs synchronously before anything paints: decides whether the
-            intro cover (already in the server HTML) is visible this visit. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "try{if(sessionStorage.getItem('kul-intro-seen')!=='1')document.documentElement.setAttribute('data-intro','1')}catch(e){}try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.setAttribute('data-page-reveal','1')}catch(e){}",
-          }}
-        />
-        {/* No JS at all: kill the intro cover and lift the serialized
-            opacity-0 reveal states immediately (the CSS failsafes cover the
-            slower bundle-failed-to-load case). */}
-        <noscript>
-          <style>{`.kul-intro-root{display:none!important}[data-reveal-failsafe]{opacity:1!important;transform:none!important}`}</style>
-        </noscript>
+        {/* First-visit-ever intro film (design bible §3.22): renders nothing
+            in the server HTML and mounts itself from a post-first-paint idle
+            callback, so the hero poster paints and is measured as LCP before
+            the film appears. Crawlers, Lighthouse and no-JS visitors never
+            see it. ≤2.5s cap with a visible skip; RouteVeil never replays it. */}
         <LoadingOverlay />
-        {/* First visits only: attach the intro film's src pre-paint so it
-            buffers at parse time. Repeat visits leave it src-less, so the
-            hidden overlay fetches and decodes nothing. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "try{if(document.documentElement.getAttribute('data-intro')==='1'){var v=document.querySelector('.kul-intro-root video');if(v){v.muted=true;v.src=v.getAttribute('data-src');}}}catch(e){}",
-          }}
-        />
         <MotionProvider>{children}</MotionProvider>
         {/* GA4: renders only when the property id is configured (set
             NEXT_PUBLIC_GA_ID in the hosting env after creating the
