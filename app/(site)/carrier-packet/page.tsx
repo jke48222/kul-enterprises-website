@@ -1,113 +1,154 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import { Reveal } from "@/components/motion/Reveal";
+import Link from "next/link";
+import { CopyButton } from "@/components/v2/CopyButton";
+import { LineReveal } from "@/components/v2/LineReveal";
+import { PageHero } from "@/components/v2/PageHero";
+import { Rise, RiseGroup } from "@/components/v2/Rise";
 import { site } from "@/lib/site";
-import PageClosing from "@/components/concept/PageClosing";
 
 export const metadata: Metadata = {
   title: "Carrier Packet",
   description:
-    "Set KUL Enterprises up as a carrier in one email: authority, COI, W-9, profile, and references back the same business day.",
+    "Set KUL Enterprises up as a carrier in one email: authority, COI, W-9, references, and signed agreements back the same business day.",
 };
 
-const documents = [
+const CONTAINER = "mx-auto w-full max-w-[1760px] px-[clamp(20px,5vw,90px)]";
+
+/**
+ * The packet, itemized (§4.7.2). Five documents, one micro line each —
+ * micro copy carried over from the v1 packet page; no new claims.
+ */
+const DOCUMENTS = [
   {
-    name: "Operating Authority (MC Certificate)",
-    body: `Our FMCSA-issued certificate of authority, MC ${site.mc}, confirming KUL Enterprises LLC is authorized for interstate for-hire transport.`,
+    index: "01",
+    name: "Operating authority",
+    line: `MC ${site.mc}, USDOT ${site.usdot}`,
   },
   {
-    name: "Certificate of Insurance",
-    body: "Current COI showing auto liability and cargo coverage, issued directly from our insurer, with your company listed as certificate holder on request.",
+    index: "02",
+    name: "Certificate of insurance",
+    line: "Your company listed as holder on request",
   },
   {
-    name: "Form W-9",
-    body: "Completed and signed IRS W-9 for KUL Enterprises LLC, ready for your accounting setup.",
+    index: "03",
+    name: "W-9",
+    line: "Completed and signed for KUL Enterprises LLC",
   },
   {
-    name: "Carrier Profile & References",
-    body: "Company profile with equipment list, service areas, lane preferences, and broker and shipper references you can actually call.",
+    index: "04",
+    name: "References",
+    line: "Broker and shipper references you can call",
   },
   {
-    name: "Signed Agreements",
-    body: "Your broker-carrier or shipper agreement, reviewed and returned promptly. We read what we sign and we sign what we honor.",
+    index: "05",
+    name: "Signed carrier agreements",
+    line: "Reviewed, signed, and returned promptly",
   },
 ];
 
-export default function ConceptCarrierPacket() {
+export default function CarrierPacketPage() {
   return (
     <>
-      <section className="relative min-h-[60svh] overflow-hidden">
-        <Image
-          src="/images/photos/tree-open-landscape.jpg"
-          alt="A wide oak tree standing over open green land"
-          fill
-          priority
-          quality={82}
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,rgba(22,22,22,0.5),transparent_45%,rgba(22,22,22,0.92))]" />
-        <div className="kul-fade-slow relative px-6 pt-[15vh] text-center">
-          <h1 className="kul-grad-text font-mont text-[clamp(1.35rem,2.3vw,2.05rem)] font-semibold uppercase tracking-[0.3em] [text-shadow:none]">
-            Carrier Packet
-          </h1>
-        </div>
-      </section>
+      {/* 1 — Hero (§4.7.1). Compact ink band; zero gold. */}
+      <PageHero
+        variant="compact"
+        eyebrow="FOR BROKERS"
+        titleLines={["The full packet.", "Same business day."]}
+        deck="One email. Authority, COI, W-9, references, and signed agreements come back the same business day."
+      />
 
-      <section className="bg-ink2">
-        <div className="mx-auto max-w-6xl px-6 py-20 md:py-24">
-          <div className="grid gap-14 lg:grid-cols-[1fr_380px]">
-            <div>
-              <Reveal>
-                <h2 className="kul-grad-text font-omnibus text-[clamp(1.6rem,2.6vw,2.2rem)] leading-tight">
-                  Five documents. Zero chasing.
-                </h2>
-              </Reveal>
-              <div className="mt-8 space-y-px overflow-hidden rounded-2xl border border-white/10 bg-white/10">
-                {documents.map((d) => (
-                  <Reveal key={d.name} className="bg-ink2 p-7">
-                    <h3 className="font-omnibus text-lg text-cream">{d.name}</h3>
-                    <p className="mt-2 leading-relaxed text-graywarm-light">
-                      {d.body}
+      {/* 2 — Document ledger + request (§4.7.2). Paper; gold = the mailto CTA only. */}
+      <section data-ground="paper" className="bg-paper py-band text-ink">
+        <div className={CONTAINER}>
+          {/* sr-only h2 so the h3 rows below never precede the page's first h2 (§2.1). */}
+          <h2 className="sr-only">The packet, itemized</h2>
+
+          <div className="grid grid-cols-1 gap-x-[clamp(16px,1.4vw,24px)] gap-y-16 lg:grid-cols-12">
+            {/* Request card — above the ledger on mobile, sticky right rail on lg. */}
+            <div className="lg:col-span-5 lg:col-start-8 lg:row-start-1">
+              <div className="lg:sticky lg:top-28">
+                <Rise>
+                  <div className="border-t border-ink/15 pt-8">
+                    <h3 className="font-omnibus text-h3 text-ink">
+                      Request the packet.
+                    </h3>
+                    <p className="mt-4 max-w-[44ch] text-body text-graywarm-deep">
+                      Send your company name and MC or USDOT number.
                     </p>
-                  </Reveal>
-                ))}
+                    <a
+                      href={`mailto:${site.email}?subject=Carrier%20packet%20request`}
+                      className="btn-gold mt-8"
+                    >
+                      Email Dispatch
+                    </a>
+                    <div className="mt-5 flex flex-wrap items-center gap-x-2 text-ink">
+                      <span className="text-sm text-graywarm-deep">
+                        {site.email}
+                      </span>
+                      <CopyButton value={site.email} />
+                    </div>
+                    <p className="mt-4 text-micro uppercase text-graywarm-deep">
+                      Or call{" "}
+                      <a
+                        href={site.phoneHref}
+                        className="link-hairline inline-flex min-h-11 items-center tabular-nums text-ink"
+                      >
+                        {site.phone}
+                      </a>
+                    </p>
+                  </div>
+                </Rise>
               </div>
             </div>
 
-            <Reveal>
-              <div className="sticky top-28 rounded-2xl border border-white/10 bg-white/[0.03] p-8">
-                <h3 className="font-omnibus text-xl text-cream">
-                  Request the packet
-                </h3>
-                <p className="mt-3 leading-relaxed text-graywarm-light">
-                  Email dispatch with your company name and MC or USDOT number
-                  if applicable. The full packet comes back the same business
-                  day.
-                </p>
-                <a
-                  href={`mailto:${site.email}?subject=Carrier%20Packet%20Request`}
-                  className="mt-6 inline-flex w-full items-center justify-center rounded-[100px] bg-gold px-6 py-3 text-xs font-bold uppercase tracking-[3px] text-ink transition-colors hover:bg-gold-soft"
-                >
-                  Email Dispatch
-                </a>
-                <p className="mt-5 text-sm text-graywarm-light">
-                  Prefer the phone? Call{" "}
-                  <a href={site.phoneHref} className="font-semibold text-cream underline-offset-4 hover:underline">
-                    {site.phone}
-                  </a>
-                  . A person answers.
-                </p>
-                <p className="mt-6 border-t border-white/10 pt-5 text-[11px] uppercase tracking-[0.25em] text-graywarm">
-                  USDOT {site.usdot} · MC {site.mc}
-                </p>
-              </div>
-            </Reveal>
+            {/* Document ledger — five hairline rows. */}
+            <div className="lg:col-span-7 lg:col-start-1 lg:row-start-1">
+              <RiseGroup className="border-b border-ink/15">
+                {DOCUMENTS.map((doc) => (
+                  <Rise
+                    key={doc.index}
+                    className="grid grid-cols-[3.5rem_1fr] items-baseline gap-x-4 border-t border-ink/15 py-[clamp(20px,3.5vh,36px)]"
+                  >
+                    <span
+                      aria-hidden
+                      className="text-micro uppercase tabular-nums text-ink/40"
+                    >
+                      {doc.index}
+                    </span>
+                    <div>
+                      <h3 className="font-omnibus text-h3 text-ink">
+                        {doc.name}
+                      </h3>
+                      <p className="mt-2 text-micro uppercase tabular-nums text-graywarm-deep">
+                        {doc.line}
+                      </p>
+                    </div>
+                  </Rise>
+                ))}
+              </RiseGroup>
+            </div>
           </div>
         </div>
       </section>
 
-      <PageClosing />
+      {/* 3 — Lean ending (§4.7.3). Ink; zero gold; no CtaBand needed. */}
+      <section data-ground="ink" className="bg-ink py-band text-paper">
+        <div className={CONTAINER}>
+          <LineReveal
+            as="h2"
+            lines={["Already set up?"]}
+            className="font-omnibus text-h2 text-cream"
+          />
+          <Rise delay={0.15}>
+            <Link
+              href="/quote"
+              className="link-hairline mt-8 inline-flex min-h-11 items-center gap-3 text-label uppercase text-paper"
+            >
+              Send the first lane <span aria-hidden>&rarr;</span>
+            </Link>
+          </Rise>
+        </div>
+      </section>
     </>
   );
 }

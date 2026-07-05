@@ -1,16 +1,23 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Reveal } from "@/components/motion/Reveal";
-import { services, serviceImages } from "@/lib/services";
+import { CtaBand } from "@/components/v2/CtaBand";
+import { Eyebrow } from "@/components/v2/Eyebrow";
+import { GhostNumeral } from "@/components/v2/GhostNumeral";
+import { PageHero } from "@/components/v2/PageHero";
+import { Rise, RiseGroup } from "@/components/v2/Rise";
+import { StatBlock } from "@/components/v2/StatBlock";
+import { services } from "@/lib/services";
 import { site } from "@/lib/site";
-import PageClosing from "@/components/concept/PageClosing";
 
 /**
- * One dedicated page per freight type (07-design-research: each service is
- * its own search landing page). Prerendered for all seven slugs.
+ * Service detail — §4.4. One dedicated page per freight type (each service
+ * is its own search landing page). Prerendered for all seven slugs; the
+ * what/how/proof structure comes straight from services.json. Near-zero-gold
+ * page: the overview eyebrow is the single gold spend beyond the chrome CTA.
  */
+
+const CONTAINER = "mx-auto w-full max-w-[1760px] px-[clamp(20px,5vw,90px)]";
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -43,140 +50,129 @@ export default async function ServiceDetail({
   const idx = services.findIndex((s) => s.slug === slug);
   if (idx === -1) notFound();
   const service = services[idx];
-  const image = serviceImages[service.slug];
   const prev = services[(idx + services.length - 1) % services.length];
   const next = services[(idx + 1) % services.length];
+  const num = String(idx + 1).padStart(2, "0");
 
   return (
     <>
-      <section className="relative min-h-[70svh] overflow-hidden">
-        <Image
-          src={image.src}
-          alt={image.alt}
-          fill
-          priority
-          quality={82}
-          sizes="100vw"
-          className="object-cover"
-        />
+      {/* 1 — Hero. PageHero declares its own data-ground="ink". Gold: none. */}
+      <PageHero
+        variant="photo"
+        height="60"
+        image={service.image}
+        eyebrow={`Service ${idx + 1} of 7`}
+        index={`${num} / 07`}
+        titleLines={[service.name]}
+        deck={service.tagline}
+      />
+
+      {/* 2 — Overview deck. Gold: the eyebrow (this viewport's 2nd gold). */}
+      <section data-ground="paper" className="bg-paper py-band">
         <div
-          aria-hidden
-          className="absolute inset-0 bg-[linear-gradient(180deg,rgba(22,22,22,0.5),transparent_45%,rgba(22,22,22,0.92))]"
-        />
-        <div className="kul-fade-slow relative px-6 pt-[15vh] text-center">
-          <h1 className="kul-grad-text font-mont text-[clamp(1.35rem,2.3vw,2.05rem)] font-semibold uppercase tracking-[0.3em] [text-shadow:none]">
-            {service.name}
-          </h1>
-          <p className="mt-4 font-mont text-[11px] font-semibold uppercase tracking-[0.3em] text-cream">
-            {service.tagline}
-          </p>
+          className={`${CONTAINER} grid grid-cols-1 gap-x-[clamp(16px,1.4vw,24px)] lg:grid-cols-12`}
+        >
+          <div className="lg:col-start-2 lg:col-end-10">
+            <Eyebrow gold>{service.tagline}</Eyebrow>
+            <Rise delay={0.15}>
+              <p className="mt-8 max-w-[62ch] font-mont text-[clamp(1.25rem,1.05rem+1vw,1.75rem)] font-normal leading-relaxed text-graywarm-deep">
+                {service.description}
+              </p>
+            </Rise>
+          </div>
         </div>
       </section>
 
-      <section className="bg-ink2">
-        <div className="mx-auto max-w-6xl px-6 py-20 md:py-24">
-          <Reveal>
-            <div className="grid gap-8 md:grid-cols-[80px_1fr] md:gap-10">
-              <span className="font-mont text-sm font-semibold tracking-[0.2em] text-gold">
-                {String(idx + 1).padStart(2, "0")} / {String(services.length).padStart(2, "0")}
-              </span>
-              <div>
-                <p className="max-w-2xl text-lg leading-relaxed text-graywarm-light">
-                  {service.description}
-                </p>
-                <div className="mt-10 grid gap-10 md:grid-cols-2">
-                  <div>
-                    <h2 className="font-mont text-[11px] font-semibold uppercase tracking-[0.25em] text-gold">
-                      Best for
-                    </h2>
-                    <ul className="mt-4 space-y-2.5">
-                      {service.bestFor.map((item) => (
-                        <li
-                          key={item}
-                          className="flex gap-3 text-sm leading-relaxed text-graywarm-light"
-                        >
-                          <span
-                            aria-hidden
-                            className="mt-2 h-1 w-1 shrink-0 rotate-45 bg-gold"
-                          />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <h2 className="font-mont text-[11px] font-semibold uppercase tracking-[0.25em] text-gold">
-                      Our commitments
-                    </h2>
-                    <ul className="mt-4 space-y-2.5">
-                      {service.commitments.map((item) => (
-                        <li
-                          key={item}
-                          className="flex gap-3 text-sm leading-relaxed text-graywarm-light"
-                        >
-                          <span
-                            aria-hidden
-                            className="mt-2 h-1 w-1 shrink-0 rotate-45 bg-gold"
-                          />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
+      {/* 3 — Fit & commitments ledger. Ink. Gold: none. */}
+      <section
+        data-ground="ink"
+        className="relative overflow-hidden bg-ink py-band"
+      >
+        <GhostNumeral className="left-[clamp(20px,5vw,90px)] top-8">
+          {num}
+        </GhostNumeral>
+        <div
+          className={`relative z-10 ${CONTAINER} grid grid-cols-1 gap-x-[clamp(16px,1.4vw,24px)] gap-y-16 md:grid-cols-2`}
+        >
+          <div>
+            <h2 className="text-micro uppercase text-paper/60">Best for</h2>
+            <RiseGroup className="mt-8">
+              {service.bestFor.map((item) => (
+                <Rise
+                  key={item}
+                  as="p"
+                  className="border-t border-white/[0.12] py-5 font-mont text-[15px] leading-relaxed text-paper/70"
+                >
+                  {item}
+                </Rise>
+              ))}
+            </RiseGroup>
+          </div>
+          <div>
+            <h2 className="text-micro uppercase text-paper/60">
+              Our commitments
+            </h2>
+            <RiseGroup className="mt-8">
+              {service.commitments.map((item) => (
+                <Rise
+                  key={item}
+                  as="p"
+                  className="border-t border-white/[0.12] py-5 font-mont text-[15px] leading-relaxed text-paper/70"
+                >
+                  {item}
+                </Rise>
+              ))}
+            </RiseGroup>
+          </div>
+        </div>
+      </section>
 
-                <div className="mt-12 flex flex-wrap items-center gap-6">
-                  <Link
-                    href="/quote"
-                    className="inline-flex items-center rounded-[100px] bg-gold px-8 py-3 text-xs font-bold uppercase tracking-[3px] text-ink transition-colors hover:bg-gold-soft"
-                  >
-                    Request a Freight Quote
-                  </Link>
-                  <p className="text-sm text-graywarm-light">
-                    Time-critical?{" "}
-                    <a
-                      href={site.phoneHref}
-                      className="font-semibold text-cream underline-offset-4 hover:underline"
-                    >
-                      Call {site.phone}
-                    </a>
-                    . Dispatch answers 24/7.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </Reveal>
-
-          {/* Neighboring services keep the visitor exploring. */}
-          <Reveal className="mt-16 border-t border-white/10 pt-8">
-            <nav
-              aria-label="More services"
-              className="flex flex-wrap items-center justify-between gap-4 text-sm"
-            >
+      {/* 4 — Proof strip: the paperwork moment. Gold: none. */}
+      <section data-ground="paper" className="bg-paper py-band-sm">
+        <div className={CONTAINER}>
+          <StatBlock
+            ground="paper"
+            columns={3}
+            facts={[
+              { label: "USDOT", value: site.usdot },
+              { label: "MC", value: site.mc },
+              { label: "Quotes", value: "Same business day" },
+            ]}
+          />
+          <Rise delay={0.15}>
+            <p className="mt-12 text-micro uppercase text-graywarm-deep">
+              Time-critical? Call dispatch 24/7 —{" "}
+              <a
+                href={site.phoneHref}
+                className="link-hairline tabular-nums text-ink/80"
+              >
+                {site.phone}
+              </a>
+            </p>
+          </Rise>
+          {/* Slim previous-service link, above the circular "next" ending. */}
+          <Rise delay={0.2}>
+            <p className="mt-12 flex justify-end text-micro uppercase">
               <Link
                 href={`/services/${prev.slug}`}
-                className="text-graywarm-light transition-colors hover:text-gold-soft"
+                className="link-hairline text-ink/60"
               >
-                ← {prev.name}
+                Previous: {prev.name}
               </Link>
-              <Link
-                href="/services"
-                className="font-semibold uppercase tracking-[0.2em] text-cream transition-colors hover:text-gold-soft"
-              >
-                All Services
-              </Link>
-              <Link
-                href={`/services/${next.slug}`}
-                className="text-graywarm-light transition-colors hover:text-gold-soft"
-              >
-                {next.name} →
-              </Link>
-            </nav>
-          </Reveal>
+            </p>
+          </Rise>
         </div>
       </section>
 
-      <PageClosing />
+      {/* 5 — Ending: circular next-service band. Gold: none. */}
+      <CtaBand
+        variant="next"
+        next={{
+          label: next.name,
+          href: `/services/${next.slug}`,
+          image: next.image,
+        }}
+      />
     </>
   );
 }

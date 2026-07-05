@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import { Reveal } from "@/components/motion/Reveal";
 import DriverForm from "@/components/forms/DriverForm";
+import { CtaBand } from "@/components/v2/CtaBand";
+import { Eyebrow } from "@/components/v2/Eyebrow";
+import { GhostNumeral } from "@/components/v2/GhostNumeral";
+import { HeroFrame } from "@/components/v2/HeroFrame";
+import { LineReveal } from "@/components/v2/LineReveal";
+import { PageHero } from "@/components/v2/PageHero";
+import { PhotoBand } from "@/components/v2/PhotoBand";
+import { ProcessStrip } from "@/components/v2/ProcessStrip";
+import { Rise, RiseGroup } from "@/components/v2/Rise";
 import { site } from "@/lib/site";
-import PageClosing from "@/components/concept/PageClosing";
 
 export const metadata: Metadata = {
   title: "Drive With KUL",
@@ -11,85 +17,172 @@ export const metadata: Metadata = {
     "Drive for a Georgia carrier that knows your name: honest dispatch, home time that holds, safe equipment, and room to grow. CDL-A.",
 };
 
-const props = [
+const CONTAINER = "mx-auto w-full max-w-[1760px] px-[clamp(20px,5vw,90px)]";
+const GRID = "grid grid-cols-12 gap-x-[clamp(16px,1.4vw,24px)]";
+
+/**
+ * §4.6.2 — The deal ledger. Qualitative facts only: recomposed from the
+ * v1 driver props + the public 2029 vision. NO pay figures — we have none
+ * and invent nothing.
+ */
+const DEAL = [
   {
-    name: "Respect, not lip service",
-    body: "You are a professional, not a truck number. Dispatch answers when you call and never asks you to run outside the rules.",
+    index: "01",
+    title: "A name, not a number",
+    body: "You are a professional. Dispatch treats you like one — one line, straight answers.",
   },
   {
-    name: "Home time that holds",
-    body: "Regional and dedicated lanes built around real home time. When we commit to a schedule, we protect it.",
+    index: "02",
+    title: "Home time that holds",
+    body: "Southeast regional lanes built around getting you home, and OTR when you want the miles.",
   },
   {
-    name: "Equipment you can trust",
-    body: "Well-maintained tractors and trailers, preventive maintenance on schedule, zero pressure to roll on anything unsafe.",
+    index: "03",
+    title: "Equipment that's ready",
+    body: "Clean, DOT-compliant, maintained before it's ever your problem.",
   },
   {
-    name: "Room to grow",
-    body: "We are building toward fifty tractors by 2029. Drivers who grow with us now become the trainers and leaders later.",
+    index: "04",
+    title: "Room to grow",
+    body: "Fifty tractors by the end of 2029. Early drivers grow with the fleet.",
   },
 ];
 
-export default function ConceptDrivers() {
+/** §4.6.4 — hiring steps (faq item 6 recompose), rendered by the shared ProcessStrip. */
+const HIRING_STEPS = [
+  { label: "The form", line: "Thirty seconds. Name, contact, CDL-A experience." },
+  { label: "The call back", line: "A person, not a portal." },
+  { label: "The talk", line: "Lanes, home time, equipment." },
+];
+
+export default function DriversPage() {
   return (
     <>
-      <section className="relative min-h-[80svh] overflow-hidden">
-        <Image
-          src="/images/stock/driver-portrait-semi-cab-night.jpg"
-          alt="A professional driver standing at his semi cab"
-          fill
-          priority
-          quality={82}
-          sizes="100vw"
-          className="object-cover object-[center_25%]"
-        />
-        <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,rgba(22,22,22,0.45),transparent_40%,rgba(22,22,22,0.92))]" />
-        <div className="kul-fade-slow relative px-6 pt-[15vh] text-center">
-          <h1 className="kul-grad-text font-mont text-[clamp(1.35rem,2.3vw,2.05rem)] font-semibold uppercase tracking-[0.3em] [text-shadow:none]">
-            Drive With KUL
-          </h1>
-        </div>
-      </section>
+      {/* 1 — Recruiting hero. Gold: the hero CTA (nav CTA hidden <md; at top state on desktop). */}
+      <div className="relative">
+        <PageHero
+          variant="photo"
+          height="80"
+          image={{
+            src: "/images/stock/driver-portrait-semi-cab-night.jpg",
+            alt: "A professional driver standing at his semi cab at night",
+          }}
+          eyebrow="Drive with KUL"
+          titleLines={["Drive something", "worth driving."]}
+          deck="CDL-A · Southeast regional & OTR · A thirty-second form, then a real call back."
+        >
+          <a href="#apply" className="btn-gold">
+            Start the Conversation
+          </a>
+          <a
+            href={site.phoneHref}
+            className="link-hairline text-micro uppercase tabular-nums text-paper/80"
+          >
+            Or call {site.phone}
+          </a>
+        </PageHero>
+        <HeroFrame />
+      </div>
 
-      <section className="bg-ink2">
-        <div className="mx-auto max-w-6xl px-6 py-20 md:py-24">
-          <div className="grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2">
-            {props.map((p) => (
-              <Reveal key={p.name} className="bg-ink2 p-8">
-                <h2 className="font-omnibus text-xl text-cream">
-                  {p.name}
-                </h2>
-                <p className="mt-3 leading-relaxed text-graywarm-light">
-                  {p.body}
-                </p>
-              </Reveal>
-            ))}
+      {/* 2 — The deal ledger. Ink; zero gold. Eyebrow doubles as the page's
+          first h2 so the h3 rows never skip a level (§2.1 heading law). */}
+      <section
+        data-ground="ink"
+        className="relative overflow-hidden bg-ink py-band"
+      >
+        <div className={CONTAINER}>
+          <div className={GRID}>
+            <div className="col-span-12 lg:col-start-2 lg:col-end-12">
+              <Eyebrow as="h2">What you get</Eyebrow>
+              <RiseGroup className="mt-14">
+                <ul>
+                  {DEAL.map((row) => (
+                    <Rise
+                      as="li"
+                      key={row.index}
+                      className="relative border-t border-white/[0.12] py-[clamp(28px,5vh,52px)] last:border-b last:border-white/[0.12]"
+                    >
+                      <GhostNumeral className="left-0 top-1/2 -translate-y-1/2">
+                        {row.index}
+                      </GhostNumeral>
+                      <div className="relative z-10 grid gap-y-3 md:grid-cols-12 md:gap-x-[clamp(16px,1.4vw,24px)]">
+                        <p
+                          aria-hidden
+                          className="text-micro uppercase tabular-nums text-paper/40 md:col-span-1"
+                        >
+                          {row.index}
+                        </p>
+                        <h3 className="font-omnibus text-h3 text-cream md:col-span-5">
+                          {row.title}
+                        </h3>
+                        <p className="max-w-[52ch] text-body text-paper/70 md:col-span-6">
+                          {row.body}
+                        </p>
+                      </div>
+                    </Rise>
+                  ))}
+                </ul>
+              </RiseGroup>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-[#F8F8F8]">
-        <div className="mx-auto max-w-3xl px-6 py-20 md:py-24">
-          <Reveal className="text-center">
-            <h2 className="font-mont text-[15px] font-semibold uppercase tracking-[0.35em] text-ink">
-              Start the Conversation
-            </h2>
-            <p className="mt-3 text-sm text-graywarm-deep">
-              Thirty seconds, four fields. We call you back. Questions first?
-              Call{" "}
-              <a href={site.phoneHref} className="font-semibold text-ink underline-offset-4 hover:underline">
-                {site.phone}
-              </a>
-              .
-            </p>
-          </Reveal>
-          <Reveal className="mt-12 rounded-2xl border border-ink/10 bg-white p-8 md:p-10">
-            <DriverForm />
-          </Reveal>
+      {/* 3 — Home base band. Photo/ink, melts into the paper zone below. Zero gold. */}
+      <PhotoBand
+        image={{
+          src: "/images/stock/road-night-light-trails.jpg",
+          alt: "Light trails from trucks running a highway at night",
+        }}
+        eyebrow="Home base"
+        titleLines={["Loganville, Georgia."]}
+        body="The Southeast is a home route. Nationwide when you want it."
+        align="left"
+        melt
+      />
+
+      {/* 4 — How it works. Paper; the shared ProcessStrip (§3.24). Zero gold. */}
+      <section data-ground="paper" className="bg-paper py-band-sm">
+        <div className={CONTAINER}>
+          <div className={GRID}>
+            <div className="col-span-12 lg:col-start-2 lg:col-end-12">
+              <LineReveal
+                as="h2"
+                lines={["Four fields.", "Then a phone call."]}
+                className="max-w-[14ch] font-omnibus text-h2 text-ink"
+              />
+              <div className="mt-14">
+                <ProcessStrip steps={HIRING_STEPS} ground="paper" />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <PageClosing />
+      {/* 5 — Apply. Paper; the form's gold submit pill is this viewport's
+          whole gold spend (§3.20 — focus underlines are never gold). */}
+      <section
+        id="apply"
+        data-ground="paper"
+        className="scroll-mt-20 bg-paper py-band"
+      >
+        <div className={CONTAINER}>
+          <div className={GRID}>
+            <div className="col-span-12 lg:col-start-2 lg:col-end-9">
+              <Eyebrow>Start the conversation</Eyebrow>
+              <div className="mt-12">
+                <DriverForm />
+              </div>
+              <p className="mt-10 text-micro uppercase text-ink/60">
+                KUL Enterprises LLC is an equal opportunity employer.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 6 — Ending: the call band with the phone hairline draw. Zero gold. */}
+      <CtaBand variant="call" />
     </>
   );
 }

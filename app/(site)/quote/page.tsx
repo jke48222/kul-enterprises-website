@@ -1,9 +1,19 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import { Reveal } from "@/components/motion/Reveal";
+import PageHero from "@/components/v2/PageHero";
 import QuoteForm from "@/components/forms/QuoteForm";
-import { site } from "@/lib/site";
-import PageClosing from "@/components/concept/PageClosing";
+import FaqAccordion from "@/components/v2/FaqAccordion";
+import Eyebrow from "@/components/v2/Eyebrow";
+import LineReveal from "@/components/v2/LineReveal";
+import faq from "@/content/faq.json";
+
+/**
+ * QUOTE — §4.8. The conversion page: lean, fast, form above the fold on
+ * laptop. Compact ink opener → paper form (the gold submit pill inside
+ * QuoteForm is the page's only gold beyond chrome; the nav CTA renders
+ * ghost on this route — §3.1) → paper FAQ with the load-bearing `id="faq"`
+ * anchor (the Footer links to /quote#faq) → straight to the curtain Footer.
+ * No CtaBand: the page IS the CTA.
+ */
 
 export const metadata: Metadata = {
   title: "Request a Quote",
@@ -11,48 +21,61 @@ export const metadata: Metadata = {
     "Send your lane and a person prices it the same business day. Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited, and OTR.",
 };
 
-export default function ConceptQuote() {
+const CONTAINER = "mx-auto w-full max-w-[1760px] px-[clamp(20px,5vw,90px)]";
+const GRID = "grid grid-cols-1 gap-x-[clamp(16px,1.4vw,24px)] lg:grid-cols-12";
+
+// faq.json items 1, 3, 8 (1-based): quote speed, licensed/insured, updates.
+const FAQ_ITEMS = [faq.items[0], faq.items[2], faq.items[7]];
+
+export default function QuotePage() {
   return (
     <>
-      <section className="relative min-h-[60svh] overflow-hidden">
-        <Image
-          src="/images/stock/road-night-light-trails.jpg"
-          alt="Highway light trails at night"
-          fill
-          priority
-          quality={82}
-          sizes="100vw"
-          className="object-cover object-[center_65%]"
-        />
-        <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,rgba(22,22,22,0.5),transparent_45%,rgba(22,22,22,0.92))]" />
-        <div className="kul-fade-slow relative px-6 pt-[15vh] text-center">
-          <h1 className="kul-grad-text font-mont text-[clamp(1.35rem,2.3vw,2.05rem)] font-semibold uppercase tracking-[0.3em] [text-shadow:none]">
-            Request a Quote
-          </h1>
+      {/* 1 · Opener — compact ink band (§4.8.1). Gold: none. */}
+      <PageHero
+        variant="compact"
+        eyebrow="REQUEST A QUOTE"
+        titleLines={["Send your lane."]}
+        deck="Priced by a person who can actually commit capacity. Answered the same business day."
+      />
+
+      {/* 2 · Form — paper, visible within first scroll (§4.8.2).
+          Trust strip + tel fallback live inside QuoteForm above the submit;
+          the gold submit pill is this viewport's single gold spend. */}
+      <section data-ground="paper" className="bg-paper py-band-sm">
+        <div className={CONTAINER}>
+          <div className={GRID}>
+            <div className="lg:col-start-2 lg:col-end-9">
+              <QuoteForm />
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="bg-[#F8F8F8]">
-        <div className="mx-auto max-w-3xl px-6 py-20 md:py-24">
-          <Reveal className="rounded-2xl border border-ink/10 bg-white p-8 md:p-10">
-            <QuoteForm />
-          </Reveal>
-          <Reveal className="mt-8 text-center text-sm text-graywarm-deep">
-            <p>
-              Time-critical?{" "}
-              <a href={site.phoneHref} className="font-semibold text-ink underline-offset-4 hover:underline">
-                Call {site.phone}
-              </a>
-              . Dispatch answers 24/7.
-            </p>
-            <p className="mt-3 text-xs uppercase tracking-[0.2em]">
-              USDOT {site.usdot} · MC {site.mc} · Licensed &amp; Insured
-            </p>
-          </Reveal>
+      {/* 3 · FAQ — paper, id="faq" is load-bearing: the Footer links to
+          /quote#faq (§4.8.3). Gold: none. */}
+      <section
+        id="faq"
+        data-ground="paper"
+        className="scroll-mt-24 bg-paper py-band-sm"
+      >
+        <div className={CONTAINER}>
+          <div className={GRID}>
+            <div className="lg:col-start-2 lg:col-end-11">
+              <Eyebrow>STRAIGHT ANSWERS</Eyebrow>
+              <LineReveal
+                as="h2"
+                lines={["Asked often."]}
+                className="mt-6 max-w-[14ch] font-omnibus text-h2 text-ink"
+              />
+              <div className="mt-12">
+                <FaqAccordion items={FAQ_ITEMS} ground="paper" jsonLd />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <PageClosing />
+      {/* 4 · Ending — none. Straight to the curtain Footer (§4.8.4). */}
     </>
   );
 }

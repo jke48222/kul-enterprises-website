@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import { Reveal } from "@/components/motion/Reveal";
+import { BirdMark } from "@/components/v2/BirdMark";
+import { ClipReveal } from "@/components/v2/ClipReveal";
+import { CtaBand } from "@/components/v2/CtaBand";
+import { Eyebrow } from "@/components/v2/Eyebrow";
+import { GhostNumeral } from "@/components/v2/GhostNumeral";
+import { HeroFrame } from "@/components/v2/HeroFrame";
+import { LineReveal } from "@/components/v2/LineReveal";
+import { PageHero } from "@/components/v2/PageHero";
+import { Rise, RiseGroup } from "@/components/v2/Rise";
 import { site, stories } from "@/lib/site";
-import PageClosing from "@/components/concept/PageClosing";
 
 export const metadata: Metadata = {
   title: "About",
@@ -11,160 +17,209 @@ export const metadata: Metadata = {
     "The story behind KUL Enterprises: a Georgia freight carrier built from years on the road, run on integrity, safety, communication, and excellence.",
 };
 
-const values = [
-  {
-    name: "Integrity",
-    body: "We quote what we can do and we do what we quoted. If anything changes, you hear it from us first.",
-  },
-  {
-    name: "Safety",
-    body: "Pre-trip inspections, legal hours, and weather calls made early and on the side of caution. Every load, no exceptions.",
-  },
-  {
-    name: "Communication",
-    body: "A person answers dispatch. Shippers get updates before they ask. Drivers get straight answers. 24/7 means 24/7.",
-  },
-  {
-    name: "Excellence",
-    body: "The gold in our logo is a standard, not a decoration. Clean equipment, professional drivers, paperwork done right the first time.",
-  },
-];
+const CONTAINER = "mx-auto w-full max-w-[1760px] px-[clamp(20px,5vw,90px)]";
+const GRID = "grid grid-cols-1 gap-x-[clamp(16px,1.4vw,24px)] lg:grid-cols-12";
 
-export default function ConceptAbout() {
+/** Pull a story by slug from content/site.json — copy source of truth. */
+function story(slug: string) {
+  const s = stories.find((s) => s.slug === slug);
+  if (!s) throw new Error(`Missing story: ${slug}`);
+  return s;
+}
+
+/** §4.2.3 — growth ledger columns. Facts only; no invented stats. */
+const LEDGER = [
+  {
+    index: "01",
+    head: "Authority",
+    body: `Federal operating authority, active. USDOT ${site.usdot} · MC ${site.mc}.`,
+  },
+  {
+    index: "02",
+    head: "Home",
+    body: "Based in Loganville, Georgia. The Southeast is a home route; the authority is nationwide.",
+  },
+  {
+    index: "03",
+    head: "The Mark",
+    body: "Fifty tractors by the end of 2029. Growth that never outruns the service.",
+  },
+] as const;
+
+export default function AboutPage() {
+  const everyMile = story("every-mile");
+  // §4.2.4 — the three framed value rows, in spec order.
+  const values = [
+    { story: story("integrity"), imageLeft: true },
+    { story: story("strength-in-motion"), imageLeft: false },
+    { story: story("driven-by-safety"), imageLeft: true },
+  ];
+
   return (
     <>
-      {/* Full-bleed opener. The cliffs photo carries the Blueprint's mapped
-          headline (stories[0]: "Every mile teaches something new.") at the
-          bottom of the frame, in the same treatment as the story bands. */}
-      <section className="relative flex min-h-[80svh] flex-col justify-between overflow-hidden">
-        <Image
-          src={stories[0].image}
-          alt={stories[0].alt}
-          fill
-          priority
-          quality={82}
-          sizes="100vw"
-          className="object-cover"
+      {/* 1 — HERO (§4.2.1). Photo variant, cliffs opener. Gold: none. */}
+      <div className="relative">
+        <PageHero
+          variant="photo"
+          height="80"
+          eyebrow="Our Story"
+          titleLines={["Trust is in", "our DNA."]}
+          deck="Built from miles, not meetings."
+          image={{ src: "/images/photos/cliffs-over-water.jpg", alt: everyMile.alt }}
         />
-        <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,rgba(22,22,22,0.5),transparent_45%,rgba(22,22,22,0.9))]" />
-        <div className="kul-fade-slow relative px-6 pt-[15vh] text-center">
-          <h1 className="kul-grad-text font-mont text-[clamp(1.35rem,2.3vw,2.05rem)] font-semibold uppercase tracking-[0.3em] [text-shadow:none]">
-            About KUL Enterprises
-          </h1>
-        </div>
-        <Reveal className="relative mx-auto w-full max-w-6xl px-6 pb-16">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">
-            {stories[0].eyebrow}
-          </p>
-          <h2 className="mt-3 max-w-lg font-omnibus text-[clamp(1.6rem,2.6vw,2.2rem)] leading-tight text-[#F8F8F8]">
-            {stories[0].title}
-          </h2>
-        </Reveal>
-      </section>
+        <HeroFrame />
+      </div>
 
-      {/* Founder story */}
-      <section className="bg-ink2">
-        <div className="mx-auto max-w-6xl px-6 py-24 md:py-28">
-          <div className="grid gap-12 md:grid-cols-2 md:gap-20">
-            <Reveal>
-              <h2 className="font-omnibus text-[clamp(1.8rem,3vw,2.3rem)] leading-tight text-[#F8F8F8]">
-                Built from miles, not meetings
-              </h2>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <div className="space-y-5 leading-relaxed text-graywarm-light">
-                <p>
-                  Before KUL Enterprises ran under its own authority, its
-                  founder spent years crossing America behind the wheel.
-                  Mountain grades, port queues, 2 a.m. dock doors, and the
-                  long quiet stretches where a driver learns who he really is.
-                </p>
-                <p>
-                  Those years taught a lesson no office ever could. Freight is
-                  a promise with a deadline. At the end of every lane there is
-                  a family waiting on a delivery, a business depending on a
-                  dock time, a customer trusting a stranger to keep his word.
-                </p>
-                <p>
-                  The lion on our mark stands for the strength and
-                  responsibility we bring to every load. The Doctor Bird, the
-                  national bird of Jamaica and a nod to our founder&apos;s
-                  heritage, stands for precision, speed, and purpose.
+      {/* 2 — FOUNDER MANIFESTO (§4.2.2). Paper. Gold: the eyebrow. */}
+      <section data-ground="paper" className="bg-paper py-band-lg">
+        <div className={`${CONTAINER} ${GRID}`}>
+          <div className="lg:col-start-3 lg:col-end-11">
+            <Eyebrow gold>{everyMile.eyebrow}</Eyebrow>
+            <LineReveal
+              as="h2"
+              lines={["Every mile teaches", "something new."]}
+              className="mt-6 max-w-[14ch] font-omnibus text-h2 text-ink"
+            />
+            <Rise delay={0.2}>
+              <p className="mt-10 max-w-[62ch] text-body-l text-graywarm-deep">
+                {everyMile.body}
+              </p>
+            </Rise>
+            <Rise delay={0.3}>
+              <div className="mt-12">
+                <div aria-hidden className="h-px w-6 bg-ink/[0.15]" />
+                <p className="mt-4 text-micro uppercase text-graywarm-deep">
+                  Founder · KUL Enterprises · Loganville, GA
                 </p>
               </div>
-            </Reveal>
+            </Rise>
           </div>
         </div>
       </section>
 
-      {/* Values */}
-      <section id="values" className="bg-ink2">
-        <div className="mx-auto max-w-6xl px-6 pb-24">
-          <Reveal>
-            <h2 className="kul-grad-text font-omnibus text-[clamp(1.8rem,3vw,2.3rem)] leading-tight">
-              Four values, kept the old-fashioned way
-            </h2>
-          </Reveal>
-          <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2">
-            {values.map((v) => (
-              <Reveal key={v.name} className="bg-ink2 p-8">
-                <h3 className="font-omnibus text-xl text-cream">{v.name}</h3>
-                <p className="mt-3 leading-relaxed text-graywarm-light">{v.body}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Story photography bands */}
-      {stories.slice(1, 4).map((s, i) => (
-        <section key={s.slug} className="relative flex min-h-[75svh] items-end overflow-hidden">
-          <Image
-            src={s.image}
-            alt={s.alt}
-            fill
-            quality={80}
-            sizes="100vw"
-            className="object-cover"
+      {/* 3 — GROWTH LEDGER (§4.2.3). Ink. Gold: none. */}
+      <section
+        data-ground="ink"
+        className="relative overflow-hidden bg-ink py-band"
+      >
+        <div className={`relative z-10 ${CONTAINER}`}>
+          <Eyebrow>On Purpose</Eyebrow>
+          <LineReveal
+            as="h2"
+            lines={["We grow load by load."]}
+            className="mt-6 max-w-[14ch] font-omnibus text-h2 text-cream"
           />
-          <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,rgba(22,22,22,0.25),transparent_40%,rgba(22,22,22,0.85))]" />
-          <Reveal className={`relative mx-auto w-full max-w-6xl px-6 pb-16 ${i % 2 ? "text-right" : ""}`}>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">
-              {s.eyebrow}
-            </p>
-            <h2 className={`mt-3 max-w-lg font-omnibus text-[clamp(1.6rem,2.6vw,2.2rem)] leading-tight text-[#F8F8F8] ${i % 2 ? "ml-auto" : ""}`}>
-              {s.title}
-            </h2>
-          </Reveal>
-        </section>
-      ))}
-
-      {/* Vision close */}
-      <section className="bg-ink2">
-        <div className="mx-auto max-w-6xl px-6 py-24 text-center md:py-28">
-          <Reveal>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold">
-              Where we&apos;re headed
-            </p>
-            <p className="mx-auto mt-6 max-w-2xl font-omnibus text-2xl leading-relaxed text-[#F8F8F8]">
-              One of the Southeast&apos;s most trusted transportation
-              companies. Fifty tractors by the end of 2029, running on the
-              same values we started with.
-            </p>
-            <Link
-              href="/quote"
-              className="mt-10 inline-flex items-center rounded-full bg-gold px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.25em] text-ink transition-colors hover:bg-gold-soft"
-            >
-              Ship With Us
-            </Link>
-            <p className="mt-8 text-xs uppercase tracking-[0.2em] text-graywarm">
-              USDOT {site.usdot} · MC {site.mc} · {site.location}
-            </p>
-          </Reveal>
+          <RiseGroup className="mt-16 grid grid-cols-1 gap-x-[clamp(16px,1.4vw,24px)] gap-y-12 md:grid-cols-3">
+            {LEDGER.map((col) => (
+              <Rise key={col.index} className="relative border-t border-white/[0.12] pt-6">
+                {/* GhostNumeral 2029 behind column 3 — decoration, never gold. */}
+                {col.index === "03" && (
+                  <GhostNumeral className="-top-10 right-0">2029</GhostNumeral>
+                )}
+                <p className="relative text-label uppercase text-paper/80">
+                  <span aria-hidden className="mr-3 tabular-nums text-paper/40">
+                    {"{"}
+                    {col.index}
+                    {"}"}
+                  </span>
+                  {col.head}
+                </p>
+                <p className="relative mt-4 max-w-[38ch] text-body tabular-nums text-paper/70">
+                  {col.body}
+                </p>
+              </Rise>
+            ))}
+          </RiseGroup>
         </div>
       </section>
 
-      <PageClosing />
+      {/* 4 — VALUES, FRAMED (§4.2.4). Paper; B-state framed images, text beside,
+          never on the photo. Gold: none. */}
+      <section data-ground="paper" className="bg-paper py-band">
+        <div className={`${CONTAINER} space-y-[clamp(4rem,3rem+6vw,8rem)]`}>
+          {values.map(({ story: s, imageLeft }) => (
+            <div key={s.slug} className={`${GRID} items-center gap-y-8`}>
+              <div
+                className={
+                  imageLeft
+                    ? "lg:col-span-6 lg:col-start-1"
+                    : "order-1 lg:order-2 lg:col-span-6 lg:col-start-7"
+                }
+              >
+                <ClipReveal direction="left" className="aspect-[16/9]">
+                  <Image
+                    src={s.image}
+                    alt={s.alt}
+                    fill
+                    sizes="(min-width:768px) 50vw, 100vw"
+                    className="img-grade object-cover"
+                  />
+                </ClipReveal>
+              </div>
+              <div
+                className={
+                  imageLeft
+                    ? "lg:col-span-4 lg:col-start-8"
+                    : "order-2 lg:order-1 lg:col-span-4 lg:col-start-2"
+                }
+              >
+                <Eyebrow>{s.eyebrow}</Eyebrow>
+                <Rise delay={0.15}>
+                  <h3 className="mt-5 max-w-[14ch] font-omnibus text-h3 text-ink">
+                    {s.title}
+                  </h3>
+                </Rise>
+                <Rise delay={0.25}>
+                  <p className="mt-5 max-w-[48ch] text-body text-graywarm-deep">
+                    {s.body}
+                  </p>
+                </Rise>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 5 — BIRDMARK → 2029 CLOSE (§4.2.5). Ink. Gold: the BirdMark —
+          this page's single gold rule and the viewport's 2nd gold. */}
+      <section
+        data-ground="ink"
+        className="relative overflow-hidden bg-ink py-band-lg"
+      >
+        <div className={CONTAINER}>
+          <BirdMark ground="ink" />
+        </div>
+        <div className={`relative mt-[clamp(4rem,3rem+5vw,7rem)] ${CONTAINER} ${GRID}`}>
+          <div className="relative text-center lg:col-start-3 lg:col-end-11">
+            <GhostNumeral className="left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+              2029
+            </GhostNumeral>
+            <LineReveal
+              as="h2"
+              lines={["Fifty tractors.", "One kept promise", "at a time."]}
+              className="relative z-10 font-omnibus text-display-l text-cream"
+            />
+            <Rise delay={0.4}>
+              <p className="relative z-10 mt-10 text-micro uppercase text-paper/60">
+                The service never falls behind the name on the door
+              </p>
+            </Rise>
+          </div>
+        </div>
+      </section>
+
+      {/* 6 — ENDING (§4.2.6): next → Services, then the curtain Footer. */}
+      <CtaBand
+        variant="next"
+        next={{
+          label: "Services",
+          href: "/services",
+          image: {
+            src: "/images/stock/hero-semi-truck-dusk-mountains.jpg",
+            alt: "A tractor-trailer crossing a mountain road at dusk",
+          },
+        }}
+      />
     </>
   );
 }

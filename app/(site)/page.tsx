@@ -1,293 +1,294 @@
-import Image from "next/image";
-import { Reveal } from "@/components/motion/Reveal";
-// Liquid-gold glass panels parked for now — uncomment (and the three
-// <GoldGlass> wrappers below) to bring them back.
-// import GoldGlass from "@/components/concept/GoldGlass";
-import HashScroll from "@/components/concept/HashScroll";
-import HeroVideo from "@/components/concept/HeroVideo";
-import {
-  Pill,
-  PathsPanels,
-  StrengthStatement,
-  ContactBand,
-  FaqBand,
-} from "@/components/concept/PageClosing";
+"use client";
 
 /**
- * Concept homepage, rebuilt to the measured reference skeleton:
- * 02 hero pt-170 with centered tracked caps title
- * 03 statement band py-240 with a narrow 320px left column over a bg visual
- * 04 full-black 2-up panels, centered stacks, pill buttons
- * 05 proof band: small gray caps heading, six dim marks, 22px quote
- * 06/07 two full-bleed statement bands, left column w-468
- * 08 big centered statement over sky, pivot to light
- * 09 light FAQ: hairline rule, gold caps heading left, boxed accordion
- * 10 full-bleed lifestyle band
- * All copy and imagery are KUL's own. Sections 04/08/08b/09 live in
- * components/concept/PageClosing.tsx, shared with every other page.
+ * HOME — v2 design bible §4.1.
+ *
+ * Nine beats: HeroVideo (ink, scrub 1 of 2) → QuoteStrip (paper) →
+ * manifesto (paper) → TruckChapters (ink, 400vh pin, scrub 2 of 2) →
+ * proof (paper) → vision PhotoBand (photo/ink, melt) → FAQ (paper) →
+ * drivers PhotoBand (photo/ink) → CtaBand "quote" → curtain Footer (layout).
+ *
+ * Client component solely so the hero's LineReveal timing can read
+ * useVeilState().heroDelay (§3.22 — the hero starts rising ~0.1s before the
+ * route veil clears). Like v1, the page exports no local metadata: the root
+ * layout owns the site title/description and Organization JSON-LD, and the
+ * FAQ section below emits its own FAQPage schema via FaqAccordion.
+ *
+ * Gold ledger (§4.1, beyond the fixed chrome CTA): hero gold CTA · strip
+ * submit circle · manifesto eyebrow · active chapter eyebrow · FAQ eyebrow ·
+ * CtaBand quote underline. Nothing else on this page is gold.
  */
 
-/** Quiet line-art marks for the credentials band, one per item. */
-function CredIcon({ name, small = false }: { name: string; small?: boolean }) {
-  const common = {
-    viewBox: "0 0 32 32",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: 1.5,
-    strokeLinecap: "round" as const,
-    strokeLinejoin: "round" as const,
-    className: small ? "h-5 w-5 text-graywarm-light" : "h-8 w-8 text-graywarm-light",
-    "aria-hidden": true,
-  };
-  switch (name) {
-    case "dot": // federal badge
-      return (
-        <svg {...common}>
-          <path d="M16 3 L27 7 V15 C27 22 22.5 27 16 29 C9.5 27 5 22 5 15 V7 Z" />
-          <path d="M11 16 H21 M16 11 V21" />
-        </svg>
-      );
-    case "mc": // authority document
-      return (
-        <svg {...common}>
-          <rect x="7" y="4" width="18" height="24" rx="1.5" />
-          <path d="M11 10 H21 M11 15 H21 M11 20 H17" />
-        </svg>
-      );
-    case "shield": // insured
-      return (
-        <svg {...common}>
-          <path d="M16 3 L27 7 V15 C27 22 22.5 27 16 29 C9.5 27 5 22 5 15 V7 Z" />
-          <path d="M11.5 15.5 L14.5 18.5 L21 12" />
-        </svg>
-      );
-    case "clock": // 24/7
-      return (
-        <svg {...common}>
-          <circle cx="16" cy="16" r="12" />
-          <path d="M16 9 V16 L21 19" />
-        </svg>
-      );
-    case "pin": // Southeast based
-      return (
-        <svg {...common}>
-          <path d="M16 29 C16 29 25 19.5 25 12.5 C25 7.25 21 4 16 4 C11 4 7 7.25 7 12.5 C7 19.5 16 29 16 29 Z" />
-          <circle cx="16" cy="12.5" r="3.5" />
-        </svg>
-      );
-    case "map": // nationwide
-      return (
-        <svg {...common}>
-          <circle cx="16" cy="16" r="12" />
-          <path d="M4 16 H28 M16 4 C11 9 11 23 16 28 C21 23 21 9 16 4 Z" />
-        </svg>
-      );
-    default:
-      return null;
-  }
-}
+import Link from "next/link";
 
-export default function ConceptHome() {
+import { CtaBand } from "@/components/v2/CtaBand";
+import { Eyebrow } from "@/components/v2/Eyebrow";
+import { FaqAccordion } from "@/components/v2/FaqAccordion";
+import { HeroFrame } from "@/components/v2/HeroFrame";
+import { HeroVideo } from "@/components/v2/HeroVideo";
+import { LineReveal } from "@/components/v2/LineReveal";
+import { PhotoBand } from "@/components/v2/PhotoBand";
+import { QuoteStrip } from "@/components/v2/QuoteStrip";
+import { Rise } from "@/components/v2/Rise";
+import { useVeilState } from "@/components/v2/RouteVeil";
+import { StatBlock, type Fact } from "@/components/v2/StatBlock";
+import { TruckChapters, type Chapter } from "@/components/v2/TruckChapters";
+import { services } from "@/lib/services";
+import { site } from "@/lib/site";
+import faq from "@/content/faq.json";
+
+const CONTAINER = "mx-auto w-full max-w-[1760px] px-[clamp(20px,5vw,90px)]";
+const GRID = "grid grid-cols-12 gap-x-[clamp(16px,1.4vw,24px)]";
+
+/**
+ * §3.21 home chapter data — slugs and photos are fixed by the bible; the
+ * eyebrow (tagline), title (name), and body (`short`) come from
+ * content/services.json so CMS edits flow through.
+ */
+const HOME_CHAPTERS: { slug: string; image: { src: string; alt: string } }[] = [
+  {
+    slug: "dry-van",
+    image: {
+      src: "/images/stock/hero-semi-truck-dusk-mountains.jpg",
+      alt: "A tractor-trailer crossing a mountain road at dusk",
+    },
+  },
+  {
+    slug: "reefer",
+    image: {
+      src: "/images/stock/hero-alt-semi-night-gold-lights.jpg",
+      alt: "A semi truck rolling through the night under warm gold lights",
+    },
+  },
+  {
+    slug: "dedicated",
+    image: {
+      src: "/images/stock/driver-in-cab-gold-truck.jpg",
+      alt: "A driver at the wheel of his cab in warm evening light",
+    },
+  },
+  {
+    slug: "expedited",
+    image: {
+      src: "/images/stock/road-night-light-trails.jpg",
+      alt: "Tail-light trails streaking along a dark highway at night",
+    },
+  },
+];
+
+const chapters: Chapter[] = HOME_CHAPTERS.flatMap(({ slug, image }, i) => {
+  const service = services.find((s) => s.slug === slug);
+  if (!service) return [];
+  return [
+    {
+      index: `0${i + 1}`,
+      slug,
+      eyebrow: service.tagline,
+      title: service.name,
+      body: service.short,
+      image,
+    },
+  ];
+});
+
+/** §4.1.7 — faq.json items 1, 2, 3, 4, 8 (1-indexed): quote speed, what we haul, licensed, where we run, updates. */
+const FAQ_INDICES = [0, 1, 2, 3, 7];
+const faqItems = FAQ_INDICES.flatMap((i) => {
+  const item = faq.items[i];
+  return item ? [item] : [];
+});
+
+/** §3.13 allowed facts only — USDOT/MC render static, never animated. */
+const proofFacts: Fact[] = [
+  { label: "USDOT", value: site.usdot },
+  { label: "MC", value: site.mc },
+  { label: "Licensed & Insured", value: "Auto liability + cargo" },
+  { label: "Home Base", value: site.location },
+];
+
+export default function HomePage() {
+  // §3.22 — 0.35 while a veil-out is in flight, 0 on first load / popstate.
+  const { heroDelay } = useVeilState();
+  const baseDelay = heroDelay + 0.2;
+
   return (
     <>
-      <HashScroll />
-      {/* 02 Hero: dark video slot, centered tracked caps title high in frame */}
-      <section className="relative h-[100svh] overflow-hidden bg-ink2">
-        <div aria-hidden className="absolute inset-0">
-          {/* KUL aerial fleet footage, full screen, no overlay */}
-          <HeroVideo />
-        </div>
-        <div className="kul-fade-slow relative px-6 pt-[15vh] text-center">
-          <h1 className="kul-grad-text font-mont text-[clamp(1.35rem,2.3vw,2.05rem)] font-semibold uppercase tracking-[0.3em] [text-shadow:none]">
-            Strength in Motion
-          </h1>
-        </div>
-      </section>
-
-      {/* 03 Two-up Freight/Drivers panels (shared) */}
-      <PathsPanels />
-
-      {/* 04 Statement band A: left column w-468 over full-bleed visual.
-          Light scrim only; the body copy carries a soft dark text-shadow
-          for readability over the brighter, barely-filtered photo. */}
-      <section id="vision" className="relative flex h-[748px] items-center overflow-hidden">
-        <Image
-          src="/images/photos/ocean-waves-rocks.jpg"
-          alt="A wave breaking against a rock cliff at dusk"
-          fill
-          quality={80}
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-[linear-gradient(90deg,rgba(22,22,22,0.5),rgba(22,22,22,0.2)_55%,transparent)]"
-        />
-        <Reveal className="relative mx-auto w-full max-w-[1470px] px-6 lg:px-[180px]">
-          <div className="max-w-[560px]">
-            {/* The Blueprint asks for a section literally titled Our Vision. */}
-            <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold [text-shadow:0_1px_4px_rgba(0,0,0,0.55)]">
-              Our Vision
-            </p>
-            <h2 className="kul-grad-text mt-3 font-omnibus text-[clamp(2.1rem,3.2vw,2.9rem)] leading-[1.15]">
-              Building the Southeast&apos;s most trusted carrier
-            </h2>
-            {/* Parked: wrap this <p> in
-                <GoldGlass className="mt-6 max-w-[520px]"> (dropping the
-                p's mt/max-w/text-shadow) to restore the liquid-gold panel. */}
-            <p className="mt-6 max-w-[520px] text-[15px] leading-[1.7] text-graywarm-light [text-shadow:0_1px_4px_rgba(0,0,0,0.55)]">
-              Fifty tractors by the end of 2029, one kept promise at a time.
-              We grow on purpose, load by load, relationship by relationship,
-              so the service never falls behind the name on the door.
-            </p>
-            <Pill href="/about" className="mt-8">
-              Discover Our Vision
-            </Pill>
-          </div>
-        </Reveal>
-      </section>
-
-      {/* 05 Statement band B: same structure, safety message. True
-          cross-fade: the section overlaps the ocean band above by 14rem and
-          its own top edge is mask-feathered, so the desert dissolves
-          directly over the water — photo into photo, no dark valley. */}
-      <section className="relative -mt-56 flex h-[707px] items-center overflow-hidden [-webkit-mask-image:linear-gradient(180deg,transparent,black_14rem)] [mask-image:linear-gradient(180deg,transparent,black_14rem)]">
-        <Image
-          src="/images/photos/desert-rock-formation.jpg"
-          alt="Sculpted rock formations standing over quiet sand at dusk"
-          fill
-          quality={80}
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-[linear-gradient(270deg,rgba(22,22,22,0.5),rgba(22,22,22,0.2)_55%,transparent)]"
-        />
-        <Reveal className="relative mx-auto w-full max-w-[1470px] px-6 lg:px-[180px]">
-          <div className="ml-auto max-w-[560px] text-right">
-            <h2 className="kul-grad-text font-omnibus text-[clamp(2.1rem,3.2vw,2.9rem)] leading-[1.15]">
-              A foundation that doesn&apos;t move
-            </h2>
-            {/* Parked: wrap this <p> in
-                <GoldGlass className="ml-auto mt-6 max-w-[520px]"> (dropping
-                the p's ml/mt/max-w/text-shadow) to restore the panel. */}
-            <p className="ml-auto mt-6 max-w-[520px] text-[15px] leading-[1.7] text-graywarm-light [text-shadow:0_1px_4px_rgba(0,0,0,0.55)]">
-              Pre-trip inspections. Legal hours. Weather calls made early and
-              on the side of caution. The most important delivery on any route
-              is the driver coming home.
-            </p>
-            <Pill href="/safety" className="mt-8">
-              Explore Safety &amp; Compliance
-            </Pill>
-          </div>
-        </Reveal>
-      </section>
-
-      {/* 06 Statement band: narrow left column, Mark's cliffs photo (same
-          as the About opener). Cross-fades in over the desert band above;
-          the tall top padding keeps the copy below the feather. */}
-      <section className="relative -mt-40 overflow-hidden bg-ink2 [-webkit-mask-image:linear-gradient(180deg,transparent,black_10rem)] [mask-image:linear-gradient(180deg,transparent,black_10rem)]">
-        <div aria-hidden className="absolute inset-0">
-          <Image
-            src="/images/photos/cliffs-over-water.jpg"
-            alt=""
-            fill
-            quality={82}
-            sizes="100vw"
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(22,22,22,0.55)_0%,rgba(22,22,22,0.4)_34%,rgba(22,22,22,0.3)_65%,rgba(22,22,22,0.25)_100%)]" />
-        </div>
-        <div className="relative mx-auto grid min-h-[440px] max-w-[1000px] items-center gap-10 px-6 pb-24 pt-48 md:grid-cols-2 md:pb-28 md:pt-56">
-          <Reveal>
-            <h2 className="kul-grad-text font-omnibus text-[clamp(2rem,3vw,2.75rem)] leading-[1.15]">
-              Trust is in our DNA
-            </h2>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <div className="max-w-[420px]">
-              {/* Parked: wrap this <p> in <GoldGlass> (dropping the
-                  text-shadow) to restore the liquid-gold panel. */}
-              <p className="text-[15px] leading-[1.6] text-cream [text-shadow:0_1px_4px_rgba(0,0,0,0.55)]">
-                KUL Enterprises is a Georgia freight carrier built by a driver.
-                Every load carries three commitments: safety first, honest
-                communication, and delivery when we said it would.
-              </p>
-              <Pill href="/about" className="mt-7">
-                About
-              </Pill>
+      {/* 1 · HERO — §4.1.1. HeroVideo renders its own ink section (130svh,
+          sticky svh frame, scroll-out scrub = scrub 1 of 2). Gold: the hero
+          CTA (nav chrome is transparent at top state — total 2). */}
+      <HeroVideo>
+        <div className={`h-full ${CONTAINER}`}>
+          <div className={`h-full ${GRID}`}>
+            <div className="col-span-12 flex flex-col items-start justify-end pb-[12vh] lg:col-span-8">
+              <Eyebrow>KUL Enterprises · Freight Carrier</Eyebrow>
+              <LineReveal
+                as="h1"
+                immediate
+                delay={baseDelay}
+                lines={["Strength", "in Motion."]}
+                className="mt-6 max-w-[14ch] font-omnibus text-display-xl text-cream"
+              />
+              <Rise delay={baseDelay + 0.25}>
+                <p className="mt-6 max-w-[52ch] text-body-l text-paper/80">
+                  A Georgia freight carrier built on integrity and driven by
+                  safety &mdash; Southeast based, nationwide service.
+                </p>
+              </Rise>
+              <Rise delay={baseDelay + 0.45}>
+                <div className="mt-8 flex flex-wrap items-center gap-4">
+                  <Link href="/quote" className="btn-gold">
+                    Request a Quote
+                  </Link>
+                  <Link href="/drivers" className="btn-ghost-dark">
+                    Drive with KUL
+                  </Link>
+                </div>
+              </Rise>
             </div>
-          </Reveal>
+          </div>
         </div>
-      </section>
-
-      {/* 07 Proof band: small gray caps heading, six dim marks, quote.
-          Deliberately unblended — hard edges above and below. */}
-      <section id="credentials" className="bg-[linear-gradient(90deg,#161616_0%,#3B3B3B_100%)]">
-        <div className="mx-auto max-w-6xl px-6 py-16 text-center">
-          <Reveal>
-            <h2 className="font-mont text-[17px] font-medium uppercase tracking-[0.35em] text-[#B4B4B4]">
-              Our Credentials
-            </h2>
-            <ul className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 opacity-70 lg:flex-nowrap">
-              {[
-                ["dot", "USDOT 7638788"],
-                ["mc", "MC 66389691"],
-                ["shield", "Licensed & Insured"],
-                ["clock", "24/7 Dispatch"],
-                ["pin", "Southeast Based"],
-                ["map", "Nationwide"],
-              ].map(([icon, label]) => (
-                <li key={label} className="flex items-center gap-2.5 whitespace-nowrap font-mont">
-                  <CredIcon name={icon} small />
-                  <span className="text-sm font-semibold tracking-[0.12em] text-graywarm-light">
-                    {label}
-                  </span>
-                </li>
-              ))}
-            </ul>
-            <blockquote className="mx-auto mt-14 max-w-3xl">
-              <p className="font-omnibus text-[22px] leading-relaxed text-[#F8F8F8]">
-                &ldquo;Freight isn&apos;t just freight. Behind every load is a
-                family waiting, a business depending, a customer trusting
-                someone to keep their word.&rdquo;
-              </p>
-              <footer className="mt-5 font-mont text-[12px] font-semibold uppercase tracking-[0.3em] text-graywarm-light">
-                Mark S. Brown, Founder
-              </footer>
-            </blockquote>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 08 Tagline statement, 08b contact form, 09 FAQ (shared) */}
-      <StrengthStatement />
-      <ContactBand />
-      <FaqBand />
-
-      {/* 10 Lifestyle band: full-bleed, the human behind the wheel.
-          Deliberately unblended: hard edges; a light bottom fade keeps the
-          headline readable without burying the photo. */}
-      <section className="relative flex h-[629px] items-end overflow-hidden">
-        <Image
-          src="/images/stock/driver-in-cab-gold-truck.jpg"
-          alt="A driver at the wheel of his cab in warm evening light"
-          fill
-          quality={82}
-          sizes="100vw"
-          className="object-cover object-[center_30%]"
-        />
+        {/* Furniture at +0.6s (§4.1.1) — a CSS-only opacity fade: HeroFrame
+            positions absolutely, so its wrapper must never carry a transform
+            (a transformed ancestor would hijack its containing block). */}
         <div
-          aria-hidden
-          className="absolute inset-x-0 bottom-0 h-56 bg-[linear-gradient(180deg,transparent,rgba(22,22,22,0.8))]"
-        />
-        <Reveal className="relative mx-auto w-full max-w-6xl px-6 pb-14 text-center">
-          <h2 className="kul-grad-text font-omnibus text-[clamp(2.3rem,4vw,3.4rem)] leading-tight">
-            Driven by people who keep their word.
-          </h2>
-        </Reveal>
+          className="motion-safe:animate-[v2-home-furniture_0.6s_ease-out_both]"
+          style={{ animationDelay: `${baseDelay + 0.6}s` }}
+        >
+          <HeroFrame />
+        </div>
+        <style>{`@keyframes v2-home-furniture{from{opacity:0}to{opacity:1}}`}</style>
+      </HeroVideo>
+
+      {/* 2 · QUOTE STRIP — §4.1.2. Paper. Heading is the page's first h2
+          (default headingLevel, h3 visual scale). Gold: the submit circle. */}
+      <section data-ground="paper" className="bg-paper py-band-sm">
+        <div className={CONTAINER}>
+          <QuoteStrip ground="paper" heading="Where is it going?" />
+        </div>
       </section>
+
+      {/* 3 · MANIFESTO — §4.1.3. Paper continues. Gold: the eyebrow. */}
+      <section data-ground="paper" className="bg-paper py-band">
+        <div className={CONTAINER}>
+          <div className={GRID}>
+            <div className="col-span-12 lg:col-start-2 lg:col-end-10">
+              <Eyebrow gold>The Carrier</Eyebrow>
+              <LineReveal
+                as="h2"
+                lines={[
+                  "Freight is a promise",
+                  "with a deadline.",
+                  "We keep both.",
+                ]}
+                className="mt-6 max-w-[20ch] font-omnibus text-h2 text-ink"
+              />
+              <Rise delay={0.2}>
+                {/* site.json stories[every-mile].body, lightly trimmed (§4.1.3). */}
+                <p className="mt-8 max-w-[62ch] text-body-l text-graywarm-deep">
+                  KUL started on the road. Years of long hauls taught our
+                  founder what freight really is: someone&apos;s livelihood, on
+                  a schedule. That experience rides along on every load we
+                  move.
+                </p>
+              </Rise>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4 · TRUCK CHAPTERS — §4.1.4. Renders its own ink section (400vh
+          pin, scrub 2 of 2). Gold: the active chapter eyebrow. */}
+      <TruckChapters chapters={chapters} />
+
+      {/* 5 · PROOF — §4.1.5. Paper, the paperwork moment. Zero-gold. */}
+      <section data-ground="paper" className="bg-paper py-band-sm">
+        <div className={CONTAINER}>
+          <div className={GRID}>
+            <div className="col-span-12 lg:col-start-2 lg:col-end-12">
+              <Eyebrow>Authority &amp; Insurance</Eyebrow>
+              <LineReveal
+                as="h2"
+                lines={["Look us up", "before you call us."]}
+                className="mt-6 max-w-[20ch] font-omnibus text-h2 text-ink"
+              />
+              <Rise delay={0.15}>
+                <p className="mt-8 max-w-[62ch] text-body text-graywarm-deep">
+                  We operate under full federal authority with auto liability
+                  and cargo coverage. Verify us anytime on the FMCSA SAFER
+                  system &mdash; we encourage it.
+                </p>
+              </Rise>
+              <div className="mt-14">
+                <StatBlock facts={proofFacts} ground="paper" columns={4} />
+              </div>
+              <Rise delay={0.1}>
+                <p className="mt-12">
+                  <a
+                    href="https://safer.fmcsa.dot.gov/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link-hairline inline-block py-2 text-label uppercase text-ink"
+                  >
+                    Verify on FMCSA SAFER <span aria-hidden>↗</span>
+                  </a>
+                </p>
+              </Rise>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 6 · VISION BAND — §4.1.6. PhotoBand renders its own ink section.
+          Nature photo allowed: statement beat. Zero-gold, no CTA. */}
+      <PhotoBand
+        image={{
+          src: "/images/photos/tree-open-landscape.jpg",
+          alt: "A wide oak tree standing over open green land with mountains behind",
+        }}
+        eyebrow="The Vision"
+        titleLines={["Rooted deep.", "Built to grow."]}
+        body="Fifty tractors by the end of 2029 — one kept promise at a time."
+        align="left"
+        melt
+      />
+
+      {/* 7 · FAQ — §4.1.7. Paper. Gold: the eyebrow. FaqAccordion emits
+          FAQPage JSON-LD. */}
+      <section data-ground="paper" className="bg-paper py-band-sm">
+        <div className={CONTAINER}>
+          <div className={GRID}>
+            <div className="col-span-12 lg:col-start-2 lg:col-end-12">
+              <Eyebrow gold>Straight Answers</Eyebrow>
+              <LineReveal
+                as="h2"
+                lines={["Asked often."]}
+                className="mt-6 max-w-[20ch] font-omnibus text-h2 text-ink"
+              />
+              <div className="mt-12">
+                <FaqAccordion items={faqItems} ground="paper" jsonLd />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 8 · DRIVERS BAND — §4.1.8. PhotoBand renders its own ink section.
+          Ghost CTA — zero-gold. */}
+      <PhotoBand
+        image={{
+          src: "/images/stock/driver-portrait-semi-cab-night.jpg",
+          alt: "A driver looking out from the cab of his semi at night",
+        }}
+        eyebrow="Drive with KUL"
+        titleLines={["Driven by people", "who keep their word."]}
+        body="CDL-A, Southeast regional and OTR. The most important delivery on any route is the driver coming home."
+        align="right"
+        cta={{ label: "Drive with KUL", href: "/drivers", style: "ghost" }}
+      />
+
+      {/* 9 · ENDING — §4.1.9. CtaBand renders its own ink section (92svh).
+          Gold: the underlined quote link. Curtain Footer follows in layout. */}
+      <CtaBand variant="quote" />
     </>
   );
 }
