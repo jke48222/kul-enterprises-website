@@ -22,7 +22,7 @@ const HOVER_SPEED = 0.4;
 
 // Richer than the stock argent gold: more saturated highlight, deeper bronze
 // shadow, so the bands pop through the glass instead of whispering.
-const GOLD = { light: "#ffd76a", dark: "#5c4406" };
+const GOLD = { light: "#d7c287", dark: "#8c7342" };
 
 export default function GoldGlass({
   children,
