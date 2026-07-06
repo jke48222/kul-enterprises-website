@@ -3,10 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 
 /**
- * Version chooser for the client demo: two doors, one per design
- * iteration. Both trees are complete sites — /v1 is the original build,
- * /v2 the ground-up redesign. Deliberately dependency-free (no motion
- * imports): this page must never be the reason the demo stalls.
+ * Version chooser for the client demo: one door per design iteration.
+ * All trees are complete sites — /v1 the original build, /v2 the
+ * ground-up redesign, /v3 the Cinematic Trust Experience (Apple × Volvo
+ * register). Deliberately dependency-free (no motion imports): this page
+ * must never be the reason the demo stalls.
  */
 export const metadata: Metadata = {
   title: "Design Preview",
@@ -24,6 +25,11 @@ const VERSIONS = [
     label: "Version 2",
     note: "The redesign — cinematic rebuild, quote strip, truck chapters",
   },
+  {
+    href: "/v3",
+    label: "Version 3",
+    note: "Cinematic Trust — light-forward Apple × Volvo register, lion-primary, gold roadway, Southeast map",
+  },
 ] as const;
 
 export default function VersionChooser() {
@@ -40,7 +46,7 @@ export default function VersionChooser() {
       <p className="mt-4 font-mont text-[11px] font-medium uppercase tracking-eyebrow text-white/50">
         Design preview · choose a version
       </p>
-      <div className="mt-12 grid w-full max-w-2xl gap-4 sm:grid-cols-2">
+      <div className="mt-12 grid w-full max-w-4xl gap-4 sm:grid-cols-3">
         {VERSIONS.map((v) => (
           <Link
             key={v.href}

@@ -73,6 +73,11 @@ body {
   .btn-ghost-light {
     @apply inline-flex h-11 items-center justify-center gap-2 rounded-full border border-ink/25 px-6 text-label uppercase text-ink transition-colors duration-200 hover:border-ink;
   }
+  /* v3 — the Volvo primary: filled near-black pill on light grounds
+     (#212121 register). Quiet-primary slot when the gold budget is spent. */
+  .btn-ink {
+    @apply inline-flex h-11 items-center justify-center gap-2 rounded-full bg-charcoal px-6 text-label uppercase text-paper transition-colors duration-200 hover:bg-[#333333];
+  }
 }
 
 /* §2.8 link-hairline — the universal text-link hover: 1px currentColor

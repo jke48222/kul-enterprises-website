@@ -35,6 +35,15 @@ const config: Config = {
       fontFamily: {
         omnibus: ["var(--font-omnibus)", "Georgia", "serif"],
         mont: ["var(--font-mont)", "system-ui", "sans-serif"],
+        // v3 — single-family Apple/Volvo register (Geist, OFL via Google
+        // Fonts; loaded in app/v3/layout.tsx). One family, two optical
+        // roles: 600/700 display, 400/500 text.
+        geist: [
+          "var(--font-geist)",
+          "-apple-system",
+          "system-ui",
+          "sans-serif",
+        ],
       },
       /**
        * Type scale (bible §2.1). Omnibus Bold is the ONLY display face and
@@ -77,6 +86,25 @@ const config: Config = {
         micro: [
           "0.6875rem",
           { lineHeight: "1.4", letterSpacing: "0.18em", fontWeight: "500" },
+        ],
+        /**
+         * v3 display scale — the Apple/Volvo register measured in
+         * project-docs/reference/apple-volvo-tokens.json: SF Pro Display
+         * 80px / lh 1.05 / −1.2px; Volvo Novum 700 / −0.48px. Tighter
+         * line-height as size grows, slight negative tracking, weight in
+         * the token so usage stays one class.
+         */
+        d1: [
+          "clamp(2.75rem, 1.9rem + 4.2vw, 5.5rem)",
+          { lineHeight: "1.04", letterSpacing: "-0.015em", fontWeight: "600" },
+        ],
+        d2: [
+          "clamp(2rem, 1.55rem + 2.2vw, 3.5rem)",
+          { lineHeight: "1.08", letterSpacing: "-0.012em", fontWeight: "600" },
+        ],
+        t1: [
+          "clamp(1.5rem, 1.32rem + 0.9vw, 2rem)",
+          { lineHeight: "1.15", letterSpacing: "-0.008em", fontWeight: "600" },
         ],
       },
       /**
