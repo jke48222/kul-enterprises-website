@@ -7,6 +7,12 @@
       "runtimeArgs": ["run", "dev"],
       "port": 3010,
       "autoPort": true
+    },
+    {
+      "name": "multiverse",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["-y", "vite", "multiverse", "--port", "4173", "--strictPort"],
+      "port": 4173
     }
   ]
 }

@@ -1,0 +1,833 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="KUL Enterprises LLC — nationwide freight built on integrity and driven by safety. Request a freight quote or become a driver. USDOT 7638788 · MC 66389691 · Loganville, GA.">
+<title>KUL Enterprises — Strength in Motion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   KUL s10 — "Apple product-page" layout family, KUL-original.
+   Premium scroll-story: thin sticky global nav, centered-type
+   hero over a framed visual, anchored scrollspy sub-nav,
+   alternating light sections + dark cinematic tiles, a snap
+   lineup of 7 freight services, a straight-answers accordion,
+   and a light directory footer. One gold accent. Vast whitespace.
+   Single family (Hanken Grotesk). Hierarchy by size/weight/space.
+   ============================================================ */
+
+/* -------- TWEAKABLE DECISIONS (mirrored in KUL_TWEAKS) -------- */
+:root{
+  --gold: #D4AF37;         /* brand gold */
+  --gold-dose: 100;        /* decorative gold strength, unitless % */
+  --warmth: 55;            /* off-white ground warmth, unitless */
+  --type-scale: 100;       /* display type scale, unitless % */
+  --section-space: 100;    /* section rhythm, unitless % */
+  --radius: 20;            /* corner radius base, px (unitless) */
+  --hero-treatment: photo; /* framed hero visual: photo | plate */
+}
+
+:root{
+  /* ---- derived scalars ---- */
+  --ts: calc(var(--type-scale) / 100);
+  --ss: calc(var(--section-space) / 100);
+
+  /* ---- spacing scale (8pt-derived) ---- */
+  --s-1: 4px;   --s-2: 8px;   --s-3: 12px;  --s-4: 16px;
+  --s-5: 24px;  --s-6: 32px;  --s-7: 48px;  --s-8: 64px;
+  --s-9: 96px;  --s-10: 128px;
+  --sp: calc(clamp(72px, 9.5vw, 128px) * var(--ss)); /* section vertical rhythm */
+
+  /* ---- corner radius ---- */
+  --r-lg: calc(var(--radius) * 1px);
+  --r-md: calc(var(--radius) * 0.65px);
+  --r-sm: calc(var(--radius) * 0.42px);
+
+  /* ---- ink / ground ---- */
+  --ink:   #16181C;
+  --ink-2: rgba(22,24,28,.62);
+  --ink-3: rgba(22,24,28,.40);
+  --white: #FFFFFF;
+  --off:   hsl(40 calc(var(--warmth) * 0.30%) 96.8%);
+  --off-2: hsl(40 calc(var(--warmth) * 0.34%) 93.6%);
+  --dark:  #0B0B0B;
+  --dark-2:#141414;
+  --line:  rgba(22,24,28,.11);
+  --line-2:rgba(22,24,28,.22);
+  --gold-ink: #7E6410; /* gold that stays legible as ink on light grounds */
+
+  /* ---- layout ---- */
+  --container: 1200px;
+  --gutter: clamp(20px, 4vw, 40px);
+  --nav-h: 52px;
+  --sub-h: 54px;
+  --pill: 980px;
+
+  /* ---- modular type scale (× --ts), tracked tight ---- */
+  --fs-eyebrow: 0.72rem;
+  --fs-body:    1.0625rem;
+  --fs-lead:    clamp(1.14rem, 1.55vw, 1.5rem);
+  --fs-h3:      calc(clamp(1.45rem, 2.3vw, 2.05rem) * var(--ts));
+  --fs-h2:      calc(clamp(2.05rem, 4.2vw, 3.35rem) * var(--ts));
+  --fs-mega:    calc(clamp(2.5rem, 5.6vw, 4.4rem) * var(--ts));
+  --fs-display: calc(clamp(2.75rem, 6.6vw, 5.5rem) * var(--ts));
+
+  --ease: cubic-bezier(.24,.12,.24,1);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:"Hanken Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  color:var(--ink);
+  background:var(--white);
+  font-size:var(--fs-body);
+  line-height:1.5;
+  letter-spacing:-.006em;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;color:inherit}
+h1,h2,h3,h4,p{margin:0}
+
+.wrap{max-width:var(--container);margin-inline:auto;padding-inline:var(--gutter)}
+.eyebrow{
+  font-size:var(--fs-eyebrow);font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gold-ink);margin-bottom:var(--s-4);
+  display:inline-flex;align-items:center;gap:.7em;
+}
+.eyebrow::before{content:"";width:18px;height:2px;background:var(--gold);opacity:calc(var(--gold-dose)/100);border-radius:2px}
+.display{font-size:var(--fs-display);font-weight:800;line-height:1.02;letter-spacing:-.032em}
+.mega{font-size:var(--fs-mega);font-weight:800;line-height:1.04;letter-spacing:-.03em}
+.h2{font-size:var(--fs-h2);font-weight:800;line-height:1.06;letter-spacing:-.026em}
+.h3{font-size:var(--fs-h3);font-weight:700;line-height:1.12;letter-spacing:-.02em}
+.lead{font-size:var(--fs-lead);font-weight:400;line-height:1.4;color:var(--ink-2)}
+
+/* -------- Pill CTAs (radius 980px, Apple-family) -------- */
+.pill{
+  display:inline-flex;align-items:center;justify-content:center;gap:.4em;
+  border-radius:var(--pill);padding:12px 22px;font-size:15px;font-weight:600;
+  letter-spacing:-.006em;border:1px solid transparent;line-height:1;
+  transition:transform .24s var(--ease),background .24s var(--ease),color .24s var(--ease),border-color .24s var(--ease),box-shadow .24s var(--ease);
+  will-change:transform;
+}
+.pill--gold{background:var(--gold);color:#0B0B0B;box-shadow:0 1px 0 rgba(255,255,255,.3) inset}
+.pill--gold:hover{background:#e2c250;transform:translateY(-1px);box-shadow:0 8px 20px -12px rgba(22,24,28,.5)}
+.pill--ghost{background:transparent;color:var(--gold-ink);border-color:color-mix(in srgb,var(--gold) 55%,transparent)}
+.pill--ghost:hover{background:color-mix(in srgb,var(--gold) 11%,transparent);transform:translateY(-1px)}
+.pill--sm{padding:8px 16px;font-size:13.5px}
+.pill--lg{padding:14px 28px;font-size:16px}
+.pill--onDark{color:#0B0B0B}
+.pill--onDark.pill--ghost{color:var(--gold);border-color:rgba(212,175,55,.5)}
+.pill--onDark.pill--ghost:hover{background:rgba(212,175,55,.14)}
+.linkarrow{color:var(--gold-ink);font-weight:600;font-size:15px;display:inline-flex;align-items:center;gap:.3em}
+.linkarrow::after{content:"→";font-size:1em;transition:transform .24s var(--ease)}
+.linkarrow:hover::after{transform:translateX(4px)}
+
+/* ============================================================
+   GLOBAL NAV — thin, sticky, blurred
+   ============================================================ */
+.gnav{
+  position:sticky;top:0;z-index:900;height:var(--nav-h);
+  background:color-mix(in srgb, var(--off) 78%, transparent);
+  backdrop-filter:saturate(160%) blur(18px);-webkit-backdrop-filter:saturate(160%) blur(18px);
+  border-bottom:1px solid transparent;transition:border-color .3s,background .3s;
+}
+.gnav.scrolled{border-bottom-color:var(--line)}
+.gnav__in{max-width:var(--container);margin-inline:auto;height:100%;padding-inline:var(--gutter);
+  display:flex;align-items:center;gap:var(--s-4)}
+.brand{display:flex;align-items:center;gap:9px;flex:0 0 auto}
+.brand img{width:30px;height:30px;object-fit:contain}
+.brand b{font-weight:800;font-size:15px;letter-spacing:.01em}
+.brand span{color:var(--ink-3);font-weight:500;font-size:15px}
+.gnav__links{display:flex;align-items:center;gap:30px;margin-inline:auto}
+.gnav__links a{font-size:14px;font-weight:500;color:var(--ink-2);transition:color .2s}
+.gnav__links a:hover{color:var(--ink)}
+.gnav__cta{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+.gnav__burger{display:none;background:none;border:0;width:38px;height:38px;color:var(--ink);
+  align-items:center;justify-content:center}
+.gnav__burger svg{width:20px;height:20px}
+
+/* ============================================================
+   LOCAL SUB-NAV — anchored, scrollspy, sticky under global
+   ============================================================ */
+.lnav{
+  position:sticky;top:var(--nav-h);z-index:850;height:var(--sub-h);
+  background:color-mix(in srgb, var(--white) 82%, transparent);
+  backdrop-filter:saturate(160%) blur(18px);-webkit-backdrop-filter:saturate(160%) blur(18px);
+  border-bottom:1px solid var(--line);
+}
+.lnav__in{max-width:var(--container);margin-inline:auto;height:100%;padding-inline:var(--gutter);
+  display:flex;align-items:center;gap:26px}
+.lnav__title{font-weight:700;font-size:18px;letter-spacing:-.02em;margin-right:2px;white-space:nowrap}
+.lnav__links{display:flex;align-items:center;gap:24px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+.lnav__links::-webkit-scrollbar{display:none}
+.lnav__links a{white-space:nowrap;font-size:13.5px;font-weight:500;color:var(--ink-2);position:relative;padding:4px 0;transition:color .2s}
+.lnav__links a:hover{color:var(--ink)}
+.lnav__links a.active{color:var(--ink)}
+.lnav__links a.active::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;
+  background:var(--gold);border-radius:2px}
+.lnav__cta{margin-left:auto;display:flex;align-items:center;gap:12px;flex:0 0 auto}
+.lnav__loc{font-size:13px;color:var(--ink-3);white-space:nowrap}
+
+/* ============================================================
+   HERO — centered statement + framed visual + dual CTA
+   ============================================================ */
+.hero{
+  text-align:center;padding-top:calc(var(--sp) * .55);padding-bottom:0;
+  background:
+    radial-gradient(120% 78% at 50% -8%, color-mix(in srgb,var(--gold) calc(9% * var(--gold-dose)/100),transparent), transparent 56%),
+    linear-gradient(180deg,var(--white),var(--off));
+}
+.hero__kicker{font-size:14px;font-weight:600;color:var(--gold-ink);letter-spacing:.01em;margin-bottom:var(--s-3)}
+.hero h1{margin:0 auto;max-width:15ch}
+.hero__sub{margin:var(--s-5) auto 0;max-width:36ch;font-size:var(--fs-lead);color:var(--ink-2);line-height:1.42}
+.hero__cta{display:flex;gap:var(--s-3);justify-content:center;flex-wrap:wrap;margin-top:var(--s-7)}
+.hero__stage{margin:clamp(36px,5.5vw,68px) auto 0;max-width:1040px;padding-inline:var(--gutter)}
+
+/* framed photo treatment */
+.hero__photo{
+  position:relative;border-radius:var(--r-lg);overflow:hidden;
+  box-shadow:0 40px 90px -52px rgba(22,24,28,.6);
+  outline:1px solid var(--line);
+}
+.hero__photo::after{content:"";position:absolute;inset:0;border-radius:inherit;
+  border:1px solid color-mix(in srgb,var(--gold) calc(34% * var(--gold-dose)/100),transparent);pointer-events:none}
+.hero__photo img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.hero__photo figcaption{
+  position:absolute;left:20px;bottom:16px;color:#fff;font-size:13px;font-weight:600;
+  letter-spacing:.01em;text-shadow:0 1px 14px rgba(0,0,0,.7)}
+
+/* dark lion plate treatment */
+.hero__plate{
+  position:relative;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/9;
+  background:radial-gradient(120% 130% at 50% 0%, #1c1c1c, var(--dark) 62%);
+  display:grid;place-items:center;text-align:center;padding:var(--s-6);
+  box-shadow:0 40px 90px -52px rgba(22,24,28,.6);
+  outline:1px solid color-mix(in srgb,var(--gold) calc(42% * var(--gold-dose)/100),transparent);
+}
+.hero__plate::before{content:"";position:absolute;inset:0;
+  background:radial-gradient(60% 50% at 50% 42%, color-mix(in srgb,var(--gold) calc(16% * var(--gold-dose)/100),transparent), transparent 70%)}
+.hero__plate-in{position:relative;display:grid;justify-items:center;gap:var(--s-4)}
+.hero__plate img{width:clamp(88px,13vw,140px);height:auto;filter:drop-shadow(0 8px 26px rgba(0,0,0,.5))}
+.hero__plate b{color:#fff;font-weight:800;font-size:clamp(1.1rem,2.4vw,1.75rem);letter-spacing:-.02em}
+.hero__plate span{color:var(--gold);font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase}
+
+:root[data-hero="plate"] .hero__photo{display:none}
+:root:not([data-hero="plate"]) .hero__plate{display:none}
+
+.hero__note{margin:var(--s-5) auto 0;font-size:12.5px;color:var(--ink-3);max-width:52ch;
+  padding-bottom:calc(var(--sp) * .55)}
+
+/* ============================================================
+   TRUST STRIP — thin credential band
+   ============================================================ */
+.trust{background:var(--dark);color:rgba(255,255,255,.82)}
+.trust__in{max-width:var(--container);margin-inline:auto;padding:18px var(--gutter);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 0}
+.trust__item{display:flex;align-items:center;gap:9px;padding:0 clamp(12px,2vw,26px);font-size:13px;font-weight:500;white-space:nowrap}
+.trust__item+.trust__item{border-left:1px solid rgba(255,255,255,.15)}
+.trust__item b{color:var(--gold);font-weight:700}
+.trust__dot{width:6px;height:6px;border-radius:50%;background:var(--gold);opacity:calc(var(--gold-dose)/100);flex:0 0 auto}
+
+/* ============================================================
+   SECTION scaffolding
+   ============================================================ */
+.section{padding-block:var(--sp)}
+.section--tight{padding-block:calc(var(--sp) * .64)}
+.section__head{max-width:34ch}
+.section__head--center{margin-inline:auto;text-align:center}
+.section__head .lead{margin-top:var(--s-4)}
+
+/* -------- Services lineup — numbered typographic tiles, gold hairline -------- */
+.lineup{background:var(--off)}
+.lineup__top{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:var(--s-8)}
+.lineup__pad{display:flex;gap:10px}
+.padbtn{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--white);
+  color:var(--ink-2);display:grid;place-items:center;transition:background .2s,color .2s,border-color .2s}
+.padbtn:hover{border-color:var(--line-2);color:var(--ink)}
+.padbtn svg{width:16px;height:16px}
+.rail{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;
+  padding:2px var(--gutter) 26px;margin-inline:calc(var(--gutter) * -1);scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.tile{
+  scroll-snap-align:start;flex:0 0 auto;width:min(78vw,286px);
+  background:var(--white);border-radius:var(--r-md);padding:24px 24px 22px;
+  border:1px solid var(--line);display:flex;flex-direction:column;min-height:322px;position:relative;
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s var(--ease);
+}
+.tile::before{content:"";position:absolute;left:24px;right:24px;top:0;height:2px;border-radius:2px;
+  background:var(--gold);opacity:calc(var(--gold-dose)/100)}
+.tile:hover{transform:translateY(-4px);box-shadow:0 28px 54px -36px rgba(22,24,28,.5);border-color:transparent}
+.tile__no{font-size:13px;font-weight:800;color:var(--gold-ink);letter-spacing:.1em;margin-top:6px}
+.tile h3{font-size:clamp(1.5rem,2vw,1.85rem);font-weight:800;letter-spacing:-.024em;margin-top:auto;padding-top:var(--s-6)}
+.tile p{margin-top:var(--s-3);font-size:14.5px;color:var(--ink-2);line-height:1.44}
+.tile .linkarrow{margin-top:var(--s-5);font-size:14px}
+
+/* -------- Closer-look journey tile (dark cinematic) -------- */
+.closer{position:relative;isolation:isolate;color:#fff;text-align:center;overflow:hidden}
+.closer__bg{position:absolute;inset:0;z-index:-2}
+.closer__bg img{width:100%;height:100%;object-fit:cover}
+.closer::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(11,11,11,.30),rgba(11,11,11,.66))}
+.closer__inner{padding-block:calc(var(--sp) * 1.08);padding-inline:var(--gutter);max-width:var(--container);margin-inline:auto}
+.closer h2{margin-inline:auto;max-width:19ch}
+.closer p{margin:var(--s-5) auto 0;max-width:46ch;color:rgba(255,255,255,.86);font-size:var(--fs-lead);line-height:1.42}
+.closer .pill{margin-top:var(--s-7)}
+
+/* -------- Why KUL — feature grid -------- */
+.why{background:var(--white)}
+.fgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:var(--s-8)}
+.fcard{background:var(--off);border-radius:var(--r-md);padding:26px 24px;min-height:232px;
+  display:flex;flex-direction:column;border:1px solid transparent;transition:background .3s}
+.fcard:hover{background:var(--off-2)}
+.fcard__ico{width:42px;height:42px;border-radius:var(--r-sm);display:grid;place-items:center;
+  background:color-mix(in srgb,var(--gold) calc(18% * var(--gold-dose)/100),transparent);color:var(--gold-ink);margin-bottom:auto}
+.fcard__ico svg{width:22px;height:22px}
+.fcard h3{font-size:19px;font-weight:700;letter-spacing:-.014em;margin-top:var(--s-6)}
+.fcard p{margin-top:var(--s-2);font-size:14px;color:var(--ink-2);line-height:1.44}
+
+/* -------- Safety dark cinematic tile -------- */
+.safety{position:relative;isolation:isolate;overflow:hidden;color:#fff}
+.safety__bg{position:absolute;inset:0;z-index:-2}
+.safety__bg img{width:100%;height:100%;object-fit:cover;filter:grayscale(.4) brightness(.46)}
+.safety::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(115deg,rgba(11,11,11,.88),rgba(11,11,11,.48))}
+.safety__in{max-width:var(--container);margin-inline:auto;padding-inline:var(--gutter);
+  padding-block:calc(var(--sp) * 1.04)}
+.safety__card{max-width:34ch}
+.safety__card .eyebrow{color:var(--gold)}
+.safety__card .eyebrow::before{background:var(--gold)}
+.safety h2{margin-top:var(--s-1);color:#fff}
+.safety p{margin-top:var(--s-5);color:rgba(255,255,255,.85);font-size:var(--fs-lead);line-height:1.42;max-width:44ch}
+.safety__lion{width:54px;height:54px;object-fit:contain;margin-bottom:var(--s-5);opacity:calc(var(--gold-dose)/100)}
+.safety .pill{margin-top:var(--s-6)}
+
+/* -------- Vision statement tile -------- */
+.vision{background:var(--off);text-align:center}
+.vision__in{max-width:920px;margin-inline:auto;padding-block:var(--sp);padding-inline:var(--gutter)}
+.vision .mega b{color:var(--gold-ink);font-weight:800}
+.vision p{margin:var(--s-6) auto 0;max-width:48ch;color:var(--ink-2);font-size:var(--fs-lead);line-height:1.46}
+.vision__meta{margin-top:var(--s-8);display:flex;gap:0;justify-content:center;flex-wrap:wrap}
+.vision__stat{padding:0 clamp(18px,3.4vw,40px)}
+.vision__stat+.vision__stat{border-left:1px solid var(--line)}
+.vision__stat b{display:block;font-size:clamp(1.9rem,3vw,2.7rem);font-weight:800;letter-spacing:-.026em;color:var(--ink)}
+.vision__stat span{font-size:13px;color:var(--ink-3);font-weight:500}
+
+/* -------- Straight-answers accordion -------- */
+.faq{background:var(--white)}
+.acc{margin-top:var(--s-8);max-width:820px;margin-inline:auto;border-top:1px solid var(--line)}
+.acc__item{border-bottom:1px solid var(--line)}
+.acc__q{width:100%;background:none;border:0;text-align:left;padding:24px 0;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  font-size:clamp(1.05rem,1.7vw,1.3rem);font-weight:700;letter-spacing:-.016em;color:var(--ink)}
+.acc__sign{flex:0 0 auto;width:30px;height:30px;border-radius:50%;border:1px solid var(--line-2);
+  display:grid;place-items:center;color:var(--gold-ink);transition:transform .3s var(--ease),background .3s}
+.acc__q[aria-expanded="true"] .acc__sign{transform:rotate(45deg);background:color-mix(in srgb,var(--gold) 16%,transparent)}
+.acc__sign svg{width:14px;height:14px}
+.acc__a{overflow:hidden;height:0;transition:height .34s var(--ease)}
+.acc__a-in{padding:0 0 26px;color:var(--ink-2);font-size:16px;line-height:1.56;max-width:66ch}
+
+/* -------- CTA band (gold) -------- */
+.cta{background:linear-gradient(118deg,var(--gold),#e7c95c);color:#0B0B0B;text-align:center}
+.cta__in{max-width:var(--container);margin-inline:auto;padding-block:calc(var(--sp) * .82);padding-inline:var(--gutter)}
+.cta h2{max-width:22ch;margin-inline:auto;color:#0B0B0B}
+.cta p{margin:var(--s-4) auto 0;max-width:48ch;color:rgba(11,11,11,.72);font-size:var(--fs-lead)}
+.cta__row{display:flex;gap:var(--s-3);justify-content:center;flex-wrap:wrap;margin-top:var(--s-7)}
+.cta .pill--dark{background:#0B0B0B;color:var(--gold)}
+.cta .pill--dark:hover{background:#1f1f1f;transform:translateY(-1px)}
+.cta .pill--line{background:transparent;border-color:rgba(11,11,11,.4);color:#0B0B0B}
+.cta .pill--line:hover{background:rgba(11,11,11,.08)}
+
+/* -------- Footer (light directory) -------- */
+.foot{background:var(--off);color:var(--ink-2);font-size:13px;line-height:1.6}
+.foot__in{max-width:var(--container);margin-inline:auto;padding:var(--s-7) var(--gutter)}
+.foot__lockup{width:130px;margin-bottom:var(--s-6)}
+.foot__cols{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:28px 24px;
+  padding-bottom:var(--s-6);border-bottom:1px solid var(--line)}
+.foot__col h4{font-size:12px;font-weight:700;color:var(--ink);letter-spacing:.02em;margin:0 0 12px}
+.foot__col a,.foot__col p{display:block;color:var(--ink-2);margin:0 0 9px;transition:color .2s}
+.foot__col a:hover{color:var(--ink)}
+.foot__col b{color:var(--ink);font-weight:600}
+.foot__legal{padding-top:20px;display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--ink-3);font-size:12px;justify-content:space-between}
+.foot__legal .tag{color:var(--gold-ink);font-weight:600}
+
+/* -------- reveal animation -------- */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:1024px){
+  .fgrid{grid-template-columns:repeat(2,1fr)}
+  .foot__cols{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:880px){
+  .gnav__links{display:none}
+  .gnav__cta .pill--ghost{display:none}
+  .gnav__burger{display:flex}
+  .lnav__cta .lnav__loc{display:none}
+}
+@media (max-width:640px){
+  :root{--nav-h:48px;--sub-h:50px}
+  .foot__cols{grid-template-columns:1fr 1fr}
+  .lineup__top{flex-direction:column;align-items:flex-start}
+  .lineup__pad{display:none}
+  .trust__item+.trust__item{border-left:0}
+  .trust__in{gap:12px 0}
+  .lnav__title{display:none}
+  .vision__meta{gap:16px 0}
+  .foot__legal{gap:6px}
+}
+
+/* -------- mobile menu sheet -------- */
+.msheet{position:fixed;inset:0;z-index:1000;background:color-mix(in srgb,var(--white) 98%,transparent);
+  backdrop-filter:blur(20px);display:none;flex-direction:column;padding:var(--gutter)}
+.msheet.open{display:flex}
+.msheet__top{display:flex;align-items:center;justify-content:space-between;height:var(--nav-h)}
+.msheet__x{background:none;border:0;color:var(--ink);width:38px;height:38px}
+.msheet__x svg{width:22px;height:22px}
+.msheet nav{margin-top:20px;display:flex;flex-direction:column;gap:4px}
+.msheet nav a{font-size:26px;font-weight:700;letter-spacing:-.022em;padding:12px 0;
+  border-bottom:1px solid var(--line);color:var(--ink)}
+.msheet__foot{margin-top:auto;display:flex;flex-direction:column;gap:12px;padding-bottom:20px}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1!important;transform:none!important;transition:none!important}
+  .pill,.tile,.linkarrow::after,.acc__sign,.acc__a,.fcard{transition:none!important}
+}
+:root.rm .reveal{opacity:1!important;transform:none!important}
+</style>
+</head>
+<body>
+
+<!-- ======================= GLOBAL NAV ======================= -->
+<header class="gnav" id="gnav">
+  <div class="gnav__in">
+    <a class="brand" href="#top" aria-label="KUL Enterprises home">
+      <img src="/assets/brand/lion-clean.png" alt="" width="30" height="30" decoding="async">
+      <b>KUL</b><span>Enterprises</span>
+    </a>
+    <nav class="gnav__links" aria-label="Primary">
+      <a href="#services">Services</a>
+      <a href="#safety">Safety</a>
+      <a href="#vision">Vision</a>
+      <a href="#faq">Answers</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="gnav__cta">
+      <a class="pill pill--ghost pill--sm" href="#drive">Become a Driver</a>
+      <a class="pill pill--gold pill--sm" href="#quote">Request a Quote</a>
+      <button class="gnav__burger" id="burger" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ======================= LOCAL SUB-NAV (scrollspy) ======================= -->
+<div class="lnav" id="lnav">
+  <div class="lnav__in">
+    <span class="lnav__title">Freight</span>
+    <nav class="lnav__links" id="spy" aria-label="On this page">
+      <a href="#overview" data-spy>Overview</a>
+      <a href="#services" data-spy>Services</a>
+      <a href="#why" data-spy>Why KUL</a>
+      <a href="#safety" data-spy>Safety</a>
+      <a href="#vision" data-spy>Vision</a>
+    </nav>
+    <div class="lnav__cta">
+      <span class="lnav__loc">Loganville, GA · Nationwide</span>
+      <a class="pill pill--gold pill--sm" href="#quote">Get a Quote</a>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= HERO ======================= -->
+<main id="top">
+<section class="hero" id="overview">
+  <div class="wrap">
+    <p class="hero__kicker reveal">KUL Enterprises LLC</p>
+    <h1 class="display reveal">Strength in Motion.</h1>
+    <p class="hero__sub reveal">Nationwide freight built on integrity and driven by safety. One truck today, a disciplined fleet tomorrow — every load moved like our name is on it, because it is.</p>
+    <div class="hero__cta reveal">
+      <a class="pill pill--gold pill--lg" href="#quote">Request a Freight Quote</a>
+      <a class="pill pill--ghost pill--lg" href="#drive">Become a Driver →</a>
+    </div>
+  </div>
+  <div class="hero__stage reveal">
+    <figure class="hero__photo">
+      <img id="heroImg" src="/assets/journey/cliffs.jpg" alt="An open highway curving through open country — the road KUL Enterprises runs every day" fetchpriority="high" decoding="async">
+      <figcaption>Real miles, real routes — run with intention.</figcaption>
+    </figure>
+    <div class="hero__plate" aria-hidden="true">
+      <div class="hero__plate-in">
+        <img src="/assets/brand/lion-clean.png" alt="KUL Enterprises lion mark" decoding="async">
+        <b>KUL Enterprises</b>
+        <span>Strength · Integrity · Safety</span>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="hero__note reveal">Licensed &amp; insured interstate motor carrier · USDOT 7638788 · MC 66389691</p>
+  </div>
+</section>
+</main>
+
+<!-- ======================= TRUST STRIP ======================= -->
+<aside class="trust" aria-label="Credentials">
+  <div class="trust__in">
+    <div class="trust__item"><span class="trust__dot"></span>USDOT <b>7638788</b></div>
+    <div class="trust__item">MC <b>66389691</b></div>
+    <div class="trust__item">Licensed &amp; Insured</div>
+    <div class="trust__item">Loganville, GA</div>
+    <div class="trust__item">Nationwide Service</div>
+    <div class="trust__item">24/7 Dispatch</div>
+  </div>
+</aside>
+
+<!-- ======================= SERVICES LINEUP ======================= -->
+<section class="section lineup" id="services">
+  <div class="wrap">
+    <div class="lineup__top">
+      <div class="section__head reveal">
+        <p class="eyebrow">What we haul</p>
+        <h2 class="h2">Explore the lineup.</h2>
+      </div>
+      <div class="lineup__pad" aria-hidden="true">
+        <button class="padbtn" id="railPrev" aria-label="Previous services">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <button class="padbtn" id="railNext" aria-label="More services">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="rail" id="rail" tabindex="0" aria-label="Freight service types">
+      <article class="tile reveal"><span class="tile__no">01</span>
+        <h3>Power Only</h3><p>Your trailer, our tractor and driver. Drop-and-hook ready when you need capacity fast.</p><a class="linkarrow" href="#quote">Request this</a></article>
+      <article class="tile reveal"><span class="tile__no">02</span>
+        <h3>Dry Van</h3><p>Enclosed, secure general-freight hauling for palletized and packaged goods, coast to coast.</p><a class="linkarrow" href="#quote">Request this</a></article>
+      <article class="tile reveal"><span class="tile__no">03</span>
+        <h3>Reefer</h3><p>Temperature-controlled transport that keeps perishable and sensitive loads exactly where they belong.</p><a class="linkarrow" href="#quote">Request this</a></article>
+      <article class="tile reveal"><span class="tile__no">04</span>
+        <h3>Dedicated</h3><p>Consistent lanes and reserved capacity for your freight — the reliability of your own fleet.</p><a class="linkarrow" href="#quote">Request this</a></article>
+      <article class="tile reveal"><span class="tile__no">05</span>
+        <h3>Regional</h3><p>Short- and mid-haul runs across the Southeast, with fast turns and dependable communication.</p><a class="linkarrow" href="#quote">Request this</a></article>
+      <article class="tile reveal"><span class="tile__no">06</span>
+        <h3>Over-the-Road</h3><p>Long-haul, nationwide movement handled with the discipline every mile deserves.</p><a class="linkarrow" href="#quote">Request this</a></article>
+      <article class="tile reveal"><span class="tile__no">07</span>
+        <h3>Expedited</h3><p>Time-critical freight moved with urgency and care when the delivery window can't slip.</p><a class="linkarrow" href="#quote">Request this</a></article>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= CLOSER-LOOK JOURNEY TILE ======================= -->
+<section class="closer reveal" aria-label="On the road">
+  <div class="closer__bg"><img src="/assets/journey/tree.jpg" alt="Open land beneath distant hills along a KUL route" loading="lazy" decoding="async"></div>
+  <div class="closer__inner">
+    <p class="eyebrow" style="color:var(--gold)"><span style="background:var(--gold)"></span>On the road</p>
+    <h2 class="h2">Take a closer look at the road we run.</h2>
+    <p>Every route we drive is real — real miles, real weather, real deliveries. The photographs on this page are our own, because the trust we ask for is the trust we're willing to show.</p>
+    <a class="pill pill--onDark pill--ghost pill--lg" href="#vision">See where we're headed →</a>
+  </div>
+</section>
+
+<!-- ======================= WHY KUL — FEATURE GRID ======================= -->
+<section class="section why" id="why">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <p class="eyebrow">Why shippers choose KUL</p>
+      <h2 class="h2">A small carrier that acts like a partner.</h2>
+    </div>
+    <div class="fgrid">
+      <article class="fcard reveal">
+        <div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Licensed &amp; insured</h3>
+        <p>Active USDOT 7638788 and MC 66389691 authority, fully insured — verifiable before you ever book a load.</p>
+      </article>
+      <article class="fcard reveal">
+        <div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <h3>24/7 dispatch</h3>
+        <p>Reach a real person any hour. You always know where your freight is and who is accountable for it.</p>
+      </article>
+      <article class="fcard reveal">
+        <div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/></svg></div>
+        <h3>Nationwide reach</h3>
+        <p>Based in Loganville, Georgia and running lanes across the country — regional turns to over-the-road hauls.</p>
+      </article>
+      <article class="fcard reveal">
+        <div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 17V9a1 1 0 011-1h8v9M13 11h4l3 3v3h-7"/><circle cx="7.5" cy="17.5" r="1.6"/><circle cx="16.5" cy="17.5" r="1.6"/></svg></div>
+        <h3>Owner-driven care</h3>
+        <p>The founder is behind the wheel. Every load is handled with the attention only an owner can give.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= SAFETY DARK CINEMATIC TILE ======================= -->
+<section class="safety" id="safety">
+  <div class="safety__bg"><img src="/assets/journey/river.jpg" alt="" loading="lazy" decoding="async"></div>
+  <div class="safety__in">
+    <div class="safety__card reveal">
+      <img class="safety__lion" src="/assets/brand/lion-clean.png" alt="" width="54" height="54" decoding="async">
+      <p class="eyebrow">Driven by safety</p>
+      <h2 class="h2">Safety. That's KUL.</h2>
+      <p>Compliance isn't a checkbox — it's how we keep our authority, our insurance, and your freight intact. Clean inspections, honest hours of service, and a maintained truck are the foundation everything else is built on.</p>
+      <a class="pill pill--onDark pill--ghost pill--lg" href="#faq">How we stay compliant →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= VISION STATEMENT ======================= -->
+<section class="vision" id="vision">
+  <div class="vision__in">
+    <p class="eyebrow reveal" style="justify-content:center">Where we're headed</p>
+    <h2 class="mega reveal">Growing to <b>50 tractors</b> by the end of 2029 — one honest mile at a time.</h2>
+    <p class="reveal">We won't pretend to be bigger than we are. KUL runs one truck today. The plan is deliberate growth, built on reputation instead of shortcuts — because a fleet you can trust is earned, not announced.</p>
+    <div class="vision__meta reveal">
+      <div class="vision__stat"><b>1</b><span>truck on the road today</span></div>
+      <div class="vision__stat"><b>50</b><span>tractor goal by 2029</span></div>
+      <div class="vision__stat"><b>100%</b><span>owner accountability</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= STRAIGHT-ANSWERS ACCORDION ======================= -->
+<section class="section faq" id="faq">
+  <div class="wrap">
+    <div class="section__head section__head--center reveal">
+      <p class="eyebrow" style="justify-content:center">Straight answers</p>
+      <h2 class="h2">Questions, answered honestly.</h2>
+    </div>
+    <div class="acc" id="acc">
+      <div class="acc__item">
+        <button class="acc__q" aria-expanded="false"><span>Is KUL Enterprises a licensed, insured carrier?</span>
+          <span class="acc__sign"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></button>
+        <div class="acc__a"><div class="acc__a-in">Yes. KUL operates under active USDOT 7638788 and MC 66389691 authority and carries full commercial insurance. You're welcome to verify both before booking — transparency is the point.</div></div>
+      </div>
+      <div class="acc__item">
+        <button class="acc__q" aria-expanded="false"><span>How big is the fleet right now?</span>
+          <span class="acc__sign"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></button>
+        <div class="acc__a"><div class="acc__a-in">One truck, owner-operated. We're building toward 50 tractors by the end of 2029, but we'd rather earn that scale honestly than inflate our size. What you book is exactly what shows up.</div></div>
+      </div>
+      <div class="acc__item">
+        <button class="acc__q" aria-expanded="false"><span>What types of freight can you move?</span>
+          <span class="acc__sign"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></button>
+        <div class="acc__a"><div class="acc__a-in">Power Only, Dry Van, Reefer, Dedicated lanes, Regional, Over-the-Road, and Expedited. If your load fits one truck's worth of capacity, we can likely help — tell us the details in a quote.</div></div>
+      </div>
+      <div class="acc__item">
+        <button class="acc__q" aria-expanded="false"><span>How do I request a quote or become a driver?</span>
+          <span class="acc__sign"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></button>
+        <div class="acc__a"><div class="acc__a-in">Email dispatch@kulenterprises.com or call 678-972-1148 any time. Shippers get a freight quote; drivers looking to grow with a disciplined operation are always welcome to reach out.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= CTA BAND ======================= -->
+<section class="cta" id="quote">
+  <div class="cta__in">
+    <p class="eyebrow reveal" style="color:rgba(11,11,11,.7);justify-content:center"><span style="background:#0b0b0b"></span>Let's move something</p>
+    <h2 class="h2 reveal">Ready to put your freight on a truck you can trust?</h2>
+    <p class="reveal">Tell us the lane, the load, and the timeline. You'll get a straight answer from the person accountable for the run.</p>
+    <div class="cta__row reveal" id="drive">
+      <a class="pill pill--dark pill--lg" href="mailto:dispatch@kulenterprises.com?subject=Freight%20Quote%20Request">Request a Freight Quote</a>
+      <a class="pill pill--line pill--lg" href="mailto:dispatch@kulenterprises.com?subject=Driver%20Inquiry">Become a Driver</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FOOTER ======================= -->
+<footer class="foot" id="contact">
+  <div class="foot__in">
+    <img class="foot__lockup" src="/assets/brand/logo-vector.png" alt="KUL Enterprises LLC" decoding="async">
+    <div class="foot__cols">
+      <div class="foot__col">
+        <h4>Services</h4>
+        <a href="#services">Power Only</a><a href="#services">Dry Van</a><a href="#services">Reefer</a>
+        <a href="#services">Dedicated</a><a href="#services">Regional &amp; OTR</a><a href="#services">Expedited</a>
+      </div>
+      <div class="foot__col">
+        <h4>Company</h4>
+        <a href="#overview">Overview</a><a href="#why">Why KUL</a><a href="#safety">Safety &amp; Compliance</a>
+        <a href="#vision">Our Vision</a><a href="#faq">Answers</a>
+      </div>
+      <div class="foot__col">
+        <h4>Contact</h4>
+        <p><b>Dispatch</b></p>
+        <a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a>
+        <a href="tel:+16789721148">678-972-1148</a>
+        <p>Loganville, Georgia<br>24/7 Dispatch · Nationwide</p>
+      </div>
+      <div class="foot__col">
+        <h4>Credentials</h4>
+        <p>USDOT <b>7638788</b></p>
+        <p>MC <b>66389691</b></p>
+        <p>Licensed &amp; Insured<br>Interstate Motor Carrier</p>
+      </div>
+    </div>
+    <div class="foot__legal">
+      <span>Copyright © 2026 KUL Enterprises LLC. All rights reserved.</span>
+      <span class="tag">Strength in Motion. Built on Integrity. Driven by Safety.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ======================= MOBILE MENU SHEET ======================= -->
+<div class="msheet" id="msheet" aria-hidden="true">
+  <div class="msheet__top">
+    <a class="brand" href="#top"><img src="/assets/brand/lion-clean.png" alt="" width="30" height="30"><b>KUL</b><span>Enterprises</span></a>
+    <button class="msheet__x" id="msheetX" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <nav>
+    <a href="#services" data-close>Services</a>
+    <a href="#safety" data-close>Safety</a>
+    <a href="#vision" data-close>Vision</a>
+    <a href="#faq" data-close>Answers</a>
+    <a href="#contact" data-close>Contact</a>
+  </nav>
+  <div class="msheet__foot">
+    <a class="pill pill--gold pill--lg" href="#quote" data-close>Request a Freight Quote</a>
+    <a class="pill pill--ghost pill--lg" href="#drive" data-close>Become a Driver</a>
+  </div>
+</div>
+
+<!-- ======================= TWEAKS CONTRACT ======================= -->
+<script>
+window.KUL_TWEAKS = {
+  style: 's10',
+  controls: [
+    { var:'--gold',           label:'Gold',            type:'color',  value:'#D4AF37' },
+    { var:'--gold-dose',      label:'Gold dosage',     type:'range',  value:100, min:20,  max:160, step:5 },
+    { var:'--warmth',         label:'Ground tone',     type:'range',  value:55,  min:0,   max:100, step:1 },
+    { var:'--type-scale',     label:'Type scale',      type:'range',  value:100, min:85,  max:120, step:1 },
+    { var:'--section-space',  label:'Section rhythm',  type:'range',  value:100, min:65,  max:135, step:1 },
+    { var:'--radius',         label:'Corner radius',   type:'range',  value:20,  min:0,   max:36,  step:1 },
+    { var:'--hero-treatment', label:'Hero visual',     type:'select', value:'photo', options:['photo','plate'] }
+  ]
+};
+</script>
+
+<!-- ======================= BEHAVIOUR ======================= -->
+<script>
+(function(){
+  'use strict';
+  var root = document.documentElement;
+  var rm = matchMedia('(prefers-reduced-motion: reduce)');
+  root.classList.toggle('rm', rm.matches);
+  if(rm.addEventListener) rm.addEventListener('change', function(){ root.classList.toggle('rm', rm.matches); });
+
+  /* ---- global nav hairline on scroll ---- */
+  var gnav = document.getElementById('gnav');
+  function onScroll(){ gnav.classList.toggle('scrolled', window.scrollY > 12); }
+  onScroll(); addEventListener('scroll', onScroll, {passive:true});
+
+  /* ---- mobile menu ---- */
+  var burger = document.getElementById('burger');
+  var sheet  = document.getElementById('msheet');
+  function setSheet(open){
+    sheet.classList.toggle('open', open);
+    sheet.setAttribute('aria-hidden', open ? 'false' : 'true');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  burger.addEventListener('click', function(){ setSheet(true); });
+  document.getElementById('msheetX').addEventListener('click', function(){ setSheet(false); });
+  sheet.querySelectorAll('[data-close]').forEach(function(a){ a.addEventListener('click', function(){ setSheet(false); }); });
+
+  /* ---- smooth anchor scroll accounting for sticky navs ---- */
+  function offset(){
+    return (parseInt(getComputedStyle(root).getPropertyValue('--nav-h'))||52) +
+           (parseInt(getComputedStyle(root).getPropertyValue('--sub-h'))||54) + 8;
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href');
+      if(id.length < 2) return;
+      var t = document.querySelector(id);
+      if(!t) return;
+      e.preventDefault();
+      var y = t.getBoundingClientRect().top + window.scrollY - offset();
+      window.scrollTo({ top:y, behavior: rm.matches ? 'auto' : 'smooth' });
+    });
+  });
+
+  /* ---- sub-nav scrollspy ---- */
+  var spyLinks = [].slice.call(document.querySelectorAll('#spy [data-spy]'));
+  var targets = spyLinks.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+  var spyObs = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        var i = targets.indexOf(en.target);
+        spyLinks.forEach(function(l,j){ l.classList.toggle('active', j===i); });
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px', threshold:0 });
+  targets.forEach(function(t){ t && spyObs.observe(t); });
+
+  /* ---- reveal on scroll (above-fold reveals on mount; failsafe never leaves content hidden) ---- */
+  var reveals = [].slice.call(document.querySelectorAll('.reveal'));
+  function showEl(el){ el.classList.add('in'); }
+  if(rm.matches){
+    reveals.forEach(showEl);
+  } else {
+    var revObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ showEl(en.target); revObs.unobserve(en.target); }
+      });
+    }, { rootMargin:'0px 0px -8% 0px', threshold:0.06 });
+    reveals.forEach(function(el){
+      var top = el.getBoundingClientRect().top;
+      if(top < (window.innerHeight || 800) * 0.95){ showEl(el); }
+      else { revObs.observe(el); }
+    });
+    setTimeout(function(){ reveals.forEach(function(el){ if(!el.classList.contains('in')) showEl(el); }); }, 1500);
+  }
+
+  /* ---- services lineup paddles ---- */
+  var rail = document.getElementById('rail');
+  function step(){ var c = rail.querySelector('.tile'); return c ? c.offsetWidth + 18 : 300; }
+  document.getElementById('railPrev').addEventListener('click', function(){ rail.scrollBy({left:-step(), behavior: rm.matches?'auto':'smooth'}); });
+  document.getElementById('railNext').addEventListener('click', function(){ rail.scrollBy({left: step(), behavior: rm.matches?'auto':'smooth'}); });
+
+  /* ---- accordion ---- */
+  document.querySelectorAll('#acc .acc__q').forEach(function(btn){
+    var panel = btn.nextElementSibling;
+    btn.addEventListener('click', function(){
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      if(open){
+        panel.style.height = panel.scrollHeight + 'px';
+        requestAnimationFrame(function(){ panel.style.height='0px'; });
+        btn.setAttribute('aria-expanded','false');
+      } else {
+        btn.setAttribute('aria-expanded','true');
+        panel.style.height = panel.scrollHeight + 'px';
+        panel.addEventListener('transitionend', function te(){ panel.style.height='auto'; panel.removeEventListener('transitionend', te); });
+      }
+    });
+  });
+
+  /* ---- hero treatment + photo sync (mirrors tweak values) ---- */
+  var heroImg = document.getElementById('heroImg');
+  function syncHero(){
+    var t = getComputedStyle(root).getPropertyValue('--hero-treatment').trim().replace(/["']/g,'') || 'photo';
+    root.setAttribute('data-hero', t === 'plate' ? 'plate' : 'photo');
+  }
+  syncHero();
+  new MutationObserver(syncHero).observe(root, { attributes:true, attributeFilter:['style'] });
+})();
+</script>
+<script src="/tweaks.js" defer></script>
+</body>
+</html>

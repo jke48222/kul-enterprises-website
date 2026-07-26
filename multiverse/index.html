@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KUL Multiverse — Phase 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --gold:#D4AF37; --ink:#0B0B0B; --panel:#141414; --line:#2E2E2E; --mut:#8a8a8a; }
+  * { box-sizing:border-box; margin:0; }
+  body { background:var(--ink); color:#f2f2f2; font:14px/1.55 Montserrat, system-ui, sans-serif; padding:0 0 12vh; }
+  header { padding:64px 5vw 40px; border-bottom:1px solid var(--line); }
+  h1 { font:400 clamp(44px,7vw,92px)/0.95 "Bebas Neue", sans-serif; letter-spacing:.02em; }
+  h1 em { color:var(--gold); font-style:normal; }
+  .sub { color:var(--mut); margin-top:10px; max-width:70ch; }
+  .legend { margin-top:18px; display:flex; gap:18px; flex-wrap:wrap; font-size:12px; color:var(--mut); }
+  .legend b { color:var(--gold); font-weight:600; }
+  section.style { padding:44px 5vw 8px; }
+  .stitle { display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; }
+  .stitle .n { font:400 15px "Bebas Neue"; color:var(--gold); letter-spacing:.15em; }
+  .stitle h2 { font:400 clamp(24px,3vw,36px)/1 "Bebas Neue", sans-serif; letter-spacing:.03em; }
+  .stitle .vocab { color:var(--mut); font-size:12px; }
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:16px; }
+  .single { display:grid; grid-template-columns:1fr; gap:18px; margin-top:16px; }
+  @media (max-width:960px){ .pair { grid-template-columns:1fr; } }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+  .chead { display:flex; justify-content:space-between; align-items:center; padding:9px 12px; border-bottom:1px solid var(--line); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--mut); }
+  .chead .tool { color:var(--gold); }
+  .chead .acts { display:flex; gap:10px; }
+  .chead a, .chead button { color:#ddd; background:none; border:none; cursor:pointer; font:inherit; text-decoration:none; }
+  .chead a:hover, .chead button:hover { color:var(--gold); }
+  .frame { position:relative; width:100%; aspect-ratio:16/10; overflow:hidden; background:#0e0e0e; }
+  .frame iframe { position:absolute; top:0; left:0; width:1280px; height:800px; border:0; transform-origin:0 0; background:#111; }
+</style>
+</head>
+<body>
+<header>
+  <h1>KUL <em>MULTIVERSE</em></h1>
+  <p class="sub">Phase 1 — 20 variants. Styles 01–08 built twice from the same brief; styles 09–12 recreated from confirmed reference sites and reskinned to KUL. Open any variant full-screen and press <b style="color:var(--gold)">t</b> for its tweaks panel.</p>
+  <div class="legend"><span><b>A</b> = impeccable build</span><span><b>B</b> = taste build</span><span><b>09–12</b> = nt-site-mirror recreations</span><span>↻ reloads a frame after a build lands</span></div>
+  <p style="margin-top:18px"><a href="/intro/" target="_blank" style="display:inline-block;padding:10px 18px;border:1px solid var(--gold);border-radius:8px;color:var(--gold);text-decoration:none;font-size:13px;letter-spacing:.05em">▶ &nbsp;Watch the opening animation &nbsp;(bird → gold → lion)</a></p>
+</header>
+<main id="grid"></main>
+<script>
+const STYLES = [
+  { n:'01', slug:'cinematic-noir',      name:'Cinematic Noir',      vocab:'warm charcoal · champagne gold · glass · ghost wordmark' },
+  { n:'02', slug:'marquee-editorial',   name:'Marquee Editorial',   vocab:'edge-to-edge type · duotone plates · indexed labels' },
+  { n:'03', slug:'documentary-archive', name:'Documentary Archive', vocab:'photo journal · mono captions · dated plates' },
+  { n:'04', slug:'heritage-institute',  name:'Heritage Institute',  vocab:'cream · earth greens · line-art bands · plaques' },
+  { n:'05', slug:'fog-monument',        name:'Fog Monument',        vocab:'fog white · monumental type · one gold glow · annotations' },
+  { n:'06', slug:'industrial-ledger',   name:'Industrial Ledger',   vocab:'spec-sheet grid · seams · gold blocks · stamps' },
+  { n:'07', slug:'kinetic-motion',      name:'Kinetic Motion',      vocab:'footage under type · letterbox · HUD cards · reveals' },
+  { n:'08', slug:'particle-calm',       name:'Particle Calm',       vocab:'one living gold emblem · calm steel ground' },
+  { n:'09', slug:'mirror-volvo',        name:'Mirror — Volvo Trucks',  vocab:'volvotrucks.com bones, KUL skin', mirror:true },
+  { n:'10', slug:'mirror-apple',        name:'Mirror — Apple',         vocab:'apple.com flagship scroll-story bones, KUL skin', mirror:true },
+  { n:'11', slug:'mirror-mack',         name:'Mirror — Mack Trucks',   vocab:'macktrucks.com bones, KUL skin', mirror:true },
+  { n:'12', slug:'mirror-rivian',       name:'Mirror — Rivian',        vocab:'rivian.com bones, KUL skin', mirror:true },
+];
+const grid = document.getElementById('grid');
+function card(id, tool){
+  const url = `/variants/${id}/`;
+  return `<div class="card">
+    <div class="chead"><span>${id} · <span class="tool">${tool}</span></span>
+      <span class="acts"><button data-r="${id}" title="reload">↻</button><a href="${url}" target="_blank" title="open full">open ↗</a></span></div>
+    <div class="frame"><iframe loading="lazy" data-f="${id}" src="${url}"></iframe></div>
+  </div>`;
+}
+grid.innerHTML = STYLES.map(s => `
+  <section class="style">
+    <div class="stitle"><span class="n">STYLE ${s.n}</span><h2>${s.name}</h2><span class="vocab">${s.vocab}</span></div>
+    ${ s.mirror
+      ? `<div class="single">${card('s'+s.n, 'nt-site-mirror')}</div>`
+      : `<div class="pair">${card('s'+s.n+'a','impeccable')}${card('s'+s.n+'b','taste')}</div>` }
+  </section>`).join('');
+function fit(){
+  document.querySelectorAll('.frame').forEach(f=>{
+    const ifr = f.querySelector('iframe');
+    const s = f.clientWidth / 1280;
+    ifr.style.transform = `scale(${s})`;
+    ifr.style.height = (f.clientHeight / s) + 'px';
+  });
+}
+addEventListener('resize', fit); fit(); setTimeout(fit, 300);
+grid.addEventListener('click', e=>{
+  const id = e.target?.dataset?.r; if(!id) return;
+  const ifr = document.querySelector(`iframe[data-f="${id}"]`); ifr.src = ifr.src;
+});
+</script>
+</body>
+</html>

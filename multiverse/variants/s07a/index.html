@@ -1,0 +1,1085 @@
+<!doctype html>
+<!--
+DIRECTION CONTRACT — s07a · Kinetic Motion (impeccable build)
+
+THESIS: The page IS the windshield of a truck already moving. Trust is shown as
+momentum plus instruments, not claimed in paragraphs. Refuses the static trucking
+slab: stock semi photo, red banner, bullet lists.
+
+OWN-WORLD: Black cinema chrome letterboxing a warm golden-graded landscape;
+massive white Archivo grotesk assembling word-by-word with a gold "/" pivot;
+frosted-glass HUD instruments in Barlow Semi Condensed caps with hairline gold
+ticks, dashed lane lines, route plots. Gold = instrument light only.
+
+STORY: A shipper feels forward motion instantly, reads real authority numbers
+off the dash, scans seven services as HUD chips, sees the founder's own road
+photos, watches the odometer roll 01→50, and requests a quote.
+
+FIRST VIEWPORT: Full-bleed graded pan (PLACEHOLDER still — dashcam loop pending)
+inside the letterbox; nav with lockup + gold quote pill; "STRENGTH / in MOTION."
+assembling huge at left; two CTAs beneath; glass route-HUD lower-left; REC OSD
+top-right; trust ticker on the frame's bottom edge.
+
+FORM: Brief-pinned kinetic-motion (pinned direction beats the roll; no seed run).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KUL Enterprises LLC — Strength in Motion · Nationwide Freight Carrier, Loganville GA</title>
+<meta name="description" content="KUL Enterprises LLC is a Loganville, Georgia freight carrier running nationwide under USDOT 7638788 / MC 66389691. Power only, dry van, reefer, dedicated, regional, over-the-road and expedited — with 24/7 dispatch.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Barlow+Semi+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root{
+  /* palette */
+  --gold:#D4AF37;
+  --chrome:#050505;          /* cinema frame + deepest ground */
+  --paper:#0B0B0B;           /* section ground */
+  --deep:#030303;
+  --ink:#F5F3EE;             /* warm white type */
+  --mut:#BDB7AA;             /* warm secondary — never cold gray */
+  --dim-mut:#8F897D;
+  --line:rgba(255,255,255,.10);
+  --glass:rgba(10,10,10,.44);
+  --glass-edge:rgba(255,255,255,.13);
+
+  /* tweakable style decisions (exposed in KUL_TWEAKS) */
+  --grade-warmth:62;         /* 0 neutral … 100 golden LUT     */
+  --dim:44;                  /* footage dim level, %           */
+  --letterbox:16px;          /* cinema frame thickness         */
+  --reveal-speed:950;        /* type assembly base, ms         */
+  --hud-density:100;         /* 100 full instruments … 30 min  */
+  --ease:cubic-bezier(.16,1,.3,1);
+
+  --frame-r:22px;
+  --font-d:"Archivo",system-ui,sans-serif;
+  --font-h:"Barlow Semi Condensed","Archivo",sans-serif;
+  --nav-h:76px;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--chrome);color:var(--ink);
+  font:400 16.5px/1.62 var(--font-d);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  overflow-x:clip;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+p{margin:0}
+h1,h2,h3{margin:0;font-weight:800;line-height:.95;letter-spacing:-.03em}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+::selection{background:var(--gold);color:#0B0B0B}
+
+.skip{position:fixed;left:24px;top:-60px;z-index:200;background:var(--gold);color:#0B0B0B;
+  font:700 13px/1 var(--font-d);padding:12px 18px;border-radius:999px;transition:top .2s}
+.skip:focus{top:24px}
+
+/* the cinema frame — everything lives behind this rounded windshield */
+.letterbox{
+  position:fixed;inset:var(--letterbox);z-index:90;pointer-events:none;
+  border-radius:var(--frame-r);
+  box-shadow:0 0 0 200vmax var(--chrome);
+}
+.letterbox::after{content:"";position:absolute;inset:0;border-radius:inherit;
+  border:1px solid rgba(255,255,255,.07)}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{
+  position:fixed;z-index:80;
+  top:var(--letterbox);left:var(--letterbox);right:var(--letterbox);
+  height:var(--nav-h);
+  display:flex;align-items:center;gap:28px;
+  padding:0 clamp(18px,3.4vw,44px);
+  border-radius:var(--frame-r) var(--frame-r) 0 0;
+  transition:background .35s,backdrop-filter .35s,border-color .35s;
+  border-bottom:1px solid transparent;
+}
+.nav.scrolled{background:rgba(5,5,5,.72);backdrop-filter:blur(16px) saturate(1.15);
+  -webkit-backdrop-filter:blur(16px) saturate(1.15);border-bottom-color:var(--line)}
+
+.lockup{display:flex;align-items:center;gap:12px;flex:0 0 auto}
+.lockup .lion{height:40px;width:auto;flex:0 0 auto} /* real gold lion mark — true-transparent, safe on any ground */
+.lockup .k{
+  font:900 27px/1 var(--font-d);font-stretch:112%;letter-spacing:-.02em;color:var(--ink);
+}
+.lockup .dash{width:20px;height:2px;background:var(--gold);border-radius:2px}
+.lockup .rest{display:flex;flex-direction:column;gap:2px}
+.lockup .rest b{font:600 9.5px/1 var(--font-h);letter-spacing:.34em;color:var(--ink)}
+.lockup .rest i{font:500 8.5px/1 var(--font-h);font-style:normal;letter-spacing:.30em;color:var(--dim-mut)}
+
+.nav-links{display:flex;gap:clamp(16px,2.4vw,34px);margin-left:auto}
+.nav-links a{
+  font:600 12.5px/1 var(--font-h);letter-spacing:.17em;text-transform:uppercase;color:var(--mut);
+  padding:10px 2px;position:relative;transition:color .25s;
+}
+.nav-links a::after{content:"";position:absolute;left:0;right:100%;bottom:4px;height:1.5px;
+  background:var(--gold);transition:right .3s var(--ease)}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after{right:0}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  border-radius:999px;font:700 14.5px/1 var(--font-d);letter-spacing:.01em;
+  padding:16px 26px;transition:transform .25s var(--ease),box-shadow .25s,background .25s,border-color .25s,color .25s;
+  white-space:nowrap;
+}
+.btn-gold{background:var(--gold);color:#0B0B0B;box-shadow:0 10px 24px -12px rgba(0,0,0,.65)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 16px 30px -14px rgba(0,0,0,.7)}
+.btn-ghost{border:1px solid var(--glass-edge);background:rgba(255,255,255,.04);color:var(--ink)}
+.btn-ghost:hover{border-color:color-mix(in srgb,var(--gold) 70%,transparent);transform:translateY(-2px)}
+.btn:active{transform:translateY(0)}
+
+.nav .btn{padding:13px 22px;font-size:13px;flex:0 0 auto}
+
+.menu-btn{display:none;width:44px;height:44px;position:relative;flex:0 0 auto;border-radius:10px}
+.menu-btn span{position:absolute;left:11px;right:11px;height:2px;background:var(--ink);border-radius:2px;
+  transition:transform .3s var(--ease),opacity .2s;top:calc(50% - 4px)}
+.menu-btn span+span{top:calc(50% + 3px)}
+.menu-open .menu-btn span{transform:translateY(3.5px) rotate(45deg)}
+.menu-open .menu-btn span+span{transform:translateY(-3.5px) rotate(-45deg)}
+
+/* mobile menu overlay */
+.overlay{
+  position:fixed;inset:var(--letterbox);z-index:70;border-radius:var(--frame-r);
+  background:rgba(4,4,4,.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  display:flex;flex-direction:column;justify-content:center;gap:8px;
+  padding:100px clamp(26px,8vw,60px) 48px;
+  opacity:0;visibility:hidden;transition:opacity .35s var(--ease),visibility .35s;
+}
+.menu-open .overlay{opacity:1;visibility:visible}
+.overlay a.big{
+  font:800 clamp(2rem,9vw,3.2rem)/1.16 var(--font-d);letter-spacing:-.02em;color:var(--ink);
+  display:flex;align-items:baseline;gap:14px;padding:6px 0;
+}
+.overlay a.big i{font:600 italic 1.05rem var(--font-d);color:var(--gold)}
+.overlay a.big:hover{color:var(--gold)}
+.overlay .ov-foot{margin-top:34px;display:grid;gap:6px;
+  font:600 12px/1.7 var(--font-h);letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.overlay .ov-foot a{color:var(--ink)}
+.overlay .ov-foot a:hover{color:var(--gold)}
+
+/* ============================================================
+   HERO — the windshield
+   ============================================================ */
+.hero{
+  position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;
+  overflow:clip;
+}
+.shot{position:absolute;inset:0;z-index:0}
+.shot img{
+  width:100%;height:100%;object-fit:cover;
+  filter:sepia(calc(var(--grade-warmth)*.0040))
+         saturate(calc(.76 + var(--grade-warmth)*.0048))
+         contrast(1.05) brightness(.97);
+}
+.shot .wash{position:absolute;inset:0;
+  background:linear-gradient(155deg,
+    color-mix(in srgb,var(--gold) 26%,transparent) 0%,
+    color-mix(in srgb,#7A5212 20%,transparent) 48%,
+    transparent 100%);
+  opacity:calc(var(--grade-warmth)/140);mix-blend-mode:soft-light}
+.shot .dim{position:absolute;inset:0;background:#050505;opacity:calc(var(--dim)/100)}
+.shot .grad{position:absolute;inset:0;background:
+  linear-gradient(180deg,rgba(5,5,5,.62) 0%,rgba(5,5,5,.08) 26%,rgba(5,5,5,.10) 52%,rgba(5,5,5,.82) 100%),
+  radial-gradient(130% 95% at 50% 42%,transparent 55%,rgba(0,0,0,.42) 100%)}
+.shot .grain{position:absolute;inset:0;opacity:.05;background-size:220px 220px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E")}
+
+.hero-inner{
+  position:relative;z-index:2;width:min(1240px,100%);margin:0 auto;
+  padding:calc(var(--nav-h) + var(--letterbox) + 20px) clamp(20px,4.5vw,56px) 150px;
+  display:grid;gap:34px;
+}
+.route-eyebrow{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  font:600 12px/1 var(--font-h);letter-spacing:.24em;text-transform:uppercase;color:var(--mut);
+}
+.route-eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--gold)}
+
+.h1{
+  font-size:clamp(3.3rem,11vw,8.9rem);
+  font-weight:900;font-stretch:104%;line-height:.9;letter-spacing:-.035em;
+  text-wrap:balance;text-shadow:0 4px 40px rgba(0,0,0,.45);
+  max-width:12ch;
+}
+.h1 .row{display:block}
+.h1 .row2{padding-left:.55em}
+.h1 .sl{color:var(--gold);font-weight:400;font-style:italic;margin-right:.08em}
+.h1 .it{font-style:italic;font-weight:500;font-stretch:96%}
+.h1 .w{display:inline-block;will-change:transform,opacity,filter}
+
+.hero-sub{
+  max-width:56ch;font-size:clamp(1.02rem,1.4vw,1.17rem);line-height:1.66;color:var(--mut);
+  text-shadow:0 2px 18px rgba(0,0,0,.5);
+}
+.hero-sub strong{color:var(--ink);font-weight:600}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+
+/* HUD route card */
+.hud{
+  position:absolute;z-index:3;left:clamp(20px,4.5vw,56px);bottom:96px;
+  width:min(360px,calc(100% - 40px));
+  background:var(--glass);backdrop-filter:blur(18px) saturate(1.25);
+  -webkit-backdrop-filter:blur(18px) saturate(1.25);
+  border:1px solid var(--glass-edge);border-radius:18px;
+  box-shadow:0 18px 50px -18px rgba(0,0,0,.75),inset 0 1px 0 rgba(255,255,255,.09);
+  padding:18px 20px 16px;
+  display:grid;gap:10px;
+}
+.hud .hud-tag{display:flex;justify-content:space-between;align-items:center;
+  font:600 10.5px/1 var(--font-h);letter-spacing:.26em;text-transform:uppercase;color:var(--dim-mut)}
+.hud .hud-tag b{color:var(--gold);font-weight:600}
+.hud svg.route{width:100%;height:52px;display:block}
+.hud .route-lbl{display:flex;justify-content:space-between;
+  font:700 11.5px/1 var(--font-h);letter-spacing:.16em;text-transform:uppercase;color:var(--ink)}
+.hud .route-lbl i{font-style:normal;color:var(--dim-mut);font-weight:500;letter-spacing:.14em}
+.hud-row{display:flex;align-items:center;gap:10px;border-top:1px solid var(--line);padding-top:10px;
+  font:600 12.5px/1.5 var(--font-h);letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+.hud-row .sl{color:var(--gold)}
+.hud-row a{color:var(--ink)}
+.hud-row a:hover{color:var(--gold)}
+.hud-l2{opacity:clamp(0,calc((var(--hud-density) - 35)/30),1)}
+.hud-l3{opacity:clamp(0,calc((var(--hud-density) - 65)/30),1)}
+.pulse{width:8px;height:8px;border-radius:50%;background:var(--gold);flex:0 0 auto;
+  box-shadow:0 0 0 0 color-mix(in srgb,var(--gold) 50%,transparent)}
+
+/* camera OSD, top-right */
+.osd{
+  position:absolute;z-index:3;top:calc(var(--nav-h) + var(--letterbox) + 18px);right:clamp(20px,4.5vw,56px);
+  display:flex;align-items:center;gap:9px;
+  font:600 10.5px/1 var(--font-h);letter-spacing:.24em;text-transform:uppercase;color:var(--mut);
+  background:rgba(5,5,5,.38);border:1px solid rgba(255,255,255,.09);border-radius:999px;
+  padding:9px 14px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.osd .rec{width:8px;height:8px;border-radius:50%;background:#E2574C}
+
+/* scroll cue */
+.cue{position:absolute;z-index:3;right:clamp(20px,4.5vw,56px);bottom:96px;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  font:600 10px/1 var(--font-h);letter-spacing:.3em;text-transform:uppercase;color:var(--dim-mut)}
+.cue .ticks{width:1px;height:44px;background:repeating-linear-gradient(180deg,var(--gold) 0 4px,transparent 4px 9px);
+  opacity:.8}
+
+/* trust ticker — bottom edge of the windshield */
+.ticker{
+  position:absolute;z-index:4;left:0;right:0;bottom:0;height:58px;overflow:clip;
+  display:flex;align-items:center;
+  background:rgba(5,5,5,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-top:1px solid var(--line);
+}
+.ticker .belt{display:flex;flex:0 0 auto;align-items:center;will-change:transform}
+.ticker ul{display:flex;align-items:center;gap:34px;list-style:none;margin:0;padding:0 17px;flex:0 0 auto}
+.ticker li{display:flex;align-items:center;gap:34px;flex:0 0 auto;
+  font:600 12.5px/1 var(--font-h);letter-spacing:.22em;text-transform:uppercase;color:#DCD7CB;white-space:nowrap}
+.ticker li::after{content:"/";color:var(--gold);font-style:italic;font-weight:400}
+
+/* ============================================================
+   SECTION GRAMMAR
+   ============================================================ */
+main{position:relative;z-index:1}
+.sec{position:relative;padding:clamp(96px,13vh,150px) 0}
+.wrap{width:min(1240px,100%);margin:0 auto;padding:0 clamp(20px,4.5vw,56px)}
+.sec-head{display:grid;gap:18px;margin-bottom:clamp(44px,6vw,72px)}
+.h2{font-size:clamp(2.3rem,5.6vw,4.3rem);font-weight:900;font-stretch:104%;letter-spacing:-.03em;line-height:.94}
+.h2 .sl{color:var(--gold);font-weight:400;font-style:italic;margin-right:.1em}
+.h2 .it{font-style:italic;font-weight:500}
+.lede{max-width:58ch;color:var(--mut);font-size:clamp(1rem,1.3vw,1.12rem);line-height:1.66}
+.lede strong{color:var(--ink);font-weight:600}
+[id]{scroll-margin-top:calc(var(--nav-h) + var(--letterbox) + 18px)}
+
+/* ============================================================
+   SERVICES — HUD chips in lanes
+   ============================================================ */
+.services{background:var(--paper)}
+.lanes{display:grid;gap:0}
+.lane{
+  display:flex;flex-wrap:wrap;gap:16px;padding:26px 0;
+  border-top:1px dashed rgba(255,255,255,.13);
+  will-change:transform;
+}
+.lane:last-child{border-bottom:1px dashed rgba(255,255,255,.13)}
+.lane[data-drift="1"]{padding-left:clamp(0px,6vw,110px)}
+.lane[data-drift="-1"]:last-child{padding-left:clamp(0px,3vw,54px)}
+.chip{
+  display:flex;align-items:center;gap:16px;
+  background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid var(--glass-edge);border-radius:16px;
+  padding:18px 24px 18px 18px;max-width:390px;
+  transition:transform .3s var(--ease),border-color .3s,box-shadow .3s;
+}
+.chip:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--gold) 55%,transparent);
+  box-shadow:0 14px 36px -14px rgba(0,0,0,.8)}
+.chip svg{width:30px;height:30px;flex:0 0 auto;color:var(--gold)}
+.chip h3{font:700 15px/1.2 var(--font-h);letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+.chip .txt{min-width:0}
+.chip p{font:400 13.5px/1.5 var(--font-d);color:var(--mut);margin-top:4px;letter-spacing:0;
+  opacity:clamp(0,calc((var(--hud-density) - 35)/30),1)}
+
+/* ============================================================
+   KINETIC STATEMENT — scroll-filled words on a lane line
+   ============================================================ */
+.kinetic{background:var(--chrome);overflow:clip}
+.kinetic .wrap{position:relative}
+.laneline{position:absolute;left:-10vw;right:-10vw;top:54%;height:2px;pointer-events:none;
+  background:repeating-linear-gradient(90deg,color-mix(in srgb,var(--gold) 34%,transparent) 0 46px,transparent 46px 88px);
+  opacity:.35}
+.kfill{position:relative;font-size:clamp(2.7rem,7.4vw,5.7rem);font-weight:900;font-stretch:104%;
+  line-height:1.02;letter-spacing:-.03em;max-width:16ch;margin:0}
+.kfill .w{display:inline-block;will-change:transform,opacity;margin-right:.24em}
+.kfill .it{font-style:italic;font-weight:500}
+.kfill .end{color:var(--gold)}
+.k-sub{margin-top:38px;max-width:52ch;color:var(--mut);line-height:1.7;font-size:clamp(1rem,1.25vw,1.1rem)}
+.k-sub strong{color:var(--ink);font-weight:600}
+
+/* ============================================================
+   SAFETY — instrument cluster
+   ============================================================ */
+.safety{background:var(--paper)}
+.dashpanel{
+  background:var(--glass);backdrop-filter:blur(18px) saturate(1.2);-webkit-backdrop-filter:blur(18px) saturate(1.2);
+  border:1px solid var(--glass-edge);border-radius:22px;
+  box-shadow:0 22px 60px -24px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.08);
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+}
+.gauge{padding:clamp(26px,3.4vw,42px);display:grid;gap:14px;align-content:start}
+.gauge + .gauge{border-left:1px solid var(--line)}
+.gauge svg{width:46px;height:46px;color:var(--gold)}
+.gauge h3{font:700 14px/1.3 var(--font-h);letter-spacing:.18em;text-transform:uppercase;color:var(--ink)}
+.gauge p{color:var(--mut);font-size:15px;line-height:1.62}
+.dash-foot{
+  grid-column:1 / -1;border-top:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  padding:20px clamp(26px,3.4vw,42px);
+}
+.dash-foot .call{display:flex;align-items:center;gap:14px;font:800 clamp(1.25rem,2.4vw,1.7rem)/1 var(--font-d);letter-spacing:-.01em}
+.dash-foot .call svg{width:22px;height:22px;color:var(--gold)}
+.dash-foot .call a:hover{color:var(--gold)}
+.dash-foot em{font-style:normal;color:var(--mut);font-size:14.5px}
+
+/* ============================================================
+   JOURNEY — filmstrip
+   ============================================================ */
+.journey{background:var(--chrome)}
+.strip-shell{position:relative;margin-top:8px}
+.sprockets{height:16px;background-image:radial-gradient(circle at 9px 8px,#2E2E2E 2.7px,transparent 3.4px);
+  background-size:26px 16px;background-position:center}
+.strip{
+  display:flex;gap:18px;padding:18px 4px;will-change:transform;
+  overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;
+}
+.strip::-webkit-scrollbar{display:none}
+.framecard{
+  position:relative;flex:0 0 auto;width:min(440px,82vw);border-radius:10px;overflow:hidden;
+  scroll-snap-align:center;background:#0E0E0E;border:1px solid rgba(255,255,255,.08);margin:0;
+}
+.framecard .ph{position:relative;aspect-ratio:4/3}
+.framecard .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  filter:sepia(calc(var(--grade-warmth)*.0034)) saturate(calc(.8 + var(--grade-warmth)*.0042)) contrast(1.04) brightness(.94)}
+.framecard .ph::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(5,5,5,.18),transparent 34%,rgba(5,5,5,.62));
+}
+.framecard figcaption{
+  position:absolute;left:0;right:0;bottom:0;padding:16px 18px;
+  display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+  font:600 11px/1.5 var(--font-h);letter-spacing:.2em;text-transform:uppercase;color:#E4DFD3;
+}
+.framecard figcaption i{font-style:italic;color:var(--gold);letter-spacing:.1em}
+.framecard.next{
+  display:grid;place-content:center;gap:12px;min-height:280px;
+  background:repeating-linear-gradient(45deg,#0B0B0B 0 14px,#0E0E0E 14px 28px);
+  text-align:center;padding:30px;
+}
+.framecard.next b{font:800 20px/1.25 var(--font-d);letter-spacing:-.01em}
+.framecard.next span{font:600 11px/1.7 var(--font-h);letter-spacing:.22em;text-transform:uppercase;color:var(--dim-mut);max-width:30ch}
+.framecard.next .reel{width:34px;height:34px;margin:0 auto;color:var(--gold)}
+.j-story{margin-top:40px;max-width:58ch;color:var(--mut);line-height:1.7;font-size:clamp(1rem,1.3vw,1.12rem)}
+.j-story strong{color:var(--ink);font-weight:600}
+
+/* ============================================================
+   VISION — odometer
+   ============================================================ */
+.vision{background:linear-gradient(180deg,var(--paper) 0%,#120E07 55%,var(--paper) 100%)}
+.vision .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(40px,6vw,90px);align-items:center}
+.odo-house{
+  justify-self:center;background:var(--glass);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border:1px solid var(--glass-edge);border-radius:26px;
+  box-shadow:0 26px 70px -26px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.08);
+  padding:clamp(30px,4vw,48px) clamp(34px,4.6vw,58px);display:grid;gap:16px;justify-items:center;
+}
+.odo{display:flex;gap:.08em;font:900 clamp(4.6rem,11vw,8.4rem)/1 var(--font-d);font-stretch:106%;letter-spacing:0}
+.odo-col{height:1em;overflow:hidden;width:.62em;text-align:center;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 18%,#000 82%,transparent 100%);
+  mask-image:linear-gradient(180deg,transparent 0,#000 18%,#000 82%,transparent 100%)}
+.odo-strip{display:flex;flex-direction:column;will-change:transform}
+.odo-strip b{height:1em;line-height:1;font-weight:900;display:block}
+.odo-tens .odo-strip{transform:translateY(-5em)}
+.odo-ones .odo-strip{transform:translateY(-10em)}
+.odo-unit{font:700 12px/1.6 var(--font-h);letter-spacing:.3em;text-transform:uppercase;color:var(--mut);text-align:center}
+.odo-unit b{color:var(--gold);font-weight:700}
+.odo-today{display:flex;align-items:center;gap:10px;border-top:1px solid var(--line);padding-top:14px;width:100%;
+  justify-content:center;font:600 11.5px/1 var(--font-h);letter-spacing:.24em;text-transform:uppercase;color:var(--dim-mut)}
+.vision-copy{display:grid;gap:22px}
+.vision-copy .lede{max-width:52ch}
+
+/* ============================================================
+   CTA BAND + FOOTER
+   ============================================================ */
+.cta{background:var(--chrome);overflow:clip}
+.cta .wrap{position:relative;display:grid;gap:40px}
+.cta .laneline{top:38%}
+.cta-actions{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.cta .btn{padding:19px 32px;font-size:15.5px}
+.cta-contact{display:flex;gap:clamp(20px,4vw,54px);flex-wrap:wrap;align-items:baseline}
+.cta-contact a{display:grid;gap:6px}
+.cta-contact i{font:600 10.5px/1 var(--font-h);font-style:normal;letter-spacing:.26em;text-transform:uppercase;color:var(--dim-mut)}
+.cta-contact b{font:800 clamp(1.3rem,2.6vw,1.9rem)/1.1 var(--font-d);letter-spacing:-.015em;color:var(--ink)}
+.cta-contact a:hover b{color:var(--gold)}
+
+footer{background:var(--deep);border-top:1px solid var(--line)}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:clamp(28px,4vw,56px);
+  padding:clamp(56px,7vw,84px) 0 44px}
+.foot-brand{display:grid;gap:16px;align-content:start}
+.foot-brand .foot-lockup{display:inline-block;width:fit-content}
+.foot-brand .foot-lockup img{height:112px;width:auto} /* full gold lockup — keyed for dark ground */
+.foot-brand .tag{color:var(--mut);font-size:14.5px;line-height:1.7;max-width:30ch}
+.foot-brand .tag b{color:var(--gold);font-weight:600}
+.foot-col{display:grid;gap:12px;align-content:start}
+.foot-col h4{margin:0;font:700 11px/1 var(--font-h);letter-spacing:.28em;text-transform:uppercase;color:var(--dim-mut)}
+.foot-col a,.foot-col span{font:500 14.5px/1.55 var(--font-d);color:var(--mut)}
+.foot-col a:hover{color:var(--gold)}
+.foot-bottom{border-top:1px solid var(--line);padding:22px 0 26px;display:flex;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;align-items:center;
+  font:500 12.5px/1.6 var(--font-d);color:var(--dim-mut)}
+.foot-bottom .vtag{font:600 10px/1 var(--font-h);letter-spacing:.26em;text-transform:uppercase;
+  border:1px solid var(--line);border-radius:999px;padding:8px 14px;color:var(--dim-mut)}
+
+/* ============================================================
+   MOTION (all gated: JS present + motion allowed)
+   ============================================================ */
+@media (prefers-reduced-motion:no-preference){
+  html{scroll-behavior:smooth}
+
+  /* hero type assembly */
+  html.js .h1 .w{
+    opacity:0;transform:translateY(.42em) translateX(-.18em) skewX(-7deg);filter:blur(16px);
+    animation:arrive calc(var(--reveal-speed)*1ms) var(--ease) forwards;
+    animation-delay:calc(var(--reveal-speed)*var(--wd,0)*1ms);
+  }
+  html.js .hero .late{
+    opacity:0;transform:translateY(22px);
+    animation:rise calc(var(--reveal-speed)*.9*1ms) var(--ease) forwards;
+    animation-delay:calc(var(--reveal-speed)*var(--wd,.55)*1ms);
+  }
+  @keyframes arrive{
+    60%{filter:blur(2px)}
+    100%{opacity:1;transform:none;filter:blur(0)}
+  }
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  /* ken burns placeholder pan (dashcam loop slots in here later) */
+  .shot img{transform-origin:62% 42%;animation:kb 46s var(--ease) alternate infinite;will-change:transform}
+  @keyframes kb{from{transform:scale(1.08) translate3d(-1.2%,0,0)}to{transform:scale(1.2) translate3d(1.6%,-1.8%,0)}}
+
+  /* ticker belt */
+  .ticker .belt{animation:belt 38s linear infinite}
+  @keyframes belt{to{transform:translateX(-33.333%)}}
+
+  /* route dash + pulses */
+  .hud svg.route .dash{animation:routedash 5.5s linear infinite}
+  @keyframes routedash{to{stroke-dashoffset:-104}}
+  .pulse{animation:pulse 2.6s var(--ease) infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--gold) 45%,transparent)}
+    70%{box-shadow:0 0 0 9px transparent}100%{box-shadow:0 0 0 0 transparent}}
+  .osd .rec{animation:rec 2.2s steps(2,jump-none) infinite}
+  @keyframes rec{50%{opacity:.25}}
+  .cue .ticks{animation:cueflow 1.8s linear infinite}
+  @keyframes cueflow{to{background-position:0 13px}}
+
+  /* scroll reveals */
+  html.js .reveal{opacity:0;transform:translateY(26px);filter:blur(8px);
+    transition:opacity .8s var(--ease),transform .8s var(--ease),filter .8s var(--ease);
+    transition-delay:calc(var(--d,0)*1ms)}
+  html.js .reveal.in{opacity:1;transform:none;filter:blur(0)}
+
+  /* kinetic fill words: JS drives per-word opacity/position */
+  html.js .kfill.live .w{opacity:.13}
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:1060px){
+  .dashpanel{grid-template-columns:1fr}
+  .gauge + .gauge{border-left:0;border-top:1px solid var(--line)}
+  .vision .wrap{grid-template-columns:1fr;gap:52px}
+  .odo-house{justify-self:start}
+}
+@media (max-width:880px){
+  .nav-links{display:none}
+  .menu-btn{display:block}
+  .nav{gap:14px}
+  .nav .btn{margin-left:auto}
+  .hud{position:relative;left:auto;bottom:auto;width:min(420px,100%);margin:0 clamp(20px,4.5vw,56px);order:4}
+  .hero{padding-bottom:120px}
+  .hero-inner{padding-bottom:26px}
+  .cue{display:none}
+}
+@media (max-width:640px){
+  :root{--nav-h:64px}
+  .lockup .rest{display:none}
+  .lockup .dash{width:14px}
+  .nav .btn{padding:12px 16px;font-size:12px}
+  .h1{font-size:clamp(3rem,16.5vw,4.6rem);max-width:none}
+  .h1 .row2{padding-left:.3em}
+  .osd{top:calc(var(--nav-h) + var(--letterbox) + 12px);right:16px;letter-spacing:.16em}
+  .lane{padding-left:0 !important}
+  .chip{max-width:none;width:100%}
+  .ticker li{letter-spacing:.16em}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .foot-brand{grid-column:1 / -1}
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+<div class="letterbox" aria-hidden="true"></div>
+
+<!-- ======================= NAV ======================= -->
+<header class="nav" id="nav">
+  <a class="lockup" href="#top" aria-label="KUL Enterprises LLC — home">
+    <img class="lion" src="/assets/brand/lion-clean.png" alt="KUL Enterprises" width="72" height="40">
+    <span class="k">KUL</span>
+    <span class="dash" aria-hidden="true"></span>
+    <span class="rest" aria-hidden="true"><b>ENTERPRISES</b><i>LLC · LOGANVILLE GA</i></span>
+  </a>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="#services">Services</a>
+    <a href="#safety">Safety</a>
+    <a href="#journey">Journey</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <a class="btn btn-gold" href="#contact">Request a Quote</a>
+  <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="overlay" aria-label="Open menu">
+    <span></span><span></span>
+  </button>
+</header>
+
+<!-- mobile overlay -->
+<div class="overlay" id="overlay">
+  <nav aria-label="Menu">
+    <a class="big" href="#services"><i>/01</i>Services</a>
+    <a class="big" href="#safety"><i>/02</i>Safety</a>
+    <a class="big" href="#journey"><i>/03</i>Journey</a>
+    <a class="big" href="#contact"><i>/04</i>Contact</a>
+  </nav>
+  <div class="ov-foot">
+    <a href="tel:+16789721148">678-972-1148 · 24/7 dispatch</a>
+    <a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a>
+    <span>USDOT 7638788 · MC 66389691 · Loganville, GA</span>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ======================= HERO ======================= -->
+<section class="hero" id="top" aria-label="KUL Enterprises — strength in motion">
+  <div class="shot" aria-hidden="true">
+    <!-- PLACEHOLDER: dashcam loop pending. When Mark's graded dashcam clips land,
+         replace this Ken-Burns still with a muted looping <video> — same grade vars apply. -->
+    <img src="/assets/journey/river.jpg" width="2200" height="1650" fetchpriority="high" alt="">
+    <div class="wash"></div>
+    <div class="dim"></div>
+    <div class="grad"></div>
+    <div class="grain"></div>
+  </div>
+
+  <div class="osd hud-l3">
+    <span class="rec" aria-hidden="true"></span>
+    <span>REC · graded still — dashcam loop pending</span>
+  </div>
+
+  <div class="hero-inner">
+    <p class="route-eyebrow late" style="--wd:.5">
+      <span class="dot" aria-hidden="true"></span>
+      Loganville, GA&nbsp;&nbsp;→&nbsp;&nbsp;Nationwide&nbsp;&nbsp;·&nbsp;&nbsp;USDOT 7638788
+    </p>
+
+    <h1 class="h1" aria-label="Strength in motion.">
+      <span aria-hidden="true">
+        <span class="row"><span class="w" style="--wd:0">STRENGTH</span></span>
+        <span class="row row2"><span class="w sl" style="--wd:.3">/</span><span class="w it" style="--wd:.42">in</span>
+        <span class="w" style="--wd:.6">MOTION.</span></span>
+      </span>
+    </h1>
+
+    <p class="hero-sub late" style="--wd:.75">
+      KUL Enterprises is a Georgia freight carrier already rolling — <strong>one truck today,
+      run to a fifty-truck standard.</strong> Your load rides like the whole company depends
+      on it, because it does.
+    </p>
+
+    <div class="hero-ctas late" style="--wd:.9">
+      <a class="btn btn-gold" href="#contact">Request a Freight Quote</a>
+      <a class="btn btn-ghost" href="mailto:dispatch@kulenterprises.com?subject=Driver%20application%20—%20KUL%20Enterprises">Become a Driver</a>
+    </div>
+  </div>
+
+  <aside class="hud late" style="--wd:1.05" aria-label="Route and dispatch panel">
+    <p class="hud-tag"><span>Route · live authority</span><b>KUL DASH</b></p>
+    <svg class="route" viewBox="0 0 320 56" fill="none" aria-hidden="true">
+      <path class="dash" d="M10 44 C 84 44 118 18 176 18 S 286 32 306 14"
+        stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-dasharray="7 6"/>
+      <circle cx="10" cy="44" r="4.5" fill="var(--gold)"/>
+      <g class="hud-l3">
+        <circle cx="126" cy="24.5" r="2.4" fill="var(--gold)" opacity=".6"/>
+        <circle cx="222" cy="24.8" r="2.4" fill="var(--gold)" opacity=".6"/>
+      </g>
+      <path d="M306 14 l-7 -1.6 M306 14 l-2.2 6.8" stroke="var(--gold)" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <p class="route-lbl"><span>Loganville, GA</span><i>→</i><span>Nationwide</span></p>
+    <p class="hud-row"><span>USDOT 7638788</span><span class="sl">/</span><span>MC 66389691</span></p>
+    <p class="hud-row hud-l2"><span class="pulse" aria-hidden="true"></span>
+      <span>Dispatch online 24/7</span><span class="sl">/</span>
+      <a href="tel:+16789721148">678-972-1148</a></p>
+  </aside>
+
+  <p class="cue" aria-hidden="true"><span>Roll</span><span class="ticks"></span></p>
+
+  <!-- trust strip -->
+  <div class="ticker" aria-label="USDOT 7638788, MC 66389691, licensed and insured, Loganville Georgia, nationwide service, 24/7 dispatch">
+    <div class="belt" aria-hidden="true">
+      <ul>
+        <li>USDOT 7638788</li><li>MC 66389691</li><li>Licensed &amp; Insured</li>
+        <li>Loganville, GA</li><li>Nationwide Service</li><li>24/7 Dispatch</li>
+      </ul>
+      <ul>
+        <li>USDOT 7638788</li><li>MC 66389691</li><li>Licensed &amp; Insured</li>
+        <li>Loganville, GA</li><li>Nationwide Service</li><li>24/7 Dispatch</li>
+      </ul>
+      <ul>
+        <li>USDOT 7638788</li><li>MC 66389691</li><li>Licensed &amp; Insured</li>
+        <li>Loganville, GA</li><li>Nationwide Service</li><li>24/7 Dispatch</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= SERVICES ======================= -->
+<section class="sec services" id="services" aria-labelledby="services-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="h2 reveal" id="services-h"><span class="sl">/</span>WHAT WE <span class="it">PULL</span></h2>
+      <p class="lede reveal" style="--d:120">Seven ways to move your freight. <strong>One standard
+      for all of them</strong> — confirmed pickup, tracked miles, a dispatcher who answers.</p>
+    </div>
+
+    <div class="lanes">
+      <div class="lane" data-drift="-1">
+        <article class="chip reveal" style="--d:0">
+          <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 16v-6h5l3-4h4v10M2.5 16h19M18 12h3.5"/><circle cx="6.5" cy="18" r="1.9"/><circle cx="14.5" cy="18" r="1.9"/>
+          </svg>
+          <div class="txt"><h3>Power Only</h3><p>Your trailer, our tractor. Clean hookups, on schedule.</p></div>
+        </article>
+        <article class="chip reveal" style="--d:90">
+          <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2.5" y="6.5" width="15" height="9" rx="1"/><path d="M14.5 6.5v9M2.5 18.5h19"/><circle cx="6.5" cy="18.5" r="1.6"/><circle cx="10.5" cy="18.5" r="1.6"/>
+          </svg>
+          <div class="txt"><h3>Dry Van</h3><p>Protected space for whatever your dock ships next.</p></div>
+        </article>
+        <article class="chip reveal" style="--d:180">
+          <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2.5" y="6.5" width="15" height="9" rx="1"/><path d="M10 8.6v4.8M7.9 9.8l4.2 2.4M12.1 9.8l-4.2 2.4M2.5 18.5h19"/><circle cx="6.5" cy="18.5" r="1.6"/><circle cx="13.5" cy="18.5" r="1.6"/>
+          </svg>
+          <div class="txt"><h3>Reefer</h3><p>Cold chain held from shipper to receiver, mile by mile.</p></div>
+        </article>
+      </div>
+
+      <div class="lane" data-drift="1">
+        <article class="chip reveal" style="--d:0">
+          <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 4.5a7.5 7.5 0 1 1-7.5 7.5"/><path d="M4.5 12l-2-2M4.5 12l2.2-1.6"/><circle cx="12" cy="12" r="1.7"/>
+          </svg>
+          <div class="txt"><h3>Dedicated</h3><p>Your lane, our truck, every week. Capacity you can plan on.</p></div>
+        </article>
+        <article class="chip reveal" style="--d:90">
+          <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 20.5c-3.6-4-5.5-6.7-5.5-9.3a5.5 5.5 0 1 1 11 0c0 2.6-1.9 5.3-5.5 9.3z"/><circle cx="12" cy="10.8" r="1.8"/>
+          </svg>
+          <div class="txt"><h3>Regional</h3><p>Southeast lanes, dock-to-dock, tight turnarounds.</p></div>
+        </article>
+      </div>
+
+      <div class="lane" data-drift="-1">
+        <article class="chip reveal" style="--d:0">
+          <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M2.5 17.5h19M3.5 17.5C8 9.5 15 9 20.5 5.5"/><path d="M20.5 5.5l-4 .4M20.5 5.5l-1 3.4"/>
+          </svg>
+          <div class="txt"><h3>Over-the-Road</h3><p>Coast to coast under one owner-grade standard.</p></div>
+        </article>
+        <article class="chip reveal" style="--d:90">
+          <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M8.5 6l6 6-6 6M3.5 8.5l3.5 3.5-3.5 3.5M16.5 12h5"/>
+          </svg>
+          <div class="txt"><h3>Expedited</h3><p>When the clock is the load: we roll now, update en route.</p></div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= KINETIC STATEMENT ======================= -->
+<section class="sec kinetic" aria-label="Every load is the whole company">
+  <div class="wrap">
+    <div class="laneline" aria-hidden="true"></div>
+    <p class="kfill" id="kfill1">
+      <span class="w">EVERY</span><span class="w">LOAD</span><span class="w it">is</span><span class="w it">the</span>
+      <span class="w">WHOLE</span><span class="w">COMPANY<span class="end">.</span></span>
+    </p>
+    <p class="k-sub reveal">We run lean on purpose. The name on your rate confirmation and the hands
+    on the wheel answer to the same standard — <strong>accountability has nowhere to hide in a
+    one-truck fleet, and we intend to keep it that way as we grow.</strong></p>
+  </div>
+</section>
+
+<!-- ======================= SAFETY ======================= -->
+<section class="sec safety" id="safety" aria-labelledby="safety-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="h2 reveal" id="safety-h"><span class="sl">/</span>DRIVEN BY <span class="it">SAFETY</span></h2>
+      <p class="lede reveal" style="--d:120">The instrument cluster we actually run — not a poster
+      in a break room. <strong>Every mile is accountable to it.</strong></p>
+    </div>
+
+    <div class="dashpanel reveal">
+      <article class="gauge">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M8 34a17 17 0 1 1 32 0" opacity=".35"/>
+          <path d="M8.6 27l3.4 1.2M13 17.6l2.8 2.3M24 13.5v3.6M35 17.6l-2.8 2.3M39.4 27l-3.4 1.2"/>
+          <path d="M24 36L31.5 22" stroke-width="2.4"/><circle cx="24" cy="36" r="2.6" fill="currentColor" stroke="none"/>
+        </svg>
+        <h3>Pre-trip, every trip</h3>
+        <p>A full walk-around before any wheel turns — brakes, tires, lights, load securement.
+        No exceptions, no “we were running late.”</p>
+      </article>
+      <article class="gauge">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="6" y="14" width="26" height="20" rx="3"/><path d="M32 21l10-5v16l-10-5"/><circle cx="15" cy="24" r="4.5"/><circle cx="26.5" cy="19.5" r="1.6" fill="currentColor" stroke="none"/>
+        </svg>
+        <h3>Eyes on every mile</h3>
+        <p>Dashcam rolling in the cab. We drive like the film will be watched —
+        because it can be, any day, by anyone we haul for.</p>
+      </article>
+      <article class="gauge">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M24 5l14 5.5v10c0 9-5.8 14.8-14 18-8.2-3.2-14-9-14-18v-10z"/><path d="M17.5 24.5l4.4 4.4L31 19.5"/>
+        </svg>
+        <h3>Covered &amp; current</h3>
+        <p>Licensed and insured, with active federal authority you can verify tonight:
+        USDOT 7638788 · MC 66389691.</p>
+      </article>
+      <div class="dash-foot">
+        <p class="call">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4.5 3.5h4l2 5-2.5 1.5a12 12 0 0 0 6 6L15.5 13l5 2v4a2 2 0 0 1-2 2A16.5 16.5 0 0 1 2.5 5.5a2 2 0 0 1 2-2z"/>
+          </svg>
+          <a href="tel:+16789721148">678-972-1148</a>
+        </p>
+        <em>24/7 dispatch. A decision-maker answers — not a phone tree.</em>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= JOURNEY ======================= -->
+<section class="sec journey" id="journey" aria-labelledby="journey-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="h2 reveal" id="journey-h"><span class="sl">/</span>THE ROAD <span class="it">so far</span></h2>
+      <p class="lede reveal" style="--d:120">Every carrier says they love the road.
+      <strong>Ours photographs it.</strong></p>
+    </div>
+  </div>
+
+  <div class="strip-shell reveal">
+    <div class="sprockets" aria-hidden="true"></div>
+    <div class="strip" id="filmstrip">
+      <figure class="framecard">
+        <div class="ph">
+          <img src="/assets/journey/cliffs.jpg" width="2200" height="1650" loading="lazy"
+               alt="Sandstone cliffs rising straight out of deep blue water under a clear sky — photographed by the founder">
+        </div>
+        <figcaption><span>Frame 01 · founder’s camera</span><i>cliffs over blue water</i></figcaption>
+      </figure>
+      <figure class="framecard">
+        <div class="ph">
+          <img src="/assets/journey/tree.jpg" width="2200" height="1650" loading="lazy"
+               alt="A broad shade tree standing alone over open grassland, forested hills behind — photographed by the founder">
+        </div>
+        <figcaption><span>Frame 02 · founder’s camera</span><i>room to grow</i></figcaption>
+      </figure>
+      <div class="framecard next" role="note" aria-label="Next reel: dashcam footage coming soon">
+        <svg class="reel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="6.5" r="1.4"/><circle cx="12" cy="17.5" r="1.4"/><circle cx="6.5" cy="12" r="1.4"/><circle cx="17.5" cy="12" r="1.4"/><path d="M21 21l-2.5-2.5"/>
+        </svg>
+        <b>NEXT REEL</b>
+        <span>Dashcam footage from the cab is on its way. What plays here will always be ours.</span>
+      </div>
+    </div>
+    <div class="sprockets" aria-hidden="true"></div>
+  </div>
+
+  <div class="wrap">
+    <p class="j-story reveal">These frames are the founder’s own, pulled from the miles that came
+    before the LLC. <strong>We didn’t license a story from a stock library — we drove one.</strong>
+    The company exists so the standard those miles taught can carry other people’s freight.</p>
+  </div>
+</section>
+
+<!-- ======================= VISION ======================= -->
+<section class="sec vision" id="vision" aria-labelledby="vision-h">
+  <div class="wrap">
+    <div class="vision-copy">
+      <h2 class="h2 reveal" id="vision-h"><span class="sl">/</span>GROWING <span class="it">with intention</span></h2>
+      <p class="lede reveal" style="--d:120">Today KUL runs <strong>one tractor.</strong> By the end of 2029
+      the plan says fifty. We publish the number not because it’s guaranteed — because a target you
+      can see is a target you can hold us to.</p>
+      <p class="lede reveal" style="--d:220">We’ll add trucks exactly as fast as the standard survives
+      the adding, and not one truck faster.</p>
+    </div>
+    <div class="odo-house reveal" role="img" aria-label="Odometer rolling from 01 trucks today to the 50-truck target">
+      <div class="odo" aria-hidden="true">
+        <span class="odo-col odo-tens"><span class="odo-strip"><b>0</b><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b></span></span>
+        <span class="odo-col odo-ones"><span class="odo-strip"><b>0</b><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b><b>8</b><b>9</b><b>0</b></span></span>
+      </div>
+      <p class="odo-unit">TRACTORS · <b>END OF 2029</b></p>
+      <p class="odo-today"><span class="pulse" aria-hidden="true"></span> ON THE ROAD TODAY: 01</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= CTA BAND ======================= -->
+<section class="sec cta" id="contact" aria-labelledby="cta-h">
+  <div class="wrap">
+    <div class="laneline" aria-hidden="true"></div>
+    <h2 class="kfill" id="cta-h" aria-label="Put your freight in motion.">
+      <span aria-hidden="true"><span class="w">PUT</span><span class="w">YOUR</span><span class="w">FREIGHT</span><span class="w it">in</span>
+      <span class="w">MOTION<span class="end">.</span></span></span>
+    </h2>
+    <p class="lede reveal">Tell us the lane, the weight and the window.
+    <strong>Dispatch answers around the clock</strong> — you’ll be talking to someone who can say yes.</p>
+    <div class="cta-actions reveal" style="--d:120">
+      <a class="btn btn-gold" href="mailto:dispatch@kulenterprises.com?subject=Freight%20quote%20request">Request a Freight Quote</a>
+      <a class="btn btn-ghost" href="mailto:dispatch@kulenterprises.com?subject=Driver%20application%20—%20KUL%20Enterprises">Become a Driver</a>
+    </div>
+    <div class="cta-contact reveal" style="--d:220">
+      <a href="tel:+16789721148"><i>24/7 dispatch line</i><b>678-972-1148</b></a>
+      <a href="mailto:dispatch@kulenterprises.com"><i>Quotes &amp; drivers</i><b>dispatch@kulenterprises.com</b></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ======================= FOOTER ======================= -->
+<footer aria-label="Company information">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="foot-lockup" href="#top" aria-label="KUL Enterprises LLC — back to top">
+          <img src="/assets/brand/logo-gold-t.png" alt="KUL Enterprises LLC" width="360" height="112">
+        </a>
+        <p class="tag"><b>Strength in Motion.</b> Built on Integrity. Driven by Safety.
+        A Loganville, Georgia carrier moving freight nationwide.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <a href="tel:+16789721148">678-972-1148 — 24/7</a>
+        <a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a>
+        <span>Loganville, Georgia</span>
+      </div>
+      <div class="foot-col">
+        <h4>Authority</h4>
+        <span>USDOT 7638788</span>
+        <span>MC 66389691</span>
+        <span>Licensed &amp; Insured</span>
+      </div>
+      <div class="foot-col">
+        <h4>Services</h4>
+        <a href="#services">Power Only · Dry Van · Reefer</a>
+        <a href="#services">Dedicated · Regional</a>
+        <a href="#services">Over-the-Road · Expedited</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 KUL Enterprises LLC. All freight moves under active federal authority.</span>
+      <span class="vtag">S07A · Kinetic Motion</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   KINETIC ENGINE — vanilla, scroll-LINKED only, prm-guarded
+   ============================================================ */
+(function(){
+  var root=document.documentElement;
+  root.classList.add('js');
+  var prm=window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* ---------- nav state (runs regardless of motion pref) ---------- */
+  var nav=document.getElementById('nav');
+  function navState(){ nav.classList.toggle('scrolled', window.scrollY>10); }
+  navState();
+
+  /* ---------- mobile menu ---------- */
+  var menuBtn=document.getElementById('menuBtn'), overlay=document.getElementById('overlay');
+  overlay.setAttribute('aria-hidden','true');
+  function setMenu(open){
+    root.classList.toggle('menu-open',open);
+    menuBtn.setAttribute('aria-expanded',String(open));
+    menuBtn.setAttribute('aria-label',open?'Close menu':'Open menu');
+    overlay.setAttribute('aria-hidden',String(!open));
+    document.body.style.overflow=open?'hidden':'';
+    if(open){ var f=overlay.querySelector('a'); f&&f.focus(); } else { menuBtn.focus(); }
+  }
+  menuBtn.addEventListener('click',function(){ setMenu(!root.classList.contains('menu-open')); });
+  overlay.addEventListener('click',function(e){ if(e.target.closest('a')) setMenu(false); });
+  window.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&root.classList.contains('menu-open')) setMenu(false);
+  });
+
+  /* ---------- reveals ---------- */
+  var revealEls=[].slice.call(document.querySelectorAll('.reveal'));
+  if('IntersectionObserver' in window && !prm.matches){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+    },{rootMargin:'0px 0px -10% 0px',threshold:.12});
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* ---------- scroll-linked systems ---------- */
+  var vh=window.innerHeight;
+  window.addEventListener('resize',function(){ vh=window.innerHeight; },{passive:true});
+  function clamp(v,a,b){ return v<a?a:(v>b?b:v); }
+  function easeOut(p){ return 1-Math.pow(1-p,3); }
+
+  /* kinetic word fill */
+  var kfills=[].slice.call(document.querySelectorAll('.kfill')).map(function(el){
+    return { el:el, words:[].slice.call(el.querySelectorAll('.w')) };
+  });
+  if(!prm.matches) kfills.forEach(function(k){ k.el.classList.add('live'); });
+
+  function updateKfill(k){
+    var r=k.el.getBoundingClientRect();
+    if(r.bottom<-40||r.top>vh+40) return;
+    var p=clamp((vh*.92-r.top)/(vh*.62),0,1);
+    var n=k.words.length;
+    for(var i=0;i<n;i++){
+      var wp=easeOut(clamp(p*(n+1.6)-i*1.02,0,1));
+      var w=k.words[i];
+      w.style.opacity=(0.13+0.87*wp).toFixed(3);
+      w.style.transform='translate3d('+((1-wp)*-.28)+'em,'+((1-wp)*.24)+'em,0) skewX('+((1-wp)*-6)+'deg)';
+      w.style.filter=wp>=1?'none':'blur('+((1-wp)*7).toFixed(1)+'px)';
+    }
+  }
+
+  /* odometer 01 → 50 */
+  var odoHouse=document.querySelector('.odo-house');
+  var tens=document.querySelector('.odo-tens .odo-strip');
+  var ones=document.querySelector('.odo-ones .odo-strip');
+  function updateOdo(){
+    if(!odoHouse) return;
+    var r=odoHouse.getBoundingClientRect();
+    if(r.bottom<0||r.top>vh) return;
+    var p=easeOut(clamp((vh*.9-r.top)/(vh*.75),0,1));
+    tens.style.transform='translateY('+(-(p*5).toFixed(3))+'em)';
+    ones.style.transform='translateY('+(-(1+p*9).toFixed(3))+'em)';
+  }
+
+  /* lane drift + filmstrip drift */
+  var lanes=[].slice.call(document.querySelectorAll('.lane'));
+  var strip=document.getElementById('filmstrip');
+  var stripScrollable=false;
+  function measureStrip(){ stripScrollable=strip? strip.scrollWidth>strip.clientWidth+8 : false; }
+  measureStrip();
+  window.addEventListener('resize',measureStrip,{passive:true});
+
+  function updateDrift(){
+    lanes.forEach(function(l){
+      var r=l.getBoundingClientRect();
+      if(r.bottom<0||r.top>vh) return;
+      var p=clamp((vh-r.top)/(vh+r.height),0,1);
+      var dir=parseFloat(l.getAttribute('data-drift'))||1;
+      l.style.transform='translate3d('+((p-.5)*dir*44).toFixed(1)+'px,0,0)';
+    });
+    if(strip&&!stripScrollable){
+      var r2=strip.getBoundingClientRect();
+      if(!(r2.bottom<0||r2.top>vh)){
+        var p2=clamp((vh-r2.top)/(vh+r2.height),0,1);
+        strip.style.transform='translate3d('+((p2-.5)*-64).toFixed(1)+'px,0,0)';
+      }
+    }
+  }
+
+  var ticking=false;
+  function frame(){
+    ticking=false;
+    navState();
+    if(prm.matches) return;
+    kfills.forEach(updateKfill);
+    updateOdo();
+    updateDrift();
+  }
+  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(frame); } }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  frame();
+
+  prm.addEventListener&&prm.addEventListener('change',function(){
+    if(prm.matches){
+      kfills.forEach(function(k){ k.el.classList.remove('live');
+        k.words.forEach(function(w){ w.style.opacity='';w.style.transform='';w.style.filter=''; }); });
+      if(tens){tens.style.transform='';} if(ones){ones.style.transform='';}
+      lanes.forEach(function(l){ l.style.transform=''; });
+      if(strip) strip.style.transform='';
+      revealEls.forEach(function(el){ el.classList.add('in'); });
+    } else { kfills.forEach(function(k){ k.el.classList.add('live'); }); frame(); }
+  });
+})();
+</script>
+
+<!-- tweaks contract -->
+<script>
+window.KUL_TWEAKS = {
+  style: "s07a",
+  controls: [
+    { var: "--gold",         label: "Gold accent",             type: "color",  value: "#D4AF37" },
+    { var: "--grade-warmth", label: "Grade · neutral→golden",  type: "range",  value: 62,  min: 0,   max: 100,  step: 1 },
+    { var: "--dim",          label: "Footage dim",             type: "range",  value: 44,  min: 10,  max: 75,   step: 1 },
+    { var: "--letterbox",    label: "Letterbox",               type: "range",  value: 16,  min: 0,   max: 44,   step: 1, unit: "px" },
+    { var: "--reveal-speed", label: "Type reveal speed",       type: "range",  value: 950, min: 350, max: 1800, step: 50 },
+    { var: "--hud-density",  label: "HUD density",             type: "range",  value: 100, min: 30,  max: 100,  step: 5 },
+    { var: "--ease",         label: "Reveal easing",           type: "select", value: "cubic-bezier(.16,1,.3,1)",
+      options: ["cubic-bezier(.16,1,.3,1)","cubic-bezier(.22,1,.36,1)","cubic-bezier(.65,0,.35,1)"] }
+  ]
+};
+</script>
+<script src="/tweaks.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,904 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KUL Enterprises LLC | Freight Carrier | Loganville, Georgia</title>
+<meta name="description" content="KUL Enterprises LLC is a licensed and insured freight carrier based in Loganville, Georgia. Power only, dry van, reefer, dedicated, regional, over-the-road and expedited service. USDOT 7638788, MC 66389691.">
+
+<!--
+  s04b · Heritage Institute · design-taste-frontend build
+  Design read: heritage-institute trust page for a real one-truck carrier.
+  Dials: VARIANCE 5 · MOTION 4 · DENSITY 3.
+  Theme: light, locked (print-emulating heritage paper; single-theme by design).
+  Serif justification: the style brief names serif-accented typography explicitly;
+  EB Garamond chosen from the approved rotation pool. Archivo carries UI and body.
+  Illustration: hand-drawn horizon line art is brief-mandated connective tissue.
+  Shape system (documented rule): photos = arched frames · interactive = pills ·
+  plaques = 3px corners · bands = hairline rules. Applied everywhere.
+  Verified photo map (contents checked by eye, alt text matches what renders):
+    /assets/journey/cliffs.jpg = sandstone cliffs over blue water
+    /assets/journey/wave.jpg   = turquoise river through forest
+    /assets/journey/river.jpg  = weathered desert rock formations
+    /assets/journey/tree.jpg   = broad shade tree over open grassland
+    /assets/journey/desert.jpg = brand board collage, NOT a landscape: unused.
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+
+<style>
+  /* ============ tokens ============ */
+  :root{
+    --paper:       #F4EDDC;   /* warm cream ground */
+    --paper-deep:  #ECE2CB;   /* deeper cream for mats and tinted bands */
+    --ink:         #22291E;   /* warm green-black text */
+    --ink-soft:    #4E5242;   /* muted body */
+    --forest:      #24402E;   /* deep forest, structural brand green */
+    --forest-deep: #182B1E;   /* footer ground */
+    --moss:        #4A6B4E;   /* illustration strokes on cream */
+    --moss-light:  #8FAA88;   /* illustration strokes on forest */
+    --gold:        #D4AF37;   /* brand gold, tweakable */
+    --gold-deep:   #6F5710;   /* small-text-safe gold on cream */
+    --cream-text:  #F0E9D4;   /* text on forest grounds */
+    --cream-soft:  #CFC9AE;   /* muted text on forest grounds */
+
+    --gg-balance:  62;        /* 0 = green accents, 100 = gold accents */
+    --accent:      #918533;   /* fallback mix, replaced by color-mix below */
+
+    --illus:       0.9;      /* illustration density (opacity) */
+    --grain:       0.07;     /* paper grain amount */
+    --plaque-border: double; /* plaque style: double | solid | none */
+    --dividers-extra: block; /* extra horizon dividers: block | none */
+
+    --font-display: 'EB Garamond', Georgia, serif;
+    --font-text:    'Archivo', 'Helvetica Neue', Arial, sans-serif;
+
+    --measure: 62ch;
+    --pad: clamp(1.25rem, 4vw, 2.5rem);
+    --sect: clamp(4.5rem, 9vw, 7.5rem);
+    --nav-h: 68px;
+  }
+  @supports (color: color-mix(in srgb, red, blue)){
+    :root{ --accent: color-mix(in srgb, var(--gold) calc(var(--gg-balance) * 1%), var(--forest)); }
+  }
+
+  /* ============ base ============ */
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
+  body{
+    margin:0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 400 1.0625rem/1.75 var(--font-text);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; }
+  h1,h2,h3{ font-family: var(--font-display); font-weight:600; line-height:1.12; margin:0; text-wrap:balance; }
+  p{ margin:0; }
+  ul{ margin:0; padding:0; list-style:none; }
+  [id]{ scroll-margin-top: calc(var(--nav-h) + 24px); }
+  .wrap{ max-width:1200px; margin-inline:auto; padding-inline:var(--pad); }
+  .vh{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
+
+  :focus-visible{ outline: 2px solid var(--gold-deep); outline-offset: 3px; border-radius:2px; }
+  .on-dark :focus-visible{ outline-color: var(--gold); }
+
+  ::selection{ background: var(--gold); color: var(--ink); }
+
+  .skip{
+    position:fixed; left:16px; top:-60px; z-index:200;
+    background:var(--ink); color:var(--paper); padding:.6rem 1rem; border-radius:999px;
+    font-size:.85rem; text-decoration:none; transition: top .2s ease;
+  }
+  .skip:focus{ top:12px; }
+
+  /* paper grain: fixed, pointer-safe, cheap */
+  .grain{
+    position:fixed; inset:0; z-index:90; pointer-events:none;
+    opacity: var(--grain); mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  /* ============ type helpers ============ */
+  .eyebrow{
+    font: 600 .72rem/1 var(--font-text);
+    letter-spacing:.22em; text-transform:uppercase;
+    color: var(--gold-deep);
+  }
+  .on-dark .eyebrow{ color: var(--gold); }
+  .lede{ color: var(--ink-soft); max-width: var(--measure); }
+  .on-dark .lede{ color: var(--cream-soft); }
+
+  /* ============ buttons (pill system) ============ */
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+    font: 600 .95rem/1 var(--font-text); letter-spacing:.01em;
+    padding: .95rem 1.7rem; border-radius:999px; text-decoration:none;
+    border:1px solid transparent; white-space:nowrap;
+    transition: transform .18s cubic-bezier(.16,1,.3,1), box-shadow .18s ease, background-color .18s ease, color .18s ease, border-color .18s ease;
+  }
+  .btn:active{ transform: translateY(1px) scale(.985); }
+  .btn-gold{
+    background: var(--gold); color:#20241A;
+    box-shadow: 0 1px 0 rgba(60,50,10,.25), 0 10px 24px -14px rgba(84,66,12,.55);
+  }
+  .btn-gold:hover{ transform: translateY(-1px); box-shadow: 0 2px 0 rgba(60,50,10,.2), 0 16px 30px -14px rgba(84,66,12,.6); }
+  .btn-line{ border-color: var(--forest); color: var(--forest); background:transparent; }
+  .btn-line:hover{ background: var(--forest); color: var(--cream-text); transform: translateY(-1px); }
+  .on-dark .btn-line{ border-color: var(--cream-soft); color: var(--cream-text); }
+  .on-dark .btn-line:hover{ background: var(--cream-text); color: var(--forest-deep); }
+
+  /* ============ nav ============ */
+  header.site{
+    position:sticky; top:0; z-index:100;
+    background: color-mix(in srgb, var(--paper) 92%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom:1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  }
+  .nav{
+    height: var(--nav-h);
+    display:flex; align-items:center; gap:1.25rem;
+  }
+  .lockup{ display:flex; flex-direction:row; align-items:center; gap:.6rem; text-decoration:none; line-height:1; margin-right:auto; }
+  .lk-text{ display:flex; flex-direction:column; gap:.14rem; }
+  /* heraldic lion seal: real brand mark, forest disc gives the gold lion contrast on cream */
+  .lk-seal{
+    display:grid; place-items:center; flex:none;
+    width:46px; height:46px; border-radius:50%;
+    background: var(--forest);
+    border:1px solid color-mix(in srgb, var(--gold) 55%, var(--forest));
+    box-shadow: inset 0 1px 0 rgba(240,233,212,.12), 0 6px 16px -10px rgba(40,45,28,.6);
+  }
+  .lk-seal img{ width:40px; height:40px; object-fit:contain; }
+  .lk-kul{
+    font: 600 1.6rem/1 var(--font-display);
+    letter-spacing:.08em; color:var(--ink);
+  }
+  .lk-sub{
+    font: 600 .52rem/1 var(--font-text);
+    letter-spacing:.42em; text-transform:uppercase; color: var(--gold-deep);
+  }
+  .nav-links{ display:flex; align-items:center; gap:1.6rem; }
+  .nav-links a:not(.btn){
+    font: 500 .92rem/1 var(--font-text); text-decoration:none; color:var(--ink);
+    padding:.4rem 0; border-bottom:1px solid transparent;
+    transition: border-color .18s ease, color .18s ease;
+  }
+  .nav-links a:not(.btn):hover{ border-bottom-color: var(--gold); }
+  .nav .btn{ padding:.7rem 1.25rem; font-size:.88rem; }
+  .menu-btn{ display:none; }
+
+  @media (max-width: 840px){
+    .nav{ gap:.75rem; }
+    .nav-links{
+      position:absolute; top:var(--nav-h); left:0; right:0;
+      display:none; flex-direction:column; align-items:stretch; gap:0;
+      background: var(--paper);
+      border-bottom:1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+      padding: .5rem var(--pad) 1.1rem;
+    }
+    .nav-links.open{ display:flex; }
+    .nav-links a:not(.btn){ padding:.9rem 0; border-bottom:1px solid color-mix(in srgb, var(--ink) 8%, transparent); }
+    .nav-links .btn{ margin-top:.9rem; }
+    /* contract: quote CTA stays one tap in the collapsed bar */
+    .nav > .btn.bar-cta{ display:inline-flex; margin-left:auto; padding:.62rem .95rem; font-size:.78rem; }
+    .menu-btn{
+      display:inline-flex; flex-direction:column; justify-content:center; gap:5px;
+      width:44px; height:44px; padding:10px; background:none; border:0; cursor:pointer;
+    }
+    .menu-btn span{ display:block; height:2px; background:var(--ink); border-radius:2px; transition: transform .2s ease, opacity .2s ease; }
+    .menu-btn[aria-expanded="true"] span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+    .menu-btn[aria-expanded="true"] span:nth-child(2){ opacity:0; }
+    .menu-btn[aria-expanded="true"] span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+  }
+  @media (min-width: 841px){ .nav > .btn.bar-cta{ display:none; } }
+
+  /* ============ hero ============ */
+  .hero{ overflow:hidden; }
+  .hero-copy{
+    padding-top: clamp(3rem, 6.5vw, 5.25rem);
+    text-align:center;
+    display:grid; justify-items:center; gap:1.4rem;
+  }
+  .hero h1{
+    font-size: clamp(2.55rem, 5.6vw, 4.35rem);
+    max-width: 17ch;
+    letter-spacing:.005em;
+  }
+  .hero .lede{ margin-inline:auto; max-width:46ch; font-size:1.06rem; }
+  .hero-cta{ display:flex; gap:.8rem; flex-wrap:wrap; justify-content:center; }
+
+  .scene{
+    position:relative;
+    margin-top: clamp(1rem, 3vw, 2rem);
+    padding-top: clamp(130px, 19vw, 215px); /* room for the arch to rise into */
+  }
+  .scene svg.horizon{
+    display:block; width:100%;
+    height: clamp(190px, 22vw, 320px);
+  }
+  .arch-hero{
+    position:absolute; left:50%; bottom: clamp(10px, 2vw, 26px);
+    transform: translateX(-50%);
+    width: clamp(212px, 26vw, 336px);
+  }
+
+  /* arched photo frames: mat board + hairline, radius per shape system */
+  .frame{
+    background: var(--paper-deep);
+    border:1px solid color-mix(in srgb, var(--accent) 55%, transparent);
+    padding:10px;
+    box-shadow: 0 24px 48px -30px rgba(40,45,28,.45);
+  }
+  .frame img{ width:100%; height:100%; object-fit:cover; }
+  .arch, .arch img{ border-radius: 50% 50% 14px 14px / 30% 30% 14px 14px; }
+  .arch img{ aspect-ratio: 3 / 4.05; }
+  .arch-wide, .arch-wide img{ border-radius: 50% 50% 14px 14px / 22% 22% 14px 14px; }
+
+  /* ============ trust band ============ */
+  .trust{
+    border-top:1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+    border-bottom:1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+    background: color-mix(in srgb, var(--paper-deep) 55%, var(--paper));
+  }
+  .trust-list{
+    display:flex; flex-wrap:wrap; justify-content:center;
+    padding-block: 1.15rem;
+  }
+  .trust-list li{
+    font: 600 .74rem/1.4 var(--font-text);
+    letter-spacing:.18em; text-transform:uppercase;
+    color: var(--ink-soft);
+    padding-inline: clamp(.9rem, 2.4vw, 2rem);
+    border-left:1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+  }
+  .trust-list li:first-child{ border-left:0; }
+  .trust-list li strong{ color: var(--ink); font-weight:700; }
+  @media (max-width: 760px){
+    .trust-list{ display:grid; grid-template-columns:1fr 1fr; gap:.7rem 0; text-align:center; padding-block:1.3rem; }
+    .trust-list li{ border-left:0; padding-inline:.5rem; }
+  }
+
+  /* ============ forest sections ============ */
+  .on-dark{ background: var(--forest); color: var(--cream-text); }
+  .on-dark h2, .on-dark h3{ color: var(--cream-text); }
+
+  .charter{ position:relative; overflow:hidden; }
+  .charter .wrap{ padding-block: var(--sect) calc(var(--sect) + 40px); }
+  .charter-head{
+    display:grid; justify-items:center; text-align:center; gap:1.1rem;
+    margin-bottom: clamp(2.6rem, 5.5vw, 4rem);
+  }
+  .charter-head h2{ font-size: clamp(2rem, 4vw, 3.1rem); max-width:18ch; }
+  .charter-head .lede{ margin-inline:auto; }
+
+  .plaques{
+    display:grid; grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1rem, 2.2vw, 1.6rem);
+  }
+  .plaque{
+    position:relative;
+    background: color-mix(in srgb, var(--cream-text) 5%, var(--forest));
+    border: 3px var(--plaque-border) color-mix(in srgb, var(--accent) 72%, var(--cream-text));
+    border-radius:3px;
+    padding: 1.5rem 1.4rem 1.6rem;
+    box-shadow: inset 0 1px 0 rgba(240,233,212,.08), 0 14px 30px -22px rgba(0,0,0,.7);
+  }
+  .plaque h3{
+    font: 700 .8rem/1.3 var(--font-text);
+    letter-spacing:.2em; text-transform:uppercase;
+    color: var(--gold);
+    margin-bottom:.55rem;
+  }
+  .plaque p{ font-size:.95rem; line-height:1.65; color: var(--cream-soft); }
+  @media (min-width: 901px){
+    .plaque:nth-child(3n+2){ transform: translateY(22px); } /* measured offset, VARIANCE 5 */
+  }
+  @media (max-width: 900px){ .plaques{ grid-template-columns:1fr 1fr; } }
+  @media (max-width: 580px){ .plaques{ grid-template-columns:1fr; } }
+
+  .meadow{ position:absolute; left:0; right:0; bottom:-6px; pointer-events:none; }
+  .meadow svg{ display:block; width:100%; height: clamp(46px, 6vw, 74px); }
+
+  /* ============ services ledger ============ */
+  .services .wrap{ padding-block: var(--sect); }
+  .svc-head{ display:grid; gap:1rem; margin-bottom: clamp(2.4rem, 5vw, 3.6rem); }
+  .svc-head h2{ font-size: clamp(1.9rem, 3.6vw, 2.9rem); max-width:20ch; }
+  .svc-group{
+    display:grid; grid-template-columns: minmax(180px, 4fr) 8fr;
+    gap: 1.2rem clamp(1.6rem, 5vw, 4.5rem);
+    padding-block: clamp(1.8rem, 3.4vw, 2.6rem);
+    border-top:1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+  }
+  .svc-group:last-of-type{ border-bottom:1px solid color-mix(in srgb, var(--ink) 16%, transparent); }
+  .svc-side h3{
+    font: 500 italic 1.5rem/1.2 var(--font-display);
+    color: var(--gold-deep);
+  }
+  .svc-side p{ font-size:.9rem; color: var(--ink-soft); margin-top:.35rem; }
+  .svc-items{ display:grid; gap:1.35rem; }
+  .svc-item dt{
+    font: 600 1.35rem/1.25 var(--font-display);
+    letter-spacing:.005em;
+  }
+  .svc-item dd{ margin:0.2rem 0 0; font-size:.96rem; color:var(--ink-soft); max-width:52ch; }
+  @media (min-width: 761px){
+    .svc-items.cols{ grid-template-columns:1fr 1fr; gap:1.35rem 2.5rem; }
+  }
+  @media (max-width: 760px){
+    .svc-group{ grid-template-columns:1fr; gap:1.1rem; }
+  }
+  dl{ margin:0; }
+
+  /* ============ horizon dividers ============ */
+  .divider{ pointer-events:none; }
+  .divider svg{ display:block; width:100%; height: clamp(56px, 7vw, 92px); }
+  .divider.extra{ display: var(--dividers-extra); }
+
+  /* ============ journey ============ */
+  .journey{ background: color-mix(in srgb, var(--paper-deep) 45%, var(--paper)); }
+  .journey .wrap{ padding-block: var(--sect); }
+  .journey h2{
+    font-size: clamp(2rem, 4vw, 3.1rem);
+    text-align:center; margin-bottom: clamp(2.4rem, 5vw, 3.6rem);
+  }
+  .duo{ position:relative; margin-bottom: clamp(2.2rem, 4vw, 3.4rem); }
+  .duo .ph-a{ width: min(62%, 660px); }
+  .duo .ph-b{ position:absolute; right:4%; bottom:-2.6rem; width: min(31%, 330px); }
+  .duo .ph-b.frame{ box-shadow: 0 30px 54px -30px rgba(40,45,28,.55); }
+  .journey .story{
+    margin-inline:auto; max-width:56ch; text-align:center;
+    font: 500 1.3rem/1.6 var(--font-display);
+    color: var(--ink);
+  }
+  .journey .story em{ font-style:italic; }
+  @media (max-width: 700px){
+    .duo{ display:grid; gap:1rem; }
+    .duo .ph-a{ width:100%; }
+    .duo .ph-b{ position:static; width:72%; justify-self:end; margin-top:-2.4rem; }
+    .journey .story{ font-size:1.14rem; }
+  }
+
+  /* ============ vision ============ */
+  .vision .wrap{ padding-block: var(--sect); }
+  .vision-grid{
+    display:grid; grid-template-columns: 7fr 5fr;
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items:center;
+  }
+  .vision-copy{ display:grid; gap:1.1rem; justify-items:start; }
+  .vision-copy h2{ font-size: clamp(1.9rem, 3.6vw, 2.9rem); max-width:16ch; }
+  .rings-wrap{ margin-top: clamp(1.4rem, 3vw, 2.4rem); width:min(100%, 430px); }
+  .rings-wrap svg{ display:block; width:100%; height:auto; }
+  .vision-photo{ width:min(100%, 380px); justify-self:end; }
+  @media (max-width: 860px){
+    .vision-grid{ grid-template-columns:1fr; }
+    .vision-photo{ justify-self:center; order:-1; width:min(78%, 340px); }
+  }
+
+  /* ============ CTA band ============ */
+  .quote-band{ position:relative; overflow:hidden; background: var(--forest-deep); }
+  .quote-band .wrap{
+    padding-block: var(--sect) calc(var(--sect) + clamp(56px, 8vw, 110px));
+    display:grid; justify-items:center; text-align:center; gap:1.3rem;
+    position:relative; z-index:2;
+  }
+  .quote-band h2{ font-size: clamp(2.1rem, 4.4vw, 3.4rem); max-width:16ch; }
+  .quote-band .lede{ margin-inline:auto; }
+  .quote-contact{
+    display:flex; flex-wrap:wrap; justify-content:center; align-items:baseline;
+    gap:.6rem 2.2rem; margin-top:.4rem;
+  }
+  .quote-contact a{
+    font: 500 clamp(1.25rem, 2.6vw, 1.7rem)/1.4 var(--font-display);
+    color: var(--cream-text); text-decoration:none;
+    border-bottom:1px solid color-mix(in srgb, var(--gold) 55%, transparent);
+    transition: border-color .18s ease, color .18s ease;
+  }
+  .quote-contact a:hover{ color: var(--gold); border-bottom-color: var(--gold); }
+  .band-road{ position:absolute; left:0; right:0; bottom:-4px; z-index:1; pointer-events:none; }
+  .band-road svg{ display:block; width:100%; height: clamp(90px, 12vw, 170px); }
+
+  /* ============ footer ============ */
+  footer.site{ background: var(--forest-deep); color: var(--cream-soft); border-top:1px solid rgba(240,233,212,.12); }
+  footer.site .wrap{ padding-block: clamp(3rem, 6vw, 4.5rem) 2rem; }
+  .foot-grid{
+    display:grid; grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 2.4rem;
+  }
+  .foot-lockup .lk-kul{ color: var(--cream-text); font-size:2rem; }
+  .foot-lockup .lk-sub{ color: var(--gold); }
+  .foot-brand{ display:inline-block; text-decoration:none; }
+  .foot-mark{ height: clamp(64px, 9vw, 92px); width:auto; }
+  .foot-tag{ margin-top:.9rem; font: 500 italic 1.02rem/1.6 var(--font-display); color: var(--cream-soft); max-width:26ch; }
+  .foot-col h3{
+    font: 700 .72rem/1 var(--font-text);
+    letter-spacing:.2em; text-transform:uppercase; color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .foot-col li{ margin-bottom:.55rem; font-size:.95rem; }
+  .foot-col a{ text-decoration:none; color: var(--cream-soft); border-bottom:1px solid transparent; transition: color .18s ease, border-color .18s ease; }
+  .foot-col a:hover{ color: var(--cream-text); border-bottom-color: var(--gold); }
+  .foot-base{
+    margin-top: clamp(2.2rem, 5vw, 3.2rem);
+    padding-top: 1.2rem;
+    border-top:1px solid rgba(240,233,212,.12);
+    display:flex; flex-wrap:wrap; gap:.5rem 1.5rem; justify-content:space-between;
+    font-size:.82rem; color: color-mix(in srgb, var(--cream-soft) 78%, var(--forest-deep));
+  }
+  @media (max-width: 860px){ .foot-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width: 520px){ .foot-grid{ grid-template-columns:1fr; gap:1.8rem; } }
+
+  /* ============ illustration strokes ============ */
+  .illus{ opacity: var(--illus); }
+  .st{ fill:none; stroke: var(--moss); stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
+  .st-soft{ fill:none; stroke: color-mix(in srgb, var(--moss) 62%, var(--paper)); stroke-width:1.4; stroke-linecap:round; }
+  .st-accent{ fill:none; stroke: var(--accent); stroke-width:1.7; stroke-linecap:round; }
+  .st-gold{ fill:none; stroke: var(--gold); stroke-width:1.7; stroke-linecap:round; }
+  .on-dark .st, .band-road .st{ stroke: var(--moss-light); }
+  .on-dark .st-soft, .band-road .st-soft{ stroke: color-mix(in srgb, var(--moss-light) 55%, var(--forest-deep)); }
+
+  /* ============ motion: gated, JS-dependent, reduced-motion safe ============ */
+  @media (prefers-reduced-motion: no-preference){
+    html.js .rv{ opacity:0; transform: translateY(16px); }
+    html.js .rv.in{
+      opacity:1; transform:none;
+      transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+      transition-delay: var(--d, 0s);
+    }
+    /* the road draws itself once: storytelling, the journey begins */
+    html.js .draw-path{ stroke-dasharray:1; stroke-dashoffset:1; }
+    html.js .drawn .draw-path{
+      stroke-dashoffset:0;
+      transition: stroke-dashoffset 1.6s cubic-bezier(.4,0,.2,1);
+      transition-delay: var(--d, 0s);
+    }
+    html.js .fade-late{ opacity:0; }
+    html.js .drawn .fade-late{ opacity:1; transition: opacity .9s ease 1.1s; }
+  }
+</style>
+</head>
+<body id="top">
+
+<a class="skip" href="#main">Skip to content</a>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="lockup" href="#top" aria-label="KUL Enterprises LLC, back to top">
+      <span class="lk-seal"><img src="/assets/brand/lion-clean.png" alt="KUL Enterprises" width="40" height="40"></span>
+      <span class="lk-text">
+        <span class="lk-kul">KUL</span>
+        <span class="lk-sub">Enterprises&nbsp;LLC</span>
+      </span>
+    </a>
+    <a class="btn btn-gold bar-cta" href="#quote">Request a Quote</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="nav-links" class="nav-links" aria-label="Primary">
+      <a href="#services">Services</a>
+      <a href="#safety">Safety</a>
+      <a href="#contact">Contact</a>
+      <a class="btn btn-gold" href="#quote">Request a Quote</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ hero ============ -->
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="wrap hero-copy">
+      <h1 id="hero-h" class="rv">Freight carried the way a promise is kept.</h1>
+      <p class="lede rv" style="--d:.12s">KUL Enterprises is a Loganville, Georgia carrier run on discipline: on time, fully insured, and answerable at every mile.</p>
+      <div class="hero-cta rv" style="--d:.22s">
+        <a class="btn btn-gold" href="#quote">Request a Freight Quote</a>
+        <a class="btn btn-line" href="mailto:dispatch@kulenterprises.com?subject=Driver%20Inquiry">Become a Driver</a>
+      </div>
+    </div>
+
+    <div class="scene" id="scene">
+      <!-- hand-drawn horizon: hills, sun and a road that draws itself toward the view -->
+      <svg class="horizon illus" viewBox="0 0 1440 320" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
+        <defs>
+          <filter id="wob" x="-5%" y="-5%" width="110%" height="110%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="7" result="t"/>
+            <feDisplacementMap in="SourceGraphic" in2="t" scale="5"/>
+          </filter>
+        </defs>
+
+        <g filter="url(#wob)">
+          <!-- far horizon line -->
+          <path class="st-soft" d="M0 174 C 90 170, 170 177, 260 173 S 420 169, 505 173 S 660 176, 730 172 S 900 168, 985 173 S 1160 177, 1250 172 S 1390 169, 1440 173"/>
+          <!-- left rolling hills -->
+          <path class="st" d="M0 152 C 62 122, 148 112, 236 133 C 308 149, 352 161, 438 166 C 500 169, 545 171, 590 173"/>
+          <path class="st-soft" d="M0 176 C 70 158, 140 150, 214 158 C 282 165, 330 172, 392 176"/>
+          <path class="st-soft" d="M96 142 C 120 136, 150 133, 178 136 M62 156 C 90 148, 122 144, 154 146"/>
+          <!-- right hills -->
+          <path class="st" d="M880 172 C 962 132, 1072 126, 1156 150 C 1216 166, 1290 171, 1372 174 L 1440 175"/>
+          <path class="st-soft" d="M1005 150 C 1040 143, 1082 141, 1118 147 M1210 165 C 1250 160, 1298 160, 1340 165"/>
+          <!-- trees -->
+          <g class="st">
+            <path d="M300 166 L 300 140 M300 148 L 290 141 M300 152 L 309 145"/>
+            <path d="M283 140 C 286 122, 314 122, 317 140 M278 145 C 279 135, 288 129, 296 129 M322 145 C 321 136, 313 130, 306 129"/>
+          </g>
+          <g class="st" transform="translate(160,-6) scale(0.78)">
+            <path d="M300 166 L 300 142 M300 150 L 292 144"/>
+            <path d="M285 142 C 289 126, 311 126, 315 142 M280 147 C 282 137, 290 131, 297 131"/>
+          </g>
+          <g class="st" transform="translate(880,4) scale(0.7)">
+            <path d="M300 164 L 300 142 M300 150 L 308 144"/>
+            <path d="M284 142 C 288 125, 312 125, 316 142"/>
+          </g>
+          <!-- grass ticks in the foreground -->
+          <g class="st-soft">
+            <path d="M470 300 l 7 -13 M485 303 l 5 -11 M500 299 l 8 -12 M519 304 l 5 -10"/>
+            <path d="M868 296 l -6 -12 M884 300 l -5 -11 M900 295 l -7 -12 M918 300 l -5 -10"/>
+            <path d="M330 316 l 6 -11 M348 318 l 5 -10 M1080 312 l -6 -11 M1098 315 l -5 -10"/>
+          </g>
+        </g>
+
+        <!-- sun: gold, hand ticks for rays -->
+        <g class="st-gold" opacity=".95">
+          <circle cx="985" cy="78" r="33" fill="none"/>
+          <path d="M985 32 l 0 -12 M985 124 l 0 11 M939 78 l -12 0 M1031 78 l 12 0 M952 45 l -8 -8 M1018 45 l 8 -8 M952 111 l -8 8 M1018 111 l 8 8"/>
+        </g>
+
+        <!-- the road: drawn outside the wobble filter so its draw-on animation stays cheap -->
+        <g class="st-accent" stroke-width="1.9">
+          <path class="draw-path" pathLength="1" d="M560 322 C 606 286, 650 262, 670 240 C 692 216, 702 204, 707 194"/>
+          <path class="draw-path" pathLength="1" style="--d:.15s" d="M762 322 C 745 288, 728 260, 723 238 C 719 220, 716 204, 715 194"/>
+        </g>
+        <path class="st-accent fade-late" stroke-dasharray="13 17" d="M662 322 C 683 288, 700 250, 711 212" opacity=".85"/>
+      </svg>
+
+      <div class="arch-hero frame arch">
+        <img src="/assets/journey/cliffs.jpg" alt="Pale sandstone cliffs rising from deep blue water under a clear sky." width="660" height="891" fetchpriority="high">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ trust band ============ -->
+  <section class="trust" id="safety" aria-labelledby="trust-h">
+    <h2 id="trust-h" class="vh">Safety and compliance</h2>
+    <div class="wrap">
+      <ul class="trust-list">
+        <li><strong>USDOT</strong> 7638788</li>
+        <li><strong>MC</strong> 66389691</li>
+        <li>Licensed &amp; Insured</li>
+        <li>Loganville, Georgia</li>
+        <li>Nationwide Service</li>
+        <li>24/7 Dispatch</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ charter: mission + six engraved values ============ -->
+  <section class="charter on-dark" aria-labelledby="charter-h">
+    <div class="wrap">
+      <div class="charter-head">
+        <p class="eyebrow rv">Our Charter</p>
+        <h2 id="charter-h" class="rv" style="--d:.08s">An institution in the making.</h2>
+        <p class="lede rv" style="--d:.16s">Our mission is simple: dependable freight transportation, delivered with integrity and safety, building relationships that earn trust one mile at a time.</p>
+      </div>
+      <ul class="plaques">
+        <li class="plaque rv"><h3>Safety First</h3><p>We protect our drivers, our freight, and the communities we serve.</p></li>
+        <li class="plaque rv" style="--d:.08s"><h3>Integrity</h3><p>We do what we say we will do. Every time.</p></li>
+        <li class="plaque rv" style="--d:.16s"><h3>Reliability</h3><p>Consistent service, on time, every time.</p></li>
+        <li class="plaque rv" style="--d:.1s"><h3>Communication</h3><p>Clear updates, real people, real conversations.</p></li>
+        <li class="plaque rv" style="--d:.18s"><h3>Accountability</h3><p>We own our actions and stand behind our results.</p></li>
+        <li class="plaque rv" style="--d:.26s"><h3>Trust</h3><p>Everything we do is designed to earn it, and to keep it.</p></li>
+      </ul>
+    </div>
+    <!-- meadow line art at the band's base -->
+    <div class="meadow illus" aria-hidden="true">
+      <svg viewBox="0 0 1440 70" preserveAspectRatio="xMidYMax slice" focusable="false">
+        <g filter="url(#wob)">
+          <path class="st-soft" d="M0 52 C 120 48, 240 54, 360 51 S 600 47, 720 52 S 960 55, 1080 51 S 1320 48, 1440 52"/>
+          <g class="st">
+            <path d="M120 52 l 5 -14 M133 54 l 4 -11 M146 51 l 6 -13 M162 55 l 4 -10"/>
+            <path d="M420 50 l -5 -13 M434 53 l -4 -11 M448 50 l -6 -12"/>
+            <path d="M700 54 l 5 -14 M714 56 l 4 -11 M728 52 l 6 -13"/>
+            <path d="M1010 52 l -5 -13 M1024 55 l -4 -11 M1038 51 l -6 -12 M1054 55 l -4 -10"/>
+            <path d="M1300 52 l 5 -13 M1314 55 l 4 -11 M1328 51 l 6 -12"/>
+          </g>
+          <g class="st">
+            <path d="M262 54 l 0 -16 M262 38 a 4.5 4.5 0 1 1 .1 0 M560 55 l 0 -14 M560 41 a 4 4 0 1 1 .1 0 M880 56 l 0 -15 M880 41 a 4 4 0 1 1 .1 0 M1180 54 l 0 -14 M1180 40 a 4 4 0 1 1 .1 0"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============ services ledger ============ -->
+  <section class="services" id="services" aria-labelledby="svc-h">
+    <div class="wrap">
+      <div class="svc-head">
+        <p class="eyebrow rv">Services</p>
+        <h2 id="svc-h" class="rv" style="--d:.08s">What we haul, and how we run it.</h2>
+        <p class="lede rv" style="--d:.16s">Seven ways to put our equipment to work, grouped the way shippers book them.</p>
+      </div>
+
+      <div class="svc-group rv">
+        <div class="svc-side">
+          <h3>Equipment</h3>
+          <p>What moves your freight.</p>
+        </div>
+        <dl class="svc-items cols">
+          <div class="svc-item"><dt>Power Only</dt><dd>Your trailer, our tractor and our driver on it.</dd></div>
+          <div class="svc-item"><dt>Dry Van</dt><dd>General freight, sealed, secured and delivered intact.</dd></div>
+          <div class="svc-item"><dt>Reefer</dt><dd>Cold chain held steady from dock to dock.</dd></div>
+        </dl>
+      </div>
+
+      <div class="svc-group rv">
+        <div class="svc-side">
+          <h3>Coverage</h3>
+          <p>Where we run.</p>
+        </div>
+        <dl class="svc-items cols">
+          <div class="svc-item"><dt>Regional</dt><dd>Southeast lanes with tight turnarounds on familiar roads.</dd></div>
+          <div class="svc-item"><dt>Over-the-Road</dt><dd>Long-haul service across the lower forty-eight.</dd></div>
+        </dl>
+      </div>
+
+      <div class="svc-group rv">
+        <div class="svc-side">
+          <h3>Commitment</h3>
+          <p>How we show up.</p>
+        </div>
+        <dl class="svc-items cols">
+          <div class="svc-item"><dt>Dedicated</dt><dd>Your lane, our truck, a standing appointment kept.</dd></div>
+          <div class="svc-item"><dt>Expedited</dt><dd>For loads where the clock is the contract.</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- recurring horizon divider -->
+  <div class="divider illus" aria-hidden="true">
+    <svg viewBox="0 0 1440 84" preserveAspectRatio="xMidYMax meet" focusable="false">
+      <g filter="url(#wob)">
+        <path class="st-soft" d="M0 58 C 140 54, 260 60, 400 56 S 660 52, 800 58 S 1060 61, 1200 56 S 1380 53, 1440 57"/>
+        <path class="st" d="M180 57 C 250 34, 360 30, 452 46 C 512 56, 560 58, 620 58"/>
+        <path class="st-accent" d="M900 58 C 940 52, 970 46, 990 40 C 1010 34, 1030 31, 1056 30" stroke-dasharray="10 12" opacity=".8"/>
+        <g class="st" transform="translate(392,-96) scale(0.62)">
+          <path d="M300 166 L 300 140 M300 150 L 291 143"/>
+          <path d="M284 140 C 287 122, 313 122, 316 140 M279 146 C 280 135, 289 129, 297 129"/>
+        </g>
+        <g class="st-gold" transform="translate(1150,26)">
+          <circle cx="0" cy="0" r="12" fill="none"/>
+          <path d="M-19 0 l -6 0 M19 0 l 6 0 M0 -19 l 0 -6 M-13 -13 l -5 -5 M13 -13 l 5 -5"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+  <!-- ============ journey ============ -->
+  <section class="journey" aria-labelledby="journey-h">
+    <div class="wrap">
+      <h2 id="journey-h" class="rv">The road that raised us.</h2>
+      <div class="duo">
+        <div class="ph-a frame arch-wide rv">
+          <img src="/assets/journey/wave.jpg" alt="A turquoise river easing over smooth rocks beneath dense green forest." width="1100" height="825" loading="lazy" style="aspect-ratio: 4 / 3;">
+        </div>
+        <div class="ph-b frame arch rv" style="--d:.18s">
+          <img src="/assets/journey/river.jpg" alt="Weathered sandstone rock towers standing over a quiet sandy wash." width="440" height="594" loading="lazy">
+        </div>
+      </div>
+      <p class="story rv" style="--d:.1s">Before the company had a name, Mark was learning roads like these. KUL still runs on what they taught: <em>patience, preparation, and respect for the miles.</em></p>
+    </div>
+  </section>
+
+  <!-- extra divider: hidden when divider frequency is turned down -->
+  <div class="divider extra illus" aria-hidden="true">
+    <svg viewBox="0 0 1440 84" preserveAspectRatio="xMidYMax meet" focusable="false">
+      <g filter="url(#wob)">
+        <path class="st-soft" d="M0 56 C 160 52, 300 58, 460 54 S 760 50, 920 56 S 1220 59, 1440 55"/>
+        <path class="st" d="M1010 55 C 1080 36, 1180 33, 1266 46 C 1330 55, 1390 56, 1440 56"/>
+        <g class="st" transform="translate(700,-98) scale(0.58)">
+          <path d="M300 166 L 300 140 M300 149 L 309 142"/>
+          <path d="M283 140 C 286 121, 314 121, 317 140"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+  <!-- ============ vision ============ -->
+  <section class="vision" aria-labelledby="vision-h">
+    <div class="wrap">
+      <div class="vision-grid">
+        <div class="vision-copy">
+          <p class="eyebrow rv">The Road Ahead</p>
+          <h2 id="vision-h" class="rv" style="--d:.08s">Fifty tractors, grown with intention.</h2>
+          <p class="lede rv" style="--d:.16s">KUL runs one truck today, and runs it right. The plan is fifty tractors by the end of 2029, added the way a tree adds rings: each driver vetted, each mile insured, nothing outgrown before it is earned.</p>
+
+          <!-- growth rings: one ring per year toward 2029 -->
+          <div class="rings-wrap rv" style="--d:.2s" id="rings" role="img" aria-label="Growth rings diagram marking each year from 2026 to 2029, ending at a fifty tractor fleet.">
+            <svg viewBox="0 0 480 360" focusable="false" class="illus">
+              <g class="st-soft" stroke-width="1.5">
+                <path class="draw-path" pathLength="1" d="M240 240 m -34 3 c -4 -22 14 -39 35 -38 c 21 1 36 17 34 37 c -2 20 -17 33 -36 32 c -18 -1 -30 -14 -33 -31"/>
+                <path class="draw-path" pathLength="1" style="--d:.2s" d="M240 240 m -70 6 c -6 -44 28 -78 71 -76 c 42 2 71 34 68 74 c -3 40 -35 66 -72 64 c -36 -2 -61 -29 -67 -62"/>
+                <path class="draw-path" pathLength="1" style="--d:.4s" d="M240 240 m -106 8 c -8 -66 43 -117 107 -114 c 63 3 106 51 102 111 c -4 59 -52 99 -108 96 c -54 -3 -92 -43 -101 -93"/>
+              </g>
+              <g class="st-accent" stroke-width="1.8">
+                <path class="draw-path" pathLength="1" style="--d:.6s" d="M240 240 m -142 10 c -10 -88 58 -156 143 -152 c 84 4 141 68 136 148 c -5 79 -69 132 -144 128 c -72 -4 -123 -57 -135 -124"/>
+              </g>
+              <g class="st-gold">
+                <path class="fade-late" stroke-dasharray="4 9" d="M240 240 m -170 12 c -12 -105 69 -187 171 -182 c 101 5 169 81 163 177"/>
+              </g>
+              <g fill="var(--ink-soft)" font-family="Archivo, sans-serif" font-size="13" class="fade-late">
+                <circle cx="240" cy="240" r="3.2" fill="var(--accent)"/>
+                <text x="252" y="228" font-weight="600">2026</text>
+                <text x="288" y="192">2027</text>
+                <text x="322" y="156">2028</text>
+                <text x="356" y="120">2029</text>
+                <text x="308" y="52" font-weight="600" fill="var(--gold-deep)">fifty tractors</text>
+                <text x="188" y="262" font-size="12">one truck today</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div class="vision-photo frame arch rv" style="--d:.14s">
+          <img src="/assets/journey/tree.jpg" alt="A broad shade tree standing alone on open grassland, forested ridge behind." width="660" height="891" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA band ============ -->
+  <section class="quote-band on-dark" id="quote" aria-labelledby="quote-h">
+    <div class="wrap">
+      <h2 id="quote-h" class="rv">Tell us where it needs to be.</h2>
+      <p class="lede rv" style="--d:.1s">A real person answers dispatch, day and night. Send the lane and the dates, and we will come back with a straight answer.</p>
+      <div class="rv" style="--d:.18s">
+        <a class="btn btn-gold" href="mailto:dispatch@kulenterprises.com?subject=Freight%20Quote%20Request">Request a Freight Quote</a>
+      </div>
+      <div class="quote-contact rv" style="--d:.26s">
+        <a href="tel:+16789721148">678-972-1148</a>
+        <a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a>
+      </div>
+    </div>
+    <div class="band-road illus" aria-hidden="true">
+      <svg viewBox="0 0 1440 150" preserveAspectRatio="xMidYMax slice" focusable="false">
+        <g filter="url(#wob)">
+          <path class="st-soft" d="M0 74 C 180 70, 340 76, 520 72 S 880 68, 1060 74 S 1360 77, 1440 73"/>
+          <path class="st" d="M0 60 C 90 40, 210 34, 330 48 C 420 58, 500 66, 600 70"/>
+          <path class="st" d="M880 70 C 980 44, 1120 38, 1240 56 C 1320 68, 1390 72, 1440 73"/>
+          <g class="st" transform="translate(90,-38) scale(0.72)">
+            <path d="M300 166 L 300 140 M300 150 L 291 143"/>
+            <path d="M283 140 C 286 121, 314 121, 317 140"/>
+          </g>
+        </g>
+        <g class="st-gold" opacity=".9">
+          <path d="M700 42 a 26 26 0 0 1 52 0" fill="none"/>
+          <path d="M690 42 l -12 0 M762 42 l 12 0 M700 22 l -7 -7 M752 22 l 7 -7 M726 14 l 0 -10"/>
+        </g>
+        <g class="st-accent" stroke-width="1.9">
+          <path d="M600 152 C 650 118, 690 90, 706 72 C 716 60, 722 50, 725 44"/>
+          <path d="M850 152 C 812 120, 780 92, 764 72 C 754 60, 748 50, 745 44"/>
+        </g>
+        <path class="st-accent" stroke-dasharray="12 15" d="M722 152 C 728 116, 733 82, 735 52" opacity=".85"/>
+      </svg>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site on-dark" id="contact">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-lockup">
+        <a class="foot-brand" href="#top" aria-label="KUL Enterprises LLC, back to top">
+          <img class="foot-mark" src="/assets/brand/logo-gold-t.png" alt="KUL Enterprises">
+        </a>
+        <p class="foot-tag">Strength in Motion. Built on Integrity. Driven by Safety.</p>
+      </div>
+      <nav class="foot-col" aria-label="Footer">
+        <h3>Navigate</h3>
+        <ul>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#safety">Safety</a></li>
+          <li><a href="#quote">Request a Quote</a></li>
+          <li><a href="mailto:dispatch@kulenterprises.com?subject=Driver%20Inquiry">Become a Driver</a></li>
+        </ul>
+      </nav>
+      <div class="foot-col">
+        <h3>Contact</h3>
+        <ul>
+          <li><a href="tel:+16789721148">678-972-1148</a></li>
+          <li><a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a></li>
+          <li>Loganville, Georgia</li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h3>Compliance</h3>
+        <ul>
+          <li>USDOT 7638788</li>
+          <li>MC 66389691</li>
+          <li>Licensed &amp; Insured</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>&copy; 2026 KUL Enterprises LLC &middot; Loganville, Georgia</span>
+      <span>Nationwide freight, dispatched around the clock.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* progressive enhancement flag: without JS everything stays visible */
+  document.documentElement.classList.add('js');
+</script>
+
+<script>
+  (function(){
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    /* mobile menu */
+    var btn = document.querySelector('.menu-btn');
+    var links = document.getElementById('nav-links');
+    if (btn && links){
+      btn.addEventListener('click', function(){
+        var open = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      links.addEventListener('click', function(e){
+        if (e.target.closest('a')){ links.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }
+      });
+    }
+
+    /* reveals + line drawing, IntersectionObserver only (no scroll listeners) */
+    var targets = [].slice.call(document.querySelectorAll('.rv'));
+    var scenes  = [document.getElementById('scene'), document.getElementById('rings')].filter(Boolean);
+
+    function showAll(){
+      targets.forEach(function(el){ el.classList.add('in'); });
+      scenes.forEach(function(el){ el.classList.add('drawn'); });
+    }
+
+    if (reduce.matches || !('IntersectionObserver' in window)){ showAll(); return; }
+
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (!entry.isIntersecting) return;
+        if (entry.target.classList.contains('rv')) entry.target.classList.add('in');
+        if (scenes.indexOf(entry.target) > -1) entry.target.classList.add('drawn');
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+
+    targets.forEach(function(el){ io.observe(el); });
+    scenes.forEach(function(el){ io.observe(el); });
+
+    reduce.addEventListener && reduce.addEventListener('change', function(e){ if (e.matches) showAll(); });
+  })();
+</script>
+
+<script>
+  window.KUL_TWEAKS = {
+    style: 's04b',
+    controls: [
+      { var: '--gold',           label: 'Brand gold',            type: 'color',  value: '#D4AF37' },
+      { var: '--gg-balance',     label: 'Green to gold balance', type: 'range',  value: 62,   min: 0, max: 100, step: 1 },
+      { var: '--illus',          label: 'Illustration density',  type: 'range',  value: 0.9,  min: 0, max: 1,   step: 0.05 },
+      { var: '--grain',          label: 'Paper grain',           type: 'range',  value: 0.07, min: 0, max: 0.2, step: 0.01 },
+      { var: '--font-display',   label: 'Headline face',         type: 'select', value: "'EB Garamond', Georgia, serif",
+        options: ["'EB Garamond', Georgia, serif", "'Archivo', 'Helvetica Neue', Arial, sans-serif"] },
+      { var: '--plaque-border',  label: 'Plaque style',          type: 'select', value: 'double', options: ['double','solid','none'] },
+      { var: '--dividers-extra', label: 'Extra dividers',        type: 'select', value: 'block',  options: ['block','none'] }
+    ]
+  };
+</script>
+<script src="/tweaks.js" defer></script>
+
+</body>
+</html>

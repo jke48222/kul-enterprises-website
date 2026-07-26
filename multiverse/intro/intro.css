@@ -1,0 +1,208 @@
+/* =========================================================================
+   KUL Enterprises — Opening Animation
+   The Doctor Bird flies in, dissolves to gold, and re-forms the lion mark.
+   The bird appears exactly once, here, then exits forever. The lion is permanent.
+   Vanilla CSS. No frameworks. Stage owns a full-viewport black field + <canvas>.
+   ========================================================================= */
+
+.kul-intro {
+  --kul-black: #0B0B0B;
+  --kul-gold: #D4AF37;
+  --kul-white: #FFFFFF;
+  --kul-gray: #6E6E6E;
+
+  position: fixed;
+  inset: 0;
+  z-index: 2147482000;
+  background: var(--kul-black);
+  overflow: hidden;
+  /* system stack tuned to read as a confident industrial wordmark without a webfont */
+  font-family: "Bebas Neue", "Oswald", "Helvetica Neue", "Arial Narrow", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: var(--kul-white);
+  user-select: none;
+  cursor: default;
+}
+
+.kul-intro[hidden] { display: none; }
+
+/* A soft, warm center-weighted vignette so the black field has depth, not flatness. */
+.kul-intro__field {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 90% at 50% 52%, rgba(212, 175, 55, 0.05) 0%, rgba(11, 11, 11, 0) 42%),
+    radial-gradient(140% 120% at 50% 50%, rgba(11, 11, 11, 0) 55%, rgba(0, 0, 0, 0.85) 100%);
+  pointer-events: none;
+}
+
+.kul-intro__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* The crisp lion — crossfaded in over the particle cloud for a clean final frame. */
+.kul-intro__lion {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.985);
+  opacity: 0;
+  will-change: opacity, transform;
+  filter: drop-shadow(0 10px 40px rgba(212, 175, 55, 0.22));
+  pointer-events: none;
+}
+
+/* Lockup: wordmark + tagline, stacked beneath the lion. */
+.kul-intro__lockup {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, 0);
+  width: min(92vw, 720px);
+  text-align: center;
+  pointer-events: none;
+}
+
+.kul-intro__wordmark {
+  opacity: 0;
+  transform: translateY(14px);
+  will-change: opacity, transform;
+}
+
+.kul-intro__brand {
+  display: block;
+  font-size: clamp(38px, 8.2vw, 76px);
+  line-height: 0.92;
+  letter-spacing: 0.14em;
+  text-indent: 0.14em; /* balance the trailing tracking */
+  color: var(--kul-gold);
+  font-weight: 600;
+}
+
+.kul-intro__entity {
+  display: block;
+  margin-top: 0.7em;
+  font-size: clamp(11px, 2.1vw, 15px);
+  letter-spacing: 0.5em;
+  text-indent: 0.5em;
+  color: rgba(255, 255, 255, 0.82);
+  font-family: "Montserrat", "Helvetica Neue", system-ui, sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.kul-intro__tagline {
+  margin-top: 1.6em;
+  opacity: 0;
+  transform: translateY(10px);
+  will-change: opacity, transform;
+  font-family: "Montserrat", "Helvetica Neue", system-ui, sans-serif;
+  font-size: clamp(12px, 2.4vw, 16px);
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.66);
+}
+
+/* Hairline gold rule that draws itself under the tagline. */
+.kul-intro__rule {
+  margin: 1.5em auto 0;
+  height: 1px;
+  width: 0;
+  background: linear-gradient(90deg,
+    rgba(212, 175, 55, 0) 0%,
+    rgba(212, 175, 55, 0.9) 50%,
+    rgba(212, 175, 55, 0) 100%);
+}
+
+/* Enter control — the exit door. Appears only at rest. */
+.kul-intro__enter {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(48px, 12vh, 120px);
+  transform: translate(-50%, 8px);
+  opacity: 0;
+  will-change: opacity, transform;
+  padding: 13px 30px;
+  background: transparent;
+  color: var(--kul-white);
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  border-radius: 999px;
+  font-family: "Montserrat", "Helvetica Neue", system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: background 320ms ease, color 320ms ease, border-color 320ms ease;
+}
+.kul-intro__enter:hover {
+  background: var(--kul-gold);
+  color: var(--kul-black);
+  border-color: var(--kul-gold);
+}
+.kul-intro__enter:focus-visible {
+  outline: 2px solid var(--kul-gold);
+  outline-offset: 3px;
+}
+
+/* Skip — visible the entire time. Respecting trust = respecting time. */
+.kul-intro__skip {
+  position: absolute;
+  right: clamp(16px, 3vw, 32px);
+  top: clamp(16px, 3vh, 28px);
+  z-index: 5;
+  padding: 8px 16px;
+  background: rgba(11, 11, 11, 0.35);
+  color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  font-family: "Montserrat", "Helvetica Neue", system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: color 220ms ease, border-color 220ms ease;
+}
+.kul-intro__skip:hover {
+  color: var(--kul-gold);
+  border-color: rgba(212, 175, 55, 0.4);
+}
+.kul-intro__skip:focus-visible {
+  outline: 2px solid var(--kul-gold);
+  outline-offset: 2px;
+}
+
+/* Whole-stage graceful exit. */
+.kul-intro--leaving {
+  opacity: 0;
+  transition: opacity 620ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* -------------------------------------------------------------------------
+   Reduced motion: no motion. Compose the final frame directly with a
+   single soft fade. The canvas never runs.
+   ------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .kul-intro__canvas { display: none; }
+  .kul-intro--static .kul-intro__lion,
+  .kul-intro--static .kul-intro__wordmark,
+  .kul-intro--static .kul-intro__tagline,
+  .kul-intro--static .kul-intro__enter {
+    opacity: 1 !important;
+    transform: translate(-50%, -50%) !important;
+    transition: opacity 900ms ease !important;
+  }
+  .kul-intro--static .kul-intro__wordmark,
+  .kul-intro--static .kul-intro__tagline { transform: none !important; }
+  .kul-intro--static .kul-intro__enter { transform: translate(-50%, 0) !important; }
+  .kul-intro--static .kul-intro__rule { width: min(320px, 60vw) !important; }
+}

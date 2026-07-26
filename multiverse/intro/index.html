@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KUL Enterprises — Opening Animation</title>
+  <meta name="description" content="Standalone demo of the KUL Enterprises intro: the Doctor Bird dissolves into gold and re-forms the lion mark.">
+  <!-- Brand fonts (demo harness only — the intro module itself ships zero external deps). -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./intro.css">
+  <style>
+    :root {
+      --gold: #D4AF37;
+      --ink: #0B0B0B;
+      --ink2: #1F1F1F;
+      --line: #2E2E2E;
+      --mut: #8a8a8a;
+    }
+    * { box-sizing: border-box; margin: 0; }
+    html, body { height: 100%; }
+    body {
+      background: var(--ink);
+      color: #f2f2f2;
+      font: 14px/1.6 Montserrat, system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* --- The "first frame of a page" the intro fades into --- */
+    .site {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      opacity: 0;
+      transition: opacity 700ms ease;
+    }
+    .site.revealed { opacity: 1; }
+
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px clamp(20px, 5vw, 56px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav .brand {
+      display: flex; align-items: center; gap: 12px;
+      font: 400 22px/1 "Bebas Neue", sans-serif; letter-spacing: .16em; color: var(--gold);
+    }
+    .nav .brand img { height: 34px; width: auto; }
+    .nav .links { display: flex; gap: 26px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--mut); }
+    .nav .links a { color: inherit; text-decoration: none; }
+    .nav .links a:hover { color: var(--gold); }
+    @media (max-width: 680px) { .nav .links { display: none; } }
+
+    .hero {
+      display: grid; place-content: center; text-align: center;
+      padding: 8vh clamp(20px, 6vw, 64px);
+      background:
+        radial-gradient(120% 90% at 50% 0%, rgba(212,175,55,0.06), rgba(11,11,11,0) 45%);
+    }
+    .hero h1 {
+      font: 400 clamp(40px, 8vw, 104px)/0.94 "Bebas Neue", sans-serif;
+      letter-spacing: .02em; margin-bottom: 18px;
+    }
+    .hero h1 em { color: var(--gold); font-style: normal; }
+    .hero p { color: var(--mut); max-width: 56ch; margin: 0 auto 30px; font-size: 15px; }
+    .hero .cta { display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .btn {
+      padding: 13px 26px; border-radius: 999px; font: 600 12px/1 Montserrat, sans-serif;
+      letter-spacing: .18em; text-transform: uppercase; cursor: pointer; text-decoration: none;
+      border: 1px solid transparent;
+    }
+    .btn--gold { background: var(--gold); color: var(--ink); }
+    .btn--ghost { background: transparent; color: #f2f2f2; border-color: rgba(255,255,255,.22); }
+    .btn--ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+    .foot {
+      padding: 20px clamp(20px, 5vw, 56px);
+      border-top: 1px solid var(--line); color: var(--mut); font-size: 12px;
+      display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    }
+
+    /* --- Demo control bar (not part of the shipped module) --- */
+    .demobar {
+      position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%);
+      z-index: 2147483647; display: flex; gap: 8px; align-items: center;
+      padding: 8px 10px; background: rgba(15,15,15,.86); border: 1px solid var(--line);
+      border-radius: 999px; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+      box-shadow: 0 10px 34px rgba(0,0,0,.5);
+    }
+    .demobar b { color: var(--gold); font: 600 10px/1 Montserrat; letter-spacing: .14em; text-transform: uppercase; padding: 0 6px; }
+    .demobar button {
+      background: #191919; color: #eee; border: 1px solid var(--line); border-radius: 999px;
+      padding: 8px 16px; font: 600 11px/1 Montserrat; letter-spacing: .12em; text-transform: uppercase; cursor: pointer;
+    }
+    .demobar button:hover { border-color: var(--gold); color: var(--gold); }
+    .demobar button.primary { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+    .demobar button[aria-pressed="true"] { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+
+    /* --- Video intro mode (v6 film) --- */
+    .vintro {
+      position: fixed; inset: 0; z-index: 2147483000;
+      background: var(--ink); display: grid; place-items: center;
+      opacity: 1; transition: opacity 700ms ease;
+    }
+    .vintro.out { opacity: 0; pointer-events: none; }
+    .vintro video, .vintro img.still {
+      width: 100%; height: 100%; object-fit: contain; background: var(--ink);
+    }
+    .vintro .vintro__skip {
+      position: absolute; top: 22px; right: 24px;
+      background: transparent; color: rgba(242,242,242,.75);
+      border: 1px solid rgba(212,175,55,.45); border-radius: 999px;
+      padding: 10px 22px; font: 600 11px/1 Montserrat, sans-serif;
+      letter-spacing: .22em; text-transform: uppercase; cursor: pointer;
+    }
+    .vintro .vintro__skip:hover { color: var(--gold); border-color: var(--gold); }
+  </style>
+</head>
+<body>
+  <!-- The page the intro resolves into -->
+  <div class="site" id="site">
+    <header class="nav">
+      <span class="brand"><img src="/assets/brand/lion-clean.png" alt="">KUL</span>
+      <nav class="links">
+        <a href="#">Services</a><a href="#">Safety</a><a href="#">Request a Quote</a><a href="#">Contact</a>
+      </nav>
+    </header>
+    <main class="hero">
+      <h1>Strength in <em>Motion</em>.</h1>
+      <p>Loganville, GA · Nationwide freight · 24/7 dispatch. A one-truck carrier building toward fifty, on integrity and safety.</p>
+      <div class="cta">
+        <a class="btn btn--gold" href="#">Request a Freight Quote</a>
+        <a class="btn btn--ghost" href="#">Become a Driver</a>
+      </div>
+    </main>
+    <footer class="foot">
+      <span>USDOT 7638788 · MC 66389691 · Licensed &amp; Insured</span>
+      <span>dispatch@kulenterprises.com · 678-972-1148</span>
+    </footer>
+  </div>
+
+  <!-- Video intro overlay (v6 film — the default mode) -->
+  <div class="vintro" id="vintro" hidden>
+    <video id="vintroVideo" src="./intro-video-v6.mp4" poster="./intro-video-poster.jpg"
+           muted playsinline preload="auto"></video>
+    <button type="button" class="vintro__skip" id="vintroSkip" aria-label="Skip intro">Skip</button>
+  </div>
+
+  <!-- Demo controls: Replay ignores sessionStorage; mode toggle picks film vs canvas. -->
+  <div class="demobar">
+    <b>Intro demo</b>
+    <button class="primary" id="replay">Replay</button>
+    <button id="modeVideo" aria-pressed="true">Film v6</button>
+    <button id="modeCanvas" aria-pressed="false">Canvas</button>
+  </div>
+
+  <script src="./intro.js"></script>
+  <script src="./tweaks.js" defer></script>
+  <script>
+    (function () {
+      var site = document.getElementById('site');
+      var vroot = document.getElementById('vintro');
+      var vid = document.getElementById('vintroVideo');
+      var SEEN = 'kul_intro_seen';
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function revealSite() { site.classList.add('revealed'); }
+
+      /* ---- Video mode: same contract as the canvas engine ----
+         once per session · Skip + Escape · reduced-motion = still frame · fades into the site */
+      var canvasMounted = false;
+      var VideoIntro = {
+        playing: false,
+        play: function (force) {
+          if (!force && sessionStorage.getItem(SEEN)) { revealSite(); return; }
+          vroot.hidden = false;
+          vroot.classList.remove('out');
+          if (reduced) {
+            // No motion: hold the composed final frame briefly, then enter.
+            vid.removeAttribute('src'); vid.load(); // poster only
+            var self = this;
+            setTimeout(function () { self.exit(); }, 1400);
+            return;
+          }
+          this.playing = true;
+          vid.currentTime = 0;
+          var self2 = this;
+          var p = vid.play();
+          if (p && p.catch) { p.catch(function () { self2.exit(); }); }
+          // Watchdog: never trap a visitor behind a stalled video — if playback
+          // hasn't advanced shortly after start, reveal the site instead.
+          clearTimeout(this._watchdog);
+          this._watchdog = setTimeout(function () {
+            if (self2.playing && vid.currentTime < 0.2) self2.exit();
+          }, 2500);
+        },
+        exit: function () {
+          this.playing = false;
+          try { sessionStorage.setItem(SEEN, '1'); } catch (e) {}
+          try { vid.pause(); } catch (e) {}
+          vroot.classList.add('out');
+          revealSite();
+          setTimeout(function () { vroot.hidden = true; }, 750);
+        }
+      };
+      vid.addEventListener('ended', function () { VideoIntro.exit(); });
+      vid.addEventListener('error', function () { if (VideoIntro.playing) VideoIntro.exit(); });
+      document.getElementById('vintroSkip').addEventListener('click', function () { VideoIntro.exit(); });
+      window.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && VideoIntro.playing) VideoIntro.exit();
+      });
+
+      /* ---- Mode plumbing: 'video' (default) or 'canvas' (?mode=canvas or toggle) ---- */
+      var params = new URLSearchParams(location.search);
+      var mode = params.get('mode') || localStorage.getItem('kul_intro_mode') || 'video';
+      var btnV = document.getElementById('modeVideo');
+      var btnC = document.getElementById('modeCanvas');
+      function setPressed() {
+        btnV.setAttribute('aria-pressed', String(mode === 'video'));
+        btnC.setAttribute('aria-pressed', String(mode === 'canvas'));
+      }
+      function ensureCanvas() {
+        if (!canvasMounted) {
+          window.KULIntro.mount({ container: document.body, onEnter: revealSite });
+          canvasMounted = true;
+        }
+      }
+      function run(force) {
+        site.classList.remove('revealed');
+        if (mode === 'canvas') {
+          vroot.hidden = true;
+          ensureCanvas();
+          force ? window.KULIntro.replay() : window.KULIntro.play({ onEnter: revealSite });
+        } else {
+          VideoIntro.play(force);
+        }
+      }
+
+      setPressed();
+      run(false); // first load: honors the once-per-session flag
+
+      document.getElementById('replay').addEventListener('click', function () { run(true); });
+      btnV.addEventListener('click', function () {
+        mode = 'video'; localStorage.setItem('kul_intro_mode', mode); setPressed(); run(true);
+      });
+      btnC.addEventListener('click', function () {
+        mode = 'canvas'; localStorage.setItem('kul_intro_mode', mode); setPressed(); run(true);
+      });
+    })();
+  </script>
+</body>
+</html>

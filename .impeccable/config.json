@@ -1,0 +1,9 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [
+      "multiverse/index.html"
+    ],
+    "ignoreValues": []
+  }
+}
