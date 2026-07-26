@@ -101,13 +101,57 @@
     location.reload();
   });
 
+  // Copy must survive strict surfaces (gallery iframes, embedded panes):
+  // async clipboard -> execCommand fallback -> parent-page relay -> manual textarea.
+  function copyViaExec(text) {
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.cssText = 'position:fixed;left:-9999px;top:0';
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, text.length);
+      const ok = document.execCommand('copy');
+      ta.remove();
+      return ok;
+    } catch (_) { return false; }
+  }
+  async function copyText(text) {
+    try { await navigator.clipboard.writeText(text); return true; } catch (_) {}
+    return copyViaExec(text);
+  }
+  function showManual(text) {
+    let m = panel.querySelector('#kt-manual');
+    if (!m) {
+      m = document.createElement('textarea');
+      m.id = 'kt-manual';
+      m.readOnly = true;
+      m.style.cssText = 'width:calc(100% - 24px);height:110px;margin:0 12px 12px;background:#161616;color:#d4af37;border:1px solid #2e2e2e;border-radius:7px;font:10px/1.45 ui-monospace,Menlo,monospace;padding:6px;resize:vertical';
+      panel.appendChild(m);
+    }
+    m.hidden = false;
+    m.value = text;
+    m.focus();
+    m.select();
+  }
+
   el.querySelector('#kt-copy').addEventListener('click', async () => {
     const snapshot = { style: cfg.style, takenAt: new Date().toISOString(), overrides };
     const text = JSON.stringify(snapshot, null, 2);
-    try { await navigator.clipboard.writeText(text); } catch (_) { console.log(text); }
     const b = el.querySelector('#kt-copy');
-    b.textContent = 'Copied ✓';
-    setTimeout(() => (b.textContent = 'Copy snapshot'), 1400);
     console.log('KUL tweaks snapshot:\n' + text);
+
+    if (await copyText(text)) {
+      b.textContent = 'Copied ✓';
+    } else if (window.parent !== window) {
+      // Framed (the gallery grid): hand the copy to the top-level page.
+      window.parent.postMessage({ type: 'kul-tweaks-copy', style: cfg.style, text: text }, location.origin);
+      b.textContent = 'Sent to page ↑';
+    } else {
+      showManual(text);
+      b.textContent = 'Select + copy ↓';
+    }
+    setTimeout(() => (b.textContent = 'Copy snapshot'), 1800);
   });
 })();
