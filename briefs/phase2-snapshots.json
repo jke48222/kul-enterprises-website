@@ -1,0 +1,21 @@
+{
+  "keptStyles": {
+    "s01b": {"family": "Cinematic Noir", "skill": "design-taste-frontend", "overrides": {"--gold-dose": "100%", "--warmth": "100%", "--glass-blur": "4px", "--noir": "100%", "--hero-grade": "golden-hour", "--statement-face": "grotesk"}},
+    "s02a": {"family": "Marquee Editorial", "skill": "impeccable", "overrides": {"--marquee-size": "9vw", "--duo-dose": "66%", "--hairline-w": "1px", "--duo-tint": "#ae8f28", "--track": "0.25em", "--marquee-play": "running"}},
+    "s03b": {"family": "Documentary Archive", "skill": "design-taste-frontend", "overrides": {"--gold-dosage": "0.5", "--photo-grade": "none", "--title-scale": "0.9", "--mono": "'Space Mono', monospace", "--caption-size": "10.5px", "--gallery-pad": "10rem", "--plate-h": "78svh"}},
+    "s05a": {"family": "Fog Monument", "skill": "impeccable", "overrides": {"--split-gap": "6.75rem", "--ann-density": "2", "--grid-op": "0.65"}},
+    "s06a": {"family": "Industrial Ledger", "skill": "impeccable", "overrides": {"--gray-hue": "205", "--seam": "1px", "--gold-freq": "100", "--bracket-style": "1", "--stamp-style": "1", "--pad": "32px"}},
+    "s07a": {"family": "Kinetic Motion", "skill": "impeccable", "overrides": {"--grade-warmth": "0", "--dim": "10", "--letterbox": "0px", "--reveal-speed": "1800", "--hud-density": "100", "--ease": "cubic-bezier(.16,1,.3,1)"}},
+    "s08b": {"family": "Particle Calm", "skill": "design-taste-frontend", "overrides": {"--pc-density": "1850", "--pc-size": "1.3", "--pc-ground": "Steel", "--pc-scale": "1"}},
+    "s09": {"family": "Volvo light-corporate", "skill": "impeccable", "overrides": {"--hero-scrim": "0.25", "--type-scale": "0.96", "--gold": "#e6bd4c", "--panel-tone": "#0B0B0B", "--section-space": "100px", "--radius": "4px"}},
+    "s10": {"family": "Apple product-page", "skill": "impeccable", "overrides": {"--gold-dose": "55", "--warmth": "0", "--type-scale": "85", "--section-space": "65", "--radius": "0", "--hero-treatment": "plate"}},
+    "s11": {"family": "Mack cinematic-lineup", "skill": "impeccable", "overrides": {"--type-scale": "0.85", "--ground": "#0B0B0B", "--section-pad": "124px", "--grain": "0.14"}},
+    "s12": {"family": "Rivian adventure-scroll", "skill": "impeccable", "overrides": {"--type-scale": "0.9", "--section-space": "148px", "--radius": "24px", "--hero-shade": "0.37", "--panel-min": "100vh"}}
+  },
+  "eliminated": ["s04 Heritage Institute (both variants)"],
+  "notes": {
+    "s02a": "marquee-play:running kept by Jalen = auto-marquee is user-confirmed intentional",
+    "s10": "hero-treatment:plate becomes default; plate path needs visual verification in the A pass",
+    "s09": "Inter body face reconsidered in the refine version (hook flag, distinctiveness)"
+  }
+}

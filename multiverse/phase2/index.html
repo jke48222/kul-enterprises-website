@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KUL Multiverse — Phase 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --gold:#D4AF37; --ink:#0B0B0B; --panel:#141414; --line:#2E2E2E; --mut:#8a8a8a; }
+  * { box-sizing:border-box; margin:0; }
+  body { background:var(--ink); color:#f2f2f2; font:14px/1.55 Montserrat, system-ui, sans-serif; padding:0 0 12vh; }
+  header { padding:56px 5vw 36px; border-bottom:1px solid var(--line); }
+  h1 { font:400 clamp(40px,6vw,80px)/0.95 "Bebas Neue", sans-serif; letter-spacing:.02em; }
+  h1 em { color:var(--gold); font-style:normal; }
+  .sub { color:var(--mut); margin-top:10px; max-width:74ch; }
+  .sub b { color:var(--gold); font-weight:600; }
+  header a.back { color:var(--mut); font-size:12px; text-decoration:none; letter-spacing:.08em; }
+  header a.back:hover { color:var(--gold); }
+  section.style { padding:40px 5vw 6px; }
+  .stitle { display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; }
+  .stitle .n { font:400 15px "Bebas Neue"; color:var(--gold); letter-spacing:.15em; }
+  .stitle h2 { font:400 clamp(22px,3vw,34px)/1 "Bebas Neue", sans-serif; letter-spacing:.03em; }
+  .stitle .vocab { color:var(--mut); font-size:12px; }
+  .row3 { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:14px; }
+  .row1 { display:grid; grid-template-columns:1fr; gap:16px; margin-top:14px; }
+  @media (max-width:1100px){ .row3 { grid-template-columns:1fr; } }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+  .chead { display:flex; justify-content:space-between; align-items:center; padding:8px 12px; border-bottom:1px solid var(--line); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--mut); }
+  .chead .tool { color:var(--gold); }
+  .chead .acts { display:flex; gap:10px; }
+  .chead a, .chead button { color:#ddd; background:none; border:none; cursor:pointer; font:inherit; text-decoration:none; }
+  .chead a:hover, .chead button:hover { color:var(--gold); }
+  .frame { position:relative; width:100%; aspect-ratio:16/10; overflow:hidden; background:#0e0e0e; }
+  .frame iframe { position:absolute; top:0; left:0; width:1280px; height:800px; border:0; transform-origin:0 0; background:#111; }
+  .chapters { display:flex; gap:14px; flex-wrap:wrap; margin-top:10px; font-size:11px; letter-spacing:.1em; text-transform:uppercase; }
+  .chapters span { color:var(--mut); }
+  .chapters a { color:#cfcfcf; text-decoration:none; border-bottom:1px solid var(--line); padding-bottom:2px; }
+  .chapters a:hover { color:var(--gold); border-color:var(--gold); }
+
+  #toast { position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(16px);
+    background:#141414; border:1px solid var(--gold); color:var(--gold); font-size:12px;
+    letter-spacing:.06em; padding:10px 18px; border-radius:999px; opacity:0; pointer-events:none;
+    transition:opacity .25s ease, transform .25s ease; z-index:9999; }
+  #toast.on { opacity:1; transform:translateX(-50%) translateY(0); }
+  #copyModal { position:fixed; inset:0; z-index:9998; display:grid; place-items:center; background:rgba(0,0,0,.7); }
+  #copyModal[hidden] { display:none; }
+  #copyModal .box { width:min(560px,90vw); background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  #copyModal .box h3 { font:400 18px "Bebas Neue"; color:var(--gold); letter-spacing:.08em; margin-bottom:8px; }
+  #copyModal .box p { color:var(--mut); font-size:12px; margin-bottom:10px; }
+  #copyModal textarea { width:100%; height:180px; background:#0e0e0e; color:var(--gold); border:1px solid var(--line); border-radius:8px; font:11px/1.5 ui-monospace,Menlo,monospace; padding:8px; }
+  #copyModal button { margin-top:10px; background:#191919; color:#eee; border:1px solid var(--line); border-radius:8px; padding:8px 18px; font:600 11px Montserrat; letter-spacing:.1em; cursor:pointer; }
+  #copyModal button:hover { border-color:var(--gold); color:var(--gold); }
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="/">← Phase 1 gallery</a>
+  <h1>PHASE <em>2</em></h1>
+  <p class="sub">Full sites per surviving style. Trio styles show <b>A</b> locked+polished · <b>B</b> push · <b>C</b> refine home versions; mirror styles carry one polished home. Every style now has its complete chapter set — The Journey documentary and the six business/story chapters — each page styled unique to its purpose inside the style's system. Press <b>t</b> inside any page for its tweaks.</p>
+</header>
+<main id="grid"></main>
+<script>
+const TRIO = [
+  { id:'s01b', name:'Cinematic Noir',      vocab:'golden-hour · full noir · grotesk statement' },
+  { id:'s02a', name:'Marquee Editorial',   vocab:'9vw marquee · duotone 66% · running' },
+  { id:'s06a', name:'Industrial Ledger',   vocab:'cool 205 gray · gold blocks · 32px pad' },
+  { id:'s08b', name:'Particle Calm',       vocab:'1850 particles · steel ground' },
+];
+const POLISH = [
+  { id:'s09', name:'Volvo family',  vocab:'bright gold #e6bd4c · ink panels · 4px radius' },
+  { id:'s10', name:'Apple family',  vocab:'lion plate hero · neutral · tight scale' },
+  { id:'s11', name:'Mack family',   vocab:'ink ground · 124px sections · grain' },
+  { id:'s12', name:'Rivian family', vocab:'24px radius · 148px air · full panels' },
+];
+const AX = { a:'A · locked+polish', b:'B · push', c:'C · refine' };
+const CHAPTERS = [
+  ['journey','The Journey'], ['story','Why I Started Driving'], ['mission','The Mission'],
+  ['responsibility','The Responsibility'], ['join','Join the Journey'],
+  ['forward',"Let's Move Forward"], ['road-ahead','The Road Ahead'],
+];
+const grid = document.getElementById('grid');
+function card(style, v){
+  const url = `/phase2/${style}/${v}/`;
+  const id = `${style}-${v}`;
+  return `<div class="card">
+    <div class="chead"><span>${style}/${v} · <span class="tool">${AX[v]||v}</span></span>
+      <span class="acts"><button data-r="${id}" title="reload">↻</button><a href="${url}" target="_blank">open ↗</a></span></div>
+    <div class="frame"><iframe loading="lazy" data-f="${id}" src="${url}" allow="clipboard-write"></iframe></div>
+  </div>`;
+}
+function chapterLinks(style){
+  return `<div class="chapters"><span>Chapters:</span>` +
+    CHAPTERS.map(([slug,label]) => `<a href="/phase2/${style}/${slug}/" target="_blank">${label}</a>`).join('') + `</div>`;
+}
+grid.innerHTML =
+  TRIO.map(s => `
+  <section class="style">
+    <div class="stitle"><span class="n">${s.id.toUpperCase()}</span><h2>${s.name}</h2><span class="vocab">${s.vocab}</span></div>
+    <div class="row3">${card(s.id,'a')}${card(s.id,'b')}${card(s.id,'c')}</div>
+    ${chapterLinks(s.id)}
+  </section>`).join('') +
+  POLISH.map(s => `
+  <section class="style">
+    <div class="stitle"><span class="n">${s.id.toUpperCase()}</span><h2>${s.name}</h2><span class="vocab">${s.vocab}</span></div>
+    <div class="row1">${card(s.id,'a')}</div>
+    ${chapterLinks(s.id)}
+  </section>`).join('');
+function fit(){
+  document.querySelectorAll('.frame').forEach(f=>{
+    const ifr = f.querySelector('iframe');
+    const s = f.clientWidth / 1280;
+    ifr.style.transform = `scale(${s})`;
+    ifr.style.height = (f.clientHeight / s) + 'px';
+  });
+}
+addEventListener('resize', fit); fit(); setTimeout(fit, 300);
+grid.addEventListener('click', e=>{
+  const id = e.target?.dataset?.r; if(!id) return;
+  const ifr = document.querySelector(`iframe[data-f="${id}"]`); ifr.src = ifr.src;
+});
+
+/* Snapshot-copy relay (same contract as the Phase 1 gallery) */
+const toast = document.createElement('div'); toast.id='toast'; document.body.appendChild(toast);
+let toastT;
+function showToast(m){ toast.textContent=m; toast.classList.add('on'); clearTimeout(toastT); toastT=setTimeout(()=>toast.classList.remove('on'),2400); }
+const modal = document.createElement('div');
+modal.id='copyModal'; modal.hidden=true;
+modal.innerHTML = `<div class="box"><h3 id="cmTitle">Snapshot</h3>
+  <p>Clipboard access is blocked in this browser — the JSON is selected below, press ⌘C / Ctrl+C.</p>
+  <textarea id="cmText" readonly></textarea><button id="cmClose">Close</button></div>`;
+document.body.appendChild(modal);
+modal.querySelector('#cmClose').addEventListener('click', ()=> modal.hidden=true);
+modal.addEventListener('click', e=>{ if(e.target===modal) modal.hidden=true; });
+function copyViaExec(text){
+  try{
+    const ta=document.createElement('textarea'); ta.value=text; ta.setAttribute('readonly','');
+    ta.style.cssText='position:fixed;left:-9999px;top:0';
+    document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0,text.length);
+    const ok=document.execCommand('copy'); ta.remove(); return ok;
+  }catch(_){ return false; }
+}
+window.addEventListener('message', async e=>{
+  const d=e.data;
+  if(!d || d.type!=='kul-tweaks-copy' || typeof d.text!=='string') return;
+  if(e.origin!==location.origin) return;
+  let ok=false;
+  try{ await navigator.clipboard.writeText(d.text); ok=true; }catch(_){ ok=copyViaExec(d.text); }
+  if(ok){ showToast(`${d.style||'variant'} snapshot copied ✓`); }
+  else{
+    modal.querySelector('#cmTitle').textContent = `${d.style||'variant'} · snapshot`;
+    const ta=modal.querySelector('#cmText'); ta.value=d.text; modal.hidden=false; ta.focus(); ta.select();
+  }
+});
+</script>
+</body>
+</html>

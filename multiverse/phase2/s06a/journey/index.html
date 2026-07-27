@@ -1,0 +1,1675 @@
+<!doctype html>
+<!--
+  KUL PHASE 2 — s06a · THE JOURNEY (KUL-SS-02)
+
+  The emotional centerpiece: Mark's 17-scene screenplay staged as a
+  scroll-driven documentary inside the Industrial Ledger system.
+
+  OWN TEMPERATURE: the home sheet is daylight paper; this record begins in
+  the dark. Scene panels are graded from near-black (SC 01, before the
+  company) through steel and stone toward full paper daylight (SC 13, the
+  promise) — the page's luminosity IS the story arc. Same tokens, same
+  seams, same registration ticks, same mono captions: a ledger, filed at
+  night, read until sunrise.
+
+  MECHANICS: native scroll only. Each scene is a tall section with a sticky
+  100svh hold; beats (verbatim screenplay lines) crossfade as the visitor
+  scrolls. Pause/Hold/Long Pause = scroll-length weights on each beat.
+  SC 01 is ADAPTED per the bird law: text beats + gold registration
+  particles resolving into the LION mark — no bird, no S16 coda.
+  prefers-reduced-motion / no-JS = the full record as a typeset document.
+
+  SNAPSHOT BAKE (locked): gray-hue 205 · seam 1px · gold-freq 100 ·
+  bracket 1 · stamp 1 · pad 32px.
+
+  TRUTH LAW: only Mark's five real photos (desert → SC 08, river/tree/
+  cliffs/wave → SC 10 flow). Every other called-for image is a reserved
+  archival plate awaiting the real asset. Copy is sacred — on-screen lines
+  are verbatim from the screenplay. Sound control is a visual stub; score
+  by Akilah is in production.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Journey — KUL Enterprises · A documentary record</title>
+<meta name="description" content="The Journey — the story behind KUL Enterprises LLC, told scene by scene. From Jamaica to the United States Air Force to the road: how one carrier was built on character. USDOT 7638788 · MC 66389691 · Loganville, GA.">
+<meta name="theme-color" content="#0b0e10">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS — locked snapshot baked as law ============ */
+:root{
+  --gold:#D4AF37;               /* KUL gold */
+  --gray-hue:205;               /* LOCKED — cool steel ground */
+  --seam:1px;                   /* LOCKED — hairline seams */
+  --gold-freq:100;              /* LOCKED — gold at full spread */
+  --bracket-style:1;            /* LOCKED — corner brackets */
+  --stamp-style:1;              /* LOCKED — boxed stamps */
+  --pad:32px;                   /* LOCKED — panel padding */
+
+  /* derived material */
+  --ground:hsl(var(--gray-hue) 7% 76%);
+  --paper:hsl(var(--gray-hue) 12% 94%);
+  --paper-2:hsl(var(--gray-hue) 10% 89%);
+  --mid:hsl(var(--gray-hue) 6% 62%);
+  --deep:hsl(var(--gray-hue) 8% 40%);
+  --ink:hsl(var(--gray-hue) 12% 9%);
+  --night:hsl(var(--gray-hue) 14% 5%);
+  --ink-soft:hsl(var(--gray-hue) 7% 27%);
+  --ink-faint:hsl(var(--gray-hue) 6% 36%);
+  --line:color-mix(in srgb, var(--ink) 22%, transparent);
+  --gold-deep:color-mix(in srgb, var(--gold) 82%, #4a3a08);
+  --gold-mix:calc(var(--gold-freq) * 1%);
+  --tick:color-mix(in srgb, var(--gold) var(--gold-mix), var(--ink-soft));
+  --sans:"Archivo",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --mono:"Chivo Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+
+/* ============ RESET / BASE ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--night);
+  color:var(--ink);
+  font:400 15.5px/1.58 var(--sans);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+img{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+h1,h2,h3{font-weight:700;letter-spacing:-.02em;line-height:1.05;text-wrap:balance}
+::selection{background:var(--gold);color:var(--ink)}
+:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+
+.skip{
+  position:fixed;left:8px;top:-60px;z-index:200;
+  background:var(--gold);color:var(--ink);
+  font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  padding:10px 14px;text-decoration:none;transition:top .2s;
+}
+.skip:focus{top:8px}
+
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;line-height:1.5}
+
+/* brackets */
+.bkt{
+  --b1:min(var(--bracket-style),1);
+  --b2:clamp(0,calc(var(--bracket-style) - 1),1);
+  display:inline-flex;align-items:baseline;gap:.5em;
+  font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+  padding:calc(var(--b2)*5px) calc(var(--b2)*9px);
+  border:1px solid color-mix(in srgb,currentColor calc(var(--b2)*55%),transparent);
+}
+.bkt::before{content:"[";opacity:var(--b1)}
+.bkt::after{content:"]";opacity:var(--b1)}
+a.bkt{text-decoration:none}
+a.bkt:hover,a.bkt:focus-visible{color:var(--gold)}
+
+/* stamps */
+.stamp{
+  --s1:min(var(--stamp-style),1);
+  --s2:clamp(0,calc(var(--stamp-style) - 1),1);
+  display:inline-block;
+  font-family:var(--mono);font-size:11px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;line-height:1;
+  padding:calc(6px + var(--s1)*3px) calc(2px + var(--s1)*9px);
+  border:1px solid color-mix(in srgb,currentColor calc(var(--s1)*48%),transparent);
+  background:color-mix(in srgb,var(--ink) calc(var(--s2)*100%),transparent);
+  color:color-mix(in srgb,var(--paper) calc(var(--s2)*100%),currentColor);
+}
+.on-ink .stamp{
+  background:color-mix(in srgb,var(--paper) calc(var(--s2)*92%),transparent);
+  color:color-mix(in srgb,var(--ink) calc(var(--s2)*100%),currentColor);
+}
+
+/* registration ticks */
+.reg{position:absolute;width:11px;height:11px;pointer-events:none;z-index:6}
+.reg::before,.reg::after{content:"";position:absolute;background:var(--tick)}
+.reg::before{left:5px;top:0;width:1.5px;height:11px}
+.reg::after{left:0;top:5px;width:11px;height:1.5px}
+.reg.tl{top:calc(-6px - var(--seam)/2);left:calc(-6px - var(--seam)/2)}
+.reg.tr{top:calc(-6px - var(--seam)/2);right:calc(-6px - var(--seam)/2)}
+.reg.bl{bottom:calc(-6px - var(--seam)/2);left:calc(-6px - var(--seam)/2)}
+.reg.br{bottom:calc(-6px - var(--seam)/2);right:calc(-6px - var(--seam)/2)}
+
+.btn{
+  display:inline-flex;align-items:center;gap:14px;
+  background:var(--gold);color:var(--ink);
+  font:600 13px var(--mono);letter-spacing:.1em;text-transform:uppercase;
+  padding:17px 24px;text-decoration:none;border:1px solid transparent;
+  transition:background .18s var(--ease),color .18s var(--ease);
+}
+.btn .ar{transition:transform .25s var(--ease)}
+.btn:hover,.btn:focus-visible{background:var(--ink);color:var(--gold)}
+.btn:hover .ar,.btn:focus-visible .ar{transform:translate(3px,3px)}
+
+/* ============ SHEET FRAME ============ */
+.sheet{
+  max-width:1480px;margin-inline:auto;
+  padding:var(--seam);
+  display:flex;flex-direction:column;gap:var(--seam);
+}
+main{display:flex;flex-direction:column;gap:var(--seam)}
+
+/* ============ PROGRESS RULER + ODOMETER + SCENE RAIL ============ */
+.ruler{position:fixed;top:0;left:0;right:0;height:3px;z-index:90;pointer-events:none}
+.ruler i{display:block;height:100%;background:var(--gold);transform:scaleX(0);transform-origin:0 50%}
+.odo{
+  position:fixed;left:14px;bottom:14px;z-index:80;
+  display:none;align-items:baseline;gap:10px;
+  background:color-mix(in srgb,var(--night) 82%,transparent);
+  border:1px solid color-mix(in srgb,var(--paper) 22%,transparent);
+  color:var(--paper);
+  font:500 10px var(--mono);letter-spacing:.16em;text-transform:uppercase;
+  padding:8px 12px;font-variant-numeric:tabular-nums;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  pointer-events:none;
+}
+.odo b{color:var(--gold);font-weight:500}
+.js .odo.live{display:inline-flex}
+.rail-sc{
+  position:fixed;right:12px;top:50%;transform:translateY(-50%);z-index:80;
+  display:flex;flex-direction:column;gap:7px;
+}
+.rail-sc a{display:flex;align-items:center;justify-content:flex-end;width:22px;height:9px}
+.rail-sc a i{display:block;width:10px;height:1.5px;background:color-mix(in srgb,var(--paper) 34%,transparent);transition:width .25s var(--ease),background .25s}
+.rail-sc a:hover i,.rail-sc a:focus-visible i{background:var(--paper);width:16px}
+.rail-sc a.cur i{background:var(--gold);width:20px}
+.pg-light .rail-sc a i{background:color-mix(in srgb,var(--ink) 30%,transparent)}
+.pg-light .rail-sc a:hover i,.pg-light .rail-sc a:focus-visible i{background:var(--ink)}
+.pg-light .rail-sc a.cur i{background:var(--gold-deep)}
+.pg-light .odo{background:color-mix(in srgb,var(--paper) 84%,transparent);border-color:color-mix(in srgb,var(--ink) 24%,transparent);color:var(--ink)}
+.pg-light .odo b{color:var(--gold-deep)}
+@media (max-width:900px){.rail-sc{display:none}}
+
+/* ============ TOPBAR ============ */
+.topbar{
+  position:sticky;top:var(--seam);z-index:60;
+  background:var(--ink);color:var(--paper);
+  display:flex;justify-content:space-between;align-items:center;gap:16px;
+  padding:12px var(--pad);
+}
+.lock{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0}
+.lock-mark{flex:none;display:flex;align-items:center;justify-content:center;background:var(--night);padding:6px;border:1px solid color-mix(in srgb,var(--paper) 14%,transparent)}
+.lock-mark img{height:28px;width:28px;display:block}
+.lock-txt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.lock .l1{display:flex;align-items:baseline;gap:10px;white-space:nowrap}
+.lock .l1 b{font:800 18px/1 var(--sans);letter-spacing:.01em}
+.lock .l1 span{font:500 9.5px var(--mono);letter-spacing:.22em}
+.lock .l2{font:400 8.5px var(--mono);letter-spacing:.18em;color:color-mix(in srgb,var(--paper) 55%,var(--ink));text-transform:uppercase}
+.tb-right{display:flex;align-items:center;gap:10px}
+.tb-btn{
+  font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;
+  padding:11px 14px;border:1px solid color-mix(in srgb,var(--paper) 30%,transparent);
+  transition:border-color .18s,color .18s,background .18s;
+}
+.tb-btn:hover,.tb-btn:focus-visible{border-color:var(--gold);color:var(--gold)}
+.tb-btn[aria-pressed="true"]{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+
+/* sound note */
+.sound-note{
+  position:fixed;right:14px;top:76px;z-index:110;max-width:330px;
+  background:var(--night);color:var(--paper);
+  border:1px solid color-mix(in srgb,var(--gold) 55%,transparent);
+  padding:18px 20px;
+}
+.sound-note[hidden]{display:none}
+.sound-note .sn-k{display:block;font:500 10px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.sound-note p{font-size:13px;color:color-mix(in srgb,var(--paper) 84%,var(--night));max-width:38ch}
+
+/* ============ MENU / CHAPTER INDEX ============ */
+.menu{position:fixed;inset:0;z-index:120;background:var(--ink);color:var(--paper);padding:24px;overflow:auto}
+.menu[hidden]{display:none}
+.menu-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6vh}
+.menu-cols{display:grid;grid-template-columns:1.6fr 1fr;gap:40px}
+.menu nav.chapters{display:flex;flex-direction:column}
+.menu nav.chapters a,.menu nav.chapters .cur{
+  font:700 clamp(22px,4.6vw,36px)/1.15 var(--sans);letter-spacing:-.02em;
+  text-decoration:none;padding:13px 0;border-bottom:1px solid color-mix(in srgb,var(--paper) 16%,transparent);
+  display:flex;justify-content:space-between;align-items:center;gap:14px;
+}
+.menu nav.chapters small{font:400 10px var(--mono);letter-spacing:.16em;color:color-mix(in srgb,var(--paper) 62%,var(--ink));white-space:nowrap}
+.menu nav.chapters a:hover,.menu nav.chapters a:focus-visible{color:var(--gold)}
+.menu nav.chapters .cur{color:var(--gold)}
+.menu-fast{display:flex;flex-direction:column;gap:2px;align-content:start}
+.menu-fast .f-k{font:400 9px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:color-mix(in srgb,var(--paper) 55%,var(--ink));margin-bottom:10px}
+.menu-fast a{
+  font:500 14px var(--mono);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;
+  padding:12px 0;border-bottom:1px solid color-mix(in srgb,var(--paper) 12%,transparent);
+}
+.menu-fast a:hover,.menu-fast a:focus-visible{color:var(--gold)}
+.menu-scenes{margin-top:26px}
+.menu-scenes summary{cursor:pointer;font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:color-mix(in srgb,var(--paper) 66%,var(--ink));padding:8px 0}
+.menu-scenes ol{list-style:none;columns:2;gap:26px;margin-top:10px}
+.menu-scenes a{font:500 12px var(--mono);letter-spacing:.06em;text-decoration:none;display:block;padding:5px 0;color:color-mix(in srgb,var(--paper) 78%,var(--ink))}
+.menu-scenes a:hover,.menu-scenes a:focus-visible{color:var(--gold)}
+.menu-foot{margin-top:6vh;display:flex;flex-wrap:wrap;gap:10px}
+@media (max-width:820px){.menu-cols{grid-template-columns:1fr}.menu-scenes ol{columns:1}}
+
+/* ============ TITLE PLATE (document cover) ============ */
+.cover{background:var(--ink);color:var(--paper);padding:calc(var(--pad)*1.6) var(--pad);position:relative}
+.cover-in{max-width:1180px;margin-inline:auto;display:flex;flex-direction:column;gap:38px}
+.cover .ref{display:flex;align-items:center;gap:12px}
+.cover .ref .sq{width:8px;height:8px;background:var(--tick);flex:none}
+.cover .ref b{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:color-mix(in srgb,var(--paper) 66%,var(--ink))}
+.cover h1{font-size:clamp(2.9rem,7vw,5.8rem);letter-spacing:-.03em;line-height:.98}
+.cover h1 em{font-style:normal;color:var(--gold)}
+.cover .cover-meta{display:flex;flex-wrap:wrap;gap:26px 46px;border-top:1px solid color-mix(in srgb,var(--paper) 18%,transparent);padding-top:22px}
+.cover .cm{display:flex;flex-direction:column;gap:5px}
+.cover .cm b{font:400 9px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:color-mix(in srgb,var(--paper) 52%,var(--ink))}
+.cover .cm span{font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.cover .cover-note{display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between}
+.cover .cover-note p{font-size:14px;color:color-mix(in srgb,var(--paper) 78%,var(--ink));max-width:52ch}
+.cover .scroll-cue{display:inline-flex;align-items:center;gap:10px;font:500 10.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.js .scroll-cue i{display:inline-block;animation:cue 2.2s var(--ease) infinite}
+@keyframes cue{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+@media (prefers-reduced-motion:reduce){.js .scroll-cue i{animation:none}}
+
+/* ============ SCENES — shared ============ */
+.scene{position:relative;overflow:clip}
+.hold{position:relative;padding:calc(var(--pad)*2.2) var(--pad)}
+.sc-head{
+  display:flex;justify-content:space-between;gap:14px;align-items:baseline;
+  font:500 10px var(--mono);letter-spacing:.18em;text-transform:uppercase;
+}
+.sc-head .no{color:var(--gold)}
+.beats{max-width:820px;margin-inline:auto}
+
+/* beat typography */
+.beat{margin:9vh auto;text-align:center}
+.beat .ln{
+  font:600 clamp(1.45rem,3.2vw,2.55rem)/1.3 var(--sans);
+  letter-spacing:-.02em;text-wrap:balance;max-width:26ch;margin-inline:auto;
+}
+.beat .ln + .ln{margin-top:.55em}
+.beat.big .ln{font-size:clamp(1.9rem,4.4vw,3.5rem);font-weight:700;line-height:1.16}
+.beat.soft .ln{font-weight:500;font-size:clamp(1.2rem,2.4vw,1.8rem);opacity:.92}
+.beat .lm{display:block;font:500 10px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.4em}
+
+/* lesson plate */
+.beat.lesson{
+  border:1px solid color-mix(in srgb,currentColor 32%,transparent);
+  padding:clamp(26px,4vw,44px);position:relative;max-width:680px;
+}
+.beat.lesson .ll{
+  display:inline-block;font:500 10px var(--mono);letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:18px;
+}
+.beat.lesson .ln{font-weight:500;font-size:clamp(1.25rem,2.5vw,1.9rem);line-height:1.4}
+.beat.lesson .reg::before,.beat.lesson .reg::after{background:var(--gold)}
+
+/* cascade word-lists */
+.beat .cas{display:flex;flex-direction:column;gap:.4em;align-items:center}
+
+/* photo beats + backdrops */
+.bph{position:relative;margin:9vh auto;max-width:980px}
+.bph img{width:100%;height:62vh;object-fit:cover}
+.bph .stamp{position:absolute;left:14px;bottom:14px;background:var(--night);color:var(--paper);border-color:transparent}
+.backdrop{position:relative;margin:0 auto 4vh;max-width:980px}
+.backdrop img{width:100%;height:52vh;object-fit:cover}
+.backdrop .stamp{position:absolute;left:14px;bottom:14px;background:var(--night);color:var(--paper);border-color:transparent}
+
+/* reserved archival plates */
+.slot{
+  position:relative;margin:7vh auto;max-width:560px;padding:0;
+  border:1px solid color-mix(in srgb,currentColor 26%,transparent);
+}
+.slot .fr{
+  height:200px;
+  background:repeating-linear-gradient(-45deg,transparent 0 9px,color-mix(in srgb,currentColor 7%,transparent) 9px 10px);
+  display:flex;align-items:center;justify-content:center;
+}
+.slot .fr span{font:500 9.5px var(--mono);letter-spacing:.22em;text-transform:uppercase;opacity:.55}
+.slot figcaption{
+  border-top:1px solid color-mix(in srgb,currentColor 26%,transparent);
+  font:500 9.5px var(--mono);letter-spacing:.16em;text-transform:uppercase;
+  padding:10px 12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;opacity:.8;
+}
+
+/* scene tones — the luminosity arc */
+.tone-night{background:var(--night);color:var(--paper)}
+.tone-ink{background:var(--ink);color:var(--paper)}
+.tone-deep{background:var(--deep);color:var(--paper)}
+.tone-warm{background:color-mix(in srgb,var(--deep) 86%,var(--gold));color:var(--paper)}
+.tone-mid{background:var(--mid);color:var(--ink)}
+.tone-paper{background:var(--paper);color:var(--ink)}
+.tone-paper2{background:var(--paper-2);color:var(--ink)}
+.tone-night .sc-head,.tone-ink .sc-head,.tone-deep .sc-head,.tone-warm .sc-head{color:color-mix(in srgb,var(--paper) 60%,transparent)}
+.tone-mid .sc-head{color:color-mix(in srgb,var(--ink) 62%,transparent)}
+.tone-paper .sc-head,.tone-paper2 .sc-head{color:var(--ink-faint)}
+.tone-paper .beat.lesson .ll,.tone-paper2 .beat.lesson .ll,.tone-mid .beat.lesson .ll{color:var(--gold-deep)}
+.tone-paper .lm,.tone-paper2 .lm,.tone-mid .lm{color:var(--gold-deep)}
+
+/* SC01 canvas + lockup */
+.s1-canvas{position:absolute;inset:0;z-index:0;pointer-events:none}
+.s1-canvas canvas{width:100%;height:100%;display:block}
+.lockup{display:flex;flex-direction:column;align-items:center;gap:22px}
+.lockup img{width:min(430px,72vw);height:auto}
+.lockup .tag{font:500 10.5px var(--mono);letter-spacing:.24em;text-transform:uppercase;color:color-mix(in srgb,var(--paper) 76%,var(--night));text-align:center;line-height:2}
+.lion-chip{display:inline-flex;background:var(--ink);padding:16px;border:1px solid color-mix(in srgb,var(--gold) 40%,transparent)}
+.lion-chip img{width:110px;height:110px}
+
+/* SC11 lion watermark */
+.wm{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:0;pointer-events:none}
+.wm img{width:min(52vh,70vw);opacity:0;filter:grayscale(.3);transition:opacity 2.4s var(--ease)}
+.wm.on img{opacity:.07}
+
+/* SC12 first sunlight */
+.sun{height:2px;max-width:820px;margin:6vh auto;background:var(--gold);transform:scaleX(0);transform-origin:0 50%;transition:transform 2.6s var(--ease)}
+.sun.on{transform:scaleX(1)}
+
+/* SC15 values ledger */
+.vrows{max-width:760px;margin:6vh auto;text-align:left}
+.vrow{display:grid;grid-template-columns:170px 1fr;gap:8px 26px;padding:17px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.vrow:first-child{border-top:1px solid var(--ink)}
+.vrow b{font:700 17px/1.25 var(--sans);letter-spacing:-.01em}
+.vrow p{font-size:14.5px;color:var(--ink-soft);max-width:52ch}
+@media (max-width:560px){.vrow{grid-template-columns:1fr;gap:4px}}
+
+/* SC16 principle stamps */
+.pr-stamps{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+
+/* sound cue inside SC01 */
+.s1-sound{margin-top:5vh}
+
+/* ============ END / DOOR ============ */
+.door{background:var(--gold);color:var(--ink);padding:calc(var(--pad)*1.8) var(--pad);position:relative}
+.door-in{max-width:1180px;margin-inline:auto;display:flex;flex-direction:column;gap:30px}
+.door .ref{display:flex;align-items:center;gap:12px}
+.door .ref .sq{width:8px;height:8px;background:var(--ink);flex:none}
+.door .ref b{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:color-mix(in srgb,var(--ink) 78%,var(--gold))}
+.door h2{font-size:clamp(2rem,4.6vw,3.6rem);max-width:18ch}
+.door p{font-size:15px;color:color-mix(in srgb,var(--ink) 84%,var(--gold));max-width:56ch}
+.door .row{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.door .btn{background:var(--ink);color:var(--gold)}
+.door .btn:hover,.door .btn:focus-visible{background:var(--night);color:var(--paper)}
+
+/* ============ FOOTER ============ */
+footer .p-ink{background:var(--ink);color:var(--paper);padding:var(--pad);position:relative}
+.fgrid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:40px}
+.f-brand{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.f-lion{height:84px;width:84px}
+.f-brand .biglock{font:800 clamp(1.9rem,4vw,2.8rem)/1 var(--sans);letter-spacing:.01em}
+.f-brand .tag{font:500 10.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:color-mix(in srgb,var(--paper) 66%,var(--ink))}
+.f-k{font:400 9px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:color-mix(in srgb,var(--paper) 55%,var(--ink))}
+.f-chapters{display:flex;flex-direction:column;gap:2px}
+.f-chapters a,.f-chapters .cur{
+  font:500 12.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;
+  padding:7px 0;border-bottom:1px solid color-mix(in srgb,var(--paper) 10%,transparent);
+  display:flex;justify-content:space-between;gap:10px;
+}
+.f-chapters small{font:400 9px var(--mono);letter-spacing:.14em;color:color-mix(in srgb,var(--paper) 48%,var(--ink))}
+.f-chapters a:hover,.f-chapters a:focus-visible{color:var(--gold)}
+.f-chapters .cur{color:var(--gold)}
+.f-contact{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.f-contact a{font:500 15px var(--mono);letter-spacing:.05em;text-decoration:none}
+.f-contact a:hover,.f-contact a:focus-visible{color:var(--gold)}
+.f-contact .adr{font-size:13.5px;color:color-mix(in srgb,var(--paper) 78%,var(--ink));max-width:34ch}
+.f-fast{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:6px}
+.f-fast a{font:500 10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:color-mix(in srgb,var(--paper) 74%,var(--ink))}
+.f-fast a:hover,.f-fast a:focus-visible{color:var(--gold)}
+.f-bottom{
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:center;
+  border-top:1px solid color-mix(in srgb,var(--paper) 18%,transparent);
+  margin-top:36px;padding-top:20px;
+}
+.f-bottom .stamps{display:flex;flex-wrap:wrap;gap:8px}
+.f-bottom .fine{font:400 10px var(--mono);letter-spacing:.1em;color:color-mix(in srgb,var(--paper) 55%,var(--ink));text-transform:uppercase}
+@media (max-width:1000px){.fgrid{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.fgrid{grid-template-columns:1fr}}
+
+/* ============ MOTION MODE — the documentary engine ============ */
+.motion .scene{/* height set by JS in px */}
+.motion .hold{
+  position:sticky;top:0;height:100vh;height:100svh;
+  padding:0;display:block;overflow:hidden;
+}
+.motion .sc-head{position:absolute;top:calc(var(--pad)*.9);left:var(--pad);right:var(--pad);z-index:4}
+.motion .beats{position:absolute;inset:0;max-width:none;margin:0;z-index:3}
+.motion .beat{
+  position:absolute;left:50%;top:50%;margin:0;
+  width:min(880px,88vw);
+  transform:translate(-50%,-44%);
+  opacity:0;visibility:hidden;
+  transition:opacity 1s var(--ease),transform 1s var(--ease),visibility 0s linear 1s;
+}
+.motion .beat.on{opacity:1;visibility:visible;transform:translate(-50%,-50%);transition:opacity 1.05s var(--ease) .12s,transform 1.05s var(--ease) .12s,visibility 0s}
+.motion .beat.gone{opacity:0;visibility:hidden;transform:translate(-50%,-56%)}
+.motion .beat .ln{opacity:0;transform:translateY(10px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.motion .beat.on .ln{opacity:1;transform:none}
+.motion .beat.on .ln:nth-child(2){transition-delay:.3s}
+.motion .beat.on .ln:nth-child(3){transition-delay:.6s}
+.motion .beat.on .ln:nth-child(4){transition-delay:.9s}
+.motion .beat.on .ln:nth-child(5){transition-delay:1.2s}
+.motion .beat.on .ln:nth-child(6){transition-delay:1.5s}
+.motion .beat.lesson .ll{opacity:0;transition:opacity .9s var(--ease)}
+.motion .beat.lesson.on .ll{opacity:1}
+/* photo beats go full-bleed inside the hold */
+.motion .bph{position:absolute;inset:0;left:0;top:0;width:100%;max-width:none;margin:0;transform:none}
+.motion .bph.on{transform:none}
+.motion .bph.gone{transform:none}
+.motion .bph img{height:100%}
+.motion .bph .stamp{left:var(--pad);bottom:calc(var(--pad)*1.2);opacity:0;transition:opacity .9s var(--ease) .5s}
+.motion .bph.on .stamp{opacity:1}
+/* persistent scene backdrop */
+.motion .backdrop{position:absolute;inset:0;margin:0;max-width:none;z-index:0;opacity:0;transition:opacity 1.6s var(--ease)}
+.motion .scene.live .backdrop{opacity:1}
+.motion .backdrop img{height:100%}
+.motion .backdrop::after{content:"";position:absolute;inset:0;background:color-mix(in srgb,var(--night) 68%,transparent)}
+.motion .backdrop .stamp{z-index:2;left:var(--pad);bottom:calc(var(--pad)*1.2)}
+/* reserved plates float behind text in motion mode */
+.motion .slot{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:min(560px,80vw);margin:0;z-index:1;opacity:0;transition:opacity 1.8s var(--ease);
+}
+.motion .scene.live .slot{opacity:.34}
+/* stacked value rows */
+.motion .vrows{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(760px,88vw);margin:0}
+.motion .vrows .beat{position:static;width:auto;transform:none;margin:0}
+.motion .vrows .beat.on{transform:none}
+.motion .vrows .vrow{opacity:0;transform:translateY(10px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.motion .vrows .beat.on .vrow{opacity:1;transform:none}
+/* SC15 header line above rows */
+.motion .v-lead{position:absolute;left:50%;top:16%;transform:translateX(-50%);width:min(760px,88vw)}
+.motion .v-lead .ln{font-size:clamp(1.1rem,2vw,1.5rem)}
+/* sun line placement */
+.motion .sun{position:absolute;left:50%;top:60%;transform:translateX(-50%) scaleX(0);width:min(820px,84vw);margin:0;transform-origin:0 50%}
+.motion .sun.on{transform:translateX(-50%) scaleX(1)}
+/* cover cue only matters in motion */
+.static-note{display:none}
+
+/* ============ STATIC MODE (reduced motion / no JS) ============ */
+.static .ruler,.static .odo{display:none}
+.static .s1-canvas{display:none}
+.static .scene{height:auto !important}
+.static .wm{display:none}
+.static .sun{transform:scaleX(1);margin:7vh auto}
+.static .beat,.static .beat .ln,.static .beat.lesson .ll{opacity:1;visibility:visible;transform:none}
+.static .vrow{opacity:1;transform:none}
+.static .static-note{
+  display:block;font:500 10px var(--mono);letter-spacing:.16em;text-transform:uppercase;
+  color:color-mix(in srgb,var(--paper) 55%,var(--ink));max-width:60ch;margin-top:10px;
+}
+/* no-JS gets static layout too */
+html:not(.js) .ruler,html:not(.js) .odo{display:none}
+html:not(.js) .s1-canvas{display:none}
+html:not(.js) .wm{display:none}
+html:not(.js) .sun{transform:scaleX(1);margin:7vh auto}
+
+/* static scene spacing */
+.scene .hold{min-height:0}
+.static .hold,html:not(.js) .hold{padding:calc(var(--pad)*2.2) var(--pad)}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:640px){
+  :root{--pad:20px}
+  .beat .ln{font-size:clamp(1.3rem,6vw,1.7rem)}
+  .beat.big .ln{font-size:clamp(1.6rem,7.4vw,2.1rem)}
+  .lock .l1 span{display:none}
+  .lock .l2{display:none}
+  .tb-long{display:none}
+  .sound-note{right:8px;left:8px;max-width:none}
+  .bph img{height:48vh}
+  .backdrop img{height:40vh}
+  .motion .bph img,.motion .backdrop img{height:100%}
+  .cover h1{font-size:clamp(2.4rem,11vw,3.4rem)}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<a class="skip" href="#end">Skip documentary — go to end</a>
+<div class="ruler" aria-hidden="true"><i id="rulerFill"></i></div>
+<div class="odo" id="odo" aria-hidden="true"><b id="odoSc">SC 01</b><span>/ 17</span><span id="odoT">EVERY ROAD HAS A BEGINNING</span></div>
+
+<nav class="rail-sc" id="railSc" aria-label="Scene index">
+  <a href="#sc01" title="SC 01 — Every Road Has a Beginning"><i></i></a>
+  <a href="#sc02" title="SC 02 — Jamaica"><i></i></a>
+  <a href="#sc03" title="SC 03 — Learning the Value of Work"><i></i></a>
+  <a href="#sc04" title="SC 04 — Seeing the World Differently"><i></i></a>
+  <a href="#sc05" title="SC 05 — The Beginning of Independence"><i></i></a>
+  <a href="#sc06" title="SC 06 — Choosing a Greater Challenge"><i></i></a>
+  <a href="#sc07" title="SC 07 — Forged Through Discipline"><i></i></a>
+  <a href="#sc08" title="SC 08 — Life Doesn't Follow a Straight Line"><i></i></a>
+  <a href="#sc09" title="SC 09 — Earning Trust"><i></i></a>
+  <a href="#sc10" title="SC 10 — The Road Became My Teacher"><i></i></a>
+  <a href="#sc11" title="SC 11 — A Vision Begins to Form"><i></i></a>
+  <a href="#sc12" title="SC 12 — More Than a Business"><i></i></a>
+  <a href="#sc13" title="SC 13 — The Promise"><i></i></a>
+  <a href="#sc14" title="SC 14 — Meet KUL"><i></i></a>
+  <a href="#sc15" title="SC 15 — What We Stand For"><i></i></a>
+  <a href="#sc16" title="SC 16 — The Road Ahead"><i></i></a>
+  <a href="#sc17" title="SC 17 — The Next Journey"><i></i></a>
+</nav>
+
+<div class="sheet">
+
+  <!-- ============ TOPBAR ============ -->
+  <header class="topbar on-ink">
+    <a class="lock" href="../a/" aria-label="KUL Enterprises LLC — back to The Beginning">
+      <span class="lock-mark"><img src="/assets/brand/lion-clean.png" alt="" width="28" height="28"></span>
+      <span class="lock-txt">
+        <span class="l1"><b>KUL</b><span>— ENTERPRISES LLC</span></span>
+        <span class="l2">The Journey · KUL-SS-02</span>
+      </span>
+    </a>
+    <div class="tb-right">
+      <button class="tb-btn" id="soundBtn" aria-pressed="false" aria-controls="soundNote" aria-expanded="false">◦ <span class="tb-long">Experience with </span>Sound</button>
+      <button class="tb-btn" id="burger" aria-expanded="false" aria-controls="menu">Index</button>
+    </div>
+  </header>
+
+  <!-- sound stub note -->
+  <div class="sound-note" id="soundNote" role="status" hidden>
+    <span class="sn-k">Experience the Journey with Sound</span>
+    <p>The original score — composed by Akilah — is in production. Until it arrives, the Journey plays the way it was lived: in silence.</p>
+  </div>
+
+  <!-- menu overlay — chapter index -->
+  <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Sheet index" hidden>
+    <div class="menu-head">
+      <span class="mono">KUL-SS document set · Index</span>
+      <button class="bkt" id="menuClose">Close</button>
+    </div>
+    <div class="menu-cols">
+      <nav class="chapters" aria-label="Chapters">
+        <a href="../a/">The Beginning <small>SS-01</small></a>
+        <span class="cur" aria-current="page">The Journey <small>SS-02 · here</small></span>
+        <a href="../story/">Why I Started Driving <small>SS-03</small></a>
+        <a href="../mission/">The Mission <small>SS-04</small></a>
+        <a href="../responsibility/">The Responsibility <small>SS-05</small></a>
+        <a href="../join/">Join the Journey <small>SS-06</small></a>
+        <a href="../forward/">Let's Move Forward <small>SS-07</small></a>
+        <a href="../road-ahead/">The Road Ahead <small>SS-08</small></a>
+      </nav>
+      <div>
+        <nav class="menu-fast" aria-label="Business shortcuts">
+          <span class="f-k">Fast path —</span>
+          <a href="../mission/">Services</a>
+          <a href="../responsibility/">Safety</a>
+          <a href="../forward/">Request a Quote</a>
+          <a href="../forward/#contact">Contact</a>
+        </nav>
+        <details class="menu-scenes">
+          <summary>Scenes in this record — 17</summary>
+          <ol>
+            <li><a href="#sc01">SC 01 · Every Road Has a Beginning</a></li>
+            <li><a href="#sc02">SC 02 · Jamaica</a></li>
+            <li><a href="#sc03">SC 03 · The Value of Work</a></li>
+            <li><a href="#sc04">SC 04 · Seeing the World Differently</a></li>
+            <li><a href="#sc05">SC 05 · Independence</a></li>
+            <li><a href="#sc06">SC 06 · A Greater Challenge</a></li>
+            <li><a href="#sc07">SC 07 · Forged Through Discipline</a></li>
+            <li><a href="#sc08">SC 08 · No Straight Line</a></li>
+            <li><a href="#sc09">SC 09 · Earning Trust</a></li>
+            <li><a href="#sc10">SC 10 · The Road as Teacher</a></li>
+            <li><a href="#sc11">SC 11 · A Vision Forms</a></li>
+            <li><a href="#sc12">SC 12 · More Than a Business</a></li>
+            <li><a href="#sc13">SC 13 · The Promise</a></li>
+            <li><a href="#sc14">SC 14 · Meet KUL</a></li>
+            <li><a href="#sc15">SC 15 · What We Stand For</a></li>
+            <li><a href="#sc16">SC 16 · The Road Ahead</a></li>
+            <li><a href="#sc17">SC 17 · The Next Journey</a></li>
+          </ol>
+        </details>
+      </div>
+    </div>
+    <div class="menu-foot on-ink">
+      <span class="stamp">USDOT 7638788</span>
+      <span class="stamp">MC 66389691</span>
+      <span class="stamp">24/7 — 678-972-1148</span>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <!-- ============ COVER ============ -->
+    <section class="cover" aria-labelledby="h-cover">
+      <div class="cover-in">
+        <p class="ref"><span class="sq"></span><b>KUL-SS-02 — The origin record · Filed 2026-07-26</b></p>
+        <h1 id="h-cover">The Journey<em>.</em><br>A record of how this company was built.</h1>
+        <div class="cover-note">
+          <p>Before the authority number, before the first load, there was a story. This document files it scene by scene — the way it happened, told honestly, at the pace it deserves.</p>
+          <span class="scroll-cue">Scroll to begin <i aria-hidden="true">↓</i></span>
+        </div>
+        <p class="static-note">You are reading the full record as a typeset document — every scene, in order, no motion required.</p>
+        <div class="cover-meta">
+          <div class="cm"><b>Document</b><span>KUL-SS-02</span></div>
+          <div class="cm"><b>Scenes</b><span>17</span></div>
+          <div class="cm"><b>Author</b><span>The founder</span></div>
+          <div class="cm"><b>Score</b><span>Akilah — in production</span></div>
+          <div class="cm"><b>Reads best</b><span>Unhurried</span></div>
+        </div>
+      </div>
+      <span class="reg br" aria-hidden="true"></span>
+    </section>
+
+    <!-- ============ SC 01 — EVERY ROAD HAS A BEGINNING ============ -->
+    <section class="scene tone-night" id="sc01" aria-labelledby="t-sc01">
+      <div class="hold">
+        <div class="s1-canvas" aria-hidden="true"><canvas id="lionCanvas"></canvas></div>
+        <header class="sc-head"><h2 class="mono" id="t-sc01" style="font:inherit"><span class="no">SC 01 / 17</span> — Every Road Has a Beginning</h2><span>Black · silence</span></header>
+        <div class="beats">
+          <div class="beat"><p class="ln">Every company has a story.</p></div>
+          <div class="beat"><p class="ln">Ours began long before the first truck.</p></div>
+          <div class="beat big" data-w="1.7"><p class="ln">It began with character.</p></div>
+          <div class="beat" data-w="2.4" aria-label="Gold particles resolve into the KUL lion mark">
+            <span class="lm">The mark takes shape</span>
+          </div>
+          <div class="beat" data-w="1.7">
+            <div class="lockup">
+              <img src="/assets/brand/logo-gold-t.png" alt="KUL Enterprises LLC" width="430" height="220">
+              <span class="tag">Strength in Motion · Built on Integrity · Driven by Safety</span>
+            </div>
+          </div>
+          <div class="beat"><p class="ln">Every road has a beginning.</p></div>
+          <div class="beat big" data-w="1.7">
+            <p class="ln">This is mine.</p>
+            <div class="s1-sound"><button class="bkt s1-soundbtn" aria-controls="soundNote">◦ Experience the Journey with Sound</button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SC 02 — JAMAICA ============ -->
+    <section class="scene tone-ink" id="sc02" aria-labelledby="t-sc02">
+      <div class="hold">
+        <header class="sc-head"><h2 class="mono" id="t-sc02" style="font:inherit"><span class="no">SC 02 / 17</span> — Jamaica</h2><span>1988</span></header>
+        <figure class="slot">
+          <div class="fr"><span>Awaiting photograph</span></div>
+          <figcaption><span>Plate P-02 — Jamaica · childhood</span><span>To be filed</span></figcaption>
+        </figure>
+        <div class="beats">
+          <div class="beat"><p class="ln">I was born in Jamaica.</p></div>
+          <div class="beat"><p class="ln">On August 8, 1988...</p></div>
+          <div class="beat"><p class="ln">My mother brought my sister and me to America.</p></div>
+          <div class="beat" data-w="1.4"><p class="ln">She told us we were spending the summer with our father.</p></div>
+          <div class="beat big" data-w="2.4"><p class="ln">We never went back.</p></div>
+          <div class="beat lesson" data-w="1.9">
+            <span class="ll">Lesson —</span>
+            <p class="ln">Sometimes life's greatest journeys begin without our permission.</p>
+            <span class="reg tl" aria-hidden="true"></span><span class="reg br" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SC 03 — LEARNING THE VALUE OF WORK ============ -->
+    <section class="scene tone-warm" id="sc03" aria-labelledby="t-sc03">
+      <div class="hold">
+        <header class="sc-head"><h2 class="mono" id="t-sc03" style="font:inherit"><span class="no">SC 03 / 17</span> — Learning the Value of Work</h2><span>Morning light</span></header>
+        <figure class="slot">
+          <div class="fr"><span>Awaiting photograph</span></div>
+          <figcaption><span>Plate P-03 — Construction · family</span><span>To be filed</span></figcaption>
+        </figure>
+        <div class="beats">
+          <div class="beat">
+            <p class="ln">America was different.</p>
+            <p class="ln soft" style="font-size:.72em;font-weight:500">Everything moved faster. Everything felt unfamiliar.</p>
+          </div>
+          <div class="beat">
+            <p class="ln">While most kids spent their summers playing...</p>
+            <p class="ln">Mine were spent on construction sites.</p>
+          </div>
+          <div class="beat" data-w="1.4">
+            <div class="cas">
+              <p class="ln">Every school break...</p>
+              <p class="ln">Every holiday...</p>
+              <p class="ln">Every vacation...</p>
+              <p class="ln">I worked alongside my father.</p>
+            </div>
+          </div>
+          <div class="beat" data-w="1.4">
+            <p class="ln">At the time... I didn't understand why.</p>
+            <p class="ln">I only knew that it was expected.</p>
+          </div>
+          <div class="beat">
+            <p class="ln">Looking back...</p>
+            <p class="ln">Those days taught me something I couldn't see at the time.</p>
+          </div>
+          <div class="beat big" data-w="1.7">
+            <p class="ln">Work isn't something to avoid.</p>
+            <p class="ln">It's something to take pride in.</p>
+          </div>
+          <div class="beat lesson" data-w="1.9">
+            <span class="ll">Lesson —</span>
+            <p class="ln">Character is often built long before opportunity arrives.</p>
+            <span class="reg tl" aria-hidden="true"></span><span class="reg br" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SC 04 — SEEING THE WORLD DIFFERENTLY ============ -->
+    <section class="scene tone-deep" id="sc04" aria-labelledby="t-sc04">
+      <div class="hold">
+        <header class="sc-head"><h2 class="mono" id="t-sc04" style="font:inherit"><span class="no">SC 04 / 17</span> — Seeing the World Differently</h2><span>Brightening</span></header>
+        <div class="beats">
+          <div class="beat">
+            <p class="ln">As I grew older...</p>
+            <p class="ln">I began to notice something.</p>
+          </div>
+          <div class="beat"><p class="ln">I wasn't satisfied with simply being told how things were.</p></div>
+          <div class="beat"><p class="ln">I wanted to understand why they worked the way they did.</p></div>
+          <div class="beat" data-w="1.7"><p class="ln">Questions became part of the journey.</p></div>
+          <div class="beat"><p class="ln">Curiosity doesn't always give you immediate answers.</p></div>
+          <div class="beat">
+            <p class="ln">Sometimes...</p>
+            <p class="ln">It gives you a lifetime of learning.</p>
+          </div>
+          <div class="beat lesson" data-w="1.9">
+            <span class="ll">Lesson —</span>
+            <p class="ln">Every road begins with a question.</p>
+            <span class="reg tl" aria-hidden="true"></span><span class="reg br" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SC 05 — THE BEGINNING OF INDEPENDENCE ============ -->
+    <section class="scene tone-mid" id="sc05" aria-labelledby="t-sc05">
+      <div class="hold">
+        <header class="sc-head"><h2 class="mono" id="t-sc05" style="font:inherit"><span class="no">SC 05 / 17</span> — The Beginning of Independence</h2><span>Sunrise</span></header>
+        <div class="beats">
+          <div class="beat">
+            <p class="ln">Every life reaches a moment...</p>
+            <p class="ln">When someone else stops making the decisions.</p>
+          </div>
+          <div class="beat big" data-w="1.7"><p class="ln">This was mine.</p></div>
+          <div class="beat">
+            <p class="ln">Leaving home wasn't just about finding a place to live.</p>
+            <p class="ln">It was about finding out who I was.</p>
+          </div>
+          <div class="beat" data-w="1.4">
+            <div class="cas">
+              <p class="ln">For the first time... I was making my own decisions.</p>
+              <p class="ln soft" style="font-size:.72em;font-weight:500">Some were good. Some weren't.</p>
+            </div>
+          </div>
+          <div class="beat big" data-w="1.7"><p class="ln">But every one of them belonged to me.</p></div>
+          <div class="beat">
+            <p class="ln">Independence isn't the freedom to avoid mistakes.</p>
+            <p class="ln">It's accepting responsibility for them.</p>
+          </div>
+          <div class="beat lesson" data-w="1.9">
+            <span class="ll">Lesson —</span>
+            <p class="ln">Growth begins the moment excuses end.</p>
+            <span class="reg tl" aria-hidden="true"></span><span class="reg br" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SC 06 — CHOOSING A GREATER CHALLENGE ============ -->
+    <section class="scene tone-deep" id="sc06" aria-labelledby="t-sc06">
+      <div class="hold">
+        <header class="sc-head"><h2 class="mono" id="t-sc06" style="font:inherit"><span class="no">SC 06 / 17</span> — Choosing a Greater Challenge</h2><span>Wider horizon</span></header>
+        <figure class="slot">
+          <div class="fr"><span>Awaiting photograph</span></div>
+          <figcaption><span>Plate P-06 — Service · U.S. Air Force</span><span>To be filed</span></figcaption>
+        </figure>
+        <div class="beats">
+          <div class="beat">
+            <p class="ln">Independence gave me freedom.</p>
+            <p class="ln">But freedom also brought a question.</p>
+          </div>
+          <div class="beat big" data-w="2.4"><p class="ln">What kind of man did I want to become?</p></div>
+          <div class="beat" data-w="1.4">
+            <div class="cas">
+              <p class="ln">I wanted structure.</p>
+              <p class="ln">I internally searching for purpose.</p>
+              <p class="ln">I wanted to be challenged.</p>
+            </div>
+          </div>
+          <div class="beat" data-w="1.7"><p class="ln">That's what led me to the United States Air Force.</p></div>
+          <div class="beat">
+            <p class="ln">Discipline isn't about being controlled.</p>
+            <p class="ln">It's about learning to control yourself.</p>
+          </div>
+          <div class="beat lesson" data-w="1.9">
+            <span class="ll">Lesson —</span>
+            <p class="ln">Character grows when comfort is replaced with commitment.</p>
+            <span class="reg tl" aria-hidden="true"></span><span class="reg br" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SC 07 — FORGED THROUGH DISCIPLINE ============ -->
+    <section class="scene tone-deep" id="sc07" aria-labelledby="t-sc07">
+      <div class="hold">
+        <header class="sc-head"><h2 class="mono" id="t-sc07" style="font:inherit"><span class="no">SC 07 / 17</span> — Forged Through Discipline</h2><span>Steady pace</span></header>
+        <div class="beats">
+          <div class="beat">
+            <p class="ln">Some lessons can only be learned...</p>
+            <p class="ln">through discipline.</p>
+          </div>
+          <div class="beat"><p class="ln">The Air Force challenged me in ways I had never experienced before.</p></div>
+          <div class="beat" data-w="1.4">
+            <div class="cas">
+              <p class="ln">It demanded consistency.</p>
+              <p class="ln">Accountability.</p>
+              <p class="ln">Commitment.</p>
+            </div>
+          </div>
+          <div class="beat">
+            <p class="ln">Every day became another opportunity...</p>
+            <p class="ln">to become a little stronger than the day before.</p>
+          </div>
+          <div class="beat big" data-w="1.7">
+            <p class="ln">Discipline doesn't change who you are.</p>
+            <p class="ln">It reveals who you're willing to become.</p>
+          </div>
+          <div class="beat lesson" data-w="1.9">
+            <span class="ll">Lesson —</span>
+            <p class="ln">Excellence is rarely built in a single moment.</p>
+            <p class="ln">It's built one decision at a time.</p>
+            <span class="reg tl" aria-hidden="true"></span><span class="reg br" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SC 08 — LIFE DOESN'T FOLLOW A STRAIGHT LINE ============ -->
+    <section class="scene tone-night" id="sc08" aria-labelledby="t-sc08">
+      <div class="hold">
+        <figure class="backdrop">
+          <img src="/assets/journey/desert.jpg" alt="A wave breaking white against a sandstone headland above a sand beach — photographed by the founder on the road" width="2200" height="1650" loading="lazy" decoding="async">
+          <figcaption class="stamp">Ref F-04 — Sandstone headland, shorebreak · founder's own</figcaption>
+        </figure>
+        <header class="sc-head" style="z-index:4"><h2 class="mono" id="t-sc08" style="font:inherit"><span class="no">SC 08 / 17</span> — Life Doesn't Follow a Straight Line</h2><span>The road bends</span></header>
+        <div class="beats">
+          <div class="beat"><p class="ln">I thought I knew where life was taking me.</p></div>
+          <div class="beat">
+            <p class="ln">Like many people...</p>
+            <p class="ln">I had a plan.</p>
+          </div>
+          <div class="beat" data-w="1.7">
+            <p class="ln">But plans have a way...</p>
+            <p class="ln">of changing.</p>
+          </div>
+          <div class="beat">
+            <p class="ln">Some opportunities opened new doors.</p>
+            <p class="ln">Others closed before I expected.</p>
+          </div>
+          <div class="beat">
+            <p class="ln">There were victories.</p>
+            <p class="ln">There were setbacks.</p>
+          </div>
+          <div class="beat" data-w="1.7"><p class="ln">Both became teachers.</p></div>
+          <div class="beat big" data-w="1.4">
+            <p class="ln">Life rarely asks whether you're ready.</p>
+            <p class="ln">It simply asks...</p>
+            <p class="ln">What will you do now?</p>
+          </div>
+          <div class="beat lesson" data-w="1.9">
+            <span class="ll">Lesson —</span>
+            <p class="ln">Resilience isn't refusing to fall.</p>
+            <p class="ln">It's choosing to keep moving.</p>
+            <span class="reg tl" aria-hidden="true"></span><span class="reg br" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SC 09 — EARNING TRUST ============ -->
+    <section class="scene tone-mid" id="sc09" aria-labelledby="t-sc09">
+      <div class="hold">
+        <header class="sc-head"><h2 class="mono" id="t-sc09" style="font:inherit"><span class="no">SC 09 / 17</span> — Earning Trust</h2><span>More lanes</span></header>
+        <div class="beats">
+          <div class="beat">
+            <p class="ln">Opportunity has a way...</p>
+            <p class="ln">of finding people who are prepared for it.</p>
+          </div>
+          <div class="beat">
+            <p class="ln">I wasn't chasing titles.</p>
+            <p class="ln">I was learning to become dependable.</p>
+          </div>
+          <div class="beat">
+            <p class="ln">One responsibility became another.</p>
+            <p class="ln">One opportunity led to the next.</p>
+          </div>
+          <div class="beat" data-w="1.7">
+            <p class="ln">Before long...</p>
+            <p class="ln">I found myself leading others.</p>
+          </div>
+          <div class="beat big" data-w="1.4">
+            <p class="ln">Leadership isn't about being in front.</p>
+            <p class="ln">It's about being someone others can count on.</p>
+          </div>
+          <div class="beat lesson" data-w="1.9">
+            <span class="ll">Lesson —</span>
+            <p class="ln">Trust is earned long before it's ever expected.</p>
+            <span class="reg tl" aria-hidden="true"></span><span class="reg br" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SC 10 — THE ROAD BECAME MY TEACHER ============ -->
+    <section class="scene tone-night" id="sc10" aria-labelledby="t-sc10">
+      <div class="hold">
+        <header class="sc-head" style="z-index:4"><h2 class="mono" id="t-sc10" style="font:inherit"><span class="no">SC 10 / 17</span> — The Road Became My Teacher</h2><span>Passenger seat</span></header>
+        <div class="beats">
+          <div class="beat">
+            <p class="ln">I thought I was learning how to drive a truck.</p>
+            <p class="ln">What I didn't realize...</p>
+            <p class="ln">was that the road was teaching me something far greater.</p>
+          </div>
+          <div class="beat">
+            <p class="ln">Every mile introduced me to a new place.</p>
+            <p class="ln">Every state introduced me to different people.</p>
+          </div>
+          <div class="beat" data-w="1.7">
+            <p class="ln">Every delivery reminded me...</p>
+            <p class="ln">That trust travels farther than freight.</p>
+          </div>
+          <div class="beat" data-w="1.4">
+            <div class="cas">
+              <p class="ln">I saw mountains...</p>
+              <p class="ln">deserts...</p>
+              <p class="ln">cities that never seemed to sleep...</p>
+              <p class="ln">and quiet roads where time felt like it had stopped.</p>
+            </div>
+          </div>
+          <div class="beat" data-w="1.7">
+            <p class="ln">The country was changing.</p>
+            <p class="ln">And so was I.</p>
+          </div>
+          <figure class="beat bph" data-w="1.8">
+            <img src="/assets/journey/river.jpg" alt="Tall sandstone rock formations standing over open sand — photographed by the founder" width="2200" height="1650" loading="lazy" decoding="async">
+            <figcaption class="stamp">Ref F-05 — Sandstone field · founder's own</figcaption>
+          </figure>
+          <figure class="beat bph" data-w="1.8">
+            <img src="/assets/journey/tree.jpg" alt="A broad lone tree over a green valley — photographed by the founder" width="2200" height="1650" loading="lazy" decoding="async">
+            <figcaption class="stamp">Ref F-03 — Valley tree · founder's own</figcaption>
+          </figure>
+          <figure class="beat bph" data-w="1.8">
+            <img src="/assets/journey/cliffs.jpg" alt="Stratified mesa cliffs standing over turquoise water under a clear sky — photographed by the founder" width="2200" height="1650" loading="lazy" decoding="async">
+            <figcaption class="stamp">Ref F-01 — Coastal strata · founder's own</figcaption>
+          </figure>
+          <figure class="beat bph" data-w="1.8">
+            <img src="/assets/journey/wave.jpg" alt="A turquoise river running over rocks through dense green forest — photographed by the founder" width="2200" height="1650" loading="lazy" decoding="async">
+            <figcaption class="stamp">Ref F-02 — Forest river · founder's own</figcaption>
+          </figure>
+          <div class="beat" data-w="1.4">
+            <p class="ln">The farther I traveled...</p>
+            <p class="ln">the more I realized...</p>
+          </div>
+          <div class="beat big" data-w="1.7"><p class="ln">Every person has a story.</p></div>
+          <div class="beat lesson" data-w="1.9">
+            <span class="ll">Lesson —</span>
+            <p class="ln">The road doesn't just take you to new places.</p>
+            <p class="ln">It teaches you to see the world differently.</p>
+            <span class="reg tl" aria-hidden="true"></span><span class="reg br" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SC 11 — A VISION BEGINS TO FORM ============ -->
+    <section class="scene tone-deep" id="sc11" aria-labelledby="t-sc11">
+      <div class="hold">
+        <div class="wm" data-from="5" aria-hidden="true"><img src="/assets/brand/lion-clean.png" alt="" width="400" height="400" loading="lazy"></div>
+        <header class="sc-head"><h2 class="mono" id="t-sc11" style="font:inherit"><span class="no">SC 11 / 17</span> — A Vision Begins to Form</h2><span>Sunrise beginning</span></header>
+        <div class="beats">
+          <div class="beat">
+            <p class="ln">The longer I traveled...</p>
+            <p class="ln">The more I began to notice something.</p>
+          </div>
+          <div class="beat">
+            <p class="ln">Freight moved every day.</p>
+            <p class="ln">But what truly kept the industry moving...</p>
+          </div>
+          <div class="beat" data-w="1.4">
+            <p class="ln">wasn't trucks.</p>
+            <p class="ln">It was people.</p>
+          </div>
+          <div class="beat" data-w="1.4">
+            <div class="cas">
+              <p class="ln soft" style="font-size:.8em">Drivers. Dispatchers. Mechanics.</p>
+              <p class="ln soft" style="font-size:.8em">Customers. Brokers.</p>
+              <p class="ln">Families waiting at home.</p>
+            </div>
+          </div>
+          <div class="beat">
+            <p class="ln">Every load represented someone's trust.</p>
+            <p class="ln">Every mile represented someone's promise.</p>
+          </div>
+          <div class="beat" data-w="1.7"><p class="ln">That's when a vision began to take shape.</p></div>
+          <div class="beat big" data-w="2.4">
+            <p class="ln">What if a company could be built...</p>
+            <p class="ln">Where integrity wasn't just a word...</p>
+            <p class="ln">but the standard?</p>
+          </div>
+          <div class="beat">
+            <p class="ln">A business begins with an idea.</p>
+            <p class="ln">A lasting business begins with values.</p>
+          </div>
+          <div class="beat lesson" data-w="1.9">
+            <span class="ll">Lesson —</span>
+            <p class="ln">Companies are remembered for what they deliver.</p>
+            <p class="ln">Great companies are remembered for how they make people feel.</p>
+            <span class="reg tl" aria-hidden="true"></span><span class="reg br" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SC 12 — MORE THAN A BUSINESS ============ -->
+    <section class="scene tone-night" id="sc12" aria-labelledby="t-sc12">
+      <div class="hold">
+        <header class="sc-head"><h2 class="mono" id="t-sc12" style="font:inherit"><span class="no">SC 12 / 17</span> — More Than a Business</h2><span>Pre-dawn stillness</span></header>
+        <div class="sun" data-from="7" aria-hidden="true"></div>
+        <div class="beats">
+          <div class="beat">
+            <p class="ln">There came a moment...</p>
+            <p class="ln">when I stopped asking...</p>
+          </div>
+          <div class="beat" data-w="2"><p class="ln">What kind of business do I want to own?</p></div>
+          <div class="beat"><p class="ln">I began asking a different question.</p></div>
+          <div class="beat big" data-w="2.4"><p class="ln">What kind of company deserves to exist?</p></div>
+          <div class="beat" data-w="1.4">
+            <div class="cas">
+              <p class="ln">A company built on honesty...</p>
+              <p class="ln soft" style="font-size:.72em;font-weight:500">when honesty costs something.</p>
+              <p class="ln">A company built on integrity...</p>
+              <p class="ln soft" style="font-size:.72em;font-weight:500">even when no one is watching.</p>
+            </div>
+          </div>
+          <div class="beat" data-w="1.4">
+            <p class="ln">A company where safety isn't measured by regulations alone...</p>
+            <p class="ln">but by the value placed on every person who trusts us.</p>
+          </div>
+          <div class="beat">
+            <p class="ln">I realized...</p>
+            <p class="ln">I wasn't trying to build a trucking company.</p>
+          </div>
+          <div class="beat big" data-w="2.4"><p class="ln">I was trying to build something people could believe in.</p></div>
+          <div class="beat" data-w="1.4">
+            <p class="ln">Businesses are created every day.</p>
+            <p class="ln">Trust...</p>
+            <p class="ln">is built one decision at a time.</p>
+          </div>
+          <div class="beat lesson" data-w="1.9">
+            <span class="ll">Lesson —</span>
+            <p class="ln">The strongest foundation isn't concrete.</p>
+            <p class="ln">It's character.</p>
+            <span class="reg tl" aria-hidden="true"></span><span class="reg br" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SC 13 — THE PROMISE (daylight arrives) ============ -->
+    <section class="scene tone-paper" id="sc13" aria-labelledby="t-sc13">
+      <div class="hold">
+        <header class="sc-head"><h2 class="mono" id="t-sc13" style="font:inherit"><span class="no">SC 13 / 17</span> — The Promise</h2><span>Full daylight</span></header>
+        <figure class="slot">
+          <div class="fr"><span>Awaiting photograph</span></div>
+          <figcaption><span>Plate P-13 — The notebook · goals &amp; values</span><span>To be filed</span></figcaption>
+        </figure>
+        <div class="beats">
+          <div class="beat">
+            <p class="ln">Every company begins with paperwork.</p>
+            <p class="ln">But that's not where KUL began.</p>
+          </div>
+          <div class="beat big" data-w="1.7"><p class="ln">KUL began with a promise.</p></div>
+          <div class="beat">
+            <p class="ln">A promise...</p>
+            <p class="ln">to do business with integrity.</p>
+          </div>
+          <div class="beat">
+            <p class="ln">To treat people with respect.</p>
+            <p class="ln">To never compromise safety for convenience.</p>
+          </div>
+          <div class="beat" data-w="1.4">
+            <div class="cas">
+              <p class="ln">To remember...</p>
+              <p class="ln soft" style="font-size:.72em;font-weight:500">that behind every shipment... every invoice... every phone call...</p>
+              <p class="ln">is a person who placed their trust in us.</p>
+            </div>
+          </div>
+          <div class="beat" data-w="1.7">
+            <p class="ln">That promise became the foundation.</p>
+            <p class="ln">The trucks would come later.</p>
+          </div>
+          <div class="beat">
+            <p class="ln">A company's reputation isn't created by advertising.</p>
+            <p class="ln">It's created by the decisions no one else sees.</p>
+          </div>
+          <div class="beat lesson" data-w="1.9">
+            <span class="ll">Lesson —</span>
+            <p class="ln">Principles are promises you keep...</p>
+            <p class="ln">even when they're difficult.</p>
+            <span class="reg tl" aria-hidden="true"></span><span class="reg br" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SC 14 — MEET KUL ============ -->
+    <section class="scene tone-paper" id="sc14" aria-labelledby="t-sc14">
+      <div class="hold">
+        <header class="sc-head"><h2 class="mono" id="t-sc14" style="font:inherit"><span class="no">SC 14 / 17</span> — Meet KUL</h2><span>Sunrise complete</span></header>
+        <figure class="slot">
+          <div class="fr"><span>Awaiting photograph</span></div>
+          <figcaption><span>Plate P-14 — The truck · professional</span><span>To be filed</span></figcaption>
+        </figure>
+        <div class="beats">
+          <div class="beat" data-w="1.4">
+            <div class="cas">
+              <p class="ln">Every mile...</p>
+              <p class="ln">Every lesson...</p>
+              <p class="ln">Every decision...</p>
+            </div>
+          </div>
+          <div class="beat big" data-w="1.7"><p class="ln">Led here.</p></div>
+          <div class="beat" data-w="2.4">
+            <div class="lockup">
+              <img src="/assets/brand/logo-black-t.png" alt="KUL Enterprises LLC" width="430" height="220">
+            </div>
+            <p class="ln" style="margin-top:26px">Welcome to KUL Enterprises.</p>
+          </div>
+          <div class="beat">
+            <p class="ln">We didn't build this company to be the biggest.</p>
+            <p class="ln">We built it to be trusted.</p>
+          </div>
+          <div class="beat" data-w="1.4">
+            <div class="cas">
+              <p class="ln">We believe...</p>
+              <p class="ln soft" style="font-size:.8em">Integrity is earned.</p>
+              <p class="ln soft" style="font-size:.8em">Safety is personal.</p>
+              <p class="ln soft" style="font-size:.8em">Communication matters.</p>
+            </div>
+          </div>
+          <div class="beat" data-w="1.4">
+            <div class="cas">
+              <p class="ln soft">Every customer deserves honesty.</p>
+              <p class="ln soft">Every driver deserves respect.</p>
+              <p class="ln soft">Every load deserves our full attention.</p>
+            </div>
+          </div>
+          <div class="beat">
+            <p class="ln">Values don't appear on a balance sheet.</p>
+            <p class="ln">But they're often the most valuable asset a company owns.</p>
+          </div>
+          <div class="beat lesson" data-w="1.9">
+            <span class="ll">Lesson —</span>
+            <p class="ln">Reputation isn't built by what a company says.</p>
+            <p class="ln">It's built by what people experience.</p>
+            <span class="reg tl" aria-hidden="true"></span><span class="reg br" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SC 15 — WHAT WE STAND FOR (stacked ledger) ============ -->
+    <section class="scene tone-paper2 stacked" id="sc15" aria-labelledby="t-sc15">
+      <div class="hold">
+        <header class="sc-head"><h2 class="mono" id="t-sc15" style="font:inherit"><span class="no">SC 15 / 17</span> — What We Stand For</h2><span>Clean · bright</span></header>
+        <div class="beats v-lead">
+          <div class="beat">
+            <p class="ln">Every company has values.</p>
+            <p class="ln soft" style="font-size:.72em;font-weight:500">Ours were learned... long before this company existed.</p>
+          </div>
+        </div>
+        <div class="vrows beats">
+          <div class="beat" data-w="1.2"><div class="vrow"><b>Integrity</b><p>We do the right thing... even when no one is watching.</p></div></div>
+          <div class="beat" data-w="1.2"><div class="vrow"><b>Safety</b><p>Every load matters. Every person matters more.</p></div></div>
+          <div class="beat" data-w="1.2"><div class="vrow"><b>Communication</b><p>Trust grows when people know what's happening.</p></div></div>
+          <div class="beat" data-w="1.2"><div class="vrow"><b>Respect</b><p>We believe relationships are built... one conversation at a time.</p></div></div>
+          <div class="beat" data-w="1.2"><div class="vrow"><b>Excellence</b><p>Good enough has never been our destination.</p></div></div>
+          <div class="beat" data-w="1.2"><div class="vrow"><b>Accountability</b><p>When we make a promise... We intend to keep it.</p></div></div>
+          <div class="beat" data-w="1.5" style="text-align:center;padding-top:26px">
+            <p class="ln" style="font-size:clamp(1.1rem,2vw,1.5rem)">Values don't matter because they're written.</p>
+            <p class="ln" style="font-size:clamp(1.1rem,2vw,1.5rem)">They matter because they're lived.</p>
+          </div>
+          <div class="beat lesson" data-w="1.9" style="margin-inline:auto;margin-top:26px">
+            <span class="ll">Lesson —</span>
+            <p class="ln">Character isn't something a company advertises.</p>
+            <p class="ln">It's something people experience.</p>
+            <span class="reg tl" aria-hidden="true"></span><span class="reg br" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SC 16 — THE ROAD AHEAD ============ -->
+    <section class="scene tone-paper2" id="sc16" aria-labelledby="t-sc16">
+      <div class="hold">
+        <header class="sc-head"><h2 class="mono" id="t-sc16" style="font:inherit"><span class="no">SC 16 / 17</span> — The Road Ahead</h2><span>Morning light</span></header>
+        <div class="beats">
+          <div class="beat">
+            <p class="ln">Every road leads somewhere.</p>
+            <p class="ln">Some journeys last a few miles.</p>
+          </div>
+          <div class="beat" data-w="1.7">
+            <p class="ln">Others...</p>
+            <p class="ln">shape an entire lifetime.</p>
+          </div>
+          <div class="beat"><p class="ln">KUL Enterprises is still writing its story.</p></div>
+          <div class="beat" data-w="1.4">
+            <div class="cas">
+              <p class="ln soft">One shipment at a time.</p>
+              <p class="ln soft">One relationship at a time.</p>
+              <p class="ln soft">One promise kept at a time.</p>
+            </div>
+          </div>
+          <div class="beat">
+            <p class="ln">We don't know every opportunity that lies ahead.</p>
+            <p class="ln">But we do know the principles that will guide us there.</p>
+          </div>
+          <div class="beat" data-w="1.4">
+            <div class="pr-stamps">
+              <span class="stamp">Integrity.</span>
+              <span class="stamp">Character.</span>
+              <span class="stamp">Safety.</span>
+              <span class="stamp">Service.</span>
+              <span class="stamp">Trust.</span>
+            </div>
+          </div>
+          <div class="beat big" data-w="2">
+            <p class="ln">Strength in Motion.</p>
+            <p class="ln">Built on Integrity.</p>
+            <p class="ln">Driven by Safety.</p>
+            <p class="ln soft" style="margin-top:.9em;font-size:.55em;letter-spacing:.14em;text-transform:uppercase;font-family:var(--mono);font-weight:500;color:var(--gold-deep)">Built by Character. Trusted Through Action.</p>
+          </div>
+          <div class="beat">
+            <p class="ln">A destination gives us direction.</p>
+            <p class="ln">Character determines how we get there.</p>
+          </div>
+          <div class="beat lesson" data-w="1.9">
+            <span class="ll">Lesson —</span>
+            <p class="ln">The journey never really ends.</p>
+            <p class="ln">It simply becomes someone else's beginning.</p>
+            <span class="reg tl" aria-hidden="true"></span><span class="reg br" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SC 17 — THE NEXT JOURNEY ============ -->
+    <section class="scene tone-paper" id="sc17" aria-labelledby="t-sc17">
+      <div class="hold">
+        <header class="sc-head"><h2 class="mono" id="t-sc17" style="font:inherit"><span class="no">SC 17 / 17</span> — The Next Journey</h2><span>Nearly still</span></header>
+        <div class="beats">
+          <div class="beat" data-w="1.4">
+            <div class="cas">
+              <p class="ln">Every mile I've traveled...</p>
+              <p class="ln">Every lesson I've learned...</p>
+              <p class="ln">Every promise I've chosen to keep...</p>
+            </div>
+          </div>
+          <div class="beat" data-w="1.7"><p class="ln">Has led to this moment.</p></div>
+          <div class="beat big" data-w="2.4">
+            <p class="ln">Not because my journey is complete.</p>
+            <p class="ln">But because it's finally ready...</p>
+            <p class="ln">to serve yours.</p>
+          </div>
+          <div class="beat">
+            <p class="ln">Trust isn't given.</p>
+            <p class="ln">It's earned.</p>
+          </div>
+          <div class="beat" data-w="1.7">
+            <div class="cas">
+              <p class="ln soft">One mile.</p>
+              <p class="ln soft">One decision.</p>
+              <p class="ln">One relationship at a time.</p>
+            </div>
+          </div>
+          <div class="beat" data-w="2">
+            <div class="lockup">
+              <span class="lion-chip"><img src="/assets/brand/lion-clean.png" alt="The KUL lion mark" width="110" height="110" loading="lazy"></span>
+              <p class="ln" style="margin-top:8px">KUL Enterprises</p>
+              <span class="tag" style="color:var(--ink-soft)">Strength in Motion · Built on Integrity · Driven by Safety</span>
+            </div>
+          </div>
+          <div class="beat">
+            <p class="ln">Thank you...</p>
+            <p class="ln">for taking this journey with us.</p>
+          </div>
+          <div class="beat big" data-w="2.2">
+            <p class="ln">Whenever you're ready...</p>
+            <p class="ln">we'll be honored...</p>
+            <p class="ln">to take the next one with you.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ THE FRONT DOOR ============ -->
+    <section class="door" id="end" aria-labelledby="h-door">
+      <div class="door-in">
+        <p class="ref"><span class="sq"></span><b>End of record — the story has opened the front door</b></p>
+        <h2 id="h-door">The journey continues with your freight.</h2>
+        <p>The company described in this record runs today — one tractor, owner-driven, building toward fifty by the end of 2029. Same promise, now in service.</p>
+        <div class="row">
+          <a class="btn" href="../a/">Enter the site — The Beginning <span class="ar">↘</span></a>
+          <a class="bkt" href="../story/">Next chapter — Why I Started Driving</a>
+          <a class="bkt" href="../forward/">Request a Quote</a>
+        </div>
+      </div>
+      <span class="reg tl" aria-hidden="true"></span>
+      <span class="reg br" aria-hidden="true"></span>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer aria-label="Contact and chapters">
+    <div class="p-ink on-ink">
+      <div class="fgrid">
+        <div class="f-brand">
+          <img class="f-lion" src="/assets/brand/lion-clean.png" alt="KUL Enterprises" width="84" height="84" loading="lazy">
+          <span class="biglock">KUL<span style="color:var(--gold)">.</span></span>
+          <span class="tag">Strength in Motion. Built on Integrity. Driven by Safety.</span>
+          <div class="f-fast">
+            <span class="f-k" style="width:100%">Fast path —</span>
+            <a href="../mission/">Services</a>
+            <a href="../responsibility/">Safety</a>
+            <a href="../forward/">Request a Quote</a>
+            <a href="../forward/#contact">Contact</a>
+          </div>
+        </div>
+        <nav class="f-chapters" aria-label="Chapters">
+          <span class="f-k" style="margin-bottom:8px">The document set</span>
+          <a href="../a/">The Beginning <small>SS-01</small></a>
+          <span class="cur" aria-current="page">The Journey <small>SS-02</small></span>
+          <a href="../story/">Why I Started Driving <small>SS-03</small></a>
+          <a href="../mission/">The Mission <small>SS-04</small></a>
+          <a href="../responsibility/">The Responsibility <small>SS-05</small></a>
+          <a href="../join/">Join the Journey <small>SS-06</small></a>
+          <a href="../forward/">Let's Move Forward <small>SS-07</small></a>
+          <a href="../road-ahead/">The Road Ahead <small>SS-08</small></a>
+        </nav>
+        <div class="f-contact">
+          <span class="f-k">Dispatch — 24/7</span>
+          <a href="tel:+16789721148">678-972-1148</a>
+          <a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a>
+          <span class="adr">KUL Enterprises LLC · Loganville, Georgia · Nationwide service</span>
+        </div>
+      </div>
+      <div class="f-bottom">
+        <div class="stamps">
+          <span class="stamp">USDOT 7638788</span>
+          <span class="stamp">MC 66389691</span>
+          <span class="stamp">Licensed &amp; Insured</span>
+        </div>
+        <span class="fine">© 2026 KUL Enterprises LLC · KUL-SS-02 — The Journey · Rev 2026-07-26</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+/* ---- tweaks contract: baked snapshot as panel defaults ---- */
+window.KUL_TWEAKS = {
+  style: "s06a-journey",
+  controls: [
+    { var: "--gold",          label: "KUL gold",                           type: "color", value: "#D4AF37" },
+    { var: "--gray-hue",      label: "Gray temperature (warm→cool)",       type: "range", value: 205, min: 20,  max: 220, step: 5 },
+    { var: "--seam",          label: "Seam visibility",                    type: "range", value: 1,   min: 0,   max: 8,   step: 1, unit: "px" },
+    { var: "--gold-freq",     label: "Gold-block frequency",               type: "range", value: 100, min: 0,   max: 100, step: 5 },
+    { var: "--bracket-style", label: "Brackets · 0 none 1 corner 2 frame", type: "range", value: 1,   min: 0,   max: 2,   step: 1 },
+    { var: "--stamp-style",   label: "Stamps · 0 flat 1 boxed 2 plate",    type: "range", value: 1,   min: 0,   max: 2,   step: 1 },
+    { var: "--pad",           label: "Panel padding (density)",            type: "range", value: 32,  min: 16,  max: 48,  step: 2, unit: "px" }
+  ]
+};
+
+(function () {
+  "use strict";
+  var docEl = document.documentElement;
+  var RM = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var SCENE_TITLES = [
+    "EVERY ROAD HAS A BEGINNING","JAMAICA","LEARNING THE VALUE OF WORK","SEEING THE WORLD DIFFERENTLY",
+    "THE BEGINNING OF INDEPENDENCE","CHOOSING A GREATER CHALLENGE","FORGED THROUGH DISCIPLINE",
+    "LIFE DOESN'T FOLLOW A STRAIGHT LINE","EARNING TRUST","THE ROAD BECAME MY TEACHER",
+    "A VISION BEGINS TO FORM","MORE THAN A BUSINESS","THE PROMISE","MEET KUL",
+    "WHAT WE STAND FOR","THE ROAD AHEAD","THE NEXT JOURNEY"
+  ];
+
+  /* ---- sound stub (works in both modes) ---- */
+  var soundNote = document.getElementById("soundNote");
+  var soundBtn = document.getElementById("soundBtn");
+  function toggleSound(force) {
+    if (!soundNote) return;
+    var open = typeof force === "boolean" ? force : soundNote.hidden;
+    soundNote.hidden = !open;
+    if (soundBtn) {
+      soundBtn.setAttribute("aria-pressed", String(open));
+      soundBtn.setAttribute("aria-expanded", String(open));
+    }
+  }
+  if (soundBtn) soundBtn.addEventListener("click", function () { toggleSound(); });
+  Array.prototype.forEach.call(document.querySelectorAll(".s1-soundbtn"), function (b) {
+    b.addEventListener("click", function () { toggleSound(true); });
+  });
+  window.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && soundNote && !soundNote.hidden) toggleSound(false);
+  });
+
+  /* ---- menu overlay ---- */
+  var burger = document.getElementById("burger");
+  var menu = document.getElementById("menu");
+  var closeBtn = document.getElementById("menuClose");
+  function setMenu(open) {
+    if (!menu || !burger) return;
+    menu.hidden = !open;
+    burger.setAttribute("aria-expanded", String(open));
+    document.body.style.overflow = open ? "hidden" : "";
+    if (open) {
+      var first = menu.querySelector("a,button");
+      if (first) first.focus();
+    } else {
+      burger.focus();
+    }
+  }
+  if (burger) burger.addEventListener("click", function () { setMenu(menu.hidden); });
+  if (closeBtn) closeBtn.addEventListener("click", function () { setMenu(false); });
+  if (menu) {
+    menu.addEventListener("click", function (e) { if (e.target.closest("a")) setMenu(false); });
+    window.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !menu.hidden) setMenu(false);
+    });
+  }
+
+  /* ---- mode switch ---- */
+  if (RM) { docEl.classList.add("static"); return; }
+  docEl.classList.add("motion");
+
+  /* ---- the documentary engine ---- */
+  var U = 0.24; // fraction of a viewport per weight-1 beat
+  var railLinks = Array.prototype.slice.call(document.querySelectorAll(".rail-sc a"));
+  var odo = document.getElementById("odo");
+  var odoSc = document.getElementById("odoSc");
+  var odoT = document.getElementById("odoT");
+  var rulerFill = document.getElementById("rulerFill");
+
+  var scenes = Array.prototype.map.call(document.querySelectorAll(".scene"), function (sec) {
+    var beats = Array.prototype.slice.call(sec.querySelectorAll(".beat"));
+    var ws = beats.map(function (b) { return parseFloat(b.getAttribute("data-w")) || 1; });
+    var cum = []; var acc = 0;
+    ws.forEach(function (w) { cum.push(acc); acc += w; });
+    return {
+      el: sec, beats: beats, cum: cum, total: acc || 1,
+      stacked: sec.classList.contains("stacked"),
+      from: Array.prototype.slice.call(sec.querySelectorAll("[data-from]")),
+      k: -2, top: 0, len: 1
+    };
+  });
+
+  function layout() {
+    var vh = window.innerHeight;
+    scenes.forEach(function (s) {
+      s.el.style.height = Math.round(s.total * U * vh + vh) + "px";
+    });
+    scenes.forEach(function (s) {
+      var r = s.el.getBoundingClientRect();
+      s.top = r.top + window.scrollY;
+      s.len = Math.max(1, s.el.offsetHeight - vh);
+    });
+  }
+
+  /* SC01 particle field — gold registration marks resolving into the lion */
+  var canvas = document.getElementById("lionCanvas");
+  var ctx = canvas ? canvas.getContext("2d") : null;
+  var particles = null, s1c = 0, s1visible = false, rafOn = false;
+  var goldColor = "#D4AF37";
+  function readGold() {
+    var g = getComputedStyle(docEl).getPropertyValue("--gold").trim();
+    if (g) goldColor = g;
+  }
+  function buildParticles(img) {
+    var w = 240;
+    var h = Math.round(w * img.naturalHeight / img.naturalWidth);
+    var oc = document.createElement("canvas");
+    oc.width = w; oc.height = h;
+    var octx = oc.getContext("2d");
+    octx.drawImage(img, 0, 0, w, h);
+    var data;
+    try { data = octx.getImageData(0, 0, w, h).data; } catch (e) { return null; }
+    var pts = [];
+    for (var y = 0; y < h; y += 2) {
+      for (var x = 0; x < w; x += 2) {
+        var o = (y * w + x) * 4;
+        // the mark is drawn bright on an opaque dark ground — keep only the artwork
+        if (data[o + 3] > 110 && (data[o] + data[o + 1] + data[o + 2]) / 3 > 92) {
+          pts.push([x / w - 0.5, y / h - 0.5]);
+        }
+      }
+    }
+    if (!pts.length) return null;
+    // cap at ~1100 points
+    var keep = Math.min(1100, pts.length);
+    var stride = pts.length / keep;
+    var out = [];
+    for (var i = 0; i < keep; i++) {
+      var p = pts[Math.floor(i * stride)];
+      out.push({
+        tx: p[0], ty: p[1],
+        sx: (Math.random() - 0.5) * 2.4,
+        sy: (Math.random() - 0.5) * 2.4,
+        ph: Math.random() * Math.PI * 2,
+        st: Math.random() * 0.25,
+        a: 0.45 + Math.random() * 0.55,
+        r: Math.random() < 0.85 ? 1.5 : 2.5
+      });
+    }
+    return out;
+  }
+  var lionImg = new Image();
+  lionImg.src = "/assets/brand/lion-clean.png";
+  lionImg.onload = function () { particles = buildParticles(lionImg); };
+  function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+  function drawParticles(now) {
+    if (!ctx || !particles) return;
+    var dpr = Math.min(2, window.devicePixelRatio || 1);
+    var bw = canvas.clientWidth, bh = canvas.clientHeight;
+    if (canvas.width !== Math.round(bw * dpr)) { canvas.width = Math.round(bw * dpr); canvas.height = Math.round(bh * dpr); }
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, bw, bh);
+    var scale = Math.min(bw, bh) * 0.52;
+    var cx = bw / 2, cy = bh / 2;
+    ctx.fillStyle = goldColor;
+    var t = now * 0.001;
+    for (var i = 0; i < particles.length; i++) {
+      var p = particles[i];
+      var c = Math.max(0, Math.min(1, (s1c - p.st) / (1 - p.st)));
+      var e = easeOut(c);
+      var wob = (1 - e) * 14;
+      var x = cx + ((p.sx + (p.tx - p.sx) * e) * scale) + Math.sin(t * 0.7 + p.ph) * wob;
+      var y = cy + ((p.sy + (p.ty - p.sy) * e) * scale) + Math.cos(t * 0.6 + p.ph * 1.3) * wob;
+      ctx.globalAlpha = p.a * (0.35 + 0.65 * Math.max(e, 0.35));
+      ctx.fillRect(x, y, p.r, p.r);
+    }
+    ctx.globalAlpha = 1;
+  }
+  function loop(now) {
+    if (!s1visible) { rafOn = false; return; }
+    drawParticles(now || 0);
+    requestAnimationFrame(loop);
+  }
+
+  /* main scroll update */
+  var ticking = false;
+  function update() {
+    ticking = false;
+    var y = window.scrollY, vh = window.innerHeight;
+    var docLen = document.documentElement.scrollHeight - vh;
+    if (rulerFill) rulerFill.style.transform = "scaleX(" + (docLen > 0 ? Math.min(1, y / docLen) : 0).toFixed(4) + ")";
+
+    var active = -1;
+    var mid = y + vh * 0.5;
+    scenes.forEach(function (s, si) {
+      var p = (y - s.top) / s.len;
+      if (mid >= s.top && mid < s.top + s.el.offsetHeight) active = si;
+      var k;
+      /* pre-arm the first beat while the panel slides in, so no blank
+         viewport appears between scenes — the incoming scene enters
+         already carrying its opening line */
+      if (p < 0) k = 0;
+      else if (p >= 1) k = s.beats.length - 1;
+      else {
+        var t = p * s.total; k = 0;
+        for (var i = s.cum.length - 1; i >= 0; i--) { if (t >= s.cum[i]) { k = i; break; } }
+      }
+      if (si === 0) {
+        // particle convergence: driven by progress through beat 3 (the visual beat)
+        var startW = s.cum[3], w = (s.cum[4] || s.total) - startW;
+        s1c = Math.max(0, Math.min(1, (p * s.total - startW) / w));
+        var vis = p > -0.15 && p < 1.1;
+        if (vis && !s1visible) { s1visible = true; if (!rafOn) { rafOn = true; readGold(); requestAnimationFrame(loop); } }
+        else if (!vis) { s1visible = false; }
+      }
+      if (k === s.k) return;
+      s.k = k;
+      s.beats.forEach(function (b, i) {
+        var on = s.stacked ? (i <= k) : (i === k);
+        b.classList.toggle("on", on);
+        b.classList.toggle("gone", !s.stacked && i < k);
+      });
+      s.from.forEach(function (el) {
+        el.classList.toggle("on", k >= parseInt(el.getAttribute("data-from"), 10));
+      });
+      s.el.classList.toggle("live", k >= 0);
+    });
+
+    /* odometer + rail + page-light state */
+    if (odo && odoSc && odoT) {
+      if (active >= 0) {
+        odo.classList.add("live");
+        odoSc.textContent = "SC " + String(active + 1).padStart(2, "0");
+        odoT.textContent = SCENE_TITLES[active] || "";
+      } else {
+        odo.classList.remove("live");
+      }
+    }
+    railLinks.forEach(function (a, i) { a.classList.toggle("cur", i === active); });
+    document.body.classList.toggle("pg-light", active >= 12); // SC13+ is daylight
+  }
+  function onScroll() {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  var rsT;
+  window.addEventListener("resize", function () {
+    clearTimeout(rsT);
+    rsT = setTimeout(function () { layout(); update(); }, 120);
+  });
+  window.addEventListener("load", function () { layout(); update(); });
+  layout();
+  update();
+})();
+</script>
+<script src="/tweaks.js" defer></script>
+</body>
+</html>

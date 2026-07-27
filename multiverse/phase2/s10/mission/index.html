@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="The Mission — KUL Enterprises freight services. Power Only, Dry Van, Reefer, Dedicated, Regional, Over-the-Road, and Expedited. Southeast primary, nationwide capable. USDOT 7638788 · MC 66389691.">
+<title>The Mission — Services · KUL Enterprises</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../chapter.css">
+<style>
+/* ============================================================
+   THE MISSION — services ledger. Direct, broker-legible,
+   premium but information-first. Light page; one dark tile.
+   ============================================================ */
+
+/* -------- hero -------- */
+.hero{
+  text-align:center;padding-top:calc(var(--sp) * .8);padding-bottom:calc(var(--sp) * .7);
+  background:
+    radial-gradient(120% 78% at 50% -8%, color-mix(in srgb,var(--gold) calc(9% * var(--gold-dose)/100),transparent), transparent 56%),
+    linear-gradient(180deg,var(--white),var(--off));
+}
+.hero__kicker{font-size:14px;font-weight:600;color:var(--gold-ink);letter-spacing:.01em;margin-bottom:var(--s-3)}
+.hero h1{margin:0 auto;max-width:16ch}
+.hero__sub{margin:var(--s-5) auto 0;max-width:46ch;font-size:var(--fs-lead);color:var(--ink-2);line-height:1.42}
+.hero__cta{display:flex;gap:var(--s-3);justify-content:center;flex-wrap:wrap;margin-top:var(--s-7)}
+
+/* -------- services ledger -------- */
+.ledger{background:var(--white)}
+.ledger__intro{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:var(--s-7)}
+.ledger__count{font-size:13px;color:var(--ink-3);font-weight:500;white-space:nowrap;padding-bottom:6px}
+.svc{
+  display:grid;grid-template-columns:88px 1.35fr 1fr;gap:24px clamp(20px,3.4vw,48px);
+  padding:clamp(26px,3.6vw,40px) 0;border-top:1px solid var(--line);
+}
+.svc:last-child{border-bottom:1px solid var(--line)}
+.svc__id{font-size:13px;font-weight:800;color:var(--gold-ink);letter-spacing:.1em;padding-top:8px}
+.svc h3{font-size:clamp(1.5rem,2.4vw,2rem);font-weight:800;letter-spacing:-.024em;line-height:1.08}
+.svc__main p{margin-top:var(--s-3);color:var(--ink-2);font-size:16px;line-height:1.52;max-width:52ch}
+.svc__meta{display:flex;flex-direction:column;gap:var(--s-4);padding-top:8px}
+.svc__fit{font-size:14px;color:var(--ink-2);line-height:1.5}
+.svc__fit b{display:block;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:5px}
+.svc .linkarrow{font-size:14px;margin-top:auto}
+
+/* -------- coverage -------- */
+.coverage{background:var(--off)}
+.coverage__grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,56px);margin-top:var(--s-8)}
+.cov{border-top:2px solid var(--gold);padding-top:var(--s-5)}
+.cov h3{font-size:var(--fs-h3);font-weight:800;letter-spacing:-.02em}
+.cov p{margin-top:var(--s-3);color:var(--ink-2);font-size:16px;line-height:1.54;max-width:46ch}
+.cov__facts{margin-top:var(--s-5);display:flex;flex-direction:column;gap:10px}
+.cov__facts span{font-size:14px;font-weight:600;color:var(--ink);display:flex;align-items:baseline;gap:10px}
+.cov__facts span::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold);opacity:calc(var(--gold-dose)/100);flex:0 0 auto;transform:translateY(-2px)}
+
+/* -------- how to book -------- */
+.book{background:var(--white)}
+.book__steps{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,3vw,40px);margin-top:var(--s-8)}
+.step{border-top:1px solid var(--line-2);padding-top:var(--s-5)}
+.step b{font-size:13px;font-weight:800;color:var(--gold-ink);letter-spacing:.1em}
+.step h3{font-size:20px;font-weight:700;letter-spacing:-.016em;margin-top:var(--s-3)}
+.step p{margin-top:var(--s-2);font-size:14.5px;color:var(--ink-2);line-height:1.5}
+
+@media (max-width:880px){
+  .svc{grid-template-columns:52px 1fr}
+  .svc__meta{grid-column:2}
+  .coverage__grid{grid-template-columns:1fr}
+  .book__steps{grid-template-columns:1fr}
+}
+@media (max-width:520px){
+  .svc{grid-template-columns:1fr;gap:14px}
+  .svc__meta{grid-column:1}
+}
+</style>
+</head>
+<body>
+
+<!-- ======================= GLOBAL NAV ======================= -->
+<header class="gnav" id="gnav">
+  <div class="gnav__in">
+    <a class="brand" href="../a/" aria-label="KUL Enterprises home">
+      <img src="/assets/brand/lion-clean.png" alt="" width="30" height="30" decoding="async">
+      <b>KUL</b><span>Enterprises</span>
+    </a>
+    <nav class="gnav__links" aria-label="Business">
+      <a href="../mission/" aria-current="page">Services</a>
+      <a href="../responsibility/">Safety</a>
+      <a href="../join/">Careers</a>
+      <a href="../forward/#contact">Contact</a>
+    </nav>
+    <div class="gnav__cta">
+      <a class="pill pill--ghost pill--sm" href="../join/">Become a Driver</a>
+      <a class="pill pill--gold pill--sm" href="../forward/">Request a Quote</a>
+      <button class="gnav__burger" id="burger" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ======================= CHAPTER RAIL ======================= -->
+<div class="cnav">
+  <div class="cnav__in">
+    <span class="cnav__title">The Story</span>
+    <nav class="cnav__links" aria-label="Chapters">
+      <a href="../a/">The Beginning</a>
+      <a href="../journey/">The Journey</a>
+      <a href="../story/">Why I Started Driving</a>
+      <span aria-current="page">The Mission</span>
+      <a href="../responsibility/">The Responsibility</a>
+      <a href="../join/">Join the Journey</a>
+      <a href="../forward/">Let&rsquo;s Move Forward</a>
+      <a href="../road-ahead/">The Road Ahead</a>
+    </nav>
+    <div class="cnav__cta">
+      <span class="cnav__loc">Loganville, GA · Nationwide</span>
+      <a class="pill pill--gold pill--sm" href="../forward/">Get a Quote</a>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= HERO ======================= -->
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <p class="hero__kicker reveal">Chapter Four · The Mission</p>
+    <h1 class="display reveal">Seven ways to move your freight.</h1>
+    <p class="hero__sub reveal">No mystery, no upsell. Here is exactly what KUL Enterprises hauls, how each service works, and when it&rsquo;s the right call — so a broker can book us in one read.</p>
+    <div class="hero__cta reveal">
+      <a class="pill pill--gold pill--lg" href="../forward/">Request a Freight Quote</a>
+      <a class="pill pill--ghost pill--lg" href="tel:+16789721148">Call Dispatch — 678-972-1148</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= TRUST STRIP ======================= -->
+<aside class="trust" aria-label="Credentials">
+  <div class="trust__in">
+    <div class="trust__item"><span class="trust__dot"></span>USDOT <b>7638788</b></div>
+    <div class="trust__item">MC <b>66389691</b></div>
+    <div class="trust__item">Licensed &amp; Insured</div>
+    <div class="trust__item">Loganville, GA</div>
+    <div class="trust__item">Southeast Primary · Nationwide</div>
+    <div class="trust__item">24/7 Dispatch</div>
+  </div>
+</aside>
+
+<!-- ======================= SERVICES LEDGER ======================= -->
+<section class="section ledger" id="services">
+  <div class="wrap">
+    <div class="ledger__intro reveal">
+      <div class="section__head">
+        <p class="eyebrow">The lineup</p>
+        <h2 class="h2">Every service, explained straight.</h2>
+      </div>
+      <span class="ledger__count">7 services · 1 standard of care</span>
+    </div>
+
+    <article class="svc reveal" id="power-only">
+      <div class="svc__id">01</div>
+      <div class="svc__main">
+        <h3>Power Only</h3>
+        <p>You have the trailer — loaded, pre-staged, or sitting in a pool. We bring the tractor and the driver, hook up, and move it. Drop-and-hook keeps your dock moving and your detention bills down.</p>
+      </div>
+      <div class="svc__meta">
+        <p class="svc__fit"><b>Right call when</b>You run trailer pools or drop programs, or need surge tractor capacity without adding equipment.</p>
+        <a class="linkarrow" href="../forward/">Request Power Only</a>
+      </div>
+    </article>
+
+    <article class="svc reveal" id="dry-van">
+      <div class="svc__id">02</div>
+      <div class="svc__main">
+        <h3>Dry Van</h3>
+        <p>Enclosed van freight — palletized, boxed, or packaged goods sealed against weather and handling from dock to dock. The workhorse of general freight, run with care that isn&rsquo;t general at all.</p>
+      </div>
+      <div class="svc__meta">
+        <p class="svc__fit"><b>Right call when</b>You&rsquo;re moving retail goods, packaged food, materials, or anything that ships on pallets and needs to arrive clean.</p>
+        <a class="linkarrow" href="../forward/">Request Dry Van</a>
+      </div>
+    </article>
+
+    <article class="svc reveal" id="reefer">
+      <div class="svc__id">03</div>
+      <div class="svc__main">
+        <h3>Reefer</h3>
+        <p>Temperature-controlled transport for loads that can&rsquo;t take chances. Set point confirmed at pickup, watched through the run, documented at delivery — the cold chain stays a chain.</p>
+      </div>
+      <div class="svc__meta">
+        <p class="svc__fit"><b>Right call when</b>Produce, chilled or frozen food, or anything temperature-sensitive is riding on the trailer holding its number.</p>
+        <a class="linkarrow" href="../forward/">Request Reefer</a>
+      </div>
+    </article>
+
+    <article class="svc reveal" id="dedicated">
+      <div class="svc__id">04</div>
+      <div class="svc__main">
+        <h3>Dedicated</h3>
+        <p>Your lane, on our calendar, every time. Reserved capacity on a schedule you set — the same carrier, the same standard, the same phone number, week after week.</p>
+      </div>
+      <div class="svc__meta">
+        <p class="svc__fit"><b>Right call when</b>You have recurring volume on a consistent lane and want the reliability of your own fleet without owning one.</p>
+        <a class="linkarrow" href="../forward/">Request Dedicated</a>
+      </div>
+    </article>
+
+    <article class="svc reveal" id="regional">
+      <div class="svc__id">05</div>
+      <div class="svc__main">
+        <h3>Regional</h3>
+        <p>Short- and mid-haul runs across the Southeast — our home ground. Based in Loganville, Georgia, we know these lanes, these docks, and this traffic, and we turn them fast.</p>
+      </div>
+      <div class="svc__meta">
+        <p class="svc__fit"><b>Right call when</b>Your freight moves within Georgia and the surrounding states and same-week turns matter.</p>
+        <a class="linkarrow" href="../forward/">Request Regional</a>
+      </div>
+    </article>
+
+    <article class="svc reveal" id="otr">
+      <div class="svc__id">06</div>
+      <div class="svc__main">
+        <h3>Over-the-Road</h3>
+        <p>Long-haul, nationwide movement planned properly: routes mapped, hours managed, fuel and rest built into the schedule instead of stolen from it. Distance run with discipline.</p>
+      </div>
+      <div class="svc__meta">
+        <p class="svc__fit"><b>Right call when</b>The load crosses regions or the country and you want one accountable carrier the whole way.</p>
+        <a class="linkarrow" href="../forward/">Request OTR</a>
+      </div>
+    </article>
+
+    <article class="svc reveal" id="expedited">
+      <div class="svc__id">07</div>
+      <div class="svc__main">
+        <h3>Expedited</h3>
+        <p>Time-critical freight moved with urgency that never cuts a corner. Tight windows, direct runs, and updates at every leg — because a hot load deserves communication as fast as the truck.</p>
+      </div>
+      <div class="svc__meta">
+        <p class="svc__fit"><b>Right call when</b>A line is down, a date can&rsquo;t slip, or the delivery window is measured in hours, not days.</p>
+        <a class="linkarrow" href="../forward/">Request Expedited</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ======================= COVERAGE ======================= -->
+<section class="section coverage" id="coverage">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <p class="eyebrow">Where we run</p>
+      <h2 class="h2">Southeast first. Nationwide when you need it.</h2>
+    </div>
+    <div class="coverage__grid">
+      <div class="cov reveal">
+        <h3>Primary operations — the Southeast</h3>
+        <p>KUL is based in Loganville, Georgia, minutes from Atlanta&rsquo;s freight corridors. The Southeast is where we live, where we run daily, and where our turns are fastest.</p>
+        <div class="cov__facts">
+          <span>Home base: Loganville, GA</span>
+          <span>Lanes across Georgia and neighboring states</span>
+          <span>Fast regional turns, local knowledge</span>
+        </div>
+      </div>
+      <div class="cov reveal">
+        <h3>Full capability — nationwide</h3>
+        <p>Our interstate authority runs coast to coast. When your freight leaves the region, the same truck, the same driver, and the same standard of care go with it.</p>
+        <div class="cov__facts">
+          <span>Interstate authority: USDOT 7638788 · MC 66389691</span>
+          <span>Over-the-road and expedited, coast to coast</span>
+          <span>One accountable carrier, the whole way</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= CINEMATIC TILE ======================= -->
+<section class="cine reveal" aria-label="On the road">
+  <div class="cine__bg"><img src="/assets/journey/cliffs.jpg" alt="A high mesa over open water along a route KUL has driven" loading="lazy" decoding="async"></div>
+  <div class="cine__inner">
+    <p class="eyebrow">Real miles</p>
+    <h2 class="h2">Every photograph on this site is a road we&rsquo;ve actually driven.</h2>
+    <p>No stock imagery, no borrowed fleets. The trust we ask brokers and shippers for is the trust we&rsquo;re willing to show.</p>
+    <a class="pill pill--onDark pill--ghost pill--lg" href="../journey/">See the journey →</a>
+  </div>
+</section>
+
+<!-- ======================= HOW TO BOOK ======================= -->
+<section class="section book">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <p class="eyebrow">Working with KUL</p>
+      <h2 class="h2">Booking us takes one conversation.</h2>
+    </div>
+    <div class="book__steps">
+      <div class="step reveal">
+        <b>Step 1</b>
+        <h3>Send the lane</h3>
+        <p>Origin, destination, service type, and pickup window — by form, email, or a call to dispatch. Any hour.</p>
+      </div>
+      <div class="step reveal">
+        <b>Step 2</b>
+        <h3>Get a straight answer</h3>
+        <p>A real quote from the person accountable for the run — including an honest no if the load isn&rsquo;t a fit.</p>
+      </div>
+      <div class="step reveal">
+        <b>Step 3</b>
+        <h3>Track it door to door</h3>
+        <p>24/7 dispatch keeps you updated from hook to delivery. You always know where your freight is.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= CTA BAND ======================= -->
+<section class="cta">
+  <div class="cta__in">
+    <h2 class="h2 reveal">Found the service your freight needs?</h2>
+    <p class="reveal">Tell us the lane, the load, and the timeline. You&rsquo;ll hear back from the person whose name is on the authority.</p>
+    <div class="cta__row reveal">
+      <a class="pill pill--dark pill--lg" href="../forward/">Request a Freight Quote</a>
+      <a class="pill pill--line pill--lg" href="../forward/#contact">Contact Dispatch</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ======================= NEXT CHAPTER ======================= -->
+<aside class="nextch">
+  <a href="../responsibility/">
+    <div><span>Next Chapter</span><b>The Responsibility</b></div>
+    <div class="nextch__arrow" aria-hidden="true">→</div>
+  </a>
+</aside>
+
+<!-- ======================= FOOTER ======================= -->
+<footer class="foot">
+  <div class="foot__in">
+    <img class="foot__lockup" src="/assets/brand/logo-vector.png" alt="KUL Enterprises LLC" decoding="async">
+    <div class="foot__cols">
+      <div class="foot__col">
+        <h4>Chapters</h4>
+        <a href="../a/">The Beginning</a><a href="../journey/">The Journey</a>
+        <a href="../story/">Why I Started Driving</a><span aria-current="page"><b>The Mission</b></span>
+        <a href="../responsibility/">The Responsibility</a><a href="../join/">Join the Journey</a>
+        <a href="../forward/">Let&rsquo;s Move Forward</a><a href="../road-ahead/">The Road Ahead</a>
+      </div>
+      <div class="foot__col">
+        <h4>Business</h4>
+        <a href="../mission/">Services</a>
+        <a href="../responsibility/">Safety &amp; Compliance</a>
+        <a href="../join/">Driver Careers</a>
+        <a href="../forward/">Request a Quote</a>
+        <a href="../forward/#contact">Contact</a>
+      </div>
+      <div class="foot__col">
+        <h4>Contact</h4>
+        <p><b>Dispatch</b></p>
+        <a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a>
+        <a href="tel:+16789721148">678-972-1148</a>
+        <p>Loganville, Georgia<br>24/7 Dispatch · Nationwide</p>
+      </div>
+      <div class="foot__col">
+        <h4>Credentials</h4>
+        <p>USDOT <b>7638788</b></p>
+        <p>MC <b>66389691</b></p>
+        <p>Licensed &amp; Insured<br>Interstate Motor Carrier</p>
+      </div>
+    </div>
+    <div class="foot__legal">
+      <span>Copyright © 2026 KUL Enterprises LLC. All rights reserved.</span>
+      <span class="tag">Strength in Motion. Built on Integrity. Driven by Safety.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ======================= MOBILE MENU SHEET ======================= -->
+<div class="msheet" id="msheet" aria-hidden="true">
+  <div class="msheet__top">
+    <a class="brand" href="../a/"><img src="/assets/brand/lion-clean.png" alt="" width="30" height="30"><b>KUL</b><span>Enterprises</span></a>
+    <button class="msheet__x" id="msheetX" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <nav aria-label="Business">
+    <span aria-current="page">Services</span>
+    <a href="../responsibility/" data-close>Safety</a>
+    <a href="../join/" data-close>Careers</a>
+    <a href="../forward/#contact" data-close>Contact</a>
+  </nav>
+  <p class="msheet__label">Chapters</p>
+  <nav aria-label="Chapters">
+    <a href="../a/" data-close>The Beginning</a>
+    <a href="../journey/" data-close>The Journey</a>
+    <a href="../story/" data-close>Why I Started Driving</a>
+    <a href="../responsibility/" data-close>The Responsibility</a>
+    <a href="../join/" data-close>Join the Journey</a>
+    <a href="../forward/" data-close>Let&rsquo;s Move Forward</a>
+    <a href="../road-ahead/" data-close>The Road Ahead</a>
+  </nav>
+  <div class="msheet__foot">
+    <a class="pill pill--gold pill--lg" href="../forward/" data-close>Request a Freight Quote</a>
+    <a class="pill pill--ghost pill--lg" href="../join/" data-close>Become a Driver</a>
+  </div>
+</div>
+
+<!-- ======================= TWEAKS CONTRACT ======================= -->
+<script>
+window.KUL_TWEAKS = {
+  style: 's10',
+  controls: [
+    { var:'--gold',          label:'Gold',           type:'color', value:'#D4AF37' },
+    { var:'--gold-dose',     label:'Gold dosage',    type:'range', value:55, min:20, max:160, step:5 },
+    { var:'--warmth',        label:'Ground tone',    type:'range', value:0,  min:0,  max:100, step:1 },
+    { var:'--type-scale',    label:'Type scale',     type:'range', value:85, min:85, max:120, step:1 },
+    { var:'--section-space', label:'Section rhythm', type:'range', value:65, min:65, max:135, step:1 },
+    { var:'--radius',        label:'Corner radius',  type:'range', value:0,  min:0,  max:36,  step:1 }
+  ]
+};
+</script>
+<script src="../chapter.js" defer></script>
+<script src="/tweaks.js" defer></script>
+</body>
+</html>

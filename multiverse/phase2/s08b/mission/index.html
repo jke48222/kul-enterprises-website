@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Mission - Services | KUL Enterprises</title>
+<meta name="description" content="Seven ways KUL Enterprises moves freight: Power Only, Dry Van, Reefer, Dedicated, Regional, Over-the-Road, and Expedited. Southeast primary operations, nationwide capability.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,16..72,400;0,16..72,500;1,16..72,400;1,16..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============ Style 08b — Particle Calm · Chapter 04 / The Mission ============
+   The services ledger. Information-first: every lane explained in broker
+   language, grouped so seven services read as one coherent offer.
+   Particle treatment: a horizontal freight-lane of gold particles in the hero.
+   Snapshot baked: density 1850 · size 1.3 · ground Steel · scale 1. */
+
+:root{
+  --gold:#D4AF37;
+  --pc-density:1850;
+  --pc-size:1.3;
+  --pc-morph:1;
+  --pc-resolve:0.7;
+  --pc-drift:0.7;
+  --pc-ground:Steel;   /* Steel | Warm */
+  --pc-scale:1;
+
+  --ground:#EDF0F3;
+  --ground-2:#F6F8FA;
+  --ink:#15181C;
+  --ink-soft:#5B626B;
+  --hair:#DCE1E6;
+  --hair-strong:#C9CFD6;
+
+  --gold-deep:#A8791C;
+  --maxw:1200px;
+  --r-tile:16px;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:"Manrope",system-ui,-apple-system,sans-serif;
+  font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  color-scheme:light;
+  overflow-x:hidden;
+}
+h1,h2,h3{margin:0;font-weight:700;line-height:1.05;letter-spacing:-0.02em}
+p{margin:0}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:.55em;
+  font-weight:600;font-size:15px;line-height:1;
+  padding:15px 26px;border-radius:999px;
+  border:1px solid transparent;cursor:pointer;white-space:nowrap;
+  transition:transform .18s cubic-bezier(.16,1,.3,1),background .2s,box-shadow .2s,border-color .2s;
+}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--ink);color:#fff;box-shadow:0 1px 0 rgba(0,0,0,.04)}
+.btn-primary:hover{background:#000}
+.btn-primary .dot{width:22px;height:22px;border-radius:50%;background:var(--gold);display:grid;place-items:center;color:#1a1400;font-size:12px}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--hair-strong)}
+.btn-ghost:hover{border-color:var(--ink);background:rgba(0,0,0,.02)}
+.btn-gold{background:var(--gold);color:#241c00}
+.btn-gold:hover{background:#e0bd45;box-shadow:0 10px 22px -10px rgba(58,44,12,.45)}
+
+/* ---------- Nav ---------- */
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:color-mix(in srgb,var(--ground) 82%,transparent);
+  backdrop-filter:saturate(140%) blur(12px);
+  -webkit-backdrop-filter:saturate(140%) blur(12px);
+  border-bottom:1px solid var(--hair);
+}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:70px}
+.brand{display:flex;align-items:center;gap:11px}
+.brand img{height:34px;width:auto}
+.brand .bt{display:flex;flex-direction:column;line-height:1}
+.brand .bk{font-family:"Newsreader",serif;font-weight:500;font-size:21px;letter-spacing:.01em}
+.brand .be{font-size:9.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-soft);margin-top:3px}
+.nav-links{display:flex;align-items:center;gap:30px}
+.nav-links a.lnk{font-size:14.5px;font-weight:500;color:var(--ink-soft);transition:color .2s;position:relative;padding:4px 0}
+.nav-links a.lnk::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1.5px;background:var(--gold);transition:right .22s cubic-bezier(.16,1,.3,1)}
+.nav-links a.lnk:hover{color:var(--ink)}
+.nav-links a.lnk:hover::after{right:0}
+.nav-links a.lnk[aria-current="page"]{color:var(--ink)}
+.nav-links a.lnk[aria-current="page"]::after{right:0}
+.nav .btn{padding:11px 20px;font-size:14px}
+.nav-toggle{display:none}
+
+/* ---------- Reveal ---------- */
+.rev{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.rev.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rev{opacity:1;transform:none;transition:none}}
+
+/* ---------- Hero: the lane ---------- */
+.hero{position:relative;padding:72px 0 0;overflow:hidden}
+.hero .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.02em;color:var(--gold-deep);margin-bottom:22px}
+.hero .eyebrow .mk{width:14px;height:1.5px;background:var(--gold);display:inline-block}
+.hero h1{font-size:clamp(38px,5.2vw,60px);letter-spacing:-0.03em;max-width:16ch;text-wrap:balance}
+.hero h1 em{font-family:"Newsreader",serif;font-style:italic;font-weight:500;letter-spacing:-0.01em}
+.hero .sub{margin-top:20px;font-size:clamp(16px,1.5vw,18.5px);color:var(--ink-soft);max-width:52ch}
+.hero .cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+.lane{position:relative;height:150px;margin-top:44px}
+.lane canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.lane::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--hair-strong)}
+
+/* ---------- Trust strip ---------- */
+.trust{border-bottom:1px solid var(--hair);background:var(--ground-2)}
+.trust-grid{display:grid;grid-template-columns:repeat(6,1fr)}
+.trust-cell{padding:22px 20px;border-left:1px solid var(--hair)}
+.trust-cell:first-child{border-left:0}
+.trust-cell .k{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+.trust-cell .v{margin-top:7px;font-size:15px;font-weight:600;letter-spacing:-0.01em}
+.trust-cell .v.code{font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:14px}
+
+/* ---------- Ledger ---------- */
+section.blk{padding:96px 0}
+.lead{max-width:640px}
+.lead h2{font-size:clamp(28px,3.6vw,42px);letter-spacing:-0.025em;text-wrap:balance}
+.lead h2 .g{color:var(--gold-deep)}
+.lead p{margin-top:18px;color:var(--ink-soft);font-size:17px;max-width:56ch}
+
+.cluster{margin-top:64px}
+.cluster:first-of-type{margin-top:52px}
+.cluster-head{display:flex;align-items:baseline;gap:16px;margin-bottom:24px}
+.cluster-head h3{font-family:"Newsreader",serif;font-weight:500;font-style:italic;font-size:24px;letter-spacing:-0.01em;line-height:1.15;padding-bottom:2px}
+.cluster-head .rule{flex:1;height:1px;background:var(--hair-strong)}
+.cluster-head .ct{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink-soft)}
+.svc-row{display:grid;gap:1px;background:var(--hair);border:1px solid var(--hair);border-radius:var(--r-tile);overflow:hidden}
+.svc-row.c3{grid-template-columns:repeat(3,1fr)}
+.svc-row.c2{grid-template-columns:repeat(2,1fr)}
+.svc{background:var(--ground-2);padding:28px 26px 32px;position:relative;transition:background .2s}
+.svc:hover{background:#fff}
+.svc.dark{background:var(--ink);color:#EFF1F3}
+.svc.dark:hover{background:#0d0f12}
+.svc.dark p{color:#B9C0C8}
+.svc.dark .fit b{color:var(--gold)}
+.svc.dark .fit{color:#8B929B;border-color:rgba(255,255,255,.14)}
+.svc .idx{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--gold-deep);letter-spacing:.05em}
+.svc.dark .idx{color:var(--gold)}
+.svc h4{margin:14px 0 0;font-size:20px;font-weight:700;letter-spacing:-0.01em}
+.svc p{margin-top:10px;font-size:14.5px;color:var(--ink-soft);line-height:1.55}
+.svc .fit{margin-top:16px;padding-top:14px;border-top:1px solid var(--hair);font-size:13px;color:var(--ink-soft);line-height:1.5}
+.svc .fit b{color:var(--ink);font-weight:600}
+
+/* ---------- Coverage band ---------- */
+.coverage{background:var(--ink);color:#EFF1F3}
+.coverage .wrap{padding-block:104px}
+.coverage .cov-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.coverage h2{font-size:clamp(26px,3.4vw,40px);font-weight:600;letter-spacing:-0.02em;line-height:1.15;text-wrap:balance}
+.coverage h2 em{font-family:"Newsreader",serif;font-style:italic;color:var(--gold)}
+.coverage .b{margin-top:20px;font-size:16px;color:#B9C0C8;max-width:48ch}
+.cov-facts{display:grid;gap:1px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-tile);overflow:hidden}
+.cov-facts div{background:var(--ink);padding:22px 24px}
+.cov-facts .h{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--gold)}
+.cov-facts .t{margin-top:7px;font-size:14.5px;color:#B9C0C8;line-height:1.5}
+
+/* ---------- Booking ---------- */
+.book .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:48px;counter-reset:step}
+.book .step{position:relative;padding-top:20px;border-top:2px solid var(--hair-strong)}
+.book .step::before{counter-increment:step;content:counter(step,decimal-leading-zero);font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold-deep);position:absolute;top:-9px;left:0;background:var(--ground);padding-right:10px}
+.book .step h3{font-size:17px;font-weight:700}
+.book .step p{margin-top:8px;font-size:14.5px;color:var(--ink-soft)}
+
+/* ---------- CTA band ---------- */
+.cta-band{background:linear-gradient(180deg,var(--ground-2),var(--ground));border-top:1px solid var(--hair)}
+.cta-band .wrap{padding-block:100px;text-align:center}
+.cta-band h2{font-size:clamp(30px,4.4vw,54px);letter-spacing:-0.03em;text-wrap:balance}
+.cta-band h2 em{font-family:"Newsreader",serif;font-style:italic;font-weight:500;line-height:1.1;display:inline-block;padding-bottom:.08em}
+.cta-band p{margin:18px auto 0;color:var(--ink-soft);max-width:46ch;font-size:17px}
+.cta-band .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+
+/* ---------- Footer ---------- */
+footer{background:var(--ink);color:#C7CDD4}
+footer .wrap{padding-block:64px 40px}
+.foot-top{display:grid;grid-template-columns:1.35fr 1fr .9fr 1fr;gap:40px}
+.foot-brand img{height:40px;margin-bottom:18px}
+.foot-brand p{margin-top:12px;font-size:13.5px;color:#8B929B;max-width:30ch}
+.foot-col h4{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#8B929B;font-weight:600;margin:0 0 16px}
+.foot-col a,.foot-col .li{display:block;font-size:14.5px;color:#C7CDD4;margin-bottom:11px;transition:color .2s;width:fit-content}
+.foot-col a:hover{color:var(--gold)}
+.chapters a,.chapters .cur{display:flex;align-items:baseline;gap:9px;font-size:13.5px;margin-bottom:10px}
+.chapters .n{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:#6E757E;min-width:16px}
+.chapters a:hover .n{color:var(--gold)}
+.chapters .cur{color:var(--gold);cursor:default}
+.chapters .cur .n{color:var(--gold)}
+.foot-bar{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:52px;padding-top:24px;border-top:1px solid rgba(255,255,255,.1);font-size:12.5px;color:#7C838C}
+.foot-bar .tag{font-style:italic;font-family:"Newsreader",serif}
+
+/* ---------- Responsive ---------- */
+@media (max-width:960px){
+  .trust-grid{grid-template-columns:repeat(3,1fr)}
+  .trust-cell:nth-child(3n+1){border-left:0}
+  .trust-cell:nth-child(n+4){border-top:1px solid var(--hair)}
+  .svc-row.c3{grid-template-columns:1fr 1fr}
+  .coverage .cov-grid{grid-template-columns:1fr;gap:36px}
+  .book .steps{grid-template-columns:1fr;gap:34px}
+  .foot-top{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .wrap{padding:0 18px}
+  section.blk{padding:64px 0}
+  .hero{padding:48px 0 0}
+  .lane{height:110px;margin-top:34px}
+  .nav-links{display:none}
+  .nav-links.open{display:flex;position:absolute;top:70px;left:0;right:0;flex-direction:column;align-items:flex-start;gap:18px;padding:22px 20px;background:var(--ground);border-bottom:1px solid var(--hair)}
+  .nav-links.open .btn{width:100%;justify-content:center}
+  .nav-toggle{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border:1px solid var(--hair-strong);border-radius:11px;background:transparent;cursor:pointer;color:var(--ink)}
+  .trust-grid{grid-template-columns:repeat(2,1fr)}
+  .trust-cell:nth-child(3n+1){border-left:1px solid var(--hair)}
+  .trust-cell:nth-child(2n+1){border-left:0}
+  .trust-cell:nth-child(n+3){border-top:1px solid var(--hair)}
+  .svc-row.c3,.svc-row.c2{grid-template-columns:1fr}
+  .foot-top{grid-template-columns:1fr}
+  .hero .cta .btn,.cta-band .cta .btn{flex:1 1 auto}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="../a/" aria-label="KUL Enterprises home">
+      <img src="/assets/brand/lion-clean.png" alt="KUL Enterprises lion mark">
+      <span class="bt"><span class="bk">KUL</span><span class="be">Enterprises&nbsp;LLC</span></span>
+    </a>
+    <nav class="nav-links" id="navlinks" aria-label="Primary">
+      <a class="lnk" href="./" aria-current="page">Services</a>
+      <a class="lnk" href="../responsibility/">Safety</a>
+      <a class="lnk" href="../journey/">The Journey</a>
+      <a class="lnk" href="../forward/#contact">Contact</a>
+      <a class="btn btn-gold" href="../forward/">Request a Freight Quote</a>
+    </nav>
+    <button class="nav-toggle" id="navtoggle" aria-label="Menu" aria-expanded="false" aria-controls="navlinks">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" aria-labelledby="h1">
+    <div class="wrap">
+      <span class="eyebrow"><span class="mk"></span>The Mission · Chapter 04</span>
+      <h1 id="h1">Seven ways to move freight. <em>One standard.</em></h1>
+      <p class="sub">Everything KUL hauls runs under the same authority, the same insurance, and the same driver accountability. Pick the lane that fits your load; the standard doesn't change.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="../forward/">Request a Freight Quote<span class="dot" aria-hidden="true">→</span></a>
+        <a class="btn btn-ghost" href="tel:16789721148">Call 678-972-1148</a>
+      </div>
+    </div>
+    <div class="lane" aria-hidden="true"><canvas id="pc"></canvas></div>
+  </section>
+
+  <!-- ===== TRUST STRIP ===== -->
+  <section class="trust" aria-label="Credentials">
+    <div class="wrap">
+      <div class="trust-grid">
+        <div class="trust-cell"><div class="k">USDOT</div><div class="v code">7638788</div></div>
+        <div class="trust-cell"><div class="k">MC Number</div><div class="v code">66389691</div></div>
+        <div class="trust-cell"><div class="k">Status</div><div class="v">Licensed &amp; Insured</div></div>
+        <div class="trust-cell"><div class="k">Based in</div><div class="v">Loganville, GA</div></div>
+        <div class="trust-cell"><div class="k">Coverage</div><div class="v">Nationwide</div></div>
+        <div class="trust-cell"><div class="k">Dispatch</div><div class="v">24/7</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SERVICES LEDGER ===== -->
+  <section class="blk" id="services" aria-labelledby="svc-h">
+    <div class="wrap">
+      <div class="lead rev">
+        <h2 id="svc-h">The service ledger, in <span class="g">plain broker language.</span></h2>
+        <p>No lane is a mystery box. Here is what each service means, how it runs, and when it's the right call for your freight.</p>
+      </div>
+
+      <div class="cluster rev">
+        <div class="cluster-head"><h3>The equipment</h3><span class="rule" aria-hidden="true"></span><span class="ct">3 services</span></div>
+        <div class="svc-row c3">
+          <article class="svc">
+            <span class="idx">01</span>
+            <h4>Power Only</h4>
+            <p>You have the loaded trailer; we bring the tractor and the driver. We hook to your equipment, haul it where it needs to go, and drop it clean. No re-handling of your freight.</p>
+            <p class="fit"><b>Good fit when:</b> you run your own trailers or drop lots and need reliable power to keep them moving.</p>
+          </article>
+          <article class="svc dark">
+            <span class="idx">02</span>
+            <h4>Dry Van</h4>
+            <p>Standard enclosed-trailer freight: palletized goods, packaged product, general commodities. Loaded, secured, sealed, and delivered dry and intact, on the schedule we agreed to.</p>
+            <p class="fit"><b>Good fit when:</b> your freight needs weather protection and a clean, no-drama pickup-to-delivery run.</p>
+          </article>
+          <article class="svc">
+            <span class="idx">03</span>
+            <h4>Reefer</h4>
+            <p>Temperature-controlled hauling for loads that spoil, melt, or fail out of range. The set point is confirmed at pickup, held through transit, and documented at delivery.</p>
+            <p class="fit"><b>Good fit when:</b> food or any temp-sensitive product where "close enough" becomes a claim.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="cluster rev">
+        <div class="cluster-head"><h3>The range</h3><span class="rule" aria-hidden="true"></span><span class="ct">2 services</span></div>
+        <div class="svc-row c2">
+          <article class="svc">
+            <span class="idx">04</span>
+            <h4>Regional</h4>
+            <p>Short-haul work across the Southeast, our home ground. Tighter windows, faster turns, and a driver who knows the docks, the traffic, and the shippers on these lanes because he runs them every week.</p>
+            <p class="fit"><b>Good fit when:</b> your freight lives in the Southeast and you want a carrier that treats it as home territory, not a detour.</p>
+          </article>
+          <article class="svc">
+            <span class="idx">05</span>
+            <h4>Over-the-Road</h4>
+            <p>Long-haul, coast-to-coast capacity under full nationwide authority. Trip-planned before the wheels turn, tracked in transit, and communicated at every milestone until the freight is signed for.</p>
+            <p class="fit"><b>Good fit when:</b> the load has to cross the country and you want one accountable carrier the whole way.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="cluster rev">
+        <div class="cluster-head"><h3>The commitment</h3><span class="rule" aria-hidden="true"></span><span class="ct">2 services</span></div>
+        <div class="svc-row c2">
+          <article class="svc dark">
+            <span class="idx">06</span>
+            <h4>Dedicated</h4>
+            <p>A truck committed to your lanes, week after week. Same equipment, same standard, a schedule built around your dock. Your freight stops competing with the spot market for capacity.</p>
+            <p class="fit"><b>Good fit when:</b> you have recurring volume and are tired of re-sourcing the same lane every Monday.</p>
+          </article>
+          <article class="svc">
+            <span class="idx">07</span>
+            <h4>Expedited</h4>
+            <p>Time-critical shipments moved as the priority, not the backfill. Direct runs, honest transit estimates before we commit, and proactive updates until the receiver signs.</p>
+            <p class="fit"><b>Good fit when:</b> the clock is the whole job: line-down parts, contract deadlines, must-arrive dates.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== COVERAGE ===== -->
+  <section class="coverage" aria-labelledby="cov-h">
+    <div class="wrap">
+      <div class="cov-grid">
+        <div class="rev">
+          <h2 id="cov-h">Southeast first. <em>Nationwide</em> when you need it.</h2>
+          <p class="b">KUL is based in Loganville, Georgia, and runs the Southeast as primary territory. The same full operating authority covers the lower 48, so when your freight leaves the region, the carrier doesn't change.</p>
+        </div>
+        <div class="cov-facts rev">
+          <div><div class="h">Primary operations</div><div class="t">The Southeast: Georgia and the surrounding states we run week in, week out.</div></div>
+          <div><div class="h">Full capability</div><div class="t">Nationwide authority for over-the-road and expedited loads, coast to coast.</div></div>
+          <div><div class="h">Home base</div><div class="t">Loganville, GA. Dispatch answers 24/7 wherever the truck is.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BOOKING ===== -->
+  <section class="blk book" aria-labelledby="book-h">
+    <div class="wrap">
+      <div class="lead rev">
+        <h2 id="book-h">Booking a load takes one conversation.</h2>
+        <p>No portals, no ticket queues. You talk to the person responsible for the freight.</p>
+      </div>
+      <div class="steps rev">
+        <div class="step">
+          <h3>Tell us the load</h3>
+          <p>Lane, weight, equipment, and the delivery window. A quote request or a phone call both work.</p>
+        </div>
+        <div class="step">
+          <h3>Get a straight answer</h3>
+          <p>A real rate and a real transit estimate from dispatch. If we can't run it right, we say so.</p>
+        </div>
+        <div class="step">
+          <h3>Freight moves, you hear from us</h3>
+          <p>Confirmed at pickup, updated in transit, closed out at delivery. You're never guessing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA BAND ===== -->
+  <section class="cta-band" aria-labelledby="cta-h">
+    <div class="wrap">
+      <h2 id="cta-h">Got a lane in mind <em>already?</em></h2>
+      <p>Send the details and dispatch will scope it. If it doesn't fit one of the seven, we'll tell you what would.</p>
+      <div class="cta">
+        <a class="btn btn-gold" href="../forward/">Request a Freight Quote</a>
+        <a class="btn btn-ghost" href="../responsibility/">See our safety standard</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <img src="/assets/brand/logo-white-t.png" alt="KUL Enterprises LLC">
+        <p>Strength in Motion. Built on Integrity. Driven by Safety.</p>
+      </div>
+      <nav class="foot-col chapters" aria-label="Chapters">
+        <h4>The Story</h4>
+        <a href="../a/"><span class="n">01</span>The Beginning</a>
+        <a href="../journey/"><span class="n">02</span>The Journey</a>
+        <a href="../story/"><span class="n">03</span>Why I Started Driving</a>
+        <span class="cur" aria-current="page"><span class="n">04</span>The Mission</span>
+        <a href="../responsibility/"><span class="n">05</span>The Responsibility</a>
+        <a href="../join/"><span class="n">06</span>Join the Journey</a>
+        <a href="../forward/"><span class="n">07</span>Let's Move Forward</a>
+        <a href="../road-ahead/"><span class="n">08</span>The Road Ahead</a>
+      </nav>
+      <nav class="foot-col" aria-label="Business">
+        <h4>Business</h4>
+        <a href="./">Services</a>
+        <a href="../responsibility/">Safety</a>
+        <a href="../forward/">Request a Freight Quote</a>
+        <a href="../forward/#contact">Contact</a>
+      </nav>
+      <div class="foot-col">
+        <h4>Dispatch</h4>
+        <a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a>
+        <a href="tel:16789721148">678-972-1148</a>
+        <span class="li">Loganville, Georgia</span>
+        <span class="li">24/7 · Nationwide</span>
+      </div>
+    </div>
+    <div class="foot-bar">
+      <span>USDOT <span class="mono">7638788</span> &nbsp;·&nbsp; MC <span class="mono">66389691</span> &nbsp;·&nbsp; Licensed &amp; Insured</span>
+      <span class="tag">Strength in Motion.</span>
+      <span>© 2026 KUL Enterprises LLC</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ Page behavior ============ -->
+<script>
+(function(){
+  // Mobile nav toggle
+  var t=document.getElementById('navtoggle'),l=document.getElementById('navlinks');
+  if(t){t.addEventListener('click',function(){
+    var open=l.classList.toggle('open');
+    t.setAttribute('aria-expanded',open?'true':'false');
+  });
+  l.addEventListener('click',function(e){if(e.target.closest('a'))l.classList.remove('open');});}
+
+  // Scroll reveal
+  var els=document.querySelectorAll('.rev');
+  if('IntersectionObserver'in window&&!window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+    var io=new IntersectionObserver(function(en){
+      en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+    },{threshold:0.12});
+    els.forEach(function(el){io.observe(el);});
+  }else{
+    els.forEach(function(el){el.classList.add('in');});
+  }
+})();
+</script>
+
+<!-- ============ Particle lane (freight in motion) ============ -->
+<script>
+(function(){
+  var canvas=document.getElementById('pc');if(!canvas)return;
+  var host=canvas.parentElement;
+  var ctx=canvas.getContext('2d',{alpha:true});
+  var root=document.documentElement;
+  var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var lowPower=(navigator.hardwareConcurrency||8)<=4;
+
+  function num(n,d){var v=parseFloat(getComputedStyle(root).getPropertyValue(n));return isNaN(v)?d:v;}
+  function str(n,d){var v=getComputedStyle(root).getPropertyValue(n).trim();return v||d;}
+  var P={density:1850,size:1.3,drift:0.7,scale:1,ground:'Steel',gold:'#D4AF37'};
+  function syncParams(){
+    P.density=num('--pc-density',1850);
+    P.size=num('--pc-size',1.3);
+    P.drift=num('--pc-drift',0.7);
+    P.scale=num('--pc-scale',1);
+    P.ground=str('--pc-ground','Steel').replace(/["']/g,'');
+    P.gold=str('--gold','#D4AF37');
+    applyGround();
+  }
+  function applyGround(){
+    var warm=(P.ground.toLowerCase()==='warm');
+    root.style.setProperty('--ground',warm?'#F1ECE2':'#EDF0F3');
+    root.style.setProperty('--ground-2',warm?'#F8F4EC':'#F6F8FA');
+    root.style.setProperty('--hair',warm?'#E4DCCD':'#DCE1E6');
+    root.style.setProperty('--hair-strong',warm?'#D3C8B4':'#C9CFD6');
+  }
+  function goldRGB(){
+    var h=P.gold.replace('#','');
+    if(h.length===3)h=h[0]+h[0]+h[1]+h[1]+h[2]+h[2];
+    return[parseInt(h.substr(0,2),16),parseInt(h.substr(2,2),16),parseInt(h.substr(4,2),16)];
+  }
+
+  var dpr=Math.min(window.devicePixelRatio||1,2),W=0,H=0;
+  function resize(){
+    var r=host.getBoundingClientRect();W=r.width;H=r.height;
+    if(W<=0||H<=0)return;
+    canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+
+  var parts=[];
+  function build(){
+    var n=Math.round(P.density*0.22*(lowPower?0.55:1));
+    n=Math.max(80,n);
+    parts=new Array(n);
+    for(var i=0;i<n;i++){
+      parts[i]={
+        x:Math.random(),                     // 0..1 across lane
+        y:0.18+Math.random()*0.66,           // vertical band
+        sp:0.35+Math.random()*0.9,           // relative speed
+        ph:Math.random()*Math.PI*2,
+        sz:0.55+Math.random()*0.95,
+        a:0.35+Math.random()*0.5
+      };
+    }
+  }
+
+  function draw(t){
+    if(W<=0)return;
+    ctx.clearRect(0,0,W,H);
+    var g=goldRGB();
+    var speed=0.028*(0.3+P.drift);           // lane flow speed
+    var s=P.scale;
+    for(var i=0;i<parts.length;i++){
+      var p=parts[i];
+      var x=((p.x+t*speed*p.sp)%1)*W;
+      var y=(p.y+Math.sin(t*0.7*p.sp+p.ph)*0.045)*H;
+      var r=P.size*p.sz*s;
+      ctx.beginPath();
+      ctx.arc(x,y,r*2.4,0,6.2832);
+      ctx.fillStyle='rgba('+g[0]+','+g[1]+','+g[2]+','+(p.a*0.10).toFixed(3)+')';
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(x,y,r,0,6.2832);
+      ctx.fillStyle='rgba('+g[0]+','+g[1]+','+g[2]+','+(p.a*0.85).toFixed(3)+')';
+      ctx.fill();
+    }
+  }
+
+  var running=false,rafId=null,start=performance.now();
+  function frame(now){if(!running)return;draw((now-start)/1000);rafId=requestAnimationFrame(frame);}
+  function startLoop(){if(running||reduce)return;running=true;rafId=requestAnimationFrame(frame);}
+  function stopLoop(){running=false;if(rafId)cancelAnimationFrame(rafId);}
+
+  function boot(){
+    syncParams();resize();build();
+    if(reduce){draw(3.7);return;}            // static scatter, no loop
+    if('IntersectionObserver'in window){
+      var io=new IntersectionObserver(function(en){
+        en.forEach(function(e){e.isIntersecting?startLoop():stopLoop();});
+      },{threshold:0.05});
+      io.observe(host);
+    }else{startLoop();}
+  }
+  boot();
+
+  var rt;
+  window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){resize();if(reduce)draw(3.7);},120);});
+  var prevDensity=P.density;
+  var mo=new MutationObserver(function(){
+    syncParams();
+    if(P.density!==prevDensity){prevDensity=P.density;build();}
+    if(reduce)draw(3.7);
+  });
+  mo.observe(root,{attributes:true,attributeFilter:['style']});
+})();
+</script>
+
+<!-- ============ Tweaks contract ============ -->
+<script>
+window.KUL_TWEAKS={
+  style:"s08b",
+  controls:[
+    {var:"--pc-density",label:"Particle density",type:"range",value:1850,min:400,max:2200,step:50},
+    {var:"--pc-size",label:"Particle size",type:"range",value:1.3,min:0.6,max:2.6,step:0.1},
+    {var:"--pc-drift",label:"Drift energy",type:"range",value:0.7,min:0,max:1.6,step:0.05},
+    {var:"--pc-ground",label:"Ground tint",type:"select",value:"Steel",options:["Steel","Warm"]},
+    {var:"--pc-scale",label:"Emblem scale",type:"range",value:1,min:0.7,max:1.4,step:0.05},
+    {var:"--gold",label:"Gold",type:"color",value:"#D4AF37"}
+  ]
+};
+</script>
+<script src="/tweaks.js" defer></script>
+</body>
+</html>

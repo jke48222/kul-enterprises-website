@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Join the Journey · Driver Careers · KUL Enterprises LLC</title>
+<meta name="description" content="Driver careers at KUL Enterprises. We are not hiring yet: we are preparing for fleet growth toward 50 tractors by end of 2029, and opportunities will be announced as tractors are added.">
+<meta name="theme-color" content="#0C0B09">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..800;1,62..125,400..800&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/assets/journey/tree.jpg" fetchpriority="high">
+
+<style>
+/* ============================================================
+   KUL Enterprises · phase2/s01b · Chapter: JOIN THE JOURNEY
+   Driver careers. The warmest chapter: golden-hour tree,
+   future-facing and honest. Not hiring yet, and we say so.
+   Cinematic Noir snapshot bake: full noir, full gold dose,
+   golden-hour grade, 4px glass, warmth 100%.
+
+   z-index scale: 1 content · 2 hero copy · 60 grain · 90 menu
+   · 100 nav. Radius: pills interactive, 28px hero frame,
+   20px glass, 14px photos.
+   ============================================================ */
+
+:root {
+  --gold: #D4AF37;
+  --gold-dose: 100%;
+  --warmth: 100%;
+  --glass-blur: 4px;
+  --noir: 100%;
+  --hero-grade: golden-hour;
+  --statement-face: grotesk;
+
+  --coal: #0C0B09;
+  --char: #1E1B17;
+  --bone: #F3EEE3;
+  --bone-mut: #C7BFAF;
+  --line-dark: rgb(243 238 227 / .14);
+
+  --mid-bg:   color-mix(in oklab, #16130F var(--noir), #F5F2EB);
+  --mid-bg-2: color-mix(in oklab, #1B1712 var(--noir), #EFEBE1);
+  --mid-ink:  color-mix(in oklab, #F1ECE1 var(--noir), #1C1811);
+  --mid-mut:  color-mix(in oklab, #B3AB9B var(--noir), #625C50);
+  --mid-line: color-mix(in oklab, rgb(241 236 225 / .17) var(--noir), rgb(28 24 17 / .15));
+
+  --accent-ink: color-mix(in oklab, var(--gold) 58%, var(--mid-ink));
+  --gold-soft: color-mix(in oklab, var(--gold) var(--gold-dose), transparent);
+
+  --f-g: 'Archivo', ui-sans-serif, system-ui, 'Helvetica Neue', sans-serif;
+  --wrap: min(1180px, 100% - clamp(36px, 7vw, 112px));
+  --r-frame: 28px;
+  --r-glass: 20px;
+  --r-photo: 14px;
+  --nav-h: 64px;
+  --ease: cubic-bezier(.16, 1, .3, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--nav-h) + 28px); }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body {
+  margin: 0;
+  background: var(--mid-bg);
+  color: var(--mid-ink);
+  font-family: var(--f-g);
+  font-size: 1rem;
+  line-height: 1.6;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+ul, ol { margin: 0; padding: 0; }
+h1, h2, h3, p, figure, dl, dd { margin: 0; }
+
+body::after {
+  content: "";
+  position: fixed; inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: .045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-size: 180px;
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  clip-path: inset(50%); overflow: hidden; white-space: nowrap;
+}
+.skip-link {
+  position: fixed; top: 12px; left: 12px; z-index: 200;
+  padding: 10px 18px; border-radius: 999px;
+  background: var(--coal); color: var(--bone);
+  font-size: .82rem; text-decoration: none;
+  translate: 0 -64px; opacity: 0;
+}
+.skip-link:focus-visible { translate: 0 0; opacity: 1; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+
+.wrap { width: var(--wrap); margin-inline: auto; }
+.glow { position: absolute; inset: 0; pointer-events: none; opacity: var(--warmth); }
+
+/* ============================ NAV ============================ */
+.nav {
+  position: fixed;
+  top: clamp(10px, 1.6vw, 18px);
+  left: 50%; translate: -50% 0;
+  z-index: 100;
+  width: min(1240px, 100% - clamp(16px, 3vw, 40px));
+}
+.nav-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 18px;
+  height: var(--nav-h);
+  padding-inline: clamp(16px, 2.4vw, 26px);
+  border-radius: 999px;
+  background: rgb(12 11 9 / .58);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  backdrop-filter: blur(14px) saturate(1.2);
+  border: 1px solid rgb(243 238 227 / .1);
+  box-shadow: inset 0 1px 0 rgb(255 250 240 / .07);
+  transition: background .35s var(--ease), box-shadow .35s var(--ease);
+}
+.nav.scrolled .nav-bar {
+  background: rgb(12 11 9 / .86);
+  box-shadow: inset 0 1px 0 rgb(255 250 240 / .07), 0 18px 44px rgb(8 6 3 / .38);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .nav-bar { background: rgb(12 11 9 / .94); }
+}
+.lockup {
+  display: inline-flex; align-items: baseline; gap: 10px;
+  text-decoration: none; color: var(--bone);
+  white-space: nowrap;
+}
+.lockup-lion { align-self: center; height: 30px; width: auto; margin-right: 2px; }
+.lockup-kul { font-weight: 780; font-stretch: 118%; font-size: 1.28rem; letter-spacing: .05em; line-height: 1; }
+.lockup-rule { width: 20px; height: 2px; align-self: center; background: var(--gold); border-radius: 999px; }
+.lockup-rest {
+  font-size: .66rem; font-weight: 600;
+  letter-spacing: .3em; text-transform: uppercase;
+  color: var(--bone-mut);
+}
+.lockup-rest i { font-style: normal; margin-left: .55em; color: var(--gold-soft); }
+
+.nav-links { display: flex; align-items: center; gap: clamp(18px, 2.6vw, 34px); }
+.nav-links > a:not(.btn) {
+  font-size: .88rem; font-weight: 520; letter-spacing: .01em;
+  color: var(--bone-mut); text-decoration: none;
+  transition: color .25s var(--ease);
+}
+.nav-links > a:not(.btn):hover { color: var(--bone); }
+.nav-links > a[aria-current="page"] { color: var(--gold); }
+.nav-toggle {
+  display: none;
+  border: 1px solid rgb(243 238 227 / .22);
+  background: none; color: var(--bone);
+  font: 600 .78rem/1 var(--f-g); letter-spacing: .14em; text-transform: uppercase;
+  padding: 10px 16px; border-radius: 999px; cursor: pointer;
+}
+
+/* ============================ BUTTONS ============================ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+  border-radius: 999px;
+  font-family: var(--f-g);
+  font-weight: 640; font-size: .92rem; letter-spacing: .01em;
+  text-decoration: none; white-space: nowrap;
+  cursor: pointer;
+  transition: translate .25s var(--ease), box-shadow .25s var(--ease),
+              background-color .25s var(--ease), border-color .25s var(--ease);
+}
+.btn:hover { translate: 0 -1px; }
+.btn:active { translate: 0 0; scale: .98; }
+.btn-gold {
+  background: var(--gold);
+  color: #17140C;
+  padding: 14px 26px;
+  box-shadow: 0 12px 30px rgb(10 8 4 / .32);
+  border: 0;
+}
+.btn-gold:hover { box-shadow: 0 16px 38px rgb(10 8 4 / .4); }
+.btn-nav { padding: 11px 20px; font-size: .84rem; box-shadow: none; }
+
+/* ============================ HERO: under the guango tree ============================ */
+.hero { padding: clamp(8px, 1.2vw, 16px); }
+.hero-frame {
+  position: relative;
+  border-radius: var(--r-frame);
+  overflow: hidden;
+  min-height: max(540px, min(88dvh, 860px));
+  display: flex; align-items: flex-end;
+  background: var(--char);
+  isolation: isolate;
+}
+.hero-media { position: absolute; inset: 0; z-index: 0; }
+.hero-photo {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: 50% 58%;
+  filter: sepia(.42) saturate(.78) brightness(.7) contrast(1.08);
+}
+@container style(--hero-grade: night) {
+  .hero-photo { filter: sepia(.2) saturate(.52) brightness(.4) contrast(1.22); }
+}
+@container style(--hero-grade: golden-hour) {
+  .hero-photo { filter: sepia(.52) saturate(1.02) brightness(.84) contrast(1.03); }
+}
+.hero-scrim {
+  position: absolute; inset: 0; z-index: 1;
+  background:
+    linear-gradient(16deg, rgb(9 8 5 / .92) 0%, rgb(9 8 5 / .5) 40%, rgb(9 8 5 / 0) 68%),
+    linear-gradient(180deg, rgb(9 8 5 / .5) 0%, rgb(9 8 5 / 0) 30%);
+}
+.hero-glow {
+  z-index: 1;
+  background:
+    radial-gradient(58% 46% at 80% 6%, color-mix(in oklab, var(--gold) 28%, transparent), transparent 70%),
+    radial-gradient(42% 34% at 10% 96%, color-mix(in oklab, var(--gold) 15%, transparent), transparent 72%);
+  mix-blend-mode: soft-light;
+}
+.hero-copy {
+  position: relative; z-index: 2;
+  width: var(--wrap); margin-inline: auto;
+  padding-block: clamp(30px, 5.5vh, 60px);
+  max-width: 100%;
+}
+.hero-kicker {
+  font-size: .7rem; font-weight: 640;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--gold);
+}
+.hero h1 {
+  margin-top: 14px;
+  color: var(--bone);
+  font-size: clamp(2.35rem, 5.8vw, 4.5rem);
+  font-weight: 580; font-stretch: 106%;
+  letter-spacing: -.021em; line-height: 1.02;
+  max-width: 16ch;
+  text-wrap: balance;
+}
+.hero-sub {
+  margin-top: clamp(14px, 2.2vh, 22px);
+  max-width: 46ch;
+  color: rgb(243 238 227 / .84);
+  font-size: clamp(.98rem, 1.35vw, 1.1rem);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+.hero-ctas { margin-top: clamp(20px, 3.2vh, 32px); }
+
+/* ============================ HONEST STATUS ============================ */
+.status { padding-block: clamp(90px, 11vw, 150px); border-bottom: 1px solid var(--mid-line); }
+.status-inner {
+  width: var(--wrap); margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: clamp(36px, 6vw, 90px);
+  align-items: start;
+}
+.status h2 {
+  font-size: clamp(1.9rem, 4.1vw, 3.1rem);
+  font-weight: 590; font-stretch: 106%;
+  letter-spacing: -.018em; line-height: 1.06;
+  max-width: 16ch;
+  text-wrap: balance;
+}
+.status h2 em { font-style: normal; color: var(--accent-ink); }
+.status-copy p {
+  margin-top: 18px;
+  max-width: 50ch;
+  color: var(--mid-mut);
+  font-size: 1.02rem;
+  line-height: 1.65;
+}
+.status-copy strong { color: var(--mid-ink); font-weight: 630; }
+.growth {
+  border-top: 2px solid var(--gold-soft);
+  padding-top: 24px;
+}
+.growth-nums {
+  display: flex; align-items: baseline; gap: clamp(12px, 2vw, 22px);
+  line-height: .85;
+  font-weight: 780; font-stretch: 122%;
+  font-size: clamp(4.6rem, 10vw, 8.5rem);
+  letter-spacing: -.01em;
+  user-select: none;
+}
+.g-ghost {
+  color: transparent;
+  -webkit-text-stroke: 2px color-mix(in oklab, var(--accent-ink) 62%, transparent);
+}
+.g-arrow { font-size: .26em; font-weight: 600; color: var(--accent-ink); translate: 0 -1em; }
+.g-solid { color: var(--mid-ink); }
+.growth-line { margin-top: 20px; color: var(--mid-mut); font-size: .98rem; max-width: 36ch; }
+.growth-line strong { color: var(--mid-ink); font-weight: 640; }
+
+/* ============================ WHAT DRIVING HERE MEANS ============================ */
+.means { background: var(--mid-bg-2); padding-block: clamp(90px, 11vw, 150px); border-bottom: 1px solid var(--mid-line); }
+.means-inner { width: var(--wrap); margin-inline: auto; }
+.means h2 {
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  font-weight: 590; font-stretch: 106%;
+  letter-spacing: -.018em; line-height: 1.06;
+  max-width: 20ch;
+  text-wrap: balance;
+}
+.means-lead { margin-top: 16px; max-width: 54ch; color: var(--mid-mut); font-size: 1rem; }
+.means-grid {
+  margin-top: clamp(36px, 5vw, 56px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(24px, 4vw, 56px) clamp(28px, 5vw, 72px);
+}
+.mean h3 {
+  font-size: 1.2rem; font-weight: 640; letter-spacing: -.008em;
+  color: var(--mid-ink);
+}
+.mean h3::after {
+  content: "";
+  display: block;
+  width: 26px; height: 2px;
+  margin-top: 12px;
+  border-radius: 999px;
+  background: var(--gold-soft);
+}
+.mean p { margin-top: 12px; color: var(--mid-mut); font-size: .98rem; line-height: 1.6; max-width: 44ch; }
+
+/* ============================ NOTIFY ============================ */
+.notify {
+  position: relative;
+  background: linear-gradient(180deg, #141110 0%, var(--coal) 100%);
+  color: var(--bone);
+  padding-block: clamp(90px, 12vw, 160px);
+  overflow: clip;
+  isolation: isolate;
+}
+.notify-glow {
+  background:
+    radial-gradient(56% 52% at 14% 0%, color-mix(in oklab, var(--gold) 18%, transparent), transparent 70%),
+    radial-gradient(40% 40% at 92% 100%, color-mix(in oklab, var(--gold) 10%, transparent), transparent 72%);
+}
+.notify-inner {
+  position: relative; z-index: 1;
+  width: var(--wrap); margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: clamp(40px, 6vw, 90px);
+  align-items: center;
+}
+.notify h2 {
+  font-size: clamp(2rem, 4.4vw, 3.4rem);
+  font-weight: 590; font-stretch: 106%;
+  letter-spacing: -.02em; line-height: 1.05;
+  text-wrap: balance;
+}
+.notify-copy > p {
+  margin-top: 16px;
+  max-width: 44ch;
+  color: var(--bone-mut);
+  font-size: 1.02rem;
+}
+.notify-card {
+  border-radius: var(--r-glass);
+  padding: clamp(26px, 3vw, 36px);
+  background: rgb(21 18 14 / .48);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.25);
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.25);
+  border: 1px solid rgb(243 238 227 / .13);
+  box-shadow: inset 0 1px 0 rgb(255 250 240 / .08), 0 24px 60px rgb(5 4 2 / .4);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .notify-card { background: rgb(18 16 12 / .93); }
+}
+.notify-card h3 { font-size: 1.16rem; font-weight: 640; letter-spacing: -.008em; }
+.notify-card > p { margin-top: 8px; color: var(--bone-mut); font-size: .93rem; max-width: 40ch; }
+.field { margin-top: 20px; display: grid; gap: 8px; }
+.field label {
+  font-size: .72rem; font-weight: 640;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--bone-mut);
+}
+.field input {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 999px;
+  border: 1px solid rgb(243 238 227 / .24);
+  background: rgb(12 11 9 / .5);
+  color: var(--bone);
+  font: 500 .98rem/1.4 var(--f-g);
+}
+.field input::placeholder { color: rgb(199 191 175 / .62); }
+.field input:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.notify-card .btn { margin-top: 18px; width: 100%; }
+.notify-note {
+  margin-top: 14px;
+  font-size: .82rem;
+  color: rgb(199 191 175 / .75);
+}
+.notify-done {
+  margin-top: 18px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: 1px solid color-mix(in oklab, var(--gold) 45%, transparent);
+  color: var(--gold);
+  font-size: .92rem;
+  display: none;
+}
+.notify-done.show { display: block; }
+
+/* ============================ CHAPTER INDEX + FOOTER ============================ */
+.chapters { padding-block: clamp(56px, 7vw, 88px) clamp(40px, 5vw, 60px); }
+.chapters-h {
+  width: var(--wrap); margin-inline: auto;
+  font-size: .7rem; font-weight: 640;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: rgb(243 238 227 / .5);
+}
+.chapter-list {
+  width: var(--wrap); margin-inline: auto;
+  list-style: none;
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px 28px;
+}
+.chapter-list a, .chapter-list .here {
+  display: block;
+  padding: 12px 0;
+  font-size: .95rem; font-weight: 540;
+  color: var(--bone-mut);
+  text-decoration: none;
+  border-top: 1px solid rgb(243 238 227 / .1);
+  transition: color .25s var(--ease);
+}
+.chapter-list a:hover { color: var(--gold); }
+.chapter-list .here {
+  color: var(--gold);
+  border-top-color: color-mix(in oklab, var(--gold) 55%, transparent);
+}
+.footer {
+  position: relative;
+  background: var(--coal);
+  color: var(--bone-mut);
+  overflow: clip;
+  isolation: isolate;
+  border-top: 1px solid rgb(243 238 227 / .07);
+}
+.footer-glow {
+  z-index: 0;
+  background: radial-gradient(46% 32% at 50% 108%, color-mix(in oklab, var(--gold) 12%, transparent), transparent 70%);
+}
+.foot-grid {
+  position: relative; z-index: 1;
+  width: var(--wrap); margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 3fr) minmax(0, 4fr);
+  gap: clamp(36px, 5vw, 72px);
+  padding-block: clamp(40px, 6vw, 64px);
+  border-top: 1px solid rgb(243 238 227 / .09);
+}
+.foot-lockup { height: clamp(78px, 10vw, 104px); width: auto; }
+.foot-tag { margin-top: 16px; max-width: 30ch; font-size: .95rem; line-height: 1.6; }
+.foot-tag strong { color: var(--bone); font-weight: 600; }
+.foot-h {
+  font-size: .68rem; font-weight: 640;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: rgb(243 238 227 / .5);
+  margin-bottom: 16px;
+}
+.foot-nav ul { list-style: none; display: grid; gap: 10px; }
+.foot-nav a, .foot-contact a {
+  color: var(--bone-mut); text-decoration: none;
+  font-size: .95rem;
+  transition: color .25s var(--ease);
+}
+.foot-nav a:hover, .foot-contact a:hover { color: var(--gold); }
+.foot-contact address { font-style: normal; display: grid; gap: 10px; }
+.foot-contact .big { font-size: 1.16rem; font-weight: 580; color: var(--bone); }
+.foot-legal { position: relative; z-index: 1; border-top: 1px solid rgb(243 238 227 / .09); }
+.foot-legal .wrap {
+  display: flex; flex-wrap: wrap; gap: 10px 28px;
+  justify-content: space-between;
+  padding-block: 20px;
+  font-size: .78rem;
+  color: rgb(243 238 227 / .45);
+}
+.foot-legal .regs { display: flex; gap: 24px; }
+
+/* ============================ REVEALS & MOTION ============================ */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .reveal {
+    opacity: 0;
+    translate: 0 26px;
+    transition: opacity .8s var(--ease), translate .8s var(--ease);
+    transition-delay: calc(var(--i, 0) * 90ms);
+  }
+  html.js .reveal.in { opacity: 1; translate: 0 0; }
+  .hero-kicker, .hero h1, .hero-sub, .hero-ctas { animation: rise .95s var(--ease) both; }
+  .hero h1 { animation-delay: .08s; }
+  .hero-sub { animation-delay: .18s; }
+  .hero-ctas { animation-delay: .28s; }
+  .hero-photo { animation: settle 1.9s var(--ease) both; }
+  @keyframes rise { from { opacity: 0; translate: 0 30px; } to { opacity: 1; translate: 0 0; } }
+  @keyframes settle { from { scale: 1.07; } to { scale: 1; } }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn:hover, .btn:active { translate: 0 0; scale: 1; }
+}
+
+/* ============================ RESPONSIVE ============================ */
+@media (max-width: 980px) {
+  .status-inner, .notify-inner { grid-template-columns: 1fr; }
+  .means-grid { grid-template-columns: 1fr; gap: 32px; }
+  .chapter-list { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 920px) {
+  .nav-toggle { display: inline-flex; }
+  .nav-links {
+    position: absolute;
+    top: calc(var(--nav-h) + 10px); right: 0;
+    z-index: 90;
+    flex-direction: column; align-items: stretch;
+    gap: 4px;
+    min-width: 240px;
+    padding: 14px;
+    border-radius: 22px;
+    background: rgb(12 11 9 / .96);
+    border: 1px solid rgb(243 238 227 / .12);
+    box-shadow: 0 30px 70px rgb(5 4 2 / .5);
+    display: none;
+  }
+  .nav.open .nav-links { display: flex; }
+  .nav-links > a:not(.btn) { padding: 12px 14px; font-size: 1rem; }
+  .btn-nav { margin-top: 8px; justify-content: center; }
+  .foot-grid { grid-template-columns: 1fr 1fr; }
+  .foot-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 700px) {
+  .hero-frame { min-height: max(500px, min(86dvh, 720px)); }
+  .chapter-list { grid-template-columns: 1fr; }
+  .foot-grid { grid-template-columns: 1fr; }
+  .foot-legal .wrap { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav" id="siteNav">
+  <nav class="nav-bar" aria-label="Primary">
+    <a class="lockup" href="../a/" aria-label="KUL Enterprises LLC, home">
+      <img class="lockup-lion" src="/assets/brand/lion-clean.png" width="900" height="900" alt="KUL Enterprises" decoding="async">
+      <span class="lockup-kul">KUL</span>
+      <span class="lockup-rule" aria-hidden="true"></span>
+      <span class="lockup-rest">Enterprises<i>LLC</i></span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
+    <div class="nav-links" id="navLinks">
+      <a href="../mission/">Services</a>
+      <a href="../responsibility/">Safety</a>
+      <a href="../forward/#contact">Contact</a>
+      <a class="btn btn-gold btn-nav" href="../forward/">Request a Quote</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" aria-label="Join the Journey">
+    <div class="hero-frame">
+      <div class="hero-media">
+        <img class="hero-photo" src="/assets/journey/tree.jpg" width="2200" height="1650"
+             alt="A wide guango tree standing over open green land in warm light"
+             fetchpriority="high" decoding="async">
+        <div class="hero-scrim" aria-hidden="true"></div>
+        <div class="glow hero-glow" aria-hidden="true"></div>
+      </div>
+      <div class="hero-copy">
+        <p class="hero-kicker">Chapter · Join the Journey</p>
+        <h1>The seats aren't built yet. The standard is.</h1>
+        <p class="hero-sub">We're a one-truck carrier preparing for real fleet growth. When the next tractors are added, drivers will be the first to know.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-gold" href="#notify">Get notified first</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HONEST STATUS ============ -->
+  <section class="status" aria-labelledby="statusH">
+    <div class="status-inner">
+      <div class="status-copy reveal">
+        <h2 id="statusH">The honest version: <em>we're not hiring yet.</em></h2>
+        <p><strong>Today, KUL Enterprises is one truck, run by its founder.</strong> We would rather tell you that plainly than post a job that doesn't exist. What we're doing now is laying the ground that future drivers will stand on: the lanes, the standards, and the reputation.</p>
+        <p>Growth is planned, not hoped for. As tractors are added, driving opportunities will be announced here and to everyone on the notify list. Every seat added will be a seat worth having.</p>
+      </div>
+      <div class="growth reveal" style="--i:1">
+        <div class="growth-nums" aria-hidden="true">
+          <span class="g-ghost">1</span><span class="g-arrow">&rarr;</span><span class="g-solid">50</span>
+        </div>
+        <p class="growth-line"><strong>One truck today, fifty tractors by the end of 2029.</strong> That's the plan in writing, and it's the same one we show our customers.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHAT DRIVING HERE WILL MEAN ============ -->
+  <section class="means" aria-labelledby="meansH">
+    <div class="means-inner">
+      <h2 id="meansH" class="reveal">What driving for KUL will mean.</h2>
+      <p class="means-lead reveal" style="--i:1">No invented pay tables, no promises we can't sign yet. Just the standards this company already runs on, which every future driver inherits.</p>
+      <div class="means-grid">
+        <div class="mean reveal">
+          <h3>Hours respected, not squeezed</h3>
+          <p>The founder drives by legal, honest hours of service. Nobody who joins will ever be pushed to run tired: the schedule is built around rest, not against it.</p>
+        </div>
+        <div class="mean reveal" style="--i:1">
+          <h3>Equipment that's cared for</h3>
+          <p>Maintenance is done before it's due, not after something fails. You'll drive a truck that gets the same attention we ask you to give the freight.</p>
+        </div>
+        <div class="mean reveal" style="--i:2">
+          <h3>Straight talk, both ways</h3>
+          <p>Dispatch answers, tells the truth, and backs its drivers. The same 24/7 communication our customers get is the culture inside the company too.</p>
+        </div>
+        <div class="mean reveal" style="--i:3">
+          <h3>Growth you can see</h3>
+          <p>Joining early in a fleet that's building toward fifty tractors means growing with it. The plan is public, and so is the progress.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NOTIFY ============ -->
+  <section class="notify" id="notify" aria-labelledby="notifyH">
+    <div class="glow notify-glow" aria-hidden="true"></div>
+    <div class="notify-inner">
+      <div class="notify-copy reveal">
+        <h2 id="notifyH">Be first in line when the fleet grows.</h2>
+        <p>Leave your email and we'll reach out when driving opportunities open. No spam, no recruiting funnel. Just a note from a small company that keeps its word.</p>
+      </div>
+      <form class="notify-card reveal" style="--i:1" id="notifyForm" novalidate>
+        <h3>Driver notify list</h3>
+        <p>One email when opportunities are announced. That's the whole deal.</p>
+        <div class="field">
+          <label for="notifyEmail">Email address</label>
+          <input type="email" id="notifyEmail" name="email" autocomplete="email" placeholder="you@example.com" required>
+        </div>
+        <button class="btn btn-gold" type="submit">Notify me</button>
+        <p class="notify-note">This form is a preview. Until it's wired up, you can also email <a href="mailto:dispatch@kulenterprises.com?subject=Driver%20notify%20list">dispatch@kulenterprises.com</a> with the subject "Driver notify list".</p>
+        <p class="notify-done" id="notifyDone" role="status">Noted. While this preview form isn't connected yet, email <a href="mailto:dispatch@kulenterprises.com?subject=Driver%20notify%20list">dispatch@kulenterprises.com</a> and we'll add you personally.</p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ CHAPTERS + FOOTER ============ -->
+<footer class="footer">
+  <div class="glow footer-glow" aria-hidden="true"></div>
+
+  <nav class="chapters" aria-label="Chapters">
+    <h2 class="chapters-h">The story, in chapters</h2>
+    <ol class="chapter-list">
+      <li><a href="../a/">The Beginning</a></li>
+      <li><a href="../journey/">The Journey</a></li>
+      <li><a href="../story/">Why I Started Driving</a></li>
+      <li><a href="../mission/">The Mission</a></li>
+      <li><a href="../responsibility/">The Responsibility</a></li>
+      <li><span class="here" aria-current="page">Join the Journey</span></li>
+      <li><a href="../forward/">Let's Move Forward</a></li>
+      <li><a href="../road-ahead/">The Road Ahead</a></li>
+    </ol>
+  </nav>
+
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <img class="foot-lockup" src="/assets/brand/logo-gold-t.png" width="1000" height="666" alt="KUL Enterprises" loading="lazy" decoding="async">
+      <p class="foot-tag"><strong>Strength in Motion. Built on Integrity. Driven by Safety.</strong> A Georgia carrier moving freight nationwide.</p>
+    </div>
+    <nav class="foot-nav" aria-label="Business">
+      <h3 class="foot-h">Business</h3>
+      <ul>
+        <li><a href="../mission/">Services</a></li>
+        <li><a href="../responsibility/">Safety</a></li>
+        <li><a href="../forward/">Request a Quote</a></li>
+        <li><a href="../forward/#contact">Contact</a></li>
+        <li><a href="./" aria-current="page">Driver careers</a></li>
+      </ul>
+    </nav>
+    <div class="foot-contact">
+      <h3 class="foot-h">Dispatch</h3>
+      <address>
+        <a class="big" href="tel:+16789721148">678-972-1148</a>
+        <a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a>
+        <span>Loganville, Georgia</span>
+      </address>
+    </div>
+  </div>
+
+  <div class="foot-legal">
+    <div class="wrap">
+      <span>&copy; 2026 KUL Enterprises LLC. All rights reserved.</span>
+      <span class="regs"><span>USDOT 7638788</span><span>MC 66389691</span></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  document.documentElement.classList.add('js');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* nav thickens after the hero */
+  var nav = document.getElementById('siteNav');
+  var hero = document.querySelector('.hero-frame');
+  if (nav && hero && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      nav.classList.toggle('scrolled', !entries[0].isIntersecting);
+    }, { rootMargin: '-72px 0px 0px 0px', threshold: 0 }).observe(hero);
+  }
+
+  /* mobile menu */
+  var toggle = document.getElementById('navToggle');
+  if (toggle && nav) {
+    var setOpen = function (open) {
+      nav.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.textContent = open ? 'Close' : 'Menu';
+    };
+    toggle.addEventListener('click', function () { setOpen(!nav.classList.contains('open')); });
+    nav.addEventListener('click', function (e) { if (e.target.closest('.nav-links a')) setOpen(false); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && nav.classList.contains('open')) { setOpen(false); toggle.focus(); }
+    });
+    document.addEventListener('click', function (e) {
+      if (nav.classList.contains('open') && !nav.contains(e.target)) setOpen(false);
+    });
+  }
+
+  /* scroll reveals */
+  var revealEls = [].slice.call(document.querySelectorAll('.reveal'));
+  if (reduceMotion.matches || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var ro = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { entry.target.classList.add('in'); ro.unobserve(entry.target); }
+      });
+    }, { threshold: 0.18, rootMargin: '0px 0px -6% 0px' });
+    revealEls.forEach(function (el) { ro.observe(el); });
+  }
+
+  /* notify stub: no backend, so acknowledge honestly */
+  var form = document.getElementById('notifyForm');
+  var done = document.getElementById('notifyDone');
+  if (form && done) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      done.classList.add('show');
+    });
+  }
+})();
+</script>
+
+<!-- Tweaks contract: baked snapshot defaults exposed to the shared panel -->
+<script>
+  window.KUL_TWEAKS = {
+    style: 's01b',
+    controls: [
+      { var: '--gold',       label: 'Champagne gold',      type: 'color',  value: '#D4AF37' },
+      { var: '--gold-dose',  label: 'Gold dosage',         type: 'range',  value: 100, min: 10, max: 100, step: 5, unit: '%' },
+      { var: '--warmth',     label: 'Gradient warmth',     type: 'range',  value: 100, min: 0,  max: 100, step: 2, unit: '%' },
+      { var: '--glass-blur', label: 'Glass blur',          type: 'range',  value: 4,   min: 2,  max: 36,  step: 1, unit: 'px' },
+      { var: '--noir',       label: 'Middle ground: noir', type: 'range',  value: 100, min: 0,  max: 100, step: 100, unit: '%' },
+      { var: '--hero-grade', label: 'Hero grade',          type: 'select', value: 'golden-hour', options: ['dusk', 'night', 'golden-hour'] }
+    ]
+  };
+</script>
+<script src="/tweaks.js" defer></script>
+</body>
+</html>

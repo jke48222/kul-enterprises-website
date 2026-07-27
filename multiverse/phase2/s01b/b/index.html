@@ -1,0 +1,1501 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KUL Enterprises LLC · The Beginning</title>
+<meta name="description" content="Owner-operated trucking out of Loganville, Georgia. Dry van, reefer, power only and expedited freight moved nationwide with composure. USDOT 7638788.">
+<meta name="theme-color" content="#0C0B09">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..800;1,62..125,400..800&family=Cormorant+Garamond:ital,wght@1,400..600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/assets/journey/desert.jpg" fetchpriority="high">
+
+<style>
+/* ============================================================
+   KUL Enterprises · phase2 · s01b/b · Cinematic Noir, PUSHED
+   Axis B: the same locked snapshot tokens, braver composition.
+   Full-bleed golden-hour cinema hero, a deeper floating
+   statement cluster, and one new signature moment: THE CLIMB,
+   a scroll-linked fleet numeral that fills with gold from
+   one truck to fifty.
+
+   Locked snapshot (client decisions, baked as defaults):
+   gold-dose 100 · warmth 100 · glass-blur 4px · noir 100
+   hero-grade golden-hour · statement-face grotesk
+
+   Aesthetic honesty: glass panels are a web glassmorphism
+   approximation (backdrop-filter + layered borders), not any
+   platform material. All motion is scroll-LINKED or entry-only;
+   native scroll is never hijacked.
+
+   z-index scale: 1 content · 2 hero copy · 60 grain · 90 menu
+   sheet + chapter sheet · 100 nav. (Tweaks panel ships its own.)
+   Radius system: pills for interactive, 20px glass panels,
+   14px photos. Nothing else.
+   ============================================================ */
+
+:root {
+  /* ---- tweakable decisions (mirrored in window.KUL_TWEAKS) ---- */
+  --gold: #D4AF37;          /* champagne accent, the only accent */
+  --gold-dose: 100%;        /* locked: gold speaks at full voice */
+  --warmth: 100%;           /* locked: light at full temperature */
+  --glass-blur: 4px;        /* locked: near-crisp glass */
+  --noir: 100%;             /* locked: full noir, the whole page rides dark */
+  --hero-grade: golden-hour;/* locked: dusk | night | golden-hour */
+  --statement-face: grotesk;/* locked: grotesk | serif-italic */
+
+  /* ---- fixed grounds (warm charcoal: light always has temperature) ---- */
+  --coal: #0C0B09;
+  --char: #1E1B17;
+  --bone: #F3EEE3;
+  --bone-mut: #C7BFAF;
+  --line-dark: rgb(243 238 227 / .14);
+
+  /* ---- middle ground, mixed live from the noir dial ---- */
+  --mid-bg:   color-mix(in oklab, #16130F var(--noir), #F5F2EB);
+  --mid-bg-2: color-mix(in oklab, #1B1712 var(--noir), #EFEBE1);
+  --mid-ink:  color-mix(in oklab, #F1ECE1 var(--noir), #1C1811);
+  --mid-mut:  color-mix(in oklab, #B3AB9B var(--noir), #625C50);
+  --mid-line: color-mix(in oklab, rgb(241 236 225 / .17) var(--noir), rgb(28 24 17 / .15));
+
+  /* accent that stays readable on either middle ground */
+  --accent-ink: color-mix(in oklab, var(--gold) 58%, var(--mid-ink));
+  /* decorative gold, scaled by dosage */
+  --gold-soft: color-mix(in oklab, var(--gold) var(--gold-dose), transparent);
+
+  --f-g: 'Archivo', ui-sans-serif, system-ui, 'Helvetica Neue', sans-serif;
+  --wrap: min(1180px, 100% - clamp(36px, 7vw, 112px));
+  --r-glass: 20px;
+  --r-photo: 14px;
+  --nav-h: 64px;
+  --ease: cubic-bezier(.16, 1, .3, 1);
+}
+
+/* ---------- reset-ish ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+html { scroll-padding-top: calc(var(--nav-h) + 28px); }
+body {
+  margin: 0;
+  background: var(--mid-bg);
+  color: var(--mid-ink);
+  font-family: var(--f-g);
+  font-size: 1rem;
+  line-height: 1.6;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+ul, ol { margin: 0; padding: 0; }
+h1, h2, h3, p, figure, dl, dd { margin: 0; }
+
+/* film grain, fixed and inert so it never repaints on scroll */
+body::after {
+  content: "";
+  position: fixed; inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: .05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-size: 180px;
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  clip-path: inset(50%); overflow: hidden; white-space: nowrap;
+}
+.skip-link {
+  position: fixed; top: 12px; left: 12px; z-index: 200;
+  padding: 10px 18px; border-radius: 999px;
+  background: var(--coal); color: var(--bone);
+  font-size: .82rem; text-decoration: none;
+  translate: 0 -64px; opacity: 0;
+}
+.skip-link:focus-visible { translate: 0 0; opacity: 1; }
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.wrap { width: var(--wrap); margin-inline: auto; }
+
+/* warm light sources: pure gradient, dialed by --warmth */
+.glow {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  opacity: var(--warmth);
+}
+
+/* ============================ NAV ============================ */
+.nav {
+  position: fixed;
+  top: clamp(10px, 1.6vw, 18px);
+  left: 50%; translate: -50% 0;
+  z-index: 100;
+  width: min(1240px, 100% - clamp(16px, 3vw, 40px));
+}
+.nav-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 18px;
+  height: var(--nav-h);
+  padding-inline: clamp(16px, 2.4vw, 26px);
+  border-radius: 999px;
+  background: rgb(12 11 9 / .58);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  backdrop-filter: blur(14px) saturate(1.2);
+  border: 1px solid rgb(243 238 227 / .1);
+  box-shadow: inset 0 1px 0 rgb(255 250 240 / .07);
+  transition: background .35s var(--ease), box-shadow .35s var(--ease);
+}
+.nav.scrolled .nav-bar {
+  background: rgb(12 11 9 / .86);
+  box-shadow: inset 0 1px 0 rgb(255 250 240 / .07), 0 18px 44px rgb(8 6 3 / .38);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .nav-bar { background: rgb(12 11 9 / .94); }
+}
+
+.lockup {
+  display: inline-flex; align-items: baseline; gap: 10px;
+  text-decoration: none; color: var(--bone);
+  white-space: nowrap;
+}
+/* real lion mark, gold, true-transparent, safe on the dark glass nav */
+.lockup-lion {
+  align-self: center;
+  height: 30px; width: auto;
+  margin-right: 2px;
+}
+/* full gold lockup on the dark footer ground */
+.foot-lockup {
+  height: clamp(88px, 12vw, 118px); width: auto;
+}
+.lockup-kul {
+  font-weight: 780; font-stretch: 118%;
+  font-size: 1.28rem; letter-spacing: .05em; line-height: 1;
+}
+.lockup-rule {
+  width: 20px; height: 2px; align-self: center;
+  background: var(--gold);
+  border-radius: 999px;
+}
+.lockup-rest {
+  font-size: .66rem; font-weight: 600;
+  letter-spacing: .3em; text-transform: uppercase;
+  color: var(--bone-mut);
+}
+.lockup-rest i { font-style: normal; margin-left: .55em; color: var(--gold-soft); }
+
+.nav-links { display: flex; align-items: center; gap: clamp(16px, 2.2vw, 30px); }
+.nav-links > a:not(.btn), .nav-links > button.linklike {
+  font-size: .88rem; font-weight: 520; letter-spacing: .01em;
+  color: var(--bone-mut); text-decoration: none;
+  transition: color .25s var(--ease);
+}
+.nav-links > a:not(.btn):hover, .nav-links > button.linklike:hover { color: var(--bone); }
+button.linklike {
+  border: 0; background: none; padding: 0; cursor: pointer;
+  font-family: var(--f-g);
+  display: inline-flex; align-items: center; gap: 7px;
+}
+button.linklike .tick {
+  font-size: .72em;
+  translate: 0 1px;
+  transition: rotate .25s var(--ease);
+}
+button.linklike[aria-expanded="true"] .tick { rotate: 180deg; }
+
+.nav-toggle {
+  display: none;
+  border: 1px solid rgb(243 238 227 / .22);
+  background: none; color: var(--bone);
+  font: 600 .78rem/1 var(--f-g); letter-spacing: .14em; text-transform: uppercase;
+  padding: 10px 16px; border-radius: 999px; cursor: pointer;
+}
+
+/* ============================ CHAPTER SHEET ============================ */
+.sheet {
+  position: fixed; inset: 0;
+  z-index: 90;
+  display: grid;
+  align-items: start; justify-items: center;
+  padding: calc(var(--nav-h) + clamp(26px, 5vh, 54px)) clamp(16px, 3vw, 40px) 40px;
+  background: rgb(9 8 5 / .78);
+  -webkit-backdrop-filter: blur(18px) saturate(1.1);
+  backdrop-filter: blur(18px) saturate(1.1);
+  overflow-y: auto;
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .sheet { background: rgb(9 8 5 / .96); }
+}
+.sheet[hidden] { display: none; }
+.sheet-panel {
+  width: min(880px, 100%);
+  border-radius: var(--r-glass);
+  border: 1px solid rgb(243 238 227 / .14);
+  background: rgb(20 17 13 / .72);
+  box-shadow: inset 0 1px 0 rgb(255 250 240 / .08), 0 40px 90px rgb(4 3 1 / .5);
+  padding: clamp(26px, 4vw, 44px);
+}
+.sheet-h {
+  font-size: .68rem; font-weight: 640;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--bone-mut);
+  margin: 0 0 14px;
+}
+.sheet-story {
+  list-style: none;
+  display: grid; grid-template-columns: 1fr 1fr;
+  column-gap: clamp(24px, 4vw, 48px);
+}
+.sheet-story li { border-bottom: 1px solid rgb(243 238 227 / .1); }
+.sheet-story a, .sheet-story [aria-current] {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 14px;
+  padding: 13px 2px;
+  color: var(--bone);
+  font-size: 1.02rem; font-weight: 540;
+  text-decoration: none;
+  transition: color .25s var(--ease), padding-left .25s var(--ease);
+}
+.sheet-story a::after { content: "\2192"; color: var(--gold-soft); opacity: 0; transition: opacity .25s var(--ease); }
+.sheet-story a:hover { color: var(--gold); padding-left: 8px; }
+.sheet-story a:hover::after { opacity: 1; }
+.sheet-story [aria-current] { color: var(--gold); cursor: default; }
+.sheet-story [aria-current]::after { content: "You are here"; font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; color: var(--bone-mut); }
+.sheet-biz {
+  margin-top: clamp(22px, 3vw, 32px);
+  display: flex; flex-wrap: wrap; gap: 10px;
+}
+.sheet-biz a {
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid rgb(243 238 227 / .22);
+  color: var(--bone);
+  font-size: .86rem; font-weight: 560;
+  text-decoration: none;
+  transition: border-color .25s var(--ease), color .25s var(--ease);
+}
+.sheet-biz a:hover { border-color: var(--gold-soft); color: var(--gold); }
+
+/* ============================ BUTTONS ============================ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+  border-radius: 999px;
+  font-family: var(--f-g);
+  font-weight: 640; font-size: .92rem; letter-spacing: .01em;
+  text-decoration: none; white-space: nowrap;
+  cursor: pointer;
+  transition: translate .25s var(--ease), box-shadow .25s var(--ease),
+              background-color .25s var(--ease), border-color .25s var(--ease);
+}
+.btn:hover { translate: 0 -1px; }
+.btn:active { translate: 0 0; scale: .98; }
+
+.btn-gold {
+  background: var(--gold);
+  color: #17140C;
+  padding: 14px 26px;
+  box-shadow: 0 12px 30px rgb(10 8 4 / .32);
+}
+.btn-gold:hover { box-shadow: 0 16px 38px rgb(10 8 4 / .4); }
+
+.btn-nav { padding: 11px 20px; font-size: .84rem; box-shadow: none; }
+
+.btn-ghost {
+  padding: 14px 26px;
+  border: 1px solid rgb(243 238 227 / .38);
+  color: var(--bone);
+  background: rgb(12 11 9 / .25);
+}
+.btn-ghost:hover { border-color: rgb(243 238 227 / .7); }
+
+.btn-hero { padding: 10px 10px 10px 28px; }
+.orb {
+  display: grid; place-items: center;
+  width: 40px; height: 40px; border-radius: 999px;
+  background: #17140C; color: var(--gold);
+  font-size: 1.05rem;
+  rotate: -45deg;
+  transition: rotate .3s var(--ease);
+}
+.btn-hero:hover .orb { rotate: 0deg; }
+
+/* ============================ HERO: full-bleed golden-hour cinema ============================ */
+.hero {
+  position: relative;
+  min-height: max(600px, 100svh);
+  display: flex; align-items: flex-end;
+  background: var(--char);
+  isolation: isolate;
+  overflow: clip;
+}
+.hero-media { position: absolute; inset: 0; z-index: 0; }
+.hero-photo {
+  width: 100%; height: 112%;
+  object-fit: cover; object-position: 50% 38%;
+  will-change: transform;
+  /* golden-hour is the locked default grade */
+  filter: sepia(.44) saturate(1.12) brightness(.84) contrast(1.06);
+}
+@container style(--hero-grade: dusk) {
+  .hero-photo { filter: sepia(.36) saturate(.82) brightness(.64) contrast(1.1); }
+}
+@container style(--hero-grade: night) {
+  .hero-photo { filter: sepia(.2) saturate(.52) brightness(.4) contrast(1.22); }
+}
+.hero-scrim {
+  position: absolute; inset: 0; z-index: 1;
+  background:
+    linear-gradient(14deg, rgb(9 8 5 / .92) 0%, rgb(9 8 5 / .55) 34%, rgb(9 8 5 / 0) 62%),
+    linear-gradient(180deg, rgb(9 8 5 / .55) 0%, rgb(9 8 5 / 0) 26%);
+}
+.hero-glow {
+  z-index: 1;
+  background:
+    radial-gradient(64% 50% at 78% 6%, color-mix(in oklab, var(--gold) 30%, transparent), transparent 70%),
+    radial-gradient(46% 36% at 8% 98%, color-mix(in oklab, var(--gold) 16%, transparent), transparent 72%);
+  mix-blend-mode: soft-light;
+}
+.hero-copy {
+  position: relative; z-index: 2;
+  width: var(--wrap); margin-inline: auto;
+  padding-block: clamp(34px, 6.5vh, 76px);
+  max-width: 100%;
+}
+.hero h1 {
+  color: var(--bone);
+  font-size: clamp(2.9rem, 8.4vw, 6.6rem);
+  font-weight: 640; font-stretch: 110%;
+  letter-spacing: -.026em; line-height: .96;
+  max-width: 12ch;
+  text-shadow: 0 2px 40px rgb(9 8 5 / .45);
+}
+.hero h1 .gold-run {
+  color: transparent;
+  background: linear-gradient(92deg,
+    color-mix(in oklab, var(--gold) var(--gold-dose), var(--bone)) 0%,
+    color-mix(in oklab, var(--gold) calc(var(--gold-dose) * .55), var(--bone)) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.hero-sub {
+  margin-top: clamp(16px, 2.4vh, 24px);
+  max-width: 44ch;
+  color: rgb(243 238 227 / .84);
+  font-size: clamp(1rem, 1.4vw, 1.12rem);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+.hero-ctas {
+  margin-top: clamp(22px, 3.6vh, 38px);
+  display: flex; flex-wrap: wrap; gap: 14px; align-items: center;
+}
+
+/* ============================ TRUST STRIP ============================ */
+.trust { border-bottom: 1px solid var(--mid-line); }
+.trust-list {
+  width: var(--wrap); margin-inline: auto;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(6, auto);
+  justify-content: space-between; align-items: center;
+  padding-block: 22px;
+  gap: 10px 26px;
+}
+.trust-list li {
+  font-size: .7rem; font-weight: 620;
+  letter-spacing: .17em; text-transform: uppercase;
+  color: var(--mid-mut);
+  white-space: nowrap;
+}
+.trust-list li strong { color: var(--mid-ink); font-weight: 680; }
+
+/* ============================ JOURNEY: the floating statement cluster ============================ */
+.journey {
+  position: relative;
+  padding-block: clamp(130px, 19vw, 250px);
+  overflow: clip;
+}
+.journey-inner {
+  position: relative;
+  width: var(--wrap); margin-inline: auto;
+  text-align: center;
+}
+.statement {
+  position: relative; z-index: 2;
+  margin-inline: auto;
+  max-width: 21ch;
+  font-size: clamp(1.9rem, 4.6vw, 3.4rem);
+  font-weight: 520; font-stretch: 105%;
+  letter-spacing: -.016em; line-height: 1.16;
+  color: var(--mid-ink);
+  text-wrap: balance;
+  text-shadow: 0 2px 30px color-mix(in oklab, var(--mid-bg) 80%, transparent);
+}
+.statement em {
+  font-style: italic;
+  font-weight: 560;
+  color: var(--accent-ink);
+}
+@container style(--statement-face: serif-italic) {
+  .statement {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic; font-weight: 500;
+    font-stretch: 100%;
+    font-size: clamp(2.2rem, 5.2vw, 4rem);
+    letter-spacing: 0; line-height: 1.14;
+  }
+  .statement em { font-weight: 600; }
+}
+.journey-line {
+  position: relative; z-index: 2;
+  margin: clamp(22px, 3vw, 32px) auto 0;
+  max-width: 52ch;
+  color: var(--mid-mut);
+  font-size: .98rem;
+}
+.journey-cta {
+  position: relative; z-index: 2;
+  margin-top: clamp(26px, 3.4vw, 38px);
+}
+.float {
+  position: absolute; z-index: 1;
+  margin: 0;
+  will-change: transform;
+}
+.float img {
+  border-radius: var(--r-photo);
+  box-shadow: 0 30px 70px rgb(4 3 1 / .5);
+  filter: sepia(.28) saturate(.92) brightness(.82) contrast(1.04);
+}
+/* four prints now, spread wider and pushed into the copy */
+.f1 { left: clamp(-60px, -2vw, 30px); top: -4%; width: clamp(150px, 21vw, 300px); }
+.f1 img { rotate: -2.6deg; }
+.f2 { right: clamp(-70px, -2vw, 20px); top: 16%; width: clamp(170px, 24vw, 340px); }
+.f2 img { rotate: 2deg; }
+.f3 { left: 7%; bottom: -8%; width: clamp(120px, 15vw, 215px); }
+.f3 img { rotate: -1.4deg; }
+.f4 { right: 13%; bottom: -13%; width: clamp(110px, 13vw, 185px); }
+.f4 img { rotate: 1.2deg; }
+
+/* ============================ SERVICES: glass carousel over golden backdrop ============================ */
+.svc {
+  position: relative;
+  background: var(--coal);
+  color: var(--bone);
+  padding-block: clamp(96px, 12vw, 160px);
+  overflow: clip;
+  isolation: isolate;
+}
+.svc-bg {
+  position: absolute; inset: -3%;
+  width: 106%; height: 106%;
+  object-fit: cover;
+  filter: blur(11px) sepia(.48) saturate(.86) brightness(.46) contrast(1.05);
+  z-index: 0;
+}
+.svc-scrim {
+  position: absolute; inset: 0; z-index: 1;
+  background:
+    linear-gradient(180deg, var(--coal) 0%, rgb(12 11 9 / .38) 24%, rgb(12 11 9 / .46) 76%, var(--coal) 100%);
+}
+.svc-glow {
+  z-index: 1;
+  background: radial-gradient(52% 40% at 24% 12%, color-mix(in oklab, var(--gold) 22%, transparent), transparent 70%);
+  mix-blend-mode: soft-light;
+}
+.svc-head {
+  position: relative; z-index: 2;
+  width: var(--wrap); margin-inline: auto;
+  display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between;
+  gap: 22px;
+}
+.svc h2 {
+  font-size: clamp(1.9rem, 4.1vw, 3.1rem);
+  font-weight: 590; font-stretch: 106%;
+  letter-spacing: -.018em; line-height: 1.06;
+  max-width: 15ch;
+  text-wrap: balance;
+}
+.svc-head p {
+  margin-top: 12px;
+  max-width: 40ch;
+  color: var(--bone-mut);
+  font-size: .98rem;
+}
+.svc-nav { display: flex; gap: 10px; }
+.orb-btn {
+  width: 46px; height: 46px; border-radius: 999px;
+  display: grid; place-items: center;
+  background: rgb(21 18 14 / .5);
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid rgb(243 238 227 / .2);
+  color: var(--bone);
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: border-color .25s var(--ease), translate .25s var(--ease), opacity .25s var(--ease);
+}
+.orb-btn:hover { border-color: var(--gold-soft); translate: 0 -1px; }
+.orb-btn:active { scale: .96; }
+.orb-btn[aria-disabled="true"] { opacity: .32; pointer-events: none; }
+
+.svc-track {
+  position: relative; z-index: 2;
+  list-style: none;
+  margin-top: clamp(36px, 5vw, 56px);
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(76vw, 330px);
+  gap: 18px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-block: 10px 26px;
+  padding-inline: max(calc((100vw - var(--wrap)) / 2), 20px);
+  scrollbar-width: none;
+}
+.svc-track::-webkit-scrollbar { display: none; }
+.svc-card {
+  scroll-snap-align: center;
+  border-radius: var(--r-glass);
+  padding: clamp(24px, 3vw, 34px);
+  min-height: 240px;
+  display: flex; flex-direction: column; justify-content: space-between; gap: 26px;
+  background: rgb(24 21 16 / .48);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.25);
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.25);
+  border: 1px solid rgb(243 238 227 / .16);
+  box-shadow: inset 0 1px 0 rgb(255 250 240 / .09), 0 24px 60px rgb(5 4 2 / .4);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .svc-card, .orb-btn, .dispatch { background: rgb(18 16 12 / .93); }
+}
+.svc-card h3 {
+  font-size: 1.42rem; font-weight: 620; font-stretch: 108%;
+  letter-spacing: -.01em; line-height: 1.1;
+}
+.svc-card h3::after {
+  content: "";
+  display: block;
+  width: 26px; height: 2px;
+  margin-top: 14px;
+  border-radius: 999px;
+  background: var(--gold-soft);
+}
+.svc-card p { color: var(--bone-mut); font-size: .95rem; line-height: 1.55; }
+.svc-more {
+  position: relative; z-index: 2;
+  width: var(--wrap); margin-inline: auto;
+  display: flex; justify-content: center;
+  margin-top: 8px;
+}
+
+/* card emphasis follows the scroller position; progressive, motion-gated */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view(inline)) {
+    .svc-card {
+      animation: svcFocus linear both;
+      animation-timeline: view(inline);
+    }
+    @keyframes svcFocus {
+      0%   { opacity: .55; scale: .96; }
+      38%  { opacity: 1;   scale: 1; }
+      62%  { opacity: 1;   scale: 1; }
+      100% { opacity: .55; scale: .96; }
+    }
+  }
+}
+
+/* ============================ THE CLIMB: signature moment ============================ */
+/* A tall corridor. The numeral holds the viewport while scroll
+   pours gold into the fleet plan: one truck now, fifty in writing. */
+.climb {
+  position: relative;
+  height: 320svh;
+  background: var(--mid-bg);
+}
+.climb-stage {
+  position: sticky; top: 0;
+  height: 100svh;
+  min-height: 560px;
+  display: grid;
+  place-items: center;
+  overflow: clip;
+  isolation: isolate;
+}
+.climb-glow {
+  z-index: 0;
+  opacity: calc(var(--warmth) * var(--p, 0));
+  background: radial-gradient(52% 44% at 50% 58%, color-mix(in oklab, var(--gold) 20%, transparent), transparent 72%);
+}
+.climb-core { position: relative; z-index: 1; text-align: center; padding-inline: 20px; }
+.climb-now {
+  font-size: clamp(.94rem, 1.4vw, 1.08rem);
+  color: var(--mid-mut);
+}
+.climb-now strong { color: var(--mid-ink); font-weight: 640; }
+.climb-nums {
+  display: flex; align-items: baseline; justify-content: center;
+  gap: clamp(12px, 2.6vw, 30px);
+  line-height: .82;
+  font-weight: 780; font-stretch: 122%;
+  font-size: clamp(7rem, 24vw, 19rem);
+  letter-spacing: -.01em;
+  user-select: none;
+  margin-block: clamp(10px, 2vh, 22px);
+}
+.climb-one {
+  color: transparent;
+  -webkit-text-stroke: 2px color-mix(in oklab, var(--accent-ink) 62%, transparent);
+  font-size: .55em;
+}
+.climb-arrow {
+  font-size: .16em;
+  font-weight: 600;
+  color: var(--accent-ink);
+  translate: 0 -1.4em;
+}
+.fifty { position: relative; display: inline-block; }
+.fifty-stroke {
+  color: transparent;
+  -webkit-text-stroke: 2px color-mix(in oklab, var(--accent-ink) 55%, transparent);
+}
+.fifty-fill {
+  position: absolute; inset: 0;
+  color: var(--gold-soft);
+  clip-path: inset(calc((1 - var(--p, 0)) * 100%) 0 0 0);
+}
+/* without JS, the plan reads fully poured and the corridor collapses */
+html:not(.js) .fifty-fill { clip-path: none; }
+html:not(.js) .climb { height: auto; padding-block: clamp(100px, 14vw, 190px); }
+html:not(.js) .climb-stage { position: static; height: auto; min-height: 0; }
+html:not(.js) .climb-glow { opacity: calc(var(--warmth) * .8); }
+.climb-line {
+  margin-inline: auto;
+  max-width: 46ch;
+  font-size: clamp(1.02rem, 1.5vw, 1.16rem);
+  color: var(--mid-mut);
+  text-wrap: pretty;
+}
+.climb-line strong { color: var(--mid-ink); font-weight: 640; }
+.climb-cta { margin-top: clamp(22px, 3vh, 30px); }
+
+/* ============================ SAFETY ============================ */
+.safety {
+  background: var(--mid-bg-2);
+  padding-block: clamp(100px, 13vw, 170px);
+  border-top: 1px solid var(--mid-line);
+  border-bottom: 1px solid var(--mid-line);
+}
+.safety-grid {
+  width: var(--wrap); margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(40px, 6vw, 96px);
+  align-items: start;
+}
+.safety-intro { position: sticky; top: calc(var(--nav-h) + 42px); }
+.safety h2 {
+  font-size: clamp(2rem, 4.4vw, 3.3rem);
+  font-weight: 600; font-stretch: 106%;
+  letter-spacing: -.02em; line-height: 1.04;
+  color: var(--mid-ink);
+  text-wrap: balance;
+}
+.safety-intro > p {
+  margin-top: 18px;
+  max-width: 38ch;
+  color: var(--mid-mut);
+  font-size: 1.02rem;
+}
+.safety-intro .btn { margin-top: 26px; }
+.practice { list-style: none; }
+.practice li { padding-block: clamp(22px, 2.6vw, 30px); }
+.practice li + li { border-top: 1px solid var(--mid-line); }
+.practice h3 {
+  font-size: 1.18rem; font-weight: 640; letter-spacing: -.008em;
+  color: var(--mid-ink);
+}
+.practice p {
+  margin-top: 8px;
+  color: var(--mid-mut);
+  font-size: .97rem;
+  max-width: 52ch;
+}
+.practice strong { color: var(--accent-ink); font-weight: 660; }
+
+/* ============================ QUOTE BAND ============================ */
+.quote {
+  position: relative;
+  background: linear-gradient(180deg, #141110 0%, var(--coal) 100%);
+  color: var(--bone);
+  padding-block: clamp(96px, 12vw, 160px);
+  overflow: clip;
+  isolation: isolate;
+}
+.quote-glow {
+  background:
+    radial-gradient(56% 52% at 14% 0%, color-mix(in oklab, var(--gold) 18%, transparent), transparent 70%),
+    radial-gradient(40% 40% at 92% 100%, color-mix(in oklab, var(--gold) 10%, transparent), transparent 72%);
+}
+.quote-grid {
+  position: relative; z-index: 1;
+  width: var(--wrap); margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(44px, 6vw, 90px);
+  align-items: center;
+}
+.quote h2 {
+  font-size: clamp(2.1rem, 4.6vw, 3.6rem);
+  font-weight: 590; font-stretch: 106%;
+  letter-spacing: -.02em; line-height: 1.05;
+  text-wrap: balance;
+}
+.quote-copy > p {
+  margin-top: 16px;
+  max-width: 40ch;
+  color: var(--bone-mut);
+  font-size: 1.02rem;
+}
+.quote-copy .btn { margin-top: 30px; }
+
+.dispatch {
+  border-radius: var(--r-glass);
+  padding: clamp(26px, 3vw, 36px);
+  background: rgb(21 18 14 / .55);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.25);
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.25);
+  border: 1px solid rgb(243 238 227 / .13);
+  box-shadow: inset 0 1px 0 rgb(255 250 240 / .08), 0 24px 60px rgb(5 4 2 / .4);
+}
+.dispatch dl { display: grid; gap: 0; }
+.dispatch .row { padding-block: 16px; }
+.dispatch .row + .row { border-top: 1px solid var(--line-dark); }
+.dispatch dt {
+  font-size: .68rem; font-weight: 640;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--bone-mut);
+}
+.dispatch dd { margin-top: 6px; font-size: 1.12rem; font-weight: 560; }
+.dispatch a { text-decoration: none; color: var(--bone); }
+.dispatch a:hover { color: var(--gold); }
+
+/* ============================ FOOTER + CHAPTER INDEX ============================ */
+.footer {
+  position: relative;
+  background: var(--coal);
+  color: var(--bone-mut);
+  overflow: clip;
+  isolation: isolate;
+  border-top: 1px solid rgb(243 238 227 / .07);
+}
+.footer-hills {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(72% 46% at 20% 108%, #1B1712 0%, transparent 62%),
+    radial-gradient(64% 40% at 84% 112%, #17140F 0%, transparent 60%);
+}
+.footer-glow {
+  z-index: 0;
+  background: radial-gradient(46% 32% at 50% 108%, color-mix(in oklab, var(--gold) 13%, transparent), transparent 70%);
+}
+.chapters {
+  position: relative; z-index: 1;
+  width: var(--wrap); margin-inline: auto;
+  padding-block: clamp(72px, 9vw, 120px) clamp(48px, 6vw, 80px);
+}
+.chapters h2 {
+  color: var(--bone);
+  font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+  font-weight: 590; font-stretch: 106%;
+  letter-spacing: -.016em; line-height: 1.08;
+  max-width: 18ch;
+  text-wrap: balance;
+}
+.chapter-list {
+  list-style: none;
+  margin-top: clamp(28px, 4vw, 40px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: clamp(28px, 5vw, 72px);
+  border-top: 1px solid rgb(243 238 227 / .12);
+}
+.chapter-list li { border-bottom: 1px solid rgb(243 238 227 / .12); }
+.chapter-list a, .chapter-list [aria-current] {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+  padding: clamp(14px, 1.8vw, 19px) 2px;
+  color: var(--bone-mut);
+  font-size: clamp(1.02rem, 1.5vw, 1.18rem); font-weight: 540;
+  text-decoration: none;
+  transition: color .25s var(--ease), padding-left .25s var(--ease);
+}
+.chapter-list a::after { content: "\2192"; color: var(--gold-soft); opacity: 0; transition: opacity .25s var(--ease); }
+.chapter-list a:hover { color: var(--bone); padding-left: 10px; }
+.chapter-list a:hover::after { opacity: 1; }
+.chapter-list [aria-current] { color: var(--gold); cursor: default; }
+.chapter-list [aria-current]::after {
+  content: "You are here";
+  font-size: .64rem; font-weight: 620;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--bone-mut);
+  white-space: nowrap;
+}
+
+.ghost {
+  position: relative; z-index: 1;
+  text-align: center;
+  font-weight: 800; font-stretch: 125%;
+  font-size: clamp(9rem, 30vw, 23rem);
+  line-height: .78;
+  letter-spacing: .015em;
+  padding-top: clamp(24px, 4vw, 56px);
+  user-select: none;
+  background: linear-gradient(180deg,
+    color-mix(in oklab, var(--gold) calc(var(--gold-dose) * .36), #4A4234) 0%,
+    rgb(23 19 14 / 0) 82%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.foot-grid {
+  position: relative; z-index: 1;
+  width: var(--wrap); margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 3fr) minmax(0, 4fr);
+  gap: clamp(36px, 5vw, 72px);
+  padding-block: clamp(20px, 4vw, 44px) clamp(44px, 5vw, 64px);
+}
+.foot-brand .lockup { color: var(--bone); }
+.foot-tag {
+  margin-top: 16px;
+  max-width: 30ch;
+  font-size: .95rem;
+  line-height: 1.6;
+}
+.foot-tag strong { color: var(--bone); font-weight: 600; }
+.foot-h {
+  font-size: .68rem; font-weight: 640;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: rgb(243 238 227 / .5);
+  margin-bottom: 16px;
+}
+.foot-nav ul { list-style: none; display: grid; gap: 10px; }
+.foot-nav a, .foot-contact a {
+  color: var(--bone-mut); text-decoration: none;
+  font-size: .95rem;
+  transition: color .25s var(--ease);
+}
+.foot-nav a:hover, .foot-contact a:hover { color: var(--gold); }
+.foot-contact address { font-style: normal; display: grid; gap: 10px; }
+.foot-contact .big { font-size: 1.16rem; font-weight: 580; color: var(--bone); }
+.foot-legal {
+  position: relative; z-index: 1;
+  border-top: 1px solid rgb(243 238 227 / .09);
+}
+.foot-legal .wrap {
+  display: flex; flex-wrap: wrap; gap: 10px 28px;
+  justify-content: space-between;
+  padding-block: 20px;
+  font-size: .78rem;
+  color: rgb(243 238 227 / .45);
+}
+.foot-legal .regs { display: flex; gap: 24px; }
+
+/* ============================ REVEALS & MOTION ============================ */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .reveal {
+    opacity: 0;
+    translate: 0 26px;
+    transition: opacity .8s var(--ease), translate .8s var(--ease);
+    transition-delay: calc(var(--i, 0) * 90ms);
+  }
+  html.js .reveal.in { opacity: 1; translate: 0 0; }
+
+  /* hero establishing shot: copy rises, photo settles */
+  .hero h1, .hero-sub, .hero-ctas {
+    animation: rise .95s var(--ease) both;
+  }
+  .hero-sub { animation-delay: .14s; }
+  .hero-ctas { animation-delay: .26s; }
+  .hero-photo { animation: settle 1.9s var(--ease) both; }
+  @keyframes rise {
+    from { opacity: 0; translate: 0 30px; }
+    to   { opacity: 1; translate: 0 0; }
+  }
+  @keyframes settle {
+    from { scale: 1.07; }
+    to   { scale: 1; }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn:hover, .btn:active, .orb-btn:hover, .orb-btn:active { translate: 0 0; scale: 1; }
+  .btn-hero:hover .orb { rotate: -45deg; }
+  /* the climb reads as a poured, settled plan; no corridor */
+  .climb { height: auto; padding-block: clamp(100px, 14vw, 190px); }
+  .climb-stage { position: static; height: auto; min-height: 0; }
+  .fifty-fill { clip-path: none; }
+  .climb-glow { opacity: calc(var(--warmth) * .8); }
+}
+
+/* ============================ RESPONSIVE ============================ */
+@media (max-width: 1080px) {
+  .trust-list { grid-template-columns: repeat(3, auto); justify-content: space-between; }
+}
+@media (max-width: 920px) {
+  .nav-toggle { display: inline-flex; }
+  .nav-links {
+    position: absolute;
+    top: calc(var(--nav-h) + 10px); right: 0;
+    z-index: 90;
+    flex-direction: column; align-items: stretch;
+    gap: 4px;
+    min-width: 250px;
+    padding: 14px;
+    border-radius: 22px;
+    background: rgb(12 11 9 / .96);
+    border: 1px solid rgb(243 238 227 / .12);
+    box-shadow: 0 30px 70px rgb(5 4 2 / .5);
+    display: none;
+  }
+  .nav.open .nav-links { display: flex; }
+  .nav-links > a:not(.btn), .nav-links > button.linklike { padding: 12px 14px; font-size: 1rem; }
+  button.linklike { justify-content: space-between; }
+  .btn-nav { margin-top: 8px; justify-content: center; }
+
+  .sheet-story { grid-template-columns: 1fr; }
+  .safety-grid { grid-template-columns: 1fr; }
+  .safety-intro { position: static; }
+  .quote-grid { grid-template-columns: 1fr; }
+  .foot-grid { grid-template-columns: 1fr 1fr; }
+  .foot-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 700px) {
+  .journey { padding-block: clamp(80px, 14vw, 120px); }
+  .float { position: static; width: auto; }
+  .cluster {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 44px;
+  }
+  .f1 img, .f2 img, .f3 img, .f4 img { rotate: 0deg; }
+  .trust-list {
+    grid-template-columns: 1fr 1fr;
+    justify-content: start;
+    row-gap: 12px;
+  }
+  .hero { min-height: max(540px, 100svh); }
+  .btn-hero { width: 100%; justify-content: space-between; }
+  .hero-ctas .btn-ghost { width: 100%; }
+  .climb { height: 260svh; }
+  .climb-nums { font-size: clamp(5.4rem, 30vw, 9rem); }
+  .chapter-list { grid-template-columns: 1fr; }
+  .foot-grid { grid-template-columns: 1fr; }
+  .foot-legal .wrap { flex-direction: column; align-items: flex-start; }
+}
+@media (min-width: 701px) {
+  .cluster { display: contents; }
+}
+</style>
+</head>
+
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav" id="siteNav">
+  <nav class="nav-bar" aria-label="Primary">
+    <a class="lockup" href="#top" aria-label="KUL Enterprises LLC, back to top">
+      <img class="lockup-lion" src="/assets/brand/lion-clean.png" width="900" height="900" alt="KUL Enterprises" decoding="async">
+      <span class="lockup-kul">KUL</span>
+      <span class="lockup-rule" aria-hidden="true"></span>
+      <span class="lockup-rest">Enterprises<i>LLC</i></span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
+    <div class="nav-links" id="navLinks">
+      <a href="../mission/">Services</a>
+      <a href="../responsibility/">Safety</a>
+      <a href="../forward/#contact">Contact</a>
+      <button class="linklike" id="chaptersToggle" type="button" aria-expanded="false" aria-controls="chapterSheet">Chapters<span class="tick" aria-hidden="true">&#9662;</span></button>
+      <a class="btn btn-gold btn-nav" href="../forward/">Request a Freight Quote</a>
+    </div>
+  </nav>
+</header>
+
+<!-- chapter sheet: the whole story, one keystroke away -->
+<div class="sheet" id="chapterSheet" role="dialog" aria-modal="true" aria-label="Story chapters" hidden>
+  <div class="sheet-panel">
+    <p class="sheet-h">The story</p>
+    <ol class="sheet-story">
+      <li><span aria-current="page">The Beginning</span></li>
+      <li><a href="../journey/">The Journey</a></li>
+      <li><a href="../story/">Why I Started Driving</a></li>
+      <li><a href="../mission/">The Mission</a></li>
+      <li><a href="../responsibility/">The Responsibility</a></li>
+      <li><a href="../join/">Join the Journey</a></li>
+      <li><a href="../forward/">Let&rsquo;s Move Forward</a></li>
+      <li><a href="../road-ahead/">The Road Ahead</a></li>
+    </ol>
+    <p class="sheet-h" style="margin-top:28px">For business</p>
+    <div class="sheet-biz">
+      <a href="../mission/">Services</a>
+      <a href="../responsibility/">Safety</a>
+      <a href="../forward/">Request a Quote</a>
+      <a href="../forward/#contact">Contact</a>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+
+  <!-- ============ HERO: full-bleed golden hour ============ -->
+  <section class="hero" id="top" aria-label="Introduction">
+    <div class="hero-media">
+      <img class="hero-photo" src="/assets/journey/desert.jpg" width="2200" height="1650"
+           alt="A wave breaking against sea cliffs at golden hour, footprints crossing the sand in the foreground"
+           fetchpriority="high" decoding="async" data-parallax="0.12">
+      <div class="hero-scrim" aria-hidden="true"></div>
+      <div class="glow hero-glow" aria-hidden="true"></div>
+    </div>
+    <div class="hero-copy">
+      <h1>One truck.<br>Run like <span class="gold-run">fifty.</span></h1>
+      <p class="hero-sub">Owner-operated freight out of Loganville, Georgia. Dry van, reefer, power only and expedited, moved nationwide with composure.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-gold btn-hero" href="../forward/">Request a Freight Quote<span class="orb" aria-hidden="true">&rarr;</span></a>
+        <a class="btn btn-ghost" href="../join/">Become a Driver</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TRUST STRIP ============ -->
+  <section class="trust" aria-labelledby="trustH">
+    <h2 class="sr-only" id="trustH">Compliance and coverage</h2>
+    <ul class="trust-list">
+      <li><strong>USDOT</strong> 7638788</li>
+      <li><strong>MC</strong> 66389691</li>
+      <li>Licensed &amp; Insured</li>
+      <li>Loganville, GA</li>
+      <li>Nationwide Service</li>
+      <li>24/7 Dispatch</li>
+    </ul>
+  </section>
+
+  <!-- ============ JOURNEY: floating statement cluster ============ -->
+  <section class="journey" id="journey" aria-labelledby="journeyH">
+    <h2 class="sr-only" id="journeyH">The journey behind the company</h2>
+    <div class="journey-inner">
+      <div class="cluster">
+        <figure class="float f1" data-depth="0.18">
+          <img src="/assets/journey/wave.jpg" width="2200" height="1650" loading="lazy" decoding="async"
+               alt="A milky turquoise river rushing over mossy rocks beneath dense forest canopy">
+        </figure>
+        <figure class="float f2" data-depth="0.3">
+          <img src="/assets/journey/tree.jpg" width="2200" height="1650" loading="lazy" decoding="async"
+               alt="A wide guango tree with a rope swing standing over open lawn below misty hills">
+        </figure>
+        <figure class="float f3" data-depth="0.12">
+          <img src="/assets/journey/river.jpg" width="2200" height="1650" loading="lazy" decoding="async"
+               alt="Weathered sandstone formations rising over an empty sweep of sand">
+        </figure>
+        <figure class="float f4" data-depth="0.22">
+          <img src="/assets/journey/cliffs.jpg" width="2200" height="1650" loading="lazy" decoding="async"
+               alt="Rose-colored cliffs standing over clear teal water under an open sky">
+        </figure>
+      </div>
+      <p class="statement reveal">Freight is never <em>just freight</em>. It&rsquo;s somebody&rsquo;s payroll, somebody&rsquo;s shelves, somebody&rsquo;s word.</p>
+      <p class="journey-line reveal" style="--i:1">The photographs are our founder&rsquo;s own, carried home from the roads and water behind the name. The company is built the same way: personally.</p>
+      <div class="journey-cta reveal" style="--i:2">
+        <a class="btn btn-ghost" href="../journey/">Walk the Journey</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES: glass carousel over a golden backdrop ============ -->
+  <section class="svc" id="services" aria-labelledby="svcH">
+    <img class="svc-bg" src="/assets/journey/river.jpg" width="2200" height="1650" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    <div class="svc-scrim" aria-hidden="true"></div>
+    <div class="glow svc-glow" aria-hidden="true"></div>
+
+    <div class="svc-head">
+      <div class="reveal">
+        <h2 id="svcH">Seven ways to move with us.</h2>
+        <p>Different trailers, one standard: clean equipment, honest ETAs, a phone that answers.</p>
+      </div>
+      <div class="svc-nav reveal" style="--i:1">
+        <button class="orb-btn" id="svcPrev" type="button" aria-label="Previous service" aria-disabled="true">&larr;</button>
+        <button class="orb-btn" id="svcNext" type="button" aria-label="Next service">&rarr;</button>
+      </div>
+    </div>
+
+    <ul class="svc-track" id="svcTrack" role="list" aria-label="Services" tabindex="0">
+      <li class="svc-card">
+        <h3>Power Only</h3>
+        <p>Your trailer, our tractor. Clean hookups, drop and hook or live load, no wasted dock time.</p>
+      </li>
+      <li class="svc-card">
+        <h3>Dry Van</h3>
+        <p>53-foot dry van freight, dock to dock, general commodities handled like they were ours.</p>
+      </li>
+      <li class="svc-card">
+        <h3>Reefer</h3>
+        <p>Temperature-controlled freight with the cold chain watched the whole way, not assumed.</p>
+      </li>
+      <li class="svc-card">
+        <h3>Dedicated</h3>
+        <p>A truck that learns your docks, your hours and your people, week after week.</p>
+      </li>
+      <li class="svc-card">
+        <h3>Regional</h3>
+        <p>Southeast lanes out of Loganville. Home ground, known mile by mile.</p>
+      </li>
+      <li class="svc-card">
+        <h3>Over-the-Road</h3>
+        <p>Coast to coast with planned rest and arrival windows we actually keep.</p>
+      </li>
+      <li class="svc-card">
+        <h3>Expedited</h3>
+        <p>When the clock is the load. Straight through, with updates before you ask for them.</p>
+      </li>
+    </ul>
+    <div class="svc-more reveal">
+      <a class="btn btn-ghost" href="../mission/">See the Full Mission</a>
+    </div>
+  </section>
+
+  <!-- ============ THE CLIMB: scroll pours the fleet plan full of gold ============ -->
+  <section class="climb" id="vision" aria-labelledby="visionH">
+    <h2 class="sr-only" id="visionH">The fleet plan</h2>
+    <div class="climb-stage" id="climbStage">
+      <div class="glow climb-glow" aria-hidden="true"></div>
+      <div class="climb-core">
+        <p class="climb-now"><strong>One truck today.</strong> Watch the plan fill in.</p>
+        <div class="climb-nums" aria-hidden="true">
+          <span class="climb-one">1</span><span class="climb-arrow">&rarr;</span><span class="fifty"><span class="fifty-stroke">50</span><span class="fifty-fill" aria-hidden="true">50</span></span>
+        </div>
+        <p class="climb-line"><strong>Fifty tractors by the end of 2029.</strong> We grow with intention, and the number stays in writing so you can hold us to it.</p>
+        <div class="climb-cta">
+          <a class="btn btn-ghost" href="../road-ahead/">See the Road Ahead</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SAFETY ============ -->
+  <section class="safety" id="safety" aria-labelledby="safetyH">
+    <div class="safety-grid">
+      <div class="safety-intro reveal">
+        <h2 id="safetyH">Safety is the product.</h2>
+        <p>Shippers buy on-time. Brokers buy no surprises. Both start with how the truck is driven.</p>
+        <a class="btn btn-ghost" href="../responsibility/">How We Carry It</a>
+      </div>
+      <ul class="practice">
+        <li class="reveal">
+          <h3>Pre-trip, every trip</h3>
+          <p>The walk-around happens before every departure. No exceptions, no shortcuts, no maybe-next-time.</p>
+        </li>
+        <li class="reveal" style="--i:1">
+          <h3>Hours kept honest</h3>
+          <p>Electronic logs and planned rest. A tired driver never hauls your freight, and no rate changes that.</p>
+        </li>
+        <li class="reveal" style="--i:2">
+          <h3>Cameras rolling</h3>
+          <p>A dashcam runs on every mile. If the road gets interesting, you get facts instead of stories.</p>
+        </li>
+        <li class="reveal" style="--i:3">
+          <h3>Authority you can verify</h3>
+          <p>Licensed and insured, on the record. Look us up before you book us: <strong>USDOT 7638788</strong>, <strong>MC 66389691</strong>.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ QUOTE BAND ============ -->
+  <section class="quote" id="quote" aria-labelledby="quoteH">
+    <div class="glow quote-glow" aria-hidden="true"></div>
+    <div class="quote-grid">
+      <div class="quote-copy reveal">
+        <h2 id="quoteH">Give us one load. We&rsquo;ll earn the rest.</h2>
+        <p>Quotes come back fast, and dispatch answers around the clock. You&rsquo;ll always know where your freight is.</p>
+        <a class="btn btn-gold btn-hero" href="../forward/">Request a Freight Quote<span class="orb" aria-hidden="true">&rarr;</span></a>
+      </div>
+      <div class="dispatch reveal" style="--i:1" role="group" aria-label="Dispatch contact details">
+        <dl>
+          <div class="row">
+            <dt>Phone</dt>
+            <dd><a href="tel:+16789721148">678-972-1148</a></dd>
+          </div>
+          <div class="row">
+            <dt>Email</dt>
+            <dd><a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a></dd>
+          </div>
+          <div class="row">
+            <dt>Based in</dt>
+            <dd>Loganville, Georgia</dd>
+          </div>
+          <div class="row">
+            <dt>Dispatch hours</dt>
+            <dd>24/7, every day of the year</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER: chapter index + dispatch ============ -->
+<footer class="footer" id="contact">
+  <div class="footer-hills" aria-hidden="true"></div>
+  <div class="glow footer-glow" aria-hidden="true"></div>
+
+  <nav class="chapters reveal" aria-label="Story chapters">
+    <h2>The whole story, told in eight chapters.</h2>
+    <ol class="chapter-list">
+      <li><span aria-current="page">The Beginning</span></li>
+      <li><a href="../journey/">The Journey</a></li>
+      <li><a href="../story/">Why I Started Driving</a></li>
+      <li><a href="../mission/">The Mission</a></li>
+      <li><a href="../responsibility/">The Responsibility</a></li>
+      <li><a href="../join/">Join the Journey</a></li>
+      <li><a href="../forward/">Let&rsquo;s Move Forward</a></li>
+      <li><a href="../road-ahead/">The Road Ahead</a></li>
+    </ol>
+  </nav>
+
+  <div class="ghost reveal" aria-hidden="true">KUL</div>
+
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <img class="foot-lockup" src="/assets/brand/logo-gold-t.png" width="1000" height="666" alt="KUL Enterprises" loading="lazy" decoding="async">
+      <p class="foot-tag"><strong>Strength in Motion. Built on Integrity. Driven by Safety.</strong> A Georgia carrier moving freight nationwide.</p>
+    </div>
+    <nav class="foot-nav" aria-label="Footer">
+      <h3 class="foot-h">For business</h3>
+      <ul>
+        <li><a href="../mission/">Services</a></li>
+        <li><a href="../responsibility/">Safety</a></li>
+        <li><a href="../forward/">Request a Quote</a></li>
+        <li><a href="../forward/#contact">Contact</a></li>
+        <li><a href="../join/">Become a Driver</a></li>
+      </ul>
+    </nav>
+    <div class="foot-contact">
+      <h3 class="foot-h">Dispatch</h3>
+      <address>
+        <a class="big" href="tel:+16789721148">678-972-1148</a>
+        <a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a>
+        <span>Loganville, Georgia</span>
+      </address>
+    </div>
+  </div>
+
+  <div class="foot-legal">
+    <div class="wrap">
+      <span>&copy; 2026 KUL Enterprises LLC. All rights reserved.</span>
+      <span class="regs"><span>USDOT 7638788</span><span>MC 66389691</span></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Cinematic noir behaviors, pushed: nav state, chapter sheet, reveals,
+   hero parallax, cluster drift, carousel, and the climb pour.
+   Everything degrades to a fully readable static page. */
+(function () {
+  'use strict';
+  document.documentElement.classList.add('js');
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* ---- nav: glass thickens once the showroom is left ---- */
+  var nav = document.getElementById('siteNav');
+  var hero = document.querySelector('.hero');
+  if (nav && hero && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      nav.classList.toggle('scrolled', !entries[0].isIntersecting);
+    }, { rootMargin: '-72px 0px 0px 0px', threshold: 0 }).observe(hero);
+  }
+
+  /* ---- mobile menu ---- */
+  var toggle = document.getElementById('navToggle');
+  if (toggle && nav) {
+    var setOpen = function (open) {
+      nav.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.textContent = open ? 'Close' : 'Menu';
+    };
+    toggle.addEventListener('click', function () {
+      setOpen(!nav.classList.contains('open'));
+    });
+    nav.addEventListener('click', function (e) {
+      if (e.target.closest('.nav-links a')) setOpen(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && nav.classList.contains('open')) { setOpen(false); toggle.focus(); }
+    });
+    document.addEventListener('click', function (e) {
+      if (nav.classList.contains('open') && !nav.contains(e.target)) setOpen(false);
+    });
+  }
+
+  /* ---- chapter sheet: the story index (state transition, not decoration) ---- */
+  var chToggle = document.getElementById('chaptersToggle');
+  var sheet = document.getElementById('chapterSheet');
+  if (chToggle && sheet) {
+    var setSheet = function (open) {
+      sheet.hidden = !open;
+      chToggle.setAttribute('aria-expanded', String(open));
+      if (open) {
+        var first = sheet.querySelector('a');
+        if (first) first.focus();
+      }
+    };
+    chToggle.addEventListener('click', function () {
+      setSheet(sheet.hidden);
+    });
+    sheet.addEventListener('click', function (e) {
+      if (!e.target.closest('.sheet-panel')) { setSheet(false); chToggle.focus(); }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !sheet.hidden) { setSheet(false); chToggle.focus(); }
+    });
+  }
+
+  /* ---- scroll reveals (hierarchy: content arrives as the visitor reaches it) ---- */
+  var revealEls = [].slice.call(document.querySelectorAll('.reveal'));
+  if (reduceMotion.matches || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var ro = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { entry.target.classList.add('in'); ro.unobserve(entry.target); }
+      });
+    }, { threshold: 0.18, rootMargin: '0px 0px -6% 0px' });
+    revealEls.forEach(function (el) { ro.observe(el); });
+  }
+
+  /* ---- scroll-linked engine: one rAF loop per watched section,
+         running only while on screen; no scroll listeners anywhere. ---- */
+  var watch = function (el, fn) {
+    if (!el || reduceMotion.matches || !('IntersectionObserver' in window)) return;
+    var running = false, rafId = 0;
+    var tick = function () {
+      if (!running) return;
+      fn();
+      rafId = requestAnimationFrame(tick);
+    };
+    new IntersectionObserver(function (entries) {
+      var on = entries[0].isIntersecting;
+      if (on && !running) { running = true; rafId = requestAnimationFrame(tick); }
+      if (!on && running) { running = false; cancelAnimationFrame(rafId); }
+    }, { rootMargin: '10% 0px 10% 0px' }).observe(el);
+    reduceMotion.addEventListener('change', function (e) {
+      if (e.matches) { running = false; cancelAnimationFrame(rafId); }
+    });
+  };
+
+  /* hero parallax: the golden hour recedes at a slower rate */
+  var heroPhoto = document.querySelector('.hero-photo[data-parallax]');
+  if (hero && heroPhoto) {
+    watch(hero, function () {
+      var d = parseFloat(heroPhoto.dataset.parallax) || 0;
+      var y = Math.max(0, -hero.getBoundingClientRect().top) * d;
+      heroPhoto.style.transform = 'translate3d(0,' + y.toFixed(1) + 'px,0)';
+    });
+  }
+
+  /* journey cluster drift (depth: prints float at different rates) */
+  var journey = document.getElementById('journey');
+  var floats = [].slice.call(document.querySelectorAll('.float[data-depth]'));
+  var wideFine = window.matchMedia('(min-width: 701px) and (pointer: fine)');
+  if (journey && floats.length) {
+    watch(journey, function () {
+      if (!wideFine.matches) return;
+      var rect = journey.getBoundingClientRect();
+      var mid = rect.top + rect.height / 2 - window.innerHeight / 2;
+      floats.forEach(function (f) {
+        var depth = parseFloat(f.dataset.depth) || 0;
+        f.style.transform = 'translate3d(0,' + (mid * depth * -0.35).toFixed(1) + 'px,0)';
+      });
+    });
+    reduceMotion.addEventListener('change', function (e) {
+      if (e.matches) floats.forEach(function (f) { f.style.transform = ''; });
+    });
+  }
+
+  /* THE CLIMB: scroll progress pours gold into the fleet numeral.
+     Storytelling: the plan literally fills in as you travel through it. */
+  var climb = document.getElementById('vision');
+  if (climb) {
+    watch(climb, function () {
+      var rect = climb.getBoundingClientRect();
+      var span = rect.height - window.innerHeight;
+      var p = span > 0 ? Math.min(1, Math.max(0, -rect.top / span)) : 1;
+      /* ease the pour slightly so the last ten trucks feel earned */
+      climb.style.setProperty('--p', (p * p * (3 - 2 * p)).toFixed(4));
+    });
+  }
+
+  /* ---- services carousel: native snap scroll, buttons nudge (feedback) ---- */
+  var track = document.getElementById('svcTrack');
+  var prev = document.getElementById('svcPrev');
+  var next = document.getElementById('svcNext');
+  if (track && prev && next) {
+    var step = function () {
+      var card = track.querySelector('.svc-card');
+      return card ? card.getBoundingClientRect().width + 18 : 340;
+    };
+    var nudge = function (dir) {
+      track.scrollBy({ left: dir * step(), behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+    };
+    prev.addEventListener('click', function () { nudge(-1); });
+    next.addEventListener('click', function () { nudge(1); });
+
+    var cards = track.querySelectorAll('.svc-card');
+    var setEdges = function () {
+      var max = track.scrollWidth - track.clientWidth;
+      prev.setAttribute('aria-disabled', String(track.scrollLeft < 24));
+      next.setAttribute('aria-disabled', String(track.scrollLeft > max - 24));
+    };
+    if ('IntersectionObserver' in window && cards.length) {
+      var edge = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          var atEdge = entry.intersectionRatio > 0.85;
+          if (entry.target === cards[0]) prev.setAttribute('aria-disabled', String(atEdge));
+          if (entry.target === cards[cards.length - 1]) next.setAttribute('aria-disabled', String(atEdge));
+        });
+      }, { root: track, threshold: [0, 0.85, 1] });
+      edge.observe(cards[0]);
+      edge.observe(cards[cards.length - 1]);
+    }
+    /* settles edge state after momentum/programmatic scrolls; fires once per gesture */
+    if ('onscrollend' in window) track.addEventListener('scrollend', setEdges);
+  }
+})();
+</script>
+
+<!-- Tweaks contract: decisions exposed to the shared panel (locked snapshot baked) -->
+<script>
+  window.KUL_TWEAKS = {
+    style: 's01b-b',
+    controls: [
+      { var: '--gold',           label: 'Champagne gold',      type: 'color',  value: '#D4AF37' },
+      { var: '--gold-dose',      label: 'Gold dosage',         type: 'range',  value: 100, min: 10, max: 100, step: 5,   unit: '%' },
+      { var: '--warmth',         label: 'Gradient warmth',     type: 'range',  value: 100, min: 0,  max: 100, step: 2,   unit: '%' },
+      { var: '--glass-blur',     label: 'Glass blur',          type: 'range',  value: 4,  min: 2,  max: 36,  step: 1,   unit: 'px' },
+      { var: '--noir',           label: 'Middle ground: noir', type: 'range',  value: 100, min: 0,  max: 100, step: 100, unit: '%' },
+      { var: '--hero-grade',     label: 'Hero grade',          type: 'select', value: 'golden-hour', options: ['dusk', 'night', 'golden-hour'] },
+      { var: '--statement-face', label: 'Statement typeface',  type: 'select', value: 'grotesk', options: ['grotesk', 'serif-italic'] }
+    ]
+  };
+</script>
+<script src="/tweaks.js" defer></script>
+</body>
+</html>

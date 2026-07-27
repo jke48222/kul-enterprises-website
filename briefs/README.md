@@ -35,14 +35,22 @@ Mobile-first. Fast. The page should be judgeable in a 90-second scroll.
 
 ## Assets available now (gitignored inbox — copy what you need into the app)
 
-- Journey photo pool — ALL FIVE served slots are genuine Mark photos (verified & corrected Jul 24):
-  `/assets/journey/cliffs.jpg` mesa over turquoise water (src F0C06BCA) · `river.jpg` forest
-  creek/waterfall (src 6B6EBAFE) · `tree.jpg` big tree + green valley (src E0D0B838) ·
-  `wave.jpg` Cabo beach wave (src 45E2302A) · `desert.jpg` sandstone headland over sand beach
-  (src ED2AAAEB). **desert.jpg is safe to use** — it was briefly misfiled as the livery board and
-  is now the real headland photo; ignore any stale in-variant comment claiming it's a brand board.
-  `wave.jpg` and `desert.jpg` are near-sibling Cabo shots (rock-cliff vs wave emphasis) — avoid
-  using both prominently on one page.
+- Journey photo pool — ALL FIVE served slots are genuine Mark photos. **FILENAMES DO NOT MATCH
+  THEIR SUBJECTS** (verified pixel-by-pixel Jul 26 — three of the five names are rotated).
+  Trust this table, never the filename:
+
+  | Served path | What the pixels ACTUALLY show | Mark's blueprint image | Its assigned meaning |
+  |---|---|---|---|
+  | `/assets/journey/cliffs.jpg` | flat-topped mesa/bluff over turquoise water | #1 Rocky Cliffs Over Blue Water | exploration, experience, the journey |
+  | `/assets/journey/wave.jpg` | **turquoise creek/river through dense green forest** | #2 Blue River Through the Forest | calm, patience, consistency, dependability |
+  | `/assets/journey/tree.jpg` | big spreading tree, green valley, hills | #3 Large Tree and Open Landscape | roots, growth, legacy, long-term vision |
+  | `/assets/journey/desert.jpg` | **sandstone headland + breaking ocean wave on sand** | #4 Ocean Waves Against the Rocks | movement, power, forward progress |
+  | `/assets/journey/river.jpg` | **tall sandstone rock formations over empty sand** | #5 Desert Rock Formation | strength, foundation, stability, built to last |
+
+  So: `river.jpg` is the DESERT subject, `wave.jpg` is the RIVER subject, `desert.jpg` is the WAVE
+  subject — a three-way rotation. **Write alt text and pick photos from the pixels column, not the
+  name.** The two sandstone/sand siblings are `river.jpg` + `desert.jpg` — avoid featuring both
+  prominently on one page (this supersedes the earlier wave+desert note).
 - Brand/livery boards (raster, AI — direction only, NEVER a page photo):
   `assets-inbox/New Chat.png` (company/palette board), `assets-inbox/6AAF8586-*.jpeg` +
   `IMG_6646.PNG` (livery/logo boards), `assets-inbox/F18C0F6D-*.png` (loading-animation storyboard).

@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="The Journey — the true story behind KUL Enterprises, told as a scroll documentary in seventeen scenes. From Jamaica to Georgia, construction summers to the U.S. Air Force to the open interstate: how one road became a company built on character.">
+<title>The Journey — KUL Enterprises</title>
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<a class="skip" href="#door">Skip the film &mdash; chapters &amp; contact</a>
+
+<!-- ======================= NAV — ONE slim row =======================
+     The eight chapters used to sit in a second fixed strip beneath this
+     one; two rows of chrome ate the top of every cinematic frame. The
+     chapter index now lives behind the Chapters disclosure, and the bar
+     itself recedes to the lion mark plus Chapters once the film starts.
+     It comes back on scroll-up, on hover anywhere along the top edge,
+     and on keyboard focus — the exit is never more than one Tab away. -->
+<header class="gnav" id="gnav">
+  <div class="gnav__in">
+    <a class="brand" href="../a/" aria-label="KUL Enterprises — The Beginning">
+      <img src="/assets/brand/lion-clean.png" alt="" width="30" height="30" decoding="async">
+      <b>KUL</b><span>Enterprises</span>
+    </a>
+    <nav class="gnav__links" aria-label="Business">
+      <a href="../mission/">Services</a>
+      <a href="../responsibility/">Safety</a>
+      <a href="../forward/#contact">Contact</a>
+    </nav>
+    <div class="gnav__cta">
+      <button class="chapbtn" id="chapBtn" aria-expanded="false" aria-controls="chapsheet">
+        <span class="chapbtn__grid" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span class="chapbtn__lbl">Chapters</span>
+      </button>
+      <a class="pill pill--ghost pill--sm gnav__ghost" href="../join/">Become a Driver</a>
+      <a class="pill pill--gold pill--sm gnav__quote" href="../forward/">Request a Quote</a>
+    </div>
+  </div>
+</header>
+<div class="barspace" aria-hidden="true"></div>
+
+<!-- ======================= CHAPTER SHEET — the index, on request ======================= -->
+<div class="csheet" id="chapsheet" aria-hidden="true">
+  <div class="csheet__scrim" id="csheetScrim"></div>
+  <div class="csheet__panel" role="dialog" aria-modal="true" aria-label="Chapters and business navigation">
+    <div class="csheet__top">
+      <a class="brand" href="../a/" aria-label="KUL Enterprises — The Beginning">
+        <img src="/assets/brand/lion-clean.png" alt="" width="30" height="30" decoding="async">
+        <b>KUL</b><span>Enterprises</span>
+      </a>
+      <button class="csheet__x" id="csheetX" aria-label="Close chapters">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="csheet__in">
+      <div class="csheet__col">
+        <p class="csheet__k">The story &middot; eight chapters</p>
+        <ol class="csheet__list">
+          <li style="--i:0"><a href="../a/"><span class="n">01</span>The Beginning</a></li>
+          <li style="--i:1"><span class="here" aria-current="page"><span class="n">02</span>The Journey<em>Now reading</em></span></li>
+          <li style="--i:2"><a href="../story/"><span class="n">03</span>Why I Started Driving</a></li>
+          <li style="--i:3"><a href="../mission/"><span class="n">04</span>The Mission</a></li>
+          <li style="--i:4"><a href="../responsibility/"><span class="n">05</span>The Responsibility</a></li>
+          <li style="--i:5"><a href="../join/"><span class="n">06</span>Join the Journey</a></li>
+          <li style="--i:6"><a href="../forward/"><span class="n">07</span>Let&rsquo;s Move Forward</a></li>
+          <li style="--i:7"><a href="../road-ahead/"><span class="n">08</span>The Road Ahead</a></li>
+        </ol>
+      </div>
+      <div class="csheet__col csheet__col--biz">
+        <p class="csheet__k">Straight to business</p>
+        <nav class="csheet__biz" aria-label="Business">
+          <a href="../mission/">Services</a>
+          <a href="../responsibility/">Safety</a>
+          <a href="../forward/#contact">Contact</a>
+        </nav>
+        <div class="csheet__cta">
+          <a class="pill pill--gold pill--lg" href="../forward/">Request a Freight Quote</a>
+          <a class="pill pill--ghost pill--lg" href="../join/">Become a Driver</a>
+        </div>
+        <p class="csheet__dispatch">
+          <b>24/7 Dispatch &middot; Nationwide</b>
+          <a href="tel:+16789721148">678-972-1148</a>
+          <a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a>
+          <span>Loganville, Georgia<br>USDOT 7638788 &middot; MC 66389691</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= QUIET PROGRESS + SOUND STUB ======================= -->
+<div class="rail" aria-hidden="true"><i id="railFill"></i></div>
+<div class="hud">
+  <button class="sound" id="sound" aria-expanded="false" aria-controls="soundNote">
+    <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="lbl">Experience the Journey with Sound</span>
+  </button>
+  <button class="sound sound--alt" id="docMode" aria-pressed="false">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 5h16M4 10h16M4 15h11M4 20h7"/></svg>
+    <span class="lbl">Read it as a document</span>
+  </button>
+  <span class="hud__scene" aria-hidden="true"><b id="sceneNow">01</b>&nbsp;·&nbsp;<span id="sceneTotal">17</span></span>
+</div>
+<p class="sound__note" id="soundNote" role="status"><b>Music by Akilah</b> is being composed for this film. Until the score arrives, the journey plays the way it began &mdash; in silence.</p>
+
+<main id="top">
+
+<!-- ======================= OPENING FRAME ======================= -->
+<section class="open" aria-label="The Journey — introduction">
+  <div>
+    <p class="open__kicker reveal">A true story &middot; told in seventeen scenes</p>
+    <h1 class="reveal">The Journey.</h1>
+    <p class="open__sub reveal">Before KUL Enterprises was a trucking company, it was a road &mdash; from Jamaica to Georgia, construction summers to the United States Air Force to the open interstate. This is that road. Scroll when you&rsquo;re ready, and take your time.</p>
+  </div>
+  <div class="open__hint" aria-hidden="true"><i></i><span>Scroll</span></div>
+</section>
+
+<!-- ======================= SCENE 1 — Every Road Has a Beginning ======================= -->
+<!-- ADAPTED per brand law: no Doctor Bird anywhere. Gold particles resolve
+     into the LION mark alone. -->
+<section class="scene g-s1" data-no="01" aria-label="Scene 1 — Every Road Has a Beginning">
+  <div class="marker"><p class="marker__no">Scene 01</p><h2>Every Road Has a Beginning</h2></div>
+  <div class="scene__track"><div class="stick">
+    <div class="bg"><div class="tex"></div></div>
+    <canvas class="film" aria-hidden="true"></canvas>
+    <div class="beat" data-w="1.4"><span class="l">Every company has a story.</span></div>
+    <div class="beat" data-w="1.1"><span class="l dim">Ours began long before the first truck.</span></div>
+    <div class="beat" data-w="1.5"><span class="l">It began with <span class="gold">character</span>.</span></div>
+    <div class="beat" data-w="1" aria-hidden="true"></div>
+    <div class="beat" data-w="2.4" aria-hidden="true"></div>
+    <div class="beat s1-plate" data-w="1.8">
+      <div class="platehero">
+        <img src="/assets/brand/lion-clean.png" alt="The KUL Enterprises lion mark" decoding="async">
+        <b>KUL Enterprises</b>
+        <span>Strength in Motion &middot; Built on Integrity &middot; Driven by Safety</span>
+      </div>
+      <div class="s1-photo">
+        <figure><img src="/assets/journey/cliffs.jpg" alt="A cliff wall rising straight out of turquoise water — one of Mark&rsquo;s photographs from the road" loading="lazy" decoding="async"></figure>
+      </div>
+    </div>
+    <div class="beat" data-w="2"><span class="l">Every road has a beginning.</span><span class="l gold">This is mine.</span></div>
+  </div></div>
+</section>
+
+<!-- ======================= SCENE 2 — Jamaica ======================= -->
+<section class="scene g-s2" data-no="02" aria-label="Scene 2 — Jamaica">
+  <div class="marker"><p class="marker__no">Scene 02</p><h2>Jamaica</h2></div>
+  <div class="scene__track"><div class="stick">
+    <div class="bg"><div class="tex"></div></div>
+    <div class="beat" data-w="1.5"><span class="l">I was born in Jamaica.</span></div>
+    <div class="beat" data-w="1"><span class="l dim">On August 8, 1988&hellip;</span></div>
+    <div class="beat" data-w="1.2"><span class="l">My mother brought my sister and me to America.</span></div>
+    <div class="beat" data-w="1.4"><span class="l dim">She told us we were spending the summer with our father.</span></div>
+    <div class="beat" data-w="3"><span class="l big">We never went back.</span></div>
+  </div></div>
+</section>
+<section class="lesson" aria-label="Scene 2 — lesson">
+  <div class="lesson__rule reveal"></div>
+  <p class="reveal">Sometimes life&rsquo;s greatest journeys begin <b>without our permission</b>.</p>
+</section>
+<div class="slotrow">
+  <figure class="slot reveal">
+    <img src="/assets/brand/lion-clean.png" alt="" aria-hidden="true">
+    <b>Jamaica &middot; 1988</b>
+    <span>A photograph from home belongs here. It arrives with the family archive.</span>
+  </figure>
+</div>
+
+<!-- ======================= SCENE 3 — Learning the Value of Work ======================= -->
+<section class="scene g-s3" data-no="03" aria-label="Scene 3 — Learning the Value of Work">
+  <div class="marker"><p class="marker__no">Scene 03</p><h2>Learning the Value of Work</h2></div>
+  <div class="scene__track"><div class="stick">
+    <div class="bg"><div class="tex"></div></div>
+    <div class="beat" data-w="1.5"><span class="l">America was different.</span><span class="l dim">Everything moved faster.</span><span class="l dim">Everything felt unfamiliar.</span></div>
+    <div class="beat" data-w="1.5"><span class="l dim">While most kids spent their summers playing&hellip;</span><span class="l">Mine were spent on construction sites.</span></div>
+    <div class="beat" data-w="1.5"><span class="l roll dim">Every school break&hellip;</span><span class="l roll dim">Every holiday&hellip;</span><span class="l roll dim">Every vacation&hellip;</span></div>
+    <div class="beat" data-w="1.5"><span class="l">I worked alongside my father.</span></div>
+    <div class="beat" data-w="1.5"><span class="l dim">At the time&hellip;</span><span class="l">I didn&rsquo;t understand why.</span><span class="l dim">I only knew that it was expected.</span></div>
+    <div class="beat" data-w="1.4"><span class="l dim">Looking back&hellip;</span><span class="l">Those days taught me something I couldn&rsquo;t see at the time.</span></div>
+    <div class="beat" data-w="2"><span class="l">Work isn&rsquo;t something to avoid.</span><span class="l gold">It&rsquo;s something to take pride in.</span></div>
+  </div></div>
+</section>
+<section class="lesson" aria-label="Scene 3 — lesson">
+  <div class="lesson__rule reveal"></div>
+  <p class="reveal">Character is often built <b>long before opportunity arrives</b>.</p>
+</section>
+<div class="slotrow">
+  <figure class="slot reveal">
+    <img src="/assets/brand/lion-clean.png" alt="" aria-hidden="true">
+    <b>The Construction Summers</b>
+    <span>Working beside his father, every school break. Photograph reserved.</span>
+  </figure>
+</div>
+
+<!-- ======================= SCENE 4 — Seeing the World Differently ======================= -->
+<section class="scene g-s4" data-no="04" aria-label="Scene 4 — Seeing the World Differently">
+  <div class="marker"><p class="marker__no">Scene 04</p><h2>Seeing the World Differently</h2></div>
+  <div class="scene__track"><div class="stick">
+    <div class="bg"><div class="tex"></div></div>
+    <div class="beat" data-w="1"><span class="l dim">As I grew older&hellip;</span><span class="l">I began to notice something.</span></div>
+    <div class="beat" data-w="1.2"><span class="l">I wasn&rsquo;t satisfied with simply being told how things were.</span></div>
+    <div class="beat" data-w="1.2"><span class="l">I wanted to understand <span class="gold">why</span> they worked the way they did.</span></div>
+    <div class="beat" data-w="1.5"><span class="l">Questions became part of the journey.</span></div>
+    <div class="beat" data-w="2"><span class="l">Curiosity doesn&rsquo;t always give you immediate answers.</span><span class="l dim">Sometimes&hellip;</span><span class="l">It gives you a lifetime of learning.</span></div>
+  </div></div>
+</section>
+<section class="lesson" aria-label="Scene 4 — lesson">
+  <div class="lesson__rule reveal"></div>
+  <p class="reveal">Every road begins <b>with a question</b>.</p>
+</section>
+
+<!-- ======================= SCENE 5 — The Beginning of Independence ======================= -->
+<section class="scene g-s5" data-no="05" aria-label="Scene 5 — The Beginning of Independence">
+  <div class="marker"><p class="marker__no">Scene 05</p><h2>The Beginning of Independence</h2></div>
+  <div class="scene__track"><div class="stick">
+    <div class="bg"><div class="tex"></div></div>
+    <div class="beat" data-w="1.4"><span class="l dim">Every life reaches a moment&hellip;</span><span class="l">When someone else stops making the decisions.</span></div>
+    <div class="beat" data-w="1.5"><span class="l big">This was mine.</span></div>
+    <div class="beat" data-w="1.4"><span class="l dim">Leaving home wasn&rsquo;t just about finding a place to live.</span><span class="l">It was about finding out who I was.</span></div>
+    <div class="beat" data-w="1.2"><span class="l dim">For the first time&hellip;</span><span class="l">I was making my own decisions.</span></div>
+    <div class="beat" data-w="1.5"><span class="l roll dim">Some were good.</span><span class="l roll dim">Some weren&rsquo;t.</span><span class="l">But every one of them belonged to me.</span></div>
+    <div class="beat" data-w="2"><span class="l">Independence isn&rsquo;t the freedom to avoid mistakes.</span><span class="l gold">It&rsquo;s accepting responsibility for them.</span></div>
+  </div></div>
+</section>
+<section class="lesson" aria-label="Scene 5 — lesson">
+  <div class="lesson__rule reveal"></div>
+  <p class="reveal">Growth begins <b>the moment excuses end</b>.</p>
+</section>
+
+<!-- ======================= SCENE 6 — Choosing a Greater Challenge ======================= -->
+<section class="scene g-s6" data-no="06" aria-label="Scene 6 — Choosing a Greater Challenge">
+  <div class="marker"><p class="marker__no">Scene 06</p><h2>Choosing a Greater Challenge</h2></div>
+  <div class="scene__track"><div class="stick">
+    <div class="bg"><div class="tex"></div></div>
+    <div class="beat" data-w="1.2"><span class="l dim">Independence gave me freedom.</span><span class="l">But freedom also brought a question.</span></div>
+    <div class="beat" data-w="2"><span class="l big">What kind of man did I want to become?</span></div>
+    <div class="beat" data-w="1.5"><span class="l roll">I wanted structure.</span><span class="l roll">I internally searching for purpose.</span><span class="l roll">I wanted to be challenged.</span></div>
+    <div class="beat" data-w="2"><span class="l">That&rsquo;s what led me to the <span class="gold">United States Air Force</span>.</span></div>
+    <div class="beat" data-w="2"><span class="l">Discipline isn&rsquo;t about being controlled.</span><span class="l gold">It&rsquo;s about learning to control yourself.</span></div>
+  </div></div>
+</section>
+<section class="lesson" aria-label="Scene 6 — lesson">
+  <div class="lesson__rule reveal"></div>
+  <p class="reveal">Character grows when comfort is replaced <b>with commitment</b>.</p>
+</section>
+
+<!-- ======================= SCENE 7 — Forged Through Discipline ======================= -->
+<section class="scene g-s7" data-no="07" aria-label="Scene 7 — Forged Through Discipline">
+  <div class="marker"><p class="marker__no">Scene 07</p><h2>Forged Through Discipline</h2></div>
+  <div class="scene__track"><div class="stick">
+    <div class="bg"><div class="tex"></div></div>
+    <div class="beat" data-w="1.4"><span class="l dim">Some lessons can only be learned&hellip;</span><span class="l">through discipline.</span></div>
+    <div class="beat" data-w="1.2"><span class="l">The Air Force challenged me in ways I had never experienced before.</span></div>
+    <div class="beat" data-w="1.6"><span class="l dim">It demanded</span><span class="l">Consistency.</span><span class="l">Accountability.</span><span class="l gold">Commitment.</span></div>
+    <div class="beat" data-w="1.5"><span class="l dim">Every day became another opportunity&hellip;</span><span class="l">to become a little stronger than the day before.</span></div>
+    <div class="beat" data-w="2"><span class="l">Discipline doesn&rsquo;t change who you are.</span><span class="l gold">It reveals who you&rsquo;re willing to become.</span></div>
+  </div></div>
+</section>
+<section class="lesson" aria-label="Scene 7 — lesson">
+  <div class="lesson__rule reveal"></div>
+  <p class="reveal">Excellence is rarely built in a single moment. <b>It&rsquo;s built one decision at a time.</b></p>
+</section>
+<div class="slotrow">
+  <figure class="slot reveal">
+    <img src="/assets/brand/lion-clean.png" alt="" aria-hidden="true">
+    <b>United States Air Force</b>
+    <span>Service and commitment &mdash; not hardware. Photographs reserved for Mark&rsquo;s own.</span>
+  </figure>
+</div>
+
+<!-- ======================= SCENE 8 — Life Doesn't Follow a Straight Line ======================= -->
+<section class="scene g-s8" data-no="08" aria-label="Scene 8 — Life Doesn&rsquo;t Follow a Straight Line">
+  <div class="marker"><p class="marker__no">Scene 08</p><h2>Life Doesn&rsquo;t Follow a Straight Line</h2></div>
+  <div class="scene__track"><div class="stick">
+    <div class="bg"><div class="tex"></div>
+      <svg class="road" viewBox="0 0 680 260" aria-hidden="true" preserveAspectRatio="xMidYMax meet">
+        <path pathLength="1" d="M10 250 C 140 240, 200 190, 260 170 S 380 150, 420 120 S 520 70, 560 60 S 650 30, 676 8"/>
+      </svg>
+    </div>
+    <div class="beat" data-w="1.2"><span class="l">I thought I knew where life was taking me.</span></div>
+    <div class="beat" data-w="1"><span class="l dim">Like many people&hellip;</span><span class="l">I had a plan.</span></div>
+    <div class="beat" data-w="1.5"><span class="l dim">But plans have a way&hellip;</span><span class="l">of changing.</span></div>
+    <div class="beat" data-w="1.4"><span class="l dim">Some opportunities opened new doors.</span><span class="l dim">Others closed before I expected.</span></div>
+    <div class="beat" data-w="1.5"><span class="l roll dim">There were victories.</span><span class="l roll dim">There were setbacks.</span><span class="l">Both became teachers.</span></div>
+    <div class="beat" data-w="2.2"><span class="l">Life rarely asks whether you&rsquo;re ready.</span><span class="l dim">It simply asks&hellip;</span><span class="l gold">What will you do now?</span></div>
+  </div></div>
+</section>
+<section class="lesson" aria-label="Scene 8 — lesson">
+  <div class="lesson__rule reveal"></div>
+  <p class="reveal">Resilience isn&rsquo;t refusing to fall. <b>It&rsquo;s choosing to keep moving.</b></p>
+</section>
+
+<!-- ======================= SCENE 9 — Earning Trust ======================= -->
+<section class="scene g-s9" data-no="09" aria-label="Scene 9 — Earning Trust">
+  <div class="marker"><p class="marker__no">Scene 09</p><h2>Earning Trust</h2></div>
+  <div class="scene__track"><div class="stick">
+    <div class="bg"><div class="tex"></div></div>
+    <div class="beat" data-w="1.3"><span class="l dim">Opportunity has a way&hellip;</span><span class="l">of finding people who are prepared for it.</span></div>
+    <div class="beat" data-w="1.5"><span class="l dim">I wasn&rsquo;t chasing titles.</span><span class="l">I was learning to become dependable.</span></div>
+    <div class="beat" data-w="1.5"><span class="l roll dim">One responsibility became another.</span><span class="l roll dim">One opportunity led to the next.</span></div>
+    <div class="beat" data-w="1.5"><span class="l dim">Before long&hellip;</span><span class="l">I found myself leading others.</span></div>
+    <div class="beat" data-w="2.2"><span class="l">Leadership isn&rsquo;t about being in front.</span><span class="l gold">It&rsquo;s about being someone others can count on.</span></div>
+  </div></div>
+</section>
+<section class="lesson" aria-label="Scene 9 — lesson">
+  <div class="lesson__rule reveal"></div>
+  <p class="reveal">Trust is earned <b>long before it&rsquo;s ever expected</b>.</p>
+</section>
+
+<!-- ======================= SCENE 10 — The Road Became My Teacher =======================
+     The photograph movement. All five real photographs from Mark's own miles
+     live here — slow crossfades, each image allowed to breathe. -->
+<section class="scene g-s10" data-no="10" aria-label="Scene 10 — The Road Became My Teacher">
+  <div class="marker"><p class="marker__no">Scene 10</p><h2>The Road Became My Teacher</h2></div>
+  <div class="scene__track"><div class="stick">
+    <div class="bg">
+      <div class="tex"></div>
+      <div class="bg__ph" data-beats="2 3"><img src="/assets/journey/cliffs.jpg" alt="A cliff wall rising straight out of turquoise water — Mark&rsquo;s photograph from the road" loading="lazy" decoding="async"></div>
+      <div class="bg__ph" data-beats="4"><img src="/assets/journey/tree.jpg" alt="A broad tree on open green ground with a forested mountain behind it — Mark&rsquo;s photograph from the road" loading="lazy" decoding="async"></div>
+      <div class="bg__ph" data-beats="5"><img src="/assets/journey/desert.jpg" alt="A sandstone headland with a wave breaking onto open sand — Mark&rsquo;s photograph from the road" loading="lazy" decoding="async"></div>
+      <div class="bg__ph" data-beats="6"><img src="/assets/journey/wave.jpg" alt="A turquoise creek running through thick green forest — Mark&rsquo;s photograph from the road" loading="lazy" decoding="async"></div>
+      <div class="bg__ph" data-beats="7"><img src="/assets/journey/river.jpg" alt="Tall sandstone formations standing over an empty sweep of sand — Mark&rsquo;s photograph from the road" loading="lazy" decoding="async"></div>
+    </div>
+    <div class="beat" data-w="1.4"><span class="l">I thought I was learning how to drive a truck.</span></div>
+    <div class="beat" data-w="1.4"><span class="l dim">What I didn&rsquo;t realize&hellip;</span><span class="l">was that the road was teaching me something far greater.</span></div>
+    <div class="beat" data-w="1.6"><span class="l">Every mile introduced me to a new place.</span><span class="l dim">Every state introduced me to different people.</span></div>
+    <div class="beat" data-w="2"><span class="l dim">Every delivery reminded me&hellip;</span><span class="l gold">That trust travels farther than freight.</span></div>
+    <div class="beat beat--wide" data-w="1.8"><span class="l roll dim">I saw mountains&hellip;</span><span class="l roll dim">deserts&hellip;</span><span class="l roll dim">cities that never seemed to sleep&hellip;</span><span class="l roll">and quiet roads where time felt like it had stopped.</span></div>
+    <div class="beat" data-w="1.4" aria-hidden="true"></div>
+    <div class="beat" data-w="1.4" aria-hidden="true"></div>
+    <div class="beat" data-w="1.6"><span class="l">The country was changing.</span><span class="l gold">And so was I.</span></div>
+    <div class="beat" data-w="2"><span class="l dim">The farther I traveled&hellip;</span><span class="l dim">the more I realized&hellip;</span><span class="l big">Every person has a story.</span></div>
+    <p class="credit">Photographs: Mark&rsquo;s own miles</p>
+  </div></div>
+</section>
+<!-- the same five photographs, typeset — for the static document (reduced
+     motion, no JS, or "read it as a document") -->
+<section class="stills" aria-label="Photographs from the road">
+  <p class="stills__lede">Five photographs from Mark&rsquo;s own miles &mdash; the places the road showed him.</p>
+  <div class="stills__grid">
+    <figure><img src="/assets/journey/cliffs.jpg" alt="A cliff wall rising straight out of turquoise water" loading="lazy" decoding="async"><figcaption>A cliff wall out of turquoise water.</figcaption></figure>
+    <figure><img src="/assets/journey/tree.jpg" alt="A broad tree on open green ground with a forested mountain behind it" loading="lazy" decoding="async"><figcaption>One tree, one mountain behind it.</figcaption></figure>
+    <figure><img src="/assets/journey/desert.jpg" alt="A sandstone headland with a wave breaking onto open sand" loading="lazy" decoding="async"><figcaption>A headland, and a wave arriving.</figcaption></figure>
+    <figure><img src="/assets/journey/wave.jpg" alt="A turquoise creek running through thick green forest" loading="lazy" decoding="async"><figcaption>A creek, and quiet.</figcaption></figure>
+    <figure><img src="/assets/journey/river.jpg" alt="Tall sandstone formations standing over an empty sweep of sand" loading="lazy" decoding="async"><figcaption>Sandstone standing over the sand.</figcaption></figure>
+  </div>
+</section>
+<section class="lesson" aria-label="Scene 10 — lesson">
+  <div class="lesson__rule reveal"></div>
+  <p class="reveal">The road doesn&rsquo;t just take you to new places. <b>It teaches you to see the world differently.</b></p>
+</section>
+
+<!-- ======================= SCENE 11 — A Vision Begins to Form ======================= -->
+<section class="scene g-s11" data-no="11" aria-label="Scene 11 — A Vision Begins to Form">
+  <div class="marker"><p class="marker__no">Scene 11</p><h2>A Vision Begins to Form</h2></div>
+  <div class="scene__track"><div class="stick">
+    <div class="bg">
+      <div class="tex"></div>
+      <img class="lionmark" src="/assets/brand/lion-clean.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    </div>
+    <div class="beat" data-w="1.2"><span class="l dim">The longer I traveled&hellip;</span><span class="l">The more I began to notice something.</span></div>
+    <div class="beat beat--wide" data-w="1.5"><span class="l dim">Freight moved every day.</span><span class="l dim">But what truly kept the industry moving&hellip;</span><span class="l">wasn&rsquo;t trucks.</span><span class="l gold">It was people.</span></div>
+    <div class="beat" data-w="2.2"><span class="l roll">Drivers.</span><span class="l roll">Dispatchers.</span><span class="l roll">Mechanics.</span><span class="l roll">Customers.</span><span class="l roll">Brokers.</span><span class="l roll">Families waiting at home.</span></div>
+    <div class="beat" data-w="1.6"><span class="l">Every load represented someone&rsquo;s trust.</span><span class="l">Every mile represented someone&rsquo;s promise.</span></div>
+    <div class="beat" data-w="1.4"><span class="l">That&rsquo;s when a vision began to take shape.</span></div>
+    <div class="beat" data-w="2.6"><span class="l dim">What if a company could be built&hellip;</span><span class="l">Where integrity wasn&rsquo;t just a word&hellip;</span><span class="l big gold">but the standard?</span></div>
+    <div class="beat" data-w="2"><span class="l">A business begins with an idea.</span><span class="l gold">A lasting business begins with values.</span></div>
+  </div></div>
+</section>
+<section class="lesson" aria-label="Scene 11 — lesson">
+  <div class="lesson__rule reveal"></div>
+  <p class="reveal">Companies are remembered for what they deliver. <b>Great companies are remembered for how they make people feel.</b></p>
+</section>
+
+<!-- ======================= SCENE 12 — More Than a Business ======================= -->
+<section class="scene g-s12" data-no="12" aria-label="Scene 12 — More Than a Business">
+  <div class="marker"><p class="marker__no">Scene 12</p><h2>More Than a Business</h2></div>
+  <div class="scene__track"><div class="stick">
+    <div class="bg"><div class="tex"></div><div class="dawnline"></div></div>
+    <div class="beat" data-w="1.2"><span class="l dim">There came a moment&hellip;</span><span class="l dim">when I stopped asking&hellip;</span></div>
+    <div class="beat" data-w="1.5"><span class="l big">What kind of business do I want to own?</span></div>
+    <div class="beat" data-w="1.1"><span class="l dim">I began asking a different question.</span></div>
+    <div class="beat" data-w="2.2"><span class="l big gold">What kind of company deserves to exist?</span></div>
+    <div class="beat" data-w="1.5"><span class="l">A company built on honesty&hellip;</span><span class="l dim">when honesty costs something.</span></div>
+    <div class="beat" data-w="1.5"><span class="l">A company built on integrity&hellip;</span><span class="l dim">even when no one is watching.</span></div>
+    <div class="beat beat--wide" data-w="1.6"><span class="l">A company where safety isn&rsquo;t measured by regulations alone&hellip;</span><span class="l dim">but by the value placed on every person who trusts us.</span></div>
+    <div class="beat" data-w="2.2"><span class="l dim">I realized&hellip;</span><span class="l">I wasn&rsquo;t trying to build a trucking company.</span><span class="l big">I was trying to build something people could believe in.</span></div>
+    <div class="beat" data-w="2"><span class="l">Businesses are created every day.</span><span class="l dim">Trust&hellip;</span><span class="l gold">is built one decision at a time.</span></div>
+  </div></div>
+</section>
+<section class="lesson" aria-label="Scene 12 — lesson">
+  <div class="lesson__rule reveal"></div>
+  <p class="reveal">The strongest foundation isn&rsquo;t concrete. <b>It&rsquo;s character.</b></p>
+</section>
+
+<!-- ======================= SCENE 13 — The Promise =======================
+     The ground itself turns to daylight here. Everything after this
+     scene is lit. -->
+<section class="scene g-s13" data-no="13" aria-label="Scene 13 — The Promise">
+  <div class="marker"><p class="marker__no">Scene 13</p><h2>The Promise</h2></div>
+  <div class="scene__track"><div class="stick">
+    <div class="bg"><div class="tex"></div><div class="daylight"></div></div>
+    <div class="beat" data-w="1.3"><span class="l dim">Every company begins with paperwork.</span><span class="l">But that&rsquo;s not where KUL began.</span></div>
+    <div class="beat" data-w="1.6"><span class="l big">KUL began with a promise.</span></div>
+    <div class="beat beat--wide" data-w="1.8"><span class="l dim">A promise&hellip;</span><span class="l">to do business with integrity.</span><span class="l">To treat people with respect.</span><span class="l">To never compromise safety for convenience.</span></div>
+    <div class="beat beat--wide" data-w="2"><span class="l dim">To remember&hellip;</span><span class="l roll dim">that behind every shipment&hellip;</span><span class="l roll dim">every invoice&hellip;</span><span class="l roll dim">every phone call&hellip;</span><span class="l">is a person who placed their trust in us.</span></div>
+    <div class="beat" data-w="1.6"><span class="l">That promise became the foundation.</span><span class="l dim">The trucks would come later.</span></div>
+    <div class="beat" data-w="2"><span class="l">A company&rsquo;s reputation isn&rsquo;t created by advertising.</span><span class="l gold">It&rsquo;s created by the decisions no one else sees.</span></div>
+  </div></div>
+</section>
+<div class="act-day">
+
+<section class="lesson lesson--light act-light" aria-label="Scene 13 — lesson">
+  <div class="lesson__rule reveal"></div>
+  <p class="reveal">Principles are promises you keep&hellip; <b>even when they&rsquo;re difficult.</b></p>
+</section>
+<div class="slotrow slotrow--light">
+  <figure class="slot slot--light reveal">
+    <img src="/assets/brand/lion-clean.png" alt="" aria-hidden="true">
+    <b>The Notebook</b>
+    <span>Hands writing the values down, before there was a company to write them for. Photograph reserved.</span>
+  </figure>
+</div>
+
+<!-- ======================= SCENE 14 — Meet KUL ======================= -->
+<section class="scene scene--light g-s14" data-no="14" aria-label="Scene 14 — Meet KUL">
+  <div class="marker marker--light"><p class="marker__no">Scene 14</p><h2>Meet KUL</h2></div>
+  <div class="scene__track"><div class="stick">
+    <div class="bg"><div class="tex"></div></div>
+    <div class="beat" data-w="1.6"><span class="l roll dim">Every mile&hellip;</span><span class="l roll dim">Every lesson&hellip;</span><span class="l roll dim">Every decision&hellip;</span><span class="l big">Led here.</span></div>
+    <div class="beat" data-w="2.2">
+      <div class="s14-logo">
+        <img src="/assets/brand/logo-vector.png" alt="KUL Enterprises LLC" loading="lazy" decoding="async">
+        <span class="l">Welcome to KUL Enterprises.</span>
+      </div>
+    </div>
+    <div class="beat" data-w="2"><span class="l dim">We didn&rsquo;t build this company to be the biggest.</span><span class="l big">We built it to be trusted.</span></div>
+    <div class="beat beat--wide beliefs" data-w="2.4"><span class="l dim">We believe&hellip;</span><span class="l">Integrity is earned.</span><span class="l">Safety is personal.</span><span class="l">Communication matters.</span><span class="l">Every customer deserves honesty.</span><span class="l">Every driver deserves respect.</span><span class="l">Every load deserves our full attention.</span></div>
+    <div class="beat beat--wide" data-w="2"><span class="l">Values don&rsquo;t appear on a balance sheet.</span><span class="l dim">But they&rsquo;re often the most valuable asset a company owns.</span></div>
+  </div></div>
+</section>
+<section class="lesson lesson--light act-light" aria-label="Scene 14 — lesson">
+  <div class="lesson__rule reveal"></div>
+  <p class="reveal">Reputation isn&rsquo;t built by what a company says. <b>It&rsquo;s built by what people experience.</b></p>
+</section>
+<div class="slotrow slotrow--light">
+  <figure class="slot slot--light reveal">
+    <img src="/assets/brand/lion-clean.png" alt="" aria-hidden="true">
+    <b>The Truck</b>
+    <span>One tractor, kept the way we&rsquo;d want yours kept. The professional photograph belongs here.</span>
+  </figure>
+</div>
+
+<!-- ======================= SCENE 15 — What We Stand For ======================= -->
+<section class="scene scene--light g-s15" data-no="15" aria-label="Scene 15 — What We Stand For">
+  <div class="marker marker--light"><p class="marker__no">Scene 15</p><h2>What We Stand For</h2></div>
+  <div class="scene__track"><div class="stick">
+    <div class="bg"><div class="tex"></div></div>
+    <div class="beat" data-w="1.4"><span class="l">Every company has values.</span></div>
+    <div class="beat" data-w="1.8"><span class="l dim">Ours were learned&hellip;</span><span class="l">long before this company existed.</span></div>
+  </div></div>
+</section>
+
+<!-- values as promises, one at a time -->
+<section class="values" aria-label="Our values">
+  <div class="wrap">
+    <div class="values__head reveal">
+      <p>Six promises. Each one learned before there was a company to write it down for.</p>
+    </div>
+    <dl class="vrow">
+      <div class="vitem reveal"><dt><b>Integrity</b></dt><dd><p>We do the right thing&hellip; <em>even when no one is watching.</em></p></dd></div>
+      <div class="vitem reveal"><dt><b>Safety</b></dt><dd><p>Every load matters. <em>Every person matters more.</em></p></dd></div>
+      <div class="vitem reveal"><dt><b>Communication</b></dt><dd><p>Trust grows when <em>people know what&rsquo;s happening.</em></p></dd></div>
+      <div class="vitem reveal"><dt><b>Respect</b></dt><dd><p>We believe relationships are built&hellip; <em>one conversation at a time.</em></p></dd></div>
+      <div class="vitem reveal"><dt><b>Excellence</b></dt><dd><p><em>Good enough</em> has never been our destination.</p></dd></div>
+      <div class="vitem reveal"><dt><b>Accountability</b></dt><dd><p>When we make a promise&hellip; <em>We intend to keep it.</em></p></dd></div>
+    </dl>
+    <div class="values__close reveal">
+      <p>Values don&rsquo;t matter because they&rsquo;re written. <b>They matter because they&rsquo;re lived.</b></p>
+    </div>
+  </div>
+</section>
+<div class="slotrow slotrow--light">
+  <figure class="slot slot--light reveal">
+    <img src="/assets/brand/lion-clean.png" alt="" aria-hidden="true">
+    <b>Ordinary Moments</b>
+    <span>The pre-dawn inspection. The professional phone call. The update. The handshake. The safe arrival. Photographs reserved.</span>
+  </figure>
+</div>
+<section class="lesson lesson--light act-light" aria-label="Scene 15 — lesson">
+  <div class="lesson__rule reveal"></div>
+  <p class="reveal">Character isn&rsquo;t something a company advertises. <b>It&rsquo;s something people experience.</b></p>
+</section>
+
+<!-- ======================= SCENE 16 — The Road Ahead =======================
+     Mark's optional bird coda is deliberately NOT built: it conflicts with
+     the locked bird-appears-once law and awaits his explicit sign-off. -->
+<section class="scene scene--light g-s16" data-no="16" aria-label="Scene 16 — The Road Ahead">
+  <div class="marker marker--light"><p class="marker__no">Scene 16</p><h2>The Road Ahead</h2></div>
+  <div class="scene__track"><div class="stick">
+    <div class="bg"><div class="tex"></div></div>
+    <div class="beat" data-w="1.5"><span class="l">Every road leads somewhere.</span><span class="l dim">Some journeys last a few miles.</span><span class="l dim">Others&hellip;</span><span class="l">shape an entire lifetime.</span></div>
+    <div class="beat beat--wide" data-w="1.8"><span class="l">KUL Enterprises is still writing its story.</span><span class="l roll dim">One shipment at a time.</span><span class="l roll dim">One relationship at a time.</span><span class="l roll dim">One promise kept at a time.</span></div>
+    <div class="beat beat--wide" data-w="1.6"><span class="l dim">We don&rsquo;t know every opportunity that lies ahead.</span><span class="l">But we do know the principles that will guide us there.</span></div>
+    <div class="beat" data-w="2"><span class="l roll">Integrity.</span><span class="l roll">Character.</span><span class="l roll">Safety.</span><span class="l roll">Service.</span><span class="l roll">Trust.</span></div>
+    <div class="beat" data-w="2.4">
+      <div class="tagline">
+        <span class="l">Strength in Motion.</span>
+        <span class="l">Built on Integrity.</span>
+        <span class="l">Driven by Safety.</span>
+        <span class="tagline__rule" aria-hidden="true"></span>
+        <span class="l tagline__seal gold">Built by Character. Trusted Through Action.</span>
+      </div>
+    </div>
+    <div class="beat" data-w="2"><span class="l">A destination gives us direction.</span><span class="l gold">Character determines how we get there.</span></div>
+  </div></div>
+</section>
+<section class="lesson lesson--light act-light" aria-label="Scene 16 — lesson">
+  <div class="lesson__rule reveal"></div>
+  <p class="reveal">The journey never really ends. <b>It simply becomes someone else&rsquo;s beginning.</b></p>
+</section>
+
+<!-- ======================= SCENE 17 — The Next Journey ======================= -->
+<section class="scene scene--light g-s17" data-no="17" aria-label="Scene 17 — The Next Journey">
+  <div class="marker marker--light"><p class="marker__no">Scene 17</p><h2>The Next Journey</h2></div>
+  <div class="scene__track"><div class="stick">
+    <div class="bg"><div class="tex"></div></div>
+    <div class="beat beat--wide" data-w="1.6"><span class="l roll dim">Every mile I&rsquo;ve traveled&hellip;</span><span class="l roll dim">Every lesson I&rsquo;ve learned&hellip;</span><span class="l roll dim">Every promise I&rsquo;ve chosen to keep&hellip;</span><span class="l">Has led to this moment.</span></div>
+    <div class="beat" data-w="1.8"><span class="l dim">Not because my journey is complete.</span><span class="l">But because it&rsquo;s finally ready&hellip;</span><span class="l gold">to serve yours.</span></div>
+    <div class="beat" data-w="1.4" aria-hidden="true"></div>
+    <div class="beat" data-w="2"><span class="l big">Trust isn&rsquo;t given.</span><span class="l big gold">It&rsquo;s earned.</span></div>
+    <div class="beat" data-w="1.8"><span class="l roll">One mile.</span><span class="l roll">One decision.</span><span class="l roll">One relationship at a time.</span></div>
+    <div class="beat" data-w="2.6">
+      <div class="lockup lockup--light">
+        <img src="/assets/brand/lion-clean.png" alt="The KUL Enterprises lion mark" loading="lazy" decoding="async">
+        <b>KUL Enterprises</b>
+        <span>Strength in Motion<br>Built on Integrity<br>Driven by Safety</span>
+      </div>
+    </div>
+    <div class="beat" data-w="2.4"><span class="l dim">Thank you&hellip;</span><span class="l">for taking this journey with us.</span></div>
+    <div class="beat beat--wide" data-w="2.6"><span class="l dim">Whenever you&rsquo;re ready&hellip;</span><span class="l dim">we&rsquo;ll be honored&hellip;</span><span class="l">to take the next one with you.</span></div>
+  </div></div>
+</section>
+
+<!-- ======================= THE FRONT DOOR ======================= -->
+<section class="door" id="door" aria-label="Where the story leads">
+  <div class="wrap">
+    <p class="door__eyebrow reveal">The story has opened the front door</p>
+    <h2 class="h2 reveal">Now the practical part.</h2>
+    <p class="reveal">KUL Enterprises runs one truck today &mdash; licensed and insured, USDOT 7638788 and MC 66389691, based in Loganville, Georgia, building deliberately toward 50 tractors by the end of 2029. If the way we tell our story matches the way you&rsquo;d want your freight handled, the next step is simple.</p>
+    <div class="door__row reveal">
+      <a class="pill pill--gold pill--lg" href="../forward/">Request a Freight Quote</a>
+      <a class="pill pill--ghost pill--onLight pill--lg" href="../join/">Become a Driver</a>
+    </div>
+    <p class="door__fast reveal">In a hurry? Jump straight to <a href="../mission/">Services</a>, <a href="../responsibility/">Safety</a>, <a href="../forward/">Request a Quote</a>, or <a href="../forward/#contact">Contact</a>.</p>
+    <div class="door__next reveal">
+      <small>Next chapter</small>
+      <a href="../story/">Why I Started Driving</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /.act-day -->
+
+</main>
+
+<!-- ======================= FOOTER ======================= -->
+<footer class="foot" id="contact">
+  <div class="foot__in">
+    <img class="foot__lockup" src="/assets/brand/logo-vector.png" alt="KUL Enterprises LLC" loading="lazy" decoding="async">
+    <div class="foot__cols">
+      <div class="foot__col">
+        <h4>Services</h4>
+        <a href="../mission/">Power Only</a><a href="../mission/">Dry Van</a><a href="../mission/">Reefer</a>
+        <a href="../mission/">Dedicated</a><a href="../mission/">Regional &amp; OTR</a><a href="../mission/">Expedited</a>
+      </div>
+      <div class="foot__col">
+        <h4>The Story</h4>
+        <a href="../a/">The Beginning</a>
+        <p aria-current="page">The Journey</p>
+        <a href="../story/">Why I Started Driving</a>
+        <a href="../mission/">The Mission</a>
+        <a href="../responsibility/">The Responsibility</a>
+        <a href="../join/">Join the Journey</a>
+        <a href="../forward/">Let&rsquo;s Move Forward</a>
+        <a href="../road-ahead/">The Road Ahead</a>
+      </div>
+      <div class="foot__col">
+        <h4>Contact</h4>
+        <p><b>Dispatch</b></p>
+        <a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a>
+        <a href="tel:+16789721148">678-972-1148</a>
+        <p>Loganville, Georgia<br>24/7 Dispatch &middot; Nationwide</p>
+        <a href="../forward/#contact">Contact page &rarr;</a>
+      </div>
+      <div class="foot__col">
+        <h4>Credentials</h4>
+        <p>USDOT <b>7638788</b></p>
+        <p>MC <b>66389691</b></p>
+        <p>Licensed &amp; Insured<br>Interstate Motor Carrier</p>
+      </div>
+    </div>
+    <div class="foot__legal">
+      <span>Copyright &copy; 2026 KUL Enterprises LLC. All rights reserved.</span>
+      <span class="tag">Strength in Motion. Built on Integrity. Driven by Safety.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="./film.js" defer></script>
+
+<!-- ======================= TWEAKS CONTRACT (locked snapshot as defaults) ======================= -->
+<script>
+window.KUL_TWEAKS = {
+  style: 's10 · journey',
+  controls: [
+    { var:'--gold',           label:'Gold',            type:'color',  value:'#D4AF37' },
+    { var:'--gold-dose',      label:'Gold dosage',     type:'range',  value:55,  min:20,  max:160, step:5 },
+    { var:'--warmth',         label:'Ground tone',     type:'range',  value:0,   min:0,   max:100, step:1 },
+    { var:'--type-scale',     label:'Type scale',      type:'range',  value:85,  min:85,  max:120, step:1 },
+    { var:'--section-space',  label:'Section rhythm',  type:'range',  value:65,  min:65,  max:135, step:1 },
+    { var:'--radius',         label:'Corner radius',   type:'range',  value:0,   min:0,   max:36,  step:1 },
+    { var:'--hero-treatment', label:'Hero visual',     type:'select', value:'plate', options:['photo','plate'] },
+    { var:'--pace',           label:'Scene pacing',    type:'range',  value:100, min:60,  max:160, step:5 }
+  ]
+};
+</script>
+<script src="/tweaks.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Road Ahead — KUL Enterprises</title>
+<meta name="description" content="Where KUL Enterprises is going — from one truck today toward fifty tractors by the end of 2029, growing with intention and keeping every promise on the way.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- ===== Tweaks contract: declared BEFORE /tweaks.js ===== -->
+<script>
+  window.KUL_TWEAKS = {
+    style: "s09/road-ahead",
+    controls: [
+      { var: "--gold",          label: "Gold dosage",     type: "color",  value: "#e6bd4c" },
+      { var: "--panel-tone",    label: "Ground tone",     type: "select", value: "#0B0B0B", options: ["#0B0B0B", "#121212", "#1F1F1F", "#2E2E2E"] },
+      { var: "--hero-scrim",    label: "Hero treatment",  type: "range",  value: 0.25, min: 0.25, max: 0.82, step: 0.02, unit: "" },
+      { var: "--type-scale",    label: "Type scale",      type: "range",  value: 0.96, min: 0.9,  max: 1.14, step: 0.01, unit: "" },
+      { var: "--section-space", label: "Section spacing", type: "range",  value: 100,  min: 64,   max: 168,  step: 4, unit: "px" },
+      { var: "--radius",        label: "Corner radius",   type: "range",  value: 4,    min: 0,    max: 16,   step: 1, unit: "px" }
+    ]
+  };
+</script>
+
+<style>
+  :root{
+    /* ---- baked snapshot (locked Jul 2026) ---- */
+    --gold:#e6bd4c;
+    --panel-tone:#0B0B0B;
+    --hero-scrim:0.25;
+    --type-scale:0.96;
+    --section-space:100px;
+    --radius:4px;
+
+    /* ---- palette ---- */
+    --black:#0B0B0B;
+    --ink:#171717;
+    --ink-2:#3A3A38;
+    --body:#6C6C68;
+    --bg:#FFFFFF;
+    --bg-alt:#F6F5F2;
+    --bg-alt2:#EFEDE8;
+    --line:#E4E2DC;
+    --line-soft:#EEECE6;
+    --gold-ink:#141210;
+    --gold-deep:#8a6d1e;
+
+    /* ---- type scale ---- */
+    --fs-micro:calc(11px * var(--type-scale));
+    --fs-eyebrow:calc(11.5px * var(--type-scale));
+    --fs-sm:calc(13.5px * var(--type-scale));
+    --fs-body:calc(15px * var(--type-scale));
+    --fs-lead:calc(clamp(16px, 1.15vw, 18px) * var(--type-scale));
+    --fs-h3:calc(clamp(20px, 1.6vw, 23px) * var(--type-scale));
+    --fs-h2:calc(clamp(28px, 3.4vw, 42px) * var(--type-scale));
+    --fs-h1:calc(clamp(44px, 6.4vw, 76px) * var(--type-scale));
+    --fs-display:calc(clamp(72px, 12vw, 148px) * var(--type-scale));
+    --fs-voice:calc(clamp(22px, 2.6vw, 33px) * var(--type-scale));
+
+    --wrap:1280px;
+    --wrap-read:860px;
+    --pad:clamp(20px,5.2vw,72px);
+    --disp:"Archivo",system-ui,-apple-system,sans-serif;
+    --text:"Inter",system-ui,-apple-system,sans-serif;
+    --ease:cubic-bezier(.22,.61,.36,1);
+    --ease-out:cubic-bezier(.16,.84,.44,1);
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  body{
+    margin:0;font-family:var(--text);color:var(--body);background:var(--bg);
+    font-size:var(--fs-body);line-height:1.65;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3,h4{font-family:var(--disp);color:var(--ink);margin:0;font-weight:700;line-height:1.06;letter-spacing:-.018em}
+  h1{font-size:var(--fs-h1);font-weight:800;letter-spacing:-.03em}
+  h2{font-size:var(--fs-h2)}
+  h3{font-size:var(--fs-h3);letter-spacing:-.01em}
+  p{margin:0}
+  ::selection{background:var(--gold);color:var(--gold-ink)}
+
+  .wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad)}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:.7em;
+    font-family:var(--disp);font-weight:600;font-size:var(--fs-eyebrow);
+    letter-spacing:.22em;text-transform:uppercase;color:var(--gold-deep);
+  }
+  .eyebrow::before{content:"";width:22px;height:1.5px;background:var(--gold);opacity:.9}
+  .eyebrow.center{justify-content:center}
+  .eyebrow.on-dark{color:#e8d9b0}
+  .lead{font-size:var(--fs-lead);line-height:1.68;color:var(--ink-2);max-width:56ch}
+
+  .btn{
+    display:inline-flex;align-items:center;gap:.65em;
+    font-family:var(--disp);font-weight:600;font-size:var(--fs-sm);letter-spacing:.02em;
+    padding:14px 26px;border-radius:calc(var(--radius) + 1px);
+    border:1.5px solid transparent;cursor:pointer;transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease),transform .25s var(--ease);
+    white-space:nowrap;line-height:1;
+  }
+  .btn .arw{transition:transform .3s var(--ease);display:inline-block}
+  .btn:hover .arw{transform:translateX(4px)}
+  .btn--solid{background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
+  .btn--solid:hover{filter:brightness(1.06);transform:translateY(-1px)}
+  .btn--ghost{border-color:var(--line);color:var(--ink);background:transparent}
+  .btn--ghost:hover{border-color:var(--ink);background:var(--ink);color:#fff}
+  .btn--light{border-color:rgba(255,255,255,.5);color:#fff;background:transparent}
+  .btn--light:hover{background:#fff;color:var(--ink);border-color:#fff;transform:translateY(-1px)}
+
+  /* ============ UTILITY BAR ============ */
+  .util{background:var(--bg-alt);border-bottom:1px solid var(--line-soft)}
+  .util .wrap{display:flex;justify-content:space-between;align-items:center;height:40px;gap:20px;flex-wrap:wrap}
+  .util-tag{font-family:var(--disp);font-weight:600;font-size:var(--fs-micro);letter-spacing:.18em;text-transform:uppercase;color:#9a978f}
+  .util-tag b{color:var(--gold-deep);font-weight:700}
+  .util-links{display:flex;align-items:center;gap:18px}
+  .util-links span,.util-links a{font-family:var(--disp);font-weight:500;font-size:var(--fs-micro);letter-spacing:.05em;color:#84817a}
+  .util-links a:hover{color:var(--gold-deep)}
+  .util-links .dot{width:3px;height:3px;border-radius:50%;background:#c9c6bf}
+
+  /* ============ HEADER ============ */
+  .head{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);backdrop-filter:blur(14px) saturate(1.2);border-bottom:1px solid var(--line);transition:box-shadow .35s var(--ease)}
+  .head.scrolled{box-shadow:0 8px 34px rgba(20,18,12,.09)}
+  .head .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;height:74px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand img{height:40px;width:auto}
+  .brand .wm{display:flex;flex-direction:column;line-height:1}
+  .brand .wm b{font-family:var(--disp);font-weight:800;font-size:16px;letter-spacing:.16em;color:var(--ink)}
+  .brand .wm i{font-family:var(--disp);font-weight:600;font-style:normal;font-size:8.5px;letter-spacing:.34em;text-transform:uppercase;color:var(--gold-deep);margin-top:3px}
+  nav.menu{display:flex;align-items:center;gap:30px}
+  nav.menu a{font-family:var(--disp);font-weight:500;font-size:var(--fs-sm);letter-spacing:.02em;color:var(--ink-2);position:relative;padding:8px 0}
+  nav.menu a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--gold);transition:width .32s var(--ease)}
+  nav.menu a:hover{color:var(--ink)}
+  nav.menu a:hover::after{width:100%}
+  .head-cta{display:inline-flex}
+  .burger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:8px}
+  .burger span{width:24px;height:2px;background:var(--ink);transition:.3s var(--ease)}
+
+  /* ============ CHAPTER RAIL ============ */
+  .rail{background:var(--panel-tone);border-bottom:1px solid rgba(255,255,255,.08)}
+  .rail nav{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad)}
+  .rail nav::-webkit-scrollbar{display:none}
+  .rail a,.rail span[aria-current]{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;padding:13px 18px;
+    font-family:var(--disp);font-weight:600;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+    color:rgba(255,255,255,.55);white-space:nowrap;border-bottom:2px solid transparent;transition:color .25s var(--ease)}
+  .rail a:hover{color:#fff}
+  .rail i{font-style:normal;font-weight:700;color:rgba(255,255,255,.28);font-size:9.5px}
+  .rail span[aria-current]{color:var(--gold);border-bottom-color:var(--gold)}
+  .rail span[aria-current] i{color:var(--gold)}
+
+  /* ============ HERO — light, horizon-forward ============ */
+  .hero{position:relative;background:var(--bg);overflow:hidden}
+  .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(40px,6vw,90px);align-items:center;
+    padding-block:clamp(64px,9vw,120px)}
+  .hero h1{margin:20px 0 0}
+  .hero h1 .accent{color:var(--gold-deep)}
+  .hero .lead{margin-top:24px}
+  .hero__cta{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap}
+  .hero__facts{display:flex;gap:32px;margin-top:42px;padding-top:26px;border-top:1px solid var(--line);flex-wrap:wrap}
+  .hero__facts .f b{display:block;font-family:var(--disp);font-weight:800;font-size:calc(24px * var(--type-scale));color:var(--ink);letter-spacing:-.02em;line-height:1}
+  .hero__facts .f span{display:block;font-family:var(--disp);font-weight:600;font-size:var(--fs-micro);letter-spacing:.12em;text-transform:uppercase;color:var(--body);margin-top:7px}
+  .hero__img{position:relative;border-radius:var(--radius);overflow:hidden;aspect-ratio:4/4.6;background:var(--bg-alt)}
+  .hero__img img{width:100%;height:118%;object-fit:cover;will-change:transform}
+  .hero__img::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(11,10,8,calc(var(--hero-scrim) * 1.4)) 0%,transparent 46%)}
+  .hero__img .cap{position:absolute;left:0;bottom:0;width:100%;padding:16px 20px;color:#fff;z-index:2;
+    font-family:var(--disp);font-weight:600;font-size:var(--fs-micro);letter-spacing:.14em;text-transform:uppercase}
+
+  /* ============ THE HONEST LINE ============ */
+  .honest{background:var(--panel-tone)}
+  .honest .wrap{display:flex;flex-wrap:wrap;padding-block:26px;gap:0}
+  .honest .item{flex:1 1 170px;display:flex;flex-direction:column;align-items:center;text-align:center;padding:6px 18px;position:relative}
+  .honest .item + .item::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);height:34px;width:1px;background:rgba(255,255,255,.1)}
+  .honest .k{font-family:var(--disp);font-weight:700;font-size:var(--fs-sm);letter-spacing:.02em;color:#fff}
+  .honest .v{font-family:var(--disp);font-weight:600;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-top:5px}
+
+  /* ============ ROAD SECTION — scroll-drawn line ============ */
+  .roadmap{padding-block:var(--section-space);background:var(--bg-alt);position:relative;overflow:hidden}
+  .roadmap .sec-head{max-width:640px;margin-inline:auto;text-align:center;margin-bottom:var(--sp,56px)}
+  .roadmap .sec-head h2{margin:14px 0 16px}
+  .roadmap .sec-head p{max-width:54ch;margin-inline:auto}
+  .roadfig{position:relative;max-width:1080px;margin:64px auto 0;padding-inline:var(--pad)}
+  .roadfig svg{display:block;width:100%;height:auto;overflow:visible}
+  .roadfig .road-base{fill:none;stroke:var(--line);stroke-width:2}
+  .roadfig .road-gold{fill:none;stroke:var(--gold);stroke-width:3;stroke-linecap:round;
+    stroke-dasharray:1;stroke-dashoffset:1}
+  .markers{display:grid;grid-template-columns:1fr 1fr 1fr;gap:clamp(20px,4vw,48px);max-width:1080px;margin:38px auto 0;padding-inline:var(--pad)}
+  .marker{position:relative;padding-top:22px}
+  .marker::before{content:"";position:absolute;left:0;top:0;width:12px;height:12px;border-radius:50%;
+    background:var(--bg);border:2.5px solid var(--gold)}
+  .marker.now::before{background:var(--gold)}
+  .marker .m-when{font-family:var(--disp);font-weight:700;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-deep);display:block;margin-bottom:10px}
+  .marker h3{margin-bottom:10px}
+  .marker p{font-size:var(--fs-sm);line-height:1.62;max-width:34ch}
+
+  /* ============ INTENTION — grows vs never changes ============ */
+  .intent{padding-block:var(--section-space);background:var(--bg)}
+  .intent .top{max-width:640px;margin-bottom:var(--sp-12,48px)}
+  .intent .top h2{margin:14px 0 16px}
+  .intent .cols{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  .intent .col{padding:clamp(30px,4vw,52px)}
+  .intent .col--grow{background:var(--bg-alt)}
+  .intent .col--hold{background:var(--panel-tone)}
+  .intent .col .c-tag{font-family:var(--disp);font-weight:700;font-size:10px;letter-spacing:.24em;text-transform:uppercase;display:block;margin-bottom:22px}
+  .intent .col--grow .c-tag{color:var(--gold-deep)}
+  .intent .col--hold .c-tag{color:var(--gold)}
+  .intent ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+  .intent li{display:flex;gap:14px;align-items:baseline;padding:15px 0;border-bottom:1px solid var(--line)}
+  .intent .col--hold li{border-bottom-color:rgba(255,255,255,.1)}
+  .intent li:last-child{border-bottom:0}
+  .intent li .mk{font-family:var(--disp);font-weight:700;font-size:11px;color:var(--gold-deep);flex:0 0 auto}
+  .intent .col--hold li .mk{color:var(--gold)}
+  .intent li b{font-family:var(--disp);font-weight:700;font-size:var(--fs-body);color:var(--ink);letter-spacing:-.005em}
+  .intent .col--hold li b{color:#fff}
+  .intent li span{font-size:var(--fs-sm);color:var(--body);display:block;margin-top:3px}
+  .intent .col--hold li span{color:rgba(255,255,255,.68)}
+  .intent li div{flex:1}
+
+  /* ============ FIFTY ============ */
+  .fifty{padding-block:var(--section-space);background:var(--bg-alt);text-align:center;position:relative;overflow:hidden}
+  .fifty .wrap{max-width:var(--wrap-read);position:relative}
+  .fifty .fig{font-family:var(--disp);font-weight:800;color:var(--gold);font-size:var(--fs-display);line-height:.9;letter-spacing:-.04em;margin:10px 0 8px}
+  .fifty h2{margin:0 0 20px}
+  .fifty p{font-size:var(--fs-lead);line-height:1.78;max-width:58ch;margin-inline:auto;color:var(--ink-2)}
+  .fifty .fine{margin-top:22px;font-size:var(--fs-sm);color:var(--body);max-width:52ch;margin-inline:auto}
+
+  /* ============ HORIZON QUOTE ============ */
+  .horizon{position:relative;min-height:clamp(440px,58vh,620px);display:flex;align-items:center;overflow:hidden;background:#141210}
+  .horizon img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .horizon::after{content:"";position:absolute;inset:0;background:linear-gradient(94deg,rgba(11,10,8,.88) 0%,rgba(11,10,8,.6) 44%,rgba(11,10,8,var(--hero-scrim)) 82%,transparent)}
+  .horizon .wrap{position:relative;z-index:2}
+  .horizon__c{max-width:600px;color:#fff}
+  .horizon__c h2{color:#fff;margin:16px 0 20px}
+  .horizon__c p{color:rgba(255,255,255,.88);font-size:var(--fs-lead);line-height:1.72}
+  .horizon__c .sig{margin-top:26px;font-family:var(--disp);font-weight:600;font-size:var(--fs-sm);letter-spacing:.06em;color:var(--gold)}
+
+  /* ============ PROMISE CLOSE ============ */
+  .promise{background:var(--panel-tone);position:relative;overflow:hidden}
+  .promise::before{content:"";position:absolute;left:50%;top:0;width:1px;height:64px;background:linear-gradient(180deg,var(--gold),transparent)}
+  .promise .wrap{position:relative;text-align:center;padding-block:calc(var(--section-space) * 1.15);max-width:940px}
+  .promise img.lion{width:64px;height:auto;margin:0 auto 26px}
+  .promise h2{color:#fff;font-size:var(--fs-h1);letter-spacing:-.025em;line-height:1.16}
+  .promise h2 em{font-style:normal;color:var(--gold)}
+  .promise .cta{display:flex;gap:14px;justify-content:center;margin-top:38px;flex-wrap:wrap}
+  .promise .reach{margin-top:26px;font-family:var(--disp);font-size:var(--fs-sm);letter-spacing:.05em;color:rgba(255,255,255,.62)}
+  .promise .reach a{color:var(--gold)}
+
+  /* ============ NEXT/PREV ============ */
+  .chap-adj{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--line)}
+  .chap-adj a{background:var(--bg);padding:34px var(--pad);display:flex;flex-direction:column;gap:8px;transition:background .3s var(--ease)}
+  .chap-adj a:hover{background:var(--bg-alt)}
+  .chap-adj .dir{font-family:var(--disp);font-weight:700;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-deep)}
+  .chap-adj .ttl{font-family:var(--disp);font-weight:700;font-size:var(--fs-h3);color:var(--ink);letter-spacing:-.01em}
+  .chap-adj a.next{text-align:right;align-items:flex-end}
+
+  /* ============ FOOTER ============ */
+  footer{background:var(--bg);border-top:1px solid var(--line);padding-top:64px}
+  .fcols{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:44px;padding-bottom:52px}
+  .fbrand img{height:46px;margin-bottom:18px}
+  .fbrand p{font-size:var(--fs-sm);line-height:1.7;max-width:34ch;color:var(--body)}
+  .fbrand .fsig{margin-top:16px;font-family:var(--disp);font-weight:600;font-size:var(--fs-micro);letter-spacing:.1em;text-transform:uppercase;color:var(--gold-deep)}
+  .fcol h4{font-family:var(--disp);font-size:var(--fs-micro);letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin:0 0 18px;font-weight:700}
+  .fcol a,.fcol span{display:block;font-size:var(--fs-sm);color:var(--body);margin-bottom:12px;transition:color .2s}
+  .fcol a:hover{color:var(--gold-deep)}
+  .fcol span[aria-current]{color:var(--gold-deep);font-weight:600}
+  .legal{border-top:1px solid var(--line);padding-block:24px;display:flex;justify-content:space-between;gap:14px 30px;flex-wrap:wrap;
+    font-family:var(--disp);font-size:var(--fs-micro);letter-spacing:.04em;color:#9a978f}
+  .legal .ids{display:flex;gap:22px;flex-wrap:wrap}
+  .legal .ids b{color:var(--body);font-weight:600}
+
+  /* ============ reveal ============ */
+  .rv{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  .rv.in{opacity:1;transform:none}
+  .rv[data-d="1"]{transition-delay:.08s}
+  .rv[data-d="2"]{transition-delay:.16s}
+
+  /* ============ responsive ============ */
+  @media(max-width:1040px){ nav.menu{gap:22px} }
+  @media(max-width:880px){
+    .head-cta{display:none}
+    nav.menu{position:fixed;inset:114px 0 auto 0;flex-direction:column;align-items:flex-start;gap:0;background:#fff;
+      border-bottom:1px solid var(--line);padding:6px var(--pad) 22px;transform:translateY(-10px);opacity:0;pointer-events:none;
+      transition:.32s var(--ease);box-shadow:0 22px 44px rgba(20,18,12,.09);z-index:70}
+    nav.menu.open{transform:none;opacity:1;pointer-events:auto}
+    nav.menu a{width:100%;padding:15px 0;border-bottom:1px solid var(--line-soft);font-size:16px}
+    nav.menu a::after{display:none}
+    .burger{display:flex}
+    .burger.x span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .burger.x span:nth-child(2){opacity:0}
+    .burger.x span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .hero .wrap{grid-template-columns:1fr}
+    .hero__img{aspect-ratio:16/10}
+    .markers{grid-template-columns:1fr;gap:30px}
+    .roadfig{display:none}
+    .intent .cols{grid-template-columns:1fr}
+    .chap-adj{grid-template-columns:1fr}
+    .chap-adj a.next{text-align:left;align-items:flex-start}
+  }
+  @media(max-width:600px){
+    .util-tag{display:none}
+    .util .wrap{justify-content:center}
+    .util-links{flex-wrap:wrap;justify-content:center;gap:10px 14px}
+    .honest .item{flex:1 1 44%}
+    .honest .item + .item::before{display:none}
+    .fcols{grid-template-columns:1fr 1fr}
+    .fbrand{grid-column:1 / -1}
+    .legal{justify-content:center;text-align:center}
+    .hero__cta{flex-direction:column;align-items:stretch}
+    .hero__cta .btn{justify-content:center}
+    .promise .cta{flex-direction:column;align-items:stretch}
+    .promise .cta .btn{justify-content:center}
+  }
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *{animation:none!important;transition-duration:.01ms!important}
+    .rv{opacity:1;transform:none}
+    .roadfig .road-gold{stroke-dashoffset:0}
+    .hero__img img{transform:none!important;height:100%}
+  }
+</style>
+</head>
+<body id="top">
+
+<!-- ===== UTILITY BAR ===== -->
+<div class="util">
+  <div class="wrap">
+    <span class="util-tag">Strength in Motion · <b>Loganville, GA</b></span>
+    <div class="util-links">
+      <span>USDOT&nbsp;7638788</span><i class="dot"></i>
+      <span>MC&nbsp;66389691</span><i class="dot"></i>
+      <a href="tel:+16789721148">678-972-1148</a><i class="dot"></i>
+      <a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header class="head" id="head">
+  <div class="wrap">
+    <a class="brand" href="../a/" aria-label="KUL Enterprises home">
+      <img src="/assets/brand/lion-clean.png" alt="KUL Enterprises lion mark">
+      <span class="wm"><b>KUL&nbsp;ENTERPRISES</b><i>Motor Freight Carrier</i></span>
+    </a>
+    <nav class="menu" id="menu" aria-label="Primary">
+      <a href="../mission/">Services</a>
+      <a href="../responsibility/">Safety</a>
+      <a href="../forward/">Request a Quote</a>
+      <a href="../forward/#contact">Contact</a>
+    </nav>
+    <a href="../forward/" class="btn btn--solid head-cta">Request a Quote</a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ===== CHAPTER RAIL ===== -->
+<div class="rail">
+  <nav aria-label="Story chapters">
+    <a href="../a/"><i>01</i>The Beginning</a>
+    <a href="../journey/"><i>02</i>The Journey</a>
+    <a href="../story/"><i>03</i>Why I Started Driving</a>
+    <a href="../mission/"><i>04</i>The Mission</a>
+    <a href="../responsibility/"><i>05</i>The Responsibility</a>
+    <a href="../join/"><i>06</i>Join the Journey</a>
+    <a href="../forward/"><i>07</i>Let&rsquo;s Move Forward</a>
+    <span aria-current="page"><i>08</i>The Road Ahead</span>
+  </nav>
+</div>
+
+<main>
+<!-- ===== HERO — light, forward ===== -->
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Chapter Eight · Where We Are Going</span>
+      <h1>The Road<br><span class="accent">Ahead.</span></h1>
+      <p class="lead">Today, KUL Enterprises runs one truck &mdash; and we say that with pride. This page is not a forecast dressed up as a fact. It is a direction, stated honestly: fifty tractors by the end of 2029, built the same way the first one was earned.</p>
+      <div class="hero__cta">
+        <a href="../forward/" class="btn btn--solid">Request a Freight Quote <span class="arw">&rarr;</span></a>
+        <a href="../join/" class="btn btn--ghost">Join the Journey</a>
+      </div>
+      <div class="hero__facts">
+        <div class="f"><b>1</b><span>Truck today, all in</span></div>
+        <div class="f"><b>50</b><span>Tractors — the goal</span></div>
+        <div class="f"><b>2029</b><span>By the end of</span></div>
+      </div>
+    </div>
+    <div class="hero__img rv" data-d="1">
+      <img id="heroImg" src="/assets/journey/cliffs.jpg" alt="A mesa rising toward a far horizon over turquoise water" fetchpriority="high">
+      <div class="cap">The horizon we are driving toward</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HONEST LINE ===== -->
+<div class="honest" aria-label="Carrier credentials">
+  <div class="wrap">
+    <div class="item"><span class="k">USDOT 7638788</span><span class="v">Federal Authority</span></div>
+    <div class="item"><span class="k">MC 66389691</span><span class="v">Motor Carrier</span></div>
+    <div class="item"><span class="k">Licensed &amp; Insured</span><span class="v">Fully Covered</span></div>
+    <div class="item"><span class="k">Loganville, GA</span><span class="v">Home Base</span></div>
+    <div class="item"><span class="k">24/7 Dispatch</span><span class="v">Always Reachable</span></div>
+  </div>
+</div>
+
+<!-- ===== ROADMAP ===== -->
+<section class="roadmap">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow center rv">Growing with intention</span>
+      <h2 class="rv" data-d="1">Not fast.<br>Deliberate.</h2>
+      <p class="rv" data-d="1">We are not chasing a number. We are building the kind of carrier that deserves to reach one &mdash; adding trucks only as fast as we can add the same standard of safety, communication, and care to every new lane.</p>
+    </div>
+  </div>
+  <div class="roadfig rv" data-d="1" aria-hidden="true">
+    <svg viewBox="0 0 1000 190" preserveAspectRatio="xMidYMid meet">
+      <path class="road-base" d="M8,168 C210,168 260,52 470,52 C660,52 690,120 992,24"/>
+      <path class="road-gold" id="roadGold" pathLength="1" d="M8,168 C210,168 260,52 470,52 C660,52 690,120 992,24"/>
+      <circle cx="8" cy="168" r="6" fill="var(--gold)"/>
+      <circle cx="992" cy="24" r="6" fill="none" stroke="var(--gold)" stroke-width="2.5"/>
+    </svg>
+  </div>
+  <div class="markers">
+    <div class="marker now rv">
+      <span class="m-when">Today</span>
+      <h3>One truck, all in</h3>
+      <p>Every load dispatched, driven, and delivered with the founder&rsquo;s full attention. Small enough to answer the phone. Serious enough to keep every promise.</p>
+    </div>
+    <div class="marker rv" data-d="1">
+      <span class="m-when">The road between</span>
+      <h3>Lane by lane, driver by driver</h3>
+      <p>Growth happens one earned relationship at a time &mdash; new lanes when customers ask us back, new drivers only when we can treat them the way professionals deserve.</p>
+    </div>
+    <div class="marker rv" data-d="2">
+      <span class="m-when">By the end of 2029</span>
+      <h3>Fifty tractors</h3>
+      <p>The goal on the wall. Not a valuation story &mdash; a fleet of fifty trucks that all run the way the first one does: safely, honestly, and on time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== INTENTION ===== -->
+<section class="intent">
+  <div class="wrap">
+    <div class="top">
+      <span class="eyebrow rv">The deal we make with growth</span>
+      <h2 class="rv" data-d="1">What will grow.<br>What never will.</h2>
+    </div>
+    <div class="cols rv" data-d="1">
+      <div class="col col--grow">
+        <span class="c-tag">Built to scale</span>
+        <ul>
+          <li><span class="mk">+</span><div><b>The fleet</b><span>From one tractor toward fifty, added as demand and standards allow.</span></div></li>
+          <li><span class="mk">+</span><div><b>The lanes</b><span>Deeper coverage across the Southeast, reaching nationwide.</span></div></li>
+          <li><span class="mk">+</span><div><b>The team</b><span>Drivers and dispatchers who want to be treated like professionals.</span></div></li>
+          <li><span class="mk">+</span><div><b>The capacity</b><span>More equipment, more scheduled reliability for the shippers who trust us.</span></div></li>
+        </ul>
+      </div>
+      <div class="col col--hold">
+        <span class="c-tag">Fixed for good</span>
+        <ul>
+          <li><span class="mk">=</span><div><b>Integrity</b><span>We do the right thing &mdash; even when no one is watching.</span></div></li>
+          <li><span class="mk">=</span><div><b>Safety</b><span>Every load matters. Every person matters more.</span></div></li>
+          <li><span class="mk">=</span><div><b>Communication</b><span>Trust grows when people know what&rsquo;s happening.</span></div></li>
+          <li><span class="mk">=</span><div><b>Accountability</b><span>When we make a promise, we intend to keep it.</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FIFTY ===== -->
+<section class="fifty">
+  <div class="wrap">
+    <span class="eyebrow center rv">The number on the wall</span>
+    <div class="fig rv" data-d="1" aria-hidden="true">50</div>
+    <h2 class="rv" data-d="1">Fifty tractors by the end of 2029</h2>
+    <p class="rv" data-d="2">Every fleet that ever mattered started with a single set of keys and a refusal to cut corners. We will not pretend to be bigger than we are on the way there &mdash; and we will not act smaller than our standards, either.</p>
+    <p class="fine rv" data-d="2">A goal, stated plainly. We would rather show you the miles than sell you the math.</p>
+  </div>
+</section>
+
+<!-- ===== HORIZON QUOTE ===== -->
+<section class="horizon">
+  <img src="/assets/journey/tree.jpg" alt="A broad tree standing over a green valley in full light" loading="lazy">
+  <div class="wrap">
+    <div class="horizon__c">
+      <span class="eyebrow on-dark rv">Still writing the story</span>
+      <h2 class="rv" data-d="1">One shipment at a time.<br>One relationship at a time.</h2>
+      <p class="rv" data-d="1">We don&rsquo;t know every opportunity that lies ahead. But we do know the principles that will guide us there &mdash; integrity, character, safety, service, trust.</p>
+      <p class="sig rv" data-d="2">&mdash; KUL Enterprises, Loganville, Georgia</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROMISE CLOSE ===== -->
+<section class="promise">
+  <div class="wrap">
+    <img class="lion rv" src="/assets/brand/lion-clean.png" alt="KUL Enterprises lion mark">
+    <h2 class="rv" data-d="1">Every great fleet begins with <em>one truck</em>, <em>one customer</em>, and <em>one promise kept</em>.</h2>
+    <div class="cta rv" data-d="2">
+      <a href="../forward/" class="btn btn--solid">Request a Freight Quote <span class="arw">&rarr;</span></a>
+      <a href="../join/" class="btn btn--light">Become a Driver</a>
+    </div>
+    <p class="reach rv" data-d="2">24/7 Dispatch · <a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a> · <a href="tel:+16789721148">678-972-1148</a></p>
+  </div>
+</section>
+</main>
+
+<!-- ===== NEXT / PREV ===== -->
+<nav class="chap-adj" aria-label="Adjacent chapters">
+  <a href="../forward/">
+    <span class="dir">&larr; Previous chapter</span>
+    <span class="ttl">Let&rsquo;s Move Forward</span>
+  </a>
+  <a class="next" href="../a/">
+    <span class="dir">Back to the start &rarr;</span>
+    <span class="ttl">The Beginning</span>
+  </a>
+</nav>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="fcols">
+      <div class="fbrand">
+        <img src="/assets/brand/logo-vector.png" alt="KUL Enterprises">
+        <p>A Loganville, Georgia motor carrier serving lanes nationwide with integrity and safety at the center of every mile.</p>
+        <div class="fsig">Strength in Motion</div>
+      </div>
+      <div class="fcol">
+        <h4>The Story</h4>
+        <a href="../a/">The Beginning</a>
+        <a href="../journey/">The Journey</a>
+        <a href="../story/">Why I Started Driving</a>
+        <span aria-current="page">The Road Ahead</span>
+      </div>
+      <div class="fcol">
+        <h4>Company</h4>
+        <a href="../mission/">Services</a>
+        <a href="../responsibility/">Safety &amp; Compliance</a>
+        <a href="../join/">Join the Journey</a>
+        <a href="../forward/">Request a Quote</a>
+      </div>
+      <div class="fcol">
+        <h4>Contact</h4>
+        <a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a>
+        <a href="tel:+16789721148">678-972-1148</a>
+        <span>Loganville, Georgia</span>
+        <span>24/7 Dispatch</span>
+      </div>
+    </div>
+    <div class="legal">
+      <span>&copy; 2026 KUL Enterprises LLC · Strength in Motion. Built on Integrity. Driven by Safety.</span>
+      <div class="ids"><span>USDOT <b>7638788</b></span><span>MC <b>66389691</b></span><span>Licensed &amp; Insured</span></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  var head = document.getElementById('head');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // mobile menu
+  var burger = document.getElementById('burger'), menu = document.getElementById('menu');
+  burger.addEventListener('click', function(){
+    var open = menu.classList.toggle('open');
+    burger.classList.toggle('x', open);
+    burger.setAttribute('aria-expanded', open);
+  });
+  menu.addEventListener('click', function(e){
+    if(e.target.tagName === 'A'){ menu.classList.remove('open'); burger.classList.remove('x'); burger.setAttribute('aria-expanded','false'); }
+  });
+
+  // scroll-linked: header shadow + hero image drift + road line draw (rAF)
+  var heroImg = document.getElementById('heroImg');
+  var roadGold = document.getElementById('roadGold');
+  var roadFig = roadGold ? roadGold.closest('.roadfig') : null;
+  var roadMax = 0;
+  var ticking = false;
+  function onScroll(){
+    if(ticking) return; ticking = true;
+    requestAnimationFrame(function(){
+      var y = window.scrollY || window.pageYOffset;
+      head.classList.toggle('scrolled', y > 8);
+      if(!reduce){
+        if(heroImg && y < window.innerHeight * 1.2){
+          heroImg.style.transform = 'translateY(' + (-y * 0.06) + 'px)';
+        }
+        if(roadGold && roadFig){
+          var r = roadFig.getBoundingClientRect();
+          var p = (window.innerHeight * 0.86 - r.top) / (r.height + window.innerHeight * 0.42);
+          p = Math.max(0, Math.min(1, p));
+          roadMax = Math.max(roadMax, p);
+          roadGold.style.strokeDashoffset = (1 - roadMax);
+        }
+      }
+      ticking = false;
+    });
+  }
+  onScroll();
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll, {passive:true});
+
+  // reveal on scroll
+  if(!reduce && 'IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.rv').forEach(function(el){ el.classList.add('in'); });
+  }
+</script>
+
+<script src="/tweaks.js" defer></script>
+</body>
+</html>

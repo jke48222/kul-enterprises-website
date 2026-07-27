@@ -1,0 +1,855 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KUL Enterprises | Strength in Motion</title>
+<meta name="description" content="KUL Enterprises LLC is a Loganville, Georgia freight carrier running nationwide loads with full authority, full insurance, and 24/7 dispatch.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,16..72,400;0,16..72,500;1,16..72,400;1,16..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============ Style 08b / Phase 2 / Axis B — Particle Calm, pushed ============
+   The gold particle emblem is now the page's central character:
+   it resolves centered in the hero, dissolves as you scroll away,
+   and re-gathers scroll-linked at brave scale in the dark Resolve section.
+   Same locked tokens, bolder composition. Single light theme, locked. */
+
+:root{
+  /* Locked snapshot decisions (also exposed via the tweaks panel) */
+  --gold:#D4AF37;
+  --pc-density:1850;
+  --pc-size:1.3;
+  --pc-morph:1;        /* 0 = abstract orb, 1 = lion silhouette */
+  --pc-resolve:0.7;
+  --pc-drift:0.7;
+  --pc-ground:Steel;   /* Steel | Warm */
+  --pc-scale:1;
+
+  /* Ground + ink (steel default; JS swaps to warm via the ground tweak) */
+  --ground:#EDF0F3;
+  --ground-2:#F6F8FA;
+  --ink:#15181C;
+  --ink-soft:#5B626B;
+  --hair:#DCE1E6;
+  --hair-strong:#C9CFD6;
+
+  --gold-deep:#A8791C;
+  --maxw:1200px;
+  --r-tile:16px;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:"Manrope",system-ui,-apple-system,sans-serif;
+  font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  color-scheme:light;
+  overflow-x:hidden;
+}
+h1,h2,h3{margin:0;font-weight:700;line-height:1.05;letter-spacing:-0.02em}
+p{margin:0}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.serif{font-family:"Newsreader",Georgia,serif;font-weight:500;letter-spacing:-0.01em}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+
+/* ---------- Buttons (pill shape, locked) ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:.55em;
+  font-weight:600;font-size:15px;line-height:1;
+  padding:15px 26px;border-radius:999px;
+  border:1px solid transparent;cursor:pointer;white-space:nowrap;
+  transition:transform .18s cubic-bezier(.16,1,.3,1),background .2s,box-shadow .2s,border-color .2s;
+}
+.btn:active{transform:translateY(1px)}
+.btn:focus-visible{outline:2px solid var(--gold-deep);outline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold-deep);outline-offset:3px;border-radius:4px}
+.btn-primary{background:var(--ink);color:#fff;box-shadow:0 1px 0 rgba(0,0,0,.04)}
+.btn-primary:hover{background:#000}
+.btn-primary .dot{width:22px;height:22px;border-radius:50%;background:var(--gold);display:grid;place-items:center;color:#1a1400;font-size:12px;transition:transform .25s cubic-bezier(.16,1,.3,1)}
+.btn-primary:hover .dot{transform:translateX(3px)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--hair-strong)}
+.btn-ghost:hover{border-color:var(--ink);background:rgba(0,0,0,.02)}
+.btn-gold{background:var(--gold);color:#241c00}
+.btn-gold:hover{background:#e0bd45}
+
+/* ---------- Nav ---------- */
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:color-mix(in srgb,var(--ground) 82%,transparent);
+  backdrop-filter:saturate(140%) blur(12px);
+  -webkit-backdrop-filter:saturate(140%) blur(12px);
+  border-bottom:1px solid var(--hair);
+}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:70px}
+.brand{display:flex;align-items:center;gap:11px}
+.brand img{height:34px;width:auto}
+.brand .bt{display:flex;flex-direction:column;line-height:1}
+.brand .bk{font-family:"Newsreader",serif;font-weight:500;font-size:21px;letter-spacing:.01em}
+.brand .be{font-size:9.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-soft);margin-top:3px}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a.lnk,.nav-links button.lnk{
+  font-size:14.5px;font-weight:500;color:var(--ink-soft);transition:color .2s;
+  background:none;border:0;padding:0;cursor:pointer;font-family:inherit;
+  display:inline-flex;align-items:center;gap:6px;position:relative;
+}
+.nav-links a.lnk::after,.nav-links button.lnk::after{
+  content:"";position:absolute;left:0;right:0;bottom:-6px;height:1.5px;
+  background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .25s cubic-bezier(.16,1,.3,1);
+}
+.nav-links a.lnk:hover,.nav-links button.lnk:hover,.nav-links button.lnk[aria-expanded="true"]{color:var(--ink)}
+.nav-links a.lnk:hover::after,.nav-links button.lnk[aria-expanded="true"]::after{transform:scaleX(1)}
+.nav .btn{padding:11px 20px;font-size:14px}
+.nav-toggle{display:none}
+.chp-btn svg{transition:transform .25s}
+.chp-btn[aria-expanded="true"] svg{transform:rotate(180deg)}
+
+/* Chapters panel (desktop dropdown) */
+.chp{
+  position:absolute;top:100%;left:0;right:0;
+  background:var(--ground-2);border-bottom:1px solid var(--hair);
+  box-shadow:0 24px 48px -28px rgba(21,24,28,.25);
+}
+.chp[hidden]{display:none}
+.chp-grid{display:grid;grid-template-columns:2fr 1fr;gap:40px;padding-block:30px 34px}
+.chp h4{margin:0 0 14px;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+.chp-list{display:grid;grid-template-columns:1fr 1fr;gap:2px 32px}
+.chp-it{
+  display:flex;align-items:baseline;gap:12px;padding:9px 10px;border-radius:9px;
+  font-size:14.5px;font-weight:500;color:var(--ink);transition:background .18s;
+}
+.chp-it i{font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--gold-deep)}
+a.chp-it:hover{background:#fff}
+.chp-it[aria-current] em{font-style:normal;font-size:11px;color:var(--gold-deep);margin-left:auto;font-weight:600}
+.chp-fast a{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 10px;border-radius:9px;font-size:14.5px;font-weight:500;transition:background .18s}
+.chp-fast a:hover{background:#fff}
+.chp-fast a span{color:var(--hair-strong);transition:color .2s,transform .2s}
+.chp-fast a:hover span{color:var(--gold);transform:translateX(2px)}
+.m-chp{display:none}
+
+/* ---------- Hero (centered, emblem as the central character) ---------- */
+.hero{position:relative;padding:14px 0 60px;text-align:center}
+.hero .emblem{
+  position:relative;width:min(44vh,440px);max-width:80vw;aspect-ratio:1/1;
+  margin:0 auto -7%;
+}
+.emblem canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.emblem .fallback{position:absolute;inset:0;margin:auto;width:60%;height:auto;object-fit:contain;opacity:0;transition:opacity .4s;pointer-events:none}
+.emblem .halo{position:absolute;inset:6%;border-radius:50%;background:radial-gradient(circle at 50% 46%,rgba(212,175,55,.17),rgba(212,175,55,0) 62%);pointer-events:none}
+.hero-copy{position:relative;z-index:2;max-width:780px;margin-inline:auto}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.02em;color:var(--gold-deep);margin-bottom:18px}
+.eyebrow .mk{width:14px;height:1.5px;background:var(--gold);display:inline-block}
+.hero h1{font-size:clamp(38px,5.2vw,66px);letter-spacing:-0.03em;max-width:19ch;margin-inline:auto}
+.hero h1 em{font-family:"Newsreader",serif;font-style:italic;font-weight:500;letter-spacing:-0.01em}
+.hero .sub{margin:20px auto 0;font-size:clamp(16px,1.5vw,18.5px);color:var(--ink-soft);max-width:46ch}
+.hero .cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px;justify-content:center}
+
+/* ---------- Trust strip ---------- */
+.trust{border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);background:var(--ground-2)}
+.trust-grid{display:grid;grid-template-columns:repeat(6,1fr)}
+.trust-cell{padding:22px 20px;border-left:1px solid var(--hair)}
+.trust-cell:first-child{border-left:0}
+.trust-cell .k{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+.trust-cell .v{margin-top:7px;font-size:15px;font-weight:600;letter-spacing:-0.01em}
+.trust-cell .v.code{font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:14px}
+
+/* ---------- Section scaffold ---------- */
+section.blk{padding:96px 0}
+.lead{max-width:620px}
+.lead h2{font-size:clamp(28px,3.6vw,42px);letter-spacing:-0.025em}
+.lead h2 .g{color:var(--gold-deep)}
+.lead p{margin-top:18px;color:var(--ink-soft);font-size:17px;max-width:52ch}
+
+/* ---------- Services ---------- */
+.svc-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:40px}
+.svc-more-lnk{font-size:14.5px;font-weight:600;color:var(--gold-deep);white-space:nowrap;display:inline-flex;gap:8px;align-items:center;transition:color .2s}
+.svc-more-lnk:hover{color:var(--ink)}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hair);border:1px solid var(--hair);border-radius:var(--r-tile);overflow:hidden}
+.svc{background:var(--ground-2);padding:26px 24px 30px;position:relative;transition:background .2s}
+.svc::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.svc:hover{background:#fff}
+.svc:hover::before{transform:scaleX(1)}
+.svc .idx{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--gold-deep);letter-spacing:.05em}
+.svc h3{margin-top:14px;font-size:19px;font-weight:700;letter-spacing:-0.01em}
+.svc p{margin-top:9px;font-size:14.5px;color:var(--ink-soft);line-height:1.5}
+.svc .arw{position:absolute;right:22px;top:26px;color:var(--hair-strong);transition:color .2s,transform .2s}
+.svc:hover .arw{color:var(--gold);transform:translateX(2px)}
+.svc.more{grid-column:span 2;background:#fff}
+.svc.more a{color:var(--gold-deep)}
+
+/* ---------- The Resolve (signature moment: safety + scroll-gathered lion) ---------- */
+.resolve{background:var(--ink);color:#EFF1F3;overflow:hidden}
+.resolve .wrap{padding-block:110px}
+.resolve-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:center}
+.resolve .tag{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:26px}
+.resolve h2{font-size:clamp(28px,3.8vw,46px);font-weight:600;letter-spacing:-0.02em;max-width:20ch;line-height:1.15}
+.resolve h2 em{font-family:"Newsreader",serif;font-style:italic;color:var(--gold)}
+.resolve .row{display:grid;gap:26px;margin-top:44px;padding-top:34px;border-top:1px solid rgba(255,255,255,.12)}
+.resolve .row div{max-width:440px}
+.resolve .row .h{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--gold);letter-spacing:.02em}
+.resolve .row .b{margin-top:7px;font-size:14.5px;color:#B9C0C8;line-height:1.55}
+.resolve .more{margin-top:36px;display:inline-flex;align-items:center;gap:9px;font-size:14.5px;font-weight:600;color:#EFF1F3;border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:3px;transition:border-color .2s,color .2s}
+.resolve .more:hover{color:var(--gold);border-color:var(--gold)}
+.resolve .emblem2{position:relative;aspect-ratio:1/1;width:min(44vw,520px);max-width:100%;margin-left:auto}
+.resolve .emblem2 canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.resolve .emblem2 .halo{position:absolute;inset:4%;border-radius:50%;background:radial-gradient(circle at 50% 48%,rgba(212,175,55,.05),rgba(212,175,55,0) 55%);pointer-events:none}
+
+/* ---------- Journey ---------- */
+.journey .frame{position:relative;border-radius:22px;overflow:hidden;isolation:isolate}
+.journey img{width:100%;height:min(58vh,540px);object-fit:cover;transform:scale(1.02)}
+.journey .frame::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,11,0) 26%,rgba(11,11,11,.38) 58%,rgba(11,11,11,.72)),linear-gradient(100deg,rgba(11,11,11,.42),rgba(11,11,11,0) 55%);}
+.journey .story{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:38px clamp(24px,4vw,52px);color:#fff}
+.journey .story p{font-size:clamp(19px,2.4vw,27px);font-weight:500;max-width:24ch;line-height:1.25;text-shadow:0 1px 14px rgba(11,11,11,.45)}
+.journey .story p em{font-family:"Newsreader",serif;font-style:italic;color:var(--gold)}
+.journey .story .go{margin-top:18px;display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;color:#fff;border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:3px;transition:color .2s,border-color .2s}
+.journey .story .go:hover{color:var(--gold);border-color:var(--gold)}
+.journey .cap{margin-top:16px;font-size:13px;color:var(--ink-soft);display:flex;flex-wrap:wrap;gap:6px 22px}
+.journey .cap a{color:var(--gold-deep);font-weight:600;transition:color .2s}
+.journey .cap a:hover{color:var(--ink)}
+
+/* ---------- Vision ---------- */
+.vision{border-top:1px solid var(--hair)}
+.vision-grid{display:grid;grid-template-columns:0.8fr 1.2fr;gap:48px;align-items:center}
+.vision .big{font-family:"Newsreader",serif;font-weight:400;font-size:clamp(110px,16vw,210px);line-height:.86;letter-spacing:-0.04em;color:var(--ink)}
+.vision .big .u{display:block;font-family:"Manrope",sans-serif;font-weight:600;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);margin-top:16px}
+.vision h2{font-size:clamp(26px,3.2vw,38px);letter-spacing:-0.025em}
+.vision p{margin-top:20px;color:var(--ink-soft);font-size:17px;max-width:50ch}
+.vision .note{margin-top:22px;font-size:13.5px;color:var(--ink-soft);display:inline-flex;gap:9px;align-items:center}
+.vision .note b{color:var(--ink);font-weight:600}
+.vision .ahead{margin-top:26px;display:inline-flex;align-items:center;gap:9px;font-size:14.5px;font-weight:600;color:var(--gold-deep);transition:color .2s}
+.vision .ahead:hover{color:var(--ink)}
+
+/* ---------- CTA band ---------- */
+.cta-band{background:linear-gradient(180deg,var(--ground-2),var(--ground));border-top:1px solid var(--hair)}
+.cta-band .wrap{padding-block:100px;text-align:center}
+.cta-band h2{font-size:clamp(32px,4.8vw,60px);letter-spacing:-0.03em}
+.cta-band h2 em{font-family:"Newsreader",serif;font-style:italic;font-weight:500}
+.cta-band p{margin:18px auto 0;color:var(--ink-soft);max-width:46ch;font-size:17px}
+.cta-band .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+
+/* ---------- Chapter index ---------- */
+.chapters{border-top:1px solid var(--hair);background:var(--ground-2)}
+.chapters .lead{margin-bottom:38px}
+.chapters-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hair);border:1px solid var(--hair);border-radius:var(--r-tile);overflow:hidden}
+.chap{background:var(--ground);padding:22px 20px 26px;position:relative;display:flex;flex-direction:column;gap:10px;min-height:118px;transition:background .2s}
+a.chap:hover{background:#fff}
+.chap .n{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--gold-deep);letter-spacing:.05em}
+.chap .t{font-size:16.5px;font-weight:700;letter-spacing:-0.01em;line-height:1.25}
+.chap .arw{position:absolute;right:18px;bottom:18px;color:var(--hair-strong);transition:color .2s,transform .2s}
+a.chap:hover .arw{color:var(--gold);transform:translateX(2px)}
+.chap[aria-current]{background:#fff}
+.chap[aria-current] .here{margin-top:auto;font-size:11px;font-weight:600;color:var(--gold-deep)}
+
+/* ---------- Footer ---------- */
+footer{background:var(--ink);color:#C7CDD4}
+footer .wrap{padding-block:64px 40px}
+.foot-top{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
+.foot-brand img{height:40px;margin-bottom:18px}
+.foot-brand p{margin-top:12px;font-size:13.5px;color:#8B929B;max-width:34ch}
+.foot-col h4{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#8B929B;font-weight:600;margin:0 0 16px}
+.foot-col a,.foot-col .li{display:block;font-size:14.5px;color:#C7CDD4;margin-bottom:11px;transition:color .2s}
+.foot-col a:hover{color:var(--gold)}
+.foot-bar{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:52px;padding-top:24px;border-top:1px solid rgba(255,255,255,.1);font-size:12.5px;color:#7C838C}
+.foot-bar .tag{font-style:italic;font-family:"Newsreader",serif}
+
+/* ---------- Scroll reveals (JS + motion-safe only) ---------- */
+@media (prefers-reduced-motion:no-preference){
+  .js [data-reveal]{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);transition-delay:calc(var(--d,0)*70ms)}
+  .js [data-reveal].in{opacity:1;transform:none}
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width:960px){
+  .hero{padding:8px 0 48px}
+  .hero .emblem{width:min(38vh,360px)}
+  .hero h1{font-size:clamp(34px,6.4vw,52px)}
+  .trust-grid{grid-template-columns:repeat(3,1fr)}
+  .trust-cell:nth-child(3n+1){border-left:0}
+  .trust-cell:nth-child(n+4){border-top:1px solid var(--hair)}
+  .svc-grid{grid-template-columns:repeat(2,1fr)}
+  .svc.more{grid-column:auto}
+  .resolve-grid{grid-template-columns:1fr;gap:16px}
+  .resolve .emblem2{width:min(70vw,420px);margin:0 auto;order:-1}
+  .vision-grid{grid-template-columns:1fr;gap:26px}
+  .chapters-grid{grid-template-columns:repeat(2,1fr)}
+  .foot-top{grid-template-columns:1fr 1fr}
+  .chp-grid{grid-template-columns:1fr;gap:26px}
+}
+@media (max-width:640px){
+  .wrap{padding:0 18px}
+  section.blk{padding:64px 0}
+  .nav-links{display:none}
+  .nav-links.open{display:flex;position:absolute;top:70px;left:0;right:0;flex-direction:column;align-items:flex-start;gap:16px;padding:22px 20px 26px;background:var(--ground);border-bottom:1px solid var(--hair);max-height:calc(100dvh - 70px);overflow:auto}
+  .nav-links.open .btn{width:100%;justify-content:center}
+  .nav-links button.chp-btn{display:none}
+  .m-chp{display:block;width:100%;border-top:1px solid var(--hair);padding-top:16px;margin-top:2px}
+  .m-chp h4{margin:0 0 12px;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+  .m-chp .chp-it{padding:7px 0;font-size:15px}
+  .nav-toggle{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border:1px solid var(--hair-strong);border-radius:11px;background:transparent;cursor:pointer}
+  .hero .emblem{width:min(74vw,300px);margin-bottom:-5%}
+  .trust-grid{grid-template-columns:repeat(2,1fr)}
+  .trust-cell:nth-child(3n+1){border-left:1px solid var(--hair)}
+  .trust-cell:nth-child(2n+1){border-left:0}
+  .trust-cell:nth-child(n+3){border-top:1px solid var(--hair)}
+  .svc-grid{grid-template-columns:1fr}
+  .chapters-grid{grid-template-columns:1fr}
+  .resolve .wrap{padding-block:80px}
+  .foot-top{grid-template-columns:1fr}
+  .hero .cta .btn,.cta-band .cta .btn{flex:1 1 auto}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+}
+</style>
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="./" aria-label="KUL Enterprises home">
+      <img src="/assets/brand/lion-clean.png" alt="KUL Enterprises lion mark">
+      <span class="bt"><span class="bk">KUL</span><span class="be">Enterprises&nbsp;LLC</span></span>
+    </a>
+    <nav class="nav-links" id="navlinks" aria-label="Primary">
+      <button class="lnk chp-btn" id="chpbtn" aria-expanded="false" aria-controls="chpanel">
+        Chapters
+        <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
+      </button>
+      <a class="lnk" href="../mission/">Services</a>
+      <a class="lnk" href="../responsibility/">Safety</a>
+      <a class="lnk" href="../forward/#contact">Contact</a>
+      <div class="m-chp">
+        <h4>The story</h4>
+        <span class="chp-it" aria-current="page"><i>01</i>The Beginning<em>Here</em></span>
+        <a class="chp-it" href="../journey/"><i>02</i>The Journey</a>
+        <a class="chp-it" href="../story/"><i>03</i>Why I Started Driving</a>
+        <a class="chp-it" href="../mission/"><i>04</i>The Mission</a>
+        <a class="chp-it" href="../responsibility/"><i>05</i>The Responsibility</a>
+        <a class="chp-it" href="../join/"><i>06</i>Join the Journey</a>
+        <a class="chp-it" href="../forward/"><i>07</i>Let's Move Forward</a>
+        <a class="chp-it" href="../road-ahead/"><i>08</i>The Road Ahead</a>
+      </div>
+      <a class="btn btn-gold" href="../forward/">Request a Freight Quote</a>
+    </nav>
+    <button class="nav-toggle" id="navtoggle" aria-label="Menu" aria-expanded="false">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h14M3 10h14M3 14h14"/></svg>
+    </button>
+  </div>
+  <!-- Chapters dropdown -->
+  <nav class="chp" id="chpanel" hidden aria-label="Chapters">
+    <div class="wrap chp-grid">
+      <div>
+        <h4>The story</h4>
+        <div class="chp-list">
+          <span class="chp-it" aria-current="page"><i>01</i>The Beginning<em>You are here</em></span>
+          <a class="chp-it" href="../journey/"><i>02</i>The Journey</a>
+          <a class="chp-it" href="../story/"><i>03</i>Why I Started Driving</a>
+          <a class="chp-it" href="../mission/"><i>04</i>The Mission</a>
+          <a class="chp-it" href="../responsibility/"><i>05</i>The Responsibility</a>
+          <a class="chp-it" href="../join/"><i>06</i>Join the Journey</a>
+          <a class="chp-it" href="../forward/"><i>07</i>Let's Move Forward</a>
+          <a class="chp-it" href="../road-ahead/"><i>08</i>The Road Ahead</a>
+        </div>
+      </div>
+      <div class="chp-fast">
+        <h4>For shippers</h4>
+        <a href="../mission/">Services <span aria-hidden="true">&rarr;</span></a>
+        <a href="../responsibility/">Safety <span aria-hidden="true">&rarr;</span></a>
+        <a href="../forward/">Request a Freight Quote <span aria-hidden="true">&rarr;</span></a>
+        <a href="../forward/#contact">Contact <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="emblem" id="emblem">
+        <div class="halo"></div>
+        <canvas id="pc" aria-hidden="true"></canvas>
+        <img class="fallback" id="pcfallback" src="/assets/brand/lion-clean.png" alt="KUL Enterprises lion emblem">
+      </div>
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="mk"></span>Strength in Motion &middot; Loganville, GA<span class="mk"></span></span>
+        <h1>Freight moved with the care of people who <em>own it.</em></h1>
+        <p class="sub">A Loganville, Georgia carrier running nationwide freight with full authority, full insurance, and dispatch that answers at 3&nbsp;a.m.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="../forward/">Request a Freight Quote<span class="dot">&rarr;</span></a>
+          <a class="btn btn-ghost" href="../join/">Become a Driver</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRUST STRIP ===== -->
+  <section class="trust" aria-label="Credentials">
+    <div class="wrap">
+      <div class="trust-grid">
+        <div class="trust-cell"><div class="k">USDOT</div><div class="v code">7638788</div></div>
+        <div class="trust-cell"><div class="k">MC Number</div><div class="v code">66389691</div></div>
+        <div class="trust-cell"><div class="k">Status</div><div class="v">Licensed &amp; Insured</div></div>
+        <div class="trust-cell"><div class="k">Based in</div><div class="v">Loganville, GA</div></div>
+        <div class="trust-cell"><div class="k">Coverage</div><div class="v">Nationwide</div></div>
+        <div class="trust-cell"><div class="k">Dispatch</div><div class="v">24/7</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SERVICES ===== -->
+  <section class="blk" id="services">
+    <div class="wrap">
+      <div class="svc-head" data-reveal>
+        <div class="lead">
+          <h2>Seven ways we move <span class="g">your</span> freight.</h2>
+          <p>One carrier, built to take the load off your desk. Pick the lane that fits, or tell us what you need and we will scope it.</p>
+        </div>
+        <a class="svc-more-lnk" href="../mission/">The full mission <span aria-hidden="true">&rarr;</span></a>
+      </div>
+      <div class="svc-grid" id="svcgrid"></div>
+    </div>
+  </section>
+
+  <!-- ===== THE RESOLVE (signature moment) ===== -->
+  <section class="resolve" id="safety">
+    <div class="wrap">
+      <div class="resolve-grid">
+        <div data-reveal>
+          <div class="tag">Driven by Safety</div>
+          <h2>Safety isn't a department here. It's the <em>person</em> in the driver's seat.</h2>
+          <div class="row">
+            <div><div class="h">Every trip</div><div class="b">Pre-trip and post-trip inspections, no exceptions, logged before the wheels turn.</div></div>
+            <div><div class="h">Every hour</div><div class="b">ELD-compliant hours of service. Rested drivers, not rushed ones.</div></div>
+            <div><div class="h">Every load</div><div class="b">Full cargo and liability coverage on file, verifiable before you book.</div></div>
+          </div>
+          <a class="more" href="../responsibility/">Read The Responsibility <span aria-hidden="true">&rarr;</span></a>
+        </div>
+        <div class="emblem2" id="emblem2">
+          <div class="halo"></div>
+          <canvas id="pc2" aria-hidden="true"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== JOURNEY ===== -->
+  <section class="blk journey">
+    <div class="wrap">
+      <div class="frame" data-reveal>
+        <img src="/assets/journey/cliffs.jpg" alt="Coastal cliffs over open water, photographed by KUL's founder">
+        <div class="story">
+          <p>The same person who chases these horizons on his days off is the one <em>accountable</em> for your freight.</p>
+          <a class="go" href="../journey/">Walk the journey <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </div>
+      <p class="cap">
+        <span>A founder-owned carrier. The standard on the road is the standard behind the wheel.</span>
+        <a href="../story/">Why I started driving <span aria-hidden="true">&rarr;</span></a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== VISION ===== -->
+  <section class="blk vision">
+    <div class="wrap vision-grid">
+      <div class="big" data-reveal>50<span class="u">Tractors by end of 2029</span></div>
+      <div data-reveal style="--d:2">
+        <h2>Building toward fifty, one safe mile at a time.</h2>
+        <p>KUL runs one truck today. The plan is fifty tractors by the end of 2029, grown on retained customers and clean safety records rather than hype.</p>
+        <span class="note">Honest math beats big promises. <b>We'll show you the record.</b></span><br>
+        <a class="ahead" href="../road-ahead/">See the road ahead <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA BAND ===== -->
+  <section class="cta-band" id="quote">
+    <div class="wrap">
+      <h2 data-reveal>Got a load that needs a <em>reliable</em> carrier?</h2>
+      <p data-reveal style="--d:1">Tell us the lane, the weight, and the window. You'll get a straight answer from a real dispatcher, not a bot.</p>
+      <div class="cta" data-reveal style="--d:2">
+        <a class="btn btn-gold" href="../forward/">Request a Freight Quote</a>
+        <a class="btn btn-ghost" href="tel:16789721148">Call 678-972-1148</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CHAPTER INDEX ===== -->
+  <section class="blk chapters" aria-label="Story chapters">
+    <div class="wrap">
+      <div class="lead" data-reveal>
+        <h2>One truck. Eight chapters.</h2>
+        <p>The whole story behind the carrier, from the first mile to the plan for fifty. Start anywhere.</p>
+      </div>
+      <nav class="chapters-grid" aria-label="Chapters index">
+        <span class="chap" aria-current="page"><span class="n">01</span><span class="t">The Beginning</span><span class="here">You are here</span></span>
+        <a class="chap" href="../journey/"><span class="n">02</span><span class="t">The Journey</span><svg class="arw" width="16" height="16" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 13L13 4M6 4h7v7"/></svg></a>
+        <a class="chap" href="../story/"><span class="n">03</span><span class="t">Why I Started Driving</span><svg class="arw" width="16" height="16" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 13L13 4M6 4h7v7"/></svg></a>
+        <a class="chap" href="../mission/"><span class="n">04</span><span class="t">The Mission</span><svg class="arw" width="16" height="16" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 13L13 4M6 4h7v7"/></svg></a>
+        <a class="chap" href="../responsibility/"><span class="n">05</span><span class="t">The Responsibility</span><svg class="arw" width="16" height="16" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 13L13 4M6 4h7v7"/></svg></a>
+        <a class="chap" href="../join/"><span class="n">06</span><span class="t">Join the Journey</span><svg class="arw" width="16" height="16" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 13L13 4M6 4h7v7"/></svg></a>
+        <a class="chap" href="../forward/"><span class="n">07</span><span class="t">Let's Move Forward</span><svg class="arw" width="16" height="16" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 13L13 4M6 4h7v7"/></svg></a>
+        <a class="chap" href="../road-ahead/"><span class="n">08</span><span class="t">The Road Ahead</span><svg class="arw" width="16" height="16" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 13L13 4M6 4h7v7"/></svg></a>
+      </nav>
+    </div>
+  </section>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <img src="/assets/brand/logo-white-t.png" alt="KUL Enterprises LLC">
+        <p>Strength in Motion. Built on Integrity. Driven by Safety.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Dispatch</h4>
+        <a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a>
+        <a href="tel:16789721148">678-972-1148</a>
+        <span class="li">Loganville, Georgia</span>
+        <span class="li">24/7 &middot; Nationwide</span>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="../mission/">Services</a>
+        <a href="../responsibility/">Safety</a>
+        <a href="../forward/">Request a Freight Quote</a>
+        <a href="../join/">Become a Driver</a>
+        <a href="../road-ahead/">The Road Ahead</a>
+      </div>
+    </div>
+    <div class="foot-bar">
+      <span>USDOT <span class="mono">7638788</span> &nbsp;&middot;&nbsp; MC <span class="mono">66389691</span> &nbsp;&middot;&nbsp; Licensed &amp; Insured</span>
+      <span class="tag">Strength in Motion.</span>
+      <span>&copy; 2026 KUL Enterprises LLC</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ Services data + nav behaviour ============ -->
+<script>
+(function(){
+  var SVC=[
+    ["01","Power Only","Your trailer, our tractor and driver, ready when you are."],
+    ["02","Dry Van","Standard freight hauled clean, dry, and on schedule."],
+    ["03","Reefer","Temperature-controlled loads held at spec, end to end."],
+    ["04","Dedicated","A truck committed to your lanes, week after week."],
+    ["05","Regional","Short-haul coverage across the Southeast, home-base close."],
+    ["06","Over-the-Road","Long-haul capacity moving freight coast to coast."],
+    ["07","Expedited","Time-critical shipments prioritized and tracked to the door."]
+  ];
+  var g=document.getElementById('svcgrid');
+  var html=SVC.map(function(s,i){
+    return '<article class="svc" data-reveal style="--d:'+(i%3)+'"><span class="idx">'+s[0]+'</span>'+
+      '<svg class="arw" width="17" height="17" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 13L13 4M6 4h7v7"/></svg>'+
+      '<h3>'+s[1]+'</h3><p>'+s[2]+'</p></article>';
+  }).join('');
+  // 7 items in a 3-col grid = one trailing gap; fill it with a quiet "scope it" tile.
+  html+='<article class="svc more" data-reveal style="--d:1;display:flex;flex-direction:column;justify-content:center">'+
+    '<h3 style="margin-top:0">Something else?</h3>'+
+    '<p>If your freight doesn’t fit a box above, tell us. We’ll build the lane.</p>'+
+    '<a class="idx" href="../forward/" style="margin-top:14px;text-decoration:underline">Start a quote →</a></article>';
+  g.innerHTML=html;
+
+  // Mobile nav toggle
+  var t=document.getElementById('navtoggle'),l=document.getElementById('navlinks');
+  if(t){t.addEventListener('click',function(){
+    var open=l.classList.toggle('open');
+    t.setAttribute('aria-expanded',open?'true':'false');
+  });
+  l.addEventListener('click',function(e){if(e.target.closest('a'))l.classList.remove('open');});}
+
+  // Chapters dropdown (desktop)
+  var cb=document.getElementById('chpbtn'),cp=document.getElementById('chpanel');
+  function closeChp(){if(!cp.hidden){cp.hidden=true;cb.setAttribute('aria-expanded','false');}}
+  if(cb&&cp){
+    cb.addEventListener('click',function(e){
+      e.stopPropagation();
+      var show=cp.hidden;
+      cp.hidden=!show;
+      cb.setAttribute('aria-expanded',show?'true':'false');
+    });
+    document.addEventListener('click',function(e){
+      if(!cp.hidden&&!cp.contains(e.target)&&e.target!==cb)closeChp();
+    });
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')closeChp();});
+  }
+
+  // Scroll reveals (motion-safe; CSS gates the hidden state behind no-preference)
+  var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var items=document.querySelectorAll('[data-reveal]');
+  if(reduce||!('IntersectionObserver'in window)){
+    items.forEach(function(el){el.classList.add('in');});
+  }else{
+    var io=new IntersectionObserver(function(en){
+      en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+    },{threshold:0.18,rootMargin:'0px 0px -6% 0px'});
+    items.forEach(function(el){io.observe(el);});
+  }
+})();
+</script>
+
+<!-- ============ Particle emblem engine (two fields, one character) ============
+     Field 1 (hero): breathes on its own cycle, dissolves as you scroll away.
+     Field 2 (resolve): gathers into the lion strictly as the section scrolls in.
+     All scroll math runs inside the rAF loop via getBoundingClientRect:
+     no scroll listeners, native scroll untouched. -->
+<script>
+(function(){
+  var root=document.documentElement;
+  var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var lowPower=(navigator.hardwareConcurrency||8)<=4;
+
+  // ---- shared tweakable params (CSS vars) ----
+  function num(name,dflt){var v=parseFloat(getComputedStyle(root).getPropertyValue(name));return isNaN(v)?dflt:v;}
+  function str(name,dflt){var v=getComputedStyle(root).getPropertyValue(name).trim();return v||dflt;}
+  var P={density:1850,size:1.3,morph:1,resolve:0.7,drift:0.7,scale:1,ground:'Steel',gold:'#D4AF37'};
+  function syncParams(){
+    P.density=num('--pc-density',1850);
+    P.size=num('--pc-size',1.3);
+    P.morph=num('--pc-morph',1);
+    P.resolve=num('--pc-resolve',0.7);
+    P.drift=num('--pc-drift',0.7);
+    P.scale=num('--pc-scale',1);
+    P.ground=str('--pc-ground','Steel').replace(/["']/g,'');
+    P.gold=str('--gold','#D4AF37');
+    applyGround();
+  }
+  function applyGround(){
+    var warm=(P.ground.toLowerCase()==='warm');
+    root.style.setProperty('--ground',warm?'#F1ECE2':'#EDF0F3');
+    root.style.setProperty('--ground-2',warm?'#F8F4EC':'#F6F8FA');
+    root.style.setProperty('--hair',warm?'#E4DCCD':'#DCE1E6');
+    root.style.setProperty('--hair-strong',warm?'#D3C8B4':'#C9CFD6');
+  }
+  function goldRGB(){
+    var h=P.gold.replace('#','');
+    if(h.length===3)h=h[0]+h[0]+h[1]+h[1]+h[2]+h[2];
+    return[parseInt(h.substr(0,2),16),parseInt(h.substr(2,2),16),parseInt(h.substr(4,2),16)];
+  }
+  function clamp(x,a,b){return x<a?a:(x>b?b:x);}
+  function smooth(a,b,x){x=clamp((x-a)/(b-a),0,1);return x*x*(3-2*x);}
+
+  // ---- lion silhouette sample (from the real brand mark, once, shared) ----
+  var lionPts=null,lionReady=false;
+  function sampleLion(cb){
+    var img=new Image();
+    img.crossOrigin='anonymous';
+    img.onload=function(){
+      try{
+        var S=200;
+        var oc=document.createElement('canvas');oc.width=S;oc.height=S;
+        var octx=oc.getContext('2d');
+        var ar=img.width/img.height,dw=S,dh=S,ox=0,oy=0;
+        if(ar>1){dh=S/ar;oy=(S-dh)/2;}else{dw=S*ar;ox=(S-dw)/2;}
+        octx.drawImage(img,ox,oy,dw,dh);
+        var data=octx.getImageData(0,0,S,S).data;
+        var pts=[];
+        for(var y=0;y<S;y+=2){
+          for(var x=0;x<S;x+=2){
+            var idx=(y*S+x)*4;
+            var a=data[idx+3];
+            if(a>60){
+              // luminance imprints the face: bright fur = bigger particles,
+              // dark mane gaps = smaller + partly culled, so the mark reads
+              // as a lion when resolved instead of a filled oval.
+              var lum=(data[idx]*0.299+data[idx+1]*0.587+data[idx+2]*0.114)/255;
+              if(lum>0.16||Math.random()<0.5)pts.push([x/S-0.5,y/S-0.5,lum]);
+            }
+          }
+        }
+        for(var i=pts.length-1;i>0;i--){var j=(Math.random()*(i+1))|0;var tmp=pts[i];pts[i]=pts[j];pts[j]=tmp;}
+        lionPts=pts;lionReady=true;cb&&cb();
+      }catch(e){lionReady=false;cb&&cb();}
+    };
+    img.onerror=function(){lionReady=false;cb&&cb();};
+    img.src='/assets/brand/lion-clean.png';
+  }
+
+  // ---- hero cohesion: breathe cycle, biased toward the resolved hold ----
+  function cycle(t){
+    var period=14/Math.max(0.2,P.resolve);
+    var p=(t%period)/period;
+    if(p<0.13)return smooth(0,0.13,p);        // gather in
+    if(p<0.68)return 1;                        // hold resolved (longer, braver)
+    if(p<0.82)return 1-smooth(0.68,0.82,p);    // drift apart
+    return 0;                                   // hold dispersed
+  }
+
+  // ---- field factory ----
+  function Field(hostId,canvasId,opts){
+    var host=document.getElementById(hostId);
+    var canvas=document.getElementById(canvasId);
+    if(!host||!canvas)return null;
+    var ctx=canvas.getContext('2d',{alpha:true});
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    var W=0,H=0,cx=0,cy=0,R=0;
+    var parts=[],running=false,rafId=null,start=performance.now();
+
+    function resize(){
+      var rect=host.getBoundingClientRect();
+      W=rect.width;H=rect.height;
+      if(W<=0||H<=0)return;
+      canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      cx=W/2;cy=H*(opts.cyFrac||0.485);R=Math.min(W,H)*(opts.rFrac||0.40);
+    }
+    function build(){
+      var n=Math.round(P.density*(opts.densityMul||1)*(lowPower?0.55:1));
+      n=Math.max(200,n);
+      parts=new Array(n);
+      for(var i=0;i<n;i++){
+        var ang=Math.random()*Math.PI*2;
+        var rad=Math.pow(Math.random(),0.62)*0.5;
+        var ox=Math.cos(ang)*rad, oy=Math.sin(ang)*rad*0.96;
+        var lp=lionReady&&lionPts.length?lionPts[i%lionPts.length]:[ox,oy,0.5];
+        parts[i]={
+          ox:ox,oy:oy,lx:lp[0],ly:lp[1],
+          lw:(lp[2]===undefined?0.5:lp[2]),
+          dispA:Math.random()*Math.PI*2,
+          dispR:0.55+Math.random()*0.7,
+          phx:Math.random()*Math.PI*2,phy:Math.random()*Math.PI*2,
+          wsp:0.5+Math.random()*0.9,
+          sz:0.6+Math.random()*0.9
+        };
+      }
+    }
+    function draw(c,t){
+      if(W<=0)return;
+      ctx.clearRect(0,0,W,H);
+      var g=goldRGB();
+      var morph=P.morph,scale=P.scale,drift=P.drift,baseSz=P.size;
+      var wanderAmp=R*0.05*(0.4+drift);
+      var dispScale=R*(0.55+drift*0.9)*(opts.dispMul||1);
+      var ease=c*c*(3-2*c);
+      var A=opts.alpha;
+      for(var pass=0;pass<2;pass++){
+        ctx.beginPath();
+        for(var i=0;i<parts.length;i++){
+          var p=parts[i];
+          var tx=(p.ox+(p.lx-p.ox)*morph)*2*R*scale;
+          var ty=(p.oy+(p.ly-p.oy)*morph)*2*R*scale;
+          var dx=Math.cos(p.dispA)*p.dispR*dispScale;
+          var dy=Math.sin(p.dispA)*p.dispR*dispScale;
+          var wx=Math.sin(t*p.wsp+p.phx)*wanderAmp*(0.5+(1-ease)*0.9);
+          var wy=Math.cos(t*p.wsp*0.9+p.phy)*wanderAmp*(0.5+(1-ease)*0.9);
+          var x=cx+tx*ease+dx*(1-ease)+wx;
+          var y=cy+ty*ease+dy*(1-ease)+wy;
+          // face imprint: as the mark resolves, bright areas of the lion
+          // swell and dark mane gaps shrink, etching the silhouette's features.
+          var lf=1+(p.lw-0.42)*1.5*ease*morph;
+          if(lf<0.35)lf=0.35;
+          var r=baseSz*p.sz*lf*(pass===0?2.6:1);
+          ctx.moveTo(x+r,y);
+          ctx.arc(x,y,r,0,6.2832);
+        }
+        if(pass===0){
+          ctx.fillStyle='rgba('+g[0]+','+g[1]+','+g[2]+','+(A.glowBase+A.glowAmp*ease)+')';
+        }else{
+          ctx.fillStyle='rgba('+g[0]+','+g[1]+','+g[2]+','+(A.coreBase+A.coreAmp*ease)+')';
+        }
+        ctx.fill();
+      }
+    }
+    function frame(now){
+      if(!running)return;
+      var t=(now-start)/1000;
+      var rect=host.getBoundingClientRect();
+      var c=opts.coh(t,rect,window.innerHeight||1);
+      draw(c,t);
+      rafId=requestAnimationFrame(frame);
+    }
+    function startLoop(){if(running)return;running=true;rafId=requestAnimationFrame(frame);}
+    function stopLoop(){running=false;if(rafId)cancelAnimationFrame(rafId);}
+    function staticFrame(){resize();if(lionReady){draw(1,2.4);}else if(opts.fallback){opts.fallback.style.opacity='1';}}
+    function init(){
+      resize();build();
+      if(reduce){staticFrame();return;}
+      if('IntersectionObserver'in window){
+        var io=new IntersectionObserver(function(en){
+          en.forEach(function(e){e.isIntersecting?startLoop():stopLoop();});
+        },{threshold:0.02});
+        io.observe(host);
+      }else{startLoop();}
+    }
+    return {init:init,resize:resize,build:build,staticFrame:staticFrame};
+  }
+
+  // Field 1 — hero: own breathe cycle, dissolves as the hero scrolls off.
+  var hero=Field('emblem','pc',{
+    cyFrac:0.47,rFrac:0.42,densityMul:1,dispMul:1,
+    alpha:{glowBase:0.05,glowAmp:0.10,coreBase:0.42,coreAmp:0.42},
+    fallback:document.getElementById('pcfallback'),
+    coh:function(t,rect){
+      var out=clamp(-rect.top/((rect.height||1)*0.85),0,1);
+      return cycle(t)*(1-smooth(0.05,0.95,out));
+    }
+  });
+
+  // Field 2 — the Resolve: cohesion is pure scroll progress. The lion re-forms
+  // exactly as the safety statement arrives (storytelling: the mark returns
+  // where the standard lives). Scatter radius is wider so it gathers from afar.
+  var res=Field('emblem2','pc2',{
+    cyFrac:0.49,rFrac:0.42,densityMul:0.9,dispMul:1.7,
+    alpha:{glowBase:0.07,glowAmp:0.13,coreBase:0.30,coreAmp:0.55},
+    coh:function(t,rect,vh){
+      var p=clamp((vh*0.96-rect.top)/(vh*0.78),0,1);
+      return smooth(0.06,0.94,p);
+    }
+  });
+
+  var fields=[hero,res].filter(Boolean);
+
+  function boot(){
+    syncParams();
+    fields.forEach(function(f){f.init();});
+  }
+  sampleLion(boot);
+
+  // resize + tweak-panel reactions
+  var rt;
+  window.addEventListener('resize',function(){
+    clearTimeout(rt);
+    rt=setTimeout(function(){fields.forEach(function(f){f.resize();if(reduce)f.staticFrame();});},120);
+  });
+  var prevDensity=P.density;
+  var mo=new MutationObserver(function(){
+    syncParams();
+    if(P.density!==prevDensity){prevDensity=P.density;fields.forEach(function(f){f.build();});}
+    if(reduce)fields.forEach(function(f){f.staticFrame();});
+  });
+  mo.observe(root,{attributes:true,attributeFilter:['style']});
+})();
+</script>
+
+<!-- ============ Tweaks contract (locked snapshot defaults) ============ -->
+<script>
+window.KUL_TWEAKS={
+  style:"s08b-b",
+  controls:[
+    {var:"--pc-density",label:"Particle density",type:"range",value:1850,min:400,max:2200,step:50},
+    {var:"--pc-size",label:"Particle size",type:"range",value:1.3,min:0.6,max:2.6,step:0.1},
+    {var:"--pc-morph",label:"Morph (abstract → lion)",type:"range",value:1,min:0,max:1,step:0.01},
+    {var:"--pc-resolve",label:"Resolve speed",type:"range",value:0.7,min:0.2,max:2,step:0.05},
+    {var:"--pc-drift",label:"Drift energy",type:"range",value:0.7,min:0,max:1.6,step:0.05},
+    {var:"--pc-ground",label:"Ground tint",type:"select",value:"Steel",options:["Steel","Warm"]},
+    {var:"--pc-scale",label:"Emblem scale",type:"range",value:1,min:0.7,max:1.4,step:0.05},
+    {var:"--gold",label:"Gold",type:"color",value:"#D4AF37"}
+  ]
+};
+</script>
+<script src="/tweaks.js" defer></script>
+</body>
+</html>

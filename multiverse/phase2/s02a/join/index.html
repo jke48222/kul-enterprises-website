@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="en">
+<!--
+s02a chapter 06 — JOIN THE JOURNEY (driver careers)
+Treatment: the warm chapter. Paper ground, generous air, gold used as
+welcome rather than accent. Honest headline first: not hiring yet.
+A letterpress-style open letter to future drivers, a "what a seat here
+will mean" ledger (philosophy only — zero invented pay/benefits), the
+growth arc set as type, and a tasteful notify-me stub that tells the
+truth about being a preview.
+Emotional temperature: welcoming, future-facing, sincere.
+-->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Join the Journey — Driver Careers | KUL Enterprises LLC</title>
+<meta name="description" content="Driver careers at KUL Enterprises LLC. We're not hiring yet — we're building toward fifty tractors by end of 2029, and seats will be announced as tractors are added. Get notified when opportunities open.">
+<meta name="theme-color" content="#101010">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23101010'/%3E%3Ctext x='32' y='46' font-family='Arial Black,Arial' font-size='38' font-weight='900' fill='%23D4AF37' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS (snapshot-baked) ============ */
+:root{
+  --marquee-size:9vw;
+  --duo-tint:#ae8f28;
+  --duo-dose:66%;
+  --idx-ink:#D4AF37;
+  --hairline-w:1px;
+  --track:0.25em;
+  --gold:#D4AF37;
+  --marquee-play:running;
+  --paper:#F2EFE9;
+  --ink:#141414;
+  --char:#101010;
+  --char-2:#0B0B0B;
+  --gray:#565656;
+  --line:rgba(20,20,20,.22);
+  --line-soft:rgba(20,20,20,.12);
+  --mx:clamp(20px,4.8vw,76px);
+  --sec:clamp(4.5rem,9vw,8.25rem);
+  --ff-d:"Anton",Impact,sans-serif;
+  --ff-b:"Archivo",Helvetica,Arial,sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+.dark{--line:rgba(242,239,233,.22);--line-soft:rgba(242,239,233,.12)}
+
+/* ============ RESET / BASE ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font:400 15.5px/1.66 var(--ff-b);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:clip}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+ul,ol{list-style:none}
+button{font:inherit;background:none;border:0;color:inherit;cursor:pointer}
+input{font:inherit;color:inherit}
+::selection{background:var(--gold);color:var(--char)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:fixed;top:-100%;left:var(--mx);z-index:200;background:var(--gold);color:var(--char);
+  padding:.7rem 1.1rem;font:600 12px/1 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase;transition:top .2s}
+.skip:focus{top:0}
+
+.micro{font:500 11px/1.5 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase}
+.micro .ix{color:color-mix(in srgb,var(--idx-ink) 60%,#141400)}
+.dark .micro .ix{color:var(--idx-ink)}
+.d-m{font-family:var(--ff-d);font-weight:400;text-transform:uppercase;line-height:.96;letter-spacing:.01em;
+  font-size:clamp(2.5rem,5.2vw,4.7rem)}
+.kick{display:flex;justify-content:space-between;align-items:baseline;gap:1.2rem;
+  border-block-start:var(--hairline-w) solid var(--line);padding-block-start:.85rem}
+.kick .note{color:var(--gray);text-align:right}
+.dark .kick .note{color:rgba(242,239,233,.6)}
+
+/* reveals */
+.js .r{opacity:0;transform:translateY(16px);
+  transition:opacity .6s var(--ease),transform .7s var(--ease);transition-delay:var(--d,0s)}
+.js .r.in{opacity:1;transform:none}
+.js .r-clip{clip-path:inset(0 100% 0 0);transition:clip-path 1s var(--ease);transition-delay:var(--d,0s)}
+.js .r-clip.in{clip-path:inset(0 0 0 0)}
+.js .r-clip img{transform:scale(1.055);transition:transform 1.35s var(--ease)}
+.js .r-clip.in img{transform:scale(1)}
+
+/* ============ MASTHEAD ============ */
+.masthead{position:sticky;top:0;z-index:100;background:var(--char);color:var(--paper);
+  border-block-end:var(--hairline-w) solid rgba(242,239,233,.22)}
+.masthead .bar{display:flex;align-items:center;gap:1.5rem;padding:.8rem var(--mx)}
+.brand{display:flex;align-items:baseline;gap:.6rem;flex:none}
+.brand-mark{height:30px;width:auto;flex:none;align-self:center;margin-inline-end:.15rem}
+.brand b{font:400 1.5rem/1 var(--ff-d);letter-spacing:.03em}
+.brand span{font:500 9.5px/1.2 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase;color:rgba(242,239,233,.62)}
+.mast-nav{display:flex;gap:clamp(1rem,2.4vw,2.2rem);margin-inline:auto}
+.mast-nav a{font:500 11px/1 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase;
+  color:rgba(242,239,233,.78);padding:.4rem 0;position:relative}
+.mast-nav a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;
+  background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .25s var(--ease)}
+.mast-nav a:hover{color:var(--paper)}
+.mast-nav a:hover::after{transform:scaleX(1)}
+.mast-nav a[aria-current]{color:var(--gold)}
+.mast-nav a[aria-current]::after{transform:scaleX(1)}
+.mast-cta{flex:none;margin-left:auto;display:flex;align-items:center;gap:.6rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55em;
+  font:600 11.5px/1 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase;
+  padding:.95em 1.6em;border:var(--hairline-w) solid transparent;transition:background .2s,color .2s,border-color .2s;cursor:pointer}
+.btn-gold{background:var(--gold);color:var(--char)}
+.btn-gold:hover{background:var(--paper);color:var(--char)}
+.btn-line{border-color:rgba(242,239,233,.42);color:var(--paper)}
+.btn-line:hover{border-color:var(--gold);color:var(--gold)}
+.btn-ink{border-color:var(--line);color:var(--ink)}
+.btn-ink:hover{background:var(--char);color:var(--paper);border-color:var(--char)}
+.btn .ar{font-family:var(--ff-b);font-weight:600}
+.mast-cta .btn{padding:.8em 1.25em}
+.mast-cta .long{display:inline}
+.mast-cta .short{display:none}
+.menu-btn{display:none;font:600 11px/1 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase;
+  padding:.8em .2em;color:rgba(242,239,233,.85)}
+.menu-btn:hover{color:var(--gold)}
+
+/* ============ CHAPTER STRIP ============ */
+.chapters{background:var(--char-2);color:rgba(242,239,233,.66);
+  border-block-end:var(--hairline-w) solid rgba(242,239,233,.14)}
+.chapters .in-strip{display:flex;align-items:center;gap:1.4rem;padding:.55rem var(--mx);overflow-x:auto;scrollbar-width:none}
+.chapters .in-strip::-webkit-scrollbar{display:none}
+.chapters .ch-lab{color:var(--idx-ink);flex:none}
+.chapters ol{display:flex;gap:1.35rem;flex:none}
+.chapters a,.chapters [aria-current]{white-space:nowrap;padding-block:.25rem;display:inline-block}
+.chapters a{color:rgba(242,239,233,.66);transition:color .2s}
+.chapters a:hover{color:var(--paper)}
+.chapters [aria-current]{color:var(--gold)}
+.chapters i{font-style:normal;color:rgba(242,239,233,.4);margin-inline-end:.35em}
+.chapters [aria-current] i{color:var(--gold)}
+
+/* ============ MOBILE MENU ============ */
+.menu{position:fixed;inset:0;z-index:150;background:var(--char-2);color:var(--paper);
+  display:flex;flex-direction:column;padding:1rem var(--mx) 2rem;
+  opacity:0;visibility:hidden;transition:opacity .3s var(--ease),visibility 0s .3s;overflow-y:auto}
+.menu-open .menu{opacity:1;visibility:visible;transition:opacity .3s var(--ease)}
+.menu-top{display:flex;justify-content:space-between;align-items:center;padding-block:.35rem 1.4rem;
+  border-block-end:var(--hairline-w) solid rgba(242,239,233,.22)}
+.menu-close{font-size:1.5rem;line-height:1;padding:.4rem;color:rgba(242,239,233,.8)}
+.menu-close:hover{color:var(--gold)}
+.menu-list{margin-block:auto;display:grid;gap:.1rem;padding-block:1.2rem}
+.menu-list a,.menu-list [aria-current]{display:flex;align-items:baseline;gap:1rem;padding:.42rem 0;
+  font:400 clamp(1.5rem,6.4vw,2.3rem)/1 var(--ff-d);text-transform:uppercase;letter-spacing:.02em}
+.menu-list [aria-current]{color:var(--gold)}
+.menu-list i{font:500 11px/1 var(--ff-b);font-style:normal;letter-spacing:var(--track);color:var(--idx-ink)}
+.menu-list a:hover{color:var(--gold)}
+.menu-foot{display:grid;gap:.45rem;border-block-start:var(--hairline-w) solid rgba(242,239,233,.22);padding-block-start:1.2rem;
+  color:rgba(242,239,233,.66)}
+.menu-foot a:hover{color:var(--gold)}
+body.menu-open{overflow:hidden}
+
+/* ============ PLATES ============ */
+.plate{position:relative;isolation:isolate;overflow:clip;background:var(--char-2)}
+.plate img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.06) brightness(.94)}
+.plate .tint{position:absolute;inset:0;background:var(--duo-tint);mix-blend-mode:color;opacity:var(--duo-dose);pointer-events:none}
+.plate .shade{position:absolute;inset:0;pointer-events:none}
+.plate .pcap{position:absolute;z-index:3;left:1.1rem;bottom:1rem;color:rgba(242,239,233,.85)}
+
+/* ============ JOIN HEADER ============ */
+.jhead{padding:clamp(3rem,6.5vw,5.5rem) var(--mx) 0;text-align:center}
+.jhead .kick{text-align:left}
+.jhead-title{margin-block-start:clamp(2rem,4.5vw,3.4rem);
+  font:400 clamp(3rem,10vw,9rem)/0.95 var(--ff-d);text-transform:uppercase;letter-spacing:.005em;
+  max-width:14ch;margin-inline:auto;text-wrap:balance}
+.jhead-title .gold{color:color-mix(in srgb,var(--gold) 72%,#4a3a00)}
+.honest{display:inline-flex;align-items:baseline;gap:.7em;margin-block-start:clamp(1.6rem,3vw,2.4rem);
+  border:var(--hairline-w) solid var(--line);padding:.85em 1.4em}
+.honest b{font-weight:600;color:color-mix(in srgb,var(--idx-ink) 60%,#141400)}
+.jhead .deck{margin:clamp(1.6rem,3vw,2.4rem) auto 0;max-width:58ch;
+  font-size:clamp(1rem,1.3vw,1.18rem);line-height:1.66;color:#333;text-wrap:pretty}
+.jhead .deck strong{font-weight:600;color:var(--ink)}
+
+/* ============ GROWTH ARC ============ */
+.arc{margin-block-start:clamp(3.5rem,7vw,5.5rem);border-block-start:var(--hairline-w) solid var(--line)}
+.arc-row{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.5fr);gap:1rem clamp(2rem,5vw,5rem);
+  align-items:baseline;padding:clamp(1.6rem,3.2vw,2.4rem) var(--mx);
+  border-block-end:var(--hairline-w) solid var(--line)}
+.arc-row .when{font:400 clamp(1.7rem,3.6vw,3.2rem)/1 var(--ff-d);text-transform:uppercase;letter-spacing:.015em}
+.arc-row .when i{font-style:normal;color:color-mix(in srgb,var(--idx-ink) 70%,#3a2f00)}
+.arc-row p{max-width:56ch;color:#333;text-wrap:pretty}
+.arc-row .tag{display:block;margin-block-start:.6rem;color:var(--gray)}
+
+/* ============ LETTER ============ */
+.letter-band{background:var(--char);color:var(--paper);margin-block-start:var(--sec)}
+.letter-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);min-height:min(74vh,720px)}
+.letter-band .plate{height:100%;min-height:340px}
+.letter-band .plate .shade{background:linear-gradient(20deg,rgba(11,11,11,.35),rgba(11,11,11,0) 55%)}
+.letter-panel{display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(3rem,6vw,5rem) clamp(1.6rem,4.5vw,4.5rem)}
+.letter-panel h2{margin-block-start:1.3rem;font:400 clamp(2rem,3.8vw,3.4rem)/1.02 var(--ff-d);
+  text-transform:uppercase;letter-spacing:.01em;max-width:18ch}
+.letter-panel h2 em{font-style:normal;color:var(--gold)}
+.letter-panel p{margin-block-start:1.2rem;max-width:50ch;color:rgba(242,239,233,.84);text-wrap:pretty}
+.letter-panel .sig{margin-block-start:1.8rem;color:rgba(242,239,233,.6)}
+
+/* ============ THE DEAL (philosophy ledger) ============ */
+.deal{padding:var(--sec) 0 0}
+.deal .head{margin-inline:var(--mx);margin-block-end:clamp(2rem,4vw,3rem)}
+.deal .head .d-m{margin-block-start:1.1rem;max-width:22ch}
+.deal .head .d-m .paren{color:color-mix(in srgb,var(--idx-ink) 78%,#3a2f00)}
+.deal-list{border-block-start:var(--hairline-w) solid var(--line)}
+.deal-row{display:grid;grid-template-columns:4.5rem minmax(0,.9fr) minmax(0,1.3fr);gap:.6rem clamp(1.6rem,4vw,4rem);
+  align-items:baseline;padding:1.35rem var(--mx);border-block-end:var(--hairline-w) solid var(--line)}
+.deal-row .dix{font:400 clamp(.95rem,1.3vw,1.2rem)/1 var(--ff-d);color:color-mix(in srgb,var(--idx-ink) 60%,#141400)}
+.deal-row h3{font:400 clamp(1.35rem,2.4vw,2.2rem)/1 var(--ff-d);text-transform:uppercase;letter-spacing:.014em}
+.deal-row p{color:#333;max-width:56ch;text-wrap:pretty}
+.deal-note{margin:1.1rem var(--mx) 0;color:var(--gray);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+
+/* ============ NOTIFY ============ */
+.notify{padding:var(--sec) var(--mx)}
+.notify-box{max-width:680px;margin-inline:auto;border:var(--hairline-w) solid var(--line);
+  padding:clamp(2rem,4.5vw,3.4rem)}
+.notify-box .kick{border:0;padding:0}
+.notify-box h2{margin-block-start:1rem;font:400 clamp(1.9rem,3.6vw,3rem)/1.02 var(--ff-d);
+  text-transform:uppercase;letter-spacing:.012em}
+.notify-box h2 em{font-style:normal;color:color-mix(in srgb,var(--gold) 72%,#4a3a00)}
+.notify-box .sub{margin-block-start:.9rem;color:#333;max-width:48ch;text-wrap:pretty}
+.nform{margin-block-start:1.8rem;display:grid;gap:1.2rem}
+.field{display:grid;gap:.4rem}
+.field label{font:600 10.5px/1.4 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase;
+  color:color-mix(in srgb,var(--idx-ink) 55%,#141400)}
+.field input{background:transparent;border:0;border-block-end:var(--hairline-w) solid var(--line);
+  padding:.6em 0;font-size:1rem;border-radius:0;transition:border-color .2s}
+.field input::placeholder{color:#8a867e}
+.field input:focus{outline:none;border-block-end-color:var(--gold)}
+.nform .row2{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.nform .actions{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;margin-block-start:.4rem}
+.nform .stub-note{color:var(--gray);font-size:.85rem;max-width:32ch;line-height:1.5}
+.n-done{margin-block-start:1.6rem;border-block-start:var(--hairline-w) solid var(--line);padding-block-start:1.2rem}
+.n-done p{color:#333;max-width:52ch}
+.n-done a{font-weight:600;border-block-end:1px solid color-mix(in srgb,var(--gold) 72%,#4a3a00);
+  color:color-mix(in srgb,var(--idx-ink) 55%,#141400)}
+.notify-alt{margin-block-start:1.4rem;text-align:center;color:var(--gray)}
+.notify-alt a{color:color-mix(in srgb,var(--idx-ink) 55%,#141400);font-weight:600}
+.notify-alt a:hover{border-block-end:1px solid currentColor}
+
+/* ============ CLOSE ============ */
+.close-band{background:var(--char);color:var(--paper)}
+.close-inner{padding:var(--sec) var(--mx)}
+.close-band .kick{border-block-start-color:rgba(242,239,233,.22)}
+.close-band .d-m{max-width:16ch;margin-block-start:1.2rem}
+.close-band .d-m .dotg{color:var(--gold)}
+.close-sub{margin-block-start:1.2rem;max-width:46ch;color:rgba(242,239,233,.74);text-wrap:pretty}
+.cta-pair{display:flex;gap:.8rem;flex-wrap:wrap;margin-block-start:2.2rem}
+
+/* ============ FOOTER ============ */
+footer{background:var(--char-2);color:var(--paper)}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:2.5rem;
+  padding:3.2rem var(--mx);border-block-start:var(--hairline-w) solid rgba(242,239,233,.18)}
+.foot-mark{height:56px;width:auto;display:block;margin-block-end:1rem}
+.foot-brand b{font:400 2rem/1 var(--ff-d);letter-spacing:.03em;display:block}
+.foot-brand .micro{color:rgba(242,239,233,.6);margin-block-start:.7rem;max-width:30ch;line-height:1.9}
+.foot-col h3{font:500 11px/1 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase;
+  color:var(--idx-ink);margin-block-end:1rem}
+.foot-col li{padding-block:.28rem}
+.foot-col a,.foot-col span{font:500 12.5px/1.5 var(--ff-b);color:rgba(242,239,233,.78);letter-spacing:.04em}
+.foot-col a:hover{color:var(--gold)}
+.foot-col [aria-current]{color:var(--gold)}
+.foot-base{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  padding:1rem var(--mx) 1.4rem;border-block-start:var(--hairline-w) solid rgba(242,239,233,.18);
+  color:rgba(242,239,233,.55)}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:960px){
+  .letter-grid{grid-template-columns:1fr}
+  .letter-band .plate{aspect-ratio:4/3;height:auto;min-height:0}
+  .arc-row{grid-template-columns:1fr}
+  .deal-row{grid-template-columns:3rem minmax(0,1fr)}
+  .deal-row p{grid-column:2}
+}
+@media (max-width:900px){
+  .mast-nav{display:none}
+  .menu-btn{display:inline-block}
+  .mast-cta .long{display:none}
+  .mast-cta .short{display:inline}
+  .brand span{display:none}
+  .foot-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  .foot-grid{grid-template-columns:1fr;gap:1.8rem}
+  .kick{flex-direction:column;gap:.35rem}
+  .kick .note{text-align:left}
+  .nform .row2{grid-template-columns:1fr}
+}
+
+/* ============ REDUCED MOTION ============ */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001s!important;animation-iteration-count:1!important;transition-duration:.001s!important}
+  .js .r,.js .r-clip{opacity:1;transform:none;clip-path:none}
+  .js .r-clip img{transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ============ MASTHEAD ============ -->
+<header class="masthead dark">
+  <div class="bar">
+    <a class="brand" href="../a/" aria-label="KUL Enterprises LLC — home">
+      <img class="brand-mark" src="/assets/brand/lion-clean.png" alt="KUL Enterprises" width="900" height="900" decoding="async">
+      <b>KUL</b><span>— Enterprises LLC</span>
+    </a>
+    <nav class="mast-nav" aria-label="Business">
+      <a href="../mission/">Services</a>
+      <a href="../responsibility/">Safety</a>
+      <a href="../join/" aria-current="page">Careers</a>
+      <a href="../forward/#contact">Contact</a>
+    </nav>
+    <div class="mast-cta">
+      <a class="btn btn-gold" href="../forward/"><span class="long">Request a Quote</span><span class="short">Quote</span></a>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu">Menu</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ CHAPTER STRIP ============ -->
+<nav class="chapters micro" aria-label="Chapters">
+  <div class="in-strip">
+    <span class="ch-lab">The Issue —</span>
+    <ol>
+      <li><a href="../a/"><i>(01)</i>The Beginning</a></li>
+      <li><a href="../journey/"><i>(02)</i>The Journey</a></li>
+      <li><a href="../story/"><i>(03)</i>Why I Started Driving</a></li>
+      <li><a href="../mission/"><i>(04)</i>The Mission</a></li>
+      <li><a href="../responsibility/"><i>(05)</i>The Responsibility</a></li>
+      <li><span aria-current="page"><i>(06)</i>Join the Journey</span></li>
+      <li><a href="../forward/"><i>(07)</i>Let&rsquo;s Move Forward</a></li>
+      <li><a href="../road-ahead/"><i>(08)</i>The Road Ahead</a></li>
+    </ol>
+  </div>
+</nav>
+
+<!-- ============ MOBILE MENU ============ -->
+<div class="menu dark" id="menu" hidden>
+  <div class="menu-top">
+    <span class="brand"><b style="font:400 1.4rem/1 var(--ff-d)">KUL</b></span>
+    <button class="menu-close" id="menuClose" aria-label="Close menu">&#10005;</button>
+  </div>
+  <nav class="menu-list" aria-label="Chapters">
+    <a href="../a/"><i>(01)</i>The Beginning</a>
+    <a href="../journey/"><i>(02)</i>The Journey</a>
+    <a href="../story/"><i>(03)</i>Why I Started Driving</a>
+    <a href="../mission/"><i>(04)</i>The Mission</a>
+    <a href="../responsibility/"><i>(05)</i>The Responsibility</a>
+    <span aria-current="page"><i>(06)</i>Join the Journey</span>
+    <a href="../forward/"><i>(07)</i>Let&rsquo;s Move Forward</a>
+    <a href="../road-ahead/"><i>(08)</i>The Road Ahead</a>
+  </nav>
+  <div class="menu-foot micro">
+    <a href="../forward/">Request a Quote</a>
+    <a href="tel:+16789721148">678-972-1148</a>
+    <a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a>
+    <span>USDOT 7638788 · MC 66389691 · Loganville, GA</span>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ============ HEADER ============ -->
+<header class="jhead" aria-labelledby="page-h">
+  <div class="kick micro r">
+    <span><span class="ix">(Chapter 06)</span> — Join the Journey</span>
+    <span class="note">Driver careers · Written honestly</span>
+  </div>
+  <h1 class="jhead-title r" id="page-h" style="--d:.05s">The fleet is coming. <span class="gold">So are the seats.</span></h1>
+  <p class="honest micro r" style="--d:.1s"><b>(Straight talk)</b><span>We are not hiring yet — and we won't pretend otherwise.</span></p>
+  <p class="deck r" style="--d:.14s"><strong>KUL runs one tractor today, and the founder is in it.</strong> The plan is fifty tractors by the end of 2029, and every one of them will need a professional in the seat. Opportunities will be announced as tractors are added — no ghost listings, no bait postings. This page exists so that when the seats open, the right people already know us.</p>
+</header>
+
+<!-- ============ GROWTH ARC ============ -->
+<section class="arc" aria-label="How seats will open">
+  <div class="arc-row r">
+    <span class="when"><i>(Now)</i> One Truck</span>
+    <p>The founder drives, dispatches, and answers the phone. Every mile run today is building the reputation — and the revenue — that funds the next tractor.
+      <span class="tag micro">Status — building the record</span></p>
+  </div>
+  <div class="arc-row r">
+    <span class="when"><i>(Next)</i> Tractor by Tractor</span>
+    <p>Each tractor added is a seat announced. When a truck joins the fleet, the opening is posted here and sent to everyone on the notify list — real openings only, with real details attached.
+      <span class="tag micro">Status — seats announced as tractors are added</span></p>
+  </div>
+  <div class="arc-row r">
+    <span class="when"><i>(2029)</i> Fifty Strong</span>
+    <p>The written goal: fifty tractors by the end of 2029, staffed by drivers who are treated the way the founder wished every carrier treated its drivers.
+      <span class="tag micro">Status — the destination, in writing</span></p>
+  </div>
+</section>
+
+<!-- ============ LETTER ============ -->
+<section class="letter-band dark" aria-labelledby="letter-h">
+  <div class="letter-grid">
+    <figure class="plate r-clip r">
+      <img src="/assets/journey/tree.jpg" width="2200" height="1650" alt="A wide-crowned tree shading open grassland beneath a forested ridge — from the founder's journey." loading="lazy" decoding="async">
+      <span class="tint"></span><span class="shade"></span>
+      <figcaption class="pcap micro"><span class="ix">(J&mdash;01)</span> — Rooted first, then reach · founder's archive</figcaption>
+    </figure>
+    <div class="letter-panel">
+      <div class="kick micro r">
+        <span><span class="ix">(A Note)</span> — To the Drivers We Haven't Met</span>
+        <span class="note">From the founder's desk</span>
+      </div>
+      <h2 class="r" id="letter-h" style="--d:.06s">A company built by <em>a driver</em>, for drivers<span style="color:var(--gold)">.</span></h2>
+      <p class="r" style="--d:.12s">I know what it feels like to be a number on someone's board — to have your hours pushed, your truck neglected, and your questions ignored. KUL exists partly because of that feeling.</p>
+      <p class="r" style="--d:.16s">So here's the commitment, made before the first hire: when you drive for KUL, you'll drive maintained equipment, run legal hours, and talk to a dispatcher who answers. The rest of the details will come with the openings — and they'll be real when they do.</p>
+      <p class="sig micro r" style="--d:.2s">— KUL Enterprises LLC · Loganville, Georgia</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE DEAL ============ -->
+<section class="deal" aria-labelledby="deal-h">
+  <div class="head">
+    <div class="kick micro r">
+      <span><span class="ix">(The Deal)</span> — What a Seat Here Will Mean</span>
+      <span class="note">Philosophy now · Particulars with the openings</span>
+    </div>
+    <h2 class="d-m r" id="deal-h" style="--d:.06s"><span class="paren">(</span>Promises<span class="paren">)</span> we can already make</h2>
+  </div>
+  <div class="deal-list">
+    <div class="deal-row r">
+      <span class="dix" aria-hidden="true">(01)</span>
+      <h3>Maintained Equipment</h3>
+      <p>You'll never be asked to run a truck the founder wouldn't run himself. Pre-trip findings get fixed, not filed.</p>
+    </div>
+    <div class="deal-row r">
+      <span class="dix" aria-hidden="true">(02)</span>
+      <h3>Legal Hours, Always</h3>
+      <p>Your logbook is yours. Nobody at KUL will ever lean on you to stretch a clock — the load re-plans, not the driver.</p>
+    </div>
+    <div class="deal-row r">
+      <span class="dix" aria-hidden="true">(03)</span>
+      <h3>Dispatch That Answers</h3>
+      <p>The same 24/7 phone our shippers praise is the one you'll call. A human answers it — that goes for drivers too.</p>
+    </div>
+    <div class="deal-row r">
+      <span class="dix" aria-hidden="true">(04)</span>
+      <h3>Straight Announcements</h3>
+      <p>Pay, routes, and particulars will be published with each opening — accurate, complete, and honored as written.</p>
+    </div>
+  </div>
+  <p class="deal-note micro r"><span>No invented numbers before their time — that's the whole point</span><span>Openings announced as tractors are added</span></p>
+</section>
+
+<!-- ============ NOTIFY ============ -->
+<section class="notify" aria-labelledby="notify-h">
+  <div class="notify-box r">
+    <div class="kick micro">
+      <span><span class="ix">(Notify)</span> — First to Know</span>
+    </div>
+    <h2 id="notify-h">Be on the list <em>before the seats exist.</em></h2>
+    <p class="sub">Leave your name and we'll reach out when hiring opens — nothing else, no spam, no résumé black hole.</p>
+    <form class="nform" id="notifyForm" novalidate>
+      <div class="row2">
+        <div class="field">
+          <label for="nf-name">Your name</label>
+          <input type="text" id="nf-name" name="name" placeholder="First and last" autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="nf-email">Email</label>
+          <input type="email" id="nf-email" name="email" placeholder="you@example.com" autocomplete="email">
+        </div>
+      </div>
+      <div class="actions">
+        <button type="submit" class="btn btn-gold">Keep Me Posted <span class="ar">&rarr;</span></button>
+        <span class="stub-note">Preview build — this form doesn't send yet.</span>
+      </div>
+      <div class="n-done" id="notifyDone" hidden>
+        <p><strong>This is a design preview, so nothing was submitted.</strong> To actually get on the list today, email <a href="mailto:dispatch@kulenterprises.com?subject=Driver%20interest%20—%20notify%20me">dispatch@kulenterprises.com</a> with the subject &ldquo;Driver interest&rdquo; and we'll take it from there.</p>
+      </div>
+    </form>
+    <p class="notify-alt micro">Prefer the phone? <a href="tel:+16789721148">678-972-1148</a> — any hour.</p>
+  </div>
+</section>
+
+<!-- ============ CLOSE ============ -->
+<section class="close-band dark" aria-labelledby="close-h">
+  <div class="close-inner">
+    <div class="kick micro r">
+      <span><span class="ix">(Meanwhile)</span> — The Story So Far</span>
+      <span class="note">Chapter 06 of 08</span>
+    </div>
+    <h2 class="d-m r" id="close-h" style="--d:.06s">Get to know who you'd be driving for<span class="dotg">.</span></h2>
+    <p class="close-sub r" style="--d:.1s">The best way to size up a carrier is to read how it thinks. Start at the beginning, or skip to the standard we run every load by.</p>
+    <div class="cta-pair r" style="--d:.14s">
+      <a class="btn btn-gold" href="../story/">Why I Started Driving <span class="ar">&rarr;</span></a>
+      <a class="btn btn-line" href="../responsibility/">The Safety Standard</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="dark">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <img class="foot-mark" src="/assets/brand/lion-clean.png" alt="KUL Enterprises" width="900" height="900" decoding="async">
+      <b>KUL <span style="color:var(--gold)">—</span> Enterprises LLC</b>
+      <p class="micro">Strength in Motion. Built on Integrity. Driven by Safety.</p>
+    </div>
+    <nav class="foot-col" aria-label="Chapter index">
+      <h3>Chapters</h3>
+      <ul>
+        <li><a href="../a/">(01) The Beginning</a></li>
+        <li><a href="../journey/">(02) The Journey</a></li>
+        <li><a href="../story/">(03) Why I Started Driving</a></li>
+        <li><a href="../mission/">(04) The Mission</a></li>
+        <li><a href="../responsibility/">(05) The Responsibility</a></li>
+        <li><span aria-current="page">(06) Join the Journey</span></li>
+        <li><a href="../forward/">(07) Let&rsquo;s Move Forward</a></li>
+        <li><a href="../road-ahead/">(08) The Road Ahead</a></li>
+      </ul>
+    </nav>
+    <nav class="foot-col" aria-label="Business">
+      <h3>Business</h3>
+      <ul>
+        <li><a href="../mission/">Services</a></li>
+        <li><a href="../responsibility/">Safety</a></li>
+        <li><a href="../forward/">Request a Quote</a></li>
+        <li><a href="../forward/#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="foot-col">
+      <h3>Contact</h3>
+      <ul>
+        <li><span>Loganville, Georgia</span></li>
+        <li><a href="tel:+16789721148">678-972-1148</a></li>
+        <li><a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a></li>
+        <li><span>USDOT 7638788 · MC 66389691</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-base micro">
+    <span>&copy; 2026 KUL Enterprises LLC</span>
+    <span>One truck today. Fifty by &rsquo;29.</span>
+    <span><span class="ix">(</span>Chapter 06 of 08<span class="ix">)</span></span>
+  </div>
+</footer>
+
+<!-- ============ PAGE JS ============ -->
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var pending = [].slice.call(document.querySelectorAll('.r'));
+  function sweep(){
+    if (!pending.length) return;
+    var line = window.innerHeight * 0.93;
+    pending = pending.filter(function(el){
+      var r = el.getBoundingClientRect();
+      if (r.top < line && r.bottom > 0) { el.classList.add('in'); return false; }
+      return true;
+    });
+  }
+  if (reduce) { pending.forEach(function(el){ el.classList.add('in'); }); pending = []; }
+  else {
+    var ticking = false;
+    var onMove = function(){
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function(){ ticking = false; sweep(); });
+    };
+    sweep();
+    window.addEventListener('scroll', onMove, { passive: true });
+    window.addEventListener('resize', onMove, { passive: true });
+    window.addEventListener('load', sweep);
+  }
+
+  var body = document.body, menu = document.getElementById('menu'),
+      btn = document.getElementById('menuBtn'), closeBtn = document.getElementById('menuClose');
+  function setMenu(open){
+    body.classList.toggle('menu-open', open);
+    btn.setAttribute('aria-expanded', open);
+    if (open) { menu.hidden = false; (menu.querySelector('a')||closeBtn).focus(); }
+    else { setTimeout(function(){ menu.hidden = true; }, 320); btn.focus(); }
+  }
+  btn.addEventListener('click', function(){ setMenu(!body.classList.contains('menu-open')); });
+  closeBtn.addEventListener('click', function(){ setMenu(false); });
+  menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setMenu(false); }); });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && body.classList.contains('menu-open')) setMenu(false);
+  });
+
+  /* notify stub — honest preview behavior */
+  var nform = document.getElementById('notifyForm'), ndone = document.getElementById('notifyDone');
+  nform.addEventListener('submit', function(e){
+    e.preventDefault();
+    ndone.hidden = false;
+    ndone.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' });
+  });
+})();
+</script>
+
+<!-- ============ TWEAKS CONTRACT ============ -->
+<script>
+window.KUL_TWEAKS = {
+  style: 's02a/join',
+  controls: [
+    { var: '--marquee-size', label: 'Marquee crop',    type: 'range',  value: 9,    min: 9,    max: 22,  step: 0.5,  unit: 'vw' },
+    { var: '--duo-tint',     label: 'Duotone tint',    type: 'color',  value: '#ae8f28' },
+    { var: '--duo-dose',     label: 'Grade dosage',    type: 'range',  value: 66,   min: 0,    max: 100, step: 1,    unit: '%' },
+    { var: '--hairline-w',   label: 'Hairline weight', type: 'range',  value: 1,    min: 1,    max: 3,   step: 0.5,  unit: 'px' },
+    { var: '--track',        label: 'Caps tracking',   type: 'range',  value: 0.25, min: 0.06, max: 0.4, step: 0.01, unit: 'em' },
+    { var: '--marquee-play', label: 'Marquee motion',  type: 'select', value: 'running', options: ['running','paused'] }
+  ]
+};
+</script>
+<script src="/tweaks.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Join the Journey — Driver careers at KUL Enterprises. We're not hiring yet: we're preparing for fleet growth, and opportunities will be announced as tractors are added toward the 50-tractor goal.">
+<title>Join the Journey — Driver Careers · KUL Enterprises</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../chapter.css">
+<style>
+/* ============================================================
+   JOIN THE JOURNEY — driver careers. Honest and welcoming:
+   not hiring yet, building toward seats. Warm light page,
+   growth timeline, manifesto promises, tasteful notify stub.
+   ============================================================ */
+
+/* -------- hero -------- */
+.jhero{
+  text-align:center;padding-top:calc(var(--sp) * .85);padding-bottom:calc(var(--sp) * .8);
+  background:
+    radial-gradient(110% 70% at 50% -6%, color-mix(in srgb,var(--gold) calc(12% * var(--gold-dose)/100),transparent), transparent 58%),
+    linear-gradient(180deg,var(--white),var(--off));
+}
+.jhero .eyebrow{justify-content:center}
+.jhero h1{margin:0 auto;max-width:14ch}
+.jhero h1 em{font-style:normal;color:var(--gold-ink)}
+.jhero__sub{margin:var(--s-5) auto 0;max-width:46ch;font-size:var(--fs-lead);color:var(--ink-2);line-height:1.44}
+.jhero__truth{margin:var(--s-7) auto 0;display:inline-flex;align-items:center;gap:12px;
+  border:1px solid var(--line-2);padding:12px 22px;font-size:14px;font-weight:600;color:var(--ink)}
+.jhero__truth::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold);opacity:calc(var(--gold-dose)/100)}
+
+/* -------- growth timeline -------- */
+.road{background:var(--white)}
+.tl{margin-top:var(--s-8);position:relative;padding-left:clamp(28px,4vw,40px)}
+.tl::before{content:"";position:absolute;left:8px;top:8px;bottom:8px;width:2px;
+  background:linear-gradient(180deg,var(--gold) 0%,color-mix(in srgb,var(--gold) 30%,var(--line)) 100%);
+  opacity:calc(var(--gold-dose)/100 * .9 + .1)}
+.tl__item{position:relative;padding-bottom:clamp(36px,5vw,56px)}
+.tl__item:last-child{padding-bottom:0}
+.tl__item::before{content:"";position:absolute;left:calc(-1 * clamp(28px,4vw,40px) + 3px);top:7px;
+  width:12px;height:12px;border-radius:50%;background:var(--white);border:2px solid var(--gold)}
+.tl__when{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-ink)}
+.tl__item h3{font-size:var(--fs-h3);font-weight:800;letter-spacing:-.02em;margin-top:var(--s-2);max-width:26ch}
+.tl__item p{margin-top:var(--s-3);color:var(--ink-2);font-size:16px;line-height:1.55;max-width:56ch}
+
+/* -------- what we're building for drivers — manifesto -------- */
+.vows{background:var(--dark);color:#fff}
+.vows__in{max-width:var(--container);margin-inline:auto;padding-block:var(--sp);padding-inline:var(--gutter)}
+.vows .eyebrow{color:var(--gold)}
+.vows .eyebrow::before{background:var(--gold)}
+.vows h2{color:#fff;max-width:26ch}
+.vows__note{margin-top:var(--s-4);color:rgba(255,255,255,.62);font-size:15px;max-width:52ch;line-height:1.5}
+.vow{display:grid;grid-template-columns:minmax(90px,140px) 1fr;gap:16px clamp(20px,4vw,56px);
+  padding:clamp(24px,3vw,34px) 0;border-top:1px solid rgba(255,255,255,.12)}
+.vow:first-of-type{margin-top:var(--s-8)}
+.vow b{font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);padding-top:5px}
+.vow h3{font-size:clamp(1.25rem,2vw,1.7rem);font-weight:700;letter-spacing:-.018em;color:#fff}
+.vow p{margin-top:var(--s-2);color:rgba(255,255,255,.7);font-size:15.5px;line-height:1.55;max-width:58ch}
+
+/* -------- notify stub -------- */
+.notify{background:var(--off)}
+.notify__card{max-width:680px;margin-inline:auto;text-align:center}
+.notify__form{margin-top:var(--s-7);display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.notify__form input[type="email"]{
+  flex:1 1 300px;max-width:380px;padding:13px 18px;border:1px solid var(--line-2);
+  background:var(--white);font-size:15px;color:var(--ink);border-radius:var(--r-sm);
+}
+.notify__form input[type="email"]::placeholder{color:var(--ink-3)}
+.notify__form input[type="email"]:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:transparent}
+.notify__ok{margin-top:var(--s-5);font-size:15px;font-weight:600;color:var(--gold-ink);display:none}
+.notify__ok.show{display:block}
+.notify__fine{margin-top:var(--s-5);font-size:12.5px;color:var(--ink-3);max-width:52ch;margin-inline:auto;line-height:1.55}
+.notify__fine a{color:var(--gold-ink);font-weight:600}
+
+@media (max-width:640px){
+  .vow{grid-template-columns:1fr;gap:8px}
+}
+</style>
+</head>
+<body>
+
+<!-- ======================= GLOBAL NAV ======================= -->
+<header class="gnav" id="gnav">
+  <div class="gnav__in">
+    <a class="brand" href="../a/" aria-label="KUL Enterprises home">
+      <img src="/assets/brand/lion-clean.png" alt="" width="30" height="30" decoding="async">
+      <b>KUL</b><span>Enterprises</span>
+    </a>
+    <nav class="gnav__links" aria-label="Business">
+      <a href="../mission/">Services</a>
+      <a href="../responsibility/">Safety</a>
+      <a href="../join/" aria-current="page">Careers</a>
+      <a href="../forward/#contact">Contact</a>
+    </nav>
+    <div class="gnav__cta">
+      <a class="pill pill--ghost pill--sm" href="#notify">Get Notified</a>
+      <a class="pill pill--gold pill--sm" href="../forward/">Request a Quote</a>
+      <button class="gnav__burger" id="burger" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ======================= CHAPTER RAIL ======================= -->
+<div class="cnav">
+  <div class="cnav__in">
+    <span class="cnav__title">The Story</span>
+    <nav class="cnav__links" aria-label="Chapters">
+      <a href="../a/">The Beginning</a>
+      <a href="../journey/">The Journey</a>
+      <a href="../story/">Why I Started Driving</a>
+      <a href="../mission/">The Mission</a>
+      <a href="../responsibility/">The Responsibility</a>
+      <span aria-current="page">Join the Journey</span>
+      <a href="../forward/">Let&rsquo;s Move Forward</a>
+      <a href="../road-ahead/">The Road Ahead</a>
+    </nav>
+    <div class="cnav__cta">
+      <span class="cnav__loc">Loganville, GA · Nationwide</span>
+      <a class="pill pill--gold pill--sm" href="../forward/">Get a Quote</a>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= HERO ======================= -->
+<main id="top">
+<section class="jhero">
+  <div class="wrap">
+    <p class="eyebrow reveal">Chapter Six · Join the Journey</p>
+    <h1 class="display reveal">The seats are coming.<br><em>The standard is already here.</em></h1>
+    <p class="jhero__sub reveal">Here&rsquo;s the honest version: KUL runs one truck, and the owner is driving it. We&rsquo;re not hiring yet — we&rsquo;re building a company that will be worth driving for when we are.</p>
+    <p class="jhero__truth reveal">Not hiring today · Preparing for fleet growth · Opportunities announced as tractors are added</p>
+  </div>
+</section>
+
+<!-- ======================= GROWTH TIMELINE ======================= -->
+<section class="section road" id="growth">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <p class="eyebrow">How seats open</p>
+      <h2 class="h2">Growth first. Hiring follows.</h2>
+    </div>
+    <div class="tl">
+      <div class="tl__item reveal">
+        <span class="tl__when">Today</span>
+        <h3>One truck. Owner behind the wheel.</h3>
+        <p>Every mile, every inspection, and every delivery is currently handled by the founder. That&rsquo;s not a limitation we&rsquo;re hiding — it&rsquo;s the standard every future driver will inherit.</p>
+      </div>
+      <div class="tl__item reveal">
+        <span class="tl__when">As the fleet grows</span>
+        <h3>Every tractor added is a seat announced.</h3>
+        <p>We add trucks when the freight earns them — no overreach, no leased-on shortcuts. Each new tractor means a new driver opportunity, announced here and to everyone on the notify list first.</p>
+      </div>
+      <div class="tl__item reveal">
+        <span class="tl__when">By end of 2029</span>
+        <h3>Fifty tractors. Fifty drivers who chose well.</h3>
+        <p>That&rsquo;s the goal we&rsquo;ve set publicly, and we intend to reach it the same way we run freight: honestly, safely, one mile at a time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= DRIVER PROMISES ======================= -->
+<section class="vows" id="standard">
+  <div class="vows__in">
+    <p class="eyebrow reveal">The company we&rsquo;re building</p>
+    <h2 class="h2 reveal">What driving for KUL will mean.</h2>
+    <p class="vows__note reveal">No invented pay tables, no benefits we haven&rsquo;t built yet. These are the commitments the company is being constructed around — because the founder drives, and he&rsquo;s building the carrier he always wanted to work for.</p>
+
+    <div class="vow reveal">
+      <b>Equipment</b>
+      <div>
+        <h3>You&rsquo;ll drive a truck we&rsquo;d put our own name on.</h3>
+        <p>Maintained on schedule, inspected every run, grounded when something&rsquo;s wrong. No driver at KUL will ever be pressured to run questionable equipment.</p>
+      </div>
+    </div>
+    <div class="vow reveal">
+      <b>Hours</b>
+      <div>
+        <h3>Your hours of service are yours.</h3>
+        <p>Routes planned within legal hours from the start. Rest is part of the schedule, never a negotiation. A carrier that games your clock is gambling with your life — we won&rsquo;t be one.</p>
+      </div>
+    </div>
+    <div class="vow reveal">
+      <b>Respect</b>
+      <div>
+        <h3>Dispatch will know your name, not just your truck number.</h3>
+        <p>This company is being built by a driver. The distance between the person in the cab and the person making decisions will stay short — that&rsquo;s the point of growing carefully.</p>
+      </div>
+    </div>
+    <div class="vow reveal">
+      <b>Honesty</b>
+      <div>
+        <h3>What we promise is what you&rsquo;ll get.</h3>
+        <p>Pay, benefits, and home time will be published plainly when hiring opens — real numbers, in writing, before you commit. If we can&rsquo;t offer it honestly, we won&rsquo;t offer it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= CINEMATIC TILE ======================= -->
+<section class="cine reveal" aria-label="The road ahead">
+  <div class="cine__bg"><img src="/assets/journey/tree.jpg" alt="A broad tree over a green valley along a route KUL has driven" loading="lazy" decoding="async"></div>
+  <div class="cine__inner">
+    <p class="eyebrow">Worth the wait</p>
+    <h2 class="h2">The best seat in trucking is one built slowly.</h2>
+    <p>We could hire fast and burn people out like the carriers we left behind. We&rsquo;d rather take the time to be different.</p>
+    <a class="pill pill--onDark pill--ghost pill--lg" href="../road-ahead/">See the road ahead →</a>
+  </div>
+</section>
+
+<!-- ======================= NOTIFY STUB ======================= -->
+<section class="section notify" id="notify">
+  <div class="wrap">
+    <div class="notify__card reveal">
+      <p class="eyebrow" style="justify-content:center">First to know</p>
+      <h2 class="h2">Be first in line when the seats open.</h2>
+      <p class="lead" style="margin-top:var(--s-4)">Leave your email and we&rsquo;ll tell you the moment a tractor — and a driver opportunity — is added.</p>
+      <form class="notify__form" id="notifyForm" novalidate>
+        <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required>
+        <button class="pill pill--gold pill--lg" type="submit">Keep me posted</button>
+      </form>
+      <p class="notify__ok" id="notifyOk" role="status">Noted — driver announcements will be published here first. Thanks for riding along.</p>
+      <p class="notify__fine">This page is a preview — sign-ups aren&rsquo;t stored yet. To make sure you&rsquo;re on the list today, email <a href="mailto:dispatch@kulenterprises.com?subject=Driver%20Interest">dispatch@kulenterprises.com</a> with the subject &ldquo;Driver Interest&rdquo; or call <a href="tel:+16789721148">678-972-1148</a>.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ======================= NEXT CHAPTER ======================= -->
+<aside class="nextch">
+  <a href="../forward/">
+    <div><span>Next Chapter</span><b>Let&rsquo;s Move Forward</b></div>
+    <div class="nextch__arrow" aria-hidden="true">→</div>
+  </a>
+</aside>
+
+<!-- ======================= FOOTER ======================= -->
+<footer class="foot">
+  <div class="foot__in">
+    <img class="foot__lockup" src="/assets/brand/logo-vector.png" alt="KUL Enterprises LLC" decoding="async">
+    <div class="foot__cols">
+      <div class="foot__col">
+        <h4>Chapters</h4>
+        <a href="../a/">The Beginning</a><a href="../journey/">The Journey</a>
+        <a href="../story/">Why I Started Driving</a><a href="../mission/">The Mission</a>
+        <a href="../responsibility/">The Responsibility</a><span aria-current="page"><b>Join the Journey</b></span>
+        <a href="../forward/">Let&rsquo;s Move Forward</a><a href="../road-ahead/">The Road Ahead</a>
+      </div>
+      <div class="foot__col">
+        <h4>Business</h4>
+        <a href="../mission/">Services</a>
+        <a href="../responsibility/">Safety &amp; Compliance</a>
+        <a href="../join/">Driver Careers</a>
+        <a href="../forward/">Request a Quote</a>
+        <a href="../forward/#contact">Contact</a>
+      </div>
+      <div class="foot__col">
+        <h4>Contact</h4>
+        <p><b>Dispatch</b></p>
+        <a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a>
+        <a href="tel:+16789721148">678-972-1148</a>
+        <p>Loganville, Georgia<br>24/7 Dispatch · Nationwide</p>
+      </div>
+      <div class="foot__col">
+        <h4>Credentials</h4>
+        <p>USDOT <b>7638788</b></p>
+        <p>MC <b>66389691</b></p>
+        <p>Licensed &amp; Insured<br>Interstate Motor Carrier</p>
+      </div>
+    </div>
+    <div class="foot__legal">
+      <span>Copyright © 2026 KUL Enterprises LLC. All rights reserved.</span>
+      <span class="tag">Strength in Motion. Built on Integrity. Driven by Safety.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ======================= MOBILE MENU SHEET ======================= -->
+<div class="msheet" id="msheet" aria-hidden="true">
+  <div class="msheet__top">
+    <a class="brand" href="../a/"><img src="/assets/brand/lion-clean.png" alt="" width="30" height="30"><b>KUL</b><span>Enterprises</span></a>
+    <button class="msheet__x" id="msheetX" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <nav aria-label="Business">
+    <a href="../mission/" data-close>Services</a>
+    <a href="../responsibility/" data-close>Safety</a>
+    <span aria-current="page">Careers</span>
+    <a href="../forward/#contact" data-close>Contact</a>
+  </nav>
+  <p class="msheet__label">Chapters</p>
+  <nav aria-label="Chapters">
+    <a href="../a/" data-close>The Beginning</a>
+    <a href="../journey/" data-close>The Journey</a>
+    <a href="../story/" data-close>Why I Started Driving</a>
+    <a href="../mission/" data-close>The Mission</a>
+    <a href="../responsibility/" data-close>The Responsibility</a>
+    <a href="../forward/" data-close>Let&rsquo;s Move Forward</a>
+    <a href="../road-ahead/" data-close>The Road Ahead</a>
+  </nav>
+  <div class="msheet__foot">
+    <a class="pill pill--gold pill--lg" href="#notify" data-close>Get Notified</a>
+    <a class="pill pill--ghost pill--lg" href="../forward/" data-close>Request a Freight Quote</a>
+  </div>
+</div>
+
+<!-- ======================= TWEAKS CONTRACT ======================= -->
+<script>
+window.KUL_TWEAKS = {
+  style: 's10',
+  controls: [
+    { var:'--gold',          label:'Gold',           type:'color', value:'#D4AF37' },
+    { var:'--gold-dose',     label:'Gold dosage',    type:'range', value:55, min:20, max:160, step:5 },
+    { var:'--warmth',        label:'Ground tone',    type:'range', value:0,  min:0,  max:100, step:1 },
+    { var:'--type-scale',    label:'Type scale',     type:'range', value:85, min:85, max:120, step:1 },
+    { var:'--section-space', label:'Section rhythm', type:'range', value:65, min:65, max:135, step:1 },
+    { var:'--radius',        label:'Corner radius',  type:'range', value:0,  min:0,  max:36,  step:1 }
+  ]
+};
+</script>
+<script>
+/* notify stub — visual confirmation only; nothing is stored */
+document.addEventListener('DOMContentLoaded', function(){
+  var form = document.getElementById('notifyForm');
+  var ok = document.getElementById('notifyOk');
+  if(form && ok){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var email = form.querySelector('input[type="email"]');
+      if(email && email.checkValidity()){
+        ok.classList.add('show');
+        form.style.display = 'none';
+      } else if(email){
+        email.reportValidity();
+      }
+    });
+  }
+});
+</script>
+<script src="../chapter.js" defer></script>
+<script src="/tweaks.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,828 @@
+<!doctype html>
+<html lang="en">
+<!--
+DIRECTION CONTRACT — phase2 / s02a / C "Marquee Editorial — Refined"
+AXIS C — REFINE. Same committed world as the kept phase-1 s02a variant
+(charcoal ribbon over warm paper, Anton caps, Archivo micro-labels, gold
+duotone plates, hairline rules, running marquee) — but quieter and more
+premium. The snapshot tokens are law and baked as :root defaults:
+marquee 9vw · dose 66% · hairline 1px · tint #ae8f28 · track .25em · running.
+REFINE MOVES: tightened modular type scale; roughly a third more section
+air; index cadence held to the kicker system only (no parens in headlines,
+no giant plate indexes); services rows trade the full charcoal invert for a
+deep-paper wash; the marquee is the single ambient motion; reveals shortened
+to 12px. Chapter nav rendered as an editorial Contents spread — the most
+magazine-native possible shape for the contract.
+-->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KUL Enterprises LLC — Strength in Motion | Freight Carrier, Loganville GA</title>
+<meta name="description" content="KUL Enterprises LLC is an asset-based freight carrier out of Loganville, Georgia. Power only, dry van, reefer, dedicated, regional, OTR and expedited — USDOT 7638788 · MC 66389691 · 24/7 dispatch.">
+<meta name="theme-color" content="#101010">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23101010'/%3E%3Ctext x='32' y='46' font-family='Arial Black,Arial' font-size='38' font-weight='900' fill='%23D4AF37' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ================= TOKENS (snapshot-baked) ================= */
+:root{
+  /* tweakable (KUL_TWEAKS contract) — values below ARE the locked snapshot */
+  --marquee-size:9vw;        /* marquee crop amount */
+  --duo-tint:#ae8f28;        /* duotone temperature */
+  --duo-dose:66%;            /* image grade dosage */
+  --idx-ink:#D4AF37;         /* index / label accent ink */
+  --hairline-w:1px;          /* rule weight */
+  --track:0.25em;            /* uppercase tracking */
+  --gold:#D4AF37;            /* brand gold */
+  --marquee-play:running;    /* marquee motion */
+  /* fixed world */
+  --paper:#F2EFE9;
+  --paper-deep:#E9E4D9;
+  --ink:#141414;
+  --char:#101010;
+  --char-2:#0B0B0B;
+  --gray:#575349;
+  --line:rgba(20,20,20,.2);
+  --line-soft:rgba(20,20,20,.1);
+  --mx:clamp(20px,5vw,84px);
+  --sec:clamp(5.5rem,11vw,10rem);
+  --ff-d:"Anton",Impact,sans-serif;
+  --ff-b:"Archivo",Helvetica,Arial,sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+.dark{--line:rgba(242,239,233,.2);--line-soft:rgba(242,239,233,.1)}
+
+/* ================= RESET / BASE ================= */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);color:var(--ink);
+  font:400 15.5px/1.7 var(--ff-b);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  overflow-x:clip;
+}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+ul,ol{list-style:none}
+button{font:inherit;background:none;border:0;color:inherit;cursor:pointer}
+::selection{background:var(--gold);color:var(--char)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:absolute;top:-100px;left:var(--mx);z-index:200;background:var(--gold);color:var(--char);
+  padding:.7rem 1.1rem;font:600 12px/1 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase}
+.skip:focus{top:12px}
+
+/* ================= TYPE UTILITIES (tightened modular scale) ================= */
+.micro{font:500 10.5px/1.6 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase}
+.micro .ix{color:var(--idx-ink)}
+.on-paper .micro .ix,.contents .micro .ix{color:color-mix(in srgb,var(--idx-ink) 46%,#141400)}
+.d-m,.d-s{font-family:var(--ff-d);font-weight:400;text-transform:uppercase;line-height:1.02;letter-spacing:.012em}
+.d-m{font-size:clamp(2rem,4vw,3.6rem)}
+.d-s{font-size:clamp(1.35rem,2.2vw,2.05rem)}
+.rule{border:0;border-block-start:var(--hairline-w) solid var(--line)}
+
+/* kicker row — the only index cadence on paper */
+.kick{display:flex;justify-content:space-between;align-items:baseline;gap:1.2rem;
+  border-block-start:var(--hairline-w) solid var(--line);padding-block-start:.95rem}
+.kick .note{color:var(--gray);text-align:right}
+.dark .kick .note{color:rgba(242,239,233,.58)}
+
+/* ================= REVEALS (shortened, quieter) ================= */
+.js .r{opacity:0;transform:translateY(12px);
+  transition:opacity .55s var(--ease),transform .6s var(--ease);transition-delay:var(--d,0s)}
+.js .r.in{opacity:1;transform:none}
+.js .r-clip{clip-path:inset(0 100% 0 0);transition:clip-path .95s var(--ease);transition-delay:var(--d,0s)}
+.js .r-clip.in{clip-path:inset(0 0 0 0)}
+.js .r-clip img{transform:scale(1.04);transition:transform 1.25s var(--ease)}
+.js .r-clip.in img{transform:scale(1)}
+
+/* ================= MASTHEAD ================= */
+.masthead{position:sticky;top:0;z-index:100;background:var(--char);color:var(--paper);
+  border-block-end:var(--hairline-w) solid rgba(242,239,233,.2)}
+.masthead .bar{display:flex;align-items:center;gap:1.5rem;padding:.85rem var(--mx)}
+.brand{display:flex;align-items:baseline;gap:.6rem;flex:none}
+.brand-mark{height:30px;width:auto;flex:none;align-self:center;margin-inline-end:.15rem}
+.brand b{font:400 1.45rem/1 var(--ff-d);letter-spacing:.03em}
+.brand span{font:500 9px/1.2 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase;color:rgba(242,239,233,.6)}
+.mast-nav{display:flex;gap:clamp(1rem,2.4vw,2.3rem);margin-inline:auto}
+.mast-nav a{font:500 10.5px/1 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase;
+  color:rgba(242,239,233,.75);padding:.45rem 0;position:relative}
+.mast-nav a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;
+  background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .28s var(--ease)}
+.mast-nav a:hover{color:var(--paper)}
+.mast-nav a:hover::after{transform:scaleX(1)}
+.mast-cta{flex:none;margin-left:auto;display:flex;align-items:center;gap:.6rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;
+  font:600 11px/1 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase;
+  padding:1em 1.7em;border:var(--hairline-w) solid transparent;
+  transition:background .22s,color .22s,border-color .22s}
+.btn .ar{font-weight:600;transition:transform .28s var(--ease)}
+.btn:hover .ar{transform:translateX(4px)}
+.btn-gold{background:var(--gold);color:var(--char)}
+.btn-gold:hover{background:var(--paper);color:var(--char)}
+.btn-line{border-color:rgba(242,239,233,.38);color:var(--paper)}
+.btn-line:hover{border-color:var(--gold);color:var(--gold)}
+.mast-cta .btn{padding:.85em 1.3em}
+.mast-cta .long{display:inline}
+.mast-cta .short{display:none}
+.menu-btn{display:none;font:600 10.5px/1 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase;
+  padding:.8em .2em;color:rgba(242,239,233,.85)}
+.menu-btn:hover{color:var(--gold)}
+
+/* mobile menu overlay — carries the full chapter list */
+.menu{position:fixed;inset:0;z-index:150;background:var(--char-2);color:var(--paper);
+  display:flex;flex-direction:column;padding:1rem var(--mx) 1.6rem;overflow-y:auto;
+  opacity:0;visibility:hidden;transition:opacity .3s var(--ease),visibility 0s .3s}
+.menu-open .menu{opacity:1;visibility:visible;transition:opacity .3s var(--ease)}
+.menu-top{display:flex;justify-content:space-between;align-items:center;padding-block:.35rem 1.3rem;
+  border-block-end:var(--hairline-w) solid rgba(242,239,233,.2)}
+.menu-close{font-size:1.4rem;line-height:1;padding:.4rem;color:rgba(242,239,233,.8)}
+.menu-close:hover{color:var(--gold)}
+.menu-list{margin-block:auto;display:grid;gap:.05rem;padding-block:1.4rem}
+.menu-list a,.menu-list .now{display:flex;align-items:baseline;gap:.9rem;padding:.42rem 0;
+  font:400 clamp(1.5rem,6.4vw,2.1rem)/1.05 var(--ff-d);text-transform:uppercase;letter-spacing:.02em}
+.menu-list i{font:500 10px/1 var(--ff-b);font-style:normal;letter-spacing:var(--track);color:var(--idx-ink);flex:none;min-width:3.4em}
+.menu-list a:hover{color:var(--gold)}
+.menu-list .now{color:rgba(242,239,233,.55)}
+.menu-list .now .here{font:500 10px/1 var(--ff-b);letter-spacing:var(--track);color:var(--idx-ink);margin-left:auto}
+.menu-biz{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;padding-block:1.1rem;
+  border-block-start:var(--hairline-w) solid rgba(242,239,233,.2)}
+.menu-biz a{color:rgba(242,239,233,.78)}
+.menu-biz a:hover{color:var(--gold)}
+.menu-foot{display:grid;gap:.45rem;border-block-start:var(--hairline-w) solid rgba(242,239,233,.2);padding-block-start:1.1rem;
+  color:rgba(242,239,233,.62)}
+.menu-foot a:hover{color:var(--gold)}
+body.menu-open{overflow:hidden}
+
+/* ================= COVER ================= */
+.cover{background:var(--char);color:var(--paper)}
+.cover-spec{display:flex;justify-content:space-between;gap:1rem;padding:.8rem var(--mx);
+  color:rgba(242,239,233,.6);border-block-end:var(--hairline-w) solid rgba(242,239,233,.12)}
+.plate{position:relative;isolation:isolate;overflow:clip;background:var(--char-2)}
+.plate img{width:100%;height:100%;object-fit:cover;
+  filter:grayscale(1) contrast(1.05) brightness(.95)}
+.plate .tint{position:absolute;inset:0;background:var(--duo-tint);mix-blend-mode:color;opacity:var(--duo-dose);pointer-events:none}
+.plate .shade{position:absolute;inset:0;pointer-events:none}
+.cover-plate{height:clamp(380px,62vh,700px)}
+.cover-plate .shade{background:linear-gradient(180deg,rgba(11,11,11,.36) 0%,rgba(11,11,11,0) 30%,rgba(11,11,11,0) 56%,rgba(11,11,11,.72) 100%)}
+.corner{position:absolute;z-index:3;color:rgba(242,239,233,.85)}
+.corner.tl{top:1.2rem;left:var(--mx)}
+.corner.br{bottom:1.2rem;right:var(--mx);color:rgba(242,239,233,.62)}
+
+/* marquee — 9vw crop, the page's single ambient motion */
+.mq{overflow:clip;position:relative;z-index:4;margin-top:calc(var(--marquee-size)*-.56);pointer-events:none}
+.mq-track{display:flex;width:max-content;will-change:transform;
+  animation:mq-scroll 80s linear infinite;animation-play-state:var(--marquee-play)}
+.mq-group{display:flex;align-items:baseline;flex:none;white-space:nowrap}
+.mq-group span{font:400 var(--marquee-size)/1 var(--ff-d);text-transform:uppercase;color:var(--paper)}
+.mq-group i{font:400 calc(var(--marquee-size)*.62)/1 var(--ff-d);font-style:normal;color:var(--gold);
+  padding-inline:.34em;transform:translateY(-.06em)}
+@keyframes mq-scroll{to{transform:translateX(-50%)}}
+
+/* deck row */
+.deck-row{display:grid;grid-template-columns:minmax(0,52ch) auto;justify-content:space-between;align-items:end;
+  gap:2rem 3rem;padding:clamp(2.6rem,5vw,4rem) var(--mx) clamp(2.8rem,5.5vw,4.4rem)}
+.deck{font-size:clamp(1rem,1.3vw,1.15rem);line-height:1.72;color:rgba(242,239,233,.82);max-width:46ch;text-wrap:pretty}
+.deck strong{color:var(--paper);font-weight:600}
+.cta-pair{display:flex;gap:.8rem;flex-wrap:wrap}
+
+/* trust spec strip */
+.trust{border-block:var(--hairline-w) solid rgba(242,239,233,.2);margin-inline:var(--mx)}
+.trust ul{display:flex;flex-wrap:wrap;justify-content:space-between;row-gap:.35rem;column-gap:1.6rem;padding-block:1rem}
+.trust li{font:500 10.5px/1.6 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase;color:rgba(242,239,233,.78);
+  display:flex;align-items:center;gap:1.6rem}
+.trust li+li::before{content:"·";color:var(--gold);font-weight:700}
+.cover-pad{height:clamp(2.4rem,5vw,4rem)}
+
+/* ================= SECTION SHELL (paper) ================= */
+.sec{padding:var(--sec) 0}
+.sec .head{margin-inline:var(--mx);margin-block-end:clamp(2.8rem,5.5vw,4.6rem)}
+.sec .head .d-m{margin-block-start:1.3rem;max-width:24ch}
+
+/* text link */
+.textlink{display:inline-flex;align-items:center;gap:.6em;
+  font:600 11px/1 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase;color:inherit;
+  padding-block:.45em;position:relative}
+.textlink .ar{transition:transform .28s var(--ease)}
+.textlink::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:currentColor;
+  transform:scaleX(.34);transform-origin:left;transition:transform .3s var(--ease)}
+.textlink:hover::after{transform:scaleX(1)}
+.textlink:hover .ar{transform:translateX(4px)}
+.on-paper .textlink{color:color-mix(in srgb,var(--gold) 45%,#3a2f00)}
+.dark .textlink,.vision-panel .textlink{color:var(--gold)}
+
+/* ================= SERVICES CATALOG (quieter hover) ================= */
+.svc-list{border-block-start:var(--hairline-w) solid var(--line)}
+.svc{display:grid;grid-template-columns:4.5rem minmax(0,1fr) minmax(0,40ch) 2.6rem;align-items:center;
+  gap:1rem 2rem;padding:1.35rem var(--mx);
+  border-block-end:var(--hairline-w) solid var(--line);
+  transition:background .3s var(--ease)}
+.svc .ix{font:500 10.5px/1 var(--ff-b);letter-spacing:var(--track);
+  color:color-mix(in srgb,var(--idx-ink) 58%,#141400)}
+.svc .nm{font:400 clamp(1.45rem,2.4vw,2.25rem)/1.04 var(--ff-d);text-transform:uppercase;letter-spacing:.014em;
+  transition:transform .3s var(--ease)}
+.svc .ds{color:var(--gray);font-size:.92rem;line-height:1.55}
+.svc .go{font-weight:600;justify-self:end;opacity:0;transform:translateX(-6px);
+  color:color-mix(in srgb,var(--gold) 62%,#3a2f00);transition:opacity .25s,transform .3s var(--ease)}
+.svc:hover,.svc:focus-visible{background:var(--paper-deep)}
+.svc:hover .nm,.svc:focus-visible .nm{transform:translateX(5px)}
+.svc:hover .go,.svc:focus-visible .go{opacity:1;transform:none}
+.svc-note{margin:1.4rem var(--mx) 0;color:var(--gray);display:flex;justify-content:space-between;gap:1rem}
+
+/* ================= SAFETY ================= */
+.safety .statement{margin:0 var(--mx)}
+.safety .statement .d-m{max-width:22ch;text-wrap:balance}
+.safety .statement .d-m em{font-style:normal;color:color-mix(in srgb,var(--gold) 56%,#4a3a00)}
+.safety-grid{display:grid;grid-template-columns:minmax(0,1fr) clamp(260px,24vw,340px) minmax(0,1.15fr);
+  gap:clamp(2.4rem,5vw,4.5rem);align-items:start;margin:clamp(3rem,6vw,5rem) var(--mx) 0}
+.disc{border-block-start:var(--hairline-w) solid var(--line)}
+.disc li{display:flex;justify-content:space-between;gap:1rem;padding-block:1rem;
+  border-block-end:var(--hairline-w) solid var(--line);
+  font:500 10.5px/1.6 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase}
+.disc li b{font-weight:600;color:color-mix(in srgb,var(--idx-ink) 58%,#141400)}
+.safety-plate{width:100%;max-width:340px;margin-inline:auto}
+.safety-plate .plate{display:block;aspect-ratio:4/5}
+.safety-cap{margin-block-start:.8rem;color:var(--gray);text-align:center}
+.safety-copy p{max-width:52ch;text-wrap:pretty}
+.safety-copy p+p{margin-block-start:1.1em}
+.safety-copy .lead{font-size:1.06rem;font-weight:500}
+.safety-copy .textlink{margin-block-start:1.6rem}
+
+/* ================= JOURNEY ================= */
+.journey .plate{height:clamp(440px,82vh,800px)}
+.journey .shade{background:linear-gradient(180deg,rgba(11,11,11,.3) 0%,rgba(11,11,11,.04) 34%,rgba(11,11,11,.04) 55%,rgba(11,11,11,.72) 100%)}
+.journey-cap{position:absolute;z-index:4;left:var(--mx);right:var(--mx);bottom:1.8rem;
+  display:flex;justify-content:space-between;align-items:end;gap:2rem;color:var(--paper)}
+.journey-cap .story{max-width:44ch;font-size:.98rem;line-height:1.68;color:rgba(242,239,233,.9);text-wrap:pretty;margin-block-start:.7rem}
+.journey-cap .textlink{margin-block-start:1.2rem}
+.journey-cap .credit{text-align:right;color:rgba(242,239,233,.62);flex:none}
+
+/* ================= VISION ================= */
+.vision-grid{display:grid;grid-template-columns:1.05fr 1fr;min-height:min(74vh,720px)}
+.vision-grid .plate{height:100%;min-height:340px}
+.vision-grid .plate .shade{background:linear-gradient(20deg,rgba(11,11,11,.28),rgba(11,11,11,0) 55%)}
+.vision-panel{background:var(--char);color:var(--paper);display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(3.5rem,7vw,6rem) clamp(1.6rem,4.5vw,4.8rem)}
+.vision-panel .d-m{margin-block-start:1.5rem}
+.vision-panel .d-m .tick{color:var(--gold)}
+.vision-panel p{margin-block-start:1.4rem;max-width:44ch;color:rgba(242,239,233,.8);text-wrap:pretty}
+.vision-panel .textlink{margin-block-start:2rem}
+.plate .pcap{position:absolute;z-index:3;left:1.2rem;bottom:1.1rem;color:rgba(242,239,233,.85)}
+
+/* ================= CONTENTS (chapter nav as editorial spread) ================= */
+.contents .head p{margin-block-start:1.1rem;max-width:52ch;color:var(--gray);text-wrap:pretty}
+.toc{border-block-start:var(--hairline-w) solid var(--line)}
+.toc a,.toc .now{display:grid;grid-template-columns:3.6rem minmax(0,1fr) minmax(0,34ch) 2.6rem;align-items:baseline;
+  gap:1rem 2rem;padding:1.15rem var(--mx);
+  border-block-end:var(--hairline-w) solid var(--line);
+  transition:background .3s var(--ease)}
+.toc .no{font:500 10.5px/1 var(--ff-b);letter-spacing:var(--track);
+  color:color-mix(in srgb,var(--idx-ink) 58%,#141400)}
+.toc .ch{font:400 clamp(1.3rem,2.1vw,1.9rem)/1.06 var(--ff-d);text-transform:uppercase;letter-spacing:.016em;
+  transition:transform .3s var(--ease)}
+.toc .gl{color:var(--gray);font-size:.88rem;line-height:1.5}
+.toc .go{font-weight:600;justify-self:end;opacity:0;transform:translateX(-6px);
+  color:color-mix(in srgb,var(--gold) 62%,#3a2f00);transition:opacity .25s,transform .3s var(--ease)}
+.toc a:hover,.toc a:focus-visible{background:var(--paper-deep)}
+.toc a:hover .ch,.toc a:focus-visible .ch{transform:translateX(5px)}
+.toc a:hover .go,.toc a:focus-visible .go{opacity:1;transform:none}
+.toc .now{background:var(--paper-deep)}
+.toc .now .here{font:500 10px/1 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase;
+  justify-self:end;white-space:nowrap;color:color-mix(in srgb,var(--idx-ink) 46%,#141400)}
+.fastlane{margin:1.6rem var(--mx) 0;display:flex;justify-content:space-between;align-items:baseline;
+  gap:1rem 2rem;flex-wrap:wrap;color:var(--gray)}
+.fastlane ul{display:flex;flex-wrap:wrap;gap:.3rem 1.8rem}
+.fastlane a{color:var(--ink);position:relative;padding-block:.3em}
+.fastlane a::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;
+  background:color-mix(in srgb,var(--gold) 62%,#3a2f00);
+  transform:scaleX(0);transform-origin:left;transition:transform .28s var(--ease)}
+.fastlane a:hover::after{transform:scaleX(1)}
+
+/* ================= CONTACT / CLOSE ================= */
+.close-band{background:var(--char);color:var(--paper)}
+.close-inner{padding:var(--sec) var(--mx)}
+.close-band .d-m{margin-block-start:1.5rem;max-width:14ch}
+.close-band .d-m .dotg{color:var(--gold)}
+.close-sub{margin-block-start:1.4rem;max-width:44ch;color:rgba(242,239,233,.72);text-wrap:pretty}
+.close-band .cta-pair{margin-block-start:2.4rem}
+.contact-rows{margin-block-start:clamp(3rem,6vw,4.6rem);border-block-start:var(--hairline-w) solid rgba(242,239,233,.2)}
+.crow{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding-block:1.15rem;
+  border-block-end:var(--hairline-w) solid rgba(242,239,233,.2);transition:color .22s}
+.crow .val{font:400 clamp(1.2rem,3.2vw,2.3rem)/1.05 var(--ff-d);text-transform:uppercase;letter-spacing:.02em;
+  overflow-wrap:anywhere}
+.crow .lab{color:rgba(242,239,233,.58);flex:none;text-align:right;transition:color .22s}
+.crow:hover{color:var(--gold)}
+.crow:hover .lab{color:rgba(242,239,233,.8)}
+
+/* ================= FOOTER ================= */
+footer{background:var(--char-2);color:var(--paper)}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:2.5rem;
+  padding:clamp(3rem,6vw,4.2rem) var(--mx);border-block-start:var(--hairline-w) solid rgba(242,239,233,.16)}
+.foot-mark{height:52px;width:auto;display:block;margin-block-end:1rem}
+.foot-brand b{font:400 1.85rem/1 var(--ff-d);letter-spacing:.03em;display:block}
+.foot-brand .micro{color:rgba(242,239,233,.58);margin-block-start:.7rem;max-width:30ch;line-height:2}
+.foot-col h3{font:500 10.5px/1 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase;
+  color:var(--idx-ink);margin-block-end:1.1rem}
+.foot-col li{padding-block:.3rem}
+.foot-col a,.foot-col span{font:500 12.5px/1.5 var(--ff-b);color:rgba(242,239,233,.76);letter-spacing:.04em}
+.foot-col a:hover{color:var(--gold)}
+.foot-col [aria-current]{color:rgba(242,239,233,.45)}
+.foot-base{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  padding:1.1rem var(--mx) 1.5rem;border-block-start:var(--hairline-w) solid rgba(242,239,233,.16);
+  color:rgba(242,239,233,.55)}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width:1060px){
+  .safety-grid{grid-template-columns:1fr 1fr}
+  .safety-grid .safety-plate{order:-1;grid-column:1/-1}
+  .toc a,.toc .now{grid-template-columns:3rem minmax(0,1fr) 2.4rem;grid-template-areas:"no ch go" "no gl go"}
+  .toc .no{grid-area:no;align-self:start;padding-block-start:.4rem}
+  .toc .ch{grid-area:ch}
+  .toc .gl{grid-area:gl;max-width:52ch}
+  .toc .go,.toc .here{grid-area:go}
+}
+@media (max-width:900px){
+  .mast-nav{display:none}
+  .menu-btn{display:inline-block}
+  .mast-cta .long{display:none}
+  .mast-cta .short{display:inline}
+  .brand span{display:none}
+  .deck-row{grid-template-columns:1fr}
+  .vision-grid{grid-template-columns:1fr}
+  .vision-grid .plate{aspect-ratio:4/3;height:auto}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .svc{grid-template-columns:2.6rem minmax(0,1fr) 2rem;grid-template-areas:"ix nm go" "ix ds go"}
+  .svc .ix{grid-area:ix;align-self:start;padding-block-start:.5rem}
+  .svc .nm{grid-area:nm}
+  .svc .ds{grid-area:ds;max-width:46ch}
+  .svc .go{grid-area:go}
+  .safety-grid{grid-template-columns:1fr}
+  .safety-copy p{max-width:60ch}
+  .journey-cap{flex-direction:column;align-items:flex-start}
+  .journey-cap .credit{text-align:left}
+  .cover-plate{height:clamp(300px,52vh,520px)}
+}
+@media (max-width:560px){
+  .trust ul{justify-content:flex-start}
+  .cover-spec .right{display:none}
+  .foot-grid{grid-template-columns:1fr;gap:1.9rem}
+  .crow .lab{display:none}
+  .kick{flex-direction:column;gap:.35rem}
+  .kick .note{text-align:left}
+  .fastlane{flex-direction:column}
+}
+
+/* ================= REDUCED MOTION ================= */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001s!important;animation-iteration-count:1!important;transition-duration:.001s!important}
+  .mq-track{animation:none!important}
+  .js .r,.js .r-clip{opacity:1;transform:none;clip-path:none}
+  .js .r-clip img{transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ============ MASTHEAD ============ -->
+<header class="masthead dark">
+  <div class="bar">
+    <a class="brand" href="./" aria-label="KUL Enterprises LLC — home">
+      <img class="brand-mark" src="/assets/brand/lion-clean.png" alt="KUL Enterprises lion mark" width="900" height="900" decoding="async">
+      <b>KUL</b><span>— Enterprises LLC</span>
+    </a>
+    <nav class="mast-nav" aria-label="Primary">
+      <a href="../mission/">Services</a>
+      <a href="../responsibility/">Safety</a>
+      <a href="../journey/">Journey</a>
+      <a href="../road-ahead/">Vision</a>
+      <a href="../forward/#contact">Contact</a>
+    </nav>
+    <div class="mast-cta">
+      <a class="btn btn-gold" href="../forward/"><span class="long">Request a Quote</span><span class="short">Quote</span></a>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu">Menu</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MOBILE MENU ============ -->
+<div class="menu dark" id="menu" hidden>
+  <div class="menu-top">
+    <span class="brand"><b style="font:400 1.4rem/1 var(--ff-d)">KUL</b></span>
+    <button class="menu-close" id="menuClose" aria-label="Close menu">&#10005;</button>
+  </div>
+  <nav class="menu-list" aria-label="Chapters">
+    <span class="now" aria-current="page"><i>I</i>The Beginning<span class="here">Here</span></span>
+    <a href="../journey/"><i>II</i>The Journey</a>
+    <a href="../story/"><i>III</i>Why I Started Driving</a>
+    <a href="../mission/"><i>IV</i>The Mission</a>
+    <a href="../responsibility/"><i>V</i>The Responsibility</a>
+    <a href="../join/"><i>VI</i>Join the Journey</a>
+    <a href="../forward/"><i>VII</i>Let&rsquo;s Move Forward</a>
+    <a href="../road-ahead/"><i>VIII</i>The Road Ahead</a>
+  </nav>
+  <nav class="menu-biz micro" aria-label="Business shortcuts">
+    <a href="../mission/">Services</a>
+    <a href="../responsibility/">Safety</a>
+    <a href="../forward/">Request a Quote</a>
+    <a href="../forward/#contact">Contact</a>
+  </nav>
+  <div class="menu-foot micro">
+    <a href="tel:+16789721148">678-972-1148</a>
+    <a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a>
+    <span>USDOT 7638788 · MC 66389691 · Loganville, GA</span>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ============ COVER ============ -->
+<section class="cover dark" id="top" aria-labelledby="cover-h">
+  <h1 class="sr-only" id="cover-h">KUL Enterprises LLC — Strength in Motion. Built on Integrity. Driven by Safety. Freight carrier, Loganville, Georgia.</h1>
+  <div class="cover-spec micro">
+    <span class="left"><span class="ix">(Cover)</span> — The Carrier Issue · No. 01</span>
+    <span class="right">Loganville, Georgia — Running Nationwide</span>
+  </div>
+  <figure class="plate cover-plate r-clip r">
+    <img src="/assets/journey/cliffs.jpg" width="2200" height="1650" alt="Sandstone cliffs standing over deep blue water under a clear sky — from the founder's journey." fetchpriority="high" decoding="async">
+    <span class="tint"></span><span class="shade"></span>
+    <figcaption class="corner tl micro"><span class="ix">(K—01)</span> — Sandstone coast, founder&rsquo;s journey</figcaption>
+    <span class="corner br micro" aria-hidden="true">Scroll &darr;</span>
+  </figure>
+
+  <div class="mq" aria-hidden="true">
+    <div class="mq-track">
+      <div class="mq-group">
+        <span>Strength in Motion</span><i>·</i><span>Built on Integrity</span><i>·</i><span>Driven by Safety</span><i>·</i>
+      </div>
+      <div class="mq-group" aria-hidden="true">
+        <span>Strength in Motion</span><i>·</i><span>Built on Integrity</span><i>·</i><span>Driven by Safety</span><i>·</i>
+      </div>
+    </div>
+  </div>
+
+  <div class="deck-row">
+    <p class="deck r" style="--d:.05s"><strong>KUL Enterprises LLC</strong> is an asset-based carrier out of Loganville, Georgia — one tractor today, run to a fifty-truck standard. Nationwide freight, 24/7 dispatch, and a phone a human actually answers.</p>
+    <div class="cta-pair r" style="--d:.12s">
+      <a class="btn btn-gold" href="../forward/">Request a Freight Quote <span class="ar" aria-hidden="true">&rarr;</span></a>
+      <a class="btn btn-line" href="../join/">Become a Driver</a>
+    </div>
+  </div>
+
+  <div class="trust r" style="--d:.18s">
+    <ul aria-label="Carrier credentials">
+      <li>USDOT 7638788</li>
+      <li>MC 66389691</li>
+      <li>Licensed &amp; Insured</li>
+      <li>Loganville, GA</li>
+      <li>Nationwide Service</li>
+      <li>24/7 Dispatch</li>
+    </ul>
+  </div>
+  <div class="cover-pad"></div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section class="sec on-paper" id="services" aria-labelledby="svc-h">
+  <div class="head">
+    <div class="kick micro r">
+      <span><span class="ix">(01)</span> — Services</span>
+      <span class="note">Seven ways we pull · One standard</span>
+    </div>
+    <h2 class="d-m r" id="svc-h" style="--d:.06s">What we move</h2>
+  </div>
+  <div class="svc-list">
+    <a class="svc r" href="../mission/">
+      <span class="ix" aria-hidden="true">01</span>
+      <span class="nm">Power Only</span>
+      <span class="ds">Your trailer, our tractor. Clean hookups, on-time pulls, zero drama.</span>
+      <span class="go" aria-hidden="true">&rarr;</span>
+    </a>
+    <a class="svc r" href="../mission/" style="--d:.04s">
+      <span class="ix" aria-hidden="true">02</span>
+      <span class="nm">Dry Van</span>
+      <span class="ds">Sealed general freight, door to door, documented.</span>
+      <span class="go" aria-hidden="true">&rarr;</span>
+    </a>
+    <a class="svc r" href="../mission/" style="--d:.08s">
+      <span class="ix" aria-hidden="true">03</span>
+      <span class="nm">Reefer</span>
+      <span class="ds">Temperature held and monitored from dock to receiver.</span>
+      <span class="go" aria-hidden="true">&rarr;</span>
+    </a>
+    <a class="svc r" href="../mission/" style="--d:.12s">
+      <span class="ix" aria-hidden="true">04</span>
+      <span class="nm">Dedicated</span>
+      <span class="ds">Your lane, our truck — the same standard every single week.</span>
+      <span class="go" aria-hidden="true">&rarr;</span>
+    </a>
+    <a class="svc r" href="../mission/" style="--d:.16s">
+      <span class="ix" aria-hidden="true">05</span>
+      <span class="nm">Regional</span>
+      <span class="ds">Southeast lanes, tight windows, home-base reliability.</span>
+      <span class="go" aria-hidden="true">&rarr;</span>
+    </a>
+    <a class="svc r" href="../mission/" style="--d:.2s">
+      <span class="ix" aria-hidden="true">06</span>
+      <span class="nm">Over-the-Road</span>
+      <span class="ds">Coast to coast with tracking and straight answers.</span>
+      <span class="go" aria-hidden="true">&rarr;</span>
+    </a>
+    <a class="svc r" href="../mission/" style="--d:.24s">
+      <span class="ix" aria-hidden="true">07</span>
+      <span class="nm">Expedited</span>
+      <span class="ds">When the window shrinks, the plan gets sharper.</span>
+      <span class="go" aria-hidden="true">&rarr;</span>
+    </a>
+  </div>
+  <p class="svc-note micro r"><span>Every service quoted directly — no broker maze</span><span>Select a line for the full brief &rarr;</span></p>
+</section>
+
+<!-- ============ SAFETY ============ -->
+<section class="sec on-paper safety" id="safety" aria-labelledby="safety-h">
+  <div class="head">
+    <div class="kick micro r">
+      <span><span class="ix">(02)</span> — Safety</span>
+      <span class="note">The operating standard</span>
+    </div>
+  </div>
+  <div class="statement">
+    <h2 class="d-m r" id="safety-h">Safety isn&rsquo;t a department. <em>It&rsquo;s how the truck leaves the yard.</em></h2>
+  </div>
+  <div class="safety-grid">
+    <ul class="disc r" aria-label="Operating disciplines">
+      <li><b>A</b><span>Pre-trip, every trip</span></li>
+      <li><b>B</b><span>Hours run legal, always</span></li>
+      <li><b>C</b><span>Licensed &amp; fully insured</span></li>
+      <li><b>D</b><span>Dispatch answers 24/7</span></li>
+    </ul>
+    <figure class="safety-plate r" style="--d:.08s">
+      <span class="plate r-clip r"><img src="/assets/journey/river.jpg" width="2200" height="1650" alt="Weathered sandstone rock formations rising from an empty floor of sand in soft evening light." loading="lazy" decoding="async"><span class="tint"></span></span>
+      <figcaption class="safety-cap micro"><span class="ix">(S—01)</span> — The long way is the safe way</figcaption>
+    </figure>
+    <div class="safety-copy r" style="--d:.14s">
+      <p class="lead">KUL runs under its own authority — licensed, insured, inspected before every pull, hours logged straight.</p>
+      <p>New authority, clean slate, zero appetite for shortcuts. We&rsquo;d rather decline a load than run it wrong — that&rsquo;s the deal on every mile we&rsquo;re hired to move, and it&rsquo;s why the numbers above aren&rsquo;t decoration. Check them. They&rsquo;re ours.</p>
+      <a class="textlink" href="../responsibility/">Read the responsibility chapter <span class="ar" aria-hidden="true">&rarr;</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ JOURNEY ============ -->
+<section class="journey dark" id="journey" aria-labelledby="journey-h">
+  <figure class="plate r-clip r">
+    <img src="/assets/journey/wave.jpg" width="2200" height="1650" alt="Milky turquoise river pouring over dark rocks through dense rainforest — photographed by the founder." loading="lazy" decoding="async">
+    <span class="tint"></span><span class="shade"></span>
+    <figcaption class="journey-cap">
+      <div>
+        <h2 class="micro" id="journey-h"><span class="ix">(03)</span> — The Journey</h2>
+        <p class="story">Before the first tractor there was the road itself. These are the founder&rsquo;s own photographs — rivers, coasts and back country that taught the long way home. That patience rides along on every load.</p>
+        <a class="textlink" href="../journey/">Ride the full journey <span class="ar" aria-hidden="true">&rarr;</span></a>
+      </div>
+      <span class="credit micro">Founder&rsquo;s archive — unretouched, graded in house</span>
+    </figcaption>
+  </figure>
+</section>
+
+<!-- ============ VISION ============ -->
+<section class="vision" id="vision" aria-labelledby="vision-h">
+  <h2 class="sr-only" id="vision-h">The vision — fifty tractors by the end of 2029</h2>
+  <div class="vision-grid">
+    <figure class="plate r-clip r">
+      <img src="/assets/journey/tree.jpg" width="2200" height="1650" alt="A wide-crowned tree shading open grassland beneath a forested ridge." loading="lazy" decoding="async">
+      <span class="tint"></span><span class="shade"></span>
+      <figcaption class="pcap micro"><span class="ix">(V—01)</span> — Rooted first, then reach</figcaption>
+    </figure>
+    <div class="vision-panel dark">
+      <div class="kick micro r">
+        <span><span class="ix">(04)</span> — The Vision</span>
+        <span class="note">Growing with intention</span>
+      </div>
+      <p class="d-m r" style="--d:.06s" aria-hidden="true">Fifty by &rsquo;29<span class="tick">.</span></p>
+      <p class="r" style="--d:.12s">The number is written down: fifty tractors by the end of 2029. Today the count is one — and we say that out loud, because trust starts with an honest number.</p>
+      <p class="r" style="--d:.16s">We&rsquo;ll grow the way we drive: deliberately, one dependable lane and one well-kept promise at a time.</p>
+      <a class="textlink r" style="--d:.2s" href="../road-ahead/">See the road ahead <span class="ar" aria-hidden="true">&rarr;</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTENTS / CHAPTERS ============ -->
+<section class="sec on-paper contents" id="contents" aria-labelledby="toc-h">
+  <div class="head">
+    <div class="kick micro r">
+      <span><span class="ix">(05)</span> — Contents</span>
+      <span class="note">The issue in eight chapters</span>
+    </div>
+    <h2 class="d-m r" id="toc-h" style="--d:.06s">One story, told straight</h2>
+    <p class="r" style="--d:.1s">The whole carrier — where it began, why the founder drives, and where the fleet is headed — set down in order. Start anywhere; it all points the same direction.</p>
+  </div>
+  <nav class="toc" aria-label="Chapters">
+    <span class="now r" aria-current="page">
+      <span class="no" aria-hidden="true">I</span>
+      <span class="ch">The Beginning</span>
+      <span class="gl">This page — the carrier at a glance.</span>
+      <span class="here">You are here</span>
+    </span>
+    <a class="r" href="../journey/" style="--d:.03s">
+      <span class="no" aria-hidden="true">II</span>
+      <span class="ch">The Journey</span>
+      <span class="gl">The road before the first tractor, in the founder&rsquo;s own frames.</span>
+      <span class="go" aria-hidden="true">&rarr;</span>
+    </a>
+    <a class="r" href="../story/" style="--d:.06s">
+      <span class="no" aria-hidden="true">III</span>
+      <span class="ch">Why I Started Driving</span>
+      <span class="gl">The founder&rsquo;s story, told plainly.</span>
+      <span class="go" aria-hidden="true">&rarr;</span>
+    </a>
+    <a class="r" href="../mission/" style="--d:.09s">
+      <span class="no" aria-hidden="true">IV</span>
+      <span class="ch">The Mission</span>
+      <span class="gl">Seven services, one standard — the full working brief.</span>
+      <span class="go" aria-hidden="true">&rarr;</span>
+    </a>
+    <a class="r" href="../responsibility/" style="--d:.12s">
+      <span class="no" aria-hidden="true">V</span>
+      <span class="ch">The Responsibility</span>
+      <span class="gl">Safety as an operating system, not a slogan.</span>
+      <span class="go" aria-hidden="true">&rarr;</span>
+    </a>
+    <a class="r" href="../join/" style="--d:.15s">
+      <span class="no" aria-hidden="true">VI</span>
+      <span class="ch">Join the Journey</span>
+      <span class="gl">Drivers and partners — the fleet is built seat by seat.</span>
+      <span class="go" aria-hidden="true">&rarr;</span>
+    </a>
+    <a class="r" href="../forward/" style="--d:.18s">
+      <span class="no" aria-hidden="true">VII</span>
+      <span class="ch">Let&rsquo;s Move Forward</span>
+      <span class="gl">Quotes, dispatch and contact — the working end of the book.</span>
+      <span class="go" aria-hidden="true">&rarr;</span>
+    </a>
+    <a class="r" href="../road-ahead/" style="--d:.21s">
+      <span class="no" aria-hidden="true">VIII</span>
+      <span class="ch">The Road Ahead</span>
+      <span class="gl">Fifty tractors by the end of 2029 — the honest plan.</span>
+      <span class="go" aria-hidden="true">&rarr;</span>
+    </a>
+  </nav>
+  <div class="fastlane micro r">
+    <span>In a hurry —</span>
+    <ul aria-label="Business shortcuts">
+      <li><a href="../mission/">Services</a></li>
+      <li><a href="../responsibility/">Safety</a></li>
+      <li><a href="../forward/">Request a Quote</a></li>
+      <li><a href="../forward/#contact">Contact</a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ CONTACT / CLOSE ============ -->
+<section class="close-band dark" id="contact" aria-labelledby="contact-h">
+  <div class="close-inner">
+    <div class="kick micro r">
+      <span><span class="ix">(06)</span> — Dispatch</span>
+      <span class="note">Quotes in hours, not days</span>
+    </div>
+    <h2 class="d-m r" id="contact-h" style="--d:.06s">Let&rsquo;s move something<span class="dotg">.</span></h2>
+    <p class="close-sub r" style="--d:.1s">Send the lane, the weight and the window — dispatch will come back with a straight number. Drivers: we&rsquo;re building this fleet seat by seat.</p>
+    <div class="cta-pair r" style="--d:.14s">
+      <a class="btn btn-gold" href="../forward/">Request a Freight Quote <span class="ar" aria-hidden="true">&rarr;</span></a>
+      <a class="btn btn-line" href="../join/">Become a Driver</a>
+    </div>
+    <div class="contact-rows r" style="--d:.18s">
+      <a class="crow" href="mailto:dispatch@kulenterprises.com">
+        <span class="val">dispatch@kulenterprises.com</span>
+        <span class="lab micro">Email — quotes &amp; dispatch</span>
+      </a>
+      <a class="crow" href="tel:+16789721148">
+        <span class="val">678-972-1148</span>
+        <span class="lab micro">Phone — 24/7, a human answers</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="dark">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <img class="foot-mark" src="/assets/brand/lion-clean.png" alt="KUL Enterprises lion mark" width="900" height="900" loading="lazy" decoding="async">
+      <b>KUL <span style="color:var(--gold)">—</span> Enterprises LLC</b>
+      <p class="micro">Strength in Motion. Built on Integrity. Driven by Safety.</p>
+    </div>
+    <nav class="foot-col" aria-label="Chapters, footer">
+      <h3>Chapters</h3>
+      <ul>
+        <li><span aria-current="page">I — The Beginning</span></li>
+        <li><a href="../journey/">II — The Journey</a></li>
+        <li><a href="../story/">III — Why I Started Driving</a></li>
+        <li><a href="../mission/">IV — The Mission</a></li>
+        <li><a href="../responsibility/">V — The Responsibility</a></li>
+        <li><a href="../join/">VI — Join the Journey</a></li>
+        <li><a href="../forward/">VII — Let&rsquo;s Move Forward</a></li>
+        <li><a href="../road-ahead/">VIII — The Road Ahead</a></li>
+      </ul>
+    </nav>
+    <nav class="foot-col" aria-label="Business, footer">
+      <h3>Business</h3>
+      <ul>
+        <li><a href="../mission/">Services</a></li>
+        <li><a href="../responsibility/">Safety</a></li>
+        <li><a href="../forward/">Request a Quote</a></li>
+        <li><a href="../forward/#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="foot-col">
+      <h3>Carrier</h3>
+      <ul>
+        <li><span>USDOT 7638788</span></li>
+        <li><span>MC 66389691</span></li>
+        <li><span>Licensed &amp; Insured</span></li>
+        <li><span>Loganville, Georgia</span></li>
+        <li><a href="tel:+16789721148">678-972-1148</a></li>
+        <li><a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-base micro">
+    <span>&copy; 2026 KUL Enterprises LLC</span>
+    <span>One truck today. Fifty by &rsquo;29.</span>
+    <span><span class="ix">(</span>End of issue<span class="ix">)</span></span>
+  </div>
+</footer>
+
+<!-- ============ PAGE JS ============ -->
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* reveals — viewport-checked on mount, scroll and resize */
+  var pending = [].slice.call(document.querySelectorAll('.r'));
+  function sweep(){
+    if (!pending.length) return;
+    var line = window.innerHeight * 0.93;
+    pending = pending.filter(function(el){
+      var r = el.getBoundingClientRect();
+      if (r.top < line && r.bottom > 0) { el.classList.add('in'); return false; }
+      return true;
+    });
+  }
+  if (reduce) {
+    pending.forEach(function(el){ el.classList.add('in'); });
+    pending = [];
+  } else {
+    var ticking = false;
+    var onMove = function(){
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function(){ ticking = false; sweep(); });
+    };
+    sweep();
+    window.addEventListener('scroll', onMove, { passive: true });
+    window.addEventListener('resize', onMove, { passive: true });
+    window.addEventListener('load', sweep);
+  }
+
+  /* mobile menu */
+  var body = document.body, menu = document.getElementById('menu'),
+      btn = document.getElementById('menuBtn'), closeBtn = document.getElementById('menuClose');
+  function setMenu(open){
+    body.classList.toggle('menu-open', open);
+    btn.setAttribute('aria-expanded', open);
+    if (open) { menu.hidden = false; (menu.querySelector('a')||closeBtn).focus(); }
+    else { setTimeout(function(){ menu.hidden = true; }, 320); btn.focus(); }
+  }
+  btn.addEventListener('click', function(){ setMenu(!body.classList.contains('menu-open')); });
+  closeBtn.addEventListener('click', function(){ setMenu(false); });
+  menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setMenu(false); }); });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && body.classList.contains('menu-open')) setMenu(false);
+  });
+})();
+</script>
+
+<!-- ============ TWEAKS CONTRACT (snapshot-baked values) ============ -->
+<script>
+window.KUL_TWEAKS = {
+  style: 's02a-c',
+  controls: [
+    { var: '--marquee-size', label: 'Marquee crop',    type: 'range',  value: 9,    min: 6,    max: 22,  step: 0.5,  unit: 'vw' },
+    { var: '--duo-tint',     label: 'Duotone tint',    type: 'color',  value: '#ae8f28' },
+    { var: '--duo-dose',     label: 'Grade dosage',    type: 'range',  value: 66,   min: 0,    max: 100, step: 1,    unit: '%' },
+    { var: '--idx-ink',      label: 'Index ink',       type: 'color',  value: '#D4AF37' },
+    { var: '--hairline-w',   label: 'Hairline weight', type: 'range',  value: 1,    min: 1,    max: 3,   step: 0.5,  unit: 'px' },
+    { var: '--track',        label: 'Caps tracking',   type: 'range',  value: 0.25, min: 0.06, max: 0.4, step: 0.01, unit: 'em' },
+    { var: '--gold',         label: 'Brand gold',      type: 'color',  value: '#D4AF37' },
+    { var: '--marquee-play', label: 'Marquee motion',  type: 'select', value: 'running', options: ['running','paused'] }
+  ]
+};
+</script>
+<script src="/tweaks.js" defer></script>
+</body>
+</html>

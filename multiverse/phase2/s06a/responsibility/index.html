@@ -1,0 +1,773 @@
+<!doctype html>
+<!--
+  KUL PHASE 2 — s06a · SS-05 — THE RESPONSIBILITY (safety & compliance)
+  Industrial Ledger · locked snapshot baked (hue 205, 1px seam, gold 100,
+  bracket 1, stamp 1, pad 32).
+
+  TREATMENT: the gravest sheet in the set. Ink-ground hero with the
+  authority stamps carried like a nameplate; a compliance register table;
+  four written standards (maintenance, hours, communication, cargo);
+  a federal hours-of-service duty-cycle figure (real Part 395 numbers);
+  a "check us before you trust us" verification panel. Gold appears once,
+  as the direct-line panel at the end. Safety as accepted responsibility,
+  never a slogan.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Responsibility — Safety &amp; Compliance · KUL Enterprises LLC · USDOT 7638788</title>
+<meta name="description" content="Safety and compliance at KUL Enterprises LLC: USDOT 7638788 · MC 66389691, licensed and insured. Maintenance before failure, FMCSA hours-of-service respected, 24/7 communication, documented cargo responsibility. Verify us on FMCSA SAFER.">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS — locked snapshot baked as defaults ============ */
+:root{
+  --gold:#D4AF37;
+  --gray-hue:205;               /* LOCKED — cool steel ground */
+  --seam:1px;                   /* LOCKED — hairline seams */
+  --gold-freq:100;              /* LOCKED — gold at full spread */
+  --bracket-style:1;            /* LOCKED — corner brackets */
+  --stamp-style:1;              /* LOCKED — boxed stamps */
+  --pad:32px;                   /* LOCKED — panel padding */
+
+  --ground:hsl(var(--gray-hue) 7% 76%);
+  --paper:hsl(var(--gray-hue) 12% 94%);
+  --paper-2:hsl(var(--gray-hue) 10% 89%);
+  --mid:hsl(var(--gray-hue) 6% 62%);
+  --deep:hsl(var(--gray-hue) 8% 40%);
+  --ink:hsl(var(--gray-hue) 12% 9%);
+  --ink-soft:hsl(var(--gray-hue) 7% 27%);
+  --ink-faint:hsl(var(--gray-hue) 6% 36%);
+  --line:color-mix(in srgb, var(--ink) 22%, transparent);
+  --gold-deep:color-mix(in srgb, var(--gold) 82%, #4a3a08);
+  --gold-mix:calc(var(--gold-freq) * 1%);
+  --tick:color-mix(in srgb, var(--gold) var(--gold-mix), var(--ink-soft));
+  --sans:"Archivo",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --mono:"Chivo Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+
+/* ============ RESET / BASE ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--ground);color:var(--ink);
+  font:400 15.5px/1.58 var(--sans);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+img{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+h1,h2,h3{font-weight:700;letter-spacing:-.02em;line-height:1.02;text-wrap:balance}
+p{max-width:65ch}
+::selection{background:var(--gold);color:var(--ink)}
+:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+[id]{scroll-margin-top:86px}
+
+.skip{
+  position:fixed;left:8px;top:-60px;z-index:200;background:var(--ink);color:var(--paper);
+  font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  padding:10px 14px;text-decoration:none;transition:top .2s;
+}
+.skip:focus{top:8px}
+
+/* ============ SHEET FRAME ============ */
+.sheet{max-width:1480px;margin-inline:auto;padding:var(--seam);display:flex;flex-direction:column;gap:var(--seam)}
+main{display:flex;flex-direction:column;gap:var(--seam)}
+section{display:block}
+.g{display:grid;gap:var(--seam);grid-template-columns:repeat(12,1fr)}
+.p{background:var(--paper);padding:var(--pad);position:relative;min-width:0}
+.p-2{background:var(--paper-2)}
+.p-mid{background:var(--mid)}
+.p-deep{background:var(--deep);color:var(--paper)}
+.p-ink{background:var(--ink);color:var(--paper)}
+.p-gold{background:var(--gold);color:var(--ink)}
+.p-flush{padding:0}
+
+/* registration ticks */
+.reg{position:absolute;width:11px;height:11px;pointer-events:none;z-index:3}
+.reg::before,.reg::after{content:"";position:absolute;background:var(--tick)}
+.reg::before{left:5px;top:0;width:1.5px;height:11px}
+.reg::after{left:0;top:5px;width:11px;height:1.5px}
+.reg.tl{top:calc(-6px - var(--seam)/2);left:calc(-6px - var(--seam)/2)}
+.reg.tr{top:calc(-6px - var(--seam)/2);right:calc(-6px - var(--seam)/2)}
+.reg.bl{bottom:calc(-6px - var(--seam)/2);left:calc(-6px - var(--seam)/2)}
+.reg.br{bottom:calc(-6px - var(--seam)/2);right:calc(-6px - var(--seam)/2)}
+
+/* mono / bracket / stamp / ref */
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;line-height:1.5}
+.bkt{
+  --b1:min(var(--bracket-style),1);
+  --b2:clamp(0,calc(var(--bracket-style) - 1),1);
+  display:inline-flex;align-items:baseline;gap:.5em;
+  font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+  padding:calc(var(--b2)*5px) calc(var(--b2)*9px);
+  border:1px solid color-mix(in srgb,currentColor calc(var(--b2)*55%),transparent);
+}
+.bkt::before{content:"[";opacity:var(--b1)}
+.bkt::after{content:"]";opacity:var(--b1)}
+a.bkt{text-decoration:none}
+a.bkt:hover,a.bkt:focus-visible{color:var(--gold-deep)}
+.p-ink a.bkt:hover,.p-ink a.bkt:focus-visible,
+.p-gold a.bkt:hover,.p-gold a.bkt:focus-visible{color:inherit;opacity:.72}
+.stamp{
+  --s1:min(var(--stamp-style),1);
+  --s2:clamp(0,calc(var(--stamp-style) - 1),1);
+  display:inline-block;font-family:var(--mono);font-size:11px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;line-height:1;
+  padding:calc(6px + var(--s1)*3px) calc(2px + var(--s1)*9px);
+  border:1px solid color-mix(in srgb,currentColor calc(var(--s1)*48%),transparent);
+  background:color-mix(in srgb,var(--ink) calc(var(--s2)*100%),transparent);
+  color:color-mix(in srgb,var(--paper) calc(var(--s2)*100%),currentColor);
+}
+.p-ink .stamp,.on-ink .stamp{
+  background:color-mix(in srgb,var(--paper) calc(var(--s2)*92%),transparent);
+  color:color-mix(in srgb,var(--ink) calc(var(--s2)*100%),currentColor);
+}
+.ref{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.ref .sq{width:8px;height:8px;background:var(--tick);flex:none}
+.ref b{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.p-ink .ref b,.p-deep .ref b{color:color-mix(in srgb,var(--paper) 78%,var(--deep))}
+
+/* buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:14px;background:var(--gold);color:var(--ink);
+  font:600 13px var(--mono);letter-spacing:.1em;text-transform:uppercase;
+  padding:17px 24px;text-decoration:none;border:1px solid transparent;
+  transition:background .18s var(--ease),color .18s var(--ease);
+}
+.btn .ar{transition:transform .25s var(--ease)}
+.btn:hover,.btn:focus-visible{background:var(--ink);color:var(--gold)}
+.btn:hover .ar,.btn:focus-visible .ar{transform:translate(3px,3px)}
+.btn-ink{background:var(--ink);color:var(--paper)}
+.btn-ink:hover,.btn-ink:focus-visible{background:var(--paper);color:var(--ink)}
+
+/* ============ RULER / TOPBAR / MENU ============ */
+.ruler{position:fixed;top:0;left:0;right:0;height:3px;z-index:90;pointer-events:none}
+.ruler i{display:block;height:100%;background:var(--gold);transform:scaleX(0);transform-origin:0 50%}
+.topbar{
+  position:sticky;top:var(--seam);z-index:60;background:var(--paper);
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px;
+  padding:14px var(--pad);
+}
+.lock{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0}
+.lock-mark{flex:none;display:flex;align-items:center;justify-content:center;background:var(--ink);padding:6px}
+.lock-mark img{height:30px;width:30px;display:block}
+.lock-txt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.lock .l1{display:flex;align-items:baseline;gap:10px;white-space:nowrap}
+.lock .l1 b{font:800 19px/1 var(--sans);letter-spacing:.01em}
+.lock .l1 span{font:500 9.5px var(--mono);letter-spacing:.22em}
+.lock .l2{font:400 8.5px var(--mono);letter-spacing:.18em;color:var(--ink-faint);text-transform:uppercase}
+.nav-links{display:flex;justify-content:center;gap:30px}
+.nav-links a{
+  font:500 11.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;
+  text-decoration:none;color:var(--ink-soft);padding:6px 0;border-bottom:1px solid transparent;
+  transition:color .15s,border-color .15s;
+}
+.nav-links a:hover,.nav-links a:focus-visible{color:var(--ink);border-color:var(--ink)}
+.nav-right{display:flex;align-items:center;gap:16px}
+.prog{font:500 10px var(--mono);letter-spacing:.14em;color:var(--ink-faint);font-variant-numeric:tabular-nums}
+.nav-cta{padding:12px 18px}
+.burger{display:none;font:500 11px var(--mono);letter-spacing:.12em;padding:12px 10px}
+
+.menu{position:fixed;inset:0;z-index:120;background:var(--ink);color:var(--paper);padding:24px;overflow:auto}
+.menu[hidden]{display:none}
+.menu-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:5vh}
+.menu-cols{display:grid;grid-template-columns:1fr;gap:34px;max-width:880px}
+.menu nav.chapters{display:flex;flex-direction:column}
+.menu nav.chapters a,.menu nav.chapters .cur{
+  font:700 clamp(21px,4.6vw,32px)/1.15 var(--sans);letter-spacing:-.02em;
+  text-decoration:none;padding:12px 0;border-bottom:1px solid color-mix(in srgb,var(--paper) 16%,transparent);
+  display:flex;justify-content:space-between;align-items:center;gap:14px;
+}
+.menu nav.chapters small{font:400 10px var(--mono);letter-spacing:.16em;color:color-mix(in srgb,var(--paper) 62%,var(--ink));white-space:nowrap}
+.menu nav.chapters a:hover,.menu nav.chapters a:focus-visible{color:var(--gold)}
+.menu nav.chapters .cur{color:var(--gold)}
+.menu-fast{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:baseline}
+.menu-fast .f-k{margin-right:4px}
+.menu-fast a{font:500 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:color-mix(in srgb,var(--paper) 84%,var(--ink))}
+.menu-fast a:hover,.menu-fast a:focus-visible{color:var(--gold)}
+.menu-foot{margin-top:5vh;display:flex;flex-wrap:wrap;gap:10px}
+
+/* ============ SECTION HEADERS ============ */
+.sec-head{grid-column:span 12;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.h2{font-size:clamp(1.9rem,3.6vw,3.1rem)}
+.sec-head p{color:var(--ink-soft);font-size:14.5px;margin-top:14px}
+
+/* ============ RESPONSIBILITY HERO — ink nameplate ============ */
+.rhero{grid-column:span 12;display:grid;grid-template-columns:1.5fr 1fr;gap:calc(var(--pad)*1.2);align-items:end;min-height:56vh}
+.rhero .h1{font-size:clamp(2.6rem,5.8vw,4.9rem);letter-spacing:-.03em;line-height:.99}
+.rhero-lede{margin-top:26px;font-size:16px;color:color-mix(in srgb,var(--paper) 80%,var(--ink))}
+.rhero-side{display:flex;flex-direction:column;gap:26px;align-items:flex-start}
+.rhero-side p{font-size:13.5px;color:color-mix(in srgb,var(--paper) 72%,var(--ink))}
+.plate{display:flex;flex-direction:column;gap:10px;align-items:flex-start;border-top:1px solid color-mix(in srgb,var(--paper) 24%,transparent);padding-top:22px;width:100%}
+.plate .f-k{margin-bottom:2px}
+.plate-row{display:flex;flex-wrap:wrap;gap:10px}
+.plate .big-stamp{
+  font:500 clamp(14px,1.7vw,19px) var(--mono);letter-spacing:.14em;text-transform:uppercase;line-height:1;
+  padding:14px 18px;border:1px solid color-mix(in srgb,var(--paper) 44%,transparent);
+  background:color-mix(in srgb,var(--paper) 8%,transparent);
+}
+.rhero-foot{grid-column:1/-1;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;border-top:1px solid color-mix(in srgb,var(--paper) 18%,transparent);padding-top:20px}
+.rhero-foot .mono{color:color-mix(in srgb,var(--paper) 62%,var(--ink))}
+
+/* ============ COMPLIANCE REGISTER ============ */
+.tolwrap{overflow-x:auto}
+table.tol{width:100%;min-width:660px;border-collapse:collapse}
+.tol th{
+  text-align:left;font:500 10px var(--mono);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-faint);padding:0 22px 14px 0;border-bottom:1px solid var(--ink);
+}
+.tol td{padding:19px 22px 19px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.tol td.pm{font-weight:600;font-size:15px;letter-spacing:-.01em;width:22%}
+.tol td.sd{font-size:13.5px;color:var(--ink-soft);width:46%}
+.tol td.vf{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+.tol tr:last-child td{border-bottom:0}
+.reg-main{grid-column:span 12}
+
+/* ============ STANDARDS — the four disciplines ============ */
+.std{grid-column:span 6;display:flex;flex-direction:column;gap:20px;min-height:300px}
+.std .idx{display:flex;justify-content:space-between;align-items:center}
+.std .idx b{font:500 10.5px var(--mono);letter-spacing:.16em;color:var(--ink-faint)}
+.std .ic{color:var(--ink-soft)}
+.std h3{font-size:clamp(1.35rem,2.2vw,1.8rem)}
+.std p{font-size:14px;color:var(--ink-soft);flex:1}
+.std .foot{border-top:1px solid var(--line);padding-top:14px;font:500 9.5px var(--mono);letter-spacing:.14em;color:var(--ink-faint);text-transform:uppercase}
+.std-deep .idx b{color:color-mix(in srgb,var(--paper) 62%,var(--deep))}
+.std-deep .ic{color:color-mix(in srgb,var(--paper) 84%,var(--deep))}
+.std-deep p{color:color-mix(in srgb,var(--paper) 82%,var(--deep))}
+.std-deep .foot{border-top-color:color-mix(in srgb,var(--paper) 26%,transparent);color:color-mix(in srgb,var(--paper) 66%,var(--deep))}
+
+/* ============ HOS FIGURE ============ */
+.hos{grid-column:span 12}
+.fig-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:10px}
+.hoswrap{overflow-x:auto;scrollbar-width:thin}
+.hos svg{display:block;min-width:640px;width:100%;height:auto}
+.hos .hst{stroke:var(--ink);stroke-width:1.4;fill:none;vector-effect:non-scaling-stroke}
+.hos .hthin{stroke:var(--ink);opacity:.22;stroke-width:1;fill:none;vector-effect:non-scaling-stroke}
+.hos .hfill{fill:color-mix(in srgb,var(--ink) 14%,transparent)}
+.hos .hgold{fill:color-mix(in srgb,var(--gold) 55%,var(--paper))}
+.hos text{font-family:var(--mono);fill:var(--ink-soft);letter-spacing:.12em}
+.hos .hlbl{fill:var(--gold-deep)}
+
+/* ============ VERIFY ============ */
+.verify-main{grid-column:span 7;display:flex;flex-direction:column;gap:26px}
+.vsteps{display:flex;flex-direction:column}
+.vstep{display:grid;grid-template-columns:56px 1fr;gap:18px;padding:18px 0;border-bottom:1px solid color-mix(in srgb,var(--paper) 22%,transparent);align-items:baseline}
+.vstep:last-child{border-bottom:0}
+.vstep .n{font:500 12px var(--mono);letter-spacing:.14em;color:var(--gold)}
+.vstep .t{font-size:15px;color:color-mix(in srgb,var(--paper) 88%,var(--deep))}
+.vstep .t b{font-family:var(--mono);font-weight:500;font-size:13px;letter-spacing:.06em}
+.verify-side{grid-column:span 5;display:flex;flex-direction:column;gap:22px;justify-content:space-between;align-items:flex-start}
+.verify-side h3{font-size:clamp(1.3rem,2.1vw,1.7rem)}
+
+/* ============ GOLD DIRECT LINE ============ */
+.dline{grid-column:span 12;display:flex;justify-content:space-between;align-items:center;gap:26px;flex-wrap:wrap}
+.dline h2{font-size:clamp(1.6rem,3vw,2.5rem);max-width:22ch}
+.dline .lede{font-size:14.5px;color:color-mix(in srgb,var(--ink) 82%,var(--gold));margin-top:12px;max-width:48ch}
+.dline .acts{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+
+/* ============ CHAPTER INDEX ============ */
+.chapters-p{grid-column:span 12}
+.chap-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 calc(var(--pad)*1.5);margin-top:6px}
+.chap-row{display:flex;align-items:baseline;gap:18px;padding:15px 0;border-bottom:1px solid var(--line);text-decoration:none;position:relative}
+.chap-grid a.chap-row:hover .chap-t,.chap-grid a.chap-row:focus-visible .chap-t{color:var(--gold-deep)}
+.chap-grid a.chap-row:hover .chap-ar{transform:translateX(4px);opacity:1}
+.chap-no{font:500 10px var(--mono);letter-spacing:.16em;color:var(--ink-faint);flex:none;width:52px}
+.chap-t{font:600 16px/1.25 var(--sans);letter-spacing:-.01em;transition:color .15s var(--ease)}
+.chap-ar{margin-left:auto;font:500 12px var(--mono);opacity:.4;transition:transform .2s var(--ease),opacity .2s var(--ease)}
+.chap-row[aria-current] .chap-t,.chap-row[aria-current] .chap-no{color:var(--gold-deep)}
+.chap-here{margin-left:auto;font:500 9px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep);border:1px solid color-mix(in srgb,var(--gold-deep) 55%,transparent);padding:4px 8px}
+.chap-fast{display:flex;flex-wrap:wrap;gap:10px 26px;align-items:baseline;margin-top:26px;border-top:1px solid var(--ink);padding-top:18px}
+.chap-fast .k{font:400 9px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint)}
+.chap-fast a{font:500 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:var(--ink-soft)}
+.chap-fast a:hover,.chap-fast a:focus-visible{color:var(--gold-deep)}
+.chap-next{grid-column:span 12;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+.chap-next .nx{font:600 clamp(1.2rem,2vw,1.6rem) var(--sans);letter-spacing:-.015em;text-decoration:none;display:inline-flex;align-items:center;gap:14px}
+.chap-next .nx:hover,.chap-next .nx:focus-visible{color:var(--gold)}
+
+/* ============ FOOTER ============ */
+.f-brand{grid-column:span 5;display:flex;flex-direction:column;gap:18px}
+.f-lion{height:92px;width:92px;margin-bottom:2px}
+.f-brand .biglock{font:800 clamp(2rem,4vw,3rem)/1 var(--sans);letter-spacing:.01em}
+.f-brand .tag{font:500 10.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:color-mix(in srgb,var(--paper) 66%,var(--ink))}
+.f-contact{grid-column:span 4;display:flex;flex-direction:column;gap:12px}
+.f-auth{grid-column:span 3;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.f-k{font:400 9px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:color-mix(in srgb,var(--paper) 55%,var(--ink))}
+.f-contact a{font:500 15px var(--mono);letter-spacing:.05em;text-decoration:none}
+.f-contact a:hover,.f-contact a:focus-visible{color:var(--gold)}
+.f-contact .adr{font-size:13.5px;color:color-mix(in srgb,var(--paper) 78%,var(--ink));max-width:34ch}
+.f-bottom{
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:center;
+  border-top:1px solid color-mix(in srgb,var(--paper) 18%,transparent);margin-top:38px;padding-top:20px;
+}
+.f-bottom nav{display:flex;flex-wrap:wrap;gap:20px}
+.f-bottom a{font:500 10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:color-mix(in srgb,var(--paper) 72%,var(--ink))}
+.f-bottom a:hover,.f-bottom a:focus-visible{color:var(--gold)}
+.f-bottom .fine{font:400 10px var(--mono);letter-spacing:.1em;color:color-mix(in srgb,var(--paper) 55%,var(--ink));text-transform:uppercase}
+
+/* ============ MOTION ============ */
+.js .rv{opacity:0;transform:translateY(14px)}
+.js .rv.in{opacity:1;transform:none;transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:calc(var(--i,0)*80ms)}
+.js .rv-st{opacity:0}
+.js .rv-st.in{animation:stampin .34s cubic-bezier(.2,1.4,.4,1) both;animation-delay:calc(var(--i,0)*110ms)}
+@keyframes stampin{0%{opacity:0;transform:scale(1.05)}55%{opacity:1}100%{opacity:1;transform:scale(1)}}
+.js .hos .dr{stroke-dasharray:1;stroke-dashoffset:1}
+.js .hos.in .dr{animation:drw 1s var(--ease) forwards;animation-delay:calc(var(--d,0)*.1s)}
+@keyframes drw{to{stroke-dashoffset:0}}
+.js .hos text,.js .hos .hgold,.js .hos .hfill{opacity:0}
+.js .hos.in text,.js .hos.in .hgold,.js .hos.in .hfill{opacity:1;transition:opacity .6s ease .8s}
+@media (prefers-reduced-motion:reduce){
+  .js .rv,.js .rv-st{opacity:1;transform:none;animation:none;transition:none}
+  .js .hos .dr{stroke-dasharray:none;stroke-dashoffset:0;animation:none}
+  .js .hos text,.js .hos .hgold,.js .hos .hfill{opacity:1;transition:none}
+  .btn .ar{transition:none}
+  .chap-ar{transition:none}
+  .ruler{display:none}
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:1100px){
+  .rhero{grid-template-columns:1fr;align-items:start;min-height:0}
+  .verify-main{grid-column:span 12}
+  .verify-side{grid-column:span 12}
+  .f-brand,.f-contact,.f-auth{grid-column:span 12}
+}
+@media (max-width:900px){
+  .nav-links{display:none}
+  .burger{display:inline-block}
+  .prog{display:none}
+  .chap-grid{grid-template-columns:1fr}
+  .std{grid-column:span 12;min-height:0}
+}
+@media (max-width:640px){
+  :root{--pad:20px}
+  .lock .l1 span{display:none}
+  .lock .l2{display:none}
+  .nav-cta{padding:11px 12px;font-size:11px;gap:8px}
+  .nav-right{gap:8px}
+  .topbar{gap:10px}
+  .rhero .h1{font-size:clamp(2.1rem,9.5vw,2.9rem)}
+  .chap-no{width:44px}
+  .vstep{grid-template-columns:44px 1fr}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="ruler" aria-hidden="true"><i id="rulerFill"></i></div>
+
+<div class="sheet">
+
+  <!-- ============ NAV ============ -->
+  <header class="topbar">
+    <a class="lock" href="../a/" aria-label="KUL Enterprises LLC — home">
+      <span class="lock-mark"><img src="/assets/brand/lion-clean.png" alt="" width="30" height="30"></span>
+      <span class="lock-txt">
+        <span class="l1"><b>KUL</b><span>— ENTERPRISES LLC</span></span>
+        <span class="l2">Safety &amp; compliance · KUL-SS-05</span>
+      </span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#register">Register</a>
+      <a href="#standards">Standards</a>
+      <a href="#verify">Verify us</a>
+      <a href="#chapters">Chapters</a>
+      <a href="../forward/#contact">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <span class="prog" id="prog" aria-hidden="true">SHT 000%</span>
+      <a class="btn nav-cta" href="../forward/">Request a Quote <span class="ar">↘</span></a>
+      <button class="burger bkt" id="burger" aria-expanded="false" aria-controls="menu">Index</button>
+    </div>
+  </header>
+
+  <!-- menu overlay — chapter index -->
+  <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Sheet index" hidden>
+    <div class="menu-head">
+      <span class="mono">KUL-SS document set · Index</span>
+      <button class="bkt" id="menuClose">Close</button>
+    </div>
+    <div class="menu-cols">
+      <nav class="chapters" aria-label="Chapters">
+        <a href="../a/">The Beginning <small>SS-01</small></a>
+        <a href="../journey/">The Journey <small>SS-02</small></a>
+        <a href="../story/">Why I Started Driving <small>SS-03</small></a>
+        <a href="../mission/">The Mission <small>SS-04</small></a>
+        <span class="cur" aria-current="page">The Responsibility <small>SS-05 · here</small></span>
+        <a href="../join/">Join the Journey <small>SS-06</small></a>
+        <a href="../forward/">Let's Move Forward <small>SS-07</small></a>
+        <a href="../road-ahead/">The Road Ahead <small>SS-08</small></a>
+      </nav>
+      <nav class="menu-fast" aria-label="Business shortcuts">
+        <span class="f-k">Fast path —</span>
+        <a href="../mission/">Services</a>
+        <a href="../responsibility/" aria-current="page">Safety</a>
+        <a href="../forward/">Request a Quote</a>
+        <a href="../forward/#contact">Contact</a>
+      </nav>
+    </div>
+    <div class="menu-foot on-ink">
+      <span class="stamp">USDOT 7638788</span>
+      <span class="stamp">MC 66389691</span>
+      <span class="stamp">24/7 — 678-972-1148</span>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <!-- ============ HERO — the nameplate ============ -->
+    <section aria-labelledby="h-hero">
+      <div class="g">
+        <div class="p p-ink rhero rv">
+          <div>
+            <p class="ref"><span class="sq"></span><b>KUL-SS-05 — The Responsibility · Safety &amp; compliance</b></p>
+            <h1 class="h1" id="h-hero">Safety is the responsibility we accept.</h1>
+            <p class="rhero-lede">Not a slogan on the trailer door. A set of written standards the company holds itself to — most of them checkable on public record, all of them in force before the first mile of every run.</p>
+          </div>
+          <div class="rhero-side">
+            <div class="plate on-ink">
+              <span class="f-k">Operating authority — public record</span>
+              <div class="plate-row">
+                <span class="big-stamp rv-st" style="--i:1">USDOT 7638788</span>
+                <span class="big-stamp rv-st" style="--i:2">MC 66389691</span>
+              </div>
+              <div class="plate-row">
+                <span class="stamp rv-st" style="--i:3">Licensed &amp; Insured</span>
+                <span class="stamp rv-st" style="--i:4">Loganville, GA</span>
+              </div>
+            </div>
+            <p>These two numbers are the company's signature. Enter either into FMCSA SAFER and compare what the record says with what this page says. It will match.</p>
+          </div>
+          <div class="rhero-foot">
+            <span class="mono">Every standard below is written, logged, and held</span>
+            <a class="bkt" href="#register">Read the register ↓</a>
+          </div>
+          <span class="reg tl" aria-hidden="true"></span>
+          <span class="reg br" aria-hidden="true"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ §01 COMPLIANCE REGISTER ============ -->
+    <section id="register" aria-labelledby="h-register">
+      <div class="g">
+        <div class="p reg-main rv">
+          <p class="ref"><span class="sq"></span><b>§01 — Compliance register</b></p>
+          <h2 class="h2" id="h-register">On the record.</h2>
+          <p style="color:var(--ink-soft);margin-top:14px;margin-bottom:30px">What we're bound to, how we hold it, and how you can check it.</p>
+          <div class="tolwrap">
+            <table class="tol">
+              <thead><tr><th scope="col">Obligation</th><th scope="col">How it's held</th><th scope="col">Verification</th></tr></thead>
+              <tbody>
+                <tr class="rv" style="--i:1"><td class="pm">Operating authority</td><td class="sd">USDOT 7638788 · MC 66389691 — active and in good standing.</td><td class="vf">Public record · FMCSA SAFER</td></tr>
+                <tr class="rv" style="--i:2"><td class="pm">Insurance</td><td class="sd">Licensed and insured as a for-hire motor carrier. Current documentation furnished to brokers and shippers on request.</td><td class="vf">Certificate on request</td></tr>
+                <tr class="rv" style="--i:3"><td class="pm">Driver hours</td><td class="sd">FMCSA Part 395 hours-of-service — followed as written, no exceptions, no paper games.</td><td class="vf">ELD-logged · audit-ready</td></tr>
+                <tr class="rv" style="--i:4"><td class="pm">Equipment condition</td><td class="sd">Pre-trip and post-trip inspection on every run; defects fixed before the truck rolls again.</td><td class="vf">Written DVIR on file</td></tr>
+                <tr class="rv" style="--i:5"><td class="pm">Road record</td><td class="sd">Forward-facing dashcam, always on, every mile.</td><td class="vf">Footage retained</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <span class="reg tr" aria-hidden="true"></span>
+          <span class="reg bl" aria-hidden="true"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ §02 THE FOUR DISCIPLINES ============ -->
+    <section id="standards" aria-labelledby="h-standards">
+      <div class="g">
+        <div class="p sec-head rv">
+          <div>
+            <p class="ref"><span class="sq"></span><b>§02 — Written standards</b></p>
+            <h2 class="h2" id="h-standards">Four disciplines,<br>held daily.</h2>
+            <p>Compliance is the floor, not the ceiling. These are the standards we keep because the freight — and the people around the truck — deserve them.</p>
+          </div>
+          <span class="reg bl" aria-hidden="true"></span>
+        </div>
+
+        <article class="p std rv">
+          <div class="idx"><b>D-01 — Maintenance</b><svg class="ic" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M14.5 6.5a4 4 0 0 0-5.6 4.9L3 17.3V21h3.7l5.9-5.9a4 4 0 0 0 4.9-5.6l-2.6 2.6-2.4-.6-.6-2.4z"/></svg></div>
+          <h3>Fix it before it fails.</h3>
+          <p>Maintenance here is scheduled, not deferred. The truck is inspected before and after every run, and anything found gets corrected before the next load — because a deadline is never worth a defect on the road. A machine that is cared for is the first safety device on the vehicle.</p>
+          <span class="foot">Pre-trip + post-trip · defects corrected first</span>
+          <span class="reg tl" aria-hidden="true"></span>
+        </article>
+
+        <article class="p p-deep std std-deep rv" style="--i:1">
+          <div class="idx"><b>D-02 — Hours</b><svg class="ic" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2.5"/></svg></div>
+          <h3>The clock is a safety device.</h3>
+          <p>Hours-of-service rules exist because tired drivers hurt people. We treat the limits as a design constraint, not an obstacle: routes are planned around legal rest from the start, so no load ever depends on a driver pushing past the clock. If the ETA and the rules conflict, the ETA moves.</p>
+          <span class="foot">Planned around rest · never against it</span>
+        </article>
+
+        <article class="p p-deep std std-deep rv" style="--i:1">
+          <div class="idx"><b>D-03 — Communication</b><svg class="ic" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          <h3>Reachable, around the clock.</h3>
+          <p>A safety culture you can't reach isn't one you can trust. Dispatch answers 24/7 — pickup, transit, delivery, or two in the morning when something changes. Status updates go out before you think to ask, and if there's a problem, you hear it from us first, with the plan attached.</p>
+          <span class="foot">24/7 — 678-972-1148 · a person answers</span>
+        </article>
+
+        <article class="p std rv" style="--i:2">
+          <div class="idx"><b>D-04 — Cargo</b><svg class="ic" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><path d="M8.5 12l2.5 2.5 4.5-4.5"/></svg></div>
+          <h3>Your freight, our name.</h3>
+          <p>From the moment the doors close, the load is our responsibility — sealed and documented at pickup, secured to standard, photographed at both ends of the run, and handed back with the paperwork matching the freight. We carry it the way we'd want our own carried.</p>
+          <span class="foot">Sealed · secured · documented · delivered</span>
+          <span class="reg br" aria-hidden="true"></span>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ §03 HOS FIGURE ============ -->
+    <section aria-labelledby="h-hos">
+      <div class="g">
+        <figure class="p p-2 hos rv" id="fig03">
+          <figcaption class="fig-head">
+            <span class="bkt" id="h-hos">Fig. 03 — Federal duty cycle, respected</span>
+            <span class="mono" style="color:var(--ink-faint)">49 CFR Part 395 · property-carrying limits</span>
+          </figcaption>
+          <div class="hoswrap">
+          <svg viewBox="0 0 1200 250" role="img" aria-label="Diagram of the federal hours-of-service duty cycle for property-carrying drivers: a maximum 14-hour on-duty window containing at most 11 hours of driving, followed by a minimum 10 consecutive hours off duty. KUL plans every route inside these limits.">
+            <!-- baseline -->
+            <line class="hst dr" style="--d:0" pathLength="1" x1="40" y1="150" x2="1160" y2="150"/>
+            <!-- 24 hour ticks -->
+            <path class="hthin" d="M40 150v10M86.7 150v8M133.3 150v8M180 150v10M226.7 150v8M273.3 150v8M320 150v10M366.7 150v8M413.3 150v8M460 150v10M506.7 150v8M553.3 150v8M600 150v10M646.7 150v8M693.3 150v8M740 150v10M786.7 150v8M833.3 150v8M880 150v10M926.7 150v8M973.3 150v8M1020 150v10M1066.7 150v8M1113.3 150v8M1160 150v10"/>
+            <text x="40" y="176" font-size="9" text-anchor="middle">0H</text>
+            <text x="320" y="176" font-size="9" text-anchor="middle">6H</text>
+            <text x="600" y="176" font-size="9" text-anchor="middle">12H</text>
+            <text x="880" y="176" font-size="9" text-anchor="middle">18H</text>
+            <text x="1160" y="176" font-size="9" text-anchor="middle">24H</text>
+            <!-- 14h window -->
+            <rect class="hfill" x="40" y="96" width="653.3" height="54"/>
+            <rect class="hst dr" style="--d:1" pathLength="1" x="40" y="96" width="653.3" height="54" fill="none"/>
+            <text x="366" y="86" text-anchor="middle" font-size="10">ON-DUTY WINDOW — 14 H MAXIMUM</text>
+            <!-- 11h driving inside -->
+            <rect class="hgold" x="40" y="108" width="513.3" height="42"/>
+            <rect class="hst dr" style="--d:2" pathLength="1" x="40" y="108" width="513.3" height="42" fill="none"/>
+            <text x="296" y="133" text-anchor="middle" font-size="10" style="fill:var(--ink)">DRIVING — 11 H MAXIMUM</text>
+            <!-- 10h off -->
+            <rect class="hst dr" style="--d:3" pathLength="1" x="693.3" y="96" width="466.7" height="54" fill="none" stroke-dasharray="3 6"/>
+            <text x="926" y="133" text-anchor="middle" font-size="10">OFF DUTY — 10 H CONSECUTIVE MINIMUM</text>
+            <!-- annotations -->
+            <text class="hlbl" x="40" y="34" font-size="11" font-weight="500">THE LIMIT IS THE DESIGN CONSTRAINT — ROUTES ARE PLANNED INSIDE IT, NEVER AROUND IT</text>
+            <text x="40" y="52" font-size="9" opacity=".7">LOGGED BY ELD ON EVERY RUN · AUDIT-READY · NO EXCEPTIONS</text>
+            <text x="40" y="222" font-size="8" opacity=".62">REFERENCE: FMCSA HOURS-OF-SERVICE, PROPERTY-CARRYING DRIVERS. DRAWN FOR EXPLANATION, NOT AS LEGAL SUMMARY.</text>
+          </svg>
+          </div>
+          <span class="reg tl" aria-hidden="true"></span>
+          <span class="reg br" aria-hidden="true"></span>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ §04 VERIFY ============ -->
+    <section id="verify" aria-labelledby="h-verify">
+      <div class="g">
+        <div class="p p-deep verify-main rv">
+          <div>
+            <p class="ref"><span class="sq"></span><b>§04 — Verification</b></p>
+            <h2 class="h2" id="h-verify">Check us before you trust us.</h2>
+          </div>
+          <div class="vsteps">
+            <div class="vstep rv" style="--i:1"><span class="n">01</span><span class="t">Open the FMCSA SAFER company snapshot — the federal public record for every motor carrier.</span></div>
+            <div class="vstep rv" style="--i:2"><span class="n">02</span><span class="t">Search by USDOT number: <b>7638788</b> — or by docket: <b>MC 66389691</b>.</span></div>
+            <div class="vstep rv" style="--i:3"><span class="n">03</span><span class="t">Compare the record to this sheet: KUL Enterprises LLC, Loganville, Georgia. It will read the same — that consistency is the product.</span></div>
+          </div>
+          <span class="reg tr" aria-hidden="true"></span>
+        </div>
+        <aside class="p verify-side rv" style="--i:1">
+          <div>
+            <p class="ref"><span class="sq"></span><b>Why we lead with this</b></p>
+            <h3>A carrier you can audit is a carrier you can book.</h3>
+          </div>
+          <p style="color:var(--ink-soft);font-size:13.5px">Anyone can write the word "safety" on a website. Public numbers, logged hours, and filed inspection reports are harder to fake — so that's what we put forward. If anything here doesn't check out, call and tell us. We'll want to know more than you do.</p>
+          <span class="stamp">Checkable — by design</span>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ §05 GOLD DIRECT LINE ============ -->
+    <section aria-labelledby="h-dline">
+      <div class="g">
+        <div class="p p-gold dline rv">
+          <div>
+            <p class="ref"><span class="sq" style="background:var(--ink)"></span><b style="color:color-mix(in srgb,var(--ink) 78%,var(--gold))">§05 — Direct line</b></p>
+            <h2 id="h-dline">Safety questions get answered by the person responsible.</h2>
+            <p class="lede">No press office, no runaround. Call dispatch and ask anything on this sheet.</p>
+          </div>
+          <div class="acts">
+            <a class="btn btn-ink" href="tel:+16789721148">Call 678-972-1148 <span class="ar">↘</span></a>
+            <a class="bkt" href="mailto:dispatch@kulenterprises.com?subject=Safety%20%26%20compliance%20question">Email a question</a>
+          </div>
+          <span class="reg tl" aria-hidden="true"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CHAPTER INDEX ============ -->
+    <section id="chapters" aria-labelledby="h-chapters">
+      <div class="g">
+        <div class="p chapters-p rv">
+          <p class="ref"><span class="sq"></span><b>Index — The document set</b></p>
+          <h2 class="h2" id="h-chapters">Eight sheets, one record.</h2>
+          <p style="color:var(--ink-soft);margin-top:14px;margin-bottom:26px">This is sheet five — the obligations. The rest of the set holds where the company started, what it runs, and where it's headed.</p>
+          <nav aria-label="Chapters">
+            <div class="chap-grid">
+              <a class="chap-row" href="../a/"><span class="chap-no">SS-01</span><span class="chap-t">The Beginning</span><span class="chap-ar" aria-hidden="true">↗</span></a>
+              <a class="chap-row" href="../journey/"><span class="chap-no">SS-02</span><span class="chap-t">The Journey</span><span class="chap-ar" aria-hidden="true">↗</span></a>
+              <a class="chap-row" href="../story/"><span class="chap-no">SS-03</span><span class="chap-t">Why I Started Driving</span><span class="chap-ar" aria-hidden="true">↗</span></a>
+              <a class="chap-row" href="../mission/"><span class="chap-no">SS-04</span><span class="chap-t">The Mission</span><span class="chap-ar" aria-hidden="true">↗</span></a>
+              <span class="chap-row" aria-current="page"><span class="chap-no">SS-05</span><span class="chap-t">The Responsibility</span><span class="chap-here">You are here</span></span>
+              <a class="chap-row" href="../join/"><span class="chap-no">SS-06</span><span class="chap-t">Join the Journey</span><span class="chap-ar" aria-hidden="true">↗</span></a>
+              <a class="chap-row" href="../forward/"><span class="chap-no">SS-07</span><span class="chap-t">Let's Move Forward</span><span class="chap-ar" aria-hidden="true">↗</span></a>
+              <a class="chap-row" href="../road-ahead/"><span class="chap-no">SS-08</span><span class="chap-t">The Road Ahead</span><span class="chap-ar" aria-hidden="true">↗</span></a>
+            </div>
+          </nav>
+          <nav class="chap-fast" aria-label="Business shortcuts">
+            <span class="k">Fast path —</span>
+            <a href="../mission/">Services</a>
+            <a href="../responsibility/" aria-current="page">Safety</a>
+            <a href="../forward/">Request a Quote</a>
+            <a href="../forward/#contact">Contact</a>
+          </nav>
+          <span class="reg tl" aria-hidden="true"></span>
+          <span class="reg br" aria-hidden="true"></span>
+        </div>
+        <div class="p p-deep chap-next rv" style="--i:1">
+          <span class="mono" style="color:color-mix(in srgb,var(--paper) 70%,var(--deep))">Continue the record — SS-06</span>
+          <a class="nx" href="../join/">Join the Journey <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer aria-label="Contact">
+    <div class="p p-ink">
+      <div class="g">
+        <div class="f-brand">
+          <img class="f-lion" src="/assets/brand/lion-clean.png" alt="KUL Enterprises lion mark" width="92" height="92">
+          <span class="biglock">KUL<span style="color:var(--gold)">.</span></span>
+          <span class="tag">Strength in Motion. Built on Integrity. Driven by Safety.</span>
+        </div>
+        <div class="f-contact">
+          <span class="f-k">Dispatch — 24/7</span>
+          <a href="tel:+16789721148">678-972-1148</a>
+          <a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a>
+          <span class="adr">KUL Enterprises LLC · Loganville, Georgia · Nationwide service</span>
+        </div>
+        <div class="f-auth on-ink">
+          <span class="f-k">Authority</span>
+          <span class="stamp">USDOT 7638788</span>
+          <span class="stamp">MC 66389691</span>
+          <span class="stamp">Licensed &amp; Insured</span>
+        </div>
+      </div>
+      <div class="f-bottom">
+        <nav aria-label="Business shortcuts — footer">
+          <a href="../mission/">Services</a>
+          <a href="../responsibility/" aria-current="page">Safety</a>
+          <a href="../forward/">Request a Quote</a>
+          <a href="../forward/#contact">Contact</a>
+        </nav>
+        <span class="fine">© 2026 KUL Enterprises LLC · End of sheet — KUL-SS-05 · Rev 2026-07-26</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+/* ---- tweaks contract: values match locked snapshot ---- */
+window.KUL_TWEAKS = {
+  style: "s06a",
+  controls: [
+    { var: "--gold",          label: "KUL gold",                           type: "color", value: "#D4AF37" },
+    { var: "--gray-hue",      label: "Gray temperature (warm→cool)",       type: "range", value: 205, min: 20,  max: 220, step: 5 },
+    { var: "--seam",          label: "Seam visibility",                    type: "range", value: 1,   min: 0,   max: 8,   step: 1, unit: "px" },
+    { var: "--gold-freq",     label: "Gold-block frequency",               type: "range", value: 100, min: 0,   max: 100, step: 5 },
+    { var: "--bracket-style", label: "Brackets · 0 none 1 corner 2 frame", type: "range", value: 1,   min: 0,   max: 2,   step: 1 },
+    { var: "--stamp-style",   label: "Stamps · 0 flat 1 boxed 2 plate",    type: "range", value: 1,   min: 0,   max: 2,   step: 1 },
+    { var: "--pad",           label: "Panel padding (density)",            type: "range", value: 32,  min: 16,  max: 48,  step: 2, unit: "px" }
+  ]
+};
+
+(function () {
+  "use strict";
+  var RM = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---- progress ruler + sheet readout ---- */
+  var fill = document.getElementById("rulerFill");
+  var prog = document.getElementById("prog");
+  var ticking = false;
+  function paint() {
+    ticking = false;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var p = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+    if (fill) fill.style.transform = "scaleX(" + p.toFixed(4) + ")";
+    if (prog) prog.textContent = "SHT " + String(Math.round(p * 100)).padStart(3, "0") + "%";
+  }
+  window.addEventListener("scroll", function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(paint); }
+  }, { passive: true });
+  paint();
+
+  /* ---- reveals ---- */
+  var toReveal = document.querySelectorAll(".rv, .rv-st, .hos");
+  if ("IntersectionObserver" in window && !RM) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.18, rootMargin: "0px 0px -6% 0px" });
+    toReveal.forEach(function (el) { io.observe(el); });
+  } else {
+    toReveal.forEach(function (el) { el.classList.add("in"); });
+  }
+
+  /* ---- menu overlay: chapter index with focus trap ---- */
+  var burger = document.getElementById("burger");
+  var menu = document.getElementById("menu");
+  var closeBtn = document.getElementById("menuClose");
+  function focusables() {
+    return menu ? menu.querySelectorAll("a[href], button") : [];
+  }
+  function setMenu(open) {
+    if (!menu || !burger) return;
+    menu.hidden = !open;
+    burger.setAttribute("aria-expanded", String(open));
+    document.body.style.overflow = open ? "hidden" : "";
+    if (open) {
+      var first = focusables()[0];
+      if (first) first.focus();
+    } else {
+      burger.focus();
+    }
+  }
+  if (burger) burger.addEventListener("click", function () { setMenu(menu.hidden); });
+  if (closeBtn) closeBtn.addEventListener("click", function () { setMenu(false); });
+  if (menu) {
+    menu.addEventListener("click", function (e) {
+      if (e.target.closest("a")) setMenu(false);
+    });
+    window.addEventListener("keydown", function (e) {
+      if (menu.hidden) return;
+      if (e.key === "Escape") { setMenu(false); return; }
+      if (e.key === "Tab") {
+        var f = focusables();
+        if (!f.length) return;
+        var first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+  }
+})();
+</script>
+<script src="/tweaks.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,821 @@
+<!doctype html>
+<html lang="en">
+<!--
+DIRECTION CONTRACT — s02a chapter "Why I Started Driving" (The Founder's File)
+Marquee Editorial system, chapter treatment: a magazine LONGFORM FEATURE.
+Distinct move on this page: the story is set as eight numbered folios (I–VIII),
+each a spread of verbatim script lines with generous silence between them —
+the screenplay's pauses become white space. Missing archive photographs are
+honored with reserved plates (hairline frames, "( )" indexes), never faked.
+A fixed folio rail on the left tracks the reader's mile through the story.
+Temperature: documentary-intimate, quiet respect. No stats, no selling.
+-->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why I Started Driving — The Founder's Story | KUL Enterprises LLC</title>
+<meta name="description" content="From Jamaica in 1988 to eleven years behind the wheel — the founder's story, told in chapters. Every mile taught a lesson. Every lesson helped build KUL Enterprises.">
+<meta name="theme-color" content="#101010">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23101010'/%3E%3Ctext x='32' y='46' font-family='Arial Black,Arial' font-size='38' font-weight='900' fill='%23D4AF37' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ================= TOKENS (snapshot bake) ================= */
+:root{
+  --marquee-size:9vw;
+  --duo-tint:#ae8f28;
+  --duo-dose:66%;
+  --idx-ink:#D4AF37;
+  --hairline-w:1px;
+  --track:0.25em;
+  --gold:#D4AF37;
+  --marquee-play:running;
+  /* fixed world */
+  --paper:#F2EFE9;
+  --ink:#141414;
+  --char:#101010;
+  --char-2:#0B0B0B;
+  --gray:#565656;
+  --line:rgba(20,20,20,.22);
+  --line-soft:rgba(20,20,20,.12);
+  --mx:clamp(20px,4.8vw,76px);
+  --sec:clamp(4.5rem,9vw,8.25rem);
+  --ff-d:"Anton",Impact,sans-serif;
+  --ff-b:"Archivo",Helvetica,Arial,sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+.dark{--line:rgba(242,239,233,.22);--line-soft:rgba(242,239,233,.12)}
+
+/* ================= RESET / BASE ================= */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font:400 15.5px/1.66 var(--ff-b);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:clip}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+ul,ol{list-style:none}
+button{font:inherit;background:none;border:0;color:inherit;cursor:pointer}
+::selection{background:var(--gold);color:var(--char)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:fixed;top:-100%;left:var(--mx);z-index:200;background:var(--gold);color:var(--char);
+  padding:.7rem 1.1rem;font:600 12px/1 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase;transition:top .2s}
+.skip:focus{top:0}
+
+/* ================= TYPE UTILITIES ================= */
+.micro{font:500 11px/1.5 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase}
+.micro .ix{color:var(--idx-ink)}
+.ch .micro .ix,.years .micro .ix{color:color-mix(in srgb,var(--idx-ink) 60%,#141400)}
+.dark-ch .micro .ix{color:var(--idx-ink)}
+.d-m,.d-s{font-family:var(--ff-d);font-weight:400;text-transform:uppercase;line-height:.96;letter-spacing:.01em}
+.d-m{font-size:clamp(2.5rem,5.2vw,4.7rem)}
+.d-s{font-size:clamp(1.55rem,2.7vw,2.7rem)}
+.kick{display:flex;justify-content:space-between;align-items:baseline;gap:1.2rem;
+  border-block-start:var(--hairline-w) solid var(--line);padding-block-start:.85rem}
+.kick .note{color:var(--gray);text-align:right}
+.dark .kick .note{color:rgba(242,239,233,.6)}
+
+/* ================= REVEALS ================= */
+.js .r{opacity:0;transform:translateY(16px);
+  transition:opacity .6s var(--ease),transform .7s var(--ease);transition-delay:var(--d,0s)}
+.js .r.in{opacity:1;transform:none}
+.js .r-clip{clip-path:inset(0 100% 0 0);transition:clip-path 1s var(--ease);transition-delay:var(--d,0s)}
+.js .r-clip.in{clip-path:inset(0 0 0 0)}
+.js .r-clip img{transform:scale(1.055);transition:transform 1.35s var(--ease)}
+.js .r-clip.in img{transform:scale(1)}
+
+/* ================= MASTHEAD ================= */
+.masthead{position:sticky;top:0;z-index:100;background:var(--char);color:var(--paper);
+  border-block-end:var(--hairline-w) solid rgba(242,239,233,.22)}
+.masthead .bar{display:flex;align-items:center;gap:1.5rem;padding:.8rem var(--mx)}
+.brand{display:flex;align-items:baseline;gap:.6rem;flex:none}
+.brand-mark{height:30px;width:auto;flex:none;align-self:center;margin-inline-end:.15rem}
+.brand b{font:400 1.5rem/1 var(--ff-d);letter-spacing:.03em}
+.brand span{font:500 9.5px/1.2 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase;color:rgba(242,239,233,.62)}
+.mast-nav{display:flex;gap:clamp(1rem,2.4vw,2.2rem);margin-inline:auto}
+.mast-nav a{font:500 11px/1 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase;
+  color:rgba(242,239,233,.78);padding:.4rem 0;position:relative}
+.mast-nav a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;
+  background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .25s var(--ease)}
+.mast-nav a:hover{color:var(--paper)}
+.mast-nav a:hover::after{transform:scaleX(1)}
+.mast-cta{flex:none;margin-left:auto;display:flex;align-items:center;gap:.6rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55em;
+  font:600 11.5px/1 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase;
+  padding:.95em 1.6em;border:var(--hairline-w) solid transparent;transition:background .2s,color .2s,border-color .2s}
+.btn-gold{background:var(--gold);color:var(--char)}
+.btn-gold:hover{background:var(--paper);color:var(--char)}
+.btn-line{border-color:rgba(242,239,233,.42);color:var(--paper)}
+.btn-line:hover{border-color:var(--gold);color:var(--gold)}
+.btn .ar{font-family:var(--ff-b);font-weight:600}
+.mast-cta .btn{padding:.8em 1.25em}
+.mast-cta .long{display:inline}
+.mast-cta .short{display:none}
+.menu-btn{display:none;font:600 11px/1 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase;
+  padding:.8em .2em;color:rgba(242,239,233,.85)}
+.menu-btn:hover{color:var(--gold)}
+
+/* chapter ribbon */
+.chapters{background:var(--char-2);color:var(--paper);border-block-end:var(--hairline-w) solid rgba(242,239,233,.14)}
+.chapters ol{display:flex;gap:1.9rem;padding:.62rem var(--mx);overflow-x:auto;scrollbar-width:none;white-space:nowrap}
+.chapters ol::-webkit-scrollbar{display:none}
+.chapters li{flex:none}
+.chapters a,.chapters .cur{font:500 10.5px/1 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase;
+  color:rgba(242,239,233,.6);display:inline-flex;gap:.55em;align-items:baseline;padding-block:.2rem}
+.chapters i{font-style:normal;color:color-mix(in srgb,var(--idx-ink) 66%,#565024)}
+.chapters a:hover{color:var(--paper)}
+.chapters a:hover i{color:var(--idx-ink)}
+.chapters .cur{color:var(--gold)}
+.chapters .cur i{color:var(--gold)}
+
+/* mobile menu */
+.menu{position:fixed;inset:0;z-index:150;background:var(--char-2);color:var(--paper);
+  display:flex;flex-direction:column;padding:1rem var(--mx) 2rem;overflow-y:auto;
+  opacity:0;visibility:hidden;transition:opacity .3s var(--ease),visibility 0s .3s}
+.menu-open .menu{opacity:1;visibility:visible;transition:opacity .3s var(--ease)}
+.menu-top{display:flex;justify-content:space-between;align-items:center;padding-block:.35rem 1.4rem;
+  border-block-end:var(--hairline-w) solid rgba(242,239,233,.22)}
+.menu-close{font-size:1.5rem;line-height:1;padding:.4rem;color:rgba(242,239,233,.8)}
+.menu-close:hover{color:var(--gold)}
+.menu-list{margin-block:auto;display:grid;gap:.1rem;padding-block:1.2rem}
+.menu-list a,.menu-list .cur{display:flex;align-items:baseline;gap:1rem;padding:.42rem 0;
+  font:400 clamp(1.5rem,6.4vw,2.3rem)/1 var(--ff-d);text-transform:uppercase;letter-spacing:.02em}
+.menu-list i{font:500 11px/1 var(--ff-b);font-style:normal;letter-spacing:var(--track);color:var(--idx-ink)}
+.menu-list a:hover{color:var(--gold)}
+.menu-list .cur{color:var(--gold)}
+.menu-biz{display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;padding-block:1rem;
+  border-block-start:var(--hairline-w) solid rgba(242,239,233,.22)}
+.menu-biz a{font:500 11px/1.6 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase;color:rgba(242,239,233,.78)}
+.menu-biz a:hover{color:var(--gold)}
+.menu-foot{display:grid;gap:.45rem;border-block-start:var(--hairline-w) solid rgba(242,239,233,.22);padding-block-start:1.2rem;
+  color:rgba(242,239,233,.66)}
+.menu-foot a:hover{color:var(--gold)}
+body.menu-open{overflow:hidden}
+
+/* ================= FOLIO RAIL ================= */
+.rail{position:fixed;z-index:90;left:calc(var(--mx)*.36);top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.9rem;pointer-events:none;mix-blend-mode:difference}
+.rail .line{width:1px;height:clamp(120px,26vh,240px);background:rgba(255,255,255,.28);position:relative;overflow:hidden}
+.rail .line i{position:absolute;inset:0;background:#fff;transform-origin:top;transform:scaleY(var(--prog,0))}
+.rail .num{font:400 1rem/1 var(--ff-d);color:#fff;
+  writing-mode:vertical-rl;letter-spacing:.2em;text-transform:uppercase}
+@media (max-width:1180px){.rail{display:none}}
+
+/* ================= COVER ================= */
+.cover{background:var(--char);color:var(--paper)}
+.cover-spec{display:flex;justify-content:space-between;gap:1rem;padding:.75rem var(--mx);
+  color:rgba(242,239,233,.62);border-block-end:var(--hairline-w) solid rgba(242,239,233,.14)}
+.cover-body{padding:clamp(3.4rem,7vw,6rem) var(--mx) 0}
+.cover-title{font:400 clamp(3.4rem,10.5vw,10rem)/0.94 var(--ff-d);text-transform:uppercase;letter-spacing:.005em;
+  max-width:12ch;text-wrap:balance}
+.cover-title .soft{color:rgba(242,239,233,.4)}
+.cover-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:2rem 3rem;
+  padding:2rem 0 clamp(2.4rem,5vw,3.8rem)}
+.cover-deck{max-width:46ch;font-size:clamp(1rem,1.35vw,1.2rem);line-height:1.62;color:rgba(242,239,233,.84);text-wrap:pretty}
+.cover-deck strong{color:var(--paper);font-weight:600}
+.cover-date{text-align:right;color:rgba(242,239,233,.66)}
+.cover-date .big{font:400 clamp(1.6rem,3vw,2.6rem)/1 var(--ff-d);color:var(--paper);display:block;margin-block-start:.4rem;letter-spacing:.04em}
+.cover-date .big em{font-style:normal;color:var(--gold)}
+
+/* marquee */
+.mq{overflow:clip;position:relative;pointer-events:none;
+  border-block:var(--hairline-w) solid rgba(242,239,233,.18);padding-block:.14em}
+.mq-track{display:flex;width:max-content;will-change:transform;
+  animation:mq-scroll 80s linear infinite;animation-play-state:var(--marquee-play)}
+.mq-group{display:flex;align-items:baseline;flex:none;white-space:nowrap}
+.mq-group span{font:400 var(--marquee-size)/1.08 var(--ff-d);text-transform:uppercase;color:var(--paper)}
+.mq-group i{font:400 calc(var(--marquee-size)*.62)/1 var(--ff-d);font-style:normal;color:var(--gold);
+  padding-inline:.3em;transform:translateY(-.06em)}
+@keyframes mq-scroll{to{transform:translateX(-50%)}}
+
+/* contents strip */
+.toc{padding:1.15rem var(--mx) 1.6rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  color:rgba(242,239,233,.62)}
+
+/* ================= FOLIO (chapter) ================= */
+.ch{padding:var(--sec) var(--mx);position:relative}
+.ch-head{margin-block-end:clamp(2rem,4.2vw,3.2rem)}
+.ch-head .d-m{margin-block-start:1.05rem}
+.ch-head .d-m .paren{color:color-mix(in srgb,var(--idx-ink) 78%,#3a2f00)}
+.ch-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr);gap:clamp(2.4rem,5.5vw,5rem);align-items:start}
+.ch-grid.flip{grid-template-columns:minmax(260px,.75fr) minmax(0,1.25fr)}
+.ch-grid.flip .script{order:2}
+.ch-grid.flip .aside{order:1}
+
+/* the screenplay voice — pauses become space */
+.script{max-width:56ch}
+.script p{font-size:clamp(1.02rem,1.3vw,1.18rem);line-height:1.7;color:#2A2A2A;text-wrap:pretty}
+.script p+p{margin-block-start:1.05em}
+.script .beat{margin-block-start:clamp(2rem,4vw,3rem)}
+.script .line{font:400 clamp(1.45rem,2.4vw,2.3rem)/1.18 var(--ff-d);text-transform:uppercase;
+  letter-spacing:.012em;color:var(--ink);max-width:22ch}
+.script .line em{font-style:normal;color:color-mix(in srgb,var(--gold) 72%,#4a3a00)}
+.script .quietly{color:var(--gray);font-size:.98rem}
+.dark-ch .script p{color:rgba(242,239,233,.86)}
+.dark-ch .script .line{color:var(--paper)}
+.dark-ch .script .line em{color:var(--gold)}
+.dark-ch .script .quietly{color:rgba(242,239,233,.62)}
+
+/* lesson block */
+.lesson{margin-block-start:clamp(2.2rem,4.5vw,3.4rem);border-block-start:var(--hairline-w) solid var(--line);
+  padding-block-start:1.1rem;display:grid;grid-template-columns:auto minmax(0,1fr);gap:1.4rem;align-items:baseline;max-width:56ch}
+.lesson .tag{font:500 11px/1.5 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase;
+  color:color-mix(in srgb,var(--idx-ink) 60%,#141400);flex:none}
+.lesson p{font:400 clamp(1.2rem,1.9vw,1.7rem)/1.3 var(--ff-d);text-transform:uppercase;letter-spacing:.015em;
+  color:color-mix(in srgb,var(--gold) 66%,#3f3200);text-wrap:balance}
+.dark-ch .lesson .tag{color:var(--idx-ink)}
+.dark-ch .lesson p{color:var(--gold)}
+
+/* aside column: plates + reserved slots */
+.aside{position:sticky;top:calc(96px + 1.5rem)}
+.plate{position:relative;isolation:isolate;overflow:clip;background:var(--char-2);display:block}
+.plate img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.06) brightness(.94)}
+.plate .tint{position:absolute;inset:0;background:var(--duo-tint);mix-blend-mode:color;opacity:var(--duo-dose);pointer-events:none}
+.aside .plate{aspect-ratio:4/5}
+.pcap{margin-block-start:.7rem;color:var(--gray);display:flex;justify-content:space-between;gap:1rem}
+.dark-ch .pcap{color:rgba(242,239,233,.62)}
+
+/* reserved slot — the honest empty frame */
+.slot{position:relative;aspect-ratio:4/5;border:var(--hairline-w) solid var(--line);
+  display:grid;place-items:center;text-align:center;padding:1.4rem;
+  background:
+    linear-gradient(var(--line-soft),var(--line-soft)) center/1px 34% no-repeat,
+    linear-gradient(var(--line-soft),var(--line-soft)) center/34% 1px no-repeat}
+.slot::before,.slot::after{content:"";position:absolute;width:14px;height:14px;
+  border:var(--hairline-w) solid color-mix(in srgb,var(--idx-ink) 60%,#141400)}
+.slot::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+.slot::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
+.slot .mark{font:400 clamp(2.4rem,4.5vw,3.6rem)/1 var(--ff-d);
+  color:color-mix(in srgb,var(--idx-ink) 46%,#8a8578);background:var(--paper);padding:.2em .35em}
+.dark-ch .slot .mark{background:var(--char);color:color-mix(in srgb,var(--idx-ink) 62%,#4a4534)}
+.dark-ch .slot::before,.dark-ch .slot::after{border-color:color-mix(in srgb,var(--idx-ink) 62%,#4a4534)}
+
+/* dark folio band */
+.dark-ch{background:var(--char);color:var(--paper)}
+.dark-ch .ch-head .d-m .paren{color:var(--gold)}
+
+/* Jamaica date monument */
+.date-mon{margin-block-start:clamp(2rem,4vw,3rem);display:flex;align-items:baseline;gap:1.2rem;flex-wrap:wrap}
+.date-mon .dt{font:400 clamp(2.6rem,6.5vw,5.4rem)/1 var(--ff-d);letter-spacing:.05em}
+.date-mon .dt i{font-style:normal;color:var(--gold);padding-inline:.08em}
+.date-mon .cap{color:rgba(242,239,233,.62);max-width:22ch}
+
+/* discipline list (Air Force) */
+.disc{border-block-start:var(--hairline-w) solid var(--line);margin-block-start:clamp(1.8rem,3.5vw,2.6rem);max-width:56ch}
+.disc li{display:flex;justify-content:space-between;gap:1rem;padding-block:.85rem;
+  border-block-end:var(--hairline-w) solid var(--line);
+  font:500 11px/1.5 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase}
+.disc li b{font-weight:600;color:color-mix(in srgb,var(--idx-ink) 60%,#141400)}
+.dark-ch .disc li b{color:var(--idx-ink)}
+
+/* eleven years monument */
+.years{padding:var(--sec) var(--mx);text-align:center;background:var(--paper)}
+.years .kick{text-align:left}
+.years .word{font:400 clamp(3.6rem,12vw,11rem)/0.95 var(--ff-d);text-transform:uppercase;
+  letter-spacing:.01em;margin-block-start:clamp(2rem,4.5vw,3.4rem)}
+.years .word em{font-style:normal;color:color-mix(in srgb,var(--gold) 70%,#443600)}
+.years .sub{max-width:52ch;margin:1.6rem auto 0;color:#3d3d3d;font-size:1.02rem;text-wrap:pretty}
+
+/* ================= CONCLUSION ================= */
+.close-band{background:var(--char);color:var(--paper)}
+.close-inner{padding:var(--sec) var(--mx)}
+.close-band .final{font:400 clamp(2.2rem,5.6vw,5rem)/1.06 var(--ff-d);text-transform:uppercase;
+  letter-spacing:.01em;max-width:18ch;margin-block-start:1.4rem;text-wrap:balance}
+.close-band .final em{font-style:normal;color:var(--gold)}
+.close-sub{margin-block-start:1.4rem;max-width:46ch;color:rgba(242,239,233,.74);text-wrap:pretty}
+.close-band .cta-pair{display:flex;gap:.8rem;flex-wrap:wrap;margin-block-start:2.2rem}
+.next-ch{margin-block-start:clamp(2.6rem,5vw,4rem);border-block-start:var(--hairline-w) solid rgba(242,239,233,.22)}
+.next-ch a{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding-block:1.1rem;
+  border-block-end:var(--hairline-w) solid rgba(242,239,233,.22);transition:color .2s}
+.next-ch .val{font:400 clamp(1.35rem,3.4vw,2.5rem)/1.05 var(--ff-d);text-transform:uppercase;letter-spacing:.02em}
+.next-ch .lab{color:rgba(242,239,233,.6);flex:none;text-align:right}
+.next-ch a:hover{color:var(--gold)}
+.next-ch a:hover .lab{color:rgba(242,239,233,.8)}
+
+/* ================= FOOTER ================= */
+footer{background:var(--char-2);color:var(--paper)}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:2.5rem;
+  padding:3.2rem var(--mx);border-block-start:var(--hairline-w) solid rgba(242,239,233,.18)}
+.foot-mark{height:56px;width:auto;display:block;margin-block-end:1rem}
+.foot-brand b{font:400 2rem/1 var(--ff-d);letter-spacing:.03em;display:block}
+.foot-brand .micro{color:rgba(242,239,233,.6);margin-block-start:.7rem;max-width:30ch;line-height:1.9}
+.foot-col h3{font:500 11px/1 var(--ff-b);letter-spacing:var(--track);text-transform:uppercase;
+  color:var(--idx-ink);margin-block-end:1rem}
+.foot-col li{padding-block:.28rem}
+.foot-col a,.foot-col span{font:500 12.5px/1.5 var(--ff-b);color:rgba(242,239,233,.78);letter-spacing:.04em}
+.foot-col a:hover{color:var(--gold)}
+.foot-col .cur{color:var(--gold)}
+.foot-base{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  padding:1rem var(--mx) 1.4rem;border-block-start:var(--hairline-w) solid rgba(242,239,233,.18);
+  color:rgba(242,239,233,.55)}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width:900px){
+  .mast-nav{display:none}
+  .menu-btn{display:inline-block}
+  .mast-cta .long{display:none}
+  .mast-cta .short{display:inline}
+  .brand span{display:none}
+  .ch-grid,.ch-grid.flip{grid-template-columns:1fr}
+  .ch-grid.flip .script{order:1}
+  .ch-grid.flip .aside{order:2}
+  .aside{position:static;max-width:420px}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .cover-grid{grid-template-columns:1fr}
+  .cover-date{text-align:left}
+}
+@media (max-width:560px){
+  .cover-spec .right{display:none}
+  .foot-grid{grid-template-columns:1fr;gap:1.8rem}
+  .next-ch .lab{display:none}
+  .kick{flex-direction:column;gap:.35rem}
+  .kick .note{text-align:left}
+  .lesson{grid-template-columns:1fr;gap:.5rem}
+}
+
+/* ================= REDUCED MOTION ================= */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001s!important;animation-iteration-count:1!important;transition-duration:.001s!important}
+  .mq-track{animation:none!important}
+  .js .r,.js .r-clip{opacity:1;transform:none;clip-path:none}
+  .js .r-clip img{transform:none}
+  .rail .line i{transform:scaleY(1)!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ============ MASTHEAD ============ -->
+<header class="masthead dark">
+  <div class="bar">
+    <a class="brand" href="../a/" aria-label="KUL Enterprises LLC — The Beginning">
+      <img class="brand-mark" src="/assets/brand/lion-clean.png" alt="KUL Enterprises" width="900" height="900" decoding="async">
+      <b>KUL</b><span>— Enterprises LLC</span>
+    </a>
+    <nav class="mast-nav" aria-label="Business">
+      <a href="../mission/">Services</a>
+      <a href="../responsibility/">Safety</a>
+      <a href="../forward/#contact">Contact</a>
+    </nav>
+    <div class="mast-cta">
+      <a class="btn btn-gold" href="../forward/"><span class="long">Request a Quote</span><span class="short">Quote</span></a>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu">Menu</button>
+    </div>
+  </div>
+  <nav class="chapters" aria-label="Chapters">
+    <ol>
+      <li><a href="../a/"><i>(01)</i>The Beginning</a></li>
+      <li><a href="../journey/"><i>(02)</i>The Journey</a></li>
+      <li><span class="cur" aria-current="page"><i>(03)</i>Why I Started Driving</span></li>
+      <li><a href="../mission/"><i>(04)</i>The Mission</a></li>
+      <li><a href="../responsibility/"><i>(05)</i>The Responsibility</a></li>
+      <li><a href="../join/"><i>(06)</i>Join the Journey</a></li>
+      <li><a href="../forward/"><i>(07)</i>Let&rsquo;s Move Forward</a></li>
+      <li><a href="../road-ahead/"><i>(08)</i>The Road Ahead</a></li>
+    </ol>
+  </nav>
+</header>
+
+<!-- ============ MOBILE MENU ============ -->
+<div class="menu dark" id="menu" hidden>
+  <div class="menu-top">
+    <span class="brand"><b style="font:400 1.4rem/1 var(--ff-d)">KUL</b></span>
+    <button class="menu-close" id="menuClose" aria-label="Close menu">&#10005;</button>
+  </div>
+  <nav class="menu-list" aria-label="Chapters">
+    <a href="../a/"><i>(01)</i>The Beginning</a>
+    <a href="../journey/"><i>(02)</i>The Journey</a>
+    <span class="cur" aria-current="page"><i>(03)</i>Why I Started Driving</span>
+    <a href="../mission/"><i>(04)</i>The Mission</a>
+    <a href="../responsibility/"><i>(05)</i>The Responsibility</a>
+    <a href="../join/"><i>(06)</i>Join the Journey</a>
+    <a href="../forward/"><i>(07)</i>Let&rsquo;s Move Forward</a>
+    <a href="../road-ahead/"><i>(08)</i>The Road Ahead</a>
+  </nav>
+  <nav class="menu-biz micro" aria-label="Business">
+    <a href="../mission/">Services</a>
+    <a href="../responsibility/">Safety</a>
+    <a href="../forward/">Request a Quote</a>
+    <a href="../forward/#contact">Contact</a>
+  </nav>
+  <div class="menu-foot micro">
+    <a href="tel:+16789721148">678-972-1148</a>
+    <a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a>
+    <span>USDOT 7638788 · MC 66389691 · Loganville, GA</span>
+  </div>
+</div>
+
+<!-- ============ FOLIO RAIL ============ -->
+<div class="rail" aria-hidden="true">
+  <span class="num" id="railNum">I</span>
+  <span class="line"><i id="railFill"></i></span>
+</div>
+
+<main id="main">
+
+<!-- ============ COVER ============ -->
+<section class="cover dark" aria-labelledby="cover-h">
+  <div class="cover-spec micro">
+    <span class="left"><span class="ix">(Chapter 03)</span> — The Founder&rsquo;s File</span>
+    <span class="right">Told in his own words · Eight folios</span>
+  </div>
+  <div class="cover-body">
+    <h1 class="cover-title r" id="cover-h">Why I Started <span class="soft">Driving</span></h1>
+    <div class="cover-grid">
+      <p class="cover-deck r" style="--d:.06s">Every company has a story. Ours began long before the first truck — <strong>it began with character.</strong> What follows is the founder&rsquo;s road, told the way it happened: without shortcuts, and without exaggeration.</p>
+      <p class="cover-date micro r" style="--d:.12s">The road begins
+        <span class="big">Jamaica <em>&rarr;</em> America</span>
+      </p>
+    </div>
+  </div>
+  <div class="mq" aria-hidden="true">
+    <div class="mq-track">
+      <div class="mq-group">
+        <span>Every road has a beginning</span><i>·</i><span>This is mine</span><i>·</i>
+      </div>
+      <div class="mq-group" aria-hidden="true">
+        <span>Every road has a beginning</span><i>·</i><span>This is mine</span><i>·</i>
+      </div>
+    </div>
+  </div>
+  <p class="toc micro r" style="--d:.16s">
+    <span><span class="ix">(I)</span> Jamaica &nbsp; <span class="ix">(II)</span> Work &nbsp; <span class="ix">(III)</span> Questions &nbsp; <span class="ix">(IV)</span> Independence</span>
+    <span><span class="ix">(V)</span> The Air Force &nbsp; <span class="ix">(VI)</span> Setbacks &nbsp; <span class="ix">(VII)</span> Leadership &nbsp; <span class="ix">(VIII)</span> The Road</span>
+  </p>
+</section>
+
+<!-- ============ I — JAMAICA ============ -->
+<section class="ch dark-ch dark" id="f1" data-folio="I" aria-labelledby="f1-h">
+  <div class="ch-head">
+    <div class="kick micro r">
+      <span><span class="ix">(I)</span> — Jamaica</span>
+      <span class="note">Where the story starts</span>
+    </div>
+    <h2 class="d-m r" id="f1-h" style="--d:.06s"><span class="paren">(</span>Folio I<span class="paren">)</span> — We Never Went Back</h2>
+  </div>
+  <div class="ch-grid">
+    <div class="script r" style="--d:.1s">
+      <p>&ldquo;I was born in Jamaica.&rdquo;</p>
+      <p>&ldquo;My mother brought my sister and me to America. She told us we were spending the summer with our father.&rdquo;</p>
+      <p class="beat line">&ldquo;We never <em>went back.</em>&rdquo;</p>
+      <div class="date-mon r" style="--d:.14s">
+        <span class="dt">08<i>·</i>08<i>·</i>1988</span>
+        <span class="cap micro">The day the journey began — arrival in America, August 8, 1988</span>
+      </div>
+      <div class="lesson r" style="--d:.18s">
+        <span class="tag">The lesson</span>
+        <p>Sometimes life&rsquo;s greatest journeys begin without our permission.</p>
+      </div>
+    </div>
+    <figure class="aside r" style="--d:.16s">
+      <div class="slot" role="img" aria-label="Reserved frame for a family photograph from Jamaica, 1988 — pending from the founder's archive.">
+        <span class="mark">( )</span>
+      </div>
+      <figcaption class="pcap micro"><span><span class="ix">(F—01)</span> — Jamaica, 1988</span><span>Archive pending</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ II — WORK ============ -->
+<section class="ch" id="f2" data-folio="II" aria-labelledby="f2-h">
+  <div class="ch-head">
+    <div class="kick micro r">
+      <span><span class="ix">(II)</span> — Learning the Value of Work</span>
+      <span class="note">Construction summers, alongside his father</span>
+    </div>
+    <h2 class="d-m r" id="f2-h" style="--d:.06s"><span class="paren">(</span>Folio II<span class="paren">)</span> — Summers on Site</h2>
+  </div>
+  <div class="ch-grid flip">
+    <div class="script r" style="--d:.1s">
+      <p>&ldquo;America was different. Everything moved faster. Everything felt unfamiliar.&rdquo;</p>
+      <p>&ldquo;While most kids spent their summers playing, mine were spent on construction sites. Every school break. Every holiday. Every vacation. I worked alongside my father.&rdquo;</p>
+      <p>&ldquo;At the time, I didn&rsquo;t understand why. I only knew that it was expected.&rdquo;</p>
+      <p class="beat line">&ldquo;Work isn&rsquo;t something to avoid. <em>It&rsquo;s something to take pride in.</em>&rdquo;</p>
+      <div class="lesson r" style="--d:.14s">
+        <span class="tag">The lesson</span>
+        <p>Character is often built long before opportunity arrives.</p>
+      </div>
+    </div>
+    <figure class="aside r" style="--d:.16s">
+      <div class="slot" role="img" aria-label="Reserved frame for a construction-site photograph with his father — pending from the founder's archive.">
+        <span class="mark">( )</span>
+      </div>
+      <figcaption class="pcap micro"><span><span class="ix">(F—02)</span> — The job site, with his father</span><span>Archive pending</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ III — QUESTIONS ============ -->
+<section class="ch" id="f3" data-folio="III" aria-labelledby="f3-h">
+  <div class="ch-head">
+    <div class="kick micro r">
+      <span><span class="ix">(III)</span> — Seeing the World Differently</span>
+      <span class="note">Curiosity as a compass</span>
+    </div>
+    <h2 class="d-m r" id="f3-h" style="--d:.06s"><span class="paren">(</span>Folio III<span class="paren">)</span> — Questions Became the Journey</h2>
+  </div>
+  <div class="ch-grid">
+    <div class="script r" style="--d:.1s">
+      <p>&ldquo;As I grew older, I began to notice something. I wasn&rsquo;t satisfied with simply being told how things were. I wanted to understand why they worked the way they did.&rdquo;</p>
+      <p class="beat line">&ldquo;Curiosity doesn&rsquo;t always give you immediate answers. Sometimes, <em>it gives you a lifetime of learning.</em>&rdquo;</p>
+      <div class="lesson r" style="--d:.14s">
+        <span class="tag">The lesson</span>
+        <p>Every road begins with a question.</p>
+      </div>
+    </div>
+    <figure class="aside r" style="--d:.16s">
+      <span class="plate r-clip r"><img src="/assets/journey/river.jpg" width="2200" height="1650" alt="Weathered sandstone rock formations rising from a quiet, empty floor of sand in soft evening light — from the founder's own travels." loading="lazy" decoding="async"><span class="tint"></span></span>
+      <figcaption class="pcap micro"><span><span class="ix">(F—03)</span> — The long way, founder&rsquo;s archive</span><span>Unretouched</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ IV — INDEPENDENCE ============ -->
+<section class="ch dark-ch dark" id="f4" data-folio="IV" aria-labelledby="f4-h">
+  <div class="ch-head">
+    <div class="kick micro r">
+      <span><span class="ix">(IV)</span> — The Beginning of Independence</span>
+      <span class="note">Every decision his own</span>
+    </div>
+    <h2 class="d-m r" id="f4-h" style="--d:.06s"><span class="paren">(</span>Folio IV<span class="paren">)</span> — Where Excuses End</h2>
+  </div>
+  <div class="ch-grid flip">
+    <div class="script r" style="--d:.1s">
+      <p>&ldquo;Leaving home wasn&rsquo;t just about finding a place to live. It was about finding out who I was.&rdquo;</p>
+      <p>&ldquo;For the first time, I was making my own decisions. Some were good. Some weren&rsquo;t. But every one of them belonged to me.&rdquo;</p>
+      <p class="beat line">&ldquo;Independence isn&rsquo;t the freedom to avoid mistakes. <em>It&rsquo;s accepting responsibility for them.</em>&rdquo;</p>
+      <div class="lesson r" style="--d:.14s">
+        <span class="tag">The lesson</span>
+        <p>Growth begins the moment excuses end.</p>
+      </div>
+    </div>
+    <figure class="aside r" style="--d:.16s">
+      <span class="plate r-clip r"><img src="/assets/journey/tree.jpg" width="2200" height="1650" alt="A wide-crowned tree standing alone over open grassland beneath a forested ridge — from the founder's own travels." loading="lazy" decoding="async"><span class="tint"></span></span>
+      <figcaption class="pcap micro"><span><span class="ix">(F—04)</span> — Standing on his own ground</span><span>Founder&rsquo;s archive</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ V — AIR FORCE ============ -->
+<section class="ch" id="f5" data-folio="V" aria-labelledby="f5-h">
+  <div class="ch-head">
+    <div class="kick micro r">
+      <span><span class="ix">(V)</span> — The United States Air Force</span>
+      <span class="note">Service and commitment, not hardware</span>
+    </div>
+    <h2 class="d-m r" id="f5-h" style="--d:.06s"><span class="paren">(</span>Folio V<span class="paren">)</span> — Forged Through Discipline</h2>
+  </div>
+  <div class="ch-grid">
+    <div class="script r" style="--d:.1s">
+      <p>&ldquo;Independence gave me freedom. But freedom also brought a question: what kind of man did I want to become?&rdquo;</p>
+      <p>&ldquo;I wanted structure. I wanted to be challenged. That&rsquo;s what led me to the United States Air Force.&rdquo;</p>
+      <p>&ldquo;The Air Force challenged me in ways I had never experienced before. Every day became another opportunity to become a little stronger than the day before.&rdquo;</p>
+      <ul class="disc r" style="--d:.13s" aria-label="What the Air Force demanded">
+        <li><b>(A)</b><span>Consistency</span></li>
+        <li><b>(B)</b><span>Accountability</span></li>
+        <li><b>(C)</b><span>Commitment</span></li>
+      </ul>
+      <p class="beat line">&ldquo;Discipline doesn&rsquo;t change who you are. <em>It reveals who you&rsquo;re willing to become.</em>&rdquo;</p>
+      <div class="lesson r" style="--d:.16s">
+        <span class="tag">The lesson</span>
+        <p>Excellence is rarely built in a single moment. It&rsquo;s built one decision at a time.</p>
+      </div>
+    </div>
+    <figure class="aside r" style="--d:.18s">
+      <div class="slot" role="img" aria-label="Reserved frame for a photograph from his Air Force service — pending from the founder's archive.">
+        <span class="mark">( )</span>
+      </div>
+      <figcaption class="pcap micro"><span><span class="ix">(F—05)</span> — In uniform, U.S. Air Force</span><span>Archive pending</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ VI — SETBACKS ============ -->
+<section class="ch dark-ch dark" id="f6" data-folio="VI" aria-labelledby="f6-h">
+  <div class="ch-head">
+    <div class="kick micro r">
+      <span><span class="ix">(VI)</span> — Life Doesn&rsquo;t Follow a Straight Line</span>
+      <span class="note">Honesty over perfection</span>
+    </div>
+    <h2 class="d-m r" id="f6-h" style="--d:.06s"><span class="paren">(</span>Folio VI<span class="paren">)</span> — Both Became Teachers</h2>
+  </div>
+  <div class="ch-grid flip">
+    <div class="script r" style="--d:.1s">
+      <p>&ldquo;I thought I knew where life was taking me. Like many people, I had a plan. But plans have a way of changing.&rdquo;</p>
+      <p>&ldquo;Some opportunities opened new doors. Others closed before I expected. There were victories. There were setbacks. Both became teachers.&rdquo;</p>
+      <p class="beat line">&ldquo;Life rarely asks whether you&rsquo;re ready. It simply asks — <em>what will you do now?</em>&rdquo;</p>
+      <div class="lesson r" style="--d:.14s">
+        <span class="tag">The lesson</span>
+        <p>Resilience isn&rsquo;t refusing to fall. It&rsquo;s choosing to keep moving.</p>
+      </div>
+    </div>
+    <figure class="aside r" style="--d:.16s">
+      <span class="plate r-clip r"><img src="/assets/journey/desert.jpg" width="2200" height="1650" alt="A wave breaking against a sandstone headland beside a sand beach marked with footprints — photographed by the founder on the road." loading="lazy" decoding="async"><span class="tint"></span></span>
+      <figcaption class="pcap micro"><span><span class="ix">(F—06)</span> — The road bends, destination hidden</span><span>Founder&rsquo;s archive</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ VII — LEADERSHIP ============ -->
+<section class="ch" id="f7" data-folio="VII" aria-labelledby="f7-h">
+  <div class="ch-head">
+    <div class="kick micro r">
+      <span><span class="ix">(VII)</span> — Earning Trust</span>
+      <span class="note">Leading by being dependable</span>
+    </div>
+    <h2 class="d-m r" id="f7-h" style="--d:.06s"><span class="paren">(</span>Folio VII<span class="paren">)</span> — Someone Others Can Count On</h2>
+  </div>
+  <div class="ch-grid">
+    <div class="script r" style="--d:.1s">
+      <p>&ldquo;I wasn&rsquo;t chasing titles. I was learning to become dependable.&rdquo;</p>
+      <p>&ldquo;One responsibility became another. One opportunity led to the next. Before long, I found myself leading others.&rdquo;</p>
+      <p class="beat line">&ldquo;Leadership isn&rsquo;t about being in front. <em>It&rsquo;s about being someone others can count on.</em>&rdquo;</p>
+      <div class="lesson r" style="--d:.14s">
+        <span class="tag">The lesson</span>
+        <p>Trust is earned long before it&rsquo;s ever expected.</p>
+      </div>
+    </div>
+    <figure class="aside r" style="--d:.16s">
+      <span class="plate r-clip r"><img src="/assets/journey/cliffs.jpg" width="2200" height="1650" alt="Sandstone cliffs standing over deep blue water under a clear sky — from the founder's own travels." loading="lazy" decoding="async"><span class="tint"></span></span>
+      <figcaption class="pcap micro"><span><span class="ix">(F—07)</span> — Higher ground, wider view</span><span>Founder&rsquo;s archive</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ VIII — THE ROAD ============ -->
+<section class="years" id="f8" data-folio="VIII" aria-labelledby="f8-h">
+  <div class="kick micro r">
+    <span><span class="ix">(VIII)</span> — The Road Became My Teacher</span>
+    <span class="note">Commercial driving, coast to coast</span>
+  </div>
+  <h2 class="sr-only" id="f8-h">Folio VIII — roughly eleven years of commercial driving</h2>
+  <p class="word r" style="--d:.06s" aria-hidden="true">Eleven <em>years</em><br>on the road</p>
+  <p class="sub r" style="--d:.12s">Roughly eleven years behind the wheel of a commercial truck. &ldquo;I thought I was learning how to drive a truck. What I didn&rsquo;t realize was that the road was teaching me something far greater — that trust travels farther than freight.&rdquo;</p>
+</section>
+
+<!-- ============ CONCLUSION ============ -->
+<section class="close-band dark" aria-labelledby="close-h">
+  <div class="close-inner">
+    <div class="kick micro r">
+      <span><span class="ix">(End)</span> — Why It Matters</span>
+      <span class="note">The file closes; the company begins</span>
+    </div>
+    <h2 class="final r" id="close-h" style="--d:.06s">Every mile taught a lesson. <em>Every lesson helped build KUL&nbsp;Enterprises.</em></h2>
+    <p class="close-sub r" style="--d:.1s">The character in these folios is the standard on every load we&rsquo;re trusted with today. If that&rsquo;s the kind of carrier you want on your freight, the door is open.</p>
+    <div class="cta-pair r" style="--d:.14s">
+      <a class="btn btn-gold" href="../forward/">Request a Freight Quote <span class="ar">&rarr;</span></a>
+      <a class="btn btn-line" href="../join/">Join the Journey</a>
+    </div>
+    <nav class="next-ch r" style="--d:.18s" aria-label="Continue reading">
+      <a href="../mission/">
+        <span class="val">Next — (04) The Mission</span>
+        <span class="lab micro">What the lessons became</span>
+      </a>
+      <a href="../road-ahead/">
+        <span class="val">Ahead — (08) The Road Ahead</span>
+        <span class="lab micro">Where this is going</span>
+      </a>
+    </nav>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="dark">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <img class="foot-mark" src="/assets/brand/lion-clean.png" alt="KUL Enterprises" width="900" height="900" decoding="async" loading="lazy">
+      <b>KUL <span style="color:var(--gold)">—</span> Enterprises LLC</b>
+      <p class="micro">Strength in Motion. Built on Integrity. Driven by Safety.</p>
+    </div>
+    <nav class="foot-col" aria-label="Chapter index">
+      <h3>Chapters</h3>
+      <ul>
+        <li><a href="../a/">(01) The Beginning</a></li>
+        <li><a href="../journey/">(02) The Journey</a></li>
+        <li><span class="cur" aria-current="page">(03) Why I Started Driving</span></li>
+        <li><a href="../mission/">(04) The Mission</a></li>
+        <li><a href="../responsibility/">(05) The Responsibility</a></li>
+        <li><a href="../join/">(06) Join the Journey</a></li>
+        <li><a href="../forward/">(07) Let&rsquo;s Move Forward</a></li>
+        <li><a href="../road-ahead/">(08) The Road Ahead</a></li>
+      </ul>
+    </nav>
+    <nav class="foot-col" aria-label="Business">
+      <h3>Business</h3>
+      <ul>
+        <li><a href="../mission/">Services</a></li>
+        <li><a href="../responsibility/">Safety</a></li>
+        <li><a href="../forward/">Request a Quote</a></li>
+        <li><a href="../forward/#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="foot-col">
+      <h3>Compliance</h3>
+      <ul>
+        <li><span>USDOT 7638788</span></li>
+        <li><span>MC 66389691</span></li>
+        <li><span>Loganville, Georgia</span></li>
+        <li><a href="tel:+16789721148">678-972-1148</a></li>
+        <li><a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-base micro">
+    <span>&copy; 2026 KUL Enterprises LLC</span>
+    <span>Every mile taught a lesson.</span>
+    <span><span class="ix">(</span>End of folio<span class="ix">)</span></span>
+  </div>
+</footer>
+
+<!-- ============ PAGE JS ============ -->
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* folio rail — scroll-linked reading progress + current folio numeral */
+  var fill = document.getElementById('railFill'),
+      num = document.getElementById('railNum'),
+      folios = [].slice.call(document.querySelectorAll('[data-folio]'));
+  function railTick(){
+    if (!fill) return;
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    fill.style.transform = 'scaleY(' + p + ')';
+    var mid = window.innerHeight * 0.5, cur = null;
+    for (var i = 0; i < folios.length; i++) {
+      if (folios[i].getBoundingClientRect().top <= mid) cur = folios[i];
+    }
+    var label = cur ? cur.getAttribute('data-folio') : 'I';
+    if (num.textContent !== label) num.textContent = label;
+  }
+
+  /* reveals */
+  var pending = [].slice.call(document.querySelectorAll('.r'));
+  function sweep(){
+    if (!pending.length) return;
+    var line = window.innerHeight * 0.93;
+    pending = pending.filter(function(el){
+      var r = el.getBoundingClientRect();
+      if (r.top < line && r.bottom > 0) { el.classList.add('in'); return false; }
+      return true;
+    });
+  }
+  var ticking = false;
+  function onMove(){
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){ ticking = false; sweep(); railTick(); });
+  }
+  if (reduce) {
+    pending.forEach(function(el){ el.classList.add('in'); });
+    pending = [];
+  } else {
+    sweep();
+  }
+  railTick();
+  window.addEventListener('scroll', onMove, { passive: true });
+  window.addEventListener('resize', onMove, { passive: true });
+  window.addEventListener('load', onMove);
+
+  /* mobile menu */
+  var body = document.body, menu = document.getElementById('menu'),
+      btn = document.getElementById('menuBtn'), closeBtn = document.getElementById('menuClose');
+  function setMenu(open){
+    body.classList.toggle('menu-open', open);
+    btn.setAttribute('aria-expanded', open);
+    if (open) { menu.hidden = false; (menu.querySelector('a')||closeBtn).focus(); }
+    else { setTimeout(function(){ menu.hidden = true; }, 320); btn.focus(); }
+  }
+  btn.addEventListener('click', function(){ setMenu(!body.classList.contains('menu-open')); });
+  closeBtn.addEventListener('click', function(){ setMenu(false); });
+  menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setMenu(false); }); });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && body.classList.contains('menu-open')) setMenu(false);
+  });
+})();
+</script>
+
+<!-- ============ TWEAKS CONTRACT ============ -->
+<script>
+window.KUL_TWEAKS = {
+  style: 's02a',
+  controls: [
+    { var: '--marquee-size', label: 'Marquee crop',    type: 'range',  value: 9,    min: 5,    max: 16,  step: 0.5,  unit: 'vw' },
+    { var: '--duo-tint',     label: 'Duotone tint',    type: 'color',  value: '#ae8f28' },
+    { var: '--duo-dose',     label: 'Grade dosage',    type: 'range',  value: 66,   min: 0,    max: 100, step: 1,    unit: '%' },
+    { var: '--hairline-w',   label: 'Hairline weight', type: 'range',  value: 1,    min: 1,    max: 3,   step: 0.5,  unit: 'px' },
+    { var: '--track',        label: 'Caps tracking',   type: 'range',  value: 0.25, min: 0.06, max: 0.4, step: 0.01, unit: 'em' },
+    { var: '--marquee-play', label: 'Marquee motion',  type: 'select', value: 'running', options: ['running','paused'] }
+  ]
+};
+</script>
+<script src="/tweaks.js" defer></script>
+</body>
+</html>
