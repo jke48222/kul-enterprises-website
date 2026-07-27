@@ -35,5 +35,3 @@ tina/__generated__
 public/admin
 assets-inbox/
 
-# Third-party site captures kept local-only (reference material, not project work)
-multiverse/reference/

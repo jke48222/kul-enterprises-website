@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why I Started Driving — KUL Enterprises</title>
+<meta name="description" content="The founder's story, told in chapters. From Jamaica to the United States Air Force to eleven years behind the wheel — every mile taught a lesson. KUL Enterprises, Loganville, GA.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Tweaks contract: declared BEFORE tweaks.js -->
+<script>
+  window.KUL_TWEAKS = {
+    style: "s12/story",
+    controls: [
+      { var: "--gold",          label: "Gold dosage",     type: "color",  value: "#D4AF37" },
+      { var: "--type-scale",    label: "Type scale",      type: "range",  value: 0.9,  min: 0.8,  max: 1.15, step: 0.01 },
+      { var: "--section-space", label: "Section spacing", type: "range",  value: 148,  min: 64,   max: 220,  step: 4,  unit: "px" },
+      { var: "--radius",        label: "Corner radius",   type: "range",  value: 24,   min: 0,    max: 40,   step: 2,  unit: "px" },
+      { var: "--hero-shade",    label: "Hero overlay",    type: "range",  value: 0.37, min: 0.15, max: 0.85, step: 0.02 },
+      { var: "--panel-min",     label: "Panel height",    type: "range",  value: 100,  min: 62,   max: 100,  step: 2,  unit: "vh" }
+    ]
+  };
+</script>
+
+<style>
+  :root{
+    /* palette (s12 system) */
+    --gold:#D4AF37;
+    --gold-soft:#E6C863;
+    --ink:#0B0B0B;
+    --ink-2:#1F1F1F;
+    --ink-3:#2E2E2E;
+    --gray:#6E6E6E;
+    --paper:#FFFFFF;
+    --ground:#F2ECE1;
+    --ground-2:#E9E0D1;
+    --line:rgba(11,11,11,.12);
+    --line-dark:rgba(255,255,255,.16);
+
+    /* system — SNAPSHOT BAKE (locked) */
+    --type-scale:0.9;
+    --section-space:148px;
+    --radius:24px;
+    --hero-shade:0.37;
+    --panel-min:100vh;
+    --nav-h:66px;
+    --rail-h:44px;
+
+    /* story-page locals */
+    --parchment:rgba(242,236,225,.06);
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:rgba(255,255,255,.92);
+    font-family:"Inter",system-ui,-apple-system,sans-serif;
+    font-size:calc(16px * var(--type-scale));
+    line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  h1,h2,h3,h4{font-family:"Archivo","Inter",system-ui,sans-serif;font-weight:700;letter-spacing:-0.02em;line-height:1.06;margin:0}
+  p{margin:0}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .wrap{width:100%;max-width:1200px;margin:0 auto;padding:0 24px}
+
+  /* ---------- BUTTONS (s12) ---------- */
+  .pill{
+    display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 24px;
+    border-radius:999px;font-size:14px;font-weight:600;border:1.5px solid transparent;cursor:pointer;
+    transition:transform .22s cubic-bezier(.2,.7,.2,1),background .22s ease,color .22s ease,border-color .22s ease;
+    white-space:nowrap;line-height:1;
+  }
+  .pill:hover{transform:translateY(-2px)}
+  .pill:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  .pill-gold{background:var(--gold);color:var(--ink);box-shadow:0 8px 20px -12px rgba(0,0,0,.7)}
+  .pill-gold:hover{background:var(--gold-soft)}
+  .pill-ghost-d{background:rgba(255,255,255,.04);color:#fff;border-color:var(--line-dark);backdrop-filter:blur(4px)}
+  .pill-ghost-d:hover{border-color:#fff;background:rgba(255,255,255,.1)}
+  .pill-sm{padding:10px 18px;font-size:13px}
+
+  /* ---------- NAV (dark ground) ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:100;height:var(--nav-h);
+    background:rgba(11,11,11,.82);
+    backdrop-filter:saturate(1.4) blur(16px);
+    border-bottom:1px solid var(--ink-3);
+  }
+  .nav-inner{height:100%;max-width:1360px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .brand{display:flex;align-items:center;gap:11px}
+  .brand img{height:42px;width:auto}
+  .brand .wm{font-family:"Archivo",sans-serif;font-weight:800;letter-spacing:.14em;font-size:15px;text-transform:uppercase;color:#fff}
+  .brand .wm b{color:var(--gold)}
+  nav.links{display:flex;gap:30px;align-items:center}
+  nav.links a{font-size:14px;font-weight:500;color:rgba(255,255,255,.82);position:relative;padding:6px 0}
+  nav.links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--gold);transition:width .28s ease}
+  nav.links a:hover::after{width:100%}
+  .nav-cta{display:flex;align-items:center;gap:14px}
+  .nav-toggle{display:none;background:none;border:0;cursor:pointer;flex-direction:column;gap:5px;padding:8px}
+  .nav-toggle span{width:22px;height:2px;background:#fff;display:block}
+
+  /* ---------- CHAPTER RAIL ---------- */
+  .rail{
+    position:sticky;top:var(--nav-h);z-index:90;height:var(--rail-h);
+    background:rgba(11,11,11,.88);backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--ink-3);
+  }
+  .rail-inner{max-width:1360px;margin:0 auto;height:100%;padding:0 24px;display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none}
+  .rail-inner::-webkit-scrollbar{display:none}
+  .rail-label{flex:none;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);padding-right:14px;border-right:1px solid var(--ink-3);margin-right:8px}
+  .rail a,.rail .cur{flex:none;font-size:12.5px;font-weight:500;color:rgba(255,255,255,.66);padding:7px 12px;border-radius:999px;transition:color .2s,background .2s;white-space:nowrap}
+  .rail a:hover{color:#fff;background:rgba(255,255,255,.06)}
+  .rail .cur{color:var(--ink);background:var(--gold);font-weight:600}
+
+  /* ---------- HERO — quiet title card ---------- */
+  .hero{
+    position:relative;min-height:calc(100svh - var(--nav-h) - var(--rail-h));
+    display:grid;place-items:center;text-align:center;overflow:hidden;
+    background:
+      radial-gradient(90% 70% at 50% 108%, rgba(212,175,55,.13), transparent 60%),
+      radial-gradient(120% 90% at 50% -20%, rgba(31,31,31,.9), var(--ink) 70%);
+  }
+  .hero::after{content:"";position:absolute;inset:0;background:rgba(11,11,11,var(--hero-shade));pointer-events:none;opacity:.35}
+  .hero-content{position:relative;z-index:2;padding:96px 24px 120px;max-width:820px;margin:0 auto}
+  .hero .kicker{font-size:12px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:26px}
+  .hero h1{font-size:clamp(44px,7vw,92px);font-weight:800;letter-spacing:-.03em;color:#fff}
+  .hero .open-lines{margin-top:36px;display:grid;gap:10px;font-size:clamp(16px,1.5vw,20px);color:rgba(255,255,255,.78);line-height:1.6}
+  .hero .byline{margin-top:44px;display:inline-flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+  .hero .byline::before,.hero .byline::after{content:"";width:34px;height:1px;background:rgba(212,175,55,.5)}
+  .hero .scroll-hint{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:2;color:rgba(255,255,255,.55);font-size:11px;letter-spacing:.24em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:8px}
+  .hero .scroll-hint i{width:1px;height:34px;background:linear-gradient(var(--gold),transparent);animation:hint 2s ease-in-out infinite}
+  @keyframes hint{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+
+  /* mount fade */
+  .fade-up{opacity:0;transform:translateY(24px);animation:fadeUp .9s cubic-bezier(.2,.7,.2,1) forwards}
+  .fade-up.d1{animation-delay:.12s}.fade-up.d2{animation-delay:.28s}.fade-up.d3{animation-delay:.46s}
+  @keyframes fadeUp{to{opacity:1;transform:none}}
+
+  /* scroll reveal */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
+
+  /* ---------- THE THREAD (chapters spine) ---------- */
+  .chapters{position:relative;padding:var(--section-space) 0 0}
+  .thread{position:absolute;left:50%;top:0;bottom:0;width:1px;background:rgba(255,255,255,.09)}
+  .thread-fill{position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(var(--gold-soft),var(--gold));transform-origin:top center;transform:scaleY(0);will-change:transform}
+
+  .chapter{position:relative;z-index:2;padding:calc(var(--section-space) * .9) 24px;max-width:840px;margin:0 auto}
+  .ch-marker{display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:44px;text-align:center}
+  .ch-marker .num{
+    width:58px;height:58px;border-radius:50%;display:grid;place-items:center;
+    background:var(--ink);border:1.5px solid rgba(212,175,55,.55);
+    font-family:"Archivo";font-weight:700;font-size:16px;color:var(--gold);letter-spacing:.04em;
+  }
+  .ch-marker .title{font-size:12px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+  .ch-lines{display:grid;gap:18px;text-align:center}
+  .ch-lines .ln{font-family:"Archivo";font-weight:600;font-size:clamp(21px,3vw,34px);letter-spacing:-.015em;line-height:1.3;color:#fff}
+  .ch-lines .ln.soft{color:rgba(255,255,255,.66);font-weight:500}
+  .ch-lines .ln.heavy{font-weight:800;font-size:clamp(25px,3.6vw,42px)}
+  .ch-note{margin:34px auto 0;max-width:56ch;text-align:center;color:rgba(255,255,255,.7);font-size:clamp(15px,1.2vw,17px);line-height:1.7}
+  .ch-lesson{margin:48px auto 0;max-width:620px;text-align:center;position:relative;padding-top:30px}
+  .ch-lesson::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:44px;height:2px;background:var(--gold)}
+  .ch-lesson .l-k{font-size:10.5px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  .ch-lesson .l-t{font-family:"Archivo";font-weight:700;font-size:clamp(18px,2vw,24px);letter-spacing:-.01em;line-height:1.4;color:var(--gold-soft)}
+
+  /* archive slot — reserved photograph treatment */
+  .archive{margin:52px auto 0;max-width:560px;position:relative}
+  .archive .frame{
+    position:relative;aspect-ratio:4/3;border-radius:calc(var(--radius) * .6);
+    background:
+      radial-gradient(120% 100% at 50% 0%, var(--parchment), transparent 70%),
+      repeating-linear-gradient(115deg, rgba(255,255,255,.014) 0 3px, transparent 3px 7px),
+      var(--ink-2);
+    border:1px solid rgba(212,175,55,.28);
+    display:grid;place-items:center;overflow:hidden;
+  }
+  .archive .frame::before,.archive .frame::after{
+    content:"";position:absolute;width:22px;height:22px;border:1.5px solid rgba(212,175,55,.55);
+  }
+  .archive .frame::before{top:12px;left:12px;border-right:0;border-bottom:0;border-top-left-radius:8px}
+  .archive .frame::after{bottom:12px;right:12px;border-left:0;border-top:0;border-bottom-right-radius:8px}
+  .archive .slot-inner{text-align:center;padding:24px}
+  .archive .slot-inner svg{width:34px;height:34px;stroke:rgba(212,175,55,.7);fill:none;stroke-width:1.4;margin:0 auto 16px;display:block}
+  .archive .slot-title{font-family:"Archivo";font-weight:600;font-size:14px;letter-spacing:.06em;color:rgba(255,255,255,.78)}
+  .archive .slot-sub{margin-top:8px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+  .archive figcaption{margin-top:14px;text-align:center;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+
+  /* interlude — standalone question */
+  .interlude{position:relative;z-index:2;padding:calc(var(--section-space) * .7) 24px;text-align:center}
+  .interlude .q{
+    font-family:"Archivo";font-weight:700;font-size:clamp(22px,3vw,34px);letter-spacing:-.015em;color:rgba(255,255,255,.88);
+    max-width:24ch;margin:0 auto;
+  }
+  .interlude .q b{color:var(--gold);font-weight:700}
+
+  /* ---------- FULL-BLEED ROAD PANEL (chapter VII) ---------- */
+  .panel{position:relative;min-height:var(--panel-min);display:flex;align-items:flex-end;color:#fff;overflow:hidden;background:#000;padding:0;z-index:2}
+  .panel .bg{position:absolute;inset:-8% 0;will-change:transform}
+  .panel .bg img{width:100%;height:100%;object-fit:cover}
+  .panel .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,11,.55) 0%,rgba(11,11,11,.25) 45%,rgba(11,11,11,.82) 100%)}
+  .panel-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;width:100%;padding:0 24px clamp(48px,7vw,104px)}
+  .panel .kick{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+  .panel h2{font-size:clamp(30px,4.8vw,62px);max-width:19ch;letter-spacing:-.025em}
+  .panel p{margin-top:20px;max-width:56ch;font-size:clamp(16px,1.4vw,20px);color:rgba(255,255,255,.88);line-height:1.6}
+  .panel .credit{margin-top:26px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+  .panel .miles{margin-top:28px;display:flex;gap:38px;flex-wrap:wrap}
+  .panel .miles .m .b{font-family:"Archivo";font-weight:800;font-size:clamp(30px,4vw,50px);color:var(--gold);letter-spacing:-.02em;line-height:1}
+  .panel .miles .m .s{margin-top:8px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.66)}
+
+  /* ---------- CONCLUSION ---------- */
+  .conclusion{position:relative;text-align:center;padding:var(--section-space) 24px;overflow:hidden;background:var(--ink)}
+  .conclusion::before{content:"";position:absolute;inset:0;background:radial-gradient(110% 80% at 50% 100%,rgba(212,175,55,.15),transparent 55%)}
+  .conclusion .inner{position:relative;z-index:2;max-width:820px;margin:0 auto}
+  .conclusion .lion{height:58px;width:auto;margin:0 auto 34px;opacity:.96}
+  .conclusion h2{font-size:clamp(30px,4.6vw,56px);letter-spacing:-.025em;color:#fff;max-width:20ch;margin:0 auto}
+  .conclusion h2 b{color:var(--gold)}
+  .conclusion p{margin:26px auto 0;max-width:56ch;color:rgba(255,255,255,.76);font-size:clamp(15px,1.3vw,18px);line-height:1.7}
+  .conclusion .cta-row{margin-top:40px;display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+  .conclusion .next{margin-top:56px;padding-top:28px;border-top:1px solid var(--ink-3);display:flex;justify-content:center}
+  .conclusion .next a{display:inline-flex;flex-direction:column;gap:6px;align-items:center;color:rgba(255,255,255,.66);font-size:12px;letter-spacing:.2em;text-transform:uppercase;transition:color .2s}
+  .conclusion .next a b{font-family:"Archivo";font-weight:700;font-size:clamp(18px,2vw,24px);letter-spacing:-.01em;text-transform:none;color:#fff;display:inline-flex;align-items:center;gap:10px}
+  .conclusion .next a b span{color:var(--gold);transition:transform .2s ease}
+  .conclusion .next a:hover b span{transform:translateX(6px)}
+
+  /* ---------- FOOTER ---------- */
+  footer.site{background:#070707;color:#fff;padding:72px 0 40px;border-top:1px solid var(--ink-3)}
+  .foot-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:44px}
+  .foot-brand img{height:54px;width:auto;margin-bottom:20px}
+  .foot-brand p{color:#9a9a9a;font-size:14px;line-height:1.6;max-width:34ch}
+  .foot-brand .tagm{margin-top:16px;font-size:12.5px;color:rgba(255,255,255,.66)}
+  .foot-brand .tagm b{color:var(--gold)}
+  .foot-col h5{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:0 0 18px;font-weight:700;font-family:"Archivo"}
+  .foot-col a,.foot-col p,.foot-col span{display:block;color:rgba(255,255,255,.78);font-size:14px;margin-bottom:12px;transition:color .2s}
+  .foot-col a:hover{color:#fff}
+  .foot-col [aria-current]{color:var(--gold);font-weight:600}
+  .foot-bottom{margin-top:56px;padding-top:26px;border-top:1px solid var(--ink-3);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center}
+  .foot-bottom p{color:#9a9a9a;font-size:12.5px;line-height:1.6}
+  .foot-bottom .tag{color:rgba(255,255,255,.72);font-weight:500}
+  .foot-bottom .tag b{color:var(--gold);font-weight:600}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:940px){
+    nav.links,.nav-cta .pill:not(.mobile-keep){display:none}
+    .nav-toggle{display:flex}
+    nav.links.open{display:flex;position:absolute;top:var(--nav-h);left:0;right:0;flex-direction:column;background:var(--ink);border-bottom:1px solid var(--ink-3);padding:16px 24px;gap:6px;align-items:stretch}
+    nav.links.open a{padding:12px 0;border-bottom:1px solid var(--ink-3)}
+    .foot-top{grid-template-columns:1fr 1fr;gap:34px}
+  }
+  @media(max-width:560px){
+    .foot-top{grid-template-columns:1fr}
+    .brand .wm{display:none}
+    .panel .miles{gap:24px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+    .fade-up,.reveal{opacity:1!important;transform:none!important}
+    .thread-fill{transform:scaleY(1)!important}
+    .panel .bg{transform:none!important}
+    .hero .scroll-hint{display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="/explore/p2/s12/a" aria-label="KUL Enterprises home">
+      <img src="/studio/assets/brand/lion-clean.png" alt="KUL Enterprises lion mark">
+      <span class="wm"><b>KUL</b>&nbsp;Enterprises</span>
+    </a>
+    <nav class="links" id="navlinks" aria-label="Business">
+      <a href="/explore/p2/s12/mission">Services</a>
+      <a href="/explore/p2/s12/responsibility">Safety</a>
+      <a href="/explore/p2/s12/forward">Request a Quote</a>
+      <a href="../forward/#contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="/explore/p2/s12/forward" class="pill pill-gold pill-sm mobile-keep">Request a Freight Quote</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== CHAPTER RAIL ===== -->
+<nav class="rail" aria-label="Story chapters">
+  <div class="rail-inner">
+    <span class="rail-label">The Story</span>
+    <a href="/explore/p2/s12/a">The Beginning</a>
+    <a href="/explore/p2/s12/journey">The Journey</a>
+    <span class="cur" aria-current="page">Why I Started Driving</span>
+    <a href="/explore/p2/s12/mission">The Mission</a>
+    <a href="/explore/p2/s12/responsibility">The Responsibility</a>
+    <a href="/explore/p2/s12/join">Join the Journey</a>
+    <a href="/explore/p2/s12/forward">Let&rsquo;s Move Forward</a>
+    <a href="/explore/p2/s12/road-ahead">The Road Ahead</a>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ===== HERO — title card ===== -->
+  <section class="hero" aria-label="Why I started driving">
+    <div class="hero-content">
+      <div class="kicker fade-up">The Founder&rsquo;s Story</div>
+      <h1 class="fade-up d1">Why I started<br>driving.</h1>
+      <div class="open-lines fade-up d2">
+        <p>Every company has a story.</p>
+        <p>Ours began long before the first truck.</p>
+        <p>It began with character.</p>
+      </div>
+      <div class="byline fade-up d3">Told in seven chapters</div>
+    </div>
+    <div class="scroll-hint" aria-hidden="true"><span>Scroll</span><i></i></div>
+  </section>
+
+  <!-- ===== CHAPTERS with gold thread ===== -->
+  <div class="chapters" id="chapters">
+    <div class="thread" aria-hidden="true"><div class="thread-fill" id="threadFill"></div></div>
+
+    <!-- CH I — JAMAICA -->
+    <article class="chapter" aria-labelledby="ch1">
+      <div class="ch-marker reveal">
+        <span class="num" aria-hidden="true">I</span>
+        <span class="title" id="ch1">Jamaica</span>
+      </div>
+      <div class="ch-lines">
+        <p class="ln reveal">I was born in Jamaica.</p>
+        <p class="ln soft reveal">On August 8, 1988&hellip;</p>
+        <p class="ln reveal">My mother brought my sister and me to America.</p>
+        <p class="ln soft reveal">She told us we were spending the summer with our father.</p>
+        <p class="ln heavy reveal">We never went back.</p>
+      </div>
+      <figure class="archive reveal">
+        <div class="frame">
+          <div class="slot-inner">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M3 16l5-4 4 3 4-4 5 5"/></svg>
+            <p class="slot-title">Jamaica, 1988</p>
+            <p class="slot-sub">Photograph reserved &middot; family archive</p>
+          </div>
+        </div>
+        <figcaption>A place held for the photo that started it all</figcaption>
+      </figure>
+      <div class="ch-lesson reveal">
+        <p class="l-k">The lesson</p>
+        <p class="l-t">Sometimes life&rsquo;s greatest journeys begin without our permission.</p>
+      </div>
+    </article>
+
+    <!-- CH II — WORK -->
+    <article class="chapter" aria-labelledby="ch2">
+      <div class="ch-marker reveal">
+        <span class="num" aria-hidden="true">II</span>
+        <span class="title" id="ch2">Learning the Value of Work</span>
+      </div>
+      <div class="ch-lines">
+        <p class="ln soft reveal">America was different. Everything moved faster.</p>
+        <p class="ln reveal">While most kids spent their summers playing&hellip;</p>
+        <p class="ln reveal">Mine were spent on construction sites.</p>
+        <p class="ln soft reveal">Every school break. Every holiday. Every vacation.</p>
+        <p class="ln reveal">I worked alongside my father.</p>
+      </div>
+      <p class="ch-note reveal">At the time, I didn&rsquo;t understand why. I only knew that it was expected. Looking back, those days taught me something I couldn&rsquo;t see at the time: work isn&rsquo;t something to avoid. It&rsquo;s something to take pride in.</p>
+      <figure class="archive reveal">
+        <div class="frame">
+          <div class="slot-inner">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16"/><path d="M6 20V9l6-4 6 4v11"/><path d="M10 20v-5h4v5"/></svg>
+            <p class="slot-title">Summers on the job site</p>
+            <p class="slot-sub">Photograph reserved &middot; family archive</p>
+          </div>
+        </div>
+        <figcaption>Construction seasons with his father</figcaption>
+      </figure>
+      <div class="ch-lesson reveal">
+        <p class="l-k">The lesson</p>
+        <p class="l-t">Character is often built long before opportunity arrives.</p>
+      </div>
+    </article>
+
+    <!-- interlude — curiosity -->
+    <aside class="interlude reveal" aria-label="Interlude">
+      <p class="q">&ldquo;Every road begins with <b>a question</b>.&rdquo;</p>
+    </aside>
+
+    <!-- CH III — INDEPENDENCE -->
+    <article class="chapter" aria-labelledby="ch3">
+      <div class="ch-marker reveal">
+        <span class="num" aria-hidden="true">III</span>
+        <span class="title" id="ch3">The Beginning of Independence</span>
+      </div>
+      <div class="ch-lines">
+        <p class="ln soft reveal">Every life reaches a moment when someone else stops making the decisions.</p>
+        <p class="ln reveal">This was mine.</p>
+        <p class="ln soft reveal">For the first time, I was making my own decisions.</p>
+        <p class="ln reveal">Some were good. Some weren&rsquo;t.</p>
+        <p class="ln heavy reveal">But every one of them belonged to me.</p>
+      </div>
+      <p class="ch-note reveal">Leaving home wasn&rsquo;t just about finding a place to live. It was about finding out who I was. Independence isn&rsquo;t the freedom to avoid mistakes &mdash; it&rsquo;s accepting responsibility for them.</p>
+      <div class="ch-lesson reveal">
+        <p class="l-k">The lesson</p>
+        <p class="l-t">Growth begins the moment excuses end.</p>
+      </div>
+    </article>
+
+    <!-- CH IV — AIR FORCE -->
+    <article class="chapter" aria-labelledby="ch4">
+      <div class="ch-marker reveal">
+        <span class="num" aria-hidden="true">IV</span>
+        <span class="title" id="ch4">Forged Through Discipline</span>
+      </div>
+      <div class="ch-lines">
+        <p class="ln soft reveal">I wanted structure. I wanted to be challenged.</p>
+        <p class="ln heavy reveal">That&rsquo;s what led me to the United States Air&nbsp;Force.</p>
+        <p class="ln reveal">It demanded consistency. Accountability. Commitment.</p>
+        <p class="ln soft reveal">Every day became another opportunity to become a little stronger than the day before.</p>
+      </div>
+      <p class="ch-note reveal">Discipline isn&rsquo;t about being controlled. It&rsquo;s about learning to control yourself. Discipline doesn&rsquo;t change who you are &mdash; it reveals who you&rsquo;re willing to become.</p>
+      <figure class="archive reveal">
+        <div class="frame">
+          <div class="slot-inner">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+            <p class="slot-title">United States Air Force</p>
+            <p class="slot-sub">Photograph reserved &middot; service years</p>
+          </div>
+        </div>
+        <figcaption>Service and commitment &mdash; not hardware</figcaption>
+      </figure>
+      <div class="ch-lesson reveal">
+        <p class="l-k">The lesson</p>
+        <p class="l-t">Excellence is rarely built in a single moment. It&rsquo;s built one decision at a time.</p>
+      </div>
+    </article>
+
+    <!-- CH V — SETBACKS -->
+    <article class="chapter" aria-labelledby="ch5">
+      <div class="ch-marker reveal">
+        <span class="num" aria-hidden="true">V</span>
+        <span class="title" id="ch5">Life Doesn&rsquo;t Follow a Straight Line</span>
+      </div>
+      <div class="ch-lines">
+        <p class="ln soft reveal">I thought I knew where life was taking me. Like many people, I had a plan.</p>
+        <p class="ln reveal">But plans have a way of changing.</p>
+        <p class="ln reveal">There were victories. There were setbacks.</p>
+        <p class="ln heavy reveal">Both became teachers.</p>
+      </div>
+      <p class="ch-note reveal">Life rarely asks whether you&rsquo;re ready. It simply asks: what will you do now?</p>
+      <div class="ch-lesson reveal">
+        <p class="l-k">The lesson</p>
+        <p class="l-t">Resilience isn&rsquo;t refusing to fall. It&rsquo;s choosing to keep moving.</p>
+      </div>
+    </article>
+
+    <!-- CH VI — EARNING TRUST -->
+    <article class="chapter" aria-labelledby="ch6">
+      <div class="ch-marker reveal">
+        <span class="num" aria-hidden="true">VI</span>
+        <span class="title" id="ch6">Earning Trust</span>
+      </div>
+      <div class="ch-lines">
+        <p class="ln soft reveal">I wasn&rsquo;t chasing titles.</p>
+        <p class="ln reveal">I was learning to become dependable.</p>
+        <p class="ln soft reveal">One responsibility became another. One opportunity led to the next.</p>
+        <p class="ln heavy reveal">Before long, I found myself leading others.</p>
+      </div>
+      <p class="ch-note reveal">Leadership isn&rsquo;t about being in front. It&rsquo;s about being someone others can count on.</p>
+      <div class="ch-lesson reveal">
+        <p class="l-k">The lesson</p>
+        <p class="l-t">Trust is earned long before it&rsquo;s ever expected.</p>
+      </div>
+    </article>
+  </div>
+
+  <!-- CH VII — THE ROAD (full-bleed panel) -->
+  <section class="panel" aria-labelledby="ch7">
+    <div class="bg" data-parallax><img src="/studio/assets/journey/desert.jpg" alt="A wave breaking against a sandstone headland, photographed from the road" loading="lazy"></div>
+    <div class="scrim"></div>
+    <div class="panel-inner">
+      <div class="kick reveal">Chapter VII &middot; The Road Became My Teacher</div>
+      <h2 class="reveal d1" id="ch7">Eleven years behind the wheel &mdash; and every mile had something to say.</h2>
+      <p class="reveal d2">Close to eleven years of commercial driving. Every mile introduced me to a new place. Every state introduced me to different people. Every delivery reminded me that trust travels farther than freight. The country was changing &mdash; and so was I.</p>
+      <div class="miles reveal d2">
+        <div class="m"><div class="b">~11</div><div class="s">Years commercial driving</div></div>
+        <div class="m"><div class="b">1</div><div class="s">Promise it all became</div></div>
+      </div>
+      <div class="credit reveal d3">Photographed on the road &middot; KUL Enterprises</div>
+    </div>
+  </section>
+
+  <!-- ===== CONCLUSION ===== -->
+  <section class="conclusion" aria-label="Conclusion">
+    <div class="inner">
+      <img class="lion reveal" src="/studio/assets/brand/logo-gold-t.png" alt="KUL Enterprises">
+      <h2 class="reveal d1">Every mile taught a lesson. <b>Every lesson helped build KUL&nbsp;Enterprises.</b></h2>
+      <p class="reveal d2">The trucks came later. The character came first. That&rsquo;s the order this company was built in &mdash; and the order it still runs in today.</p>
+      <div class="cta-row reveal d2">
+        <a href="/explore/p2/s12/forward" class="pill pill-gold">Request a Freight Quote</a>
+        <a href="/explore/p2/s12/join" class="pill pill-ghost-d">Join the Journey</a>
+      </div>
+      <div class="next reveal d3">
+        <a href="/explore/p2/s12/mission">Continue the story<b>The Mission <span>&rarr;</span></b></a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site" id="contact">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <img src="/studio/assets/brand/logo-gold-t.png" alt="KUL Enterprises LLC">
+        <p>Nationwide freight from Loganville, Georgia. A safety-first carrier building something worth trusting &mdash; one honest load at a time.</p>
+        <p class="tagm"><b>Strength in Motion.</b> Built on Integrity. Driven by Safety.</p>
+      </div>
+      <div class="foot-col">
+        <h5>The Story</h5>
+        <a href="/explore/p2/s12/a">The Beginning</a>
+        <a href="/explore/p2/s12/journey">The Journey</a>
+        <span aria-current="page">Why I Started Driving</span>
+        <a href="/explore/p2/s12/road-ahead">The Road Ahead</a>
+      </div>
+      <div class="foot-col">
+        <h5>Business</h5>
+        <a href="/explore/p2/s12/mission">Services</a>
+        <a href="/explore/p2/s12/responsibility">Safety</a>
+        <a href="/explore/p2/s12/join">Drive for KUL</a>
+        <a href="/explore/p2/s12/forward">Request a Quote</a>
+      </div>
+      <div class="foot-col">
+        <h5>Contact</h5>
+        <a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a>
+        <a href="tel:+16789721148">678-972-1148</a>
+        <p>Loganville, GA</p>
+        <p>Dispatch: 24/7</p>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>&copy; <span id="yr">2026</span> KUL Enterprises LLC &middot; USDOT 7638788 &middot; MC 66389691 &middot; Licensed &amp; Insured</p>
+      <p class="tag"><b>Strength in Motion.</b> Built on Integrity. Driven by Safety.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ---- Mobile menu ----
+  (function(){
+    var b = document.getElementById('navToggle');
+    var l = document.getElementById('navlinks');
+    b.addEventListener('click', function(){
+      var open = l.classList.toggle('open');
+      b.setAttribute('aria-expanded', open ? 'true':'false');
+    });
+    l.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ l.classList.remove('open'); b.setAttribute('aria-expanded','false'); }); });
+  })();
+
+  // ---- Reveals + gold thread + panel parallax (reduced-motion safe) ----
+  (function(){
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduce){
+      document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { threshold:0.15, rootMargin:'0px 0px -8% 0px' });
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+    var thread = document.getElementById('threadFill');
+    var chapters = document.getElementById('chapters');
+    var layers = [].slice.call(document.querySelectorAll('[data-parallax]'));
+    var ticking = false;
+    function update(){
+      var vh = window.innerHeight;
+      // thread draw: scroll-linked progress of the viewport through the chapters block
+      var r = chapters.getBoundingClientRect();
+      var p = (vh*0.72 - r.top) / r.height;
+      thread.style.transform = 'scaleY(' + Math.max(0, Math.min(1, p)).toFixed(4) + ')';
+      // parallax
+      layers.forEach(function(l){
+        var pr = l.parentElement.getBoundingClientRect();
+        if(pr.bottom < -200 || pr.top > vh+200) return;
+        var progress = (pr.top + pr.height/2 - vh/2) / vh;
+        var shift = Math.max(-42, Math.min(42, progress * -42));
+        l.style.transform = 'translate3d(0,'+shift.toFixed(1)+'px,0)';
+      });
+      ticking = false;
+    }
+    function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(update); } }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', onScroll, {passive:true});
+    update();
+  })();
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+
+<script src="/studio/tweaks.js" defer></script>
+</body>
+</html>

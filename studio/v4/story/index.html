@@ -1,0 +1,2013 @@
+<!doctype html>
+<html lang="en">
+<!--
+  ============================================================================
+  KUL ENTERPRISES LLC · STYLE 13 "DISPATCH" · CHAPTER 03 — WHY I STARTED DRIVING
+  ============================================================================
+  Inherits the reference implementation at ../index.html verbatim: CSS sections
+  01-10 (reset, tokens, grounds, type, layout, hairlines, controls, reveal,
+  chrome, contact slide-over) and 17 (footer). Sections 11-16 belong to this
+  chapter only. Nav paths are parent-relative; the story chapter is marked
+  is-here in both the full-screen index and the footer.
+
+  STRUCTURAL IDEA — THE FOUNDER'S LOG.
+  The homepage is an operations document; this chapter is the personnel file
+  filed behind it. Where the homepage alternates full-bleed photo features with
+  hairline tables, this page is ONE continuous vertical log: an index table,
+  then eight dated entries in a single column, each with a stamped left rail
+  that stays with you as its testimony scrolls. A Büro era-span rule sticks
+  under the header and carries a travelling dot from 1988 to 2026, so the whole
+  road is legible as one line while you read any part of it. Nothing here
+  repeats the homepage's section rhythm. Emotion comes from scale and from the
+  ground changing exactly twice, never from an adjective.
+
+  THE PORTRAIT. There is no founder headshot yet. The slot is designed as an
+  UNEXPOSED FRAME rather than an empty box: a 4x5 aperture drawn only in crop
+  marks, holding the caption sheet that will one day sit beside the picture —
+  subject, frame, light, status. The record is open and says so.
+
+  MOBBIN SOURCES
+       Cream ground, one enormous headline, tiny mono corner labels bottom-left
+       and bottom-right, and nothing else in the frame — the chapter opener
+         — Joby Aviation — https://mobbin.com/sites/sections/7e3bda43-641a-4ac2-8070-527cd89cfecc
+       SIGNATURE DEVICE. Era bookended by a year in each top corner, one
+       hairline ruled the full width with a dot marking position along it, and
+       a numbered "(04) Chapters:" hairline table with the date range of each
+       chapter right-aligned
+         — Büro — https://mobbin.com/sites/sections/bcad6cf8-5eb5-4590-bb1f-b8f4d4ecfb88
+       BACKBONE. The narrative as a single column of numbered entries — index
+       numeral at the left margin, year at the right, a short heading and two
+       or three plain paragraphs per entry, hairline-separated, no cards
+         — Runway — https://mobbin.com/sites/sections/06fc532f-aab0-4750-8dab-26cf3b0e288a
+       Full-width mono index table: N°0001 with the item name, its material and
+       its measurements right-aligned, brand top-left and city + local time
+       top-right of the same rule
+         — Waka Waka — https://mobbin.com/sites/sections/fe089d5d-5adb-4849-a282-ae46d8fd7eac
+       PULL QUOTE. Quote glyphs pushed out to the far left and far right edges
+       of a hairline-ruled band, the quotation held in the middle at reading
+       width, attribution as two small lines beneath
+         — Ragged Edge — https://mobbin.com/sites/sections/b807baf8-e3c7-4d56-ac7c-fb40b03cfe77
+       The same band treated as a bordered plate with a mono kicker at the top
+       left and the attribution set against the opposite corner
+         — Webflow — https://mobbin.com/sites/sections/65ae58d7-8b8e-4805-baab-570eee622d35
+       Asymmetric image pair with a small label set against the smaller frame
+         — Fiasco — https://mobbin.com/sites/sections/3c2289aa-4d3f-41d7-be08-a10c48dd6734
+       Media card beside a condensed headline and two short paragraphs
+         — Zipline — https://mobbin.com/sites/sections/1dc65341-71e4-485d-83c9-5700f01dfb23
+       THE PORTRAIT SLOT. An archive where every frame is identified by its own
+       accession number set in mono directly beneath it, so a record can exist
+       and be catalogued whether or not the image is there
+         — MOUTHWASH Studio — https://mobbin.com/sites/sections/1fba2595-8a6a-42c7-8c96-562636bdf259
+       CLOSING SIGN-OFF. A first-person note that ends on the writer's name and
+       role rather than on a button
+         — incident.io — https://mobbin.com/sites/sections/67e11461-af20-4b7e-8e9a-8f0cdc669a8d
+         — Daylight — https://mobbin.com/sites/sections/faa94669-0d5d-4ab3-a7ea-8f3c641105a9
+       Founder's note held in a narrow left column with the portrait given the
+       whole right half — the layout this page has to solve without a portrait
+         — KÖPPEN — https://mobbin.com/sites/sections/81d6349f-9811-4b17-9b2d-327dbabfa4fa
+       Numbered contents rail with the entry you are reading marked
+         — Better Stack — https://mobbin.com/sites/sections/e7e957c6-5a4a-4cd8-831b-7f0a65f19d87
+    -- inherited chassis, unchanged from the reference implementation --
+       Thin utility strip pinned above the main nav row
+         — Rivian — https://mobbin.com/sites/sections/a67b1738-47a5-450a-b81b-a5991e4f31aa
+       Floating translucent capsule nav with one solid pill action
+         — T1 Energy — https://mobbin.com/sites/sections/08b1da0a-e784-4a8c-8d23-0359ff00b023
+       Full-screen menu: oversized nav list, mono column groups beneath, a
+       statement bar with a single action along the bottom
+         — Aurora — https://mobbin.com/sites/sections/0b6361a0-1916-42d2-8c23-5efd205e4904
+       Mono corner labels — brand left, city + live local time right
+         — Waka Waka — https://mobbin.com/sites/sections/27163fc7-a425-4132-831c-ec30e7a290de
+       Bracketed mono micro-labels pinned to the page corners
+         — KODE Immersive — https://mobbin.com/sites/sections/2a059cce-8c42-4096-b74a-0ddf77e3e7d3
+       Three-face system stated as display / body / mono with explicit roles
+         — Aave — https://mobbin.com/sites/sections/194a20c4-7e03-4839-86b3-30981d8db06e
+       Corner crop-mark cards with a mono label above the value
+         — Spade — https://mobbin.com/sites/sections/34a2151f-c9b2-4121-b790-8e85202fe9ca
+       Mono index label and thin measurement rules across a type list
+         — Anima — https://mobbin.com/sites/sections/883db2f4-aced-412d-8c52-de2012b6e6db
+       Superscript metadata set tight against the word
+         — A24 — https://mobbin.com/sites/sections/b645a881-adf5-43f3-a86c-758cd54f0b72
+       Mono location credit set immediately under a photograph
+         — Atlas Card — https://mobbin.com/sites/sections/8c09fb14-b75f-49c8-8511-4c2d7bb45e1e
+       CONTACT. Slide-over panel from the right edge with CLOSE, mono labels,
+       the address, and two explicit buttons — OPEN MAIL and COPY EMAIL
+         — Aino Agency — https://mobbin.com/sites/sections/1083cf3c-a197-4ee7-9632-e9bfe0d4e416
+       CONTACT ROUTING. Purpose-routed contacts with the physical address and
+       GPS coordinates set in mono
+         — Büro — https://mobbin.com/sites/sections/ce206186-f0b6-45e1-862f-a1bcbcfc5c0c
+       Contact rows as label / value / "Copy" so the copy action is explicit
+         — Ragged Edge — https://mobbin.com/sites/sections/5f1d322f-b76b-4468-90ef-ab85700b0c44
+       Footer: mono link columns above a giant wordmark cropped off the bottom
+         — Legora — https://mobbin.com/sites/sections/74f66481-04ab-4abc-bf99-7878c607e1f6
+         — Structured — https://mobbin.com/sites/sections/cf954a98-4f2e-41d3-b2a1-168e4ba0108d
+-->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why I Started Driving — KUL Enterprises LLC, Chapter Three</title>
+<meta name="description" content="The founder's road, told in his own words and in order: Jamaica to Georgia, construction summers, the United States Air Force, and roughly eleven years behind the wheel. Chapter three of the KUL Enterprises carrier profile.">
+<meta name="theme-color" content="#0B0B0B">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700&family=Schibsted+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script>document.documentElement.className += ' js';</script>
+
+<style>
+/* ==========================================================================
+   01 · RESET
+   ========================================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body, h1, h2, h3, h4, p, figure, blockquote, dl, dd, ul, ol { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+img, svg { display: block; max-width: 100%; }
+img { height: auto; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { background: none; border: 0; padding: 0; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+:where(html) { scroll-behavior: smooth; }
+[hidden] { display: none !important; }
+/* an anchor jump has to clear the collapsed header AND the sticky era rail */
+:where(main, section, h1, h2, [id]) {
+  scroll-margin-top: calc(var(--bar-h) + var(--span-h) + var(--s5));
+}
+
+/* ==========================================================================
+   02 · TOKENS — inherited verbatim; this chapter adds --stmt-scale and the
+   upper statement step --fs-stmt-xl only.
+   ========================================================================== */
+:root {
+  /* --- 2.1 grounds ------------------------------------------------------- */
+  --ink:     #0B0B0B;   /* (TWEAK) primary dark ground                       */
+  --paper:   #F4F1E8;   /* (TWEAK) warm document ground                      */
+  --plate:   #141414;   /* raised surface on ink                             */
+  --plate-l: #EAE6DA;   /* raised surface on paper                           */
+  --gold:    #D4AF37;   /* (TWEAK) functional ink only — never a fill        */
+  --gold-deep: #7A5F0A; /* #D4AF37 measures 1.87:1 on --paper and fails both
+                           the 3:1 non-text floor and the 4.5:1 text floor.
+                           --gold-t resolves per ground.                     */
+  --gold-t:  var(--gold);
+
+  /* --- 2.2 families — the three roles, swappable from one place ---------- */
+  --ff-d: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --ff-b: "Schibsted Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --ff-m: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* --- 2.3 type scale ---------------------------------------------------- */
+  --display-scale: 1;   /* (TWEAK) */
+  /* THE LADDER IS THE WHOLE SCALE. Eight steps, each 1.24-1.46x the next, and
+     nothing set in --ff-d may sit outside them. At 1440px they resolve to
+     176 / 131 / 89.6 / 61.6 / 41.6 / 33.6 / 25.6 / 20; at 390px every step is
+     on its floor and the order still holds (70.4 / 46.4 / 37.6 / 29.6 / 25.6 /
+     23.2 / 20.8 / 19). Those four floors are deliberately above 18.66px: the
+     display register is set at 700, so staying over that line keeps every
+     Big Shoulders string WCAG "large text" at every viewport and holds the
+     contrast bar at 3:1 rather than dropping it to 4.5:1 on mobile only.
+     Component CSS references the token, never a fresh clamp() — an eyeballed
+     2.15rem that lands 0.24px off --fs-h4 is how the first build ended up
+     rendering 38 display sizes against 5 declared steps. The one exemption is
+     .wordmark, which is not a type step at all: it is a graphic sized by
+     division so the string spans its column exactly. */
+  --fs-fig:  calc(clamp(4.4rem, 13vw, 11rem)      * var(--display-scale));
+  --fs-hero: calc(clamp(2.9rem, 9.1vw, 8.9rem)    * var(--display-scale));
+  --fs-h1:   calc(clamp(2.35rem, 6.3vw, 5.6rem)   * var(--display-scale));
+  --fs-h2:   calc(clamp(1.85rem, 4.4vw, 3.85rem)  * var(--display-scale));
+  --fs-h3:   calc(clamp(1.6rem, 3vw, 2.6rem)      * var(--display-scale));
+  --fs-h4:   calc(clamp(1.45rem, 2.6vw, 2.1rem)   * var(--display-scale));
+  --fs-h5:   calc(clamp(1.3rem, 2vw, 1.6rem)      * var(--display-scale));
+  --fs-h6:   calc(clamp(1.1875rem, 1.6vw, 1.25rem) * var(--display-scale));
+  --fs-stmt: clamp(1.5rem, 3.2vw, 2.7rem);
+  /* The upper step of the SAME statement register — for the two testimony
+     pull-quotes and the closing thesis, the only body-voice lines allowed to
+     carry extra scale. Ceiling is 3rem (48px), the max of the brief's stated
+     statement clamp: the editorial voice must never out-scale the signage
+     voice, so this stays under --fs-h2 (61.6px at 1440) and well under the
+     display lines. The 1.9rem floor is what keeps the step legible as a step
+     on narrow screens, where --fs-stmt bottoms out at 1.5rem. */
+  --fs-stmt-xl: clamp(1.9rem, 4vw, 3rem);
+  --fs-lead: clamp(1.0625rem, 1.3vw, 1.25rem);
+  --fs-body: 1rem;
+  --fs-sm:   0.875rem;
+  --fs-xs:   0.8125rem;
+  --fs-mono: 10.5px;
+  --fs-nav:  11px;
+
+  --lh-display: 0.855;
+  --lh-body:    1.62;
+  --ls-display: 0.006em;
+  --ls-display-s: 0.038em;
+  --mono-track: 0.18em;    /* (TWEAK) */
+
+  /* This chapter's own lever. The testimony statements ARE the page — the
+     quoted lines carry the whole emotional load — so their scale is the one
+     type control worth exposing separately from the display scale. */
+  --stmt-scale: 1;         /* (TWEAK) */
+
+  /* --- 2.4 space scale --------------------------------------------------- */
+  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px; --s5: 24px;
+  --s6: 32px; --s7: 48px; --s8: 64px; --s9: 96px; --s10: 128px;
+  --gutter:    clamp(20px, 5vw, 72px);
+  --section-y: clamp(72px, 9.5vw, 148px);
+  --maxw:      1440px;
+  --measure:   62ch;
+
+  /* --- 2.5 hairlines ----------------------------------------------------- */
+  --hairline-w: 1px;    /* (TWEAK) */
+  --crop-mark:  11px;
+
+  /* --- 2.6 motion -------------------------------------------------------- */
+  --ease:       cubic-bezier(.2, .8, .2, 1);
+  --t-state:    220ms;
+  --reveal-dur: 700ms;
+  --reveal-dist: 18px;  /* (TWEAK) */
+
+  /* --- 2.7 photography --------------------------------------------------- */
+  --photo-grade: 20%;      /* (TWEAK) archive frames — shown near-true       */
+  --photo-grade-feat: 62%; /* (TWEAK) entry features — graded in             */
+  --scrim:       100%;  /* (TWEAK) */
+
+  /* --- 2.8 chrome + focus ------------------------------------------------ */
+  --strip-h: 34px;
+  --focus-w: 2px;
+  --focus-o: 3px;
+
+  /* --- 2.9 this chapter -------------------------------------------------- */
+  --span-h: 48px;       /* the sticky era rail — FIXED height, so it can only
+                           ever translate, never resize                      */
+  /* Measured height of the COLLAPSED header, which is what the era rail has
+     to clear. It is not one number: below 980px the nav row holds only the
+     44px brand pill (14 + 44 + 14 = 72), and at 980px and up the 54px capsule
+     takes over as the tallest child (14 + 56 + 14 = 84). Sticking the rail at
+     a flat 72px put it 12px under the capsule on desktop — measured, then
+     fixed. This is a static breakpoint value, never an animated one. */
+  --bar-h: 72px;
+  --rail-top: calc(var(--bar-h) + var(--span-h) + 16px);
+}
+@media (min-width: 980px) { :root { --bar-h: 86px; } }
+
+/* ==========================================================================
+   03 · GROUND CONTEXTS
+   ========================================================================== */
+.g-ink {
+  --bg:       var(--ink);
+  --fg:       #F4F1E8;                    /* 18.36:1 on ink                  */
+  --fg-2:     rgba(244, 241, 232, .76);   /*  9.74:1 — secondary body        */
+  --fg-3:     rgba(244, 241, 232, .58);   /*  6.32:1 — mono labels           */
+  --line:     rgba(244, 241, 232, .20);
+  --line-2:   rgba(244, 241, 232, .38);
+  --plate-bg: var(--plate);
+  --btn-bg:   #F4F1E8;
+  --btn-fg:   #0B0B0B;
+  --gold-t:   var(--gold);            /*  9.29:1 on ink                      */
+  background: var(--bg);
+  color: var(--fg);
+}
+.g-paper {
+  --bg:       var(--paper);
+  --fg:       #0B0B0B;                    /* 17.55:1 on paper                */
+  --fg-2:     rgba(11, 11, 11, .80);      /*  9.29:1 — secondary body        */
+  --fg-3:     rgba(11, 11, 11, .64);      /*  5.74:1 — mono labels           */
+  --line:     rgba(11, 11, 11, .18);
+  --line-2:   rgba(11, 11, 11, .36);
+  --plate-bg: var(--plate-l);
+  --btn-bg:   #0B0B0B;
+  --btn-fg:   #F4F1E8;
+  --gold-t:   var(--gold-deep);       /*  5.42:1 on paper                    */
+  background: var(--bg);
+  color: var(--fg);
+}
+
+body {
+  font-family: var(--ff-b);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-weight: 400;
+  background: var(--paper);
+  color: #0B0B0B;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   04 · TYPOGRAPHY PRIMITIVES
+   ========================================================================== */
+.display {
+  font-family: var(--ff-d);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: var(--lh-display);
+  letter-spacing: var(--ls-display);
+  font-feature-settings: "kern" 1;
+}
+.d-fig  { font-size: var(--fs-fig); font-weight: 600; letter-spacing: 0; line-height: .76; }
+.d-hero { font-size: var(--fs-hero); }
+.d-h1   { font-size: var(--fs-h1); }
+.d-h2   { font-size: var(--fs-h2); }
+.d-h3   { font-size: var(--fs-h3);  letter-spacing: var(--ls-display-s); }
+.d-h4   { font-size: var(--fs-h4);  letter-spacing: var(--ls-display-s); }
+.d-h5   { font-size: var(--fs-h5);  letter-spacing: var(--ls-display-s); }
+.d-h6   { font-size: var(--fs-h6);  letter-spacing: var(--ls-display-s); }
+.d-sm   { font-family: var(--ff-d); font-weight: 700; text-transform: uppercase;
+          line-height: 1; letter-spacing: var(--ls-display-s); }
+
+.mono {
+  font-family: var(--ff-m);
+  font-size: var(--fs-mono);
+  font-weight: 400;
+  letter-spacing: var(--mono-track);
+  text-transform: uppercase;
+  line-height: 1.55;
+  color: var(--fg-3);
+}
+.mono--fg  { color: var(--fg); }
+.mono--md  { color: var(--fg-2); }
+.mono--gold { color: var(--gold-t); }
+
+.stmt   { font-family: var(--ff-b); font-weight: 600; font-size: var(--fs-stmt);
+          line-height: 1.18; letter-spacing: -.012em; color: var(--fg); max-width: 21ch;
+          text-wrap: balance; }
+.stmt--wide { max-width: 26ch; }
+.lead   { font-size: var(--fs-lead); line-height: 1.55; color: var(--fg-2); max-width: var(--measure); }
+.lead-1 { font-size: var(--fs-lead); line-height: 1.5; font-weight: 500; color: var(--fg); max-width: 44ch; }
+.lead-2 { font-size: var(--fs-lead); line-height: 1.5; color: var(--fg-2); max-width: 48ch; margin-top: 7px; }
+.body   { color: var(--fg-2); max-width: var(--measure); }
+.body strong, .lead strong, .lead-2 strong { color: var(--fg); font-weight: 600; }
+.tight  { max-width: 46ch; }
+.sr {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+
+/* ==========================================================================
+   05 · LAYOUT PRIMITIVES
+   ========================================================================== */
+.wrap    { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
+.section { padding-block: var(--section-y); position: relative; }
+.stack > * + * { margin-top: var(--s4); }
+.sec-head { display: flex; flex-direction: column; gap: var(--s4); margin-bottom: var(--s8); }
+.kicker   { display: flex; align-items: baseline; gap: var(--s4); flex-wrap: wrap; }
+.kicker .idx { color: var(--fg-3); }
+
+/* ==========================================================================
+   06 · HAIRLINES, CROP MARKS
+   ========================================================================== */
+.rule { height: var(--hairline-w); background: var(--line); border: 0; width: 100%; }
+.rule--strong { background: var(--line-2); }
+
+.cropmarks {
+  --mark: var(--line-2);
+  background-image:
+    linear-gradient(var(--mark), var(--mark)), linear-gradient(var(--mark), var(--mark)),
+    linear-gradient(var(--mark), var(--mark)), linear-gradient(var(--mark), var(--mark)),
+    linear-gradient(var(--mark), var(--mark)), linear-gradient(var(--mark), var(--mark)),
+    linear-gradient(var(--mark), var(--mark)), linear-gradient(var(--mark), var(--mark));
+  background-repeat: no-repeat;
+  background-size:
+    var(--crop-mark) var(--hairline-w), var(--hairline-w) var(--crop-mark),
+    var(--crop-mark) var(--hairline-w), var(--hairline-w) var(--crop-mark),
+    var(--crop-mark) var(--hairline-w), var(--hairline-w) var(--crop-mark),
+    var(--crop-mark) var(--hairline-w), var(--hairline-w) var(--crop-mark);
+  background-position:
+    left top, left top, right top, right top,
+    left bottom, left bottom, right bottom, right bottom;
+}
+
+/* ==========================================================================
+   07 · CONTROLS
+   ========================================================================== */
+:focus-visible {
+  outline: var(--focus-w) solid var(--gold-t);
+  outline-offset: var(--focus-o);
+  border-radius: 2px;
+}
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--s3);
+  min-height: 48px; padding: 13px 26px;
+  border-radius: 999px;
+  background: var(--btn-bg); color: var(--btn-fg);
+  font-size: var(--fs-xs); font-weight: 600; letter-spacing: .04em;
+  border: var(--hairline-w) solid transparent;
+  transition: background-color var(--t-state) var(--ease),
+              color var(--t-state) var(--ease),
+              border-color var(--t-state) var(--ease),
+              transform var(--t-state) var(--ease),
+              opacity var(--t-state) var(--ease);
+}
+.btn:hover  { transform: translateY(-1px); opacity: .88; }
+.btn:active { transform: translateY(0); opacity: 1; }
+.btn[aria-disabled="true"], .btn:disabled { opacity: .40; pointer-events: none; }
+.btn--ghost { background: transparent; color: var(--fg); border-color: var(--line-2); }
+.btn--ghost:hover { background-color: var(--fg); color: var(--bg); opacity: 1; }
+.btn--sm { min-height: 44px; padding: 11px 20px; }
+.btn--mono { font-family: var(--ff-m); font-size: var(--fs-mono);
+             letter-spacing: var(--mono-track); text-transform: uppercase; font-weight: 500; }
+
+.arrow {
+  display: inline-flex; align-items: center; gap: var(--s2);
+  min-height: 44px;
+  font-size: var(--fs-sm); font-weight: 600; letter-spacing: .01em; color: var(--fg);
+  border-bottom: var(--hairline-w) solid transparent;
+  transition: border-color var(--t-state) var(--ease), color var(--t-state) var(--ease);
+}
+.arrow i { font-style: normal; color: var(--gold-t);
+           transition: transform var(--t-state) var(--ease); }
+.arrow:hover         { border-bottom-color: var(--line-2); }
+.arrow:hover i       { transform: translate(3px, -3px); }
+.arrow--flat:hover i { transform: translate(4px, 0); }
+.arrow:active        { opacity: .75; }
+
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s5) var(--s7); }
+
+.circ {
+  width: 44px; height: 44px; border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: var(--hairline-w) solid var(--line-2); color: var(--fg);
+  font-size: 15px; line-height: 1;
+  transition: background-color var(--t-state) var(--ease),
+              color var(--t-state) var(--ease),
+              border-color var(--t-state) var(--ease),
+              opacity var(--t-state) var(--ease);
+}
+.circ:hover    { background-color: var(--fg); color: var(--bg); border-color: var(--fg); }
+.circ:active   { opacity: .7; }
+.circ:disabled { opacity: .28; pointer-events: none; }
+
+/* ==========================================================================
+   08 · REVEAL MACHINERY — transform / opacity / clip-path only
+   ========================================================================== */
+.js [data-reveal] {
+  clip-path: inset(0 100% 0 0);
+  opacity: .001;
+  transform: translateY(var(--reveal-dist));
+  transition: clip-path var(--reveal-dur) var(--ease),
+              opacity   var(--reveal-dur) var(--ease),
+              transform var(--reveal-dur) var(--ease);
+}
+.js [data-reveal].is-in { clip-path: inset(0 0 0 0); opacity: 1; transform: none; }
+.js [data-rule] { transform: scaleX(0); transform-origin: left center;
+                  transition: transform var(--reveal-dur) var(--ease); }
+.js [data-rule].is-in { transform: scaleX(1); }
+
+/* ==========================================================================
+   09 · CHROME — utility strip, capsule nav, mobile dock, full-screen menu
+   ========================================================================== */
+.skip {
+  position: absolute; left: var(--s4); top: -120px; z-index: 200;
+  background: var(--paper); color: var(--ink);
+  padding: 12px 18px; border-radius: 999px; font-size: var(--fs-xs); font-weight: 600;
+}
+.skip:focus-visible { top: var(--s4); }
+
+.topbar {
+  position: fixed; inset: 0 0 auto 0; z-index: 90;
+  pointer-events: none;
+  transform: translateY(0);
+  transition: transform var(--t-state) var(--ease);
+}
+.topbar > * { pointer-events: auto; }
+.topbar.is-stuck { transform: translateY(calc(var(--strip-h) * -1)); }
+
+.ustrip {
+  height: var(--strip-h);
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s4);
+  padding-inline: var(--gutter);
+  background: rgba(11, 11, 11, .82);
+  border-bottom: var(--hairline-w) solid rgba(244, 241, 232, .14);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overflow: hidden;
+}
+.ustrip p { font-family: var(--ff-m); font-size: var(--fs-mono);
+            letter-spacing: var(--mono-track); text-transform: uppercase;
+            color: rgba(244, 241, 232, .70); white-space: nowrap; }
+.ustrip .live { display: inline-flex; align-items: center; gap: 7px; color: rgba(244,241,232,.84); }
+.ustrip .live b { width: 5px; height: 5px; border-radius: 999px; background: var(--gold); display: block; }
+@media (max-width: 719px) { .ustrip .u-left { display: none; } }
+
+.navrow {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s4);
+  padding: 14px var(--gutter);
+}
+.brand {
+  display: inline-flex; align-items: center; gap: 10px;
+  min-height: 44px; padding: 4px 16px 4px 8px; border-radius: 999px;
+  background-color: rgba(15, 15, 15, .82);
+  border: var(--hairline-w) solid rgba(244, 241, 232, .16);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  transition: background-color var(--t-state) var(--ease),
+              border-color var(--t-state) var(--ease);
+}
+.topbar.is-stuck .brand { background-color: rgba(11, 11, 11, .90);
+                          border-color: rgba(244, 241, 232, .24); }
+.brand img {
+  width: 32px; height: 32px; object-fit: contain;
+  transform: scale(1); transform-origin: left center;
+  transition: transform var(--t-state) var(--ease);
+}
+.topbar.is-stuck .brand img { transform: scale(.8); }
+.brand-txt { display: grid; }
+.brand-txt .n { font-family: var(--ff-d); font-weight: 700; font-size: var(--fs-h6);
+                letter-spacing: .05em; line-height: 1; color: #F4F1E8; }
+.brand-txt .s { font-family: var(--ff-m); font-size: 8.5px; letter-spacing: .2em;
+                text-transform: uppercase; color: rgba(244, 241, 232, .74); line-height: 1.5; }
+
+.capsule {
+  display: none; align-items: center; gap: 2px;
+  padding: 5px 5px 5px 8px; border-radius: 999px;
+  background: rgba(15, 15, 15, .82);
+  border: var(--hairline-w) solid rgba(244, 241, 232, .16);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  transition: background-color var(--t-state) var(--ease),
+              border-color var(--t-state) var(--ease);
+}
+.topbar.is-stuck .capsule { background: rgba(11, 11, 11, .90); border-color: rgba(244,241,232,.24); }
+.nlink {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 13px;
+  border-radius: 999px;
+  font-family: var(--ff-m); font-size: var(--fs-nav);
+  letter-spacing: var(--mono-track); text-transform: uppercase;
+  color: rgba(244, 241, 232, .84);
+  transition: color var(--t-state) var(--ease), background-color var(--t-state) var(--ease);
+}
+.nlink:hover  { color: #F4F1E8; background-color: rgba(244, 241, 232, .10); }
+.nlink:active { background-color: rgba(244, 241, 232, .18); }
+
+/* One primary action per viewport. This chapter has no hero button, so the
+   nav CTA is the page's only primary from the very first paint — it rests
+   solid rather than promoting on scroll. Colour only; no layout touched. */
+.capsule .btn--nav {
+  margin-left: var(--s2);
+  background-color: #F4F1E8; color: #0B0B0B; border-color: #F4F1E8;
+}
+.capsule .btn--nav:hover  { background-color: #fff; color: #0B0B0B; opacity: 1; }
+.capsule .btn--nav:active { background-color: #E4E0D4; }
+
+.menu-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  min-height: 44px; min-width: 44px; padding: 0 14px; border-radius: 999px;
+  font-family: var(--ff-m); font-size: var(--fs-nav);
+  letter-spacing: var(--mono-track); text-transform: uppercase;
+  color: rgba(244, 241, 232, .84);
+  border: var(--hairline-w) solid rgba(244, 241, 232, .16);
+  background-color: rgba(15, 15, 15, .82);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  transition: color var(--t-state) var(--ease), background-color var(--t-state) var(--ease);
+}
+.menu-btn:hover  { color: #F4F1E8; background-color: rgba(244, 241, 232, .14); }
+.menu-btn:active { background-color: rgba(244, 241, 232, .22); }
+.menu-btn .bars  { display: grid; gap: 3px; }
+.menu-btn .bars b { display: block; width: 14px; height: 1px; background: currentColor; }
+.capsule .menu-btn { border-color: transparent; background-color: transparent; }
+
+.dockbar {
+  position: fixed; inset: auto 0 0 0; z-index: 90;
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  background: rgba(11, 11, 11, .94);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-top: var(--hairline-w) solid rgba(244, 241, 232, .22);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.dockbar a, .dockbar button {
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  min-height: 54px; padding: 6px 2px;
+  font-family: var(--ff-m); font-size: 9.5px; letter-spacing: .07em; text-transform: uppercase;
+  color: rgba(244, 241, 232, .84);
+  border-left: var(--hairline-w) solid rgba(244, 241, 232, .14);
+  transition: background-color var(--t-state) var(--ease), color var(--t-state) var(--ease);
+}
+.dockbar > :first-child { border-left: 0; }
+.dockbar a:hover, .dockbar button:hover  { background-color: rgba(244, 241, 232, .12); color: #F4F1E8; }
+.dockbar a:active, .dockbar button:active { background-color: rgba(244, 241, 232, .20); }
+.dockbar .is-cta { background: #F4F1E8; color: #0B0B0B; font-weight: 500; }
+.dockbar .is-cta:hover { background-color: #fff; color: #0B0B0B; }
+
+@media (min-width: 980px) {
+  .capsule { display: flex; }
+  .dockbar { display: none; }
+  [data-mobile-only] { display: none !important; }
+}
+@media (max-width: 979px) { body { padding-bottom: 56px; } }
+
+.sheet {
+  position: fixed; inset: 0; z-index: 120;
+  background: rgba(11, 11, 11, .975);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  overflow-y: auto; overscroll-behavior: contain;
+  opacity: 0;
+  transition: opacity 260ms var(--ease);
+}
+.sheet.is-open { opacity: 1; }
+.sheet-in { min-height: 100%; display: flex; flex-direction: column;
+            padding-block: 16px var(--s7); }
+.sheet-top { display: flex; align-items: center; justify-content: space-between;
+             gap: var(--s4); margin-bottom: var(--s7); }
+.pill-close {
+  display: inline-flex; align-items: center; gap: 9px;
+  min-height: 44px; padding: 0 16px; border-radius: 999px;
+  border: var(--hairline-w) solid rgba(244, 241, 232, .26);
+  font-family: var(--ff-m); font-size: var(--fs-nav);
+  letter-spacing: var(--mono-track); text-transform: uppercase;
+  color: rgba(244, 241, 232, .86);
+  transition: background-color var(--t-state) var(--ease), color var(--t-state) var(--ease);
+}
+.pill-close:hover  { background-color: rgba(244, 241, 232, .14); color: #F4F1E8; }
+.pill-close:active { background-color: rgba(244, 241, 232, .22); }
+
+.chapters { border-top: var(--hairline-w) solid rgba(244, 241, 232, .20); }
+.chapters li { border-bottom: var(--hairline-w) solid rgba(244, 241, 232, .20); }
+.chapters li.is-here { border-bottom-color: var(--gold); }
+.chapters a {
+  display: flex; align-items: baseline; gap: var(--s5);
+  padding: 11px 4px; min-height: 54px;
+  transition: background-color var(--t-state) var(--ease);
+}
+.chapters a:hover  { background-color: rgba(244, 241, 232, .05); }
+.chapters a:active { background-color: rgba(244, 241, 232, .10); }
+.chapters .nm, .chapters .num {
+  transition: transform var(--t-state) var(--ease), color var(--t-state) var(--ease);
+}
+.chapters a:hover .nm, .chapters a:hover .num { transform: translateX(12px); }
+.chapters .num { font-family: var(--ff-m); font-size: var(--fs-mono);
+                 letter-spacing: var(--mono-track); color: rgba(244,241,232,.58);
+                 min-width: 3.6em; }
+.chapters .nm  { font-family: var(--ff-d); font-weight: 700;
+                 font-size: var(--fs-h3); line-height: .95;
+                 letter-spacing: .02em; text-transform: uppercase; color: #F4F1E8; }
+.chapters .here { margin-left: auto; font-family: var(--ff-m); font-size: var(--fs-mono);
+                  letter-spacing: var(--mono-track); color: var(--gold); text-transform: uppercase; }
+
+.sheet-cols { display: grid; gap: var(--s6); margin-top: var(--s6); }
+.sheet-cols h3 { font-family: var(--ff-m); font-size: var(--fs-mono); font-weight: 400;
+                 letter-spacing: var(--mono-track); text-transform: uppercase;
+                 color: rgba(244,241,232,.52); margin-bottom: var(--s3); }
+.sheet-cols li a, .sheet-cols li span {
+  display: inline-flex; align-items: center; min-height: 44px;
+  font-family: var(--ff-m); font-size: var(--fs-nav); letter-spacing: .1em;
+  text-transform: uppercase; color: rgba(244,241,232,.82);
+  transition: color var(--t-state) var(--ease);
+}
+.sheet-cols li a:hover { color: #F4F1E8; }
+@media (min-width: 720px) { .sheet-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+.sheet-bar {
+  margin-top: auto; padding-top: var(--s5);
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: var(--s4) var(--s6);
+  border-top: var(--hairline-w) solid rgba(244, 241, 232, .20);
+}
+.sheet-bar .stmt { font-size: clamp(1.15rem, 2.2vw, 1.55rem); max-width: 30ch; color: #F4F1E8; }
+
+/* ==========================================================================
+   10 · CONTACT SLIDE-OVER — inherited verbatim
+   ========================================================================== */
+.cpanel { position: fixed; inset: 0; z-index: 140; }
+.cpanel-scrim {
+  position: absolute; inset: 0;
+  background: rgba(11, 11, 11, .62);
+  backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
+  opacity: 0; transition: opacity 260ms var(--ease);
+}
+.cpanel.is-open .cpanel-scrim { opacity: 1; }
+.cpanel-card {
+  position: absolute; inset: 0 0 0 auto;
+  width: min(460px, 100%);
+  background: var(--plate-l); color: var(--ink);
+  --fg: #0B0B0B; --fg-2: rgba(11,11,11,.80); --fg-3: rgba(11,11,11,.64);
+  --line: rgba(11,11,11,.18); --line-2: rgba(11,11,11,.36);
+  --btn-bg: #0B0B0B; --btn-fg: #F4F1E8; --bg: var(--plate-l);
+  --gold-t: var(--gold-deep);
+  border-left: var(--hairline-w) solid rgba(11, 11, 11, .30);
+  overflow-y: auto; overscroll-behavior: contain;
+  padding: 16px var(--s6) var(--s7);
+  transform: translateX(100%);
+  transition: transform 300ms var(--ease);
+}
+.cpanel.is-open .cpanel-card { transform: translateX(0); }
+.cpanel-top { display: flex; align-items: center; justify-content: space-between;
+              gap: var(--s4); margin-bottom: var(--s7); }
+.cpanel-top .pill-close { border-color: rgba(11,11,11,.30); color: rgba(11,11,11,.82); }
+.cpanel-top .pill-close:hover  { background-color: rgba(11,11,11,.10); color: #0B0B0B; }
+.cpanel-top .pill-close:active { background-color: rgba(11,11,11,.18); }
+
+.croute { margin-top: var(--s7); border-top: var(--hairline-w) solid var(--line-2); }
+.croute-row { padding: 14px 0; border-bottom: var(--hairline-w) solid var(--line); }
+.croute-row > .mono { display: block; }
+.croute-row .v { display: block; font-size: var(--fs-body); font-weight: 600;
+                 color: var(--fg); margin-top: 4px; word-break: break-word; }
+.croute-row .n { display: block; font-size: var(--fs-xs); line-height: 1.5;
+                 color: var(--fg-2); margin-top: 4px; }
+.croute-row a.v { display: inline-flex; align-items: center; min-height: 44px;
+                  border-bottom: var(--hairline-w) solid transparent; width: fit-content;
+                  transition: border-color var(--t-state) var(--ease); }
+.croute-row a.v:hover { border-bottom-color: var(--line-2); }
+
+.cbtns { display: flex; flex-wrap: wrap; gap: var(--s3); margin-top: var(--s6); }
+.cstatus { min-height: 22px; margin-top: var(--s3); font-family: var(--ff-m);
+           font-size: var(--fs-mono); letter-spacing: var(--mono-track);
+           text-transform: uppercase; color: var(--gold-t); }
+.cgeo { margin-top: var(--s7); padding-top: var(--s5);
+        border-top: var(--hairline-w) solid var(--line-2); display: grid; gap: var(--s2); }
+.cgeo address { font-style: normal; font-family: var(--ff-m); font-size: var(--fs-mono);
+                letter-spacing: var(--mono-track); text-transform: uppercase;
+                line-height: 1.9; color: var(--fg-2); }
+
+/* ==========================================================================
+   11 · CHAPTER OPENER — Joby: cream ground, one enormous line, corner labels
+   The homepage opens on a full-bleed photograph. This chapter deliberately
+   does not: the most human page in the system opens on paper with nothing in
+   the frame but the sentence and four small facts in the corners.
+   ========================================================================== */
+.phero {
+  min-height: clamp(560px, 92svh, 900px);
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding-top: calc(var(--strip-h) + 132px);
+  padding-bottom: var(--s6);
+}
+.phero-mid { flex: 1; display: flex; flex-direction: column; justify-content: center;
+             padding-block: var(--s7); }
+.phero h1 { max-width: 13ch; }
+.phero h1 .lo { display: block; }
+.phero-lead { margin-top: var(--s7); max-width: 46ch; }
+.phero-lead .lead-1 { max-width: none; }
+
+/* Joby's corner labels: two bottom-left, one bottom-right, all on one rule. */
+.phero-foot {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+  gap: var(--s3) var(--s6);
+  padding-top: var(--s4);
+  border-top: var(--hairline-w) solid var(--line-2);
+}
+.phero-foot .grp { display: grid; gap: 2px; }
+
+/* ==========================================================================
+   12 · THE LOG — index table, sticky era span, eight stamped entries
+   ========================================================================== */
+
+/* --- 12.1 Waka Waka index table ---------------------------------------- */
+.ndx { border-top: var(--hairline-w) solid var(--line-2); margin-top: var(--s6); }
+.ndx li { border-bottom: var(--hairline-w) solid var(--line); }
+.ndx a {
+  display: grid; grid-template-columns: 3.4em minmax(0, 1fr);
+  align-items: baseline; gap: 4px var(--s5);
+  padding: 13px 4px; min-height: 56px;
+  transition: background-color var(--t-state) var(--ease);
+}
+.ndx a:hover  { background-color: rgba(244, 241, 232, .05); }
+.ndx a:active { background-color: rgba(244, 241, 232, .10); }
+.ndx .no { font-family: var(--ff-m); font-size: var(--fs-mono);
+           letter-spacing: var(--mono-track); text-transform: uppercase; color: var(--fg-3);
+           transition: color var(--t-state) var(--ease); }
+.ndx .ti { font-family: var(--ff-d); font-weight: 700; font-size: var(--fs-h5);
+           line-height: 1; letter-spacing: var(--ls-display-s); text-transform: uppercase;
+           color: var(--fg-2);
+           transition: color var(--t-state) var(--ease), transform var(--t-state) var(--ease); }
+.ndx .wt { font-size: var(--fs-xs); line-height: 1.5; color: var(--fg-2); }
+.ndx .yr { font-family: var(--ff-m); font-size: var(--fs-mono);
+           letter-spacing: var(--mono-track); text-transform: uppercase; color: var(--fg-3);
+           white-space: nowrap; }
+.ndx a:hover .ti { color: var(--fg); transform: translateX(8px); }
+.ndx a:hover .no { color: var(--fg-2); }
+@media (min-width: 860px) {
+  .ndx a { grid-template-columns: 3.4em minmax(0, 15rem) minmax(0, 1fr) auto; align-items: baseline; }
+}
+
+/* --- 12.2 Büro era span, sticky over the log ---------------------------- */
+/* FIXED height. The bar never resizes and nothing inside it animates a layout
+   property — the dot is translated, the fill is scaled on the X axis. */
+.span {
+  position: sticky; top: var(--bar-h); z-index: 40;
+  height: var(--span-h);
+  margin-top: var(--s8);
+  display: flex; align-items: center;
+  background: rgba(11, 11, 11, .90);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-top: var(--hairline-w) solid var(--line);
+  border-bottom: var(--hairline-w) solid var(--line);
+}
+.span-in { display: flex; align-items: center; gap: var(--s4); width: 100%; }
+.span-y  { white-space: nowrap; }
+.span-line { position: relative; flex: 1; height: 12px; display: flex; align-items: center; }
+.span-rule { position: absolute; inset: auto 0 auto 0; height: var(--hairline-w);
+             background: var(--line-2); }
+/* the travelled portion, drawn by scaleX — never by width */
+.span-fill { position: absolute; inset: auto 0 auto 0; height: var(--hairline-w);
+             background: var(--fg-2); transform: scaleX(0); transform-origin: left center; }
+.span-tick { position: absolute; top: 50%; width: var(--hairline-w); height: 7px;
+             background: var(--line-2); transform: translate(-50%, -50%); }
+.span-dot  { position: absolute; left: 0; top: 50%; width: 7px; height: 7px;
+             border-radius: 999px; background: var(--gold);
+             transform: translate(-50%, -50%); will-change: transform; }
+.span-now  { white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+             max-width: 46vw; color: var(--fg-2); }
+@media (max-width: 719px) { .span-y { display: none; } }
+
+/* --- 12.3 the entries --------------------------------------------------- */
+.log { margin-top: var(--s7); }
+.entry { border-top: var(--hairline-w) solid var(--line-2); padding-block: var(--s8) var(--s9); }
+.entry:first-child { border-top: 0; }
+.entry-grid { display: grid; gap: var(--s5); }
+
+/* the stamp rail — index, era, one word of context. Sticky on desktop so the
+   stamp stays beside the testimony the whole way down the entry. */
+.stamp { display: grid; gap: var(--s2); align-content: start; }
+/* The word ENTRY has to sit above the numeral. In a condensed signage face the
+   roman numeral for one is a single vertical stroke, and on entry I it read as
+   a stray hairline rather than as a number — the label is what makes it parse.
+   The numeral also runs at --fg-2 rather than --fg-3 for the same reason. */
+.stamp .lb { color: var(--fg-3); }
+.stamp .rn { font-family: var(--ff-d); font-weight: 700; font-size: var(--fs-h3);
+             line-height: .9; letter-spacing: var(--ls-display-s); color: var(--fg-2);
+             margin-top: -2px; }
+.stamp .er { color: var(--fg-2); margin-top: var(--s2); }
+.stamp .cx { color: var(--fg-3); }
+
+.entry-body > * + * { margin-top: var(--s5); }
+.entry-body h2 { max-width: 18ch; }
+
+/* Quoted testimony. Schibsted Grotesk carries every statement in this system —
+   the founder's words are statements, never mono, never Big Shoulders. */
+.testi {
+  font-family: var(--ff-b); font-weight: 600;
+  font-size: calc(var(--fs-stmt) * var(--stmt-scale));
+  line-height: 1.16; letter-spacing: -.014em; color: var(--fg);
+  max-width: 20ch; text-wrap: balance;
+}
+.testi--wide { max-width: 26ch; }
+/* the three entries that carry the turn get scale instead of ornament */
+.testi--xl { font-size: calc(var(--fs-stmt-xl) * var(--stmt-scale));
+             line-height: 1.02; letter-spacing: -.02em; max-width: 14ch; }
+
+.said { color: var(--fg-2); max-width: 54ch; }
+.said + .said { margin-top: var(--s4); }
+
+/* the lesson rail closes every entry: mono key, then the line in body voice */
+.lesson {
+  display: grid; gap: var(--s2);
+  margin-top: var(--s7); padding-top: var(--s4);
+  border-top: var(--hairline-w) solid var(--line);
+}
+.lesson .lt { font-size: var(--fs-sm); font-weight: 500; color: var(--fg); max-width: 44ch; }
+
+/* the A / B / C creed inside the Air Force entry */
+.creed { margin-top: var(--s6); border-top: var(--hairline-w) solid var(--line-2); }
+.creed li { display: flex; align-items: baseline; gap: var(--s4);
+            padding: 12px 0; border-bottom: var(--hairline-w) solid var(--line); }
+.creed .k { font-family: var(--ff-m); font-size: var(--fs-mono);
+            letter-spacing: var(--mono-track); color: var(--fg-3); min-width: 3.2em; }
+.creed .t { font-size: var(--fs-sm); color: var(--fg); font-weight: 500; }
+
+/* Fiasco's asymmetric pair, reduced to one frame with its label pushed off to
+   the side of the image rather than centred under it. */
+.efig { margin: 0; margin-top: var(--s7); }
+.efig img { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover;
+            filter: grayscale(var(--photo-grade-feat)) sepia(9%) contrast(1.05) brightness(1.01); }
+.efig figcaption { display: flex; flex-wrap: wrap; align-items: baseline;
+                   justify-content: space-between; gap: var(--s2) var(--s5);
+                   margin-top: var(--s3); padding-top: var(--s3);
+                   border-top: var(--hairline-w) solid var(--line); }
+
+/* Entry VIII — the turn. A plate, and the only display line on the page set
+   at hero scale outside the opener. Ground stays ink; scale does the work. */
+.entry--turn .entry-body { background-color: var(--plate-bg);
+                           padding: var(--s7) var(--s6); }
+.turn-line { font-family: var(--ff-d); font-weight: 700; text-transform: uppercase;
+             line-height: .87; letter-spacing: var(--ls-display);
+             font-size: var(--fs-h1);
+             color: var(--fg); }
+.turn-line .sm { display: block; font-size: var(--fs-h4); letter-spacing: var(--ls-display-s);
+                 color: var(--fg-3); line-height: 1.2; }
+
+@media (min-width: 900px) {
+  .entry-grid { grid-template-columns: minmax(0, 13rem) minmax(0, 1fr); gap: var(--s9); }
+  .stamp { position: sticky; top: var(--rail-top); }
+  .entry--turn .entry-body { padding: var(--s8) var(--s8); }
+}
+
+/* ==========================================================================
+   13 · THE THESIS — Ragged Edge's quote glyphs pushed to the outer edges of a
+   hairline band, with Webflow's mono kicker in the corner
+   ========================================================================== */
+/* Ruled at the top only. With a bottom border as well, the band's closing rule
+   landed 28px above the section's own .sec-foot rule and the pair read as a
+   rendering fault rather than as structure — measured at 1440. One rule opens
+   the quote, the .sec-foot rule closes the section. */
+.thesis { border-top: var(--hairline-w) solid var(--line-2); padding-block: var(--s8) var(--s7); }
+.thesis-top { display: flex; flex-wrap: wrap; align-items: baseline;
+              justify-content: space-between; gap: var(--s3) var(--s5);
+              margin-bottom: var(--s7); }
+.thesis-q { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: var(--s4); }
+.thesis-q .qm { font-family: var(--ff-d); font-weight: 700;
+                font-size: var(--fs-h2); line-height: .8; color: var(--fg-3);
+                user-select: none; }
+.thesis-q .qm.r { align-self: end; }
+.thesis-q blockquote { margin: 0; }
+.thesis-line { font-family: var(--ff-b); font-weight: 600;
+               font-size: calc(var(--fs-stmt-xl) * var(--stmt-scale));
+               line-height: 1.06; letter-spacing: -.02em; color: var(--fg);
+               max-width: 17ch; text-wrap: balance; }
+.thesis-by { margin-top: var(--s6); display: grid; gap: 2px; }
+.thesis-by .who { font-size: var(--fs-sm); font-weight: 600; color: var(--fg); }
+@media (max-width: 599px) {
+  .thesis-q { grid-template-columns: minmax(0, 1fr); gap: var(--s2); }
+  .thesis-q .qm.r { justify-self: end; }
+}
+
+/* ==========================================================================
+   14 · THE PORTRAIT — a composed absence, not a placeholder
+   MOUTHWASH catalogues every frame by an accession number set beneath it. The
+   record exists whether or not the image does, so the slot is drawn as an
+   UNEXPOSED 4x5 aperture: crop marks only, holding the caption sheet that
+   will sit beside the photograph on the day it is taken. No dashed box, no
+   silhouette, no "coming soon" — a real card in the archive, marked open.
+   ========================================================================== */
+.port { display: grid; gap: var(--s8); align-items: start; }
+.ap {
+  --mark: var(--line-2);
+  aspect-ratio: 4 / 5; width: 100%; max-width: 360px;
+  padding: var(--s6);
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.ap-hd { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s4); }
+.ap-mid { display: grid; gap: var(--s2); }
+.ap-mid .who { font-family: var(--ff-d); font-weight: 700;
+               font-size: var(--fs-h3); line-height: .92;
+               letter-spacing: var(--ls-display-s); text-transform: uppercase; color: var(--fg); }
+.ap-spec { display: grid; gap: 0; border-top: var(--hairline-w) solid var(--line); }
+.ap-spec div { display: flex; align-items: baseline; justify-content: space-between;
+               gap: var(--s4); padding: 8px 0;
+               border-bottom: var(--hairline-w) solid var(--line); }
+.ap-spec div:last-child { border-bottom: 0; }
+.ap-spec .v { color: var(--fg); text-align: right; }
+/* "RECORD OPEN" is the one value in the group that carries the argument, so it
+   is one of gold's four permitted uses. `.ap-spec .v` (0,2,0) was out-ranking
+   `.mono--gold` (0,1,0) and quietly repainting it cream — caught by measuring
+   the computed colour, not by looking at it. 9.29:1 on ink. */
+.ap-spec .v.mono--gold { color: var(--gold-t); }
+.ap-cap { margin-top: var(--s3); max-width: 360px; }
+
+.port-note > * + * { margin-top: var(--s5); }
+
+/* incident.io / Daylight sign-off: the note ends on a name, not a button */
+.sign { margin-top: var(--s7); padding-top: var(--s5);
+        border-top: var(--hairline-w) solid var(--line-2); display: grid; gap: 3px; }
+.sign .nm { font-family: var(--ff-d); font-weight: 700;
+            font-size: var(--fs-h4); line-height: 1;
+            letter-spacing: var(--ls-display-s); text-transform: uppercase; color: var(--fg); }
+@media (min-width: 900px) {
+  .port { grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: var(--s10); }
+}
+
+/* ==========================================================================
+   15 · CLOSE + CHAPTER NAV
+   ========================================================================== */
+.sec-foot, .caps-foot {
+  display: flex; flex-wrap: wrap; align-items: center;
+  justify-content: space-between; gap: var(--s4);
+  margin-top: var(--s7); padding-top: var(--s5);
+  border-top: var(--hairline-w) solid var(--line);
+}
+.chapnav { display: grid; gap: 0; margin-top: var(--s9);
+           border-top: var(--hairline-w) solid var(--line-2); }
+.chapnav a {
+  display: grid; gap: 4px; padding: var(--s5) 4px; min-height: 84px;
+  align-content: center;
+  border-bottom: var(--hairline-w) solid var(--line);
+  transition: background-color var(--t-state) var(--ease);
+}
+.chapnav a:hover  { background-color: rgba(11, 11, 11, .05); }
+.chapnav a:active { background-color: rgba(11, 11, 11, .10); }
+.chapnav .ti { font-family: var(--ff-d); font-weight: 700;
+               font-size: var(--fs-h4); line-height: 1;
+               letter-spacing: var(--ls-display-s); text-transform: uppercase; color: var(--fg);
+               display: inline-flex; align-items: center; gap: var(--s3);
+               transition: transform var(--t-state) var(--ease); }
+.chapnav .ti i { font-style: normal; color: var(--gold-t); font-family: var(--ff-b);
+                 font-size: .7em; }
+.chapnav a:hover .ti { transform: translateX(8px); }
+.chapnav .wt { font-size: var(--fs-xs); color: var(--fg-2); }
+@media (min-width: 760px) {
+  .chapnav { grid-template-columns: 1fr 1fr; }
+  .chapnav a:first-child { border-right: var(--hairline-w) solid var(--line); padding-right: var(--s6); }
+  .chapnav a:last-child  { padding-left: var(--s6); }
+}
+
+/* ==========================================================================
+   17 · FOOTER — Legora's link columns above a cropped, over-wide wordmark
+   ========================================================================== */
+.foot { padding-top: var(--section-y); overflow: hidden; container-type: inline-size; }
+.foot-cols { display: grid; gap: var(--s7); }
+.foot-cols h2 { font-family: var(--ff-m); font-size: var(--fs-mono); font-weight: 400;
+                letter-spacing: var(--mono-track); text-transform: uppercase;
+                color: var(--fg-3); margin-bottom: var(--s4); }
+.foot-cols li a, .foot-cols li span {
+  display: inline-flex; align-items: center; min-height: 44px;
+  font-size: var(--fs-sm); color: var(--fg-2);
+  transition: color var(--t-state) var(--ease);
+}
+.foot-cols li a:hover { color: var(--fg); }
+.foot-cols li.is-here a { color: var(--fg); }
+.foot-cols li.is-here { border-bottom: var(--hairline-w) solid var(--gold); width: fit-content; }
+.foot-legal { display: flex; flex-wrap: wrap; gap: var(--s4) var(--s7);
+              justify-content: space-between; margin-top: var(--s9);
+              padding-top: var(--s5); border-top: var(--hairline-w) solid var(--line); }
+/* 5.7028 is the measured width of "KUL Enterprises" at font-size 100px in Big
+   Shoulders Display 700 at .004em — re-measure if the face or tracking changes. */
+.wordmark {
+  --wm-col: min(100cqw, var(--maxw));
+  font-family: var(--ff-d); font-weight: 700;
+  font-size: calc((var(--wm-col) - var(--gutter) * 2) / 5.7028);
+  line-height: .7; letter-spacing: .004em; text-transform: uppercase;
+  white-space: nowrap; color: var(--fg); opacity: .94;
+  margin: var(--s7) auto 0; padding-left: var(--gutter);
+  max-width: var(--maxw);
+  height: .54em; overflow: hidden;
+  user-select: none;
+}
+@media (min-width: 700px)  { .foot-cols { grid-template-columns: 1.2fr 1fr 1fr; } }
+@media (min-width: 1040px) {
+  .foot-cols { grid-template-columns: 1.35fr .8fr .85fr 1fr; gap: var(--s8); }
+  .foot-chapters ul { columns: 2; column-gap: var(--s5); }
+  .foot-chapters li { break-inside: avoid; }
+}
+
+/* ==========================================================================
+   18 · REDUCED MOTION — a full shutoff, not a softening
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  :where(html) { scroll-behavior: auto; }
+  .js [data-reveal], .js [data-reveal].is-in { clip-path: none; opacity: 1; transform: none; transition: none; }
+  .js [data-rule], .js [data-rule].is-in { transform: none; transition: none; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ==================== CHROME · utility strip + capsule ================== -->
+<header class="topbar" id="topbar">
+  <div class="ustrip">
+    <p class="u-left">USDOT 7638788 &middot; MC 66389691 &middot; Licensed &amp; insured</p>
+    <p class="live"><b aria-hidden="true"></b> Loganville, GA &middot;
+      <span id="etclock">Dispatch 24/7</span></p>
+  </div>
+
+  <div class="navrow">
+    <a class="brand" href="/v4" aria-label="KUL Enterprises LLC — home, chapter one">
+      <img src="/studio/assets/brand/lion-clean.png" alt="" width="900" height="900" aria-hidden="true">
+      <span class="brand-txt">
+        <span class="n">KUL</span>
+        <span class="s">Enterprises LLC</span>
+      </span>
+    </a>
+
+    <nav class="capsule" aria-label="Primary">
+      <a class="nlink" href="/v4/mission">Services</a>
+      <a class="nlink" href="/v4/responsibility">Safety</a>
+      <a class="nlink" href="/v4/journey">Journey</a>
+      <button class="nlink" type="button" data-contact-open aria-haspopup="dialog"
+              aria-expanded="false" aria-controls="contactPanel">Contact</button>
+      <a class="btn btn--sm btn--mono btn--nav" href="/v4/forward">Request a Quote</a>
+      <button class="menu-btn" type="button" data-menu-open aria-haspopup="dialog"
+              aria-expanded="false" aria-controls="sheet">
+        <span class="bars" aria-hidden="true"><b></b><b></b></span> Menu
+      </button>
+    </nav>
+
+    <button class="menu-btn" type="button" data-menu-open data-mobile-only aria-haspopup="dialog"
+            aria-expanded="false" aria-controls="sheet">
+      <span class="bars" aria-hidden="true"><b></b><b></b></span> Menu
+    </button>
+  </div>
+</header>
+
+<!-- mobile dock -->
+<nav class="dockbar" aria-label="Primary, mobile">
+  <a href="/v4/mission">Services</a>
+  <a href="/v4/responsibility">Safety</a>
+  <a href="/v4/journey">Journey</a>
+  <button type="button" data-contact-open aria-haspopup="dialog" aria-expanded="false"
+          aria-controls="contactPanel">Contact</button>
+  <a class="is-cta" href="/v4/forward">Quote</a>
+</nav>
+
+<!-- ==================== FULL-SCREEN MENU · chapter index ================== -->
+<div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-label="Chapter index">
+  <div class="sheet-in wrap">
+    <div class="sheet-top">
+      <p class="mono">[ Index ] &mdash; The Carrier Issue &middot; Eight chapters</p>
+      <button class="pill-close" type="button" data-menu-close>Close &#10005;</button>
+    </div>
+
+    <ul class="chapters">
+      <li><a href="/v4"><span class="num">[ 01 ]</span><span class="nm">The Beginning</span></a></li>
+      <li><a href="/v4/journey"><span class="num">[ 02 ]</span><span class="nm">The Journey</span></a></li>
+      <li class="is-here">
+        <a href="./" aria-current="page">
+          <span class="num">[ 03 ]</span><span class="nm">Why I Started Driving</span>
+          <span class="here">You are here</span>
+        </a>
+      </li>
+      <li><a href="/v4/mission"><span class="num">[ 04 ]</span><span class="nm">The Mission</span></a></li>
+      <li><a href="/v4/responsibility"><span class="num">[ 05 ]</span><span class="nm">The Responsibility</span></a></li>
+      <li><a href="/v4/join"><span class="num">[ 06 ]</span><span class="nm">Join the Journey</span></a></li>
+      <li><a href="/v4/forward"><span class="num">[ 07 ]</span><span class="nm">Let&rsquo;s Move Forward</span></a></li>
+      <li><a href="/v4/road-ahead"><span class="num">[ 08 ]</span><span class="nm">The Road Ahead</span></a></li>
+    </ul>
+
+    <div class="sheet-cols">
+      <div>
+        <h3>Dispatch</h3>
+        <ul>
+          <li><a href="tel:+16789721148">678-972-1148</a></li>
+          <li><a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a></li>
+          <li><span>Answered 24 / 7</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Compliance</h3>
+        <ul>
+          <li><span>USDOT 7638788</span></li>
+          <li><span>MC 66389691</span></li>
+          <li><span>Licensed &amp; insured</span></li>
+          <li><span>Own operating authority</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Base</h3>
+        <ul>
+          <li><span>Loganville, Georgia</span></li>
+          <li><span>33.8390&deg; N &middot; 83.9007&deg; W</span></li>
+          <li><span>Running nationwide</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sheet-bar">
+      <p class="stmt">One tractor today, run to a fifty-truck standard.</p>
+      <a class="btn btn--mono" href="/v4/forward">Request a freight quote</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CONTACT SLIDE-OVER · shared component ============= -->
+<div class="cpanel" id="contactPanel" hidden>
+  <div class="cpanel-scrim" data-contact-close aria-hidden="true"></div>
+  <aside class="cpanel-card" role="dialog" aria-modal="true" aria-labelledby="cpanel-h">
+    <div class="cpanel-top">
+      <p class="mono">[ Contact ]</p>
+      <button class="pill-close" type="button" data-contact-close>Close &#10005;</button>
+    </div>
+
+    <h2 class="stmt stmt--wide" id="cpanel-h">Send the lane. We&rsquo;ll send back a straight number.</h2>
+
+    <div class="croute">
+      <div class="croute-row">
+        <span class="mono">Quotes &amp; dispatch</span>
+        <a class="v" href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a>
+        <span class="n">Lane, weight and window is enough to start.</span>
+      </div>
+      <div class="croute-row">
+        <span class="mono">By phone, any hour</span>
+        <a class="v" href="tel:+16789721148">678-972-1148</a>
+        <span class="n">A person answers. Nights and weekends included.</span>
+      </div>
+      <div class="croute-row">
+        <span class="mono">Drivers</span>
+        <a class="v" href="/v4/join">Join the journey &rarr;</a>
+        <span class="n">We&rsquo;re building this fleet one seat at a time.</span>
+      </div>
+    </div>
+
+    <div class="cbtns">
+      <a class="btn btn--sm btn--mono" href="mailto:dispatch@kulenterprises.com?subject=Freight%20quote%20request">Open mail</a>
+      <button class="btn btn--sm btn--mono btn--ghost" type="button"
+              data-copy="dispatch@kulenterprises.com">Copy email</button>
+    </div>
+    <p class="cstatus" role="status" aria-live="polite"></p>
+
+    <div class="cgeo">
+      <p class="mono">[ Base ]</p>
+      <address>
+        KUL Enterprises LLC<br>
+        Loganville, Georgia<br>
+        33.8390&deg; N &middot; 83.9007&deg; W
+      </address>
+      <p class="mono">USDOT 7638788 &middot; MC 66389691</p>
+    </div>
+  </aside>
+</div>
+
+<main id="main">
+
+  <!-- ================ 01 · CHAPTER OPENER (Joby) ========================= -->
+  <section class="phero g-paper" aria-labelledby="ch-h">
+    <div class="wrap">
+      <p class="mono">[ 03 ] &mdash; Chapter three &middot; The founder&rsquo;s log</p>
+    </div>
+
+    <div class="wrap phero-mid">
+      <h1 class="display d-hero" id="ch-h" data-reveal>
+        <span class="lo">Why I</span>
+        <span class="lo">started</span>
+        <span class="lo">driving</span>
+      </h1>
+
+      <div class="phero-lead" data-reveal>
+        <p class="lead-1">Every company has a story. Ours began long before the first truck.</p>
+        <p class="lead-2">What follows is the founder&rsquo;s road, in his own words and in order
+          &mdash; without shortcuts, and without exaggeration.</p>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="phero-foot">
+        <div class="grp">
+          <p class="mono mono--md">Told in his own words &middot; Eight entries</p>
+          <p class="mono">Jamaica &rarr; Georgia &rarr; the road</p>
+        </div>
+        <div class="grp" style="text-align:right">
+          <p class="mono mono--md">KUL Enterprises LLC</p>
+          <p class="mono">Loganville, GA &middot; 33.8390&deg; N</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================ 02 · THE LOG ======================================= -->
+  <section class="section g-ink" aria-labelledby="log-h">
+    <div class="wrap">
+      <div class="sec-head" style="margin-bottom:var(--s5)">
+        <div class="kicker">
+          <span class="mono">003 /</span>
+          <span class="mono mono--md">The log</span>
+          <span class="mono idx" style="margin-left:auto">Eight entries &middot; 1988 &rarr; 2026</span>
+        </div>
+        <h2 class="display d-h2" id="log-h" data-reveal>The road, entry by entry</h2>
+        <p class="lead tight">Read it straight through or jump to an entry. The rule below the
+          header tracks where you are on the road.</p>
+      </div>
+
+      <!-- Waka Waka index table -->
+      <nav aria-label="Entries in this chapter">
+        <ul class="ndx">
+          <li><a href="#e1"><span class="no">N&deg; I</span><span class="ti">Jamaica</span><span class="wt">Where the story starts</span><span class="yr">1988</span></a></li>
+          <li><a href="#e2"><span class="no">N&deg; II</span><span class="ti">Work</span><span class="wt">Construction summers, alongside his father</span><span class="yr">The summers</span></a></li>
+          <li><a href="#e3"><span class="no">N&deg; III</span><span class="ti">Questions</span><span class="wt">Curiosity as a compass</span><span class="yr">Growing up</span></a></li>
+          <li><a href="#e4"><span class="no">N&deg; IV</span><span class="ti">Independence</span><span class="wt">Every decision his own</span><span class="yr">Leaving home</span></a></li>
+          <li><a href="#e5"><span class="no">N&deg; V</span><span class="ti">The Air Force</span><span class="wt">Service and commitment, not hardware</span><span class="yr">Enlisted</span></a></li>
+          <li><a href="#e6"><span class="no">N&deg; VI</span><span class="ti">Setbacks</span><span class="wt">Honesty over perfection</span><span class="yr">After service</span></a></li>
+          <li><a href="#e7"><span class="no">N&deg; VII</span><span class="ti">Leadership</span><span class="wt">Leading by being dependable</span><span class="yr">Before the road</span></a></li>
+          <li><a href="#e8"><span class="no">N&deg; VIII</span><span class="ti">The Road</span><span class="wt">Commercial driving, coast to coast</span><span class="yr">Roughly eleven years</span></a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Büro era span, sticky for the length of the log -->
+    <div class="span" id="span" aria-hidden="true">
+      <div class="span-in wrap">
+        <span class="mono span-y">1988</span>
+        <span class="span-line">
+          <span class="span-rule"></span>
+          <span class="span-fill" id="spanFill"></span>
+          <span class="span-tick" style="left:0%"></span>
+          <span class="span-tick" style="left:14.28%"></span>
+          <span class="span-tick" style="left:28.57%"></span>
+          <span class="span-tick" style="left:42.85%"></span>
+          <span class="span-tick" style="left:57.14%"></span>
+          <span class="span-tick" style="left:71.42%"></span>
+          <span class="span-tick" style="left:85.71%"></span>
+          <span class="span-tick" style="left:100%"></span>
+          <span class="span-dot" id="spanDot"></span>
+        </span>
+        <span class="mono span-y">2026</span>
+        <span class="mono span-now" id="spanNow">[ I ] &mdash; Jamaica</span>
+      </div>
+    </div>
+    <p class="sr" role="status" aria-live="polite" id="spanSR"></p>
+
+    <div class="wrap">
+      <div class="log">
+
+        <!-- ---------- ENTRY I ---------- -->
+        <article class="entry" id="e1" data-entry="[ I ] — Jamaica" aria-labelledby="e1-h">
+          <div class="entry-grid">
+            <div class="stamp">
+              <p class="mono lb">Entry</p>
+              <p class="rn">I</p>
+              <p class="mono er">1988</p>
+              <p class="mono cx">Arrival</p>
+            </div>
+            <div class="entry-body">
+              <h2 class="display d-h4" id="e1-h" data-reveal>Where the story starts</h2>
+              <p class="said">&ldquo;I was born in Jamaica. My mother brought my sister and me to
+                America. She told us we were spending the summer with our father.&rdquo;</p>
+              <p class="testi testi--xl" data-reveal>&ldquo;We never went back.&rdquo;</p>
+              <p class="said">A one-way trip that nobody called a one-way trip. The date is the
+                one fixed point in the whole file &mdash; everything after it is a decision.</p>
+              <div class="lesson">
+                <p class="mono">Stamped &mdash; 08 &middot; 08 &middot; 1988 &middot; Arrival in America</p>
+                <p class="lt">Sometimes the greatest journeys begin without your permission.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ---------- ENTRY II ---------- -->
+        <article class="entry" id="e2" data-entry="[ II ] — Work" aria-labelledby="e2-h">
+          <div class="entry-grid">
+            <div class="stamp">
+              <p class="mono lb">Entry</p>
+              <p class="rn">II</p>
+              <p class="mono er">The summers</p>
+              <p class="mono cx">On site</p>
+            </div>
+            <div class="entry-body">
+              <h2 class="display d-h4" id="e2-h" data-reveal>Learning the value of work</h2>
+              <p class="said">&ldquo;America was different. Everything moved faster. Everything felt
+                unfamiliar.&rdquo;</p>
+              <p class="said">&ldquo;While most kids spent their summers playing, mine were spent on
+                construction sites. Every school break. Every holiday. Every vacation. I worked
+                alongside my father. At the time I didn&rsquo;t understand why. I only knew that it
+                was expected.&rdquo;</p>
+              <p class="testi testi--wide" data-reveal>&ldquo;Work isn&rsquo;t something to avoid.
+                It&rsquo;s something to take pride in.&rdquo;</p>
+              <div class="lesson">
+                <p class="mono">Entry II &mdash; Construction summers</p>
+                <p class="lt">Character is built long before opportunity arrives.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ---------- ENTRY III ---------- -->
+        <article class="entry" id="e3" data-entry="[ III ] — Questions" aria-labelledby="e3-h">
+          <div class="entry-grid">
+            <div class="stamp">
+              <p class="mono lb">Entry</p>
+              <p class="rn">III</p>
+              <p class="mono er">Growing up</p>
+              <p class="mono cx">Curiosity</p>
+            </div>
+            <div class="entry-body">
+              <h2 class="display d-h4" id="e3-h" data-reveal>Seeing the world differently</h2>
+              <p class="said">&ldquo;As I grew older I began to notice something. I wasn&rsquo;t
+                satisfied with simply being told how things were. I wanted to understand why they
+                worked the way they did.&rdquo;</p>
+              <p class="testi testi--wide" data-reveal>&ldquo;Curiosity doesn&rsquo;t always give you
+                immediate answers. Sometimes it gives you a lifetime of learning.&rdquo;</p>
+
+              <figure class="efig">
+                <img src="/studio/assets/journey/cliffs.jpg"
+                     alt="A flat-topped mesa rising above bright turquoise water under open sky."
+                     width="2200" height="1650" loading="lazy" decoding="async">
+                <figcaption>
+                  <span class="mono">[ F&mdash;03 ] &mdash; The mesa over open water</span>
+                  <span class="mono">Founder&rsquo;s archive &middot; Unretouched</span>
+                </figcaption>
+              </figure>
+
+              <div class="lesson">
+                <p class="mono">Entry III &mdash; The long way, on purpose</p>
+                <p class="lt">Every road begins with a question.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ---------- ENTRY IV ---------- -->
+        <article class="entry" id="e4" data-entry="[ IV ] — Independence" aria-labelledby="e4-h">
+          <div class="entry-grid">
+            <div class="stamp">
+              <p class="mono lb">Entry</p>
+              <p class="rn">IV</p>
+              <p class="mono er">Leaving home</p>
+              <p class="mono cx">On his own</p>
+            </div>
+            <div class="entry-body">
+              <h2 class="display d-h4" id="e4-h" data-reveal>The beginning of independence</h2>
+              <p class="said">&ldquo;Leaving home wasn&rsquo;t just about finding a place to live. It
+                was about finding out who I was.&rdquo;</p>
+              <p class="said">&ldquo;For the first time I was making my own decisions. Some were good.
+                Some weren&rsquo;t. But every one of them belonged to me.&rdquo;</p>
+              <p class="testi testi--wide" data-reveal>&ldquo;Independence isn&rsquo;t the freedom to
+                avoid mistakes. It&rsquo;s accepting responsibility for them.&rdquo;</p>
+              <div class="lesson">
+                <p class="mono">Entry IV &mdash; Where excuses end</p>
+                <p class="lt">Growth begins the moment excuses end.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ---------- ENTRY V ---------- -->
+        <article class="entry" id="e5" data-entry="[ V ] — The Air Force" aria-labelledby="e5-h">
+          <div class="entry-grid">
+            <div class="stamp">
+              <p class="mono lb">Entry</p>
+              <p class="rn">V</p>
+              <p class="mono er">Enlisted</p>
+              <p class="mono cx">Discipline</p>
+            </div>
+            <div class="entry-body">
+              <h2 class="display d-h4" id="e5-h" data-reveal>The United States Air Force</h2>
+              <p class="said">&ldquo;Independence gave me freedom. But freedom also brought a
+                question: what kind of man did I want to become? I wanted structure. I wanted to be
+                challenged. That&rsquo;s what led me to the United States Air Force.&rdquo;</p>
+              <p class="said">&ldquo;The Air Force challenged me in ways I had never experienced
+                before. Every day became another opportunity to become a little stronger than the
+                day before.&rdquo;</p>
+
+              <ul class="creed">
+                <li><span class="k">[ A ]</span><span class="t">Consistency</span></li>
+                <li><span class="k">[ B ]</span><span class="t">Accountability</span></li>
+                <li><span class="k">[ C ]</span><span class="t">Commitment</span></li>
+              </ul>
+
+              <p class="testi testi--xl" data-reveal>&ldquo;Discipline reveals who you&rsquo;re
+                willing to become.&rdquo;</p>
+              <p class="said">The three words above are not a slogan. They are the three things a
+                shipper is actually buying when they hand a load to a carrier.</p>
+              <div class="lesson">
+                <p class="mono">Entry V &mdash; Service and commitment, not hardware</p>
+                <p class="lt">Excellence is rarely built in a single moment. It&rsquo;s built one
+                  decision at a time.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ---------- ENTRY VI ---------- -->
+        <article class="entry" id="e6" data-entry="[ VI ] — Setbacks" aria-labelledby="e6-h">
+          <div class="entry-grid">
+            <div class="stamp">
+              <p class="mono lb">Entry</p>
+              <p class="rn">VI</p>
+              <p class="mono er">After service</p>
+              <p class="mono cx">The bend</p>
+            </div>
+            <div class="entry-body">
+              <h2 class="display d-h4" id="e6-h" data-reveal>Life doesn&rsquo;t follow a straight line</h2>
+              <p class="said">&ldquo;I thought I knew where life was taking me. Like many people, I
+                had a plan. But plans have a way of changing.&rdquo;</p>
+              <p class="said">&ldquo;Some opportunities opened new doors. Others closed before I
+                expected. There were victories. There were setbacks. Both became teachers.&rdquo;</p>
+              <p class="testi testi--wide" data-reveal>&ldquo;Life rarely asks whether you&rsquo;re
+                ready. It simply asks what you will do now.&rdquo;</p>
+
+              <figure class="efig">
+                <img src="/studio/assets/journey/wave.jpg"
+                     alt="A turquoise creek bending out of sight through dense green forest."
+                     width="2200" height="1650" loading="lazy" decoding="async">
+                <figcaption>
+                  <span class="mono">[ F&mdash;06 ] &mdash; The creek bends out of sight</span>
+                  <span class="mono">Founder&rsquo;s archive &middot; Unretouched</span>
+                </figcaption>
+              </figure>
+
+              <div class="lesson">
+                <p class="mono">Entry VI &mdash; Honesty over perfection</p>
+                <p class="lt">Resilience isn&rsquo;t refusing to fall. It&rsquo;s choosing to keep
+                  moving.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ---------- ENTRY VII ---------- -->
+        <article class="entry" id="e7" data-entry="[ VII ] — Leadership" aria-labelledby="e7-h">
+          <div class="entry-grid">
+            <div class="stamp">
+              <p class="mono lb">Entry</p>
+              <p class="rn">VII</p>
+              <p class="mono er">Before the road</p>
+              <p class="mono cx">Trust</p>
+            </div>
+            <div class="entry-body">
+              <h2 class="display d-h4" id="e7-h" data-reveal>Earning trust</h2>
+              <p class="said">&ldquo;I wasn&rsquo;t chasing titles. I was learning to become
+                dependable.&rdquo;</p>
+              <p class="said">&ldquo;One responsibility became another. One opportunity led to the
+                next. Before long, I found myself leading others.&rdquo;</p>
+              <p class="testi testi--wide" data-reveal>&ldquo;Leadership isn&rsquo;t about being in
+                front. It&rsquo;s about being someone others can count on.&rdquo;</p>
+
+              <figure class="efig">
+                <img src="/studio/assets/journey/desert.jpg"
+                     alt="A wave breaking against a sandstone headland on an open stretch of beach."
+                     width="2200" height="1650" loading="lazy" decoding="async">
+                <figcaption>
+                  <span class="mono">[ F&mdash;07 ] &mdash; The wave against the headland</span>
+                  <span class="mono">Founder&rsquo;s archive &middot; Unretouched</span>
+                </figcaption>
+              </figure>
+
+              <div class="lesson">
+                <p class="mono">Entry VII &mdash; Leading by being dependable</p>
+                <p class="lt">Trust is earned long before it&rsquo;s ever expected.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ---------- ENTRY VIII · THE TURN ---------- -->
+        <article class="entry entry--turn" id="e8" data-entry="[ VIII ] — The Road"
+                 aria-labelledby="e8-h">
+          <div class="entry-grid">
+            <div class="stamp">
+              <p class="mono lb">Entry</p>
+              <p class="rn">VIII</p>
+              <p class="mono er">The road</p>
+              <p class="mono cx">The turn</p>
+            </div>
+            <div class="entry-body">
+              <p class="mono">Entry VIII &mdash; Commercial driving, coast to coast</p>
+              <h2 class="turn-line" id="e8-h" data-reveal>
+                <span class="sm">Roughly</span>Eleven years<span class="sm">behind the wheel</span>
+              </h2>
+              <p class="said">&ldquo;I thought I was learning how to drive a truck. What I
+                didn&rsquo;t realise was that the road was teaching me something far greater.&rdquo;</p>
+              <p class="said">Eleven years of other people&rsquo;s freight, other people&rsquo;s
+                deadlines and other people&rsquo;s docks. Long enough to learn exactly which
+                promises a carrier can keep, and exactly which ones get made anyway.</p>
+              <div class="lesson">
+                <p class="mono">Entry VIII &mdash; The road became the teacher</p>
+                <p class="lt">Every mile taught a lesson. Every lesson helped build KUL Enterprises.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================ 03 · THE THESIS ==================================== -->
+  <section class="section g-paper" aria-labelledby="th-h">
+    <div class="wrap">
+      <div class="thesis">
+        <div class="thesis-top">
+          <p class="mono">004 / The line the whole file leads to</p>
+          <p class="mono">Entry VIII &middot; Told in his own words</p>
+        </div>
+
+        <div class="thesis-q">
+          <span class="qm" aria-hidden="true">&ldquo;</span>
+          <blockquote>
+            <p class="thesis-line" id="th-h" data-reveal>Trust travels farther than freight.</p>
+            <div class="thesis-by">
+              <p class="who">Mark</p>
+              <p class="mono">Founder &middot; KUL Enterprises LLC &middot; Loganville, Georgia</p>
+            </div>
+          </blockquote>
+          <span class="qm r" aria-hidden="true">&rdquo;</span>
+        </div>
+      </div>
+
+      <div class="sec-foot">
+        <p class="mono">Eleven years of freight taught one thing worth writing down</p>
+        <a class="arrow" href="/v4/responsibility">How that becomes an operating standard
+          <i aria-hidden="true">&#8599;</i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================ 04 · THE PORTRAIT — a composed absence ============= -->
+  <section class="section g-ink" aria-labelledby="port-h">
+    <div class="wrap">
+      <div class="kicker" style="margin-bottom:var(--s7)">
+        <span class="mono">005 /</span>
+        <span class="mono mono--md">The portrait</span>
+      </div>
+
+      <div class="port">
+        <div>
+          <!-- the aperture: crop marks only, holding the caption sheet that will
+               sit beside the photograph on the day it is taken -->
+          <div class="ap cropmarks">
+            <div class="ap-hd">
+              <p class="mono">[ F&mdash;00 ]</p>
+              <p class="mono">4 &times; 5</p>
+            </div>
+
+            <div class="ap-mid">
+              <p class="mono">Subject</p>
+              <p class="who">Mark</p>
+              <p class="mono mono--md">Founder &middot; KUL Enterprises LLC</p>
+            </div>
+
+            <div class="ap-spec">
+              <div><span class="mono">Frame</span><span class="mono v">Unexposed</span></div>
+              <div><span class="mono">Location</span><span class="mono v">Loganville, GA</span></div>
+              <div><span class="mono">Light</span><span class="mono v">Whatever the day gives</span></div>
+              <div><span class="mono">Status</span><span class="mono v mono--gold">Record open</span></div>
+            </div>
+          </div>
+
+          <p class="mono ap-cap">[ F&mdash;00 ] &mdash; Portrait, not yet made &middot;
+            The frame stays reserved</p>
+        </div>
+
+        <div class="port-note">
+          <h2 class="stmt stmt--wide" id="port-h" data-reveal>There is no photograph of the founder
+            on this page yet.</h2>
+          <p class="body">Every other frame in this chapter is his own &mdash; taken on his own
+            time, unretouched, and captioned honestly. <strong>A portrait held to that standard
+            has not been taken.</strong> Rather than borrow a stock face or fill the space with an
+            illustration of a man who isn&rsquo;t him, the frame is left as an open record: sized,
+            catalogued, and waiting.</p>
+          <p class="body">It is the same rule the rest of the site runs on. One tractor is one
+            tractor. An unmade photograph is an unmade photograph. Nothing on this page is a
+            stand-in for something we do not have.</p>
+
+          <div class="sign">
+            <p class="mono">Signed</p>
+            <p class="nm">Mark</p>
+            <p class="mono">Founder &middot; KUL Enterprises LLC</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================ 05 · WHY IT MATTERS + CHAPTER NAV ================== -->
+  <section class="section g-paper" aria-labelledby="why-h">
+    <div class="wrap">
+      <p class="mono">006 / Why it matters</p>
+      <div class="sec-head" style="margin-top:var(--s3)">
+        <h2 class="display d-h2" id="why-h" data-reveal>The file closes.<br>The company begins.</h2>
+      </div>
+
+      <p class="body">The character in these eight entries is the standard on every load
+        we&rsquo;re trusted with today. KUL Enterprises runs one tractor, under its own authority,
+        out of Loganville, Georgia &mdash; and it runs that one tractor to the standard the
+        fiftieth will have to meet. <strong>If that&rsquo;s the kind of carrier you want on your
+        freight, the door is open.</strong></p>
+
+      <div class="actions" style="margin-top:var(--s7)">
+        <a class="btn" href="/v4/forward">Request a Freight Quote</a>
+        <a class="arrow arrow--flat" href="/v4/join">Join the journey <i aria-hidden="true">&rarr;</i></a>
+      </div>
+
+      <nav class="chapnav" aria-label="Continue reading">
+        <a href="/v4/mission">
+          <span class="mono">Next &mdash; Chapter 04</span>
+          <span class="ti">The Mission <i aria-hidden="true">&rarr;</i></span>
+          <span class="wt">What the lessons in this file became.</span>
+        </a>
+        <a href="/v4/road-ahead">
+          <span class="mono">Ahead &mdash; Chapter 08</span>
+          <span class="ti">The Road Ahead <i aria-hidden="true">&rarr;</i></span>
+          <span class="wt">One tractor today, fifty targeted by the end of 2029.</span>
+        </a>
+      </nav>
+    </div>
+  </section>
+</main>
+
+<!-- ==================== FOOTER · Legora wordmark ========================= -->
+<footer class="foot g-ink">
+  <div class="wrap">
+    <div class="foot-cols">
+      <nav class="foot-chapters" aria-label="Chapters">
+        <h2>Chapters</h2>
+        <ul>
+          <li><a href="/v4">[01] The Beginning</a></li>
+          <li><a href="/v4/journey">[02] The Journey</a></li>
+          <li class="is-here"><a href="./" aria-current="page">[03] Why I Started Driving</a></li>
+          <li><a href="/v4/mission">[04] The Mission</a></li>
+          <li><a href="/v4/responsibility">[05] The Responsibility</a></li>
+          <li><a href="/v4/join">[06] Join the Journey</a></li>
+          <li><a href="/v4/forward">[07] Let&rsquo;s Move Forward</a></li>
+          <li><a href="/v4/road-ahead">[08] The Road Ahead</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Direct links">
+        <h2>Direct</h2>
+        <ul>
+          <li><a href="/v4/mission">Services</a></li>
+          <li><a href="/v4/responsibility">Safety</a></li>
+          <li><a href="/v4/forward">Request a Quote</a></li>
+          <li><a href="/v4/join">Drive for KUL</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <h2>Compliance</h2>
+        <ul>
+          <li><span>USDOT 7638788</span></li>
+          <li><span>MC 66389691</span></li>
+          <li><span>Licensed &amp; insured</span></li>
+          <li><span>Own operating authority</span></li>
+          <li><span>Loganville, Georgia</span></li>
+        </ul>
+      </div>
+
+      <div>
+        <h2>Dispatch</h2>
+        <ul>
+          <li><a href="tel:+16789721148">678-972-1148</a></li>
+          <li><a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a></li>
+          <li><span>Answered 24 / 7</span></li>
+        </ul>
+        <p class="mono" style="margin-top:var(--s5)">Strength in Motion.<br>Built on Integrity.<br>Driven by Safety.</p>
+      </div>
+    </div>
+
+    <div class="foot-legal">
+      <p class="mono">&copy; 2026 KUL Enterprises LLC</p>
+      <p class="mono">Every mile taught a lesson.</p>
+      <p class="mono">33.8390&deg; N &middot; 83.9007&deg; W</p>
+    </div>
+  </div>
+
+  <p class="wordmark" aria-hidden="true">KUL Enterprises</p>
+</footer>
+
+<script>
+/* ==========================================================================
+   RUNTIME
+   No external JS. Everything below is an enhancement — with scripting off the
+   page is a complete, readable, fully navigable document.
+   Scroll handlers touch transform and class names only; never geometry.
+   ========================================================================== */
+(function () {
+  'use strict';
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+  /* --- 1 · reveal machinery ----------------------------------------------
+     Deliberately NOT IntersectionObserver: Chromium folds an element's own
+     clip-path into the intersection rect, so a clipped element reports
+     ratio 0 forever. A rAF-throttled rect check is immune and unhooks itself
+     once the last element is in. */
+  var pending = Array.prototype.slice.call(document.querySelectorAll('[data-reveal], [data-rule]'));
+  Array.prototype.forEach.call(pending, function (el) {
+    el.addEventListener('transitionend', function (ev) {
+      if (ev.propertyName === 'clip-path') el.style.clipPath = 'none';
+    });
+  });
+
+  function revealAll() {
+    Array.prototype.forEach.call(pending, function (el) {
+      el.classList.add('is-in'); el.style.clipPath = 'none';
+    });
+    pending = [];
+  }
+
+  if (reduce) {
+    revealAll();
+  } else {
+    var revTick = false;
+    var checkReveal = function () {
+      revTick = false;
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      for (var i = pending.length - 1; i >= 0; i--) {
+        var r = pending[i].getBoundingClientRect();
+        if (r.top < vh * 0.94 && r.bottom > -80) {
+          pending[i].classList.add('is-in');
+          pending.splice(i, 1);
+        }
+      }
+      if (!pending.length) {
+        window.removeEventListener('scroll', queueReveal);
+        window.removeEventListener('resize', queueReveal);
+      }
+    };
+    var queueReveal = function () {
+      if (revTick) return;
+      revTick = true;
+      window.requestAnimationFrame(checkReveal);
+    };
+    window.addEventListener('scroll', queueReveal, { passive: true });
+    window.addEventListener('resize', queueReveal);
+    checkReveal();
+    var armed = pending.length;
+    window.setTimeout(function () { if (pending.length === armed) revealAll(); }, 3000);
+  }
+
+  /* --- 2 · header collapse (transform only) ------------------------------ */
+  var topbar = document.getElementById('topbar');
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function () {
+      topbar.classList.toggle('is-stuck', window.scrollY > 56);
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* --- 3 · live Loganville clock, converted to ET (never faked) ---------- */
+  var clock = document.getElementById('etclock');
+  function tick() {
+    if (!clock) return;
+    try {
+      var t = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit', hour12: false
+      }).format(new Date());
+      clock.textContent = t + ' ET';
+    } catch (err) { clock.textContent = 'Dispatch 24/7'; }
+  }
+  tick();
+  window.setInterval(tick, 20000);
+
+  /* --- 4 · generic modal helper (menu sheet + contact panel) ------------- */
+  function makeModal(root, openSel, closeSel, openClass, exitMs) {
+    var openers = document.querySelectorAll(openSel);
+    var lastFocus = null;
+    function open(trigger) {
+      lastFocus = trigger || document.activeElement;
+      root.hidden = false;
+      document.body.style.overflow = 'hidden';
+      Array.prototype.forEach.call(openers, function (b) { b.setAttribute('aria-expanded', 'true'); });
+      window.requestAnimationFrame(function () {
+        root.classList.add(openClass);
+        var first = root.querySelector(FOCUSABLE);
+        if (first) first.focus();
+      });
+    }
+    function close() {
+      root.classList.remove(openClass);
+      document.body.style.overflow = '';
+      Array.prototype.forEach.call(openers, function (b) { b.setAttribute('aria-expanded', 'false'); });
+      window.setTimeout(function () { root.hidden = true; }, reduce ? 0 : exitMs);
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+    Array.prototype.forEach.call(openers, function (b) {
+      b.addEventListener('click', function () { open(b); });
+    });
+    Array.prototype.forEach.call(root.querySelectorAll(closeSel), function (b) {
+      b.addEventListener('click', close);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (root.hidden) return;
+      if (e.key === 'Escape') { e.preventDefault(); close(); return; }
+      if (e.key !== 'Tab') return;
+      var items = root.querySelectorAll(FOCUSABLE);
+      if (!items.length) return;
+      var first = items[0], last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+    return { open: open, close: close };
+  }
+
+  makeModal(document.getElementById('sheet'), '[data-menu-open]', '[data-menu-close]', 'is-open', 260);
+  makeModal(document.getElementById('contactPanel'), '[data-contact-open]', '[data-contact-close]', 'is-open', 300);
+
+  /* --- 5 · copy-to-clipboard, with a visible confirmation ---------------- */
+  var status = document.querySelector('.cstatus');
+  var copyTimer = null;
+  Array.prototype.forEach.call(document.querySelectorAll('[data-copy]'), function (btn) {
+    var label = btn.textContent;
+    btn.addEventListener('click', function () {
+      var text = btn.getAttribute('data-copy');
+      function done(ok) {
+        btn.textContent = ok ? 'Copied ✓' : 'Copy blocked';
+        if (status) status.textContent = ok
+          ? text + ' copied to your clipboard'
+          : 'Clipboard blocked — select the address above and copy it manually';
+        window.clearTimeout(copyTimer);
+        copyTimer = window.setTimeout(function () {
+          btn.textContent = label;
+          if (status) status.textContent = '';
+        }, 2600);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(false); });
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed'; ta.style.top = '-1000px';
+        document.body.appendChild(ta); ta.select();
+        var ok = false;
+        try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+        document.body.removeChild(ta);
+        done(ok);
+      }
+    });
+  });
+
+  /* --- 6 · THE ERA SPAN ---------------------------------------------------
+     Büro's single rule from 1988 to 2026, made live. Progress through the log
+     drives THREE writes and nothing else: a translateX on the dot, a scaleX
+     on the travelled hairline, and a text swap on the label. Geometry is read
+     once per resize and cached — the scroll path never measures anything.
+     A visually-hidden live region carries the same information to AT. */
+  var entries = Array.prototype.slice.call(document.querySelectorAll('.entry'));
+  var dot = document.getElementById('spanDot');
+  var fill = document.getElementById('spanFill');
+  var now = document.getElementById('spanNow');
+  var sr = document.getElementById('spanSR');
+
+  if (entries.length && dot && fill && now) {
+    var geo = { top: 0, span: 1, width: 0, marks: [] };
+    var lastIdx = -1;
+
+    function measure() {
+      var pageY = window.scrollY || window.pageYOffset;
+      var first = entries[0].getBoundingClientRect();
+      var last  = entries[entries.length - 1].getBoundingClientRect();
+      geo.top  = first.top + pageY;
+      geo.span = Math.max(1, (last.bottom + pageY) - geo.top);
+      var line = dot.parentNode.getBoundingClientRect();
+      geo.width = line.width;
+      geo.marks = entries.map(function (el) {
+        return el.getBoundingClientRect().top + pageY;
+      });
+      paint();
+    }
+
+    function paint() {
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      var eye = (window.scrollY || window.pageYOffset) + vh * 0.42;
+      var p = (eye - geo.top) / geo.span;
+      if (p < 0) p = 0; else if (p > 1) p = 1;
+
+      dot.style.transform = 'translate(' + (p * geo.width - 3.5) + 'px, -50%)';
+      fill.style.transform = 'scaleX(' + p + ')';
+
+      var idx = 0;
+      for (var i = 0; i < geo.marks.length; i++) {
+        if (eye >= geo.marks[i] - 8) idx = i;
+      }
+      if (idx !== lastIdx) {
+        lastIdx = idx;
+        var label = entries[idx].getAttribute('data-entry') || '';
+        now.textContent = label;
+        if (sr) sr.textContent = 'Reading entry ' + (idx + 1) + ' of ' + entries.length +
+                                 ': ' + label.replace(/^\[\s*[IVX]+\s*\]\s*—\s*/, '');
+      }
+    }
+
+    var spanTick = false;
+    function querySpan() {
+      if (spanTick) return;
+      spanTick = true;
+      window.requestAnimationFrame(function () { spanTick = false; paint(); });
+    }
+    window.addEventListener('scroll', querySpan, { passive: true });
+    window.addEventListener('resize', measure);
+    measure();
+    /* fonts land after first paint and change the log's height */
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(measure).catch(function () {});
+    }
+    window.setTimeout(measure, 900);
+  }
+
+  /* --- 7 · index table → entry, with focus moved to the entry -------------
+     Anchor links already work with scripting off. This only makes sure the
+     keyboard lands inside the entry it just jumped to, instead of staying
+     behind in the index. */
+  Array.prototype.forEach.call(document.querySelectorAll('.ndx a[href^="#"]'), function (a) {
+    a.addEventListener('click', function () {
+      var target = document.getElementById(a.getAttribute('href').slice(1));
+      if (!target) return;
+      target.setAttribute('tabindex', '-1');
+      /* Focus immediately so it can never depend on the smooth scroll finishing,
+         then once more after it settles in case the browser moved focus back. */
+      target.focus({ preventScroll: true });
+      if (reduce) return;
+      window.setTimeout(function () {
+        if (document.activeElement !== target) target.focus({ preventScroll: true });
+      }, 650);
+    });
+  });
+})();
+</script>
+
+<!-- ============================ TWEAKS CONTRACT ========================== -->
+<script>
+window.KUL_TWEAKS = {
+  style: 's13',
+  controls: [
+    { var: '--ink',           label: 'Ink ground',      type: 'color',  value: '#0B0B0B' },
+    { var: '--paper',         label: 'Paper ground',    type: 'color',  value: '#F4F1E8' },
+    { var: '--gold',          label: 'Brand gold',      type: 'color',  value: '#D4AF37' },
+    { var: '--display-scale', label: 'Display scale',   type: 'range',  value: 1,    min: 0.8,  max: 1.3,  step: 0.01 },
+    { var: '--stmt-scale',    label: 'Testimony scale', type: 'range',  value: 1,    min: 0.8,  max: 1.25, step: 0.01 },
+    { var: '--mono-track',    label: 'Mono tracking',   type: 'range',  value: 0.18, min: 0.06, max: 0.34, step: 0.01, unit: 'em' },
+    { var: '--hairline-w',    label: 'Hairline weight', type: 'range',  value: 1,    min: 1,    max: 3,    step: 0.5,  unit: 'px' },
+    { var: '--photo-grade-feat', label: 'Archive grade', type: 'range', value: 62,  min: 0,  max: 100, step: 1, unit: '%' },
+    { var: '--reveal-dist',   label: 'Reveal travel',   type: 'range',  value: 18,   min: 0,    max: 48,   step: 1,   unit: 'px' }
+  ]
+};
+</script>
+<script src="/studio/tweaks.js" defer></script>
+</body>
+</html>

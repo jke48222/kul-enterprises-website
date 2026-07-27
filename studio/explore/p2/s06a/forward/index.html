@@ -1,0 +1,873 @@
+<!doctype html>
+<!--
+  KUL PHASE 2 — s06a · SS-07 — LET'S MOVE FORWARD (action hub)
+  Industrial Ledger · locked snapshot baked (hue 205, 1px seam, gold 100,
+  bracket 1, stamp 1, pad 32).
+
+  TREATMENT: the transmittal sheet — the one page in the set the reader
+  fills in and sends back. The single full-gold panel is the HERO itself
+  (inverted from the sibling sheets, where gold closes the page): action
+  first, reading second. Three numbered routes — R-01 freight quote form,
+  R-02 live dispatch line (id="contact"), R-03 general inquiry — plus a
+  drawn transmittal-path figure and an honest three-step "what happens
+  next" ledger. Simple, direct, optimistic.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Let's Move Forward — Request a Quote &amp; Contact · KUL Enterprises LLC</title>
+<meta name="description" content="Request a freight quote, reach 24/7 dispatch, or send a general inquiry to KUL Enterprises LLC — Loganville, GA carrier. USDOT 7638788 · MC 66389691 · 678-972-1148 · dispatch@kulenterprises.com.">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS — locked snapshot baked as defaults ============ */
+:root{
+  --gold:#D4AF37;
+  --gray-hue:205;               /* LOCKED — cool steel ground */
+  --seam:1px;                   /* LOCKED — hairline seams */
+  --gold-freq:100;              /* LOCKED — gold at full spread */
+  --bracket-style:1;            /* LOCKED — corner brackets */
+  --stamp-style:1;              /* LOCKED — boxed stamps */
+  --pad:32px;                   /* LOCKED — panel padding */
+
+  --ground:hsl(var(--gray-hue) 7% 76%);
+  --paper:hsl(var(--gray-hue) 12% 94%);
+  --paper-2:hsl(var(--gray-hue) 10% 89%);
+  --mid:hsl(var(--gray-hue) 6% 62%);
+  --deep:hsl(var(--gray-hue) 8% 40%);
+  --ink:hsl(var(--gray-hue) 12% 9%);
+  --ink-soft:hsl(var(--gray-hue) 7% 27%);
+  --ink-faint:hsl(var(--gray-hue) 6% 36%);
+  --line:color-mix(in srgb, var(--ink) 22%, transparent);
+  --gold-deep:color-mix(in srgb, var(--gold) 82%, #4a3a08);
+  --gold-mix:calc(var(--gold-freq) * 1%);
+  --tick:color-mix(in srgb, var(--gold) var(--gold-mix), var(--ink-soft));
+  --sans:"Archivo",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --mono:"Chivo Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+
+/* ============ RESET / BASE ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--ground);color:var(--ink);
+  font:400 15.5px/1.58 var(--sans);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+img{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+h1,h2,h3{font-weight:700;letter-spacing:-.02em;line-height:1.02;text-wrap:balance}
+p{max-width:65ch}
+::selection{background:var(--gold);color:var(--ink)}
+:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+[id]{scroll-margin-top:86px}
+
+.skip{
+  position:fixed;left:8px;top:-60px;z-index:200;background:var(--ink);color:var(--paper);
+  font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  padding:10px 14px;text-decoration:none;transition:top .2s;
+}
+.skip:focus{top:8px}
+
+/* ============ SHEET FRAME ============ */
+.sheet{max-width:1480px;margin-inline:auto;padding:var(--seam);display:flex;flex-direction:column;gap:var(--seam)}
+main{display:flex;flex-direction:column;gap:var(--seam)}
+section{display:block}
+.g{display:grid;gap:var(--seam);grid-template-columns:repeat(12,1fr)}
+.p{background:var(--paper);padding:var(--pad);position:relative;min-width:0}
+.p-2{background:var(--paper-2)}
+.p-mid{background:var(--mid)}
+.p-deep{background:var(--deep);color:var(--paper)}
+.p-ink{background:var(--ink);color:var(--paper)}
+.p-gold{background:var(--gold);color:var(--ink)}
+.p-flush{padding:0}
+
+/* registration ticks */
+.reg{position:absolute;width:11px;height:11px;pointer-events:none;z-index:3}
+.reg::before,.reg::after{content:"";position:absolute;background:var(--tick)}
+.reg::before{left:5px;top:0;width:1.5px;height:11px}
+.reg::after{left:0;top:5px;width:11px;height:1.5px}
+.reg.tl{top:calc(-6px - var(--seam)/2);left:calc(-6px - var(--seam)/2)}
+.reg.tr{top:calc(-6px - var(--seam)/2);right:calc(-6px - var(--seam)/2)}
+.reg.bl{bottom:calc(-6px - var(--seam)/2);left:calc(-6px - var(--seam)/2)}
+.reg.br{bottom:calc(-6px - var(--seam)/2);right:calc(-6px - var(--seam)/2)}
+
+/* mono / bracket / stamp / ref */
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;line-height:1.5}
+.bkt{
+  --b1:min(var(--bracket-style),1);
+  --b2:clamp(0,calc(var(--bracket-style) - 1),1);
+  display:inline-flex;align-items:baseline;gap:.5em;
+  font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+  padding:calc(var(--b2)*5px) calc(var(--b2)*9px);
+  border:1px solid color-mix(in srgb,currentColor calc(var(--b2)*55%),transparent);
+}
+.bkt::before{content:"[";opacity:var(--b1)}
+.bkt::after{content:"]";opacity:var(--b1)}
+a.bkt{text-decoration:none}
+a.bkt:hover,a.bkt:focus-visible{color:var(--gold-deep)}
+.p-ink a.bkt:hover,.p-ink a.bkt:focus-visible,
+.p-gold a.bkt:hover,.p-gold a.bkt:focus-visible{color:inherit;opacity:.72}
+.stamp{
+  --s1:min(var(--stamp-style),1);
+  --s2:clamp(0,calc(var(--stamp-style) - 1),1);
+  display:inline-block;font-family:var(--mono);font-size:11px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;line-height:1;
+  padding:calc(6px + var(--s1)*3px) calc(2px + var(--s1)*9px);
+  border:1px solid color-mix(in srgb,currentColor calc(var(--s1)*48%),transparent);
+  background:color-mix(in srgb,var(--ink) calc(var(--s2)*100%),transparent);
+  color:color-mix(in srgb,var(--paper) calc(var(--s2)*100%),currentColor);
+}
+.p-ink .stamp,.on-ink .stamp{
+  background:color-mix(in srgb,var(--paper) calc(var(--s2)*92%),transparent);
+  color:color-mix(in srgb,var(--ink) calc(var(--s2)*100%),currentColor);
+}
+.ref{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.ref .sq{width:8px;height:8px;background:var(--tick);flex:none}
+.ref b{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.p-ink .ref b,.p-deep .ref b{color:color-mix(in srgb,var(--paper) 78%,var(--deep))}
+
+/* buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:14px;background:var(--gold);color:var(--ink);
+  font:600 13px var(--mono);letter-spacing:.1em;text-transform:uppercase;
+  padding:17px 24px;text-decoration:none;border:1px solid transparent;
+  transition:background .18s var(--ease),color .18s var(--ease);
+}
+.btn .ar{transition:transform .25s var(--ease)}
+.btn:hover,.btn:focus-visible{background:var(--ink);color:var(--gold)}
+.btn:hover .ar,.btn:focus-visible .ar{transform:translate(3px,3px)}
+.btn-ink{background:var(--ink);color:var(--paper)}
+.btn-ink:hover,.btn-ink:focus-visible{background:var(--paper);color:var(--ink)}
+
+/* ============ RULER / TOPBAR / MENU ============ */
+.ruler{position:fixed;top:0;left:0;right:0;height:3px;z-index:90;pointer-events:none}
+.ruler i{display:block;height:100%;background:var(--gold);transform:scaleX(0);transform-origin:0 50%}
+.topbar{
+  position:sticky;top:var(--seam);z-index:60;background:var(--paper);
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px;
+  padding:14px var(--pad);
+}
+.lock{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0}
+.lock-mark{flex:none;display:flex;align-items:center;justify-content:center;background:var(--ink);padding:6px}
+.lock-mark img{height:30px;width:30px;display:block}
+.lock-txt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.lock .l1{display:flex;align-items:baseline;gap:10px;white-space:nowrap}
+.lock .l1 b{font:800 19px/1 var(--sans);letter-spacing:.01em}
+.lock .l1 span{font:500 9.5px var(--mono);letter-spacing:.22em}
+.lock .l2{font:400 8.5px var(--mono);letter-spacing:.18em;color:var(--ink-faint);text-transform:uppercase}
+.nav-links{display:flex;justify-content:center;gap:30px}
+.nav-links a{
+  font:500 11.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;
+  text-decoration:none;color:var(--ink-soft);padding:6px 0;border-bottom:1px solid transparent;
+  transition:color .15s,border-color .15s;
+}
+.nav-links a:hover,.nav-links a:focus-visible{color:var(--ink);border-color:var(--ink)}
+.nav-right{display:flex;align-items:center;gap:16px}
+.prog{font:500 10px var(--mono);letter-spacing:.14em;color:var(--ink-faint);font-variant-numeric:tabular-nums}
+.nav-cta{padding:12px 18px}
+.burger{display:none;font:500 11px var(--mono);letter-spacing:.12em;padding:12px 10px}
+
+.menu{position:fixed;inset:0;z-index:120;background:var(--ink);color:var(--paper);padding:24px;overflow:auto}
+.menu[hidden]{display:none}
+.menu-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:5vh}
+.menu-cols{display:grid;grid-template-columns:1fr;gap:34px;max-width:880px}
+.menu nav.chapters{display:flex;flex-direction:column}
+.menu nav.chapters a,.menu nav.chapters .cur{
+  font:700 clamp(21px,4.6vw,32px)/1.15 var(--sans);letter-spacing:-.02em;
+  text-decoration:none;padding:12px 0;border-bottom:1px solid color-mix(in srgb,var(--paper) 16%,transparent);
+  display:flex;justify-content:space-between;align-items:center;gap:14px;
+}
+.menu nav.chapters small{font:400 10px var(--mono);letter-spacing:.16em;color:color-mix(in srgb,var(--paper) 62%,var(--ink));white-space:nowrap}
+.menu nav.chapters a:hover,.menu nav.chapters a:focus-visible{color:var(--gold)}
+.menu nav.chapters .cur{color:var(--gold)}
+.menu-fast{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:baseline}
+.menu-fast .f-k{margin-right:4px}
+.menu-fast a{font:500 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:color-mix(in srgb,var(--paper) 84%,var(--ink))}
+.menu-fast a:hover,.menu-fast a:focus-visible{color:var(--gold)}
+.menu-foot{margin-top:5vh;display:flex;flex-wrap:wrap;gap:10px}
+
+/* ============ SECTION HEADERS ============ */
+.sec-head{grid-column:span 12;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.h2{font-size:clamp(1.9rem,3.6vw,3.1rem)}
+.sec-head p{color:var(--ink-soft);font-size:14.5px;margin-top:14px}
+
+/* ============ HERO — the gold transmittal cover ============ */
+.hero-gold{grid-column:span 8;display:flex;flex-direction:column;justify-content:space-between;gap:38px}
+.h1{font-size:clamp(2.7rem,6vw,5rem);font-weight:700;letter-spacing:-.03em;line-height:.98}
+.hero-lede{margin-top:24px;font-size:16px;color:color-mix(in srgb,var(--ink) 82%,var(--gold));max-width:52ch}
+.routes{display:flex;flex-direction:column;border-top:1px solid color-mix(in srgb,var(--ink) 45%,transparent)}
+.route{
+  display:flex;align-items:baseline;gap:18px;text-decoration:none;
+  padding:15px 2px;border-bottom:1px solid color-mix(in srgb,var(--ink) 30%,transparent);
+}
+.route b{font:500 10px var(--mono);letter-spacing:.16em;flex:none;width:44px;color:color-mix(in srgb,var(--ink) 72%,var(--gold))}
+.route .t{font:600 clamp(1.05rem,1.8vw,1.35rem) var(--sans);letter-spacing:-.015em;transition:transform .2s var(--ease)}
+.route .m{margin-left:auto;font:500 10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:color-mix(in srgb,var(--ink) 70%,var(--gold));white-space:nowrap}
+.route .ar{font:500 13px var(--mono);opacity:.55;transition:transform .2s var(--ease),opacity .2s var(--ease)}
+.route:hover .ar,.route:focus-visible .ar{transform:translate(2px,2px);opacity:1}
+.route:hover .t,.route:focus-visible .t{transform:translateX(3px)}
+.hero-side{grid-column:span 4;display:flex;flex-direction:column;gap:26px;justify-content:space-between}
+.hero-side p{font-size:13.5px;color:color-mix(in srgb,var(--paper) 80%,var(--ink))}
+.hero-side .bigline{font:600 clamp(1.25rem,2vw,1.6rem)/1.3 var(--sans);letter-spacing:-.015em;color:var(--paper);max-width:22ch}
+.hero-side .now{display:flex;flex-direction:column;gap:10px}
+.hero-side .now a{font:500 15px var(--mono);letter-spacing:.05em;text-decoration:none}
+.hero-side .now a:hover,.hero-side .now a:focus-visible{color:var(--gold)}
+
+/* ============ TRANSMITTAL FIGURE ============ */
+.fig{grid-column:span 12}
+.fig-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:10px}
+.figwrap{overflow-x:auto;scrollbar-width:thin}
+.fig svg{display:block;min-width:640px;width:100%;height:auto}
+.fig .st{stroke:var(--ink);stroke-width:1.4;fill:none;vector-effect:non-scaling-stroke;stroke-linecap:square}
+.fig .thin{stroke:var(--ink);opacity:.22;stroke-width:1;fill:none;vector-effect:non-scaling-stroke}
+.fig .dim{stroke:var(--gold-deep);stroke-width:1.2;fill:none;vector-effect:non-scaling-stroke}
+.fig .dimf{fill:var(--gold-deep)}
+.fig text{font-family:var(--mono);fill:var(--ink-soft);letter-spacing:.14em}
+.fig .lblg{fill:var(--gold-deep)}
+
+/* ============ QUOTE FORM — R-01 ============ */
+.qmain{grid-column:span 8;display:flex;flex-direction:column;gap:28px}
+.qform{display:grid;grid-template-columns:1fr 1fr;gap:20px 22px}
+.qf{display:flex;flex-direction:column;gap:7px}
+.qf.full{grid-column:1/-1}
+.qf label{font:500 10px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+.qf label i{font-style:normal;color:var(--ink-faint);letter-spacing:.08em}
+.qf input,.qf select{
+  font:500 13px var(--mono);letter-spacing:.05em;color:var(--ink);
+  background:var(--paper-2);
+  border:1px solid color-mix(in srgb,var(--ink) 42%,transparent);
+  padding:13px 12px;border-radius:0;width:100%;
+}
+.qf input::placeholder{color:var(--ink-faint)}
+.qf input:focus-visible,.qf select:focus-visible{outline:2px solid var(--gold-deep);outline-offset:2px}
+.qact{display:flex;flex-wrap:wrap;gap:18px;align-items:center}
+.stub-note{
+  display:none;font:500 11px var(--mono);letter-spacing:.07em;line-height:1.7;
+  border:1px solid var(--ink);padding:12px 14px;max-width:52ch;text-transform:uppercase;
+}
+.stub-note.show{display:block}
+.stub-note a{color:inherit}
+.qside{grid-column:span 4;display:flex;flex-direction:column;gap:var(--seam);padding:0;background:none}
+.qside .p{flex:1;display:flex;flex-direction:column;gap:16px;justify-content:space-between;align-items:flex-start}
+.qside h3{font-size:clamp(1.2rem,1.9vw,1.5rem)}
+.qside p{font-size:13.5px;color:var(--ink-soft)}
+.qside .p-deep p{color:color-mix(in srgb,var(--paper) 82%,var(--deep))}
+
+/* ============ NEXT LEDGER — what happens after send ============ */
+.steps{grid-column:span 12}
+.srow{
+  display:grid;grid-template-columns:96px 1fr auto;gap:26px;align-items:baseline;
+  padding:20px 0;border-bottom:1px solid var(--line);
+}
+.srow:first-of-type{border-top:1px solid var(--ink)}
+.srow:last-of-type{border-bottom:0}
+.srow .d{font:500 12px var(--mono);letter-spacing:.14em;color:var(--gold-deep)}
+.srow .t{font-size:15.5px;max-width:58ch}
+.srow .t strong{font-weight:600}
+.srow .t small{display:block;font-size:13px;color:var(--ink-soft);margin-top:3px;max-width:58ch}
+
+/* ============ DISPATCH — R-02, id=contact ============ */
+.disp{grid-column:span 7;display:flex;flex-direction:column;gap:30px;justify-content:space-between}
+.disp .lines{display:flex;flex-direction:column;gap:4px}
+.disp .lines a{
+  font:700 clamp(1.6rem,3.6vw,2.9rem)/1.18 var(--sans);letter-spacing:-.02em;
+  text-decoration:none;display:inline-flex;align-items:baseline;gap:14px;
+  padding:10px 0;border-bottom:1px solid color-mix(in srgb,var(--paper) 16%,transparent);
+}
+.disp .lines a small{font:500 10px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:color-mix(in srgb,var(--paper) 58%,var(--ink));white-space:nowrap}
+.disp .lines a:hover,.disp .lines a:focus-visible{color:var(--gold)}
+.disp .lines a.mail{font-size:clamp(1.1rem,2.4vw,1.8rem);word-break:break-all}
+.disp p{font-size:13.5px;color:color-mix(in srgb,var(--paper) 78%,var(--ink))}
+.disp-side{grid-column:span 5;display:flex;flex-direction:column;gap:var(--seam);padding:0;background:none}
+.disp-side .p{flex:1;display:flex;flex-direction:column;gap:16px;justify-content:space-between;align-items:flex-start}
+.disp-side h3{font-size:clamp(1.2rem,1.9vw,1.5rem)}
+.disp-side p{font-size:13.5px;color:var(--ink-soft)}
+.disp-side .meta-table{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;border-top:1px solid var(--line);padding-top:16px;width:100%}
+.disp-side .meta-table dt{font:500 10px var(--mono);letter-spacing:.14em;color:var(--ink-faint);text-transform:uppercase;padding-top:2px}
+.disp-side .meta-table dd{font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase}
+
+/* ============ INQUIRY — R-03 ============ */
+.inq{grid-column:span 8;display:flex;flex-direction:column;gap:26px}
+.inq textarea{
+  font:500 13px/1.6 var(--mono);letter-spacing:.04em;color:var(--ink);
+  background:var(--paper);
+  border:1px solid color-mix(in srgb,var(--ink) 42%,transparent);
+  padding:13px 12px;border-radius:0;width:100%;min-height:120px;resize:vertical;
+}
+.inq textarea::placeholder{color:var(--ink-faint)}
+.inq textarea:focus-visible{outline:2px solid var(--gold-deep);outline-offset:2px}
+.inq .qf input{background:var(--paper)}
+.inq-side{grid-column:span 4;display:flex;flex-direction:column;gap:22px;justify-content:space-between;align-items:flex-start}
+.inq-side h3{font-size:clamp(1.2rem,1.9vw,1.5rem)}
+.inq-side p{font-size:13.5px;color:color-mix(in srgb,var(--paper) 80%,var(--ink))}
+
+/* ============ CHAPTER INDEX ============ */
+.chapters-p{grid-column:span 12}
+.chap-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 calc(var(--pad)*1.5);margin-top:6px}
+.chap-row{display:flex;align-items:baseline;gap:18px;padding:15px 0;border-bottom:1px solid var(--line);text-decoration:none;position:relative}
+.chap-grid a.chap-row:hover .chap-t,.chap-grid a.chap-row:focus-visible .chap-t{color:var(--gold-deep)}
+.chap-grid a.chap-row:hover .chap-ar{transform:translateX(4px);opacity:1}
+.chap-no{font:500 10px var(--mono);letter-spacing:.16em;color:var(--ink-faint);flex:none;width:52px}
+.chap-t{font:600 16px/1.25 var(--sans);letter-spacing:-.01em;transition:color .15s var(--ease)}
+.chap-ar{margin-left:auto;font:500 12px var(--mono);opacity:.4;transition:transform .2s var(--ease),opacity .2s var(--ease)}
+.chap-row[aria-current] .chap-t,.chap-row[aria-current] .chap-no{color:var(--gold-deep)}
+.chap-here{margin-left:auto;font:500 9px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep);border:1px solid color-mix(in srgb,var(--gold-deep) 55%,transparent);padding:4px 8px}
+.chap-fast{display:flex;flex-wrap:wrap;gap:10px 26px;align-items:baseline;margin-top:26px;border-top:1px solid var(--ink);padding-top:18px}
+.chap-fast .k{font:400 9px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint)}
+.chap-fast a{font:500 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:var(--ink-soft)}
+.chap-fast a:hover,.chap-fast a:focus-visible{color:var(--gold-deep)}
+.chap-next{grid-column:span 12;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+.chap-next .nx{font:600 clamp(1.2rem,2vw,1.6rem) var(--sans);letter-spacing:-.015em;text-decoration:none;display:inline-flex;align-items:center;gap:14px}
+.chap-next .nx:hover,.chap-next .nx:focus-visible{color:var(--gold)}
+
+/* ============ FOOTER ============ */
+.f-brand{grid-column:span 5;display:flex;flex-direction:column;gap:18px}
+.f-lion{height:92px;width:92px;margin-bottom:2px}
+.f-brand .biglock{font:800 clamp(2rem,4vw,3rem)/1 var(--sans);letter-spacing:.01em}
+.f-brand .tag{font:500 10.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:color-mix(in srgb,var(--paper) 66%,var(--ink))}
+.f-contact{grid-column:span 4;display:flex;flex-direction:column;gap:12px}
+.f-auth{grid-column:span 3;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.f-k{font:400 9px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:color-mix(in srgb,var(--paper) 55%,var(--ink))}
+.f-contact a{font:500 15px var(--mono);letter-spacing:.05em;text-decoration:none}
+.f-contact a:hover,.f-contact a:focus-visible{color:var(--gold)}
+.f-contact .adr{font-size:13.5px;color:color-mix(in srgb,var(--paper) 78%,var(--ink));max-width:34ch}
+.f-bottom{
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:center;
+  border-top:1px solid color-mix(in srgb,var(--paper) 18%,transparent);margin-top:38px;padding-top:20px;
+}
+.f-bottom nav{display:flex;flex-wrap:wrap;gap:20px}
+.f-bottom a{font:500 10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:color-mix(in srgb,var(--paper) 72%,var(--ink))}
+.f-bottom a:hover,.f-bottom a:focus-visible{color:var(--gold)}
+.f-bottom .fine{font:400 10px var(--mono);letter-spacing:.1em;color:color-mix(in srgb,var(--paper) 55%,var(--ink));text-transform:uppercase}
+
+/* ============ MOTION ============ */
+.js .rv{opacity:0;transform:translateY(14px)}
+.js .rv.in{opacity:1;transform:none;transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:calc(var(--i,0)*80ms)}
+.js .rv-st{opacity:0}
+.js .rv-st.in{animation:stampin .34s cubic-bezier(.2,1.4,.4,1) both;animation-delay:calc(var(--i,0)*110ms)}
+@keyframes stampin{0%{opacity:0;transform:scale(1.05)}55%{opacity:1}100%{opacity:1;transform:scale(1)}}
+.js .fig .dr{stroke-dasharray:1;stroke-dashoffset:1}
+.js .fig.in .dr{animation:drw 1s var(--ease) forwards;animation-delay:calc(var(--d,0)*.12s)}
+@keyframes drw{to{stroke-dashoffset:0}}
+.js .fig text,.js .fig .dimf{opacity:0}
+.js .fig.in text,.js .fig.in .dimf{opacity:1;transition:opacity .6s ease .9s}
+@media (prefers-reduced-motion:reduce){
+  .js .rv,.js .rv-st{opacity:1;transform:none;animation:none;transition:none}
+  .js .fig .dr{stroke-dasharray:none;stroke-dashoffset:0;animation:none}
+  .js .fig text,.js .fig .dimf{opacity:1;transition:none}
+  .btn .ar{transition:none}
+  .route .t,.route .ar,.chap-ar{transition:none}
+  .ruler{display:none}
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:1100px){
+  .hero-gold{grid-column:span 12}
+  .hero-side{grid-column:span 12}
+  .qmain{grid-column:span 12}
+  .qside{grid-column:span 12;flex-direction:row}
+  .qside .p{flex:1 1 300px}
+  .disp{grid-column:span 12}
+  .disp-side{grid-column:span 12;flex-direction:row}
+  .disp-side .p{flex:1 1 300px}
+  .inq{grid-column:span 12}
+  .inq-side{grid-column:span 12}
+  .f-brand,.f-contact,.f-auth{grid-column:span 12}
+}
+@media (max-width:900px){
+  .nav-links{display:none}
+  .burger{display:inline-block}
+  .prog{display:none}
+  .chap-grid{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  :root{--pad:20px}
+  .lock .l1 span{display:none}
+  .lock .l2{display:none}
+  .nav-cta{padding:11px 12px;font-size:11px;gap:8px}
+  .nav-right{gap:8px}
+  .topbar{gap:10px}
+  .h1{font-size:clamp(2.2rem,10vw,3rem)}
+  .qform{grid-template-columns:1fr}
+  .route .m{display:none}
+  .qside{flex-direction:column}
+  .disp-side{flex-direction:column}
+  .srow{grid-template-columns:1fr;gap:8px}
+  .chap-no{width:44px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="ruler" aria-hidden="true"><i id="rulerFill"></i></div>
+
+<div class="sheet">
+
+  <!-- ============ NAV ============ -->
+  <header class="topbar">
+    <a class="lock" href="/explore/p2/s06a/a" aria-label="KUL Enterprises LLC — home">
+      <span class="lock-mark"><img src="/studio/assets/brand/lion-clean.png" alt="" width="30" height="30"></span>
+      <span class="lock-txt">
+        <span class="l1"><b>KUL</b><span>— ENTERPRISES LLC</span></span>
+        <span class="l2">Transmittal · KUL-SS-07</span>
+      </span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#quote">Quote</a>
+      <a href="#contact">Dispatch</a>
+      <a href="#inquiry">Inquiry</a>
+      <a href="#chapters">Chapters</a>
+    </nav>
+    <div class="nav-right">
+      <span class="prog" id="prog" aria-hidden="true">SHT 000%</span>
+      <a class="btn nav-cta" href="#quote">Request a Quote <span class="ar">↘</span></a>
+      <button class="burger bkt" id="burger" aria-expanded="false" aria-controls="menu">Index</button>
+    </div>
+  </header>
+
+  <!-- menu overlay — chapter index -->
+  <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Sheet index" hidden>
+    <div class="menu-head">
+      <span class="mono">KUL-SS document set · Index</span>
+      <button class="bkt" id="menuClose">Close</button>
+    </div>
+    <div class="menu-cols">
+      <nav class="chapters" aria-label="Chapters">
+        <a href="/explore/p2/s06a/a">The Beginning <small>SS-01</small></a>
+        <a href="/explore/p2/s06a/journey">The Journey <small>SS-02</small></a>
+        <a href="/explore/p2/s06a/story">Why I Started Driving <small>SS-03</small></a>
+        <a href="/explore/p2/s06a/mission">The Mission <small>SS-04</small></a>
+        <a href="/explore/p2/s06a/responsibility">The Responsibility <small>SS-05</small></a>
+        <a href="/explore/p2/s06a/join">Join the Journey <small>SS-06</small></a>
+        <span class="cur" aria-current="page">Let's Move Forward <small>SS-07 · here</small></span>
+        <a href="/explore/p2/s06a/road-ahead">The Road Ahead <small>SS-08</small></a>
+      </nav>
+      <nav class="menu-fast" aria-label="Business shortcuts">
+        <span class="f-k">Fast path —</span>
+        <a href="/explore/p2/s06a/mission">Services</a>
+        <a href="/explore/p2/s06a/responsibility">Safety</a>
+        <a href="#quote">Request a Quote</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+    <div class="menu-foot on-ink">
+      <span class="stamp">USDOT 7638788</span>
+      <span class="stamp">MC 66389691</span>
+      <span class="stamp">24/7 — 678-972-1148</span>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <!-- ============ HERO — the gold transmittal cover ============ -->
+    <section aria-labelledby="h-hero">
+      <div class="g">
+        <div class="p p-gold hero-gold rv">
+          <div>
+            <p class="ref"><span class="sq" style="background:var(--ink)"></span><b style="color:color-mix(in srgb,var(--ink) 78%,var(--gold))">KUL-SS-07 — Let's Move Forward · Transmittal</b></p>
+            <h1 class="h1" id="h-hero">This sheet<br>comes back to us.</h1>
+            <p class="hero-lede">Seven sheets describe the company. This one is yours to send. Pick the route that fits — a priced lane, a live dispatcher, or a plain question — and a person answers. That part is not a metaphor.</p>
+          </div>
+          <nav class="routes" aria-label="Routes on this sheet">
+            <a class="route" href="#quote"><b>R-01</b><span class="t">Request a Freight Quote</span><span class="m">Origin · destination · date</span><span class="ar" aria-hidden="true">↘</span></a>
+            <a class="route" href="#contact"><b>R-02</b><span class="t">Contact Dispatch</span><span class="m">Live line — 24/7</span><span class="ar" aria-hidden="true">↘</span></a>
+            <a class="route" href="#inquiry"><b>R-03</b><span class="t">General Inquiry</span><span class="m">Anything else</span><span class="ar" aria-hidden="true">↘</span></a>
+          </nav>
+          <span class="reg br" aria-hidden="true"></span>
+        </div>
+
+        <aside class="p p-ink hero-side rv" style="--i:1">
+          <div>
+            <p class="ref"><span class="sq"></span><b>Reply standard</b></p>
+            <p class="bigline">Every route ends at a person, around the clock.</p>
+          </div>
+          <p>No portals, no ticket numbers, no "someone will reach out." The dispatcher who reads your request is the one who calls you back.</p>
+          <div class="now">
+            <span class="f-k">Reach us right now</span>
+            <a href="tel:+16789721148">678-972-1148</a>
+            <a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a>
+          </div>
+          <span class="reg bl" aria-hidden="true"></span>
+        </aside>
+
+        <!-- transmittal-path figure -->
+        <figure class="p fig rv" style="--i:2" id="fig03">
+          <figcaption class="fig-head">
+            <span class="bkt">Fig. 03 — Transmittal path</span>
+            <span class="mono" style="color:var(--ink-faint)">Every route below follows this line</span>
+          </figcaption>
+          <div class="figwrap">
+          <svg viewBox="0 0 1200 150" role="img" aria-label="Diagram of the transmittal path: your request travels to KUL dispatch, is answered by a person, and comes back to you as a confirmed answer in writing">
+            <!-- node: you -->
+            <rect class="st dr" style="--d:0" pathLength="1" x="30" y="42" width="200" height="56"/>
+            <text x="130" y="66" text-anchor="middle" font-size="11" font-weight="500">YOUR REQUEST</text>
+            <text x="130" y="84" text-anchor="middle" font-size="8" opacity=".65">FORM · PHONE · EMAIL</text>
+            <!-- line 1 -->
+            <line class="dim dr" style="--d:1" pathLength="1" x1="230" y1="70" x2="480" y2="70"/>
+            <path class="dimf" d="M480 70l-13-4.5v9z"/>
+            <text class="lblg" x="355" y="58" text-anchor="middle" font-size="9">RECEIVED — LOGGED ON THE SHEET</text>
+            <!-- node: dispatch -->
+            <rect class="st dr" style="--d:2" pathLength="1" x="480" y="42" width="240" height="56"/>
+            <text x="600" y="66" text-anchor="middle" font-size="11" font-weight="500">KUL DISPATCH — A PERSON</text>
+            <text x="600" y="84" text-anchor="middle" font-size="8" opacity=".65">678-972-1148 · 24/7</text>
+            <!-- line 2 -->
+            <line class="dim dr" style="--d:3" pathLength="1" x1="720" y1="70" x2="970" y2="70"/>
+            <path class="dimf" d="M970 70l-13-4.5v9z"/>
+            <text class="lblg" x="845" y="58" text-anchor="middle" font-size="9">PRICED / ANSWERED — CALLED BACK</text>
+            <!-- node: answer -->
+            <rect class="st dr" style="--d:4" pathLength="1" x="970" y="42" width="200" height="56"/>
+            <text x="1070" y="66" text-anchor="middle" font-size="11" font-weight="500">YOUR ANSWER</text>
+            <text x="1070" y="84" text-anchor="middle" font-size="8" opacity=".65">CONFIRMED IN WRITING</text>
+            <!-- baseline -->
+            <line class="thin" x1="30" y1="122" x2="1170" y2="122" stroke-dasharray="2 9"/>
+            <text x="30" y="140" font-size="8" opacity=".65">NO PORTALS · NO QUEUES · THE PATH IS THIS SHORT ON PURPOSE</text>
+          </svg>
+          </div>
+          <span class="reg tl" aria-hidden="true"></span>
+          <span class="reg tr" aria-hidden="true"></span>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ R-01 — FREIGHT QUOTE ============ -->
+    <section id="quote" aria-labelledby="h-quote">
+      <div class="g">
+        <div class="p qmain rv">
+          <div>
+            <p class="ref"><span class="sq"></span><b>R-01 — Request a freight quote</b></p>
+            <h2 class="h2" id="h-quote">Name the lane.<br>We'll price the move.</h2>
+            <p style="color:var(--ink-soft);margin-top:14px">Five fields is all a quote takes. Leave anything blank you're not sure of — the dispatcher fills the gaps on the callback.</p>
+          </div>
+          <form class="qform" novalidate>
+            <div class="qf">
+              <label for="q-origin">Origin</label>
+              <input id="q-origin" name="origin" type="text" placeholder="City, ST — e.g. Loganville, GA" autocomplete="off">
+            </div>
+            <div class="qf">
+              <label for="q-dest">Destination</label>
+              <input id="q-dest" name="destination" type="text" placeholder="City, ST — anywhere in the lower 48" autocomplete="off">
+            </div>
+            <div class="qf">
+              <label for="q-service">Service</label>
+              <select id="q-service" name="service">
+                <option>Power Only</option><option>Dry Van</option><option>Reefer</option>
+                <option>Dedicated</option><option>Regional</option><option>Over-the-Road</option>
+                <option>Expedited</option><option>Not sure — match it for me</option>
+              </select>
+            </div>
+            <div class="qf">
+              <label for="q-date">Target date</label>
+              <input id="q-date" name="date" type="text" placeholder="e.g. 2026-08-01, or “ASAP”" autocomplete="off">
+            </div>
+            <div class="qf full">
+              <label for="q-contact">Your contact <i>— name + phone or email</i></label>
+              <input id="q-contact" name="contact" type="text" placeholder="So a person can call you back" autocomplete="off">
+            </div>
+            <div class="qact full" style="grid-column:1/-1">
+              <button class="btn" type="button" id="qSubmit">Send the request <span class="ar">↘</span></button>
+              <a class="bkt" href="tel:+16789721148">Or call it in — 678-972-1148</a>
+              <p class="stub-note" id="qNote" role="status">Design proof — this form doesn't transmit yet. Call <a href="tel:+16789721148">678-972-1148</a> or email <a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a> and a dispatcher will price your lane.</p>
+            </div>
+          </form>
+          <span class="reg tr" aria-hidden="true"></span>
+        </div>
+
+        <div class="qside rv" style="--i:1">
+          <div class="p p-deep">
+            <p class="ref"><span class="sq"></span><b>What a quote includes</b></p>
+            <h3>A rate and a plan, not just a number.</h3>
+            <p>Equipment for the lane, a transit plan against the calendar, and the rate — priced by the person who will actually dispatch the truck.</p>
+            <span class="stamp">Priced by a person</span>
+          </div>
+          <div class="p p-2">
+            <p class="ref"><span class="sq"></span><b>Which service?</b></p>
+            <h3 style="letter-spacing:-.02em">The catalog is one sheet back.</h3>
+            <p>All seven configurations, written in plain language — or skip the reading and pick "match it for me."</p>
+            <a class="bkt" href="/explore/p2/s06a/mission">↘ SS-04 — The Mission</a>
+          </div>
+        </div>
+
+        <!-- what happens next -->
+        <div class="p p-2 steps rv" style="--i:2">
+          <p class="ref"><span class="sq"></span><b>After you send — the same three steps, every time</b></p>
+          <div class="srow rv-st" style="--i:1">
+            <span class="d">STEP 01</span>
+            <span class="t"><strong>Received and logged.</strong><small>Your request lands with dispatch — not in a queue, not in a portal. It is read by the person who will answer it.</small></span>
+            <span class="stamp">On the sheet</span>
+          </div>
+          <div class="srow rv-st" style="--i:2">
+            <span class="d">STEP 02</span>
+            <span class="t"><strong>Priced or answered by a person.</strong><small>A dispatcher works the lane and calls you back with the rate and the plan — around the clock.</small></span>
+            <span class="stamp">Called back</span>
+          </div>
+          <div class="srow rv-st" style="--i:3">
+            <span class="d">STEP 03</span>
+            <span class="t"><strong>Confirmed in writing.</strong><small>Whatever we agree on the phone goes on paper before the truck rolls. The sheet is the promise.</small></span>
+            <span class="stamp">In writing</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ R-02 — DISPATCH · id=contact ============ -->
+    <section id="contact" aria-labelledby="h-contact">
+      <div class="g">
+        <div class="p p-ink disp rv">
+          <div>
+            <p class="ref"><span class="sq"></span><b>R-02 — Contact dispatch · Live</b></p>
+            <h2 class="h2" id="h-contact">Skip the form.<br>Talk to dispatch.</h2>
+          </div>
+          <div class="lines">
+            <a href="tel:+16789721148">678-972-1148 <small>Call — 24/7, a person answers</small></a>
+            <a class="mail" href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com <small>Email — read by dispatch</small></a>
+          </div>
+          <p>Middle of the night, middle of a load, middle of a problem — the line is staffed. If you are standing at a dock right now, call. That is what the number is for.</p>
+          <span class="reg tl" aria-hidden="true"></span>
+        </div>
+        <div class="disp-side rv" style="--i:1">
+          <div class="p">
+            <p class="ref"><span class="sq"></span><b>Where we are</b></p>
+            <h3>Loganville, Georgia.</h3>
+            <p>An hour east of Atlanta, inside the Southeast freight corridor. Home base for the equipment, the records, and the people who answer this line.</p>
+            <dl class="meta-table">
+              <dt>Base</dt><dd>Loganville, GA</dd>
+              <dt>Primary</dt><dd>Southeast US</dd>
+              <dt>Capability</dt><dd>Lower 48</dd>
+            </dl>
+          </div>
+          <div class="p p-2">
+            <p class="ref"><span class="sq"></span><b>Check us first</b></p>
+            <h3 style="letter-spacing:-.02em">Look us up before you call.</h3>
+            <p>USDOT 7638788 into FMCSA SAFER returns the same company described on these sheets. We prefer callers who checked.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <span class="stamp">USDOT 7638788</span>
+              <span class="stamp">MC 66389691</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ R-03 — GENERAL INQUIRY ============ -->
+    <section id="inquiry" aria-labelledby="h-inquiry">
+      <div class="g">
+        <div class="p p-2 inq rv">
+          <div>
+            <p class="ref"><span class="sq"></span><b>R-03 — General inquiry</b></p>
+            <h2 class="h2" id="h-inquiry">Everything else goes here.</h2>
+            <p style="color:var(--ink-soft);margin-top:14px">Not a lane, not an emergency — a question about the company, a partnership idea, a driver introduction ahead of the fleet build. Write it plainly; it gets read the same way.</p>
+          </div>
+          <form class="qform" novalidate>
+            <div class="qf">
+              <label for="i-name">Name</label>
+              <input id="i-name" name="name" type="text" placeholder="Who's writing" autocomplete="off">
+            </div>
+            <div class="qf">
+              <label for="i-reply">Reply to <i>— phone or email</i></label>
+              <input id="i-reply" name="reply" type="text" placeholder="Where the answer goes" autocomplete="off">
+            </div>
+            <div class="qf full">
+              <label for="i-msg">Message</label>
+              <textarea id="i-msg" name="message" placeholder="Say it the way you'd say it on the phone."></textarea>
+            </div>
+            <div class="qact full" style="grid-column:1/-1">
+              <button class="btn btn-ink" type="button" id="iSubmit">Send the inquiry <span class="ar">↘</span></button>
+              <p class="stub-note" id="iNote" role="status">Design proof — this form doesn't transmit yet. Email <a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a> and it lands in the same place.</p>
+            </div>
+          </form>
+          <span class="reg br" aria-hidden="true"></span>
+        </div>
+        <aside class="p p-deep inq-side rv" style="--i:1">
+          <div>
+            <p class="ref"><span class="sq"></span><b>Driving with us?</b></p>
+            <h3>The fleet is coming.<br>The list is open.</h3>
+          </div>
+          <p>One truck today, fifty planned by the end of 2029. Sheet SS-06 explains how driver opportunities will open as tractors are added — honestly, with no invented promises.</p>
+          <a class="bkt" href="/explore/p2/s06a/join">↘ SS-06 — Join the Journey</a>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ CHAPTER INDEX ============ -->
+    <section id="chapters" aria-labelledby="h-chapters">
+      <div class="g">
+        <div class="p chapters-p rv">
+          <p class="ref"><span class="sq"></span><b>Index — The document set</b></p>
+          <h2 class="h2" id="h-chapters">Eight sheets, one record.</h2>
+          <p style="color:var(--ink-soft);margin-top:14px;margin-bottom:26px">This is sheet seven — the one that moves. The rest of the set holds where the company started, how it runs, and where it's headed.</p>
+          <nav aria-label="Chapters">
+            <div class="chap-grid">
+              <a class="chap-row" href="/explore/p2/s06a/a"><span class="chap-no">SS-01</span><span class="chap-t">The Beginning</span><span class="chap-ar" aria-hidden="true">↗</span></a>
+              <a class="chap-row" href="/explore/p2/s06a/journey"><span class="chap-no">SS-02</span><span class="chap-t">The Journey</span><span class="chap-ar" aria-hidden="true">↗</span></a>
+              <a class="chap-row" href="/explore/p2/s06a/story"><span class="chap-no">SS-03</span><span class="chap-t">Why I Started Driving</span><span class="chap-ar" aria-hidden="true">↗</span></a>
+              <a class="chap-row" href="/explore/p2/s06a/mission"><span class="chap-no">SS-04</span><span class="chap-t">The Mission</span><span class="chap-ar" aria-hidden="true">↗</span></a>
+              <a class="chap-row" href="/explore/p2/s06a/responsibility"><span class="chap-no">SS-05</span><span class="chap-t">The Responsibility</span><span class="chap-ar" aria-hidden="true">↗</span></a>
+              <a class="chap-row" href="/explore/p2/s06a/join"><span class="chap-no">SS-06</span><span class="chap-t">Join the Journey</span><span class="chap-ar" aria-hidden="true">↗</span></a>
+              <span class="chap-row" aria-current="page"><span class="chap-no">SS-07</span><span class="chap-t">Let's Move Forward</span><span class="chap-here">You are here</span></span>
+              <a class="chap-row" href="/explore/p2/s06a/road-ahead"><span class="chap-no">SS-08</span><span class="chap-t">The Road Ahead</span><span class="chap-ar" aria-hidden="true">↗</span></a>
+            </div>
+          </nav>
+          <nav class="chap-fast" aria-label="Business shortcuts">
+            <span class="k">Fast path —</span>
+            <a href="/explore/p2/s06a/mission">Services</a>
+            <a href="/explore/p2/s06a/responsibility">Safety</a>
+            <a href="#quote">Request a Quote</a>
+            <a href="#contact">Contact</a>
+          </nav>
+          <span class="reg tl" aria-hidden="true"></span>
+          <span class="reg br" aria-hidden="true"></span>
+        </div>
+        <div class="p p-deep chap-next rv" style="--i:1">
+          <span class="mono" style="color:color-mix(in srgb,var(--paper) 70%,var(--deep))">Continue the record — SS-08</span>
+          <a class="nx" href="/explore/p2/s06a/road-ahead">The Road Ahead <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer aria-label="Contact">
+    <div class="p p-ink">
+      <div class="g">
+        <div class="f-brand">
+          <img class="f-lion" src="/studio/assets/brand/lion-clean.png" alt="KUL Enterprises lion mark" width="92" height="92">
+          <span class="biglock">KUL<span style="color:var(--gold)">.</span></span>
+          <span class="tag">Strength in Motion. Built on Integrity. Driven by Safety.</span>
+        </div>
+        <div class="f-contact">
+          <span class="f-k">Dispatch — 24/7</span>
+          <a href="tel:+16789721148">678-972-1148</a>
+          <a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a>
+          <span class="adr">KUL Enterprises LLC · Loganville, Georgia · Nationwide service</span>
+        </div>
+        <div class="f-auth on-ink">
+          <span class="f-k">Authority</span>
+          <span class="stamp">USDOT 7638788</span>
+          <span class="stamp">MC 66389691</span>
+          <span class="stamp">Licensed &amp; Insured</span>
+        </div>
+      </div>
+      <div class="f-bottom">
+        <nav aria-label="Business shortcuts — footer">
+          <a href="/explore/p2/s06a/mission">Services</a>
+          <a href="/explore/p2/s06a/responsibility">Safety</a>
+          <a href="#quote">Request a Quote</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <span class="fine">© 2026 KUL Enterprises LLC · End of sheet — KUL-SS-07 · Rev 2026-07-26</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+/* ---- tweaks contract: values match locked snapshot ---- */
+window.KUL_TWEAKS = {
+  style: "s06a",
+  controls: [
+    { var: "--gold",          label: "KUL gold",                           type: "color", value: "#D4AF37" },
+    { var: "--gray-hue",      label: "Gray temperature (warm→cool)",       type: "range", value: 205, min: 20,  max: 220, step: 5 },
+    { var: "--seam",          label: "Seam visibility",                    type: "range", value: 1,   min: 0,   max: 8,   step: 1, unit: "px" },
+    { var: "--gold-freq",     label: "Gold-block frequency",               type: "range", value: 100, min: 0,   max: 100, step: 5 },
+    { var: "--bracket-style", label: "Brackets · 0 none 1 corner 2 frame", type: "range", value: 1,   min: 0,   max: 2,   step: 1 },
+    { var: "--stamp-style",   label: "Stamps · 0 flat 1 boxed 2 plate",    type: "range", value: 1,   min: 0,   max: 2,   step: 1 },
+    { var: "--pad",           label: "Panel padding (density)",            type: "range", value: 32,  min: 16,  max: 48,  step: 2, unit: "px" }
+  ]
+};
+
+(function () {
+  "use strict";
+  var RM = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---- progress ruler + sheet readout ---- */
+  var fill = document.getElementById("rulerFill");
+  var prog = document.getElementById("prog");
+  var ticking = false;
+  function paint() {
+    ticking = false;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var p = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+    if (fill) fill.style.transform = "scaleX(" + p.toFixed(4) + ")";
+    if (prog) prog.textContent = "SHT " + String(Math.round(p * 100)).padStart(3, "0") + "%";
+  }
+  window.addEventListener("scroll", function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(paint); }
+  }, { passive: true });
+  paint();
+
+  /* ---- reveals ---- */
+  var toReveal = document.querySelectorAll(".rv, .rv-st, .fig");
+  if ("IntersectionObserver" in window && !RM) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.18, rootMargin: "0px 0px -6% 0px" });
+    toReveal.forEach(function (el) { io.observe(el); });
+  } else {
+    toReveal.forEach(function (el) { el.classList.add("in"); });
+  }
+
+  /* ---- menu overlay: chapter index with focus trap ---- */
+  var burger = document.getElementById("burger");
+  var menu = document.getElementById("menu");
+  var closeBtn = document.getElementById("menuClose");
+  function focusables() {
+    return menu ? menu.querySelectorAll("a[href], button") : [];
+  }
+  function setMenu(open) {
+    if (!menu || !burger) return;
+    menu.hidden = !open;
+    burger.setAttribute("aria-expanded", String(open));
+    document.body.style.overflow = open ? "hidden" : "";
+    if (open) {
+      var first = focusables()[0];
+      if (first) first.focus();
+    } else {
+      burger.focus();
+    }
+  }
+  if (burger) burger.addEventListener("click", function () { setMenu(menu.hidden); });
+  if (closeBtn) closeBtn.addEventListener("click", function () { setMenu(false); });
+  if (menu) {
+    menu.addEventListener("click", function (e) {
+      if (e.target.closest("a")) setMenu(false);
+    });
+    window.addEventListener("keydown", function (e) {
+      if (menu.hidden) return;
+      if (e.key === "Escape") { setMenu(false); return; }
+      if (e.key === "Tab") {
+        var f = focusables();
+        if (!f.length) return;
+        var first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+  }
+
+  /* ---- form stubs ---- */
+  function stub(btnId, noteId) {
+    var b = document.getElementById(btnId);
+    var n = document.getElementById(noteId);
+    if (b && n) b.addEventListener("click", function () {
+      n.classList.add("show");
+      n.setAttribute("tabindex", "-1");
+      n.focus();
+    });
+  }
+  stub("qSubmit", "qNote");
+  stub("iSubmit", "iNote");
+})();
+</script>
+<script src="/studio/tweaks.js" defer></script>
+</body>
+</html>

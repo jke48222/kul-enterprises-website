@@ -1,0 +1,2669 @@
+<!doctype html>
+<html lang="en">
+<!--
+  ============================================================================
+  KUL ENTERPRISES LLC · STYLE 13 "DISPATCH" · CHAPTER 07 — LET'S MOVE FORWARD
+  ============================================================================
+  The UX showpiece: a four-step freight-quote flow and a purpose-routed
+  contact desk. CSS sections 01-10, 17 and 18 are inherited VERBATIM from
+  multiverse/mobbin/index.html; sections 11-16 belong to this chapter.
+
+  STRUCTURAL IDEA — "the work order".
+  The homepage is a document you read. This chapter is a document you FILL IN,
+  so nothing here is a card sitting on a ground. Every question is a numbered
+  hairline row — index, label, control — in the same register as the credential
+  ledger, which is Büro's numbered questionnaire rather than a stack of boxed
+  inputs. The step rail is a hairline that fills; the review step is the same
+  ledger read back; the confirmation is a spec sheet with a reference number.
+
+  MOBBIN SOURCES
+       QUOTE FLOW · STRUCTURE. A form set as a numbered hairline questionnaire —
+       "01." index, question label, options ruled off row by row, no boxes
+         — Büro — https://mobbin.com/sites/sections/02b4f59f-4535-4b13-8139-43a63c310be5
+       QUOTE FLOW · STEP MODEL. "Step 2 of 3", chip-select the request type,
+       Continue / Back, an explicit confirm step that reads the answer back
+         — Glide — https://mobbin.com/flows/2f6ffe2c-4b38-43fd-a6ef-0e0215713861
+       Numbered step rail — "01 Kickoff" chips strung along one hairline track
+       that fills as you advance, each step captioned underneath
+         — Runway — https://mobbin.com/sites/sections/bcbe23c6-95ea-467d-abc5-d913d2bc3667
+       Vertical step list where finished steps read COMPLETED and the current
+       one is held; a required field errors in place without losing the rest
+         — Deel — https://mobbin.com/flows/96337b99-5677-41bf-a638-7af568436cd4
+       Connected step indicator with completed ticks and Back beside
+       Save & Continue on every screen
+         — Upwork — https://mobbin.com/flows/b26dfe6c-337e-42f7-990d-0c7fa392c296
+       SELECTABLE OPTIONS. Service options that carry a "✓ Selected" state,
+       then a plain thank-you card once the lead form is sent
+         — HoneyBook — https://mobbin.com/flows/6cd26450-7bbd-41f8-b30f-ba9cfa42d317
+       Option chips under a "select all that are relevant" instruction, grouped
+       by question rather than laid out as a grid of cards
+         — Robot.com — https://mobbin.com/sites/sections/bbd978e8-e1c8-4dfd-8351-819b2df5f342
+       Chip groups separated by a section rule, each with its own short prompt
+         — Fiasco — https://mobbin.com/sites/sections/0eedc91f-6597-4066-a19d-bef70f75db55
+       VALIDATION. Underline-only field whose rule turns to the alert colour
+       with the error sentence set immediately beneath it
+         — Google Workspace — https://mobbin.com/screens/e3b6e2a3-cc82-4dec-84c0-7a11e2cebd70
+       Error text that names the fix rather than the fault, kept in the flow
+       instead of in a banner
+         — Substack — https://mobbin.com/screens/286c847a-7843-4ff8-a13f-4fd526bd635f
+       REVIEW STEP. Ticked summary reading every completed section's answers
+       back before anything is submitted
+         — Airbnb — https://mobbin.com/screens/7f02ed2d-2832-44d5-826f-832851492ba5
+       CONFIRMATION. "Submission summary" — reference number, date submitted
+       and status on one row, then a plain "What's next?" paragraph
+         — Selfridges — https://mobbin.com/screens/2fbd86d8-e530-4342-b044-861109fa5864
+       Structured contact form resolving to a small confirmation card with one
+       return action
+         — Calendly — https://mobbin.com/flows/732847b6-28f1-4624-a4c2-5c6103433d26
+       CONTACT ROUTING. Purpose-routed contacts with the physical address and
+       GPS coordinates set in mono
+         — Büro — https://mobbin.com/sites/sections/ce206186-f0b6-45e1-862f-a1bcbcfc5c0c
+       Routing columns by purpose, each with its own destination and address
+         — Mother Design — https://mobbin.com/sites/sections/ecbaa0a2-e865-4b45-a5ea-0f67b4cb9794
+       Routing columns where each purpose carries a sentence and its own
+       stated opening hours
+         — Face Formula — https://mobbin.com/sites/sections/5ce9b158-cb43-4bff-85da-3dddbee97537
+       Labelled destination rows each with an explicit copy control beside the
+       address rather than a click-to-copy surprise
+         — Kalstore — https://mobbin.com/sites/sections/237ef7b5-9b93-4a84-be17-6cbc039c873e
+       Contact rows as label / value / "Copy"
+         — Ragged Edge — https://mobbin.com/sites/sections/5f1d322f-b76b-4468-90ef-ab85700b0c44
+       CONTACT PANEL. Slide-over from the right edge with CLOSE, mono labels,
+       the address, and two explicit buttons — OPEN MAIL and COPY EMAIL
+         — Aino Agency — https://mobbin.com/sites/sections/1083cf3c-a197-4ee7-9632-e9bfe0d4e416
+       CONTACT FORM. Reason-for-inquiry select FIRST, then a segmented
+       "I'd like to receive an email / I'd like to receive a call" preference
+         — Lightship — https://mobbin.com/sites/sections/0791334e-985a-4902-b866-3be56684576c
+       Underline-only inputs with the opening hours stated above the form
+         — Rains — https://mobbin.com/sites/sections/82ce6566-c33e-4b16-8750-670aa04be011
+       Whole contact page set in a mono operations register: hours, phone and
+       mail stacked as uppercase data blocks beside a required-marked form
+         — SOTF — https://mobbin.com/sites/sections/184339d4-5fbc-4936-8aa7-f1813bc6fd96
+       Underline-only inputs over a warm ground with the contact block and
+       address parked in the opposite column
+         — Savor — https://mobbin.com/sites/sections/ae1f5fe6-9420-45e4-b097-64ae2aa8c06e
+       CHROME (inherited). Thin utility strip pinned above the main nav row
+         — Rivian — https://mobbin.com/sites/sections/a67b1738-47a5-450a-b81b-a5991e4f31aa
+       Floating translucent capsule nav with one solid pill action
+         — T1 Energy — https://mobbin.com/sites/sections/08b1da0a-e784-4a8c-8d23-0359ff00b023
+       Full-screen menu: oversized nav list, mono column groups beneath, a
+       statement bar with a single action along the bottom
+         — Aurora — https://mobbin.com/sites/sections/0b6361a0-1916-42d2-8c23-5efd205e4904
+       Mono corner labels — brand left, city + live local time right
+         — Waka Waka — https://mobbin.com/sites/sections/27163fc7-a425-4132-831c-ec30e7a290de
+       Bracketed mono micro-labels pinned to the page corners
+         — KODE Immersive — https://mobbin.com/sites/sections/2a059cce-8c42-4096-b74a-0ddf77e3e7d3
+       Three-face system stated as display / body / mono with explicit roles
+         — Aave — https://mobbin.com/sites/sections/194a20c4-7e03-4839-86b3-30981d8db06e
+       Mono location credit set immediately under a full-bleed photograph
+         — Atlas Card — https://mobbin.com/sites/sections/8c09fb14-b75f-49c8-8511-4c2d7bb45e1e
+       Corner crop-mark plates, mono "▸" label above the value
+         — Spade — https://mobbin.com/sites/sections/34a2151f-c9b2-4121-b790-8e85202fe9ca
+       Footer: mono link columns above a giant wordmark cropped off the
+       bottom edge
+         — Legora — https://mobbin.com/sites/sections/74f66481-04ab-4abc-bf99-7878c607e1f6
+-->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Let&rsquo;s Move Forward — Request a Freight Quote | KUL Enterprises LLC</title>
+<meta name="description" content="Chapter seven. Request a freight quote in four steps, or reach dispatch direct — 678-972-1148, dispatch@kulenterprises.com, answered 24/7 from Loganville, Georgia. USDOT 7638788 · MC 66389691.">
+<meta name="theme-color" content="#0B0B0B">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700&family=Schibsted+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script>document.documentElement.className += ' js';</script>
+
+<style>
+/* ==========================================================================
+   01 · RESET
+   ========================================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body, h1, h2, h3, h4, p, figure, blockquote, dl, dd, ul, ol { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+img, svg { display: block; max-width: 100%; }
+img { height: auto; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { background: none; border: 0; padding: 0; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+:where(html) { scroll-behavior: smooth; }
+[hidden] { display: none !important; }
+:where(main, section, h1, h2, [id]) { scroll-margin-top: calc(var(--strip-h) + 96px); }
+
+/* ==========================================================================
+   02 · TOKENS
+   The single source of truth. Sibling pages declare nothing new here.
+   Names marked (TWEAK) are wired to the tweaks panel at the end of the file.
+   ========================================================================== */
+:root {
+  /* --- 2.1 grounds ------------------------------------------------------- */
+  --ink:     #0B0B0B;   /* (TWEAK) primary dark ground                       */
+  --paper:   #F4F1E8;   /* (TWEAK) warm document ground                      */
+  --plate:   #141414;   /* raised surface on ink                             */
+  --plate-l: #EAE6DA;   /* raised surface on paper                           */
+  --gold:    #D4AF37;   /* (TWEAK) functional ink only — never a fill        */
+  --gold-deep: #7A5F0A; /* the same accent, darkened for light grounds.
+                           #D4AF37 measures 1.87:1 on --paper, which fails
+                           both the 3:1 non-text floor and the 4.5:1 text
+                           floor. Anything gold that carries meaning or marks
+                           focus uses --gold-t, which resolves per ground.   */
+  --gold-t:  var(--gold);
+
+  /* --- 2.2 families — the three roles, swappable from one place ---------- */
+  --ff-d: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --ff-b: "Schibsted Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --ff-m: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* --- 2.3 type scale ----------------------------------------------------
+     RE-CALIBRATED for Big Shoulders Display, which sets appreciably wider
+     than the withdrawn Bebas Neue at the same nominal size.
+
+     THE LADDER IS THE WHOLE SCALE. Eight steps, each 1.24-1.46x the next, and
+     nothing set in --ff-d may sit outside them. At 1440px they resolve to
+     176 / 131 / 89.6 / 61.6 / 41.6 / 33.6 / 25.6 / 20; at 390px every step is
+     on its floor and the order still holds (70.4 / 46.4 / 37.6 / 29.6 / 25.6 /
+     23.2 / 20.8 / 19). Those four floors are deliberately above 18.66px: the
+     display register is set at 700, so staying over that line keeps every
+     Big Shoulders string WCAG "large text" at every viewport and holds the
+     contrast bar at 3:1 rather than dropping it to 4.5:1 on mobile only.
+     Component CSS references the token, never a fresh
+     clamp() — an eyeballed 2.15rem that lands 0.24px off --fs-h4 is how the
+     first build ended up rendering 38 display sizes against 5 declared steps.
+     The one exemption is .wordmark, which is not a type step at all: it is a
+     graphic sized by division so the string spans its column exactly. Every step was
+     measured in-browser against its longest real string, not inherited.
+     Hero: 3 lines of ≤18 caps must clear a 1296px content column.
+     ---------------------------------------------------------------------- */
+  --display-scale: 1;   /* (TWEAK) */
+  --fs-fig:  calc(clamp(4.4rem, 13vw, 11rem)      * var(--display-scale));
+  --fs-hero: calc(clamp(2.9rem, 9.1vw, 8.9rem)    * var(--display-scale));
+  --fs-h1:   calc(clamp(2.35rem, 6.3vw, 5.6rem)   * var(--display-scale));
+  --fs-h2:   calc(clamp(1.85rem, 4.4vw, 3.85rem)  * var(--display-scale));
+  --fs-h3:   calc(clamp(1.6rem, 3vw, 2.6rem)      * var(--display-scale));
+  --fs-h4:   calc(clamp(1.45rem, 2.6vw, 2.1rem)   * var(--display-scale));
+  --fs-h5:   calc(clamp(1.3rem, 2vw, 1.6rem)      * var(--display-scale));
+  --fs-h6:   calc(clamp(1.1875rem, 1.6vw, 1.25rem) * var(--display-scale));
+  --fs-stmt: clamp(1.5rem, 3.2vw, 2.7rem);   /* Schibsted Grotesk statements   */
+  --fs-lead: clamp(1.0625rem, 1.3vw, 1.25rem);
+  --fs-body: 1rem;
+  --fs-sm:   0.875rem;
+  --fs-xs:   0.8125rem;
+  --fs-mono: 10.5px;
+  --fs-nav:  11px;      /* nav mono runs a half-step up for tap legibility   */
+
+  /* Big Shoulders carries more internal leading than a poster face, so the
+     all-caps line gap opens up at .88. .855 closes it back to a signage set. */
+  --lh-display: 0.855;
+  --lh-body:    1.62;
+  --ls-display: 0.006em;   /* near-zero at hero scale …                      */
+  --ls-display-s: 0.038em; /* … and opened up for small display sizes        */
+  --mono-track: 0.18em;    /* (TWEAK) */
+
+  /* --- 2.4 space scale ---------------------------------------------------- */
+  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px; --s5: 24px;
+  --s6: 32px; --s7: 48px; --s8: 64px; --s9: 96px; --s10: 128px;
+  --gutter:    clamp(20px, 5vw, 72px);
+  --section-y: clamp(72px, 9.5vw, 148px);
+  --maxw:      1440px;
+  --measure:   62ch;
+
+  /* --- 2.5 hairlines ------------------------------------------------------ */
+  --hairline-w: 1px;    /* (TWEAK) */
+  --crop-mark:  11px;
+
+  /* --- 2.6 motion --------------------------------------------------------- */
+  --ease:       cubic-bezier(.2, .8, .2, 1);
+  --t-state:    220ms;
+  --reveal-dur: 700ms;
+  --reveal-dist: 18px;  /* (TWEAK) */
+
+  /* --- 2.7 photography ----------------------------------------------------
+     TWO doses, deliberately. Feature photography (hero, manifesto) is graded
+     hard so it reads as part of the ink/paper document rather than as stock —
+     at 22% the manifesto's green valley was the only saturated thing on the
+     page and it fought the whole system. The archive rail keeps the light
+     dose: those are the founder's own frames and the copy calls them
+     "unretouched", so showing them close to true is the honest choice.
+     ---------------------------------------------------------------------- */
+  --photo-grade: 20%;      /* (TWEAK) archive rail — shown near-true         */
+  --photo-grade-feat: 62%; /* (TWEAK) full-bleed features — graded in        */
+  --scrim:       100%;  /* (TWEAK) hero legibility scrim opacity             */
+
+  /* --- 2.8 chrome + focus -------------------------------------------------- */
+  --strip-h: 34px;      /* utility strip height — fixed, so the bar can
+                           collapse with translateY and never animate size   */
+  --focus-w: 2px;
+  --focus-o: 3px;
+}
+
+/* ==========================================================================
+   03 · GROUND CONTEXTS
+   Sections alternate ink → paper; that alternation is the page's pulse.
+   Every descendant reads --fg / --fg-2 / --fg-3 / --line from the ground.
+   Ratios in the comments are computed, not estimated.
+   ========================================================================== */
+.g-ink {
+  --bg:       var(--ink);
+  --fg:       #F4F1E8;                    /* 18.36:1 on ink                  */
+  --fg-2:     rgba(244, 241, 232, .76);   /*  9.74:1 — secondary body        */
+  --fg-3:     rgba(244, 241, 232, .58);   /*  6.32:1 — mono labels           */
+  --line:     rgba(244, 241, 232, .20);
+  --line-2:   rgba(244, 241, 232, .38);
+  --plate-bg: var(--plate);
+  --btn-bg:   #F4F1E8;
+  --btn-fg:   #0B0B0B;
+  --gold-t:   var(--gold);            /*  9.29:1 on ink                  */
+  background: var(--bg);
+  color: var(--fg);
+}
+.g-paper {
+  --bg:       var(--paper);
+  --fg:       #0B0B0B;                    /* 17.55:1 on paper                */
+  --fg-2:     rgba(11, 11, 11, .80);      /*  9.29:1 — secondary body        */
+  --fg-3:     rgba(11, 11, 11, .64);      /*  5.74:1 — mono labels           */
+  --line:     rgba(11, 11, 11, .18);
+  --line-2:   rgba(11, 11, 11, .36);
+  --plate-bg: var(--plate-l);
+  --btn-bg:   #0B0B0B;
+  --btn-fg:   #F4F1E8;
+  --gold-t:   var(--gold-deep);       /*  5.42:1 on paper                */
+  background: var(--bg);
+  color: var(--fg);
+}
+
+body {
+  font-family: var(--ff-b);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-weight: 400;
+  background: var(--ink);
+  color: #F4F1E8;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;   /* the footer wordmark is deliberately over-wide */
+}
+
+/* ==========================================================================
+   04 · TYPOGRAPHY PRIMITIVES — signage voice, editorial voice, data voice
+   Never a heading in Schibsted Grotesk; never a paragraph in Big Shoulders.
+   ========================================================================== */
+.display {
+  font-family: var(--ff-d);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: var(--lh-display);
+  letter-spacing: var(--ls-display);
+  font-feature-settings: "kern" 1;
+}
+.d-fig  { font-size: var(--fs-fig); font-weight: 600; letter-spacing: 0; line-height: .76; }
+.d-hero { font-size: var(--fs-hero); }
+.d-h1   { font-size: var(--fs-h1); }
+.d-h2   { font-size: var(--fs-h2); }
+.d-h3   { font-size: var(--fs-h3);  letter-spacing: var(--ls-display-s); }
+.d-h4   { font-size: var(--fs-h4);  letter-spacing: var(--ls-display-s); }
+.d-h5   { font-size: var(--fs-h5);  letter-spacing: var(--ls-display-s); }
+.d-h6   { font-size: var(--fs-h6);  letter-spacing: var(--ls-display-s); }
+.d-sm   { font-family: var(--ff-d); font-weight: 700; text-transform: uppercase;
+          line-height: 1; letter-spacing: var(--ls-display-s); }
+
+/* The system signature: every fact carries a mono label. */
+.mono {
+  font-family: var(--ff-m);
+  font-size: var(--fs-mono);
+  font-weight: 400;
+  letter-spacing: var(--mono-track);
+  text-transform: uppercase;
+  line-height: 1.55;
+  color: var(--fg-3);
+}
+.mono--fg  { color: var(--fg); }
+.mono--md  { color: var(--fg-2); }
+.mono--gold { color: var(--gold-t); }
+
+/* Editorial voice — Schibsted Grotesk carries every statement and paragraph. */
+.stmt   { font-family: var(--ff-b); font-weight: 600; font-size: var(--fs-stmt);
+          line-height: 1.18; letter-spacing: -.012em; color: var(--fg); max-width: 21ch;
+          text-wrap: balance; }   /* no one-word last line on a statement */
+.stmt--wide { max-width: 26ch; }
+.lead   { font-size: var(--fs-lead); line-height: 1.55; color: var(--fg-2); max-width: var(--measure); }
+.lead-1 { font-size: var(--fs-lead); line-height: 1.5; font-weight: 500; color: var(--fg); max-width: 44ch; }
+.lead-2 { font-size: var(--fs-lead); line-height: 1.5; color: var(--fg-2); max-width: 48ch; margin-top: 7px; }
+.body   { color: var(--fg-2); max-width: var(--measure); }
+.body strong, .lead strong, .lead-2 strong { color: var(--fg); font-weight: 600; }
+.tight  { max-width: 46ch; }
+.sr {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+
+/* ==========================================================================
+   05 · LAYOUT PRIMITIVES
+   ========================================================================== */
+.wrap    { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
+.section { padding-block: var(--section-y); position: relative; }
+.stack > * + * { margin-top: var(--s4); }
+
+/* Standard section head: bracketed mono index, then the display title. */
+.sec-head { display: flex; flex-direction: column; gap: var(--s4); margin-bottom: var(--s8); }
+.kicker   { display: flex; align-items: baseline; gap: var(--s4); flex-wrap: wrap; }
+.kicker .idx { color: var(--fg-3); }
+
+/* ==========================================================================
+   06 · HAIRLINES, CROP MARKS, MEASUREMENT GRID
+   ========================================================================== */
+.rule { height: var(--hairline-w); background: var(--line); border: 0; width: 100%; }
+.rule--strong { background: var(--line-2); }
+
+/* Spade's corner crop marks, drawn as eight one-pixel gradients — no extra
+   elements, no borders to fight with the hairline system. */
+.cropmarks {
+  --mark: var(--line-2);
+  background-image:
+    linear-gradient(var(--mark), var(--mark)), linear-gradient(var(--mark), var(--mark)),
+    linear-gradient(var(--mark), var(--mark)), linear-gradient(var(--mark), var(--mark)),
+    linear-gradient(var(--mark), var(--mark)), linear-gradient(var(--mark), var(--mark)),
+    linear-gradient(var(--mark), var(--mark)), linear-gradient(var(--mark), var(--mark));
+  background-repeat: no-repeat;
+  background-size:
+    var(--crop-mark) var(--hairline-w), var(--hairline-w) var(--crop-mark),
+    var(--crop-mark) var(--hairline-w), var(--hairline-w) var(--crop-mark),
+    var(--crop-mark) var(--hairline-w), var(--hairline-w) var(--crop-mark),
+    var(--crop-mark) var(--hairline-w), var(--hairline-w) var(--crop-mark);
+  background-position:
+    left top, left top, right top, right top,
+    left bottom, left bottom, right bottom, right bottom;
+}
+
+/* Anima's measurement grid — quarter-width vertical rules ruled behind the
+   type block. Registered to the CONTENT column, not the viewport: the first
+   build sized it in viewport quarters, so the rules landed at arbitrary
+   offsets and sliced straight through the section heading, which read as a
+   rendering fault rather than a grid. It now brackets the list band only. */
+.mgrid {
+  /* the rules terminate exactly on the list's last hairline — running them
+     past it read as an unfinished eighth row */
+  position: absolute; inset: calc(var(--s7) * -1) 0 0; z-index: 0; pointer-events: none;
+  background-image: linear-gradient(to right, var(--line) var(--hairline-w), transparent var(--hairline-w));
+  background-size: 25% 100%;
+  opacity: .72;
+}
+/* The grid only means anything where the two-column list-plus-panel layout
+   exists. Below 980px the list is a single readable column and the quarter
+   rules just ruled empty cells across it. */
+@media (max-width: 979px) { .mgrid { display: none; } }
+.mgrid::after {
+  content: ""; position: absolute; inset: 0 0 0 auto;
+  width: var(--hairline-w); background: var(--line);
+}
+
+/* ==========================================================================
+   07 · CONTROLS — rest / hover / focus-visible / active / disabled on each
+   ========================================================================== */
+:focus-visible {
+  outline: var(--focus-w) solid var(--gold-t);
+  outline-offset: var(--focus-o);
+  border-radius: 2px;
+}
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--s3);
+  min-height: 48px; padding: 13px 26px;
+  border-radius: 999px;
+  background: var(--btn-bg); color: var(--btn-fg);
+  font-size: var(--fs-xs); font-weight: 600; letter-spacing: .04em;
+  border: var(--hairline-w) solid transparent;
+  transition: background-color var(--t-state) var(--ease),
+              color var(--t-state) var(--ease),
+              border-color var(--t-state) var(--ease),
+              transform var(--t-state) var(--ease),
+              opacity var(--t-state) var(--ease);
+}
+.btn:hover  { transform: translateY(-1px); opacity: .88; }
+.btn:active { transform: translateY(0); opacity: 1; }
+.btn[aria-disabled="true"], .btn:disabled { opacity: .40; pointer-events: none; }
+.btn--ghost { background: transparent; color: var(--fg); border-color: var(--line-2); }
+.btn--ghost:hover { background-color: var(--fg); color: var(--bg); opacity: 1; }
+.btn--sm { min-height: 44px; padding: 11px 20px; }
+.btn--mono { font-family: var(--ff-m); font-size: var(--fs-mono);
+             letter-spacing: var(--mono-track); text-transform: uppercase; font-weight: 500; }
+
+/* One primary action per viewport — the secondary is always text + arrow. */
+.arrow {
+  display: inline-flex; align-items: center; gap: var(--s2);
+  min-height: 44px;
+  font-size: var(--fs-sm); font-weight: 600; letter-spacing: .01em; color: var(--fg);
+  border-bottom: var(--hairline-w) solid transparent;
+  transition: border-color var(--t-state) var(--ease), color var(--t-state) var(--ease);
+}
+.arrow i { font-style: normal; color: var(--gold-t);
+           transition: transform var(--t-state) var(--ease); }
+.arrow:hover         { border-bottom-color: var(--line-2); }
+.arrow:hover i       { transform: translate(3px, -3px); }
+.arrow--flat:hover i { transform: translate(4px, 0); }
+.arrow:active        { opacity: .75; }
+
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s5) var(--s7); }
+
+/* Circular carousel controls (Aurora / Rivian). */
+.circ {
+  width: 44px; height: 44px; border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: var(--hairline-w) solid var(--line-2); color: var(--fg);
+  font-size: 15px; line-height: 1;
+  transition: background-color var(--t-state) var(--ease),
+              color var(--t-state) var(--ease),
+              border-color var(--t-state) var(--ease),
+              opacity var(--t-state) var(--ease);
+}
+.circ:hover    { background-color: var(--fg); color: var(--bg); border-color: var(--fg); }
+.circ:active   { opacity: .7; }
+.circ:disabled { opacity: .28; pointer-events: none; }
+
+/* ==========================================================================
+   08 · REVEAL MACHINERY — scroll-linked entrances. transform / opacity /
+   clip-path only. Applied only when JS is present so a script failure can
+   never hide copy.
+   ========================================================================== */
+.js [data-reveal] {
+  clip-path: inset(0 100% 0 0);
+  opacity: .001;
+  transform: translateY(var(--reveal-dist));
+  transition: clip-path var(--reveal-dur) var(--ease),
+              opacity   var(--reveal-dur) var(--ease),
+              transform var(--reveal-dur) var(--ease);
+}
+.js [data-reveal].is-in { clip-path: inset(0 0 0 0); opacity: 1; transform: none; }
+.js [data-rule] { transform: scaleX(0); transform-origin: left center;
+                  transition: transform var(--reveal-dur) var(--ease); }
+.js [data-rule].is-in { transform: scaleX(1); }
+
+/* ==========================================================================
+   09 · CHROME — utility strip, capsule nav, mobile dock, full-screen menu
+   The bar is a FIXED-HEIGHT stack. Collapse is one translateY of the whole
+   header, never a padding transition: nothing here touches layout on scroll.
+   ========================================================================== */
+.skip {
+  position: absolute; left: var(--s4); top: -120px; z-index: 200;
+  background: var(--paper); color: var(--ink);
+  padding: 12px 18px; border-radius: 999px; font-size: var(--fs-xs); font-weight: 600;
+}
+.skip:focus-visible { top: var(--s4); }
+
+.topbar {
+  position: fixed; inset: 0 0 auto 0; z-index: 90;
+  pointer-events: none;
+  transform: translateY(0);
+  transition: transform var(--t-state) var(--ease);
+}
+.topbar > * { pointer-events: auto; }
+/* collapsed: the strip slides out of frame and the nav row lands at y=0 */
+.topbar.is-stuck { transform: translateY(calc(var(--strip-h) * -1)); }
+
+/* --- 9.1 utility strip (Rivian) + live ET clock (Waka Waka) -------------- */
+.ustrip {
+  height: var(--strip-h);
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s4);
+  padding-inline: var(--gutter);
+  background: rgba(11, 11, 11, .82);
+  border-bottom: var(--hairline-w) solid rgba(244, 241, 232, .14);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overflow: hidden;
+}
+.ustrip p { font-family: var(--ff-m); font-size: var(--fs-mono);
+            letter-spacing: var(--mono-track); text-transform: uppercase;
+            color: rgba(244, 241, 232, .70); white-space: nowrap; }
+.ustrip .live { display: inline-flex; align-items: center; gap: 7px; color: rgba(244,241,232,.84); }
+.ustrip .live b { width: 5px; height: 5px; border-radius: 999px; background: var(--gold); display: block; }
+@media (max-width: 719px) { .ustrip .u-left { display: none; } }
+
+/* --- 9.2 nav row: brand + floating capsule ------------------------------ */
+.navrow {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s4);
+  padding: 14px var(--gutter);
+}
+.brand {
+  display: inline-flex; align-items: center; gap: 10px;
+  min-height: 44px; padding: 4px 16px 4px 8px; border-radius: 999px;
+  /* the bar floats over paper sections as well as ink ones — without a plate
+     the cream wordmark disappears against --paper */
+  background-color: rgba(15, 15, 15, .82);
+  border: var(--hairline-w) solid rgba(244, 241, 232, .16);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  transition: background-color var(--t-state) var(--ease),
+              border-color var(--t-state) var(--ease);
+}
+.topbar.is-stuck .brand { background-color: rgba(11, 11, 11, .90);
+                          border-color: rgba(244, 241, 232, .24); }
+.brand img {
+  width: 32px; height: 32px; object-fit: contain;
+  transform: scale(1); transform-origin: left center;
+  transition: transform var(--t-state) var(--ease);
+}
+.topbar.is-stuck .brand img { transform: scale(.8); }
+.brand-txt { display: grid; }
+.brand-txt .n { font-family: var(--ff-d); font-weight: 700; font-size: var(--fs-h6);
+                letter-spacing: .05em; line-height: 1; color: #F4F1E8; }
+.brand-txt .s { font-family: var(--ff-m); font-size: 8.5px; letter-spacing: .2em;
+                text-transform: uppercase; color: rgba(244, 241, 232, .74); line-height: 1.5; }
+
+.capsule {
+  display: none; align-items: center; gap: 2px;
+  padding: 5px 5px 5px 8px; border-radius: 999px;
+  background: rgba(15, 15, 15, .82);
+  border: var(--hairline-w) solid rgba(244, 241, 232, .16);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  transition: background-color var(--t-state) var(--ease),
+              border-color var(--t-state) var(--ease);
+}
+.topbar.is-stuck .capsule { background: rgba(11, 11, 11, .90); border-color: rgba(244,241,232,.24); }
+.nlink {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 13px;
+  border-radius: 999px;
+  font-family: var(--ff-m); font-size: var(--fs-nav);
+  letter-spacing: var(--mono-track); text-transform: uppercase;
+  color: rgba(244, 241, 232, .84);
+  transition: color var(--t-state) var(--ease), background-color var(--t-state) var(--ease);
+}
+.nlink:hover  { color: #F4F1E8; background-color: rgba(244, 241, 232, .10); }
+.nlink:active { background-color: rgba(244, 241, 232, .18); }
+
+/* One primary action per viewport (law 6.4). In the hero the solid pill is
+   the hero's own button, so the nav CTA rests as an outline; once the hero is
+   behind you the nav CTA promotes itself to the page's primary. The promotion
+   is background-color + color only — nothing here touches layout. */
+.capsule .btn--nav {
+  margin-left: var(--s2);
+  background-color: transparent;
+  color: rgba(244, 241, 232, .92);
+  border-color: rgba(244, 241, 232, .34);
+}
+.capsule .btn--nav:hover  { background-color: rgba(244, 241, 232, .14); color: #F4F1E8; opacity: 1; }
+.capsule .btn--nav:active { background-color: rgba(244, 241, 232, .22); }
+.topbar.is-stuck .capsule .btn--nav {
+  background-color: #F4F1E8; color: #0B0B0B; border-color: #F4F1E8;
+}
+.topbar.is-stuck .capsule .btn--nav:hover { background-color: #fff; color: #0B0B0B; }
+
+.menu-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  min-height: 44px; min-width: 44px; padding: 0 14px; border-radius: 999px;
+  font-family: var(--ff-m); font-size: var(--fs-nav);
+  letter-spacing: var(--mono-track); text-transform: uppercase;
+  color: rgba(244, 241, 232, .84);
+  border: var(--hairline-w) solid rgba(244, 241, 232, .16);
+  background-color: rgba(15, 15, 15, .82);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  transition: color var(--t-state) var(--ease), background-color var(--t-state) var(--ease);
+}
+.menu-btn:hover  { color: #F4F1E8; background-color: rgba(244, 241, 232, .14); }
+.menu-btn:active { background-color: rgba(244, 241, 232, .22); }
+.menu-btn .bars  { display: grid; gap: 3px; }
+.menu-btn .bars b { display: block; width: 14px; height: 1px; background: currentColor; }
+.capsule .menu-btn { border-color: transparent; background-color: transparent; }
+
+/* --- 9.3 mobile dock — the design, not a fallback ----------------------- */
+.dockbar {
+  position: fixed; inset: auto 0 0 0; z-index: 90;
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  background: rgba(11, 11, 11, .94);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-top: var(--hairline-w) solid rgba(244, 241, 232, .22);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.dockbar a, .dockbar button {
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  min-height: 54px; padding: 6px 2px;
+  font-family: var(--ff-m); font-size: 9.5px; letter-spacing: .07em; text-transform: uppercase;
+  color: rgba(244, 241, 232, .84);
+  border-left: var(--hairline-w) solid rgba(244, 241, 232, .14);
+  transition: background-color var(--t-state) var(--ease), color var(--t-state) var(--ease);
+}
+.dockbar > :first-child { border-left: 0; }
+.dockbar a:hover, .dockbar button:hover  { background-color: rgba(244, 241, 232, .12); color: #F4F1E8; }
+.dockbar a:active, .dockbar button:active { background-color: rgba(244, 241, 232, .20); }
+.dockbar .is-cta { background: #F4F1E8; color: #0B0B0B; font-weight: 500; }
+.dockbar .is-cta:hover { background-color: #fff; color: #0B0B0B; }
+
+@media (min-width: 980px) {
+  .capsule { display: flex; }
+  .dockbar { display: none; }
+  [data-mobile-only] { display: none !important; }
+}
+@media (max-width: 979px) { body { padding-bottom: 56px; } }
+
+/* --- 9.4 full-screen menu: chapter index + mono groups + statement bar --- */
+.sheet {
+  position: fixed; inset: 0; z-index: 120;
+  background: rgba(11, 11, 11, .975);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  overflow-y: auto; overscroll-behavior: contain;
+  opacity: 0;
+  transition: opacity 260ms var(--ease);
+}
+.sheet.is-open { opacity: 1; }
+.sheet-in { min-height: 100%; display: flex; flex-direction: column;
+            padding-block: 16px var(--s7); }
+.sheet-top { display: flex; align-items: center; justify-content: space-between;
+             gap: var(--s4); margin-bottom: var(--s7); }
+.pill-close {
+  display: inline-flex; align-items: center; gap: 9px;
+  min-height: 44px; padding: 0 16px; border-radius: 999px;
+  border: var(--hairline-w) solid rgba(244, 241, 232, .26);
+  font-family: var(--ff-m); font-size: var(--fs-nav);
+  letter-spacing: var(--mono-track); text-transform: uppercase;
+  color: rgba(244, 241, 232, .86);
+  transition: background-color var(--t-state) var(--ease), color var(--t-state) var(--ease);
+}
+.pill-close:hover  { background-color: rgba(244, 241, 232, .14); color: #F4F1E8; }
+.pill-close:active { background-color: rgba(244, 241, 232, .22); }
+
+.chapters { border-top: var(--hairline-w) solid rgba(244, 241, 232, .20); }
+.chapters li { border-bottom: var(--hairline-w) solid rgba(244, 241, 232, .20); }
+.chapters li.is-here { border-bottom-color: var(--gold); }  /* visible gold rule */
+.chapters a {
+  display: flex; align-items: baseline; gap: var(--s5);
+  padding: 11px 4px; min-height: 54px;
+  transition: background-color var(--t-state) var(--ease);
+}
+.chapters a:hover  { background-color: rgba(244, 241, 232, .05); }
+.chapters a:active { background-color: rgba(244, 241, 232, .10); }
+/* hover indent is a transform, never padding */
+.chapters .nm, .chapters .num {
+  transition: transform var(--t-state) var(--ease), color var(--t-state) var(--ease);
+}
+.chapters a:hover .nm, .chapters a:hover .num { transform: translateX(12px); }
+.chapters .num { font-family: var(--ff-m); font-size: var(--fs-mono);
+                 letter-spacing: var(--mono-track); color: rgba(244,241,232,.58);
+                 min-width: 3.6em; }
+.chapters .nm  { font-family: var(--ff-d); font-weight: 700;
+                 font-size: var(--fs-h3); line-height: .95;
+                 letter-spacing: .02em; text-transform: uppercase; color: #F4F1E8; }
+.chapters .here { margin-left: auto; font-family: var(--ff-m); font-size: var(--fs-mono);
+                  letter-spacing: var(--mono-track); color: var(--gold); text-transform: uppercase; }
+
+.sheet-cols { display: grid; gap: var(--s6); margin-top: var(--s6); }
+.sheet-cols h3 { font-family: var(--ff-m); font-size: var(--fs-mono); font-weight: 400;
+                 letter-spacing: var(--mono-track); text-transform: uppercase;
+                 color: rgba(244,241,232,.52); margin-bottom: var(--s3); }
+.sheet-cols li a, .sheet-cols li span {
+  display: inline-flex; align-items: center; min-height: 44px;
+  font-family: var(--ff-m); font-size: var(--fs-nav); letter-spacing: .1em;
+  text-transform: uppercase; color: rgba(244,241,232,.82);
+  transition: color var(--t-state) var(--ease);
+}
+.sheet-cols li a:hover { color: #F4F1E8; }
+@media (min-width: 720px) { .sheet-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+.sheet-bar {
+  margin-top: auto; padding-top: var(--s5);
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: var(--s4) var(--s6);
+  border-top: var(--hairline-w) solid rgba(244, 241, 232, .20);
+}
+.sheet-bar .stmt { font-size: clamp(1.15rem, 2.2vw, 1.55rem); max-width: 30ch; color: #F4F1E8; }
+
+/* ==========================================================================
+   10 · CONTACT SLIDE-OVER — the shared component every chapter inherits
+   Aino's right-edge panel + Büro's purpose routing + Ragged Edge's copy rows.
+   ========================================================================== */
+.cpanel { position: fixed; inset: 0; z-index: 140; }
+.cpanel-scrim {
+  position: absolute; inset: 0;
+  background: rgba(11, 11, 11, .62);
+  backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
+  opacity: 0; transition: opacity 260ms var(--ease);
+}
+.cpanel.is-open .cpanel-scrim { opacity: 1; }
+.cpanel-card {
+  position: absolute; inset: 0 0 0 auto;
+  width: min(460px, 100%);
+  background: var(--plate-l); color: var(--ink);
+  --fg: #0B0B0B; --fg-2: rgba(11,11,11,.80); --fg-3: rgba(11,11,11,.64);
+  --line: rgba(11,11,11,.18); --line-2: rgba(11,11,11,.36);
+  --btn-bg: #0B0B0B; --btn-fg: #F4F1E8; --bg: var(--plate-l);
+  --gold-t: var(--gold-deep);
+  border-left: var(--hairline-w) solid rgba(11, 11, 11, .30);
+  overflow-y: auto; overscroll-behavior: contain;
+  padding: 16px var(--s6) var(--s7);
+  transform: translateX(100%);
+  transition: transform 300ms var(--ease);
+}
+.cpanel.is-open .cpanel-card { transform: translateX(0); }
+.cpanel-top { display: flex; align-items: center; justify-content: space-between;
+              gap: var(--s4); margin-bottom: var(--s7); }
+.cpanel-top .pill-close { border-color: rgba(11,11,11,.30); color: rgba(11,11,11,.82); }
+.cpanel-top .pill-close:hover  { background-color: rgba(11,11,11,.10); color: #0B0B0B; }
+.cpanel-top .pill-close:active { background-color: rgba(11,11,11,.18); }
+
+.croute { margin-top: var(--s7); border-top: var(--hairline-w) solid var(--line-2); }
+.croute-row { padding: 14px 0; border-bottom: var(--hairline-w) solid var(--line); }
+.croute-row > .mono { display: block; }
+.croute-row .v { display: block; font-size: var(--fs-body); font-weight: 600;
+                 color: var(--fg); margin-top: 4px; word-break: break-word; }
+.croute-row .n { display: block; font-size: var(--fs-xs); line-height: 1.5;
+                 color: var(--fg-2); margin-top: 4px; }
+.croute-row a.v { display: inline-flex; align-items: center; min-height: 44px;
+                  border-bottom: var(--hairline-w) solid transparent; width: fit-content;
+                  transition: border-color var(--t-state) var(--ease); }
+.croute-row a.v:hover { border-bottom-color: var(--line-2); }
+
+.cbtns { display: flex; flex-wrap: wrap; gap: var(--s3); margin-top: var(--s6); }
+.cstatus { min-height: 22px; margin-top: var(--s3); font-family: var(--ff-m);
+           font-size: var(--fs-mono); letter-spacing: var(--mono-track);
+           text-transform: uppercase; color: var(--gold-t); }
+.cgeo { margin-top: var(--s7); padding-top: var(--s5);
+        border-top: var(--hairline-w) solid var(--line-2); display: grid; gap: var(--s2); }
+.cgeo address { font-style: normal; font-family: var(--ff-m); font-size: var(--fs-mono);
+                letter-spacing: var(--mono-track); text-transform: uppercase;
+                line-height: 1.9; color: var(--fg-2); }
+
+/* ==========================================================================
+   10B · GROUND ADDITIONS FOR A PAGE THAT IS MOSTLY FORM
+   Additive only — the inherited ground blocks above are untouched. A form
+   needs a fifth ink the document did not: the alert. Gold cannot carry it
+   (gold is the focus ring, so an error ringed in gold would read as focus),
+   and both values are measured against their own ground, not eyeballed.
+   `color-scheme` makes the native date picker and the select popup match the
+   ground instead of arriving as a white box on ink.
+   ========================================================================== */
+.g-ink   { --alert: #FF9E86; color-scheme: dark; }   /*  8.61:1 on #0B0B0B    */
+.g-paper { --alert: #8F2A10; color-scheme: light; }  /*  7.72:1 on #F4F1E8    */
+.cpanel-card { --alert: #8F2A10; }
+
+/* the shared closing rail, carried across from the reference implementation */
+.sec-foot { display: flex; flex-wrap: wrap; align-items: center;
+            justify-content: space-between; gap: var(--s4);
+            margin-top: var(--s7); padding-top: var(--s5);
+            border-top: var(--hairline-w) solid var(--line); }
+
+/* ==========================================================================
+   11 · HERO — compact, because the page's real content is the form
+   The homepage hero is a 94svh photograph. This one is a masthead: it exists
+   to name the chapter and hand you the three routes. Joby's corner labels and
+   Büro's purpose routing do the work the status card does on the home page.
+   ========================================================================== */
+.mast {
+  position: relative; isolation: isolate; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  background: var(--ink);
+  padding-top: calc(var(--strip-h) + 108px); padding-bottom: var(--s7);
+}
+.mast-media { position: absolute; inset: 0; z-index: -2; }
+.mast-media img {
+  width: 100%; height: 100%; object-fit: cover; object-position: 50% 58%;
+  filter: grayscale(var(--photo-grade-feat)) contrast(1.06) brightness(.92);
+}
+.mast-scrim {
+  position: absolute; inset: 0; z-index: -1; opacity: var(--scrim);
+  background:
+    linear-gradient(to bottom, rgba(11,11,11,.92) 0%, rgba(11,11,11,.72) 34%, rgba(11,11,11,.52) 62%),
+    linear-gradient(to top,    rgba(11,11,11,.96) 0%, rgba(11,11,11,.90) 38%, rgba(11,11,11,.66) 100%);
+}
+.mast h1 { color: #F4F1E8; max-width: 14ch; }
+.mast-eyebrow { color: rgba(244, 241, 232, .94); margin-bottom: var(--s5); }
+.mast-grid { display: grid; gap: var(--s7); align-items: end; margin-top: var(--s6); }
+.mast .lead-1 { color: #F4F1E8; }
+.mast .lead-2 { color: rgba(244, 241, 232, .86); }
+@media (min-width: 1040px) {
+  .mast-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 27rem); gap: var(--s9); }
+}
+
+/* Three purpose routes as hairline rows. Not a card — a routing table, so it
+   reads as the index of the page rather than as an advert for it. */
+.hroutes { border-top: var(--hairline-w) solid rgba(244, 241, 232, .34); }
+.hroute {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: baseline;
+  gap: var(--s3) var(--s5); padding: 15px 0; min-height: 60px;
+  border-bottom: var(--hairline-w) solid rgba(244, 241, 232, .20);
+  transition: border-color var(--t-state) var(--ease);
+}
+.hroute:hover { border-bottom-color: rgba(244, 241, 232, .48); }
+.hroute .k { font-family: var(--ff-m); font-size: var(--fs-mono);
+             letter-spacing: var(--mono-track); color: rgba(244, 241, 232, .60);
+             transition: color var(--t-state) var(--ease); }
+.hroute .t { font-family: var(--ff-d); font-weight: 700;
+             font-size: var(--fs-h5); line-height: 1;
+             letter-spacing: var(--ls-display-s); text-transform: uppercase;
+             color: #F4F1E8;
+             transition: transform var(--t-state) var(--ease); }
+.hroute .n { grid-column: 2 / -1; font-size: var(--fs-xs); line-height: 1.5;
+             color: rgba(244, 241, 232, .82); }
+.hroute .go { font-style: normal; color: var(--gold);
+              transition: transform var(--t-state) var(--ease); }
+.hroute:hover .k  { color: rgba(244, 241, 232, .86); }
+.hroute:hover .t  { transform: translateX(7px); }
+.hroute:hover .go { transform: translate(4px, 0); }
+.hroute:active    { opacity: .78; }
+.hroute:focus-visible { outline-offset: -2px; }
+
+.mast-foot {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+  gap: var(--s3) var(--s6);
+  margin-top: var(--s8); padding-top: var(--s4);
+  border-top: var(--hairline-w) solid rgba(244, 241, 232, .24);
+}
+.mast-foot p { color: rgba(244, 241, 232, .78); }
+
+/* ==========================================================================
+   12 · THE QUOTE FLOW — the showpiece
+   12.1 step rail · 12.2 numbered question rows · 12.3 chips · 12.4 segmented
+   12.5 errors · 12.6 flow nav · 12.7 review · 12.8 confirmation
+   NOTHING in this section transitions a layout property. Steps swap with the
+   `hidden` attribute; the rail fills with scaleX; the chips fill with colour.
+   ========================================================================== */
+.qsec { position: relative; }
+/* Fieldsets are the right semantics for a step, and the wrong default box.
+   Reset it here rather than in the shared reset, which stays verbatim. */
+.qstep, #quoteForm { border: 0; padding: 0; margin: 0; min-width: 0; }
+/* One primary action per viewport, enforced against the sticky nav: while the
+   quote flow is on screen its own Continue / Send button is the page's primary
+   action, so the capsule CTA drops back to its outline rest state.
+   background-color + border-color only — nothing here touches layout. */
+.topbar.is-stuck.is-atquote .capsule .btn--nav {
+  background-color: transparent; color: rgba(244, 241, 232, .92);
+  border-color: rgba(244, 241, 232, .34);
+}
+.topbar.is-stuck.is-atquote .capsule .btn--nav:hover {
+  background-color: rgba(244, 241, 232, .14); color: #F4F1E8;
+}
+.qhead { display: grid; gap: var(--s5); margin-bottom: var(--s7); }
+.qhead .hours {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2) var(--s5);
+  padding-top: var(--s4); border-top: var(--hairline-w) solid var(--line);
+}
+.qhead .hours b { width: 5px; height: 5px; border-radius: 999px;
+                  background: var(--gold-t); display: inline-block; }
+
+/* --- 12.1 Runway's numbered rail on one hairline track ------------------- */
+.qrail { position: relative; margin-bottom: var(--s7); }
+.qtrack { position: absolute; left: 0; right: 0; top: 15px;
+          height: var(--hairline-w); background: var(--line); overflow: hidden; }
+.qfill  { display: block; height: 100%; width: 100%; background: var(--fg);
+          transform: scaleX(var(--qp, 0)); transform-origin: left center;
+          transition: transform 420ms var(--ease); }
+.qsteps { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s3);
+          position: relative; }
+.qstepbtn {
+  display: grid; justify-items: start; gap: 9px; text-align: left;
+  padding: 0 var(--s3) 0 0; min-height: 44px;
+}
+.qstepbtn .dot {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; border-radius: 999px;
+  background-color: var(--bg);
+  border: var(--hairline-w) solid var(--line-2);
+  font-family: var(--ff-m); font-size: var(--fs-mono); letter-spacing: .04em;
+  color: var(--fg-3);
+  transition: background-color var(--t-state) var(--ease),
+              border-color var(--t-state) var(--ease),
+              color var(--t-state) var(--ease);
+}
+.qstepbtn .nm { font-family: var(--ff-m); font-size: var(--fs-mono);
+                letter-spacing: var(--mono-track); text-transform: uppercase;
+                color: var(--fg-3); line-height: 1.4;
+                transition: color var(--t-state) var(--ease); }
+.qstepbtn[data-state="done"] .dot { background-color: var(--fg); color: var(--bg); border-color: var(--fg); }
+.qstepbtn[data-state="done"] .nm  { color: var(--fg-2); }
+.qstepbtn[data-state="here"] .dot { border-color: var(--gold-t); color: var(--fg); }
+.qstepbtn[data-state="here"] .nm  { color: var(--fg); }
+.qstepbtn:hover:not(:disabled) .dot { border-color: var(--fg); color: var(--fg); }
+.qstepbtn:hover:not(:disabled) .nm  { color: var(--fg); }
+.qstepbtn:active:not(:disabled)     { opacity: .74; }
+.qstepbtn:disabled { opacity: .46; cursor: default; }
+@media (max-width: 639px) { .qstepbtn .nm { display: none; } }
+
+/* --- 12.2 Büro's numbered question rows --------------------------------- */
+.qstep { border-top: var(--hairline-w) solid var(--line-2); }
+.qstep-hd { display: flex; flex-wrap: wrap; align-items: baseline;
+            justify-content: space-between; gap: var(--s3) var(--s5);
+            padding: var(--s5) 0 var(--s4);
+            border-bottom: var(--hairline-w) solid var(--line); }
+.qstep-hd h3 { font-family: var(--ff-d); font-weight: 700; text-transform: uppercase;
+               font-size: var(--fs-h4); line-height: 1;
+               letter-spacing: var(--ls-display-s); color: var(--fg); }
+.qstep-hd .say { flex: 1 1 22rem; font-size: var(--fs-xs); line-height: 1.55;
+                 color: var(--fg-2); max-width: 46ch; }
+
+.frow {
+  display: grid; grid-template-columns: 2.6rem minmax(0, 1fr);
+  gap: var(--s2) var(--s3); align-items: baseline;
+  padding: var(--s5) 0; border-bottom: var(--hairline-w) solid var(--line);
+}
+.frow .fnum { color: var(--fg-3); }
+.flab { display: block; font-size: var(--fs-sm); font-weight: 600; color: var(--fg); }
+.flab em { font-style: normal; font-family: var(--ff-m); font-size: var(--fs-mono);
+           letter-spacing: var(--mono-track); text-transform: uppercase;
+           color: var(--fg-3); margin-left: 9px; }
+.flab .req { color: var(--gold-t); }
+.fctl { grid-column: 2 / -1; }
+.fhint { font-size: var(--fs-xs); line-height: 1.5; color: var(--fg-2); margin-top: 3px; }
+/* Büro's three-column questionnaire: index · question · answer. Scoped to the
+   quote section only — the desk form lives in a ~560px column where a fixed
+   label column would crush the inputs, so there it stays stacked. */
+@media (min-width: 900px) {
+  .qsec .frow { grid-template-columns: 3rem minmax(0, 15rem) minmax(0, 1fr);
+                align-items: start; gap: var(--s4) var(--s5); }
+  .qsec .fctl { grid-column: 3 / -1; }
+}
+
+/* Rains' underline-only field. Border-colour is the only thing that moves. */
+.fin {
+  display: block; width: 100%; max-width: 34rem;
+  min-height: 46px; padding: 10px 0;
+  background-color: transparent; color: var(--fg);
+  font-family: var(--ff-b); font-size: var(--fs-body); line-height: 1.5;
+  border: 0; border-bottom: var(--hairline-w) solid var(--line-2);
+  border-radius: 0;
+  transition: border-color var(--t-state) var(--ease),
+              background-color var(--t-state) var(--ease);
+}
+textarea.fin { min-height: 96px; resize: vertical; }
+.fin::placeholder { color: var(--fg-3); }
+.fin:hover  { border-bottom-color: var(--fg-2); }
+.fin:focus  { border-bottom-color: var(--fg); outline: none; }
+.fin:focus-visible { outline: var(--focus-w) solid var(--gold-t); outline-offset: var(--focus-o); }
+.fin[aria-invalid="true"] { border-bottom-color: var(--alert); }
+.fin:disabled { opacity: .42; }
+
+.fsel { position: relative; max-width: 34rem; }
+.fsel select { appearance: none; -webkit-appearance: none; padding-right: 32px; cursor: pointer; }
+.fsel .mk { position: absolute; right: 10px; top: 15px; pointer-events: none;
+            color: var(--fg-3); font-size: 12px; line-height: 1; }
+
+/* --- 12.3 HoneyBook / Robot.com selectable options ----------------------- */
+.chips { display: flex; flex-wrap: wrap; gap: var(--s2); }
+.chip  { position: relative; display: inline-flex; }
+.chip input {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  margin: 0; opacity: 0; cursor: pointer;
+}
+.chip-in {
+  display: inline-flex; align-items: center; gap: 8px;
+  min-height: 44px; padding: 10px 17px; border-radius: 999px;
+  border: var(--hairline-w) solid var(--line-2);
+  background-color: transparent; color: var(--fg-2);
+  font-size: var(--fs-xs); font-weight: 600; letter-spacing: .015em;
+  transition: background-color var(--t-state) var(--ease),
+              border-color var(--t-state) var(--ease),
+              color var(--t-state) var(--ease);
+}
+.chip-in .mk { font-family: var(--ff-m); font-size: 11px; line-height: 1;
+               color: var(--fg-3);
+               transition: color var(--t-state) var(--ease); }
+.chip-in .mk::before { content: "+"; }
+.chip input:hover ~ .chip-in { border-color: var(--fg-2); color: var(--fg); }
+.chip input:focus-visible ~ .chip-in {
+  outline: var(--focus-w) solid var(--gold-t); outline-offset: var(--focus-o);
+}
+.chip input:active ~ .chip-in { opacity: .78; }
+.chip input:checked ~ .chip-in {
+  background-color: var(--fg); color: var(--bg); border-color: var(--fg);
+}
+.chip input:checked ~ .chip-in .mk { color: var(--bg); }
+.chip input:checked ~ .chip-in .mk::before { content: "\2713"; }
+.chip input:disabled ~ .chip-in { opacity: .40; }
+[data-chipgroup][aria-invalid="true"] .chip-in { border-color: var(--alert); }
+
+/* --- 12.4 Lightship's two-way preference, as one segmented control ------- */
+.seg { display: inline-flex; flex-wrap: wrap; gap: var(--s2); }
+.seg .chip-in { border-radius: 3px; min-width: 11rem; justify-content: center; }
+
+/* --- 12.5 the error line: names the fix, sits under the rule it broke ---- */
+.ferr {
+  display: block; color: var(--alert); margin-top: 7px;
+  font-family: var(--ff-m); font-size: var(--fs-mono);
+  letter-spacing: var(--mono-track); text-transform: uppercase; line-height: 1.6;
+}
+.ferr:empty { display: none; }
+.qalert {
+  margin-top: var(--s5); padding: 11px 0 0;
+  border-top: var(--hairline-w) solid var(--alert);
+  color: var(--alert);
+  font-family: var(--ff-m); font-size: var(--fs-mono);
+  letter-spacing: var(--mono-track); text-transform: uppercase; line-height: 1.7;
+}
+.qalert:empty { display: none; }
+
+/* --- 12.6 Upwork's Back beside Continue, on every step ------------------- */
+.qnav { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s4) var(--s5);
+        margin-top: var(--s6); }
+.qnav .spacer { flex: 1 1 auto; }
+.qcount { font-family: var(--ff-m); font-size: var(--fs-mono);
+          letter-spacing: var(--mono-track); text-transform: uppercase; color: var(--fg-3); }
+/* Scripting off: drop the step machinery, never the send button. */
+html:not(.js) .qrail, html:not(.js) .rev, html:not(.js) .qcount,
+html:not(.js) [data-next], html:not(.js) [data-back] { display: none; }
+html:not(.js) .qstep[data-step="1"] .qnav,
+html:not(.js) .qstep[data-step="2"] .qnav,
+html:not(.js) .qstep[data-step="3"] .qnav { display: none; }
+html:not(.js) .nojs-note { display: block; }
+.nojs-note { display: none; font-size: var(--fs-xs); line-height: 1.55;
+             color: var(--fg-2); margin-top: var(--s5); max-width: 52ch; }
+
+/* --- 12.7 Airbnb's read-back, set as the same ledger --------------------- */
+.rev { margin: 0; border-top: var(--hairline-w) solid var(--line); }
+.rev-grp { padding: var(--s5) 0; border-bottom: var(--hairline-w) solid var(--line); }
+.rev-hd  { display: flex; flex-wrap: wrap; align-items: baseline;
+           justify-content: space-between; gap: var(--s3); margin-bottom: var(--s3); }
+.rev-hd .tk { color: var(--fg); }
+.rev-l { display: grid; gap: var(--s2) var(--s5); margin: 0; }
+.rev-l > div { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px;
+               padding: 7px 0; border-bottom: var(--hairline-w) solid var(--line); }
+.rev-l > div:last-child { border-bottom: 0; }
+.rev-l dt { font-family: var(--ff-m); font-size: var(--fs-mono);
+            letter-spacing: var(--mono-track); text-transform: uppercase; color: var(--fg-3); }
+.rev-l dd { margin: 0; font-size: var(--fs-sm); font-weight: 500; color: var(--fg);
+            overflow-wrap: anywhere; }
+.rev-l dd.is-empty { color: var(--fg-3); font-weight: 400; }
+@media (min-width: 700px) {
+  .rev-l > div { grid-template-columns: minmax(0, 13rem) minmax(0, 1fr); gap: var(--s5); align-items: baseline; }
+}
+
+/* --- 12.8 Selfridges' submission summary, in the Spade plate ------------- */
+.conf { display: grid; gap: var(--s5); padding: var(--s6);
+        background-color: var(--plate-bg); }
+.conf .tick { display: inline-flex; align-items: center; gap: 9px; color: var(--gold-t); }
+.conf h3 { font-family: var(--ff-d); font-weight: 700; text-transform: uppercase;
+           font-size: var(--fs-h4); line-height: 1;
+           letter-spacing: var(--ls-display-s); color: var(--fg); }
+.conf-spec { border-top: var(--hairline-w) solid var(--line-2); }
+.conf-spec div { display: flex; flex-wrap: wrap; align-items: baseline;
+                 justify-content: space-between; gap: var(--s3) var(--s5);
+                 padding: 11px 0; border-bottom: var(--hairline-w) solid var(--line); }
+.conf-spec .k { font-family: var(--ff-m); font-size: var(--fs-mono);
+                letter-spacing: var(--mono-track); text-transform: uppercase; color: var(--fg-3); }
+.conf-spec .v { font-family: var(--ff-m); font-size: var(--fs-mono);
+                letter-spacing: var(--mono-track); text-transform: uppercase;
+                color: var(--fg); text-align: right; overflow-wrap: anywhere; }
+.conf-spec .v.is-key { color: var(--gold-t); }
+
+/* ==========================================================================
+   13 · PHOTO BAND — Atlas Card's mono credit under a full-bleed frame
+   A single quiet frame between the form and the desk, so the chapter is not
+   two forms stacked on each other.
+   ========================================================================== */
+.band { position: relative; }
+.band figure { margin: 0; position: relative; }
+.band img { width: 100%; height: clamp(190px, 27vw, 340px); object-fit: cover;
+            object-position: 50% 56%;
+            filter: grayscale(var(--photo-grade-feat)) sepia(9%) contrast(1.04) brightness(.94); }
+.band figcaption { display: flex; flex-wrap: wrap; align-items: baseline;
+                   justify-content: space-between; gap: var(--s3) var(--s6);
+                   padding: var(--s4) 0 0; }
+
+/* ==========================================================================
+   14 · THE DESK — purpose routing, coordinates, and the short inquiry form
+   ========================================================================== */
+.desk { display: grid; gap: var(--s8); margin-top: var(--s7); }
+@media (min-width: 1040px) {
+  .desk { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: var(--s9); }
+}
+.ccols { display: grid; gap: var(--s6); }
+@media (min-width: 620px) { .ccols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.ccol { border-top: var(--hairline-w) solid var(--line-2); padding-top: var(--s4); }
+.ccol h3 { font-family: var(--ff-d); font-weight: 700; text-transform: uppercase;
+           font-size: var(--fs-h6); line-height: 1.05; letter-spacing: var(--ls-display-s);
+           color: var(--fg); margin-top: 7px; }
+.ccol .say { font-size: var(--fs-xs); line-height: 1.55; color: var(--fg-2);
+             margin-top: 7px; max-width: 34ch; }
+.ccol .dest { display: inline-flex; align-items: center; min-height: 44px;
+              margin-top: 5px; font-size: var(--fs-sm); font-weight: 600; color: var(--fg);
+              border-bottom: var(--hairline-w) solid var(--line-2);
+              overflow-wrap: anywhere;
+              transition: border-color var(--t-state) var(--ease); }
+.ccol .dest:hover { border-bottom-color: var(--fg); }
+.ccol .hrs { display: block; margin-top: 9px; }
+
+/* Kalstore / Ragged Edge: the copy control is explicit and labelled */
+.copyrow { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s3); margin-top: 7px; }
+.copybtn {
+  display: inline-flex; align-items: center; gap: 7px;
+  min-height: 44px; padding: 0 13px; border-radius: 3px;
+  border: var(--hairline-w) solid var(--line);
+  font-family: var(--ff-m); font-size: var(--fs-mono);
+  letter-spacing: var(--mono-track); text-transform: uppercase; color: var(--fg-3);
+  transition: background-color var(--t-state) var(--ease),
+              border-color var(--t-state) var(--ease),
+              color var(--t-state) var(--ease);
+}
+.copybtn:hover  { border-color: var(--fg-2); color: var(--fg); }
+.copybtn:active { background-color: var(--line); }
+
+.geo { margin-top: var(--s7); padding-top: var(--s5);
+       border-top: var(--hairline-w) solid var(--line-2); display: grid; gap: var(--s3); }
+.geo address { font-style: normal; font-family: var(--ff-m); font-size: var(--fs-mono);
+               letter-spacing: var(--mono-track); text-transform: uppercase;
+               line-height: 1.95; color: var(--fg-2); }
+.deskbtns { display: flex; flex-wrap: wrap; gap: var(--s3); margin-top: var(--s6); }
+.dstatus { min-height: 22px; margin-top: var(--s3); font-family: var(--ff-m);
+           font-size: var(--fs-mono); letter-spacing: var(--mono-track);
+           text-transform: uppercase; color: var(--gold-t); }
+
+.cform { border-top: var(--hairline-w) solid var(--line-2); }
+.cform-hd { display: flex; flex-wrap: wrap; align-items: baseline;
+            justify-content: space-between; gap: var(--s3);
+            padding: var(--s5) 0 var(--s4);
+            border-bottom: var(--hairline-w) solid var(--line); }
+.csent { margin-top: var(--s5); padding: var(--s5);
+         border: var(--hairline-w) solid var(--line-2);
+         background-color: var(--plate-bg); }
+.csent p + p { margin-top: var(--s3); }
+
+/* ==========================================================================
+   15 · CHAPTER PAGER — where you came from, where you go next
+   ========================================================================== */
+.pager { display: grid; gap: var(--hairline-w);
+         border-top: var(--hairline-w) solid var(--line-2);
+         border-bottom: var(--hairline-w) solid var(--line-2); }
+@media (min-width: 760px) { .pager { grid-template-columns: 1fr 1fr; } }
+.pager-a {
+  display: grid; gap: 9px; padding: var(--s6) 0; min-height: 96px;
+  align-content: center;
+  border-bottom: var(--hairline-w) solid var(--line);
+  transition: background-color var(--t-state) var(--ease);
+}
+@media (min-width: 760px) {
+  .pager-a { border-bottom: 0; padding-inline: var(--s5); }
+  .pager-a:first-child { border-right: var(--hairline-w) solid var(--line); padding-left: 0; }
+  .pager-a:last-child  { text-align: right; padding-right: 0; }
+}
+.pager-a:last-child { border-bottom: 0; }
+.pager-a:hover  { background-color: var(--line); }
+.pager-a:active { opacity: .78; }
+.pager-a .t { font-family: var(--ff-d); font-weight: 700; text-transform: uppercase;
+              font-size: var(--fs-h4); line-height: 1;
+              letter-spacing: var(--ls-display-s); color: var(--fg);
+              transition: transform var(--t-state) var(--ease); }
+.pager-a:first-child:hover .t { transform: translateX(-6px); }
+.pager-a:last-child:hover  .t { transform: translateX(6px); }
+/* ==========================================================================
+   17 · FOOTER — Legora's link columns above a cropped, over-wide wordmark
+   ========================================================================== */
+.foot { padding-top: var(--section-y); overflow: hidden; container-type: inline-size; }
+.foot-cols { display: grid; gap: var(--s7); }
+.foot-cols h2 { font-family: var(--ff-m); font-size: var(--fs-mono); font-weight: 400;
+                letter-spacing: var(--mono-track); text-transform: uppercase;
+                color: var(--fg-3); margin-bottom: var(--s4); }
+.foot-cols li a, .foot-cols li span {
+  display: inline-flex; align-items: center; min-height: 44px;
+  font-size: var(--fs-sm); color: var(--fg-2);
+  transition: color var(--t-state) var(--ease);
+}
+.foot-cols li a:hover { color: var(--fg); }
+.foot-cols li.is-here a { color: var(--fg); }
+.foot-cols li.is-here { border-bottom: var(--hairline-w) solid var(--gold); width: fit-content; }
+.foot-legal { display: flex; flex-wrap: wrap; gap: var(--s4) var(--s7);
+              justify-content: space-between; margin-top: var(--s9);
+              padding-top: var(--s5); border-top: var(--hairline-w) solid var(--line); }
+/* Legora's cropped wordmark, sized the way Structured and MOUTHWASH size
+   theirs: the logotype spans the content column exactly and is cropped ONLY by
+   the bottom edge. The first build used clamp(5.5rem, 22vw, 18rem), which ran
+   the string ~14% past the right edge — at 1440 you read "KUL ENTERPRIS",
+   which looks like an overflow bug rather than a crop.
+   5.7028 is the measured width of the string at font-size 100px in Big
+   Shoulders Display 700 with this tracking — re-measure it if either the face
+   or the letter-spacing changes. */
+.wordmark {
+  --wm-col: min(100cqw, var(--maxw));
+  font-family: var(--ff-d); font-weight: 700;
+  font-size: calc((var(--wm-col) - var(--gutter) * 2) / 5.7028);
+  line-height: .7; letter-spacing: .004em; text-transform: uppercase;
+  white-space: nowrap; color: var(--fg); opacity: .94;
+  margin: var(--s7) auto 0; padding-left: var(--gutter);
+  max-width: var(--maxw);
+  height: .54em; overflow: hidden;   /* crops the wordmark off the bottom edge */
+  user-select: none;
+}
+@media (min-width: 700px)  { .foot-cols { grid-template-columns: 1.2fr 1fr 1fr; } }
+@media (min-width: 1040px) {
+  .foot-cols { grid-template-columns: 1.35fr .8fr .85fr 1fr; gap: var(--s8); }
+  /* eight chapter rows made a 500px column against three 200px ones; two
+     balanced sub-columns settle the footer without shrinking the tap target */
+  .foot-chapters ul { columns: 2; column-gap: var(--s5); }
+  .foot-chapters li { break-inside: avoid; }
+}
+
+/* ==========================================================================
+   18 · REDUCED MOTION — a full shutoff, not a softening
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  :where(html) { scroll-behavior: auto; }
+  .js [data-reveal], .js [data-reveal].is-in { clip-path: none; opacity: 1; transform: none; transition: none; }
+  .js [data-rule], .js [data-rule].is-in { transform: none; transition: none; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ==================== CHROME · utility strip + capsule ================== -->
+<header class="topbar" id="topbar">
+  <div class="ustrip">
+    <p class="u-left">USDOT 7638788 &middot; MC 66389691 &middot; Licensed &amp; insured</p>
+    <p class="live"><b aria-hidden="true"></b> Loganville, GA &middot;
+      <span id="etclock">Dispatch 24/7</span></p>
+  </div>
+
+  <div class="navrow">
+    <a class="brand" href="/v4" aria-label="KUL Enterprises LLC — home, chapter one">
+      <img src="/studio/assets/brand/lion-clean.png" alt="" width="900" height="900" aria-hidden="true">
+      <span class="brand-txt">
+        <span class="n">KUL</span>
+        <span class="s">Enterprises LLC</span>
+      </span>
+    </a>
+
+    <!-- "Request a Quote" is this chapter. Sending it to ../forward/ would
+         reload the page you are already on, so on this one page the capsule
+         action resolves to the flow itself. -->
+    <nav class="capsule" aria-label="Primary">
+      <a class="nlink" href="/v4/mission">Services</a>
+      <a class="nlink" href="/v4/responsibility">Safety</a>
+      <a class="nlink" href="/v4/journey">Journey</a>
+      <button class="nlink" type="button" data-contact-open aria-haspopup="dialog"
+              aria-expanded="false" aria-controls="contactPanel">Contact</button>
+      <a class="btn btn--sm btn--mono btn--nav" href="#quote">Request a Quote</a>
+      <button class="menu-btn" type="button" data-menu-open aria-haspopup="dialog"
+              aria-expanded="false" aria-controls="sheet">
+        <span class="bars" aria-hidden="true"><b></b><b></b></span> Menu
+      </button>
+    </nav>
+
+    <button class="menu-btn" type="button" data-menu-open data-mobile-only aria-haspopup="dialog"
+            aria-expanded="false" aria-controls="sheet">
+      <span class="bars" aria-hidden="true"><b></b><b></b></span> Menu
+    </button>
+  </div>
+</header>
+
+<nav class="dockbar" aria-label="Primary, mobile">
+  <a href="/v4/mission">Services</a>
+  <a href="/v4/responsibility">Safety</a>
+  <a href="/v4/journey">Journey</a>
+  <button type="button" data-contact-open aria-haspopup="dialog" aria-expanded="false"
+          aria-controls="contactPanel">Contact</button>
+  <a class="is-cta" href="#quote">Quote</a>
+</nav>
+
+<!-- ==================== FULL-SCREEN MENU · chapter index ================== -->
+<div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-label="Chapter index">
+  <div class="sheet-in wrap">
+    <div class="sheet-top">
+      <p class="mono">[ Index ] &mdash; The Carrier Issue &middot; Eight chapters</p>
+      <button class="pill-close" type="button" data-menu-close>Close &#10005;</button>
+    </div>
+
+    <ul class="chapters">
+      <li><a href="/v4"><span class="num">[ 01 ]</span><span class="nm">The Beginning</span></a></li>
+      <li><a href="/v4/journey"><span class="num">[ 02 ]</span><span class="nm">The Journey</span></a></li>
+      <li><a href="/v4/story"><span class="num">[ 03 ]</span><span class="nm">Why I Started Driving</span></a></li>
+      <li><a href="/v4/mission"><span class="num">[ 04 ]</span><span class="nm">The Mission</span></a></li>
+      <li><a href="/v4/responsibility"><span class="num">[ 05 ]</span><span class="nm">The Responsibility</span></a></li>
+      <li><a href="/v4/join"><span class="num">[ 06 ]</span><span class="nm">Join the Journey</span></a></li>
+      <li class="is-here">
+        <a href="./" aria-current="page">
+          <span class="num">[ 07 ]</span><span class="nm">Let&rsquo;s Move Forward</span>
+          <span class="here">You are here</span>
+        </a>
+      </li>
+      <li><a href="/v4/road-ahead"><span class="num">[ 08 ]</span><span class="nm">The Road Ahead</span></a></li>
+    </ul>
+
+    <div class="sheet-cols">
+      <div>
+        <h3>Dispatch</h3>
+        <ul>
+          <li><a href="tel:+16789721148">678-972-1148</a></li>
+          <li><a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a></li>
+          <li><span>Answered 24 / 7</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Compliance</h3>
+        <ul>
+          <li><span>USDOT 7638788</span></li>
+          <li><span>MC 66389691</span></li>
+          <li><span>Licensed &amp; insured</span></li>
+          <li><span>Own operating authority</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Base</h3>
+        <ul>
+          <li><span>Loganville, Georgia</span></li>
+          <li><span>33.8390&deg; N &middot; 83.9007&deg; W</span></li>
+          <li><span>Running nationwide</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sheet-bar">
+      <p class="stmt">One tractor today, run to a fifty-truck standard.</p>
+      <a class="btn btn--mono" href="#quote" data-menu-close>Request a freight quote</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CONTACT SLIDE-OVER · shared component ============= -->
+<div class="cpanel" id="contactPanel" hidden>
+  <div class="cpanel-scrim" data-contact-close aria-hidden="true"></div>
+  <aside class="cpanel-card" role="dialog" aria-modal="true" aria-labelledby="cpanel-h">
+    <div class="cpanel-top">
+      <p class="mono">[ Contact ]</p>
+      <button class="pill-close" type="button" data-contact-close>Close &#10005;</button>
+    </div>
+
+    <h2 class="stmt stmt--wide" id="cpanel-h">Send the lane. We&rsquo;ll send back a straight number.</h2>
+
+    <div class="croute">
+      <div class="croute-row">
+        <span class="mono">Quotes &amp; dispatch</span>
+        <a class="v" href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a>
+        <span class="n">Lane, weight and window is enough to start.</span>
+      </div>
+      <div class="croute-row">
+        <span class="mono">By phone, any hour</span>
+        <a class="v" href="tel:+16789721148">678-972-1148</a>
+        <span class="n">A person answers. Nights and weekends included.</span>
+      </div>
+      <div class="croute-row">
+        <span class="mono">Drivers</span>
+        <a class="v" href="/v4/join">Join the journey &rarr;</a>
+        <span class="n">We&rsquo;re building this fleet one seat at a time.</span>
+      </div>
+    </div>
+
+    <div class="cbtns">
+      <a class="btn btn--sm btn--mono" href="mailto:dispatch@kulenterprises.com?subject=Freight%20quote%20request">Open mail</a>
+      <button class="btn btn--sm btn--mono btn--ghost" type="button"
+              data-copy="dispatch@kulenterprises.com">Copy email</button>
+    </div>
+    <p class="cstatus" role="status" aria-live="polite"></p>
+
+    <div class="cgeo">
+      <p class="mono">[ Base ]</p>
+      <address>
+        KUL Enterprises LLC<br>
+        Loganville, Georgia<br>
+        33.8390&deg; N &middot; 83.9007&deg; W
+      </address>
+      <p class="mono">USDOT 7638788 &middot; MC 66389691</p>
+    </div>
+  </aside>
+</div>
+
+<main id="main">
+
+  <!-- ================ 11 · MASTHEAD + THREE ROUTES ======================= -->
+  <section class="mast g-ink" aria-labelledby="mast-h">
+    <div class="mast-media">
+      <img src="/studio/assets/journey/desert.jpg"
+           alt="A wave breaking against a sandstone headland on an open stretch of beach."
+           width="2200" height="1650" fetchpriority="high" decoding="async">
+    </div>
+    <div class="mast-scrim" aria-hidden="true"></div>
+
+    <div class="wrap">
+      <p class="mono mast-eyebrow">
+        [ 07 ] &mdash; Let&rsquo;s Move Forward &middot; The dispatch desk</p>
+
+      <div class="mast-grid">
+        <div>
+          <h1 class="display d-hero" id="mast-h" data-reveal>
+            <span style="display:block">Enough reading.</span>
+            <span style="display:block">Let&rsquo;s move</span>
+            <span style="display:block">something.</span>
+          </h1>
+          <div style="margin-top:var(--s6)" data-reveal>
+            <p class="lead-1">Three ways in. All of them end at a person in Loganville, Georgia.</p>
+            <p class="lead-2">Send the lane and dispatch prices it directly &mdash; the same person
+              who will put the truck under it.</p>
+          </div>
+          <div class="actions" style="margin-top:var(--s6)">
+            <a class="btn" href="#quote">Start a freight quote</a>
+            <a class="arrow arrow--flat" href="#contact" style="color:#F4F1E8">Reach dispatch instead
+              <i aria-hidden="true">&rarr;</i></a>
+          </div>
+        </div>
+
+        <nav class="hroutes" aria-label="Ways to reach KUL" data-reveal>
+          <a class="hroute" href="#quote">
+            <span class="k">[ A ]</span>
+            <span class="t">Freight quote</span>
+            <span class="go" aria-hidden="true">&darr;</span>
+            <span class="n">Four steps: service, lane, contact, review. Nothing is stored here.</span>
+          </a>
+          <a class="hroute" href="tel:+16789721148">
+            <span class="k">[ B ]</span>
+            <span class="t">Dispatch, any hour</span>
+            <span class="go" aria-hidden="true">&rarr;</span>
+            <span class="n">678-972-1148 &mdash; a person answers, nights and weekends included.</span>
+          </a>
+          <a class="hroute" href="#contact">
+            <span class="k">[ C ]</span>
+            <span class="t">Everything else</span>
+            <span class="go" aria-hidden="true">&darr;</span>
+            <span class="n">Drivers, partnerships, or a question about the company.</span>
+          </a>
+        </nav>
+      </div>
+
+      <div class="mast-foot">
+        <p class="mono">[ F&mdash;01 ] &mdash; Wave against the headland &middot;
+          Founder&rsquo;s archive, unretouched</p>
+        <p class="mono">33.8390&deg; N &middot; 83.9007&deg; W</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================ 12 · THE QUOTE FLOW ================================ -->
+  <section class="section g-paper qsec" id="quote" aria-labelledby="quote-h">
+    <div class="wrap">
+      <div class="qhead">
+        <div>
+          <p class="mono">012 / Request a freight quote</p>
+          <h2 class="display d-h2" id="quote-h" data-reveal style="margin-top:var(--s3)">
+            Four steps.<br>One work order.</h2>
+        </div>
+        <p class="lead tight">Give us the service, the lane and a way to reach you. Dispatch prices
+          it &mdash; no broker in the middle, no sales sequence afterwards.</p>
+        <p class="mono hours">
+          <span><b aria-hidden="true"></b> Dispatch answers 24 / 7</span>
+          <span>Loganville, GA &middot; <span id="etclock2">Eastern time</span></span>
+          <span>Nothing you type is stored on this site</span>
+        </p>
+      </div>
+
+      <!-- 12.1 · the rail. Buttons, so a completed step is reachable without
+           scrolling back through the form. Future steps are disabled. -->
+      <div class="qrail" data-reveal>
+        <div class="qtrack" aria-hidden="true"><span class="qfill" id="qfill"></span></div>
+        <div class="qsteps">
+          <button class="qstepbtn" type="button" data-goto="1" data-state="here" aria-label="Step 1 — service" disabled>
+            <span class="dot" aria-hidden="true">01</span>
+            <span class="nm">Service</span>
+          </button>
+          <button class="qstepbtn" type="button" data-goto="2" aria-label="Step 2 — the lane" disabled>
+            <span class="dot" aria-hidden="true">02</span>
+            <span class="nm">The lane</span>
+          </button>
+          <button class="qstepbtn" type="button" data-goto="3" aria-label="Step 3 — how to reach you" disabled>
+            <span class="dot" aria-hidden="true">03</span>
+            <span class="nm">Contact</span>
+          </button>
+          <button class="qstepbtn" type="button" data-goto="4" aria-label="Step 4 — review" disabled>
+            <span class="dot" aria-hidden="true">04</span>
+            <span class="nm">Review</span>
+          </button>
+        </div>
+      </div>
+
+      <p class="sr" role="status" aria-live="polite" id="qlive"></p>
+
+      <!-- Lives outside the steps so it is never written into a hidden subtree. -->
+      <p class="qalert" role="alert" id="qalert"></p>
+
+      <!-- With scripting off this is one long, ordinary, native-validated form
+           that posts to dispatch. With scripting on it becomes four steps. -->
+      <form id="quoteForm" action="mailto:dispatch@kulenterprises.com" method="post"
+            enctype="text/plain" autocomplete="on">
+
+        <!-- ---------------- STEP 1 · SERVICE ---------------- -->
+        <fieldset class="qstep" data-step="1">
+          <legend class="sr">Step one of four — service</legend>
+          <div class="qstep-hd">
+            <h3>01 &mdash; Service</h3>
+            <p class="say">Pick the equipment you need. If the answer is &ldquo;not sure&rdquo;,
+              say so &mdash; dispatch would rather advise than guess.</p>
+          </div>
+
+          <div class="frow">
+            <span class="mono fnum">01</span>
+            <span class="flab" id="lab-service">Service type <em class="req">Required</em></span>
+            <div class="fctl" role="radiogroup" aria-labelledby="lab-service"
+                 aria-describedby="err-service" data-chipgroup data-field="service">
+              <div class="chips">
+                <label class="chip"><input type="radio" name="service" value="Power Only" required data-validate>
+                  <span class="chip-in"><i class="mk" aria-hidden="true"></i>Power Only</span></label>
+                <label class="chip"><input type="radio" name="service" value="Dry Van" data-validate>
+                  <span class="chip-in"><i class="mk" aria-hidden="true"></i>Dry Van</span></label>
+                <label class="chip"><input type="radio" name="service" value="Reefer" data-validate>
+                  <span class="chip-in"><i class="mk" aria-hidden="true"></i>Reefer</span></label>
+                <label class="chip"><input type="radio" name="service" value="Dedicated" data-validate>
+                  <span class="chip-in"><i class="mk" aria-hidden="true"></i>Dedicated</span></label>
+                <label class="chip"><input type="radio" name="service" value="Regional" data-validate>
+                  <span class="chip-in"><i class="mk" aria-hidden="true"></i>Regional</span></label>
+                <label class="chip"><input type="radio" name="service" value="Over-the-Road" data-validate>
+                  <span class="chip-in"><i class="mk" aria-hidden="true"></i>Over-the-Road</span></label>
+                <label class="chip"><input type="radio" name="service" value="Expedited" data-validate>
+                  <span class="chip-in"><i class="mk" aria-hidden="true"></i>Expedited</span></label>
+                <label class="chip"><input type="radio" name="service" value="Not sure — advise me" data-validate>
+                  <span class="chip-in"><i class="mk" aria-hidden="true"></i>Not sure &mdash; advise me</span></label>
+              </div>
+              <p class="ferr" id="err-service" data-err-for="service"></p>
+            </div>
+          </div>
+
+          <div class="frow">
+            <span class="mono fnum">02</span>
+            <span class="flab" id="lab-freq">How often <em>Optional</em></span>
+            <div class="fctl" role="radiogroup" aria-labelledby="lab-freq">
+              <div class="chips">
+                <label class="chip"><input type="radio" name="frequency" value="One-time load">
+                  <span class="chip-in"><i class="mk" aria-hidden="true"></i>One-time load</span></label>
+                <label class="chip"><input type="radio" name="frequency" value="Recurring lane">
+                  <span class="chip-in"><i class="mk" aria-hidden="true"></i>Recurring lane</span></label>
+                <label class="chip"><input type="radio" name="frequency" value="Dedicated contract">
+                  <span class="chip-in"><i class="mk" aria-hidden="true"></i>Dedicated contract</span></label>
+                <label class="chip"><input type="radio" name="frequency" value="Not sure yet">
+                  <span class="chip-in"><i class="mk" aria-hidden="true"></i>Not sure yet</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="qnav">
+            <button class="btn btn--ghost btn--sm" type="button" data-back disabled>Back</button>
+            <button class="btn btn--sm" type="button" data-next>Continue &rarr;</button>
+            <span class="spacer"></span>
+            <span class="qcount">Step 1 of 4</span>
+          </div>
+        </fieldset>
+
+        <!-- ---------------- STEP 2 · THE LANE ---------------- -->
+        <fieldset class="qstep" data-step="2">
+          <legend class="sr">Step two of four — the lane</legend>
+          <div class="qstep-hd">
+            <h3>02 &mdash; The lane</h3>
+            <p class="say">Where it loads, where it delivers, and when the door opens. Approximate
+              is fine at this stage.</p>
+          </div>
+
+          <div class="frow">
+            <span class="mono fnum">03</span>
+            <label class="flab" for="q-origin">Origin <em class="req">Required</em></label>
+            <div class="fctl">
+              <input class="fin" id="q-origin" name="origin" type="text" required data-validate
+                     placeholder="City, state" autocomplete="address-level2"
+                     autocapitalize="words" aria-describedby="err-origin">
+              <p class="ferr" id="err-origin" data-err-for="origin"></p>
+            </div>
+          </div>
+
+          <div class="frow">
+            <span class="mono fnum">04</span>
+            <label class="flab" for="q-dest">Destination <em class="req">Required</em></label>
+            <div class="fctl">
+              <input class="fin" id="q-dest" name="destination" type="text" required data-validate
+                     placeholder="City, state" autocomplete="address-level2"
+                     autocapitalize="words" aria-describedby="err-dest">
+              <p class="ferr" id="err-dest" data-err-for="destination"></p>
+            </div>
+          </div>
+
+          <div class="frow">
+            <span class="mono fnum">05</span>
+            <label class="flab" for="q-date">Pickup date <em class="req">Required</em></label>
+            <div class="fctl">
+              <input class="fin" id="q-date" name="pickup" type="date" required autocomplete="off" data-validate
+                     style="max-width:16rem" aria-describedby="err-date">
+              <p class="ferr" id="err-date" data-err-for="pickup"></p>
+            </div>
+          </div>
+
+          <div class="frow">
+            <span class="mono fnum">06</span>
+            <span class="flab" id="lab-window">Delivery window <em>Optional</em></span>
+            <div class="fctl" role="radiogroup" aria-labelledby="lab-window">
+              <div class="chips">
+                <label class="chip"><input type="radio" name="window" value="As soon as possible">
+                  <span class="chip-in"><i class="mk" aria-hidden="true"></i>As soon as possible</span></label>
+                <label class="chip"><input type="radio" name="window" value="Fixed appointment">
+                  <span class="chip-in"><i class="mk" aria-hidden="true"></i>Fixed appointment</span></label>
+                <label class="chip"><input type="radio" name="window" value="Flexible">
+                  <span class="chip-in"><i class="mk" aria-hidden="true"></i>Flexible</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="frow">
+            <span class="mono fnum">07</span>
+            <label class="flab" for="q-load">Weight, commodity, anything unusual <em>Optional</em></label>
+            <div class="fctl">
+              <textarea class="fin" id="q-load" name="load" rows="3"
+                        placeholder="42,000 lb palletised — dock to dock, no lift gate"></textarea>
+              <p class="fhint">Temperature set points, hazmat, oversize, tight docks &mdash; the more
+                you say, the tighter the number comes back.</p>
+            </div>
+          </div>
+
+          <div class="qnav">
+            <button class="btn btn--ghost btn--sm" type="button" data-back>Back</button>
+            <button class="btn btn--sm" type="button" data-next>Continue &rarr;</button>
+            <span class="spacer"></span>
+            <span class="qcount">Step 2 of 4</span>
+          </div>
+        </fieldset>
+
+        <!-- ---------------- STEP 3 · CONTACT ---------------- -->
+        <fieldset class="qstep" data-step="3">
+          <legend class="sr">Step three of four — how to reach you</legend>
+          <div class="qstep-hd">
+            <h3>03 &mdash; How to reach you</h3>
+            <p class="say">One name, one address. It goes to dispatch and nowhere else &mdash;
+              no list, no sequence, no third party.</p>
+          </div>
+
+          <div class="frow">
+            <span class="mono fnum">08</span>
+            <label class="flab" for="q-name">Your name <em class="req">Required</em></label>
+            <div class="fctl">
+              <input class="fin" id="q-name" name="name" type="text" required data-validate
+                     placeholder="First and last" autocomplete="name" autocapitalize="words"
+                     aria-describedby="err-name">
+              <p class="ferr" id="err-name" data-err-for="name"></p>
+            </div>
+          </div>
+
+          <div class="frow">
+            <span class="mono fnum">09</span>
+            <label class="flab" for="q-company">Company <em>Optional</em></label>
+            <div class="fctl">
+              <input class="fin" id="q-company" name="company" type="text"
+                     placeholder="Shipper, broker or your own name" autocomplete="organization">
+            </div>
+          </div>
+
+          <div class="frow">
+            <span class="mono fnum">10</span>
+            <label class="flab" for="q-email">Email <em class="req">Required</em></label>
+            <div class="fctl">
+              <input class="fin" id="q-email" name="email" type="email" required data-validate
+                     placeholder="you@company.com" autocomplete="email" inputmode="email"
+                     spellcheck="false" aria-describedby="err-email">
+              <p class="ferr" id="err-email" data-err-for="email"></p>
+            </div>
+          </div>
+
+          <div class="frow">
+            <span class="mono fnum">11</span>
+            <label class="flab" for="q-phone">Phone <em>Optional</em></label>
+            <div class="fctl">
+              <input class="fin" id="q-phone" name="phone" type="tel" data-validate
+                     placeholder="678-000-0000" autocomplete="tel" inputmode="tel"
+                     style="max-width:18rem" aria-describedby="err-phone">
+              <p class="ferr" id="err-phone" data-err-for="phone"></p>
+              <p class="fhint">Fastest route for anything time-sensitive.</p>
+            </div>
+          </div>
+
+          <div class="qnav">
+            <button class="btn btn--ghost btn--sm" type="button" data-back>Back</button>
+            <button class="btn btn--sm" type="button" data-next>Review &rarr;</button>
+            <span class="spacer"></span>
+            <span class="qcount">Step 3 of 4</span>
+          </div>
+        </fieldset>
+
+        <!-- ---------------- STEP 4 · REVIEW ---------------- -->
+        <fieldset class="qstep" data-step="4">
+          <legend class="sr">Step four of four — review and send</legend>
+          <div class="qstep-hd">
+            <h3>04 &mdash; Review</h3>
+            <p class="say">Read it back before it goes. Anything wrong, edit the step &mdash;
+              nothing you have already typed is lost.</p>
+          </div>
+
+          <dl class="rev">
+            <div class="rev-grp">
+              <div class="rev-hd">
+                <p class="mono tk">&#10003; [ 01 ] Service</p>
+                <button class="arrow" type="button" data-goto="1">Edit <i aria-hidden="true">&#8599;</i></button>
+              </div>
+              <div class="rev-l">
+                <div><dt>Service type</dt><dd id="rv-service" class="is-empty">Not chosen</dd></div>
+                <div><dt>How often</dt><dd id="rv-frequency" class="is-empty">Not stated</dd></div>
+              </div>
+            </div>
+
+            <div class="rev-grp">
+              <div class="rev-hd">
+                <p class="mono tk">&#10003; [ 02 ] The lane</p>
+                <button class="arrow" type="button" data-goto="2">Edit <i aria-hidden="true">&#8599;</i></button>
+              </div>
+              <div class="rev-l">
+                <div><dt>Origin</dt><dd id="rv-origin" class="is-empty">Not stated</dd></div>
+                <div><dt>Destination</dt><dd id="rv-destination" class="is-empty">Not stated</dd></div>
+                <div><dt>Pickup date</dt><dd id="rv-pickup" class="is-empty">Not stated</dd></div>
+                <div><dt>Delivery window</dt><dd id="rv-window" class="is-empty">Not stated</dd></div>
+                <div><dt>Load notes</dt><dd id="rv-load" class="is-empty">None given</dd></div>
+              </div>
+            </div>
+
+            <div class="rev-grp">
+              <div class="rev-hd">
+                <p class="mono tk">&#10003; [ 03 ] Contact</p>
+                <button class="arrow" type="button" data-goto="3">Edit <i aria-hidden="true">&#8599;</i></button>
+              </div>
+              <div class="rev-l">
+                <div><dt>Name</dt><dd id="rv-name" class="is-empty">Not stated</dd></div>
+                <div><dt>Company</dt><dd id="rv-company" class="is-empty">Not stated</dd></div>
+                <div><dt>Email</dt><dd id="rv-email" class="is-empty">Not stated</dd></div>
+                <div><dt>Phone</dt><dd id="rv-phone" class="is-empty">Not given</dd></div>
+              </div>
+            </div>
+          </dl>
+
+          <p class="nojs-note">Scripting is off, so the review step is skipped &mdash; send the form
+            below and your mail app will carry the details. If it does not open, write the same
+            details to <strong>dispatch@kulenterprises.com</strong> or call
+            <strong>678-972-1148</strong>.</p>
+
+          <div class="qnav">
+            <button class="btn btn--ghost btn--sm" type="button" data-back>Back</button>
+            <button class="btn" type="submit" id="qsubmit">Send to dispatch &rarr;</button>
+            <span class="spacer"></span>
+            <span class="qcount">Step 4 of 4</span>
+          </div>
+          <p class="fhint" style="margin-top:var(--s4)">Sending opens a pre-written email in your own
+            mail app so you can read it before it leaves. Nothing is submitted to this website.</p>
+        </fieldset>
+      </form>
+
+      <!-- ---------------- CONFIRMATION ---------------- -->
+      <div class="conf cropmarks" id="qdone" hidden tabindex="-1" role="group"
+           aria-labelledby="qdone-h">
+        <p class="mono tick"><span aria-hidden="true">&#10003;</span> Draft opened</p>
+        <h3 id="qdone-h">Your request is in your mail app</h3>
+        <p class="body" style="max-width:46ch">Press send there and it lands with dispatch. Keep the
+          reference below &mdash; it is in the subject line, so quoting it on the phone finds your
+          lane straight away.</p>
+
+        <div class="conf-spec">
+          <div><span class="k">Reference</span><span class="v is-key" id="qref">&mdash;</span></div>
+          <div><span class="k">Prepared</span><span class="v" id="qwhen">&mdash;</span></div>
+          <div><span class="k">Lane</span><span class="v" id="qlane">&mdash;</span></div>
+          <div><span class="k">Service</span><span class="v" id="qsvc">&mdash;</span></div>
+          <div><span class="k">Status</span><span class="v">Draft in your mail app</span></div>
+        </div>
+
+        <div class="actions">
+          <a class="btn btn--sm btn--mono" id="qreopen" href="mailto:dispatch@kulenterprises.com">Open the draft again</a>
+          <button class="arrow" type="button" id="qrestart">Start another request <i aria-hidden="true">&rarr;</i></button>
+        </div>
+        <p class="mono" style="margin-top:var(--s2)">Nothing was stored on this site &mdash;
+          if the draft did not open, call 678-972-1148</p>
+      </div>
+
+      <div class="sec-foot">
+        <p class="mono">Quoted by the person who dispatches the truck</p>
+        <a class="arrow" href="/v4/mission">Read the service standard <i aria-hidden="true">&#8599;</i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================ 13 + 14 · THE DESK ================================= -->
+  <section class="g-ink" id="contact" aria-labelledby="desk-h">
+    <div class="band">
+      <figure>
+        <img src="/studio/assets/journey/wave.jpg"
+             alt="A turquoise creek winding through dense green forest."
+             width="2200" height="1650" loading="lazy" decoding="async">
+      </figure>
+      <div class="wrap">
+        <figcaption>
+          <p class="mono">[ F&mdash;02 ] &mdash; The creek through the trees &middot;
+            Founder&rsquo;s archive</p>
+          <p class="mono">Calm is a dispatch policy, not a mood</p>
+        </figcaption>
+      </div>
+    </div>
+
+    <div class="section" style="padding-top:var(--section-y)">
+      <div class="wrap">
+        <p class="mono">013 / The desk</p>
+        <div class="sec-head" style="margin-top:var(--s3);margin-bottom:var(--s6)">
+          <h2 class="display d-h2" id="desk-h" data-reveal>Reach the right person first time</h2>
+          <p class="lead tight">Four destinations, each with a stated purpose. Pick the one that
+            matches and skip the queue that does not exist anyway.</p>
+        </div>
+        <hr class="rule rule--strong" data-rule>
+
+        <div class="desk">
+          <!-- routing columns -->
+          <div>
+            <div class="ccols">
+              <div class="ccol">
+                <p class="mono">[ 01 ] Quotes &amp; dispatch</p>
+                <h3>Freight</h3>
+                <p class="say">Rates, live loads, appointment changes, and anything moving right
+                  now. This is the line the driver is on.</p>
+                <a class="dest" href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a>
+                <div class="copyrow">
+                  <button class="copybtn" type="button" data-copy="dispatch@kulenterprises.com">Copy</button>
+                  <a class="dest" href="tel:+16789721148" style="margin-top:0">678-972-1148</a>
+                </div>
+                <span class="mono hrs">Answered 24 / 7 &mdash; including nights and weekends</span>
+              </div>
+
+              <div class="ccol">
+                <p class="mono">[ 02 ] Drivers</p>
+                <h3>Join the seat</h3>
+                <p class="say">One truck today, fifty targeted by the end of 2029. Every seat after
+                  this one is hired by the founder personally.</p>
+                <a class="dest" href="/v4/join">Read chapter 06 &rarr;</a>
+                <div class="copyrow">
+                  <button class="copybtn" type="button" data-copy="dispatch@kulenterprises.com">Copy email</button>
+                </div>
+                <span class="mono hrs">Applications read in the order they arrive</span>
+              </div>
+
+              <div class="ccol">
+                <p class="mono">[ 03 ] Partnerships &amp; vendors</p>
+                <h3>Business</h3>
+                <p class="say">Factoring, maintenance, insurance, equipment. Straight answers both
+                  ways &mdash; we will tell you if the timing is wrong.</p>
+                <a class="dest" href="mailto:dispatch@kulenterprises.com?subject=Partnership%20enquiry">dispatch@kulenterprises.com</a>
+                <div class="copyrow">
+                  <button class="copybtn" type="button" data-copy="dispatch@kulenterprises.com">Copy</button>
+                </div>
+                <span class="mono hrs">Weekdays, Eastern time</span>
+              </div>
+
+              <div class="ccol">
+                <p class="mono">[ 04 ] Compliance</p>
+                <h3>Verify us</h3>
+                <p class="say">Authority, insurance certificates and W-9 are issued on request
+                  before the first pull &mdash; not after it.</p>
+                <span class="dest" style="border-bottom:0">USDOT 7638788 &middot; MC 66389691</span>
+                <div class="copyrow">
+                  <button class="copybtn" type="button" data-copy="USDOT 7638788 · MC 66389691">Copy numbers</button>
+                </div>
+                <span class="mono hrs">Licensed &amp; insured &middot; own operating authority</span>
+              </div>
+            </div>
+
+            <div class="deskbtns">
+              <a class="btn btn--sm btn--mono"
+                 href="mailto:dispatch@kulenterprises.com?subject=Freight%20quote%20request">Open mail</a>
+              <button class="btn btn--sm btn--mono btn--ghost" type="button"
+                      data-copy="dispatch@kulenterprises.com">Copy email</button>
+            </div>
+            <p class="dstatus" role="status" aria-live="polite" id="deskStatus"></p>
+
+            <div class="geo">
+              <p class="mono">[ Base ]</p>
+              <address>
+                KUL Enterprises LLC<br>
+                Loganville, Georgia, United States<br>
+                GPS 33.8390&deg; N &middot; 83.9007&deg; W
+              </address>
+              <p class="mono">Southeast base &middot; running nationwide</p>
+            </div>
+          </div>
+
+          <!-- short inquiry form: reason first, then preference, then the rest -->
+          <div>
+            <form class="cform" id="deskForm" action="mailto:dispatch@kulenterprises.com"
+                  method="post" enctype="text/plain" autocomplete="on">
+              <div class="cform-hd">
+                <h3 style="font-family:var(--ff-d);font-weight:700;text-transform:uppercase;font-size:var(--fs-h4);line-height:1;letter-spacing:var(--ls-display-s)">
+                  Or just write</h3>
+                <p class="mono">Reply within one business day</p>
+              </div>
+
+              <div class="frow">
+                <span class="mono fnum">A</span>
+                <label class="flab" for="d-reason">Reason for the enquiry <em class="req">Required</em></label>
+                <div class="fctl">
+                  <span class="fsel">
+                    <select class="fin" id="d-reason" name="reason" required data-validate
+                            aria-describedby="err-reason">
+                      <option value="">Choose one&hellip;</option>
+                      <option>A freight quote</option>
+                      <option>A load already in motion</option>
+                      <option>Driving for KUL</option>
+                      <option>Partnership or vendor</option>
+                      <option>Something else</option>
+                    </select>
+                    <i class="mk" aria-hidden="true">&#9660;</i>
+                  </span>
+                  <p class="ferr" id="err-reason" data-err-for="reason"></p>
+                </div>
+              </div>
+
+              <div class="frow">
+                <span class="mono fnum">B</span>
+                <span class="flab" id="lab-pref">How should we come back to you?
+                  <em class="req">Required</em></span>
+                <div class="fctl" role="radiogroup" aria-labelledby="lab-pref"
+                     aria-describedby="err-pref" data-chipgroup data-field="preference">
+                  <div class="seg">
+                    <label class="chip"><input type="radio" name="preference" value="Email me back"
+                                               required data-validate data-pref>
+                      <span class="chip-in"><i class="mk" aria-hidden="true"></i>Email me back</span></label>
+                    <label class="chip"><input type="radio" name="preference" value="Call me back"
+                                               data-validate data-pref>
+                      <span class="chip-in"><i class="mk" aria-hidden="true"></i>Call me back</span></label>
+                  </div>
+                  <p class="ferr" id="err-pref" data-err-for="preference"></p>
+                </div>
+              </div>
+
+              <div class="frow">
+                <span class="mono fnum">C</span>
+                <label class="flab" for="d-name">Your name <em class="req">Required</em></label>
+                <div class="fctl">
+                  <input class="fin" id="d-name" name="name" type="text" required data-validate
+                         autocomplete="name" autocapitalize="words" aria-describedby="err-dname">
+                  <p class="ferr" id="err-dname" data-err-for="name"></p>
+                </div>
+              </div>
+
+              <div class="frow">
+                <span class="mono fnum">D</span>
+                <label class="flab" for="d-email">Email <em class="req">Required</em></label>
+                <div class="fctl">
+                  <input class="fin" id="d-email" name="email" type="email" required data-validate
+                         autocomplete="email" inputmode="email" spellcheck="false"
+                         aria-describedby="err-demail">
+                  <p class="ferr" id="err-demail" data-err-for="email"></p>
+                </div>
+              </div>
+
+              <div class="frow">
+                <span class="mono fnum">E</span>
+                <label class="flab" for="d-phone">Phone <em id="d-phone-req">Optional</em></label>
+                <div class="fctl">
+                  <input class="fin" id="d-phone" name="phone" type="tel" data-validate
+                         autocomplete="tel" inputmode="tel" style="max-width:18rem"
+                         aria-describedby="err-dphone">
+                  <p class="ferr" id="err-dphone" data-err-for="phone"></p>
+                </div>
+              </div>
+
+              <div class="frow">
+                <span class="mono fnum">F</span>
+                <label class="flab" for="d-msg">Message <em class="req">Required</em></label>
+                <div class="fctl">
+                  <textarea class="fin" id="d-msg" name="message" rows="4" required data-validate
+                            aria-describedby="err-dmsg"></textarea>
+                  <p class="ferr" id="err-dmsg" data-err-for="message"></p>
+                </div>
+              </div>
+
+              <p class="qalert" role="alert" id="dalert"></p>
+
+              <div class="qnav">
+                <button class="btn btn--sm" type="submit">Write to us &rarr;</button>
+                <span class="spacer"></span>
+                <span class="mono">Opens your mail app</span>
+              </div>
+            </form>
+
+            <div class="csent" id="deskSent" hidden tabindex="-1" role="group"
+                 aria-labelledby="deskSent-h">
+              <p class="mono mono--gold" id="deskSent-h">&#10003; Draft opened</p>
+              <p class="body">Your message is sitting in your mail app &mdash; read it, then press
+                send. It arrives at the same inbox dispatch works out of.</p>
+              <p class="body">If nothing opened, write to
+                <strong>dispatch@kulenterprises.com</strong> or call
+                <strong>678-972-1148</strong>. Either way a person, not a queue.</p>
+              <div class="actions" style="margin-top:var(--s5)">
+                <button class="arrow" type="button" id="deskAgain">Write another
+                  <i aria-hidden="true">&rarr;</i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec-foot">
+          <p class="mono">Loganville, GA &middot; 33.8390&deg; N &middot; 83.9007&deg; W</p>
+          <a class="arrow" href="/v4/responsibility">How we run the truck <i aria-hidden="true">&#8599;</i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================ 15 · CHAPTER PAGER ================================= -->
+  <section class="section g-paper" aria-labelledby="pager-h">
+    <div class="wrap">
+      <p class="mono">014 / Keep reading</p>
+      <h2 class="sr" id="pager-h">Continue through the issue</h2>
+      <nav class="pager" aria-label="Chapter pagination" style="margin-top:var(--s5)">
+        <a class="pager-a" href="/v4/join">
+          <span class="mono">&larr; Previous &middot; [ 06 ]</span>
+          <span class="t">Join the Journey</span>
+          <span class="mono">Every seat after this one</span>
+        </a>
+        <a class="pager-a" href="/v4/road-ahead">
+          <span class="mono">Next &middot; [ 08 ] &rarr;</span>
+          <span class="t">The Road Ahead</span>
+          <span class="mono">One tractor now, fifty by &rsquo;29</span>
+        </a>
+      </nav>
+
+      <div class="sec-foot">
+        <p class="mono">Chapter 07 of 08 &mdash; The Carrier Issue</p>
+        <a class="arrow" href="/v4">Back to the beginning <i aria-hidden="true">&#8599;</i></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ==================== FOOTER · Legora wordmark ========================= -->
+<footer class="foot g-ink">
+  <div class="wrap">
+    <div class="foot-cols">
+      <nav class="foot-chapters" aria-label="Chapters">
+        <h2>Chapters</h2>
+        <ul>
+          <li><a href="/v4">[01] The Beginning</a></li>
+          <li><a href="/v4/journey">[02] The Journey</a></li>
+          <li><a href="/v4/story">[03] Why I Started Driving</a></li>
+          <li><a href="/v4/mission">[04] The Mission</a></li>
+          <li><a href="/v4/responsibility">[05] The Responsibility</a></li>
+          <li><a href="/v4/join">[06] Join the Journey</a></li>
+          <li class="is-here"><a href="./" aria-current="page">[07] Let&rsquo;s Move Forward</a></li>
+          <li><a href="/v4/road-ahead">[08] The Road Ahead</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Direct links">
+        <h2>Direct</h2>
+        <ul>
+          <li><a href="/v4/mission">Services</a></li>
+          <li><a href="/v4/responsibility">Safety</a></li>
+          <li><a href="#quote">Request a Quote</a></li>
+          <li><a href="/v4/join">Drive for KUL</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <h2>Compliance</h2>
+        <ul>
+          <li><span>USDOT 7638788</span></li>
+          <li><span>MC 66389691</span></li>
+          <li><span>Licensed &amp; insured</span></li>
+          <li><span>Own operating authority</span></li>
+          <li><span>Loganville, Georgia</span></li>
+        </ul>
+      </div>
+
+      <div>
+        <h2>Dispatch</h2>
+        <ul>
+          <li><a href="tel:+16789721148">678-972-1148</a></li>
+          <li><a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a></li>
+          <li><span>Answered 24 / 7</span></li>
+        </ul>
+        <p class="mono" style="margin-top:var(--s5)">Strength in Motion.<br>Built on Integrity.<br>Driven by Safety.</p>
+      </div>
+    </div>
+
+    <div class="foot-legal">
+      <p class="mono">&copy; 2026 KUL Enterprises LLC</p>
+      <p class="mono">One tractor today. Fifty by &rsquo;29.</p>
+      <p class="mono">33.8390&deg; N &middot; 83.9007&deg; W</p>
+    </div>
+  </div>
+
+  <p class="wordmark" aria-hidden="true">KUL Enterprises</p>
+</footer>
+
+<script>
+/* ==========================================================================
+   RUNTIME — no external JS. Everything is an enhancement: with scripting off
+   this page is one long native form that still reaches dispatch.
+   Scroll handlers write transforms and class names only, never geometry.
+   ========================================================================== */
+(function () {
+  'use strict';
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+  /* --- 1 · reveal machinery (inherited) ---------------------------------- */
+  var pending = Array.prototype.slice.call(document.querySelectorAll('[data-reveal], [data-rule]'));
+  Array.prototype.forEach.call(pending, function (el) {
+    el.addEventListener('transitionend', function (ev) {
+      if (ev.propertyName === 'clip-path') el.style.clipPath = 'none';
+    });
+  });
+  function revealAll() {
+    Array.prototype.forEach.call(pending, function (el) {
+      el.classList.add('is-in'); el.style.clipPath = 'none';
+    });
+    pending = [];
+  }
+  if (reduce) {
+    revealAll();
+  } else {
+    var revTick = false;
+    var checkReveal = function () {
+      revTick = false;
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      for (var i = pending.length - 1; i >= 0; i--) {
+        var r = pending[i].getBoundingClientRect();
+        if (r.top < vh * 0.94 && r.bottom > -80) {
+          pending[i].classList.add('is-in');
+          pending.splice(i, 1);
+        }
+      }
+      if (!pending.length) {
+        window.removeEventListener('scroll', queueReveal);
+        window.removeEventListener('resize', queueReveal);
+      }
+    };
+    var queueReveal = function () {
+      if (revTick) return;
+      revTick = true;
+      window.requestAnimationFrame(checkReveal);
+    };
+    window.addEventListener('scroll', queueReveal, { passive: true });
+    window.addEventListener('resize', queueReveal);
+    checkReveal();
+    var armed = pending.length;
+    window.setTimeout(function () { if (pending.length === armed) revealAll(); }, 3000);
+  }
+
+  /* --- 2 · header collapse + one-primary-action enforcement --------------
+     While the quote flow is on screen the flow's own Continue/Send button is
+     the page's primary, so the nav capsule drops back to its outline rest
+     state. Colour only — nothing here touches layout. */
+  var topbar = document.getElementById('topbar');
+  var quoteSec = document.getElementById('quote');
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function () {
+      topbar.classList.toggle('is-stuck', window.scrollY > 56);
+      if (quoteSec) {
+        var r = quoteSec.getBoundingClientRect();
+        var vh = window.innerHeight || document.documentElement.clientHeight;
+        topbar.classList.toggle('is-atquote', r.top < vh * 0.5 && r.bottom > 120);
+      }
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* --- 3 · live Loganville clock, converted to ET (never faked) ---------- */
+  var clocks = [document.getElementById('etclock'), document.getElementById('etclock2')];
+  function tick() {
+    var t;
+    try {
+      t = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit', hour12: false
+      }).format(new Date()) + ' ET';
+    } catch (err) { t = 'Dispatch 24/7'; }
+    Array.prototype.forEach.call(clocks, function (c) { if (c) c.textContent = t; });
+  }
+  tick();
+  window.setInterval(tick, 20000);
+
+  /* --- 4 · generic modal helper (inherited) ------------------------------ */
+  function makeModal(root, openSel, closeSel, openClass, exitMs) {
+    var openers = document.querySelectorAll(openSel);
+    var lastFocus = null;
+    function open(trigger) {
+      lastFocus = trigger || document.activeElement;
+      root.hidden = false;
+      document.body.style.overflow = 'hidden';
+      Array.prototype.forEach.call(openers, function (b) { b.setAttribute('aria-expanded', 'true'); });
+      window.requestAnimationFrame(function () {
+        root.classList.add(openClass);
+        var first = root.querySelector(FOCUSABLE);
+        if (first) first.focus();
+      });
+    }
+    function close() {
+      root.classList.remove(openClass);
+      document.body.style.overflow = '';
+      Array.prototype.forEach.call(openers, function (b) { b.setAttribute('aria-expanded', 'false'); });
+      window.setTimeout(function () { root.hidden = true; }, reduce ? 0 : exitMs);
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+    Array.prototype.forEach.call(openers, function (b) {
+      b.addEventListener('click', function () { open(b); });
+    });
+    Array.prototype.forEach.call(root.querySelectorAll(closeSel), function (b) {
+      b.addEventListener('click', close);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (root.hidden) return;
+      if (e.key === 'Escape') { e.preventDefault(); close(); return; }
+      if (e.key !== 'Tab') return;
+      var items = root.querySelectorAll(FOCUSABLE);
+      if (!items.length) return;
+      var first = items[0], last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+    return { open: open, close: close };
+  }
+  makeModal(document.getElementById('sheet'), '[data-menu-open]', '[data-menu-close]', 'is-open', 260);
+  makeModal(document.getElementById('contactPanel'), '[data-contact-open]', '[data-contact-close]', 'is-open', 300);
+
+  /* --- 5 · copy-to-clipboard, with a visible confirmation ---------------- */
+  var copyTimer = null;
+  Array.prototype.forEach.call(document.querySelectorAll('[data-copy]'), function (btn) {
+    var label = btn.textContent;
+    var status = btn.closest('#contactPanel')
+      ? document.querySelector('.cstatus')
+      : document.getElementById('deskStatus');
+    btn.addEventListener('click', function () {
+      var text = btn.getAttribute('data-copy');
+      function done(ok) {
+        btn.textContent = ok ? 'Copied ✓' : 'Copy blocked';
+        if (status) status.textContent = ok
+          ? text + ' copied to your clipboard'
+          : 'Clipboard blocked — select the address above and copy it manually';
+        window.clearTimeout(copyTimer);
+        copyTimer = window.setTimeout(function () {
+          btn.textContent = label;
+          if (status) status.textContent = '';
+        }, 2600);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(false); });
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed'; ta.style.top = '-1000px';
+        document.body.appendChild(ta); ta.select();
+        var ok = false;
+        try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+        document.body.removeChild(ta);
+        done(ok);
+      }
+    });
+  });
+
+  /* ======================================================================
+     6 · VALIDATION — shared by both forms.
+     Rules: validate on blur, never on keystroke; once a field has errored,
+     re-check it as the user types so the error clears the moment it is fixed;
+     the message names the FIX, not the fault.
+     ====================================================================== */
+  var MSG = {
+    service:     'Choose a service — or pick “Not sure”',
+    preference:  'Choose email or a call',
+    origin:      'Add the pickup city and state',
+    destination: 'Add the delivery city and state',
+    pickup:      'Add the date the load is ready',
+    name:        'Add the name to put on the quote',
+    email:       'Add an address like you@company.com',
+    phone:       'Use at least 10 digits, e.g. 678-972-1148',
+    reason:      'Pick the reason so it reaches the right desk',
+    message:     'Write a line or two so we can answer properly'
+  };
+  function errNode(scope, key) { return scope.querySelector('[data-err-for="' + key + '"]'); }
+
+  function fieldOk(el) {
+    var v = (el.value || '').trim();
+    if (el.type === 'radio') {
+      var group = el.form.querySelectorAll('input[name="' + el.name + '"]');
+      for (var i = 0; i < group.length; i++) if (group[i].checked) return true;
+      return false;
+    }
+    if (!el.required && !v) return true;
+    if (!v) return false;
+    if (el.type === 'email')  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+    if (el.type === 'tel')    return (v.replace(/\D/g, '').length >= 10);
+    return true;
+  }
+
+  function markField(el, ok) {
+    var form = el.form;
+    var key = el.name;
+    var node = errNode(form, key);
+    if (el.type === 'radio') {
+      var grp = el.closest('[data-chipgroup]');
+      if (grp) grp.setAttribute('aria-invalid', ok ? 'false' : 'true');
+      var radios = form.querySelectorAll('input[name="' + key + '"]');
+      Array.prototype.forEach.call(radios, function (r) { r.setAttribute('aria-invalid', ok ? 'false' : 'true'); });
+    } else {
+      el.setAttribute('aria-invalid', ok ? 'false' : 'true');
+    }
+    if (node) node.textContent = ok ? '' : (MSG[key] || 'Check this field');
+    return ok;
+  }
+
+  function wireValidation(form) {
+    var fields = form.querySelectorAll('[data-validate]');
+    Array.prototype.forEach.call(fields, function (el) {
+      var touched = false;
+      function check() { markField(el, fieldOk(el)); }
+      el.addEventListener('blur', function () { touched = true; check(); });
+      el.addEventListener('change', function () { if (el.type === 'radio' || el.tagName === 'SELECT') { touched = true; } check(); });
+      el.addEventListener('input', function () { if (touched) check(); });
+    });
+  }
+
+  /* validate every required control inside one container; focus + announce
+     the first failure so a keyboard user is taken straight to the fix */
+  function validateScope(form, scope, alertNode) {
+    var fields = scope.querySelectorAll('[data-validate]');
+    var firstBad = null, bad = 0, seen = {};
+    Array.prototype.forEach.call(fields, function (el) {
+      if (el.type === 'radio') {
+        if (seen[el.name]) return;
+        seen[el.name] = true;
+      }
+      var required = el.required || (el.type === 'radio' && form.querySelector('input[name="' + el.name + '"][required]'));
+      var ok = fieldOk(el);
+      if (!required && !(el.value || '').trim()) ok = true;
+      markField(el, ok);
+      if (!ok) { bad++; if (!firstBad) firstBad = el; }
+    });
+    if (alertNode) {
+      alertNode.textContent = bad
+        ? (bad === 1 ? '1 answer still needed below' : bad + ' answers still needed below')
+        : '';
+    }
+    if (firstBad) firstBad.focus();
+    return bad === 0;
+  }
+
+  /* ======================================================================
+     7 · THE FOUR-STEP QUOTE FLOW
+     Steps swap with the `hidden` attribute — no height animation, no layout
+     transition anywhere. Back never loses data because nothing is ever
+     removed from the DOM: the same single <form> holds every field.
+     ====================================================================== */
+  var qForm = document.getElementById('quoteForm');
+  if (qForm) {
+    qForm.noValidate = true;   /* only once JS is here to do it better */
+    wireValidation(qForm);
+
+    var steps  = qForm.querySelectorAll('.qstep');
+    var railBtns = document.querySelectorAll('.qstepbtn');
+    var fill   = document.getElementById('qfill');
+    var live   = document.getElementById('qlive');
+    var qalert = document.getElementById('qalert');
+    var done   = document.getElementById('qdone');
+    var TITLES = ['Service', 'The lane', 'How to reach you', 'Review'];
+    var cur = 1, reached = 1;
+
+    function paintRail() {
+      Array.prototype.forEach.call(railBtns, function (b) {
+        var n = parseInt(b.getAttribute('data-goto'), 10);
+        b.disabled = n > reached || n === cur;
+        if (n < cur) b.setAttribute('data-state', 'done');
+        else if (n === cur) b.setAttribute('data-state', 'here');
+        else b.removeAttribute('data-state');
+      });
+      if (fill) fill.style.setProperty('--qp', ((cur - 1) / 3).toFixed(4));
+    }
+
+    /* `silent` is the first paint: collapse the four steps into one WITHOUT
+       announcing, focusing or scrolling. Without it the page arrives already
+       scrolled past its own masthead, which the first build did. */
+    function show(n, silent) {
+      cur = n;
+      if (n > reached) reached = n;
+      Array.prototype.forEach.call(steps, function (s) {
+        s.hidden = parseInt(s.getAttribute('data-step'), 10) !== n;
+      });
+      paintRail();
+      if (n === 4) fillReview();
+      if (silent) return;
+      if (live) live.textContent = 'Step ' + n + ' of 4 — ' + TITLES[n - 1];
+      var h = qForm.querySelector('.qstep:not([hidden]) .qstep-hd h3');
+      if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+      var top = document.getElementById('quote');
+      if (top) {
+        var y = top.getBoundingClientRect().top + window.pageYOffset - 110;
+        window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
+      }
+    }
+
+    function val(name) {
+      var el = qForm.elements[name];
+      if (!el) return '';
+      if (el.length && el[0] && el[0].type === 'radio') {
+        for (var i = 0; i < el.length; i++) if (el[i].checked) return el[i].value;
+        return '';
+      }
+      return (el.value || '').trim();
+    }
+
+    function prettyDate(iso) {
+      if (!iso) return '';
+      var p = iso.split('-');
+      if (p.length !== 3) return iso;
+      var M = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      var mi = parseInt(p[1], 10) - 1;
+      return parseInt(p[2], 10) + ' ' + (M[mi] || p[1]) + ' ' + p[0];
+    }
+
+    var REV = ['service','frequency','origin','destination','pickup','window','load',
+               'name','company','email','phone'];
+    function fillReview() {
+      Array.prototype.forEach.call(REV, function (k) {
+        var dd = document.getElementById('rv-' + k);
+        if (!dd) return;
+        var v = val(k);
+        if (k === 'pickup') v = prettyDate(v);
+        if (v) { dd.textContent = v; dd.classList.remove('is-empty'); }
+        else { dd.classList.add('is-empty'); }
+      });
+    }
+
+    function reference() {
+      var d = new Date();
+      var p = function (n) { return n < 10 ? '0' + n : '' + n; };
+      var tail = Math.random().toString(36).slice(2, 6).toUpperCase();
+      return 'KUL-' + String(d.getFullYear()).slice(2) + p(d.getMonth() + 1) + p(d.getDate()) + '-' + tail;
+    }
+
+    Array.prototype.forEach.call(qForm.querySelectorAll('[data-next]'), function (b) {
+      b.addEventListener('click', function () {
+        var scope = b.closest('.qstep');
+        if (!validateScope(qForm, scope, qalert)) return;
+        if (qalert) qalert.textContent = '';
+        show(cur + 1);
+      });
+    });
+    Array.prototype.forEach.call(qForm.querySelectorAll('[data-back]'), function (b) {
+      b.addEventListener('click', function () { if (cur > 1) show(cur - 1); });
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-goto]'), function (b) {
+      b.addEventListener('click', function () {
+        var n = parseInt(b.getAttribute('data-goto'), 10);
+        if (n <= reached) show(n);
+      });
+    });
+
+    qForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      /* re-check every step, not just the visible one */
+      var allOk = true, jumpTo = 0;
+      for (var n = 1; n <= 3; n++) {
+        var scope = qForm.querySelector('.qstep[data-step="' + n + '"]');
+        var fields = scope.querySelectorAll('[data-validate]');
+        var seen = {};
+        for (var i = 0; i < fields.length; i++) {
+          var el = fields[i];
+          if (el.type === 'radio') { if (seen[el.name]) continue; seen[el.name] = true; }
+          var required = el.required || (el.type === 'radio' && qForm.querySelector('input[name="' + el.name + '"][required]'));
+          var ok = fieldOk(el);
+          if (!required && !(el.value || '').trim()) ok = true;
+          markField(el, ok);
+          if (!ok && allOk) { allOk = false; jumpTo = n; }
+        }
+      }
+      if (!allOk) {
+        if (qalert) qalert.textContent = 'Something is missing in step ' + jumpTo + ' — take a look';
+        show(jumpTo);
+        return;
+      }
+      if (qalert) qalert.textContent = '';
+
+      var ref = reference();
+      var lane = (val('origin') || '?') + ' → ' + (val('destination') || '?');
+      var lines = [
+        'Freight quote request — ' + ref, '',
+        'SERVICE      ' + (val('service') || '—'),
+        'FREQUENCY    ' + (val('frequency') || '—'),
+        'ORIGIN       ' + (val('origin') || '—'),
+        'DESTINATION  ' + (val('destination') || '—'),
+        'PICKUP DATE  ' + (prettyDate(val('pickup')) || '—'),
+        'WINDOW       ' + (val('window') || '—'),
+        'LOAD NOTES   ' + (val('load') || '—'),
+        '',
+        'NAME         ' + (val('name') || '—'),
+        'COMPANY      ' + (val('company') || '—'),
+        'EMAIL        ' + (val('email') || '—'),
+        'PHONE        ' + (val('phone') || '—'),
+        '',
+        'Sent from kulenterprises.com — chapter 07, Let’s Move Forward.'
+      ].join('\n');
+      var href = 'mailto:dispatch@kulenterprises.com'
+        + '?subject=' + encodeURIComponent('Freight quote ' + ref + ' — ' + lane)
+        + '&body=' + encodeURIComponent(lines);
+
+      var reopen = document.getElementById('qreopen');
+      if (reopen) reopen.href = href;
+      document.getElementById('qref').textContent = ref;
+      document.getElementById('qwhen').textContent =
+        new Date().toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+      document.getElementById('qlane').textContent = lane;
+      document.getElementById('qsvc').textContent = val('service') || '—';
+
+      try { window.location.href = href; } catch (err) { /* no mail handler — the
+         confirmation below still carries the reference and the reopen link */ }
+
+      qForm.hidden = true;
+      var rail = document.querySelector('.qrail');
+      if (rail) rail.hidden = true;
+      done.hidden = false;
+      done.focus();
+      if (live) live.textContent = 'Request prepared. Reference ' + ref + '. Your mail app has the draft.';
+    });
+
+    var restart = document.getElementById('qrestart');
+    if (restart) {
+      restart.addEventListener('click', function () {
+        qForm.reset();
+        Array.prototype.forEach.call(qForm.querySelectorAll('[aria-invalid]'), function (el) {
+          el.setAttribute('aria-invalid', 'false');
+        });
+        Array.prototype.forEach.call(qForm.querySelectorAll('.ferr'), function (el) { el.textContent = ''; });
+        done.hidden = true;
+        qForm.hidden = false;
+        var rail = document.querySelector('.qrail');
+        if (rail) rail.hidden = false;
+        reached = 1;
+        show(1);
+      });
+    }
+
+    show(1, true);   /* silent first paint */
+  }
+
+  /* ======================================================================
+     8 · THE DESK FORM — reason first, then the preference, then the rest.
+     Choosing "Call me back" promotes the phone field to required and says so,
+     which is the whole point of asking the preference before the fields.
+     ====================================================================== */
+  var dForm = document.getElementById('deskForm');
+  if (dForm) {
+    dForm.noValidate = true;
+    wireValidation(dForm);
+
+    var dPhone = document.getElementById('d-phone');
+    var dPhoneReq = document.getElementById('d-phone-req');
+    var dAlert = document.getElementById('dalert');
+    var dSent = document.getElementById('deskSent');
+
+    Array.prototype.forEach.call(dForm.querySelectorAll('[data-pref]'), function (r) {
+      r.addEventListener('change', function () {
+        var wantsCall = (r.value === 'Call me back' && r.checked);
+        dPhone.required = wantsCall;
+        dPhoneReq.textContent = wantsCall ? 'Required' : 'Optional';
+        dPhoneReq.className = wantsCall ? 'req' : '';
+        if (!wantsCall) markField(dPhone, true);
+      });
+    });
+
+    dForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!validateScope(dForm, dForm, dAlert)) return;
+      var g = function (n) { var el = dForm.elements[n]; if (!el) return '';
+        if (el.length && el[0] && el[0].type === 'radio') {
+          for (var i = 0; i < el.length; i++) if (el[i].checked) return el[i].value;
+          return '';
+        }
+        return (el.value || '').trim(); };
+      var body = [
+        'REASON       ' + g('reason'),
+        'PREFERENCE   ' + g('preference'),
+        'NAME         ' + g('name'),
+        'EMAIL        ' + g('email'),
+        'PHONE        ' + (g('phone') || '—'),
+        '', g('message'), '',
+        'Sent from kulenterprises.com — chapter 07, the desk.'
+      ].join('\n');
+      try {
+        window.location.href = 'mailto:dispatch@kulenterprises.com'
+          + '?subject=' + encodeURIComponent(g('reason') + ' — ' + g('name'))
+          + '&body=' + encodeURIComponent(body);
+      } catch (err) { /* no mail handler — the panel below names the fallback */ }
+      dForm.hidden = true;
+      dSent.hidden = false;
+      dSent.focus();
+    });
+
+    var again = document.getElementById('deskAgain');
+    if (again) {
+      again.addEventListener('click', function () {
+        dForm.reset();
+        Array.prototype.forEach.call(dForm.querySelectorAll('.ferr'), function (el) { el.textContent = ''; });
+        Array.prototype.forEach.call(dForm.querySelectorAll('[aria-invalid]'), function (el) {
+          el.setAttribute('aria-invalid', 'false');
+        });
+        if (dAlert) dAlert.textContent = '';
+        dPhone.required = false;
+        dPhoneReq.textContent = 'Optional';
+        dPhoneReq.className = '';
+        dSent.hidden = true;
+        dForm.hidden = false;
+        document.getElementById('d-reason').focus();
+      });
+    }
+  }
+})();
+</script>
+
+<!-- ============================ TWEAKS CONTRACT ========================== -->
+<script>
+window.KUL_TWEAKS = {
+  style: 's13',
+  controls: [
+    { var: '--ink',           label: 'Ink ground',      type: 'color',  value: '#0B0B0B' },
+    { var: '--paper',         label: 'Paper ground',    type: 'color',  value: '#F4F1E8' },
+    { var: '--gold',          label: 'Brand gold',      type: 'color',  value: '#D4AF37' },
+    { var: '--display-scale', label: 'Display scale',   type: 'range',  value: 1,    min: 0.8,  max: 1.3,  step: 0.01 },
+    { var: '--mono-track',    label: 'Mono tracking',   type: 'range',  value: 0.18, min: 0.06, max: 0.34, step: 0.01, unit: 'em' },
+    { var: '--hairline-w',    label: 'Hairline weight', type: 'range',  value: 1,    min: 1,    max: 3,    step: 0.5,  unit: 'px' },
+    { var: '--photo-grade-feat', label: 'Feature grade', type: 'range', value: 62,  min: 0,  max: 100, step: 1, unit: '%' },
+    { var: '--scrim',            label: 'Photo scrim',   type: 'range', value: 100, min: 60, max: 100, step: 1, unit: '%' },
+    { var: '--reveal-dist',      label: 'Reveal travel', type: 'range', value: 18,  min: 0,  max: 48,  step: 1, unit: 'px' }
+  ]
+};
+</script>
+<script src="/studio/tweaks.js" defer></script>
+</body>
+</html>

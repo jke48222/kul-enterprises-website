@@ -1,0 +1,2091 @@
+<!doctype html>
+<html lang="en">
+<!--
+  ============================================================================
+  KUL ENTERPRISES LLC · STYLE 13 "DISPATCH" · CHAPTER 08 — THE ROAD AHEAD
+  ============================================================================
+  Inherits the reference implementation at ../index.html. CSS sections 01-10
+  and 17 are carried over verbatim; 11-16 are this chapter's own components.
+
+  STRUCTURAL IDEA — this chapter is a ROUTE SHEET, not a growth curve.
+  A growth curve is the one shape that would make a one-truck carrier read as
+  bluster, because it draws the part that has not happened. So the page instead
+  (a) states the distance to scale — fifty squares, one of them filled;
+  (b) walks five stages behind a stepper that openly marks four of them
+      NOT STARTED and names what has to be TRUE before each one earns its
+      tractor; and (c) sets what grows against what never changes.
+  No section on this page repeats the home page's section rhythm: there is no
+  photographic hero, no credential rail, no swapping capability list, no
+  gallery. The hero is typographic on paper; the argument is a stepper.
+
+  MOBBIN SOURCES
+       CHAPTER CENTREPIECE. Numbered stage stepper — the active step carries a
+       ring and an "n / total" counter while the steps ahead of it sit dimmed
+       with hollow markers; the active step's copy drops beneath the rail with
+       its own numbered hairline sub-list
+         — Adaline — https://mobbin.com/sites/sections/3db4f44f-9f18-4198-9f44-bbe2480d8e6f
+       Phase columns that each carry an explicit status label ("In-progress")
+       rather than implying status by position, with a segmented switch above
+         — BitcoinOS — https://mobbin.com/sites/sections/92ac65c4-a924-42ea-b25b-99d2727e4099
+       Milestone markers pinned to a single horizontal axis, each stamped with
+       its own period — the axis, not the card, carries the sequence
+         — ClickUp — https://mobbin.com/sites/sections/c38e878d-e319-4450-bfc3-85e61eab889b
+       Roadmap read as Now / Next / Later against a labelled spine, so nothing
+       has to be given a date it does not have
+         — Wise — https://mobbin.com/sites/sections/1692b22c-7466-4fea-9981-6cc87f8b48aa
+         — Wise — https://mobbin.com/sites/sections/532f5de7-2a76-4082-9de0-1c207a2d3338
+       Route line with a marker per step, a large step numeral, a short title
+       and two lines of body — the vertical version of the same rail
+         — Humble — https://mobbin.com/sites/sections/9ba75952-a7e5-4c37-bd80-79f22a33f93b
+       THE DISTANCE DEVICE. A goal drawn as a grid of slots where the filled
+       ones sit against the empty ones, so the remaining distance is the thing
+       you actually see
+         — Oku — https://mobbin.com/sites/sections/33c5a7f2-feb2-4e79-9fb1-ffd10ac5052c
+       Condensed-caps figure over a caps label with a text-and-arrow secondary
+         — Zipline — https://mobbin.com/sites/sections/baf31b25-1858-463c-bf15-611d9c669092
+       Two facing columns of commitments — a bold item over one explaining
+       line, the second column stating the limits rather than more benefits
+         — Patreon — https://mobbin.com/sites/sections/e58947e1-5ab8-4dcf-880f-80f4ae161bba
+       Commitments set as hairline rows in a compact table register
+         — Webflow — https://mobbin.com/sites/sections/97314da8-4459-4987-9a20-91980589d3aa
+       Cream ground, one giant headline, tiny mono labels in the corners of
+       the frame and nothing else — the model for a photograph-free hero
+         — Joby Aviation — https://mobbin.com/sites/sections/7e3bda43-641a-4ac2-8070-527cd89cfecc
+       Bracketed mono micro-labels pinned to the page corners
+         — KODE Immersive — https://mobbin.com/sites/sections/2a059cce-8c42-4096-b74a-0ddf77e3e7d3
+       Mono taxonomy row with the terms spaced across a single rule; mono
+       corner labels — brand left, city + live local time right
+         — Waka Waka — https://mobbin.com/sites/sections/27163fc7-a425-4132-831c-ec30e7a290de
+       Three-face system stated as display / body / mono with explicit roles
+         — Aave — https://mobbin.com/sites/sections/194a20c4-7e03-4839-86b3-30981d8db06e
+       Corner crop-mark cells holding a mono label above a value
+         — Spade — https://mobbin.com/sites/sections/34a2151f-c9b2-4121-b790-8e85202fe9ca
+       Tinted panel carrying a small label and one huge statement set against
+       a full-bleed photograph
+         — sweetgreen — https://mobbin.com/sites/sections/1e44b0a4-1609-4ecc-baf0-7296db75c194
+       Half panel carrying the mission, half photograph
+         — Dropbox — https://mobbin.com/sites/sections/12023a33-4b27-4b79-9756-72dfa0af47df
+       Full-bleed photograph with the caption centred beneath it and a tiny
+       mono location credit under that
+         — Atlas Card — https://mobbin.com/sites/sections/8c09fb14-b75f-49c8-8511-4c2d7bb45e1e
+       Thin utility strip pinned above the main nav row
+         — Rivian — https://mobbin.com/sites/sections/a67b1738-47a5-450a-b81b-a5991e4f31aa
+       Floating translucent capsule nav with one solid pill action
+         — T1 Energy — https://mobbin.com/sites/sections/08b1da0a-e784-4a8c-8d23-0359ff00b023
+       Full-screen menu: oversized nav list, mono column groups beneath, a
+       statement bar with a single action along the bottom
+         — Aurora — https://mobbin.com/sites/sections/0b6361a0-1916-42d2-8c23-5efd205e4904
+       CONTACT. Slide-over panel from the right edge with CLOSE, mono labels,
+       the address, and two explicit buttons — OPEN MAIL and COPY EMAIL
+         — Aino Agency — https://mobbin.com/sites/sections/1083cf3c-a197-4ee7-9632-e9bfe0d4e416
+       CONTACT ROUTING. Purpose-routed contacts with the physical address and
+       GPS coordinates set in mono
+         — Büro — https://mobbin.com/sites/sections/ce206186-f0b6-45e1-862f-a1bcbcfc5c0c
+       Contact rows as label / value / "Copy" so the copy action is explicit
+         — Ragged Edge — https://mobbin.com/sites/sections/5f1d322f-b76b-4468-90ef-ab85700b0c44
+       Footer: tight mono link columns above a giant wordmark cropped off the
+       bottom edge
+         — Legora — https://mobbin.com/sites/sections/74f66481-04ab-4abc-bf99-7878c607e1f6
+       The same footer logotype sized to span the column EXACTLY and cropped
+       only by the bottom edge
+         — Structured — https://mobbin.com/sites/sections/cf954a98-4f2e-41d3-b2a1-168e4ba0108d
+         — MOUTHWASH Studio — https://mobbin.com/sites/sections/082f5fac-4648-4314-aa7d-a06fe0235b77
+-->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Road Ahead — One Tractor Today, Fifty by 2029 | KUL Enterprises LLC</title>
+<meta name="description" content="KUL Enterprises runs one tractor today and has written down fifty by the end of 2029. Chapter eight is the route sheet: the distance drawn to scale, five stages with four of them not started, and what has to be true before each one earns a truck.">
+<meta name="theme-color" content="#0B0B0B">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700&family=Schibsted+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script>document.documentElement.className += ' js';</script>
+
+<style>
+/* ==========================================================================
+   01 · RESET
+   ========================================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body, h1, h2, h3, h4, p, figure, blockquote, dl, dd, ul, ol { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+img, svg { display: block; max-width: 100%; }
+img { height: auto; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { background: none; border: 0; padding: 0; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+:where(html) { scroll-behavior: smooth; }
+[hidden] { display: none !important; }
+:where(main, section, h1, h2, [id]) { scroll-margin-top: calc(var(--strip-h) + 96px); }
+
+/* ==========================================================================
+   02 · TOKENS — inherited verbatim from the reference implementation
+   Names marked (TWEAK) are wired to the tweaks panel at the end of the file.
+   ========================================================================== */
+:root {
+  /* --- 2.1 grounds ------------------------------------------------------- */
+  --ink:     #0B0B0B;   /* (TWEAK) primary dark ground                       */
+  --paper:   #F4F1E8;   /* (TWEAK) warm document ground                      */
+  --plate:   #141414;   /* raised surface on ink                             */
+  --plate-l: #EAE6DA;   /* raised surface on paper                           */
+  --gold:    #D4AF37;   /* (TWEAK) functional ink only — never a fill        */
+  --gold-deep: #7A5F0A; /* the same accent, darkened for light grounds       */
+  --gold-t:  var(--gold);
+
+  /* --- 2.2 families — the three roles, swappable from one place ---------- */
+  --ff-d: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --ff-b: "Schibsted Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --ff-m: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* --- 2.3 type scale ---------------------------------------------------- */
+  --display-scale: 1;   /* (TWEAK) */
+  /* THE LADDER IS THE WHOLE SCALE. Eight steps, each 1.24-1.46x the next, and
+     nothing set in --ff-d may sit outside them. At 1440px they resolve to
+     176 / 131 / 89.6 / 61.6 / 41.6 / 33.6 / 25.6 / 20; at 390px every step is
+     on its floor and the order still holds (70.4 / 46.4 / 37.6 / 29.6 / 25.6 /
+     23.2 / 20.8 / 19). Those four floors are deliberately above 18.66px: the
+     display register is set at 700, so staying over that line keeps every
+     Big Shoulders string WCAG "large text" at every viewport and holds the
+     contrast bar at 3:1 rather than dropping it to 4.5:1 on mobile only.
+     Component CSS references the token, never a fresh clamp() — an eyeballed
+     2.15rem that lands 0.24px off --fs-h4 is how the first build ended up
+     rendering 38 display sizes against 5 declared steps. The one exemption is
+     .wordmark, which is not a type step at all: it is a graphic sized by
+     division so the string spans its column exactly. */
+  --fs-fig:  calc(clamp(4.4rem, 13vw, 11rem)      * var(--display-scale));
+  --fs-hero: calc(clamp(2.9rem, 9.1vw, 8.9rem)    * var(--display-scale));
+  --fs-h1:   calc(clamp(2.35rem, 6.3vw, 5.6rem)   * var(--display-scale));
+  --fs-h2:   calc(clamp(1.85rem, 4.4vw, 3.85rem)  * var(--display-scale));
+  --fs-h3:   calc(clamp(1.6rem, 3vw, 2.6rem)      * var(--display-scale));
+  --fs-h4:   calc(clamp(1.45rem, 2.6vw, 2.1rem)   * var(--display-scale));
+  --fs-h5:   calc(clamp(1.3rem, 2vw, 1.6rem)      * var(--display-scale));
+  --fs-h6:   calc(clamp(1.1875rem, 1.6vw, 1.25rem) * var(--display-scale));
+  --fs-stmt: clamp(1.5rem, 3.2vw, 2.7rem);
+  --fs-lead: clamp(1.0625rem, 1.3vw, 1.25rem);
+  --fs-body: 1rem;
+  --fs-sm:   0.875rem;
+  --fs-xs:   0.8125rem;
+  --fs-mono: 10.5px;
+  --fs-nav:  11px;
+
+  --lh-display: 0.855;
+  --lh-body:    1.62;
+  --ls-display: 0.006em;
+  --ls-display-s: 0.038em;
+  --mono-track: 0.18em;    /* (TWEAK) */
+
+  /* --- 2.4 space scale ---------------------------------------------------- */
+  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px; --s5: 24px;
+  --s6: 32px; --s7: 48px; --s8: 64px; --s9: 96px; --s10: 128px;
+  --gutter:    clamp(20px, 5vw, 72px);
+  --section-y: clamp(72px, 9.5vw, 148px);
+  --maxw:      1440px;
+  --measure:   62ch;
+
+  /* --- 2.5 hairlines ------------------------------------------------------ */
+  --hairline-w: 1px;    /* (TWEAK) */
+  --crop-mark:  11px;
+
+  /* --- 2.6 motion --------------------------------------------------------- */
+  --ease:       cubic-bezier(.2, .8, .2, 1);
+  --t-state:    220ms;
+  --reveal-dur: 700ms;
+  --reveal-dist: 18px;  /* (TWEAK) */
+
+  /* --- 2.7 photography ---------------------------------------------------- */
+  --photo-grade: 20%;      /* archive imagery — shown near-true              */
+  --photo-grade-feat: 62%; /* (TWEAK) full-bleed features — graded in        */
+  --scrim:       100%;     /* (TWEAK) legibility scrim opacity               */
+
+  /* --- 2.8 chrome + focus -------------------------------------------------- */
+  --strip-h: 34px;
+  --focus-w: 2px;
+  --focus-o: 3px;
+
+  /* --- 2.9 chapter-local ---------------------------------------------------
+     The fleet meter's cell edge. It is a real lever: the whole point of the
+     grid is that fifty squares fit on one screen at a size where a single
+     filled one is still unmistakable. */
+  --meter-cell: 46px;   /* (TWEAK) */
+}
+
+/* ==========================================================================
+   03 · GROUND CONTEXTS — ratios computed, not estimated
+   ========================================================================== */
+.g-ink {
+  --bg:       var(--ink);
+  --fg:       #F4F1E8;                    /* 18.36:1 on ink                  */
+  --fg-2:     rgba(244, 241, 232, .76);   /*  9.74:1 — secondary body        */
+  --fg-3:     rgba(244, 241, 232, .58);   /*  6.32:1 — mono labels           */
+  --line:     rgba(244, 241, 232, .20);
+  --line-2:   rgba(244, 241, 232, .38);
+  --plate-bg: var(--plate);
+  --btn-bg:   #F4F1E8;
+  --btn-fg:   #0B0B0B;
+  --gold-t:   var(--gold);            /*  9.29:1 on ink                      */
+  background: var(--bg);
+  color: var(--fg);
+}
+.g-paper {
+  --bg:       var(--paper);
+  --fg:       #0B0B0B;                    /* 17.55:1 on paper                */
+  --fg-2:     rgba(11, 11, 11, .80);      /*  9.29:1 — secondary body        */
+  --fg-3:     rgba(11, 11, 11, .64);      /*  5.74:1 — mono labels           */
+  --line:     rgba(11, 11, 11, .18);
+  --line-2:   rgba(11, 11, 11, .36);
+  --plate-bg: var(--plate-l);
+  --btn-bg:   #0B0B0B;
+  --btn-fg:   #F4F1E8;
+  --gold-t:   var(--gold-deep);       /*  5.42:1 on paper                    */
+  background: var(--bg);
+  color: var(--fg);
+}
+
+body {
+  font-family: var(--ff-b);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-weight: 400;
+  background: var(--ink);
+  color: #F4F1E8;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;   /* the footer wordmark is deliberately over-wide */
+}
+
+/* ==========================================================================
+   04 · TYPOGRAPHY PRIMITIVES — signage voice, editorial voice, data voice
+   ========================================================================== */
+.display {
+  font-family: var(--ff-d);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: var(--lh-display);
+  letter-spacing: var(--ls-display);
+  font-feature-settings: "kern" 1;
+}
+.d-fig  { font-size: var(--fs-fig); font-weight: 600; letter-spacing: 0; line-height: .76; }
+.d-hero { font-size: var(--fs-hero); }
+.d-h1   { font-size: var(--fs-h1); }
+.d-h2   { font-size: var(--fs-h2); }
+.d-h3   { font-size: var(--fs-h3);  letter-spacing: var(--ls-display-s); }
+.d-h4   { font-size: var(--fs-h4);  letter-spacing: var(--ls-display-s); }
+.d-h5   { font-size: var(--fs-h5);  letter-spacing: var(--ls-display-s); }
+.d-h6   { font-size: var(--fs-h6);  letter-spacing: var(--ls-display-s); }
+.d-sm   { font-family: var(--ff-d); font-weight: 700; text-transform: uppercase;
+          line-height: 1; letter-spacing: var(--ls-display-s); }
+
+.mono {
+  font-family: var(--ff-m);
+  font-size: var(--fs-mono);
+  font-weight: 400;
+  letter-spacing: var(--mono-track);
+  text-transform: uppercase;
+  line-height: 1.55;
+  color: var(--fg-3);
+}
+.mono--fg  { color: var(--fg); }
+.mono--md  { color: var(--fg-2); }
+.mono--gold { color: var(--gold-t); }
+
+.stmt   { font-family: var(--ff-b); font-weight: 600; font-size: var(--fs-stmt);
+          line-height: 1.18; letter-spacing: -.012em; color: var(--fg); max-width: 21ch;
+          text-wrap: balance; }
+.stmt--wide { max-width: 26ch; }
+.lead   { font-size: var(--fs-lead); line-height: 1.55; color: var(--fg-2); max-width: var(--measure); }
+.lead-1 { font-size: var(--fs-lead); line-height: 1.5; font-weight: 500; color: var(--fg); max-width: 44ch; }
+.lead-2 { font-size: var(--fs-lead); line-height: 1.5; color: var(--fg-2); max-width: 48ch; margin-top: 7px; }
+.body   { color: var(--fg-2); max-width: var(--measure); }
+.body strong, .lead strong, .lead-2 strong { color: var(--fg); font-weight: 600; }
+.tight  { max-width: 46ch; }
+.sr {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+
+/* ==========================================================================
+   05 · LAYOUT PRIMITIVES
+   ========================================================================== */
+.wrap    { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
+.section { padding-block: var(--section-y); position: relative; }
+.stack > * + * { margin-top: var(--s4); }
+.sec-head { display: flex; flex-direction: column; gap: var(--s4); margin-bottom: var(--s8); }
+.kicker   { display: flex; align-items: baseline; gap: var(--s4); flex-wrap: wrap; }
+.kicker .idx { color: var(--fg-3); }
+
+/* ==========================================================================
+   06 · HAIRLINES, CROP MARKS, MEASUREMENT GRID
+   ========================================================================== */
+.rule { height: var(--hairline-w); background: var(--line); border: 0; width: 100%; }
+.rule--strong { background: var(--line-2); }
+
+/* Spade's corner crop marks, drawn as eight one-pixel gradients. */
+.cropmarks {
+  --mark: var(--line-2);
+  background-image:
+    linear-gradient(var(--mark), var(--mark)), linear-gradient(var(--mark), var(--mark)),
+    linear-gradient(var(--mark), var(--mark)), linear-gradient(var(--mark), var(--mark)),
+    linear-gradient(var(--mark), var(--mark)), linear-gradient(var(--mark), var(--mark)),
+    linear-gradient(var(--mark), var(--mark)), linear-gradient(var(--mark), var(--mark));
+  background-repeat: no-repeat;
+  background-size:
+    var(--crop-mark) var(--hairline-w), var(--hairline-w) var(--crop-mark),
+    var(--crop-mark) var(--hairline-w), var(--hairline-w) var(--crop-mark),
+    var(--crop-mark) var(--hairline-w), var(--hairline-w) var(--crop-mark),
+    var(--crop-mark) var(--hairline-w), var(--hairline-w) var(--crop-mark);
+  background-position:
+    left top, left top, right top, right top,
+    left bottom, left bottom, right bottom, right bottom;
+}
+
+/* Anima's measurement grid — registered to the content column, never the
+   viewport, and off below the two-column breakpoint. */
+.mgrid {
+  position: absolute; inset: calc(var(--s7) * -1) 0 0; z-index: 0; pointer-events: none;
+  background-image: linear-gradient(to right, var(--line) var(--hairline-w), transparent var(--hairline-w));
+  background-size: 25% 100%;
+  opacity: .72;
+}
+@media (max-width: 979px) { .mgrid { display: none; } }
+.mgrid::after {
+  content: ""; position: absolute; inset: 0 0 0 auto;
+  width: var(--hairline-w); background: var(--line);
+}
+
+/* ==========================================================================
+   07 · CONTROLS — rest / hover / focus-visible / active / disabled on each
+   ========================================================================== */
+:focus-visible {
+  outline: var(--focus-w) solid var(--gold-t);
+  outline-offset: var(--focus-o);
+  border-radius: 2px;
+}
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--s3);
+  min-height: 48px; padding: 13px 26px;
+  border-radius: 999px;
+  background: var(--btn-bg); color: var(--btn-fg);
+  font-size: var(--fs-xs); font-weight: 600; letter-spacing: .04em;
+  border: var(--hairline-w) solid transparent;
+  transition: background-color var(--t-state) var(--ease),
+              color var(--t-state) var(--ease),
+              border-color var(--t-state) var(--ease),
+              transform var(--t-state) var(--ease),
+              opacity var(--t-state) var(--ease);
+}
+.btn:hover  { transform: translateY(-1px); opacity: .88; }
+.btn:active { transform: translateY(0); opacity: 1; }
+.btn[aria-disabled="true"], .btn:disabled { opacity: .40; pointer-events: none; }
+.btn--ghost { background: transparent; color: var(--fg); border-color: var(--line-2); }
+.btn--ghost:hover { background-color: var(--fg); color: var(--bg); opacity: 1; }
+.btn--sm { min-height: 44px; padding: 11px 20px; }
+.btn--mono { font-family: var(--ff-m); font-size: var(--fs-mono);
+             letter-spacing: var(--mono-track); text-transform: uppercase; font-weight: 500; }
+
+.arrow {
+  display: inline-flex; align-items: center; gap: var(--s2);
+  min-height: 44px;
+  font-size: var(--fs-sm); font-weight: 600; letter-spacing: .01em; color: var(--fg);
+  border-bottom: var(--hairline-w) solid transparent;
+  transition: border-color var(--t-state) var(--ease), color var(--t-state) var(--ease);
+}
+.arrow i { font-style: normal; color: var(--gold-t);
+           transition: transform var(--t-state) var(--ease); }
+.arrow:hover         { border-bottom-color: var(--line-2); }
+.arrow:hover i       { transform: translate(3px, -3px); }
+.arrow--flat:hover i { transform: translate(4px, 0); }
+.arrow:active        { opacity: .75; }
+
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s5) var(--s7); }
+
+.circ {
+  width: 44px; height: 44px; border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: var(--hairline-w) solid var(--line-2); color: var(--fg);
+  font-size: 15px; line-height: 1;
+  transition: background-color var(--t-state) var(--ease),
+              color var(--t-state) var(--ease),
+              border-color var(--t-state) var(--ease),
+              opacity var(--t-state) var(--ease);
+}
+.circ:hover    { background-color: var(--fg); color: var(--bg); border-color: var(--fg); }
+.circ:active   { opacity: .7; }
+.circ:disabled { opacity: .28; pointer-events: none; }
+
+/* ==========================================================================
+   08 · REVEAL MACHINERY — transform / opacity / clip-path only
+   ========================================================================== */
+.js [data-reveal] {
+  clip-path: inset(0 100% 0 0);
+  opacity: .001;
+  transform: translateY(var(--reveal-dist));
+  transition: clip-path var(--reveal-dur) var(--ease),
+              opacity   var(--reveal-dur) var(--ease),
+              transform var(--reveal-dur) var(--ease);
+}
+.js [data-reveal].is-in { clip-path: inset(0 0 0 0); opacity: 1; transform: none; }
+.js [data-rule] { transform: scaleX(0); transform-origin: left center;
+                  transition: transform var(--reveal-dur) var(--ease); }
+.js [data-rule].is-in { transform: scaleX(1); }
+
+/* ==========================================================================
+   09 · CHROME — utility strip, capsule nav, mobile dock, full-screen menu
+   ========================================================================== */
+.skip {
+  position: absolute; left: var(--s4); top: -120px; z-index: 200;
+  background: var(--paper); color: var(--ink);
+  padding: 12px 18px; border-radius: 999px; font-size: var(--fs-xs); font-weight: 600;
+}
+.skip:focus-visible { top: var(--s4); }
+
+.topbar {
+  position: fixed; inset: 0 0 auto 0; z-index: 90;
+  pointer-events: none;
+  transform: translateY(0);
+  transition: transform var(--t-state) var(--ease);
+}
+.topbar > * { pointer-events: auto; }
+.topbar.is-stuck { transform: translateY(calc(var(--strip-h) * -1)); }
+
+/* --- 9.1 utility strip (Rivian) + live ET clock (Waka Waka) -------------- */
+.ustrip {
+  height: var(--strip-h);
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s4);
+  padding-inline: var(--gutter);
+  background: rgba(11, 11, 11, .82);
+  border-bottom: var(--hairline-w) solid rgba(244, 241, 232, .14);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overflow: hidden;
+}
+.ustrip p { font-family: var(--ff-m); font-size: var(--fs-mono);
+            letter-spacing: var(--mono-track); text-transform: uppercase;
+            color: rgba(244, 241, 232, .70); white-space: nowrap; }
+.ustrip .live { display: inline-flex; align-items: center; gap: 7px; color: rgba(244,241,232,.84); }
+.ustrip .live b { width: 5px; height: 5px; border-radius: 999px; background: var(--gold); display: block; }
+@media (max-width: 719px) { .ustrip .u-left { display: none; } }
+
+/* --- 9.2 nav row: brand + floating capsule ------------------------------ */
+.navrow {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s4);
+  padding: 14px var(--gutter);
+}
+.brand {
+  display: inline-flex; align-items: center; gap: 10px;
+  min-height: 44px; padding: 4px 16px 4px 8px; border-radius: 999px;
+  background-color: rgba(15, 15, 15, .82);
+  border: var(--hairline-w) solid rgba(244, 241, 232, .16);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  transition: background-color var(--t-state) var(--ease),
+              border-color var(--t-state) var(--ease);
+}
+.topbar.is-stuck .brand { background-color: rgba(11, 11, 11, .90);
+                          border-color: rgba(244, 241, 232, .24); }
+.brand img {
+  width: 32px; height: 32px; object-fit: contain;
+  transform: scale(1); transform-origin: left center;
+  transition: transform var(--t-state) var(--ease);
+}
+.topbar.is-stuck .brand img { transform: scale(.8); }
+.brand-txt { display: grid; }
+.brand-txt .n { font-family: var(--ff-d); font-weight: 700; font-size: var(--fs-h6);
+                letter-spacing: .05em; line-height: 1; color: #F4F1E8; }
+.brand-txt .s { font-family: var(--ff-m); font-size: 8.5px; letter-spacing: .2em;
+                text-transform: uppercase; color: rgba(244, 241, 232, .74); line-height: 1.5; }
+
+.capsule {
+  display: none; align-items: center; gap: 2px;
+  padding: 5px 5px 5px 8px; border-radius: 999px;
+  background: rgba(15, 15, 15, .82);
+  border: var(--hairline-w) solid rgba(244, 241, 232, .16);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  transition: background-color var(--t-state) var(--ease),
+              border-color var(--t-state) var(--ease);
+}
+.topbar.is-stuck .capsule { background: rgba(11, 11, 11, .90); border-color: rgba(244,241,232,.24); }
+.nlink {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 13px;
+  border-radius: 999px;
+  font-family: var(--ff-m); font-size: var(--fs-nav);
+  letter-spacing: var(--mono-track); text-transform: uppercase;
+  color: rgba(244, 241, 232, .84);
+  transition: color var(--t-state) var(--ease), background-color var(--t-state) var(--ease);
+}
+.nlink:hover  { color: #F4F1E8; background-color: rgba(244, 241, 232, .10); }
+.nlink:active { background-color: rgba(244, 241, 232, .18); }
+
+/* One primary action per viewport: the nav CTA rests as an outline while the
+   hero's own button is on screen and promotes to solid once it is not. */
+.capsule .btn--nav {
+  margin-left: var(--s2);
+  background-color: transparent;
+  color: rgba(244, 241, 232, .92);
+  border-color: rgba(244, 241, 232, .34);
+}
+.capsule .btn--nav:hover  { background-color: rgba(244, 241, 232, .14); color: #F4F1E8; opacity: 1; }
+.capsule .btn--nav:active { background-color: rgba(244, 241, 232, .22); }
+.topbar.is-stuck .capsule .btn--nav {
+  background-color: #F4F1E8; color: #0B0B0B; border-color: #F4F1E8;
+}
+.topbar.is-stuck .capsule .btn--nav:hover { background-color: #fff; color: #0B0B0B; }
+
+.menu-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  min-height: 44px; min-width: 44px; padding: 0 14px; border-radius: 999px;
+  font-family: var(--ff-m); font-size: var(--fs-nav);
+  letter-spacing: var(--mono-track); text-transform: uppercase;
+  color: rgba(244, 241, 232, .84);
+  border: var(--hairline-w) solid rgba(244, 241, 232, .16);
+  background-color: rgba(15, 15, 15, .82);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  transition: color var(--t-state) var(--ease), background-color var(--t-state) var(--ease);
+}
+.menu-btn:hover  { color: #F4F1E8; background-color: rgba(244, 241, 232, .14); }
+.menu-btn:active { background-color: rgba(244, 241, 232, .22); }
+.menu-btn .bars  { display: grid; gap: 3px; }
+.menu-btn .bars b { display: block; width: 14px; height: 1px; background: currentColor; }
+.capsule .menu-btn { border-color: transparent; background-color: transparent; }
+
+/* --- 9.3 mobile dock ----------------------------------------------------- */
+.dockbar {
+  position: fixed; inset: auto 0 0 0; z-index: 90;
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  background: rgba(11, 11, 11, .94);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-top: var(--hairline-w) solid rgba(244, 241, 232, .22);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.dockbar a, .dockbar button {
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  min-height: 54px; padding: 6px 2px;
+  font-family: var(--ff-m); font-size: 9.5px; letter-spacing: .07em; text-transform: uppercase;
+  color: rgba(244, 241, 232, .84);
+  border-left: var(--hairline-w) solid rgba(244, 241, 232, .14);
+  transition: background-color var(--t-state) var(--ease), color var(--t-state) var(--ease);
+}
+.dockbar > :first-child { border-left: 0; }
+.dockbar a:hover, .dockbar button:hover  { background-color: rgba(244, 241, 232, .12); color: #F4F1E8; }
+.dockbar a:active, .dockbar button:active { background-color: rgba(244, 241, 232, .20); }
+.dockbar .is-cta { background: #F4F1E8; color: #0B0B0B; font-weight: 500; }
+.dockbar .is-cta:hover { background-color: #fff; color: #0B0B0B; }
+
+@media (min-width: 980px) {
+  .capsule { display: flex; }
+  .dockbar { display: none; }
+  [data-mobile-only] { display: none !important; }
+}
+@media (max-width: 979px) { body { padding-bottom: 56px; } }
+
+/* --- 9.4 full-screen menu ------------------------------------------------ */
+.sheet {
+  position: fixed; inset: 0; z-index: 120;
+  background: rgba(11, 11, 11, .975);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  overflow-y: auto; overscroll-behavior: contain;
+  opacity: 0;
+  transition: opacity 260ms var(--ease);
+}
+.sheet.is-open { opacity: 1; }
+.sheet-in { min-height: 100%; display: flex; flex-direction: column;
+            padding-block: 16px var(--s7); }
+.sheet-top { display: flex; align-items: center; justify-content: space-between;
+             gap: var(--s4); margin-bottom: var(--s7); }
+.pill-close {
+  display: inline-flex; align-items: center; gap: 9px;
+  min-height: 44px; padding: 0 16px; border-radius: 999px;
+  border: var(--hairline-w) solid rgba(244, 241, 232, .26);
+  font-family: var(--ff-m); font-size: var(--fs-nav);
+  letter-spacing: var(--mono-track); text-transform: uppercase;
+  color: rgba(244, 241, 232, .86);
+  transition: background-color var(--t-state) var(--ease), color var(--t-state) var(--ease);
+}
+.pill-close:hover  { background-color: rgba(244, 241, 232, .14); color: #F4F1E8; }
+.pill-close:active { background-color: rgba(244, 241, 232, .22); }
+
+.chapters { border-top: var(--hairline-w) solid rgba(244, 241, 232, .20); }
+.chapters li { border-bottom: var(--hairline-w) solid rgba(244, 241, 232, .20); }
+.chapters li.is-here { border-bottom-color: var(--gold); }
+.chapters a {
+  display: flex; align-items: baseline; gap: var(--s5);
+  padding: 11px 4px; min-height: 54px;
+  transition: background-color var(--t-state) var(--ease);
+}
+.chapters a:hover  { background-color: rgba(244, 241, 232, .05); }
+.chapters a:active { background-color: rgba(244, 241, 232, .10); }
+.chapters .nm, .chapters .num {
+  transition: transform var(--t-state) var(--ease), color var(--t-state) var(--ease);
+}
+.chapters a:hover .nm, .chapters a:hover .num { transform: translateX(12px); }
+.chapters .num { font-family: var(--ff-m); font-size: var(--fs-mono);
+                 letter-spacing: var(--mono-track); color: rgba(244,241,232,.58);
+                 min-width: 3.6em; }
+.chapters .nm  { font-family: var(--ff-d); font-weight: 700;
+                 font-size: var(--fs-h3); line-height: .95;
+                 letter-spacing: .02em; text-transform: uppercase; color: #F4F1E8; }
+.chapters .here { margin-left: auto; font-family: var(--ff-m); font-size: var(--fs-mono);
+                  letter-spacing: var(--mono-track); color: var(--gold); text-transform: uppercase; }
+
+.sheet-cols { display: grid; gap: var(--s6); margin-top: var(--s6); }
+.sheet-cols h3 { font-family: var(--ff-m); font-size: var(--fs-mono); font-weight: 400;
+                 letter-spacing: var(--mono-track); text-transform: uppercase;
+                 color: rgba(244,241,232,.52); margin-bottom: var(--s3); }
+.sheet-cols li a, .sheet-cols li span {
+  display: inline-flex; align-items: center; min-height: 44px;
+  font-family: var(--ff-m); font-size: var(--fs-nav); letter-spacing: .1em;
+  text-transform: uppercase; color: rgba(244,241,232,.82);
+  transition: color var(--t-state) var(--ease);
+}
+.sheet-cols li a:hover { color: #F4F1E8; }
+@media (min-width: 720px) { .sheet-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+.sheet-bar {
+  margin-top: auto; padding-top: var(--s5);
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: var(--s4) var(--s6);
+  border-top: var(--hairline-w) solid rgba(244, 241, 232, .20);
+}
+.sheet-bar .stmt { font-size: clamp(1.15rem, 2.2vw, 1.55rem); max-width: 30ch; color: #F4F1E8; }
+
+/* ==========================================================================
+   10 · CONTACT SLIDE-OVER — the shared component every chapter inherits
+   ========================================================================== */
+.cpanel { position: fixed; inset: 0; z-index: 140; }
+.cpanel-scrim {
+  position: absolute; inset: 0;
+  background: rgba(11, 11, 11, .62);
+  backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
+  opacity: 0; transition: opacity 260ms var(--ease);
+}
+.cpanel.is-open .cpanel-scrim { opacity: 1; }
+.cpanel-card {
+  position: absolute; inset: 0 0 0 auto;
+  width: min(460px, 100%);
+  background: var(--plate-l); color: var(--ink);
+  --fg: #0B0B0B; --fg-2: rgba(11,11,11,.80); --fg-3: rgba(11,11,11,.64);
+  --line: rgba(11,11,11,.18); --line-2: rgba(11,11,11,.36);
+  --btn-bg: #0B0B0B; --btn-fg: #F4F1E8; --bg: var(--plate-l);
+  --gold-t: var(--gold-deep);
+  border-left: var(--hairline-w) solid rgba(11, 11, 11, .30);
+  overflow-y: auto; overscroll-behavior: contain;
+  padding: 16px var(--s6) var(--s7);
+  transform: translateX(100%);
+  transition: transform 300ms var(--ease);
+}
+.cpanel.is-open .cpanel-card { transform: translateX(0); }
+.cpanel-top { display: flex; align-items: center; justify-content: space-between;
+              gap: var(--s4); margin-bottom: var(--s7); }
+.cpanel-top .pill-close { border-color: rgba(11,11,11,.30); color: rgba(11,11,11,.82); }
+.cpanel-top .pill-close:hover  { background-color: rgba(11,11,11,.10); color: #0B0B0B; }
+.cpanel-top .pill-close:active { background-color: rgba(11,11,11,.18); }
+
+.croute { margin-top: var(--s7); border-top: var(--hairline-w) solid var(--line-2); }
+.croute-row { padding: 14px 0; border-bottom: var(--hairline-w) solid var(--line); }
+.croute-row > .mono { display: block; }
+.croute-row .v { display: block; font-size: var(--fs-body); font-weight: 600;
+                 color: var(--fg); margin-top: 4px; word-break: break-word; }
+.croute-row .n { display: block; font-size: var(--fs-xs); line-height: 1.5;
+                 color: var(--fg-2); margin-top: 4px; }
+.croute-row a.v { display: inline-flex; align-items: center; min-height: 44px;
+                  border-bottom: var(--hairline-w) solid transparent; width: fit-content;
+                  transition: border-color var(--t-state) var(--ease); }
+.croute-row a.v:hover { border-bottom-color: var(--line-2); }
+
+.cbtns { display: flex; flex-wrap: wrap; gap: var(--s3); margin-top: var(--s6); }
+.cstatus { min-height: 22px; margin-top: var(--s3); font-family: var(--ff-m);
+           font-size: var(--fs-mono); letter-spacing: var(--mono-track);
+           text-transform: uppercase; color: var(--gold-t); }
+.cgeo { margin-top: var(--s7); padding-top: var(--s5);
+        border-top: var(--hairline-w) solid var(--line-2); display: grid; gap: var(--s2); }
+.cgeo address { font-style: normal; font-family: var(--ff-m); font-size: var(--fs-mono);
+                letter-spacing: var(--mono-track); text-transform: uppercase;
+                line-height: 1.9; color: var(--fg-2); }
+
+/* ==========================================================================
+   10b · SHARED SECTION FURNITURE inherited from the reference implementation
+   (.sec-foot is defined in the home page's section 13 alongside .caps-foot;
+   this chapter needs the closing rail without the capability list.)
+   ========================================================================== */
+.sec-foot { display: flex; flex-wrap: wrap; align-items: center;
+            justify-content: space-between; gap: var(--s4);
+            margin-top: var(--s7); padding-top: var(--s5);
+            border-top: var(--hairline-w) solid var(--line); }
+
+/* ==========================================================================
+   11 · ROUTE HERO — Joby's photograph-free frame on the warm ground
+   No hero photograph on this chapter, deliberately. Every other chapter opens
+   on an image; a plan document opens on the plan. The frame is the whole
+   argument in three moves: the written pair of numbers, one sentence that
+   admits the size of the company, and a filed-document spec block.
+   ========================================================================== */
+.rhero { position: relative; padding-block: calc(var(--strip-h) + 132px) var(--s8); }
+.rhero-eyebrow { display: flex; flex-wrap: wrap; align-items: baseline;
+                 gap: var(--s2) var(--s5); margin-bottom: var(--s6); }
+.rhero h1 { max-width: 15ch; }
+.rhero h1 .lo { display: block; }
+.rhero-grid { display: grid; gap: var(--s8); align-items: end; }
+.rhero-sub { margin-top: var(--s6); }
+.rhero .actions { margin-top: var(--s7); }
+
+/* Spade's crop-mark cells, arranged as the header of a filed route sheet:
+   label above value, four cells, no box around the group. */
+.rspec { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+         gap: var(--hairline-w); width: 100%; max-width: 420px; }
+.rspec > div { padding: var(--s4) var(--s5) var(--s5); background-color: var(--plate-bg); }
+.rspec .k { display: block; }
+.rspec .v { display: block; margin-top: var(--s3);
+            font-family: var(--ff-d); font-weight: 700; font-size: var(--fs-h6);
+            line-height: 1.1; letter-spacing: var(--ls-display-s);
+            text-transform: uppercase; color: var(--fg); }
+.rspec .v.is-key { color: var(--gold-t); }
+
+/* KODE's bracketed corner labels, run along one hairline at the foot. */
+.rhero-foot {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+  gap: var(--s3) var(--s6);
+  margin-top: var(--s9); padding-top: var(--s5);
+  border-top: var(--hairline-w) solid var(--line-2);
+}
+@media (min-width: 1040px) {
+  .rhero-grid { grid-template-columns: minmax(0, 1fr) auto; gap: var(--s9); }
+}
+
+/* ==========================================================================
+   12 · THE DISTANCE — Zipline's figure pair + Oku's grid of empty slots
+   The figure block carries the two written numbers. The grid underneath is
+   the honesty: fifty squares, one of them filled, forty-nine of them not.
+   Nothing is animated into place; the distance is stated, not performed.
+   ========================================================================== */
+.figpair { display: grid; gap: var(--s7); margin-top: var(--s7);
+           border-top: var(--hairline-w) solid var(--line-2); padding-top: var(--s7); }
+.figcell { display: grid; gap: var(--s4); align-content: start; }
+.figcell .n { font-family: var(--ff-d); font-weight: 600; font-size: var(--fs-fig);
+              line-height: .76; letter-spacing: 0; color: var(--fg); }
+/* GOLD lands on 01, never on 50. On a page whose whole argument is honesty
+   the important number is the one that is true today. It is also the narrower
+   glyph pair, which roughly halves the painted area. */
+.figcell .n.is-key { color: var(--gold-t); }
+.figcell .u { display: grid; gap: 4px; max-width: 26ch; }
+.figcell .u b { font-family: var(--ff-m); font-size: var(--fs-mono); font-weight: 400;
+                letter-spacing: var(--mono-track); text-transform: uppercase;
+                line-height: 1.6; color: var(--fg); }
+.figcell .u em { font-style: normal; font-size: var(--fs-xs); line-height: 1.5; color: var(--fg-2); }
+/* the span between the two figures, drawn once */
+.figspan { display: flex; align-items: center; gap: var(--s4); }
+.figspan .ln { flex: 1; height: var(--hairline-w); background: var(--line-2);
+               transform-origin: left center; }
+.figspan .mono { white-space: nowrap; }
+@media (min-width: 860px) {
+  .figpair { grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr) minmax(0, 1fr);
+             align-items: center; gap: var(--s7); }
+  .figspan { flex-direction: column; align-self: stretch; justify-content: center; }
+  .figspan .ln { flex: 0 0 auto; width: 100%; height: var(--hairline-w); }
+}
+
+.meter { display: grid; gap: var(--s7); margin-top: var(--s9); }
+.meter-head { display: flex; flex-wrap: wrap; align-items: baseline;
+              justify-content: space-between; gap: var(--s3) var(--s5);
+              padding-bottom: var(--s4);
+              border-bottom: var(--hairline-w) solid var(--line-2); }
+/* Ten columns, always — fifty squares in five rows of ten is the only
+   arrangement in which "one filled" is countable at a glance.
+   Below the two-column breakpoint the cells are fractional so the grid fills
+   the measure; at and above it they are DEFINITE (`var(--meter-cell)`), because
+   an `auto` grid track resolves a `minmax(0,1fr)` child to its min-content
+   width, which collapsed the whole meter to 74px on the first build. */
+.meter-grid { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr));
+              gap: 6px; width: 100%; margin-top: var(--s6); }
+.meter-grid .cell { aspect-ratio: 1; border: var(--hairline-w) solid var(--line);
+                    position: relative; }
+/* one filled square. Gold's permitted use here is "the single most important
+   value in a group" — and it is roughly 0.1% of the painted viewport. */
+.meter-grid .cell.is-on { background-color: var(--gold-t); border-color: var(--gold-t); }
+.meter-legend { display: grid; gap: var(--s5); align-content: start; }
+.meter-key { display: grid; gap: var(--s3); border-top: var(--hairline-w) solid var(--line);
+             padding-top: var(--s4); }
+.meter-key div { display: flex; align-items: center; gap: 10px; }
+.meter-key i { width: 13px; height: 13px; flex: 0 0 auto; display: block;
+               border: var(--hairline-w) solid var(--line-2); }
+.meter-key i.is-on { background-color: var(--gold-t); border-color: var(--gold-t); }
+/* 1080, not 900: the definite grid is 514px wide and the legend needs a real
+   measure beside it, which a 900px viewport cannot give both of. */
+@media (min-width: 1080px) {
+  .meter { grid-template-columns: auto minmax(0, 1fr); gap: var(--s7) var(--s9); align-items: start; }
+  .meter-head { grid-column: 1 / -1; }
+  .meter-grid { grid-template-columns: repeat(10, var(--meter-cell)); width: auto; }
+}
+
+/* ==========================================================================
+   13 · THE ROUTE — Adaline's stage stepper, ClickUp's single axis,
+   BitcoinOS's explicit per-phase status label
+   Five stages on one hairline axis. Four of them are marked NOT STARTED in
+   the index itself, which is the point: the reader can count how far off the
+   plan is before reading a word of it. Each stage states what has to be TRUE
+   before it earns its truck, and one thing it will not do to get there.
+   With scripting off, all five panels are simply stacked and readable; the
+   stepper only appears once the script has wired it (`.is-tabbed`).
+   ========================================================================== */
+.stage-scroll { position: relative; overflow-x: auto; scrollbar-width: none;
+                padding-inline: var(--gutter); margin-inline: calc(var(--gutter) * -1);
+                scroll-padding-inline: var(--gutter); }
+.stage-scroll::-webkit-scrollbar { display: none; }
+.stage-rail { display: none; }
+.stages.is-tabbed .stage-rail { display: grid; grid-auto-flow: column;
+                                grid-auto-columns: minmax(184px, 1fr);
+                                min-width: max-content; position: relative;
+                                padding-top: 20px; }
+/* ClickUp's axis: one hairline behind every marker, drawn once. */
+.stages.is-tabbed .stage-rail::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 6px;
+  height: var(--hairline-w); background: var(--line);
+}
+.stage-tab {
+  position: relative; text-align: left; padding: 0 var(--s5) var(--s4) 0;
+  min-height: 76px; display: grid; align-content: start; gap: 6px;
+  border-bottom: var(--hairline-w) solid transparent;
+  transition: border-color var(--t-state) var(--ease);
+}
+.stage-tab .dot {
+  position: absolute; left: 0; top: -20px;
+  width: 13px; height: 13px; border-radius: 999px;
+  border: var(--hairline-w) solid var(--line-2); background-color: var(--bg);
+  transform: translateY(0);
+  transition: background-color var(--t-state) var(--ease),
+              border-color var(--t-state) var(--ease),
+              transform var(--t-state) var(--ease);
+}
+.stage-tab .ix { font-family: var(--ff-m); font-size: var(--fs-mono);
+                 letter-spacing: var(--mono-track); color: var(--fg-3);
+                 transition: color var(--t-state) var(--ease); }
+.stage-tab .nm { font-family: var(--ff-d); font-weight: 700;
+                 font-size: var(--fs-h6); line-height: 1.02;
+                 letter-spacing: var(--ls-display-s); text-transform: uppercase;
+                 /* 15ch, not 12: at 12ch "Arrive at fifty, unchanged" took a
+                    third line, every tab in the rail inherited that height
+                    (equal grid rows), and the active tab's gold rule ended up
+                    floating 30px below its own status label. */
+                 color: var(--fg-3); max-width: 15ch;
+                 transition: color var(--t-state) var(--ease), transform var(--t-state) var(--ease); }
+.stage-tab .st { font-family: var(--ff-m); font-size: var(--fs-mono);
+                 letter-spacing: var(--mono-track); text-transform: uppercase;
+                 color: var(--fg-3); margin-top: 2px;
+                 transition: color var(--t-state) var(--ease); }
+.stage-tab:hover .nm  { color: var(--fg-2); transform: translateY(-1px); }
+.stage-tab:hover .dot { border-color: var(--fg-2); }
+.stage-tab:active .nm { color: var(--fg); }
+.stage-tab:focus-visible { outline-offset: -1px; }
+.stage-tab[aria-selected="true"] { border-bottom-color: var(--gold-t); }
+.stage-tab[aria-selected="true"] .dot { background-color: var(--gold-t); border-color: var(--gold-t);
+                                        transform: scale(1.12); }
+.stage-tab[aria-selected="true"] .nm { color: var(--fg); }
+.stage-tab[aria-selected="true"] .ix,
+.stage-tab[aria-selected="true"] .st { color: var(--fg-2); }
+/* the last tab runs off the edge below ~1000px; fade it so the cut reads as
+   an affordance rather than as clipping */
+.stage-fade { position: absolute; top: 0; bottom: 0; right: 0;
+              width: clamp(32px, 7vw, 84px); pointer-events: none;
+              background: linear-gradient(to right, rgba(0,0,0,0), var(--bg) 86%); }
+
+.stage-stack { margin-top: var(--s7); }
+.stage-panel { border-top: var(--hairline-w) solid var(--line-2); padding-top: var(--s6); }
+.stage-panel + .stage-panel { margin-top: var(--s7); }
+.stages.is-tabbed .stage-panel { margin-top: 0;
+                                 opacity: 0; transform: translateY(8px);
+                                 transition: opacity 280ms var(--ease),
+                                             transform 280ms var(--ease); }
+.stages.is-tabbed .stage-panel.is-shown { opacity: 1; transform: none; }
+.stage-panel:focus-visible { outline-offset: 4px; }
+.sp-grid { display: grid; gap: var(--s7); }
+.sp-head { display: flex; flex-wrap: wrap; align-items: baseline;
+           justify-content: space-between; gap: var(--s3) var(--s5); }
+.sp-head .st-on  { color: var(--gold-t); }
+.sp-lead h3 { margin-top: var(--s4); }
+.sp-lead .body { margin-top: var(--s5); }
+
+.cond { margin-top: var(--s4); border-top: var(--hairline-w) solid var(--line); }
+.cond li { display: grid; grid-template-columns: 2.6em minmax(0, 1fr);
+           gap: var(--s4); align-items: baseline;
+           padding: 12px 0; border-bottom: var(--hairline-w) solid var(--line); }
+.cond .k { font-family: var(--ff-m); font-size: var(--fs-mono);
+           letter-spacing: var(--mono-track); color: var(--fg-3); }
+.cond .t { font-size: var(--fs-sm); line-height: 1.55; color: var(--fg); }
+.sp-not { margin-top: var(--s5); padding-top: var(--s4);
+          border-top: var(--hairline-w) solid var(--line-2);
+          display: grid; gap: var(--s2); }
+.sp-not .t { font-size: var(--fs-sm); line-height: 1.55; color: var(--fg-2); max-width: 44ch; }
+@media (min-width: 900px) {
+  .sp-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.02fr); gap: var(--s9); }
+  /* holds the block steady as the reader steps through, so switching stage
+     never pulls the closing rail up the page underneath the cursor */
+  .stages.is-tabbed .stage-stack { min-height: 330px; }
+}
+
+/* ==========================================================================
+   14 · THE LEDGER — Patreon's two facing columns, Webflow's row register
+   What grows on the left, what never changes on the right. The second column
+   is the one that makes the first believable, so both are given equal width
+   and the same row rhythm rather than a "benefits" column and a footnote.
+   ========================================================================== */
+.grows { display: grid; gap: var(--s8); margin-top: var(--s7); }
+.grows-col h3 { font-family: var(--ff-d); font-weight: 700;
+                font-size: var(--fs-h4); line-height: 1;
+                letter-spacing: var(--ls-display-s); text-transform: uppercase;
+                color: var(--fg); }
+.grows-col .cap { display: block; margin-top: var(--s3); font-size: var(--fs-xs);
+                  line-height: 1.55; color: var(--fg-2); max-width: 40ch; }
+.grows-list { margin-top: var(--s6); border-top: var(--hairline-w) solid var(--line-2); }
+.grows-list li { display: grid; grid-template-columns: 2.8em minmax(0, 1fr);
+                 gap: var(--s4); align-items: baseline;
+                 padding: 14px 0; border-bottom: var(--hairline-w) solid var(--line); }
+.grows-list .k { font-family: var(--ff-m); font-size: var(--fs-mono);
+                 letter-spacing: var(--mono-track); color: var(--fg-3); }
+.grows-list .t { font-size: var(--fs-sm); line-height: 1.55; color: var(--fg); }
+.grows-list .t span { display: block; color: var(--fg-2); margin-top: 3px; }
+@media (min-width: 880px) {
+  .grows { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s9); }
+}
+
+/* Waka Waka's taxonomy row — the terms spaced along a single rule. */
+.taxo { margin-top: var(--s9); padding-top: var(--s5);
+        border-top: var(--hairline-w) solid var(--line-2); }
+.taxo ul { display: flex; flex-wrap: wrap; gap: var(--s4) var(--s7); margin-top: var(--s4); }
+.taxo li { font-family: var(--ff-d); font-weight: 700;
+           font-size: var(--fs-h4); line-height: 1;
+           letter-spacing: var(--ls-display-s); text-transform: uppercase; color: var(--fg-2); }
+.taxo li:first-child { color: var(--fg); }
+
+/* ==========================================================================
+   15 · STILL WRITING — sweetgreen's tinted panel against a full-bleed frame
+   The mirror of the home page's split: photograph FIRST on wide screens, so
+   the two chapters do not open the same shape in the same place.
+   ========================================================================== */
+.mani { display: grid; }
+.mani-panel { background-color: var(--plate-bg);
+              padding: var(--section-y) var(--gutter);
+              display: flex; flex-direction: column; justify-content: center; }
+.mani-panel .inner { max-width: 34rem; margin-inline: auto; width: 100%; }
+.mani-fig { position: relative; margin: 0; min-height: 60vw; }
+.mani-fig img { position: absolute; inset: 0; width: 100%; height: 100%;
+                object-fit: cover;
+                filter: grayscale(var(--photo-grade-feat)) sepia(9%)
+                        contrast(1.05) brightness(1.02); }
+.mani-fig figcaption {
+  position: absolute; inset: auto auto var(--s5) var(--gutter);
+  max-width: calc(100% - var(--gutter) * 2);
+  padding: 7px 12px; border-radius: 999px;
+  background: rgba(11, 11, 11, .88);
+  border: var(--hairline-w) solid rgba(244, 241, 232, .28);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  color: #F4F1E8;
+}
+/* the three "one … at a time" lines, as a hairline triad rather than a list */
+.triad { margin-top: var(--s7); border-top: var(--hairline-w) solid var(--line-2); }
+.triad li { display: grid; grid-template-columns: 3.2em minmax(0, 1fr);
+            gap: var(--s4); align-items: baseline;
+            padding: 15px 0; border-bottom: var(--hairline-w) solid var(--line); }
+.triad .k { font-family: var(--ff-m); font-size: var(--fs-mono);
+            letter-spacing: var(--mono-track); color: var(--fg-3); }
+.triad .t { font-family: var(--ff-d); font-weight: 700;
+            font-size: var(--fs-h5); line-height: 1;
+            letter-spacing: var(--ls-display-s); text-transform: uppercase; color: var(--fg); }
+@media (min-width: 900px) {
+  .mani { grid-template-columns: 1fr 1fr; }
+  .mani-fig { min-height: 100%; }
+  .mani-fig { order: -1; }   /* photograph leads — the mirror of chapter 01 */
+}
+
+/* ==========================================================================
+   16 · THE PROMISE — Atlas Card's captioned full-bleed close + chapter rail
+   ========================================================================== */
+.close { position: relative; isolation: isolate; overflow: hidden;
+         padding-block: clamp(96px, 15vw, 200px); }
+.close-media { position: absolute; inset: 0; z-index: -2; }
+.close-media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 54%;
+                   filter: grayscale(var(--photo-grade-feat)) contrast(1.06) brightness(.92); }
+/* Measured scrim: the statement sits on pixels at or below rgba(11,11,11,.90)
+   over the graded frame, which keeps cream type above 12:1 at every stop. */
+.close-scrim { position: absolute; inset: 0; z-index: -1; opacity: var(--scrim);
+  background:
+    linear-gradient(to bottom, rgba(11,11,11,.90) 0%, rgba(11,11,11,.72) 42%,
+                               rgba(11,11,11,.82) 78%, rgba(11,11,11,.93) 100%); }
+.close .stmt { color: #F4F1E8; max-width: 24ch; font-size: clamp(1.7rem, 4.2vw, 3.2rem); }
+.close .lead { color: rgba(244, 241, 232, .88); margin-top: var(--s6); }
+.close .actions { margin-top: var(--s7); }
+.close .arrow { color: #F4F1E8; }
+.close-credit { margin-top: var(--s9); padding-top: var(--s5);
+                border-top: var(--hairline-w) solid rgba(244, 241, 232, .26);
+                display: flex; flex-wrap: wrap; align-items: baseline;
+                justify-content: space-between; gap: var(--s3) var(--s6); }
+.close-credit p { color: rgba(244, 241, 232, .78); }
+
+.chapnav { display: grid; gap: var(--hairline-w);
+           border-top: var(--hairline-w) solid var(--line); }
+.chapnav a { display: grid; gap: 6px; padding: var(--s6) 0;
+             border-bottom: var(--hairline-w) solid var(--line);
+             transition: background-color var(--t-state) var(--ease); }
+.chapnav a:hover  { background-color: rgba(244, 241, 232, .05); }
+.chapnav a:active { background-color: rgba(244, 241, 232, .10); }
+.chapnav .t { font-family: var(--ff-d); font-weight: 700;
+              font-size: var(--fs-h4); line-height: 1;
+              letter-spacing: var(--ls-display-s); text-transform: uppercase; color: var(--fg);
+              transition: transform var(--t-state) var(--ease); }
+.chapnav a:hover .t { transform: translateX(10px); }
+.chapnav .n { font-size: var(--fs-xs); color: var(--fg-2); }
+@media (min-width: 760px) {
+  .chapnav { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s9); }
+}
+
+/* ==========================================================================
+   17 · FOOTER — Legora's link columns above a cropped, over-wide wordmark
+   ========================================================================== */
+.foot { padding-top: var(--section-y); overflow: hidden; container-type: inline-size; }
+.foot-cols { display: grid; gap: var(--s7); }
+.foot-cols h2 { font-family: var(--ff-m); font-size: var(--fs-mono); font-weight: 400;
+                letter-spacing: var(--mono-track); text-transform: uppercase;
+                color: var(--fg-3); margin-bottom: var(--s4); }
+.foot-cols li a, .foot-cols li span {
+  display: inline-flex; align-items: center; min-height: 44px;
+  font-size: var(--fs-sm); color: var(--fg-2);
+  transition: color var(--t-state) var(--ease);
+}
+.foot-cols li a:hover { color: var(--fg); }
+.foot-cols li.is-here a { color: var(--fg); }
+.foot-cols li.is-here { border-bottom: var(--hairline-w) solid var(--gold); width: fit-content; }
+.foot-legal { display: flex; flex-wrap: wrap; gap: var(--s4) var(--s7);
+              justify-content: space-between; margin-top: var(--s9);
+              padding-top: var(--s5); border-top: var(--hairline-w) solid var(--line); }
+/* 5.7028 is the measured width of "KUL Enterprises" at font-size 100px in Big
+   Shoulders Display 700 with this tracking — re-measure if either the face or
+   the letter-spacing changes. */
+.wordmark {
+  --wm-col: min(100cqw, var(--maxw));
+  font-family: var(--ff-d); font-weight: 700;
+  font-size: calc((var(--wm-col) - var(--gutter) * 2) / 5.7028);
+  line-height: .7; letter-spacing: .004em; text-transform: uppercase;
+  white-space: nowrap; color: var(--fg); opacity: .94;
+  margin: var(--s7) auto 0; padding-left: var(--gutter);
+  max-width: var(--maxw);
+  height: .54em; overflow: hidden;
+  user-select: none;
+}
+@media (min-width: 700px)  { .foot-cols { grid-template-columns: 1.2fr 1fr 1fr; } }
+@media (min-width: 1040px) {
+  .foot-cols { grid-template-columns: 1.35fr .8fr .85fr 1fr; gap: var(--s8); }
+  .foot-chapters ul { columns: 2; column-gap: var(--s5); }
+  .foot-chapters li { break-inside: avoid; }
+}
+
+/* ==========================================================================
+   18 · REDUCED MOTION — a full shutoff, not a softening
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  :where(html) { scroll-behavior: auto; }
+  .js [data-reveal], .js [data-reveal].is-in { clip-path: none; opacity: 1; transform: none; transition: none; }
+  .js [data-rule], .js [data-rule].is-in { transform: none; transition: none; }
+  .stages.is-tabbed .stage-panel { opacity: 1; transform: none; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ==================== CHROME · utility strip + capsule ================== -->
+<header class="topbar" id="topbar">
+  <div class="ustrip">
+    <p class="u-left">USDOT 7638788 &middot; MC 66389691 &middot; Licensed &amp; insured</p>
+    <p class="live"><b aria-hidden="true"></b> Loganville, GA &middot;
+      <span id="etclock">Dispatch 24/7</span></p>
+  </div>
+
+  <div class="navrow">
+    <a class="brand" href="/v4" aria-label="KUL Enterprises LLC — home, chapter one">
+      <img src="/studio/assets/brand/lion-clean.png" alt="" width="900" height="900" aria-hidden="true">
+      <span class="brand-txt">
+        <span class="n">KUL</span>
+        <span class="s">Enterprises LLC</span>
+      </span>
+    </a>
+
+    <nav class="capsule" aria-label="Primary">
+      <a class="nlink" href="/v4/mission">Services</a>
+      <a class="nlink" href="/v4/responsibility">Safety</a>
+      <a class="nlink" href="/v4/journey">Journey</a>
+      <button class="nlink" type="button" data-contact-open aria-haspopup="dialog"
+              aria-expanded="false" aria-controls="contactPanel">Contact</button>
+      <a class="btn btn--sm btn--mono btn--nav" href="/v4/forward">Request a Quote</a>
+      <button class="menu-btn" type="button" data-menu-open aria-haspopup="dialog"
+              aria-expanded="false" aria-controls="sheet">
+        <span class="bars" aria-hidden="true"><b></b><b></b></span> Menu
+      </button>
+    </nav>
+
+    <button class="menu-btn" type="button" data-menu-open data-mobile-only aria-haspopup="dialog"
+            aria-expanded="false" aria-controls="sheet">
+      <span class="bars" aria-hidden="true"><b></b><b></b></span> Menu
+    </button>
+  </div>
+</header>
+
+<!-- mobile dock — every primary destination one tap away -->
+<nav class="dockbar" aria-label="Primary, mobile">
+  <a href="/v4/mission">Services</a>
+  <a href="/v4/responsibility">Safety</a>
+  <a href="/v4/journey">Journey</a>
+  <button type="button" data-contact-open aria-haspopup="dialog" aria-expanded="false"
+          aria-controls="contactPanel">Contact</button>
+  <a class="is-cta" href="/v4/forward">Quote</a>
+</nav>
+
+<!-- ==================== FULL-SCREEN MENU · chapter index ================== -->
+<div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-label="Chapter index">
+  <div class="sheet-in wrap">
+    <div class="sheet-top">
+      <p class="mono">[ Index ] &mdash; The Carrier Issue &middot; Eight chapters</p>
+      <button class="pill-close" type="button" data-menu-close>Close &#10005;</button>
+    </div>
+
+    <ul class="chapters">
+      <li><a href="/v4"><span class="num">[ 01 ]</span><span class="nm">The Beginning</span></a></li>
+      <li><a href="/v4/journey"><span class="num">[ 02 ]</span><span class="nm">The Journey</span></a></li>
+      <li><a href="/v4/story"><span class="num">[ 03 ]</span><span class="nm">Why I Started Driving</span></a></li>
+      <li><a href="/v4/mission"><span class="num">[ 04 ]</span><span class="nm">The Mission</span></a></li>
+      <li><a href="/v4/responsibility"><span class="num">[ 05 ]</span><span class="nm">The Responsibility</span></a></li>
+      <li><a href="/v4/join"><span class="num">[ 06 ]</span><span class="nm">Join the Journey</span></a></li>
+      <li><a href="/v4/forward"><span class="num">[ 07 ]</span><span class="nm">Let&rsquo;s Move Forward</span></a></li>
+      <li class="is-here">
+        <a href="./" aria-current="page">
+          <span class="num">[ 08 ]</span><span class="nm">The Road Ahead</span>
+          <span class="here">You are here</span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="sheet-cols">
+      <div>
+        <h3>Dispatch</h3>
+        <ul>
+          <li><a href="tel:+16789721148">678-972-1148</a></li>
+          <li><a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a></li>
+          <li><span>Answered 24 / 7</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Compliance</h3>
+        <ul>
+          <li><span>USDOT 7638788</span></li>
+          <li><span>MC 66389691</span></li>
+          <li><span>Licensed &amp; insured</span></li>
+          <li><span>Own operating authority</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Base</h3>
+        <ul>
+          <li><span>Loganville, Georgia</span></li>
+          <li><span>33.8390&deg; N &middot; 83.9007&deg; W</span></li>
+          <li><span>Running nationwide</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sheet-bar">
+      <p class="stmt">One tractor today, run to a fifty-truck standard.</p>
+      <a class="btn btn--mono" href="/v4/forward">Request a freight quote</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CONTACT SLIDE-OVER · shared component ============= -->
+<div class="cpanel" id="contactPanel" hidden>
+  <div class="cpanel-scrim" data-contact-close aria-hidden="true"></div>
+  <aside class="cpanel-card" role="dialog" aria-modal="true" aria-labelledby="cpanel-h">
+    <div class="cpanel-top">
+      <p class="mono">[ Contact ]</p>
+      <button class="pill-close" type="button" data-contact-close>Close &#10005;</button>
+    </div>
+
+    <h2 class="stmt stmt--wide" id="cpanel-h">Send the lane. We&rsquo;ll send back a straight number.</h2>
+
+    <div class="croute">
+      <div class="croute-row">
+        <span class="mono">Quotes &amp; dispatch</span>
+        <a class="v" href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a>
+        <span class="n">Lane, weight and window is enough to start.</span>
+      </div>
+      <div class="croute-row">
+        <span class="mono">By phone, any hour</span>
+        <a class="v" href="tel:+16789721148">678-972-1148</a>
+        <span class="n">A person answers. Nights and weekends included.</span>
+      </div>
+      <div class="croute-row">
+        <span class="mono">Drivers</span>
+        <a class="v" href="/v4/join">Join the journey &rarr;</a>
+        <span class="n">We&rsquo;re building this fleet one seat at a time.</span>
+      </div>
+    </div>
+
+    <div class="cbtns">
+      <a class="btn btn--sm btn--mono" href="mailto:dispatch@kulenterprises.com?subject=Freight%20quote%20request">Open mail</a>
+      <button class="btn btn--sm btn--mono btn--ghost" type="button"
+              data-copy="dispatch@kulenterprises.com">Copy email</button>
+    </div>
+    <p class="cstatus" role="status" aria-live="polite"></p>
+
+    <div class="cgeo">
+      <p class="mono">[ Base ]</p>
+      <address>
+        KUL Enterprises LLC<br>
+        Loganville, Georgia<br>
+        33.8390&deg; N &middot; 83.9007&deg; W
+      </address>
+      <p class="mono">USDOT 7638788 &middot; MC 66389691</p>
+    </div>
+  </aside>
+</div>
+
+<main id="main">
+
+  <!-- ================ 01 · ROUTE HERO ==================================== -->
+  <section class="rhero g-paper" aria-labelledby="hero-h">
+    <div class="wrap">
+      <div class="rhero-eyebrow">
+        <p class="mono">[ 08 ] &mdash; The Road Ahead</p>
+        <p class="mono">Route sheet &middot; Filed from Loganville, Georgia</p>
+      </div>
+
+      <div class="rhero-grid">
+        <div>
+          <h1 class="display d-hero" id="hero-h" data-reveal>
+            <span class="lo">One truck today.</span>
+            <span class="lo">Fifty by 2029.</span>
+          </h1>
+
+          <div class="rhero-sub" data-reveal>
+            <p class="lead-1">We are a one-truck carrier, and we say so.</p>
+            <p class="lead-2">The plan is written down &mdash; fifty tractors by the end of 2029
+              &mdash; and this chapter is how we intend to get there: honestly, deliberately, and
+              <strong>without pretending to be big before we are</strong>.</p>
+          </div>
+
+          <div class="actions">
+            <a class="btn" href="/v4/forward">Request a Freight Quote</a>
+            <a class="arrow arrow--flat" href="/v4/join">Join the journey <i aria-hidden="true">&rarr;</i></a>
+          </div>
+        </div>
+
+        <div class="rspec" data-reveal aria-label="Route sheet header">
+          <div class="cropmarks">
+            <span class="mono k">Period</span>
+            <span class="v">2026 &rarr; 2029</span>
+          </div>
+          <div class="cropmarks">
+            <span class="mono k">In service</span>
+            <span class="v is-key">01 tractor</span>
+          </div>
+          <div class="cropmarks">
+            <span class="mono k">Stage</span>
+            <span class="v">01 of 05</span>
+          </div>
+          <div class="cropmarks">
+            <span class="mono k">Target date</span>
+            <span class="v"><span id="tgtCount">End of 2029</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="rhero-foot">
+        <p class="mono">[ Chapter 08 of 08 ] &mdash; The last page of the carrier issue</p>
+        <p class="mono">No photograph on this page. The plan is the picture.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================ 02 · THE DISTANCE ================================== -->
+  <section class="section g-ink" aria-labelledby="dist-h">
+    <div class="wrap">
+      <p class="mono">001 / The written number</p>
+      <div class="sec-head" style="margin-top:var(--s3)">
+        <h2 class="display d-h2" id="dist-h" data-reveal>The distance,<br>drawn to scale</h2>
+        <p class="lead tight">Two numbers are written down and neither is flattering. Everything
+          between them has to be earned the way the first truck was.</p>
+      </div>
+
+      <div class="figpair">
+        <div class="figcell" data-reveal>
+          <span class="n is-key">01</span>
+          <span class="u">
+            <b>Tractor, in service</b>
+            <em>The whole fleet, today. We say the number out loud rather than
+              writing &ldquo;a growing fleet&rdquo;.</em>
+          </span>
+        </div>
+
+        <div class="figspan" aria-hidden="true">
+          <span class="ln" data-rule></span>
+          <span class="mono">2026 &nbsp;&rarr;&nbsp; end of 2029</span>
+          <span class="ln" data-rule></span>
+        </div>
+
+        <div class="figcell" data-reveal>
+          <span class="n">50</span>
+          <span class="u">
+            <b>Tractors, targeted</b>
+            <em>Written down so it can be held against us. It is an intention,
+              not an inventory.</em>
+          </span>
+        </div>
+      </div>
+
+      <!-- Oku's slot grid: the empty squares are the honest part -->
+      <div class="meter">
+        <div class="meter-head">
+          <p class="mono">[ Fleet meter ] &mdash; One square, one tractor</p>
+          <p class="mono">01 filled &middot; 49 unbuilt</p>
+        </div>
+
+        <div class="meter-grid" data-reveal role="img"
+             aria-label="A grid of fifty squares. One square is filled, representing the single tractor in service today. The remaining forty-nine are empty.">
+          <span class="cell is-on"></span><span class="cell"></span><span class="cell"></span>
+          <span class="cell"></span><span class="cell"></span><span class="cell"></span>
+          <span class="cell"></span><span class="cell"></span><span class="cell"></span>
+          <span class="cell"></span><span class="cell"></span><span class="cell"></span>
+          <span class="cell"></span><span class="cell"></span><span class="cell"></span>
+          <span class="cell"></span><span class="cell"></span><span class="cell"></span>
+          <span class="cell"></span><span class="cell"></span><span class="cell"></span>
+          <span class="cell"></span><span class="cell"></span><span class="cell"></span>
+          <span class="cell"></span><span class="cell"></span><span class="cell"></span>
+          <span class="cell"></span><span class="cell"></span><span class="cell"></span>
+          <span class="cell"></span><span class="cell"></span><span class="cell"></span>
+          <span class="cell"></span><span class="cell"></span><span class="cell"></span>
+          <span class="cell"></span><span class="cell"></span><span class="cell"></span>
+          <span class="cell"></span><span class="cell"></span><span class="cell"></span>
+          <span class="cell"></span><span class="cell"></span><span class="cell"></span>
+          <span class="cell"></span><span class="cell"></span><span class="cell"></span>
+          <span class="cell"></span><span class="cell"></span>
+        </div>
+
+        <div class="meter-legend">
+          <p class="body">Most carriers draw this as a curve, because a curve draws the part that
+            has not happened yet. <strong>Squares cannot flatter anybody.</strong> Forty-nine of
+            them are empty today, and every one of them has to be filled by freight that already
+            exists &mdash; not by a slide.</p>
+
+          <div class="meter-key">
+            <div><i class="is-on" aria-hidden="true"></i>
+              <span class="mono">In service now &mdash; 01</span></div>
+            <div><i aria-hidden="true"></i>
+              <span class="mono">Not yet built &mdash; 49</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec-foot">
+        <p class="mono">No load counts, no on-time scores, no client logos &mdash; nothing you cannot check</p>
+        <a class="arrow" href="/v4/responsibility">How the one truck is run <i aria-hidden="true">&#8599;</i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================ 03 · THE ROUTE · FIVE STAGES ======================= -->
+  <section class="section g-paper" aria-labelledby="route-h">
+    <div class="wrap">
+      <p class="mono">002 / The route</p>
+      <div class="sec-head" style="margin-top:var(--s3)">
+        <h2 class="display d-h2" id="route-h" data-reveal>Five stages.<br>We are on the first.</h2>
+        <p class="lead tight">Each stage names what has to be <strong>true</strong> before it earns
+          a tractor, and one thing we will not do to get there. Four of the five have not started.</p>
+      </div>
+
+      <div class="stages" id="stages">
+        <div class="stage-scroll">
+          <div class="stage-rail" role="tablist" aria-label="The five stages of the plan">
+            <button class="stage-tab" type="button" role="tab" id="st-1"
+                    aria-controls="sp-1" aria-selected="true" tabindex="0">
+              <span class="dot" aria-hidden="true"></span>
+              <span class="ix">01</span>
+              <span class="nm">Prove the standard</span>
+              <span class="st">In progress</span>
+            </button>
+            <button class="stage-tab" type="button" role="tab" id="st-2"
+                    aria-controls="sp-2" aria-selected="false" tabindex="-1">
+              <span class="dot" aria-hidden="true"></span>
+              <span class="ix">02</span>
+              <span class="nm">Earn repeat lanes</span>
+              <span class="st">Not started</span>
+            </button>
+            <button class="stage-tab" type="button" role="tab" id="st-3"
+                    aria-controls="sp-3" aria-selected="false" tabindex="-1">
+              <span class="dot" aria-hidden="true"></span>
+              <span class="ix">03</span>
+              <span class="nm">Add trucks deliberately</span>
+              <span class="st">Not started</span>
+            </button>
+            <button class="stage-tab" type="button" role="tab" id="st-4"
+                    aria-controls="sp-4" aria-selected="false" tabindex="-1">
+              <span class="dot" aria-hidden="true"></span>
+              <span class="ix">04</span>
+              <span class="nm">Grow the people first</span>
+              <span class="st">Not started</span>
+            </button>
+            <button class="stage-tab" type="button" role="tab" id="st-5"
+                    aria-controls="sp-5" aria-selected="false" tabindex="-1">
+              <span class="dot" aria-hidden="true"></span>
+              <span class="ix">05</span>
+              <span class="nm">Arrive at fifty, unchanged</span>
+              <span class="st">Not started</span>
+            </button>
+          </div>
+          <span class="stage-fade" aria-hidden="true"></span>
+        </div>
+
+        <div class="stage-stack" id="stageStack">
+
+          <!-- STAGE 01 -->
+          <div class="stage-panel is-shown" id="sp-1" role="tabpanel" aria-labelledby="st-1" tabindex="0">
+            <div class="sp-grid">
+              <div class="sp-lead">
+                <div class="sp-head">
+                  <p class="mono">[ Stage 01 of 05 ]</p>
+                  <p class="mono st-on">In progress &mdash; we are here</p>
+                </div>
+                <h3 class="display d-h4">Prove the standard</h3>
+                <p class="body">One tractor, run flawlessly: inspected before every pull, hours
+                  logged legal, the phone answered by a person. The first tractor is the audition
+                  for every tractor after it &mdash; and it is the only one a shipper can judge us
+                  on right now.</p>
+              </div>
+              <div>
+                <p class="mono">What has to be true</p>
+                <ul class="cond">
+                  <li><span class="k">[ A ]</span><span class="t">Every pull begins with a walked
+                    pre-trip, on the good days and the late ones.</span></li>
+                  <li><span class="k">[ B ]</span><span class="t">Hours are logged legal. No
+                    schedule is worth a shortcut, and none has been.</span></li>
+                  <li><span class="k">[ C ]</span><span class="t">Dispatch is answered by a person,
+                    at any hour, including the awkward ones.</span></li>
+                </ul>
+                <p class="sp-not">
+                  <span class="mono">What we will not do</span>
+                  <span class="t">Add a second truck to look bigger than we are.</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- STAGE 02 -->
+          <div class="stage-panel" id="sp-2" role="tabpanel" aria-labelledby="st-2" tabindex="0">
+            <div class="sp-grid">
+              <div class="sp-lead">
+                <div class="sp-head">
+                  <p class="mono">[ Stage 02 of 05 ]</p>
+                  <p class="mono">Not started</p>
+                </div>
+                <h3 class="display d-h4">Earn repeat lanes</h3>
+                <p class="body">Growth is funded by kept promises &mdash; shippers who call back
+                  because the last load arrived the way we said it would. No lane is added faster
+                  than it can be run right, and a second lane never comes at the cost of the
+                  first.</p>
+              </div>
+              <div>
+                <p class="mono">What has to be true</p>
+                <ul class="cond">
+                  <li><span class="k">[ A ]</span><span class="t">Shippers call back without being
+                    chased. A repeat call is the only score we keep.</span></li>
+                  <li><span class="k">[ B ]</span><span class="t">Every lane is still quoted by the
+                    person who dispatches it.</span></li>
+                  <li><span class="k">[ C ]</span><span class="t">The truck we already have is busy
+                    before the fleet gets any bigger.</span></li>
+                </ul>
+                <p class="sp-not">
+                  <span class="mono">What we will not do</span>
+                  <span class="t">Buy volume with a rate we cannot run safely.</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- STAGE 03 -->
+          <div class="stage-panel" id="sp-3" role="tabpanel" aria-labelledby="st-3" tabindex="0">
+            <div class="sp-grid">
+              <div class="sp-lead">
+                <div class="sp-head">
+                  <p class="mono">[ Stage 03 of 05 ]</p>
+                  <p class="mono">Not started</p>
+                </div>
+                <h3 class="display d-h4">Add trucks deliberately</h3>
+                <p class="body">A tractor joins the fleet when the work behind it is already
+                  dependable &mdash; never to look bigger, only to serve better. Each addition
+                  carries the same pre-trip, the same insurance and the same standard as the
+                  first.</p>
+              </div>
+              <div>
+                <p class="mono">What has to be true</p>
+                <ul class="cond">
+                  <li><span class="k">[ A ]</span><span class="t">The freight exists before the
+                    truck does &mdash; not the other way round.</span></li>
+                  <li><span class="k">[ B ]</span><span class="t">Maintenance is funded before the
+                    payment is, so nothing runs tired.</span></li>
+                  <li><span class="k">[ C ]</span><span class="t">The published count matches the
+                    count in the yard, on the day it changes.</span></li>
+                </ul>
+                <p class="sp-not">
+                  <span class="mono">What we will not do</span>
+                  <span class="t">Finance a tractor against freight we only hope to win.</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- STAGE 04 -->
+          <div class="stage-panel" id="sp-4" role="tabpanel" aria-labelledby="st-4" tabindex="0">
+            <div class="sp-grid">
+              <div class="sp-lead">
+                <div class="sp-head">
+                  <p class="mono">[ Stage 04 of 05 ]</p>
+                  <p class="mono">Not started</p>
+                </div>
+                <h3 class="display d-h4">Grow the people first</h3>
+                <p class="body">Drivers join the way customers do: on trust. Every seat we add
+                  belongs to someone who treats your freight the way the founder treated his first
+                  load &mdash; which means the seat waits for the right person rather than the
+                  first one.</p>
+              </div>
+              <div>
+                <p class="mono">What has to be true</p>
+                <ul class="cond">
+                  <li><span class="k">[ A ]</span><span class="t">Pay and home time are stated
+                    plainly before the interview ends.</span></li>
+                  <li><span class="k">[ B ]</span><span class="t">The standard is taught by
+                    someone who runs it, not handed over as a document.</span></li>
+                  <li><span class="k">[ C ]</span><span class="t">No seat is opened that we cannot
+                    keep busy and keep safe.</span></li>
+                </ul>
+                <p class="sp-not">
+                  <span class="mono">What we will not do</span>
+                  <span class="t">Fill a truck with a driver we would not put our own name behind.</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- STAGE 05 -->
+          <div class="stage-panel" id="sp-5" role="tabpanel" aria-labelledby="st-5" tabindex="0">
+            <div class="sp-grid">
+              <div class="sp-lead">
+                <div class="sp-head">
+                  <p class="mono">[ Stage 05 of 05 ]</p>
+                  <p class="mono">Not started</p>
+                </div>
+                <h3 class="display d-h4">Arrive at fifty, unchanged</h3>
+                <p class="body">By the end of 2029 the plan reads fifty tractors &mdash; with the
+                  same pre-trip, the same straight answers and the same person-first standard we
+                  run today. Arriving is not the achievement. Arriving unchanged is.</p>
+              </div>
+              <div>
+                <p class="mono">What has to be true</p>
+                <ul class="cond">
+                  <li><span class="k">[ A ]</span><span class="t">The fiftieth truck meets the
+                    first truck&rsquo;s standard, without exception.</span></li>
+                  <li><span class="k">[ B ]</span><span class="t">A human still answers the phone
+                    at three in the morning.</span></li>
+                  <li><span class="k">[ C ]</span><span class="t">The count we publish is still
+                    exactly the count we run.</span></li>
+                </ul>
+                <p class="sp-not">
+                  <span class="mono">What we will not do</span>
+                  <span class="t">Let scale become the excuse for any of the above.</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="sec-foot">
+        <p class="mono">No stage above invents a date or a count &mdash; only the two written numbers</p>
+        <a class="arrow" href="/v4/mission">Read the service standard <i aria-hidden="true">&#8599;</i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================ 04 · WHAT GROWS / WHAT NEVER CHANGES =============== -->
+  <section class="section g-ink" aria-labelledby="grow-h">
+    <div class="wrap">
+      <p class="mono">003 / The ledger</p>
+      <div class="sec-head" style="margin-top:var(--s3)">
+        <h2 class="display d-h2" id="grow-h" data-reveal>Two columns,<br>kept in balance</h2>
+        <p class="lead tight">A plan is only worth reading if it also says what it refuses to
+          trade away. The right-hand column is the one that makes the left-hand column
+          believable.</p>
+      </div>
+
+      <div class="grows">
+        <div class="grows-col" data-reveal>
+          <h3>What grows</h3>
+          <span class="cap">Everything here is expected to change between 2026 and the end of 2029.</span>
+          <ul class="grows-list">
+            <li><span class="k">[ A ]</span><span class="t">The fleet
+              <span>From one tractor toward fifty by the end of 2029.</span></span></li>
+            <li><span class="k">[ B ]</span><span class="t">The lanes
+              <span>More of the country served directly, without a broker maze in between.</span></span></li>
+            <li><span class="k">[ C ]</span><span class="t">The team
+              <span>Drivers and dispatch added seat by seat, on trust.</span></span></li>
+            <li><span class="k">[ D ]</span><span class="t">The relationships
+              <span>Every kept promise compounds into the next call.</span></span></li>
+          </ul>
+        </div>
+
+        <div class="grows-col" data-reveal>
+          <h3>What never changes</h3>
+          <span class="cap">Nothing here is on the table at any size, in any market, on any lane.</span>
+          <ul class="grows-list">
+            <li><span class="k">[ A ]</span><span class="t">The pre-trip, every trip
+              <span>Safety is not a department. It is how the truck leaves the yard.</span></span></li>
+            <li><span class="k">[ B ]</span><span class="t">Hours run legal, always
+              <span>No schedule is worth a shortcut, and none ever will be.</span></span></li>
+            <li><span class="k">[ C ]</span><span class="t">A human answers
+              <span>24 / 7 dispatch, straight numbers, no runaround and no queue.</span></span></li>
+            <li><span class="k">[ D ]</span><span class="t">The honest count
+              <span>We will always tell you exactly how big we are.</span></span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="taxo">
+        <p class="mono">The principles that will guide us there</p>
+        <ul>
+          <li>Integrity</li>
+          <li>Character</li>
+          <li>Safety</li>
+          <li>Service</li>
+          <li>Trust</li>
+        </ul>
+      </div>
+
+      <div class="sec-foot">
+        <p class="mono">We don&rsquo;t know every opportunity ahead &mdash; we do know the principles that meet it</p>
+        <a class="arrow" href="/v4/story">Where the standard comes from <i aria-hidden="true">&#8599;</i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================ 05 · STILL WRITING ================================= -->
+  <section class="mani g-paper" aria-labelledby="mani-h">
+    <div class="mani-panel">
+      <div class="inner">
+        <p class="mono">004 / Still writing</p>
+        <h2 class="stmt stmt--wide" id="mani-h" data-reveal style="margin-top:var(--s5)">
+          KUL Enterprises is still writing its story &mdash; and that is the point.
+        </h2>
+        <p class="body" style="margin-top:var(--s5)">A destination gives us direction; character
+          determines how we get there. If you ship with us this year you are not a line on a big
+          carrier&rsquo;s board &mdash; <strong>you are one of the promises the next forty-nine
+          trucks get built on</strong>.</p>
+
+        <ul class="triad">
+          <li><span class="k">[ 01 ]</span><span class="t">One shipment at a time</span></li>
+          <li><span class="k">[ 02 ]</span><span class="t">One relationship at a time</span></li>
+          <li><span class="k">[ 03 ]</span><span class="t">One promise kept at a time</span></li>
+        </ul>
+
+        <div class="actions" style="margin-top:var(--s6)">
+          <a class="arrow" href="/v4/journey">Read the journey so far <i aria-hidden="true">&#8599;</i></a>
+        </div>
+      </div>
+    </div>
+
+    <figure class="mani-fig">
+      <img src="/studio/assets/journey/cliffs.jpg"
+           alt="A flat-topped mesa rising above bright turquoise water, seen from a distance."
+           width="2200" height="1650" loading="lazy" decoding="async">
+      <figcaption class="mono">[ R&mdash;01 ] &mdash; The far shore, founder&rsquo;s archive</figcaption>
+    </figure>
+  </section>
+
+  <!-- ================ 06 · THE PROMISE =================================== -->
+  <section class="close g-ink" aria-labelledby="close-h">
+    <div class="close-media">
+      <img src="/studio/assets/journey/desert.jpg"
+           alt="A wave breaking against a sandstone headland on an open stretch of beach."
+           width="2200" height="1650" loading="lazy" decoding="async">
+    </div>
+    <div class="close-scrim" aria-hidden="true"></div>
+
+    <div class="wrap">
+      <p class="mono" style="color:rgba(244,241,232,.86)">[ End ] &mdash; The promise</p>
+      <h2 class="stmt" id="close-h" data-reveal style="margin-top:var(--s5)">
+        Every great fleet begins with one truck, one customer, and one promise kept.
+      </h2>
+      <p class="lead">Be the customer in that sentence. Send the lane, the weight and the window
+        &mdash; dispatch comes back with a straight number, from the person who will dispatch it.</p>
+
+      <div class="actions">
+        <a class="btn" href="/v4/forward">Request a Freight Quote</a>
+        <a class="arrow arrow--flat" href="/v4/join">Become a Driver <i aria-hidden="true">&rarr;</i></a>
+      </div>
+
+      <div class="close-credit">
+        <p class="mono">[ R&mdash;02 ] &mdash; Wave against the headland &middot; Founder&rsquo;s archive, unretouched</p>
+        <p class="mono">33.8390&deg; N &middot; 83.9007&deg; W</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================ 07 · CHAPTER RAIL ================================== -->
+  <section class="section g-ink" aria-labelledby="chap-h" style="padding-block:var(--s9) 0">
+    <div class="wrap">
+      <h2 class="mono" id="chap-h">[ Index ] &mdash; Keep reading</h2>
+      <nav class="chapnav" aria-label="Nearby chapters" style="margin-top:var(--s5)">
+        <a href="/v4/forward">
+          <span class="mono">&larr; Previous &middot; Chapter 07</span>
+          <span class="t">Let&rsquo;s Move Forward</span>
+          <span class="n">Send the lane, the weight and the window.</span>
+        </a>
+        <a href="/v4">
+          <span class="mono">Start again &middot; Chapter 01</span>
+          <span class="t">The Beginning</span>
+          <span class="n">Where the one-truck standard is set out in full.</span>
+        </a>
+      </nav>
+    </div>
+  </section>
+</main>
+
+<!-- ==================== FOOTER · Legora wordmark ========================= -->
+<footer class="foot g-ink">
+  <div class="wrap">
+    <div class="foot-cols">
+      <nav class="foot-chapters" aria-label="Chapters">
+        <h2>Chapters</h2>
+        <ul>
+          <li><a href="/v4">[01] The Beginning</a></li>
+          <li><a href="/v4/journey">[02] The Journey</a></li>
+          <li><a href="/v4/story">[03] Why I Started Driving</a></li>
+          <li><a href="/v4/mission">[04] The Mission</a></li>
+          <li><a href="/v4/responsibility">[05] The Responsibility</a></li>
+          <li><a href="/v4/join">[06] Join the Journey</a></li>
+          <li><a href="/v4/forward">[07] Let&rsquo;s Move Forward</a></li>
+          <li class="is-here"><a href="./" aria-current="page">[08] The Road Ahead</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Direct links">
+        <h2>Direct</h2>
+        <ul>
+          <li><a href="/v4/mission">Services</a></li>
+          <li><a href="/v4/responsibility">Safety</a></li>
+          <li><a href="/v4/forward">Request a Quote</a></li>
+          <li><a href="/v4/join">Drive for KUL</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <h2>Compliance</h2>
+        <ul>
+          <li><span>USDOT 7638788</span></li>
+          <li><span>MC 66389691</span></li>
+          <li><span>Licensed &amp; insured</span></li>
+          <li><span>Own operating authority</span></li>
+          <li><span>Loganville, Georgia</span></li>
+        </ul>
+      </div>
+
+      <div>
+        <h2>Dispatch</h2>
+        <ul>
+          <li><a href="tel:+16789721148">678-972-1148</a></li>
+          <li><a href="mailto:dispatch@kulenterprises.com">dispatch@kulenterprises.com</a></li>
+          <li><span>Answered 24 / 7</span></li>
+        </ul>
+        <p class="mono" style="margin-top:var(--s5)">Strength in Motion.<br>Built on Integrity.<br>Driven by Safety.</p>
+      </div>
+    </div>
+
+    <div class="foot-legal">
+      <p class="mono">&copy; 2026 KUL Enterprises LLC</p>
+      <p class="mono">One tractor today. Fifty by &rsquo;29.</p>
+      <p class="mono">33.8390&deg; N &middot; 83.9007&deg; W</p>
+    </div>
+  </div>
+
+  <p class="wordmark" aria-hidden="true">KUL Enterprises</p>
+</footer>
+
+<script>
+/* ==========================================================================
+   RUNTIME — no external JS. Everything below is an enhancement: with
+   scripting off the page is a complete, readable, fully navigable document
+   in which all five stage panels are simply stacked.
+   Scroll handlers touch transform and class names only; never geometry.
+   ========================================================================== */
+(function () {
+  'use strict';
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+  /* --- 1 · reveal machinery ----------------------------------------------
+     Deliberately NOT IntersectionObserver: Chromium folds an element's own
+     clip-path into the intersection rect, so a clipped element reports
+     ratio 0 forever. A rAF-throttled rect check is immune and unhooks itself
+     once the last element is in. */
+  var pending = Array.prototype.slice.call(document.querySelectorAll('[data-reveal], [data-rule]'));
+  Array.prototype.forEach.call(pending, function (el) {
+    el.addEventListener('transitionend', function (ev) {
+      if (ev.propertyName === 'clip-path') el.style.clipPath = 'none';
+    });
+  });
+
+  function revealAll() {
+    Array.prototype.forEach.call(pending, function (el) {
+      el.classList.add('is-in'); el.style.clipPath = 'none';
+    });
+    pending = [];
+  }
+
+  if (reduce) {
+    revealAll();
+  } else {
+    var revTick = false;
+    var checkReveal = function () {
+      revTick = false;
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      for (var i = pending.length - 1; i >= 0; i--) {
+        var r = pending[i].getBoundingClientRect();
+        if (r.top < vh * 0.94 && r.bottom > -80) {
+          pending[i].classList.add('is-in');
+          pending.splice(i, 1);
+        }
+      }
+      if (!pending.length) {
+        window.removeEventListener('scroll', queueReveal);
+        window.removeEventListener('resize', queueReveal);
+      }
+    };
+    var queueReveal = function () {
+      if (revTick) return;
+      revTick = true;
+      window.requestAnimationFrame(checkReveal);
+    };
+    window.addEventListener('scroll', queueReveal, { passive: true });
+    window.addEventListener('resize', queueReveal);
+    checkReveal();
+    var armed = pending.length;
+    window.setTimeout(function () { if (pending.length === armed) revealAll(); }, 3000);
+  }
+
+  /* --- 2 · header collapse (transform only) ------------------------------ */
+  var topbar = document.getElementById('topbar');
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function () {
+      topbar.classList.toggle('is-stuck', window.scrollY > 56);
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* --- 3 · live Loganville clock, converted to ET (never faked) ---------- */
+  var clock = document.getElementById('etclock');
+  function tick() {
+    if (!clock) return;
+    try {
+      var t = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit', hour12: false
+      }).format(new Date());
+      clock.textContent = t + ' ET';
+    } catch (err) { clock.textContent = 'Dispatch 24/7'; }
+  }
+  tick();
+  window.setInterval(tick, 20000);
+
+  /* --- 3b · distance to the written date ---------------------------------
+     Computed from the visitor's own clock against the one date KUL has
+     actually committed to. Never a countdown widget, never a fabricated
+     figure: it is arithmetic on a published number, and it degrades to the
+     plain string already in the markup. */
+  var tgt = document.getElementById('tgtCount');
+  if (tgt) {
+    try {
+      var now = new Date();
+      var end = new Date(2029, 11, 31);
+      var months = (end.getFullYear() - now.getFullYear()) * 12 + (end.getMonth() - now.getMonth());
+      if (months > 0 && months < 600) {
+        tgt.textContent = months + ' months';
+        tgt.setAttribute('title', 'Months remaining to the end of 2029');
+      }
+    } catch (err) { /* the markup already reads "End of 2029" */ }
+  }
+
+  /* --- 4 · generic modal helper (menu sheet + contact panel) ------------- */
+  function makeModal(root, openSel, closeSel, openClass, exitMs) {
+    var openers = document.querySelectorAll(openSel);
+    var lastFocus = null;
+    function open(trigger) {
+      lastFocus = trigger || document.activeElement;
+      root.hidden = false;
+      document.body.style.overflow = 'hidden';
+      Array.prototype.forEach.call(openers, function (b) { b.setAttribute('aria-expanded', 'true'); });
+      window.requestAnimationFrame(function () {
+        root.classList.add(openClass);
+        var first = root.querySelector(FOCUSABLE);
+        if (first) first.focus();
+      });
+    }
+    function close() {
+      root.classList.remove(openClass);
+      document.body.style.overflow = '';
+      Array.prototype.forEach.call(openers, function (b) { b.setAttribute('aria-expanded', 'false'); });
+      window.setTimeout(function () { root.hidden = true; }, reduce ? 0 : exitMs);
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+    Array.prototype.forEach.call(openers, function (b) {
+      b.addEventListener('click', function () { open(b); });
+    });
+    Array.prototype.forEach.call(root.querySelectorAll(closeSel), function (b) {
+      b.addEventListener('click', close);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (root.hidden) return;
+      if (e.key === 'Escape') { e.preventDefault(); close(); return; }
+      if (e.key !== 'Tab') return;
+      var items = root.querySelectorAll(FOCUSABLE);
+      if (!items.length) return;
+      var first = items[0], last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+    return { open: open, close: close };
+  }
+
+  makeModal(document.getElementById('sheet'), '[data-menu-open]', '[data-menu-close]', 'is-open', 260);
+  makeModal(document.getElementById('contactPanel'), '[data-contact-open]', '[data-contact-close]', 'is-open', 300);
+
+  /* --- 5 · copy-to-clipboard, with a visible confirmation ---------------- */
+  var status = document.querySelector('.cstatus');
+  var copyTimer = null;
+  Array.prototype.forEach.call(document.querySelectorAll('[data-copy]'), function (btn) {
+    var label = btn.textContent;
+    btn.addEventListener('click', function () {
+      var text = btn.getAttribute('data-copy');
+      function done(ok) {
+        btn.textContent = ok ? 'Copied ✓' : 'Copy blocked';
+        if (status) status.textContent = ok
+          ? text + ' copied to your clipboard'
+          : 'Clipboard blocked — select the address above and copy it manually';
+        window.clearTimeout(copyTimer);
+        copyTimer = window.setTimeout(function () {
+          btn.textContent = label;
+          if (status) status.textContent = '';
+        }, 2600);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(false); });
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed'; ta.style.top = '-1000px';
+        document.body.appendChild(ta); ta.select();
+        var ok = false;
+        try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+        document.body.removeChild(ta);
+        done(ok);
+      }
+    });
+  });
+
+  /* --- 6 · THE STAGE STEPPER ----------------------------------------------
+     A real tablist: roving tabindex, Left/Right/Home/End, and the panel is
+     focusable so a keyboard reader lands inside it. The stepper is only
+     switched on once this code has run — until then every panel is visible,
+     so a script failure can never hide four fifths of the chapter. */
+  var stages = document.getElementById('stages');
+  var stack = document.getElementById('stageStack');
+  if (stages && stack) {
+    var tabs = stages.querySelectorAll('.stage-tab');
+    var panels = stack.querySelectorAll('.stage-panel');
+    if (tabs.length && tabs.length === panels.length) {
+      var live = 0;
+      stages.classList.add('is-tabbed');
+
+      /* initial state: only the first panel is in the document flow */
+      Array.prototype.forEach.call(panels, function (p, i) {
+        if (i !== 0) { p.hidden = true; p.classList.remove('is-shown'); }
+      });
+
+      function selectStage(i, moveFocus) {
+        if (i < 0 || i >= tabs.length) return;
+        if (i !== live) {
+          tabs[live].setAttribute('aria-selected', 'false');
+          tabs[live].tabIndex = -1;
+          panels[live].classList.remove('is-shown');
+          panels[live].hidden = true;
+
+          live = i;
+          tabs[live].setAttribute('aria-selected', 'true');
+          tabs[live].tabIndex = 0;
+          panels[live].hidden = false;
+          /* let the browser paint the un-hidden panel before the entrance */
+          window.requestAnimationFrame(function () {
+            panels[live].classList.add('is-shown');
+          });
+        }
+        if (moveFocus) tabs[live].focus();
+      }
+
+      Array.prototype.forEach.call(tabs, function (tab, i) {
+        tab.addEventListener('click', function () { selectStage(i, false); });
+        tab.addEventListener('keydown', function (e) {
+          var to = null;
+          if (e.key === 'ArrowRight' || e.key === 'ArrowDown') to = (i + 1) % tabs.length;
+          else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') to = (i - 1 + tabs.length) % tabs.length;
+          else if (e.key === 'Home') to = 0;
+          else if (e.key === 'End') to = tabs.length - 1;
+          if (to === null) return;
+          e.preventDefault();
+          selectStage(to, true);
+          /* keep the newly-selected tab inside the scrolling rail */
+          if (tabs[to].scrollIntoView) {
+            tabs[to].scrollIntoView({ block: 'nearest', inline: 'nearest',
+                                      behavior: reduce ? 'auto' : 'smooth' });
+          }
+        });
+      });
+    }
+  }
+})();
+</script>
+
+<!-- ============================ TWEAKS CONTRACT ========================== -->
+<script>
+window.KUL_TWEAKS = {
+  style: 's13',
+  controls: [
+    { var: '--ink',           label: 'Ink ground',      type: 'color',  value: '#0B0B0B' },
+    { var: '--paper',         label: 'Paper ground',    type: 'color',  value: '#F4F1E8' },
+    { var: '--gold',          label: 'Brand gold',      type: 'color',  value: '#D4AF37' },
+    { var: '--display-scale', label: 'Display scale',   type: 'range',  value: 1,    min: 0.8,  max: 1.3,  step: 0.01 },
+    { var: '--mono-track',    label: 'Mono tracking',   type: 'range',  value: 0.18, min: 0.06, max: 0.34, step: 0.01, unit: 'em' },
+    { var: '--hairline-w',    label: 'Hairline weight', type: 'range',  value: 1,    min: 1,    max: 3,    step: 0.5,  unit: 'px' },
+    { var: '--meter-cell',    label: 'Fleet cell size', type: 'range',  value: 46,   min: 22,   max: 72,   step: 1,    unit: 'px' },
+    { var: '--photo-grade-feat', label: 'Feature grade', type: 'range', value: 62,  min: 0,  max: 100, step: 1, unit: '%' },
+    { var: '--scrim',            label: 'Photo scrim',   type: 'range', value: 100, min: 60, max: 100, step: 1, unit: '%' }
+  ]
+};
+</script>
+<script src="/studio/tweaks.js" defer></script>
+</body>
+</html>
