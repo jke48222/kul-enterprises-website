@@ -74,13 +74,6 @@ export default function HomePage() {
 
         <div className="relative mx-auto w-full max-w-[1440px] px-6 pb-16 pt-40 md:px-12 lg:px-24">
           <div className="flex max-w-[1120px] flex-col gap-8">
-            <p className="flex items-center gap-4">
-              <span className="h-px w-12 shrink-0 bg-k-gold-lit" aria-hidden="true" />
-              <span className="font-text text-k-label uppercase text-k-gold-lit">
-                {site.location} · {site.serviceArea}
-              </span>
-            </p>
-
             <h1 className="font-display text-k-d1 font-black text-k-on-dark">
               Every mile.
               <br />
@@ -110,6 +103,9 @@ export default function HomePage() {
           </div>
         </div>
 
+        {/* The strip along the bottom of the opening screen. The facts a broker
+            checks first sit on the left, and where we are based sits on its own
+            at the right hand end, picked out in gold. */}
         <div className="relative border-t border-white/15">
           <div className="mx-auto flex max-w-[1440px] flex-wrap items-center gap-x-10 gap-y-2 px-6 py-5 md:px-12 lg:px-24">
             {CREDENTIALS.map((item) => (
@@ -120,6 +116,16 @@ export default function HomePage() {
                 {item}
               </span>
             ))}
+
+            <span className="flex items-center gap-4 md:ml-auto">
+              <span
+                className="hidden h-px w-12 shrink-0 bg-k-gold-lit md:block"
+                aria-hidden="true"
+              />
+              <span className="font-text text-k-micro uppercase text-k-gold-lit">
+                {site.location} · {site.serviceArea}
+              </span>
+            </span>
           </div>
         </div>
       </section>
@@ -296,8 +302,11 @@ export default function HomePage() {
           <div className="flex flex-1 flex-col gap-6">
             <p className="flex items-center gap-4">
               <span className="h-px w-12 shrink-0 bg-k-gold" aria-hidden="true" />
+              {/* This used to advertise seventeen scenes and a twelve minute
+                  running time. Neither exists yet, so it now says what the
+                  Journey page actually holds today. */}
               <span className="font-text text-k-label uppercase text-k-gold">
-                Seventeen scenes · about twelve minutes
+                Six chapters · the story so far
               </span>
             </p>
             <h2 className="font-display text-k-d2 font-black text-k-ink">

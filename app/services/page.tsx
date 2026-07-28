@@ -119,14 +119,23 @@ export default function ServicesPage() {
             <h2 className="max-w-[700px] text-center font-display text-k-d2 font-black text-k-ink">
               Find the service that fits your lane
             </h2>
-            <p className="font-text text-k-small text-k-ink-soft">
-              All {services.length} services. Scroll sideways to compare.
+            <p className="max-w-[660px] text-center font-text text-k-small text-k-ink-soft">
+              All {services.length} services. Scroll sideways to compare. If
+              none of them obviously fits, describe the load and we will tell
+              you which one does, including when the answer is that KUL is not
+              the right carrier for it.
             </p>
           </Reveal>
 
           {/* All seven sit in one row that scrolls sideways, so no service
-              gets squeezed narrower than it can be read. */}
-          <div className="-mx-6 flex snap-x snap-mandatory overflow-x-auto border-t border-k-rule-strong px-6 md:-mx-12 md:px-12 lg:-mx-24 lg:px-24 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              gets squeezed narrower than it can be read.
+
+              The scroll-pl values below are what keep the first service, Power
+              Only, from sitting hard against the left edge of the screen. The
+              row snaps each service into place as you drag it, and without
+              these the snap would pull that first card past the page margin.
+              They must always match the px values on the same line. */}
+          <div className="-mx-6 flex snap-x snap-mandatory scroll-pl-6 overflow-x-auto border-t border-k-rule-strong px-6 md:-mx-12 md:scroll-pl-12 md:px-12 lg:-mx-24 lg:scroll-pl-24 lg:px-24 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {compared.map((service, i) => (
               <div
                 key={service.slug}
@@ -208,49 +217,93 @@ export default function ServicesPage() {
         style={{ backgroundColor: "#FDC63E17" }}
       >
         <div className="mx-auto flex max-w-[1248px] flex-col gap-16">
-          <Reveal className="flex flex-col items-center gap-4">
+          <Reveal className="mx-auto flex max-w-[42ch] flex-col items-center gap-4 text-center">
             <p className="font-text text-k-label uppercase text-k-gold">
               How a load moves
             </p>
-            <h2 className="text-center font-display text-k-d2 font-black text-k-ink">
+            <h2 className="font-display text-k-d2 font-black text-k-ink">
               Four steps, no surprises
             </h2>
+            <p className="font-text text-k-lede text-k-ink-soft">
+              Five fields in, one phone number throughout.
+            </p>
           </Reveal>
 
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0">
-            {STEPS.map((step, i) => (
-              <Reveal
-                key={step.n}
-                index={i}
-                className={`flex flex-col gap-5 ${i < STEPS.length - 1 ? "lg:pr-8" : ""}`}
-              >
-                <div className="flex items-center">
-                  <span
-                    className={`flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-full font-text text-k-label ${
-                      i === STEPS.length - 1
-                        ? "bg-k-gold text-white"
-                        : "bg-k-ink text-white"
-                    }`}
-                  >
-                    {step.n}
-                  </span>
-                  {i < STEPS.length - 1 ? (
+          {/*
+           * The four steps read as one route rather than four cards: a single
+           * unbroken rail with a mark at each step, running across at lg and
+           * down the left below it.
+           *
+           * The grid has NO gap on purpose. The rail has to cross from one
+           * step to the next without breaking, so the breathing room is
+           * padding inside each step rather than a gap the line would have to
+           * jump. Adding gap-x or gap-y here will cut the line into pieces.
+           */}
+          <div className="grid grid-cols-1 lg:grid-cols-4">
+            {STEPS.map((step, i) => {
+              const last = i === STEPS.length - 1;
+              return (
+                <Reveal
+                  key={step.n}
+                  index={i}
+                  className={`relative flex gap-5 lg:flex-col lg:gap-0 ${
+                    last ? "" : "pb-10 lg:pb-0"
+                  }`}
+                >
+                  {/*
+                   * Below lg the rail runs down the left instead of across.
+                   * It is drawn from this mark's centre to the next mark's
+                   * centre (12.5px = 8px offset + half the 9px mark), which
+                   * is why it overhangs the bottom by the same amount.
+                   */}
+                  {last ? null : (
                     <span
-                      className="hidden h-px flex-1 border-t border-dashed border-k-rule-strong lg:block"
+                      className="absolute -bottom-[12.5px] left-1 top-[12.5px] w-px bg-k-rule-strong lg:hidden"
                       aria-hidden="true"
                     />
-                  ) : null}
-                </div>
-                <div className="flex flex-col gap-2.5 border border-k-rule bg-k-surface p-5">
-                  <h3 className="font-display text-k-d3 font-black text-k-ink">
-                    {step.name}
-                  </h3>
-                  <p className="font-text text-k-small text-k-ink-soft">
-                    {step.body}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
+                  )}
+
+                  {/*
+                   * The mark. At lg it sits on the rail and carries the line
+                   * to the next one; the last step draws no line, so the rail
+                   * ends on arrival rather than running off the edge.
+                   */}
+                  <div className="flex shrink-0 items-start pt-2 lg:w-full lg:items-center lg:pt-0">
+                    <span
+                      className={`block h-[9px] w-[9px] shrink-0 rounded-full ${
+                        last ? "bg-k-gold" : "bg-k-ink"
+                      }`}
+                    />
+                    {last ? null : (
+                      <span
+                        className="hidden h-px flex-1 bg-k-rule-strong lg:block"
+                        aria-hidden="true"
+                      />
+                    )}
+                  </div>
+
+                  {/* At lg, a short drop tying the label back to its mark. */}
+                  <span
+                    className="ml-1 hidden h-7 w-px bg-k-rule lg:block"
+                    aria-hidden="true"
+                  />
+
+                  <div className="flex flex-col gap-2 lg:pr-10">
+                    <div className="flex items-baseline gap-3">
+                      <span className="font-text text-k-micro uppercase tabular-nums text-k-ink-faint">
+                        {step.n}
+                      </span>
+                      <h3 className="font-display text-k-d3 font-black text-k-ink">
+                        {step.name}
+                      </h3>
+                    </div>
+                    <p className="font-text text-k-small text-k-ink-soft">
+                      {step.body}
+                    </p>
+                  </div>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -298,35 +351,13 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Closing call to action. */}
-      <section className="bg-k-coal px-6 py-24 md:px-12 lg:px-24">
-        <div className="mx-auto flex max-w-[1248px] flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex flex-col gap-4">
-            <h2 className="font-display text-k-d2 font-black text-k-on-dark">
-              Not sure which one
-            </h2>
-            <p className="max-w-[520px] font-text text-k-body text-k-on-dark-soft">
-              Describe the load and we will tell you which service fits,
-              including when the answer is that KUL is not the right carrier for
-              it.
-            </p>
-          </div>
-          <div className="flex flex-wrap items-center gap-6">
-            <Link
-              href="/quote"
-              className="rounded-full bg-k-on-dark px-8 py-4 font-text text-k-label uppercase text-k-ink transition-opacity duration-200 hover:opacity-85"
-            >
-              Request a quote
-            </Link>
-            <a
-              href={site.phoneHref}
-              className="font-display text-k-d3 font-black tabular-nums text-k-gold-lit"
-            >
-              {site.phone}
-            </a>
-          </div>
-        </div>
-      </section>
+      {/* There is deliberately no closing call to action here. The footer on
+          every page already carries the same dark band, the same Request a
+          quote button and the same phone number, so putting one here as well
+          simply printed it twice in a row. The one sentence worth keeping from
+          it, about describing a load when none of the services obviously fits,
+          now sits above the comparison row where the question is actually
+          being asked. */}
     </>
   );
 }
