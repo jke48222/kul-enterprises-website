@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import LegalPage from "@/components/v2/LegalPage";
+import LegalPage from "@/components/k/LegalPage";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -21,10 +21,12 @@ export default function LegalNotices() {
           heading: "Pictures & wordmark",
           body: (
             <p>
-              The photography featured on this website includes images taken
-              personally by our founder while traveling the United States,
-              together with licensed imagery. Equipment shown may differ in
-              specification, configuration, or livery from the equipment
+              Every photograph on this website was taken by our founder while
+              driving in the United States. There is no licensed or stock
+              photography on the site. The opening film and the equipment
+              drawings are computer generated and depict the tractor and
+              trailer this company operates. Equipment shown may differ in
+              specification, configuration or livery from the equipment
               assigned to any particular load. All third-party word marks and
               logos that may appear remain the property of their respective
               owners, and any use of such marks is under license or by

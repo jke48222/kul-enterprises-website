@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import LegalPage from "@/components/v2/LegalPage";
+import LegalPage from "@/components/k/LegalPage";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -14,8 +14,8 @@ export const metadata: Metadata = {
 // Accuracy contract (mirrors app/cookies/page.tsx): every unconditional
 // sentence must stay true whether or not NEXT_PUBLIC_GA_ID is set, because
 // app/layout.tsx renders <GoogleAnalytics> off that flag. Negative claims
-// are therefore scoped to conduct KUL controls — no ad targeting, no
-// cross-site tracking, no selling — rather than absolutes about third
+// are therefore scoped to conduct KUL controls: no ad targeting, no
+// cross-site tracking, no selling, rather than absolutes about third
 // parties that shipping analytics would falsify. Anything specific to
 // Google is gated on the same flag.
 export default function PrivacyPolicy() {
@@ -133,7 +133,7 @@ export default function PrivacyPolicy() {
                 <p>
                   Information collected automatically. We use Google Analytics
                   to understand, in aggregate, how visitors find and use our
-                  website — for example which pages are read most. It sets
+                  website, for example which pages are read most. It sets
                   cookies on this domain that last about two years, and the
                   measurements are sent to Google, who process them on our
                   behalf. The results do not identify you personally to us,

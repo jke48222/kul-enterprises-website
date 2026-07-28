@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import LegalPage from "@/components/v2/LegalPage";
+import LegalPage from "@/components/k/LegalPage";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -13,13 +13,13 @@ export const metadata: Metadata = {
 // Accuracy contract for this page (do not regress):
 //  1. Every unconditional sentence must stay true whether or not
 //     NEXT_PUBLIC_GA_ID is set. Absolute negatives like "no third-party
-//     profiling of any kind" are what broke this page before — the layout
+//     profiling of any kind" are what broke this page before. The layout
 //     renders <GoogleAnalytics> off that same flag, so the claim inverted
 //     the moment analytics shipped. Promises here are scoped to what KUL
 //     chooses to do (no ad targeting, no cross-site following, no selling),
 //     which holds in both builds; the mechanics of GA live in the gated
 //     section instead.
-//  2. kul-intro-seen is localStorage, NOT a session cookie — see
+//  2. kul-intro-seen is localStorage, NOT a session cookie. See
 //     components/brand/LoadingOverlay.tsx (SEEN_KEY, "first visit EVER").
 //     It does not expire and it survives closing the tab. The old copy
 //     claimed both the opposite things.
@@ -59,14 +59,14 @@ export default function ManageCookies() {
                 a cookie, and that distinction is worth stating precisely: it
                 does not expire on a schedule, and it is not cleared when you
                 close the tab. It stays until you clear this site&apos;s data
-                — which is what lets the film play once in your life rather
+                , which is what lets the film play once in your life rather
                 than on every visit.
               </p>
             </>
           ),
         },
-        // Rendered only when GA is actually enabled — the same build-time
-        // flag that renders the tag in app/layout.tsx — so this page never
+        // Rendered only when GA is actually enabled, on the same build-time
+        // flag that renders the tag in app/layout.tsx, so this page never
         // describes measurement that is switched off. Note that the sections
         // above and below stay truthful either way; this block adds detail,
         // it does not correct them.

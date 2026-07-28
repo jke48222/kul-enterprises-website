@@ -28,12 +28,27 @@
   /* Ink on light. #2C2C2C recurs in every reference — text is charcoal. */
   --color-ink: #2c2c2c; /* 12.25:1 on paper */
   --color-ink-soft: #5e5e5e; /* 6.40:1 */
-  --color-ink-faint: #767676; /* 4.60:1 — the floor, never lighter */
+  /* Same correction as the faint tone on dark, and the same original mistake:
+     #767676 was labelled 4.60:1, which is its figure against pure white. The
+     site has no pure white ground. On paper it was 3.99:1 and on the warm
+     panel 4.03:1, so every 11px label wearing it was under the minimum.
+     #6a6a6a is the lightest step that clears 4.5:1 on surface, paper and warm
+     alike, and it stays visibly lighter than the soft tone above it. Measure
+     any replacement against paper, which is the darkest light ground. */
+  --color-ink-faint: #6a6a6a; /* 5.27:1 surface, 4.75:1 paper, 4.80:1 warm */
 
   /* Ink on dark */
   --color-on-dark: #fcfcfc; /* 16.61:1 on charcoal */
   --color-on-dark-soft: #a8a8a8; /* 7.40:1 */
-  --color-on-dark-faint: #7c7c7c; /* 4.50:1 — the floor */
+  /* The faint tone was #7c7c7c, whose comment claimed 4.50:1. That figure is
+     measured against pure black, and almost nothing on this site sits on pure
+     black. On charcoal it was 4.08:1 and on blueprint 3.72:1, so the footer
+     small print, the legal links and the DOT numbers were all under the
+     readable minimum on every page. #8c8c8c is the lightest step that clears
+     4.5:1 on all three dark grounds while staying clearly fainter than the
+     soft tone above it. Measure any replacement against blueprint, which is
+     the palest dark ground and therefore the hardest. */
+  --color-on-dark-faint: #8c8c8c; /* 6.25:1 void, 5.07:1 charcoal, 4.62:1 blueprint */
 
   /* Hairlines. The structural device — cards are the exception. */
   --color-rule: #d6d4cf;
