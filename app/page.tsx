@@ -167,6 +167,14 @@ export default function HomePage() {
           </p>
         </div>
 
+        {/* THERE IS NO GHOSTED WORDMARK BEHIND THE RIG, AND THAT IS DELIBERATE.
+            One was built here, set very large so the trailer cut through it,
+            the way a car maker sets a model name behind the car. It worked and
+            it was still wrong: the trailer wrap already prints KUL ENTERPRISES
+            LLC at size, so the effect put a second, fainter copy of the same
+            word directly behind the real one, and two wordmarks in one view
+            make the real livery look like a repeat of itself. The rig is the
+            brand moment on this page and it does not need the help. */}
         <Reveal className="mx-auto flex max-w-[1248px] justify-center px-6">
           <Image
             src="/images/truck/truck-body.webp"

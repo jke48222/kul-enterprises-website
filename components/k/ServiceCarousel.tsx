@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { m } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Service } from "@/lib/services";
 
@@ -41,6 +42,14 @@ type ServiceCarouselProps = {
 export default function ServiceCarousel({ services }: ServiceCarouselProps) {
   const railRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+  /**
+   * Whether the sideways hint has been earned out. It disappears the first
+   * time the row is moved by any means and never comes back for the rest of
+   * the visit, which is why the flag is held here rather than being worked
+   * out from the scroll position each time.
+   */
+  const [hinted, setHinted] = useState(false);
+  const noteHint = useCallback(() => setHinted(true), []);
   // A plain copy of the same number, so the arrows can read where we are
   // without waiting for React to re-render.
   const activeRef = useRef(0);
@@ -114,12 +123,32 @@ export default function ServiceCarousel({ services }: ServiceCarouselProps) {
   }, [services.length]);
 
   return (
-    <div className="flex flex-col gap-8 py-14 pb-24">
+    <div className="relative flex flex-col gap-8 py-14 pb-24">
+      {/* A quiet note that the row moves sideways.
+          On a thirteen inch laptop the arrows and dots sit below the fold of
+          the card row, so a first time visitor sees seven photographs and no
+          sign that there are more or that they can be moved. This says so
+          once and then gets out of the way for the rest of the visit.
+
+          It is ink on paper, never gold. Gold is spent on the navigation
+          button in every viewport and again on the active dot below this row,
+          and a third gold thing here would break the page's budget. */}
+      <m.div
+        aria-hidden="true"
+        initial={false}
+        animate={{ opacity: hinted ? 0 : 1 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        className="pointer-events-none absolute left-1/2 top-4 z-10 -translate-x-1/2 rounded-full border border-k-rule bg-k-surface px-4 py-2 font-text text-k-micro uppercase text-k-ink-soft"
+      >
+        Drag or scroll sideways
+      </m.div>
+
       {/* The vertical padding leaves room for the middle card to scale up
           without being clipped, because a sideways scroller also clips
           anything that overflows top or bottom. */}
       <div
         ref={railRef}
+        onScroll={noteHint}
         className="flex snap-x snap-proximity items-center overflow-x-auto py-[100px] pl-[max(1.5rem,calc((100vw-400px)/2))] pr-[max(1.5rem,calc((100vw-400px)/2))] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         style={{ gap: GAP }}
       >

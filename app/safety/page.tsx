@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/lib/site";
+import HeroVideo from "@/components/k/HeroVideo";
 import Reveal, { RuleDraw } from "@/components/k/Reveal";
 
 /**
@@ -203,14 +203,21 @@ export default function SafetyPage() {
         </div>
       </section>
 
-      {/* One documentary photograph. A real rig in real traffic, unstyled. */}
+      {/* TWELVE SECONDS OF THE REAL THING
+          Not a photograph and not a stock clip: this is Mark's own dashcam,
+          multi-lane in heavy rain, trucks running lights, uncut and silent.
+
+          It is here rather than anywhere else on the site because this is the
+          page that admits KUL has no safety rating history yet and asks to be
+          judged on written policy instead. Showing the conditions is the one
+          place the argument can put evidence where a claim would otherwise
+          go. Anyone who has asked their computer to reduce motion gets the
+          still frame, which reads perfectly well on its own. */}
       <section className="relative flex min-h-[460px] items-end overflow-hidden bg-k-void">
-        <Image
-          src="/images/services/power-only-wide.jpg"
-          alt="A tractor and trailer running in traffic"
-          fill
-          className="object-cover opacity-70"
-          sizes="100vw"
+        <HeroVideo
+          name="dash-rain"
+          poster="/videos/dash-rain-poster.jpg"
+          className="absolute inset-0 h-full w-full object-cover opacity-70"
         />
         <div
           className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.35)_0%,rgba(0,0,0,0.15)_45%,rgba(0,0,0,0.85)_100%)]"
