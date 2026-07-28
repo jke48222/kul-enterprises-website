@@ -1,188 +1,233 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import DriverForm from "@/components/forms/DriverForm";
-import { CtaBand } from "@/components/v2/CtaBand";
-import { Eyebrow } from "@/components/v2/Eyebrow";
-import { GhostNumeral } from "@/components/v2/GhostNumeral";
-import { HeroFrame } from "@/components/v2/HeroFrame";
-import { LineReveal } from "@/components/v2/LineReveal";
-import { PageHero } from "@/components/v2/PageHero";
-import { PhotoBand } from "@/components/v2/PhotoBand";
-import { ProcessStrip } from "@/components/v2/ProcessStrip";
-import { Rise, RiseGroup } from "@/components/v2/Rise";
 import { site } from "@/lib/site";
+import Reveal from "@/components/k/Reveal";
+
+/**
+ * DRIVERS
+ *
+ * KUL is taking applications now for a seat that opens later. That is the one
+ * fact the whole page is built around, and it is said in the first block
+ * rather than buried under a recruiting pitch.
+ *
+ * WHY IT IS WRITTEN THIS WAY. The road ahead page states that a second driver
+ * is recruited once the second truck is booked, not before. An earlier version
+ * of this page promised "a real call back" to talk lanes and home time, which
+ * contradicted it. A driver told to expect a call this week who then hears
+ * nothing for months is worse off than one told the truth on the first read,
+ * and a carrier that does that once does not get a second application.
+ *
+ * WHAT IS DELIBERATELY NOT HERE: pay figures, home time guarantees, and a
+ * start date. KUL has none of them yet. The page says so where each would
+ * normally go rather than leaving the reader to assume.
+ *
+ * ON THE LAYOUT. Three sections, each a different shape, each taken from a
+ * real site and named in the comment above it. The page opens at small size
+ * on purpose: the one display moment is "The seat, when it opens" further
+ * down, because that is the part a driver came to read.
+ *
+ * TO UPDATE IT WHEN THE SECOND TRUCK IS BOOKED: change the notice at the top
+ * and the line above the form. Both are written so that only the timing has to
+ * change, not the whole page.
+ */
 
 export const metadata: Metadata = {
   title: "Drive With KUL",
-  description:
-    "Drive for a Georgia carrier that knows your name: honest dispatch, home time that holds, safe equipment, and room to grow. CDL-A.",
+  description: `KUL Enterprises is taking driver applications now for a seat that opens with its second truck. CDL-A, Southeast regional out of ${site.location}, with over the road available.`,
 };
 
-const CONTAINER = "mx-auto w-full max-w-[1760px] px-[clamp(20px,5vw,90px)]";
-const GRID = "grid grid-cols-12 gap-x-[clamp(16px,1.4vw,24px)]";
-
 /**
- * §4.6.2 — The deal ledger. Qualitative facts only: recomposed from the
- * v1 driver props + the public 2029 vision. NO pay figures — we have none
- * and invent nothing.
+ * THE JOB, WRITTEN AS A DOCUMENT.
+ *
+ * Each entry prints as a paragraph whose first few words are set bold and read
+ * straight into the sentence, the way a printed handbook sets a heading it does
+ * not want to give a whole line to. Keep the lead short, two or three words,
+ * or the paragraph stops reading as a sentence.
+ *
+ * "The pay" is last on purpose. It is the question every driver has, and the
+ * honest answer is that there is not one yet.
  */
-const DEAL = [
+const THE_SEAT = [
   {
-    index: "01",
-    title: "A name, not a number",
-    body: "You are a professional. Dispatch treats you like one — one line, straight answers.",
+    lead: "The licence.",
+    body: "CDL-A, with a work history we can verify and a motor vehicle record we can pull. Both are checked before an interview rather than after one.",
   },
   {
-    index: "02",
-    title: "Home time that holds",
-    body: "Southeast regional lanes built around getting you home, and OTR when you want the miles.",
+    lead: "The lanes.",
+    body: `Southeast regional out of ${site.location}, with over the road available. Most weeks run inside the home region.`,
   },
   {
-    index: "03",
-    title: "Equipment that's ready",
-    body: "Clean, DOT-compliant, maintained before it's ever your problem.",
+    lead: "The equipment.",
+    body: "One tractor today and a second when the freight supports it. It is inspected before every dispatch, and anything found is fixed before the load moves.",
   },
   {
-    index: "04",
-    title: "Room to grow",
-    body: "Fifty tractors by the end of 2029. Early drivers grow with the fleet.",
+    lead: "The dispatch.",
+    body: "You will be talking to Mark, who has driven the lane. Hours are planned before dispatch rather than managed after it.",
   },
-];
-
-/** §4.6.4 — hiring steps (faq item 6 recompose), rendered by the shared ProcessStrip. */
-const HIRING_STEPS = [
-  { label: "The form", line: "Thirty seconds. Name, contact, CDL-A experience." },
-  { label: "The call back", line: "A person, not a portal." },
-  { label: "The talk", line: "Lanes, home time, equipment." },
-];
+  {
+    lead: "The pay.",
+    body: "Not published, because there is no honest number to publish yet. It is set when the second truck is booked and the lanes are known, and it is discussed on the call rather than advertised here.",
+  },
+] as const;
 
 export default function DriversPage() {
   return (
     <>
-      {/* 1 — Recruiting hero. Gold: the hero CTA (nav CTA hidden <md; at top state on desktop). */}
-      <div className="relative">
-        <PageHero
-          variant="photo"
-          height="80"
-          image={{
-            src: "/images/stock/driver-portrait-semi-cab-night.jpg",
-            alt: "A professional driver standing at his semi cab at night",
-          }}
-          eyebrow="Drive with KUL"
-          titleLines={["Drive something", "worth driving."]}
-          deck="CDL-A · Southeast regional & OTR · A thirty-second form, then a real call back."
-        >
-          <a href="#apply" className="btn-gold">
-            Start the Conversation
-          </a>
-          <a
-            href={site.phoneHref}
-            className="link-hairline text-micro uppercase tabular-nums text-paper/80"
-          >
-            Or call {site.phone}
-          </a>
-        </PageHero>
-        <HeroFrame />
-      </div>
+      {/* THE NOTICE
+          Shape taken from the Lyssna careers page, which states its hiring
+          position in plain bold text at reading size rather than dressing it
+          up as a headline.
 
-      {/* 2 — The deal ledger. Ink; zero gold. Eyebrow doubles as the page's
-          first h2 so the h3 rows never skip a level (§2.1 heading law). */}
-      <section
-        data-ground="ink"
-        className="relative overflow-hidden bg-ink py-band"
-      >
-        <div className={CONTAINER}>
-          <div className={GRID}>
-            <div className="col-span-12 lg:col-start-2 lg:col-end-12">
-              <Eyebrow as="h2">What you get</Eyebrow>
-              <RiseGroup className="mt-14">
-                <ul>
-                  {DEAL.map((row) => (
-                    <Rise
-                      as="li"
-                      key={row.index}
-                      className="relative border-t border-white/[0.12] py-[clamp(28px,5vh,52px)] last:border-b last:border-white/[0.12]"
-                    >
-                      <GhostNumeral className="left-0 top-1/2 -translate-y-1/2">
-                        {row.index}
-                      </GhostNumeral>
-                      <div className="relative z-10 grid gap-y-3 md:grid-cols-12 md:gap-x-[clamp(16px,1.4vw,24px)]">
-                        <p
-                          aria-hidden
-                          className="text-micro uppercase tabular-nums text-paper/60 md:col-span-1"
-                        >
-                          {row.index}
-                        </p>
-                        <h3 className="font-omnibus text-h3 text-cream md:col-span-5">
-                          {row.title}
-                        </h3>
-                        <p className="max-w-[52ch] text-body text-paper/70 md:col-span-6">
-                          {row.body}
-                        </p>
-                      </div>
-                    </Rise>
-                  ))}
-                </ul>
-              </RiseGroup>
-            </div>
+          The two rules run the full width of the page while the words sit in a
+          narrow column inside them. That is what makes the empty half look
+          like part of the design rather than a gap somebody forgot to fill,
+          and it is why the rules are not cropped to the text. */}
+      <section className="bg-k-paper px-6 pb-32 pt-36 md:px-12 lg:px-24 lg:pt-44">
+        <div className="mx-auto max-w-[1248px]">
+          <p className="flex items-center gap-2.5 pb-10">
+            <span className="font-text text-k-micro uppercase text-k-ink-soft">
+              KUL
+            </span>
+            <span className="font-text text-k-micro text-k-ink-soft">/</span>
+            <span className="font-text text-k-micro uppercase text-k-gold">
+              Drivers
+            </span>
+          </p>
+
+          <Reveal variant="wipe">
+            <h1 className="pb-14 font-display text-k-d3 font-black text-k-ink">
+              Driving for KUL
+            </h1>
+          </Reveal>
+
+          <div className="border-y border-k-ink">
+            <Reveal className="max-w-[640px] py-8">
+              <p className="font-text text-k-lede font-semibold text-k-ink">
+                Applications are open now. The seat opens when the second truck
+                does.
+              </p>
+              <p className="pt-5 font-text text-k-small text-k-ink-soft">
+                KUL runs one tractor today and Mark drives it. A second tractor
+                goes on the road once there is repeat freight to keep both
+                loaded through a full month, and the driver&rsquo;s seat opens
+                at the same time. We take applications before that happens so
+                the seat goes to somebody already spoken to, rather than
+                whoever answers an advert on the day.
+              </p>
+              <p className="pt-4 font-text text-k-small text-k-ink-soft">
+                There is no start date to give you. When the second truck is
+                booked, everybody who has applied is called. The plan itself is
+                on{" "}
+                <Link href="/road-ahead" className="underline underline-offset-4">
+                  the road ahead page
+                </Link>
+                .
+              </p>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* 3 — Home base band. Photo/ink, melts into the paper zone below. Zero gold. */}
-      <PhotoBand
-        image={{
-          src: "/images/stock/road-night-light-trails.jpg",
-          alt: "Light trails from trucks running a highway at night",
-        }}
-        eyebrow="Home base"
-        titleLines={["Loganville, Georgia."]}
-        body="The Southeast is a home route. Nationwide when you want it."
-        align="left"
-        melt
-      />
+      {/* THE SEAT
+          Shape taken from the Wise job description: one wide reading column
+          carrying the substance as running paragraphs, and a narrow rail
+          beside it holding the two or three practical notes a reader wants
+          within reach but does not want interrupting the prose.
 
-      {/* 4 — How it works. Paper; the shared ProcessStrip (§3.24). Zero gold. */}
-      <section data-ground="paper" className="bg-paper py-band-sm">
-        <div className={CONTAINER}>
-          <div className={GRID}>
-            <div className="col-span-12 lg:col-start-2 lg:col-end-12">
-              <LineReveal
-                as="h2"
-                lines={["Four fields.", "Then a phone call."]}
-                className="max-w-[14ch] font-omnibus text-h2 text-ink"
-              />
-              <div className="mt-14">
-                <ProcessStrip steps={HIRING_STEPS} ground="paper" />
-              </div>
+          The rail is not a summary of the column. Repeating the column in
+          shorter words beside itself is the usual mistake with this shape. */}
+      <section className="bg-k-surface px-6 py-32 md:px-12 lg:px-24">
+        <div className="mx-auto flex max-w-[1248px] flex-col gap-12 lg:flex-row lg:items-start lg:gap-[88px]">
+          <div className="lg:w-[760px] lg:shrink-0">
+            <Reveal variant="wipe">
+              <h2 className="pb-9 font-display text-k-d2 font-black text-k-ink">
+                The seat, when it opens
+              </h2>
+            </Reveal>
+            <div className="flex flex-col gap-4">
+              {THE_SEAT.map((row, i) => (
+                <Reveal key={row.lead} index={i}>
+                  <p className="max-w-[68ch] font-text text-k-body text-k-ink">
+                    <strong className="font-semibold">{row.lead} </strong>
+                    {row.body}
+                  </p>
+                </Reveal>
+              ))}
             </div>
+          </div>
+
+          <div className="flex flex-col gap-4 lg:w-[400px] lg:shrink-0 lg:pt-3">
+            <Reveal variant="settle" className="flex flex-col gap-3 bg-k-warm p-7">
+              <span className="font-text text-k-micro uppercase text-k-ink-soft">
+                What to send now
+              </span>
+              <p className="font-text text-k-small text-k-ink">
+                Your name, a phone number or an email, and how long you have
+                held a CDL-A. That is the whole form. Everything else waits for
+                the call.
+              </p>
+            </Reveal>
+            <Reveal
+              variant="settle"
+              index={1}
+              className="flex flex-col gap-3 bg-k-warm p-7"
+            >
+              <span className="font-text text-k-micro uppercase text-k-ink-soft">
+                The standards
+              </span>
+              <p className="font-text text-k-small text-k-ink">
+                A second driver is held to what is written on the safety page
+                from the first load, not once a record has been built. Read it
+                before you apply.
+              </p>
+              <Link
+                href="/safety"
+                className="font-text text-k-small font-semibold text-k-gold underline underline-offset-4"
+              >
+                Read the safety page
+              </Link>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* 5 — Apply. Paper; the form's gold submit pill is this viewport's
-          whole gold spend (§3.20 — focus underlines are never gold). */}
+      {/* THE FORM
+          The warm panel, so the form reads as a different act from the two
+          sections above rather than more of the same page. The fields wear the
+          light colourway of the shared panel field.
+
+          There is no closing call to action after this. The form is the end of
+          the page, and the footer carries everything else. */}
       <section
         id="apply"
-        data-ground="paper"
-        className="scroll-mt-20 bg-paper py-band"
+        className="scroll-mt-24 bg-k-warm px-6 py-32 md:px-12 lg:px-24"
       >
-        <div className={CONTAINER}>
-          <div className={GRID}>
-            <div className="col-span-12 lg:col-start-2 lg:col-end-9">
-              <Eyebrow>Start the conversation</Eyebrow>
-              <div className="mt-12">
-                <DriverForm />
-              </div>
-              <p className="mt-10 text-micro uppercase text-ink/60">
-                KUL Enterprises LLC is an equal opportunity employer.
-              </p>
-            </div>
-          </div>
+        <div className="mx-auto max-w-[1248px]">
+          <Reveal variant="wipe">
+            <h2 className="font-display text-k-d3 font-black text-k-ink">
+              Leave your details
+            </h2>
+          </Reveal>
+          <Reveal variant="settle">
+            <p className="max-w-[560px] pt-4 font-text text-k-body text-k-ink-soft">
+              Four questions. Nobody is called today, because the seat is not
+              open today. When the second truck is booked, everybody on this
+              list is called.
+            </p>
+          </Reveal>
+
+          <Reveal className="pt-11">
+            <DriverForm />
+          </Reveal>
+
+          <Reveal variant="settle">
+            <p className="pt-10 font-text text-k-micro uppercase text-k-ink-soft">
+              {site.legalName} is an equal opportunity employer
+            </p>
+          </Reveal>
         </div>
       </section>
-
-      {/* 6 — Ending: the call band with the phone hairline draw. Zero gold. */}
-      <CtaBand variant="call" />
     </>
   );
 }

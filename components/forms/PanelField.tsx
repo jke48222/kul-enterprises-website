@@ -3,25 +3,78 @@
 import { useUnderlineField } from "./Field";
 
 /**
- * PANELLED FORM FIELDS, FOR DARK PANELS
+ * PANELLED FORM FIELDS
  *
- * These are the boxes used on the quote page. Each one is a soft dark panel
- * with the question printed small along the top and the visitor's answer
- * underneath it, which is the shape drawn on the Paper artboard
- * "Quote — desktop 1440".
+ * Each one is a panel with the question printed small along the top and the
+ * visitor's answer underneath it, which is the shape drawn on the Paper
+ * artboards "Quote — desktop 1440" and "Drivers — desktop 1440".
  *
  * The question stays printed inside the box even after somebody has typed, on
  * purpose. Forms that use the question as grey placeholder text lose it the
  * moment you start writing, and then nobody can check what they were asked.
  *
- * The older underline fields in Field.tsx are still used by the driver and
- * contact forms. Both sets share the same checking behaviour underneath, so a
- * field turns and explains itself the same way whichever look it wears.
+ * THERE ARE TWO COLOURWAYS, chosen with the `tone` setting:
  *
- * TO CHANGE THE COLOURS: everything here is built from the site's own colour
- * names. The panel is "blueprint", the question is "on dark soft", the answer
- * is "on dark", and a field being typed into is outlined in gold.
+ *   dark    The default. A soft dark panel, for the dark half of the quote
+ *           page. The panel is "blueprint", the question is "on dark soft",
+ *           the answer is "on dark".
+ *   light   For the warm ground on the drivers page. An almost white panel
+ *           with a hairline round it, the question in "ink soft" and the
+ *           answer in "ink".
+ *
+ * A field being typed into is outlined in gold either way, and a field with a
+ * problem is outlined and labelled in the site's error red for that ground.
+ *
+ * The older underline fields in Field.tsx are still used by the contact form.
+ * Both sets share the same checking behaviour underneath, so a field turns and
+ * explains itself the same way whichever look it wears.
  */
+
+export type PanelTone = "dark" | "light";
+
+/**
+ * Every colour that changes between the two colourways, in one place. Adding a
+ * third colourway means adding one entry here and nothing else.
+ */
+const TONES: Record<
+  PanelTone,
+  {
+    panel: string;
+    idle: string;
+    error: string;
+    focus: string;
+    label: string;
+    star: string;
+    control: string;
+    errorText: string;
+    chevron: string;
+  }
+> = {
+  dark: {
+    panel: "bg-k-blueprint",
+    idle: "border-transparent",
+    error: "border-[#C98A7A]",
+    focus: "focus-within:border-k-gold-lit",
+    label: "text-k-on-dark-soft",
+    star: "text-k-gold-lit",
+    control: "text-k-on-dark placeholder:text-k-on-dark-faint",
+    errorText: "text-[#C98A7A]",
+    chevron: "text-k-on-dark-soft",
+  },
+  light: {
+    panel: "bg-k-surface",
+    idle: "border-k-rule",
+    error: "border-k-error",
+    focus: "focus-within:border-k-gold",
+    label: "text-k-ink-soft",
+    star: "text-k-gold",
+    // Placeholders use "ink soft" rather than "ink faint": faint measures
+    // 4.18:1 on this panel, which is under the readable minimum.
+    control: "text-k-ink placeholder:text-k-ink-soft",
+    errorText: "text-k-error",
+    chevron: "text-k-ink-soft",
+  },
+};
 
 /** Shared shell: the panel, the question, the gold focus outline, the error. */
 function Panel({
@@ -30,6 +83,7 @@ function Panel({
   required,
   error,
   className,
+  tone = "dark",
   children,
 }: {
   id: string;
@@ -37,25 +91,27 @@ function Panel({
   required?: boolean;
   error: string | null;
   className?: string;
+  tone?: PanelTone;
   children: React.ReactNode;
 }) {
+  const t = TONES[tone];
   return (
     /* The outer box is a column so that when two fields sit side by side and
        one of their questions runs to a second line, both panels still finish
        at the same height instead of one sitting proud of the other. */
     <div className={`flex flex-col ${className ?? ""}`}>
       <div
-        className={`flex flex-1 flex-col gap-0.5 rounded-sm border bg-k-blueprint px-[18px] pb-2.5 pt-3 transition-colors duration-200 focus-within:border-k-gold-lit ${
-          error ? "border-[#C98A7A]" : "border-transparent"
+        className={`flex flex-1 flex-col gap-0.5 rounded-sm border px-[18px] pb-2.5 pt-3 transition-colors duration-200 ${t.panel} ${t.focus} ${
+          error ? t.error : t.idle
         }`}
       >
         <label
           htmlFor={id}
-          className="font-text text-k-micro uppercase text-k-on-dark-soft"
+          className={`font-text text-k-micro uppercase ${t.label}`}
         >
           {label}
           {required ? (
-            <span aria-hidden="true" className="text-k-gold-lit">
+            <span aria-hidden="true" className={t.star}>
               {" "}
               *
             </span>
@@ -67,7 +123,7 @@ function Panel({
       {error ? (
         <p
           id={`${id}-error`}
-          className="pt-2 font-text text-k-micro uppercase text-[#C98A7A]"
+          className={`pt-2 font-text text-k-micro uppercase ${t.errorText}`}
         >
           {error}
         </p>
@@ -78,7 +134,7 @@ function Panel({
 
 /** Shared look for the part the visitor actually types into. */
 const CONTROL =
-  "w-full appearance-none border-0 bg-transparent p-0 font-text text-k-small text-k-on-dark caret-current outline-none placeholder:text-k-on-dark-faint focus-visible:outline-none";
+  "w-full appearance-none border-0 bg-transparent p-0 font-text text-k-small caret-current outline-none focus-visible:outline-none";
 
 export type PanelFieldProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -87,6 +143,7 @@ export type PanelFieldProps = Omit<
   id: string;
   label: string;
   className?: string;
+  tone?: PanelTone;
 };
 
 /** A single line answer: origin, destination, a date, an email address. */
@@ -95,6 +152,7 @@ export function PanelField({
   label,
   className,
   required,
+  tone = "dark",
   onFocus,
   onBlur,
   onChange,
@@ -115,6 +173,7 @@ export function PanelField({
       required={required}
       error={error}
       className={className}
+      tone={tone}
     >
       <input
         id={id}
@@ -123,7 +182,7 @@ export function PanelField({
         {...handlers}
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? `${id}-error` : undefined}
-        className={`${CONTROL} h-6`}
+        className={`${CONTROL} ${TONES[tone].control} h-6`}
       />
     </Panel>
   );
@@ -136,6 +195,7 @@ export type PanelSelectProps = Omit<
   id: string;
   label: string;
   className?: string;
+  tone?: PanelTone;
 };
 
 /** A pick-one-from-a-list answer, with the arrow drawn on the right. */
@@ -144,6 +204,7 @@ export function PanelSelect({
   label,
   className,
   required,
+  tone = "dark",
   children,
   onFocus,
   onBlur,
@@ -165,6 +226,7 @@ export function PanelSelect({
       required={required}
       error={error}
       className={className}
+      tone={tone}
     >
       <div className="relative">
         <select
@@ -174,7 +236,7 @@ export function PanelSelect({
           {...handlers}
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? `${id}-error` : undefined}
-          className={`${CONTROL} h-6 pr-7`}
+          className={`${CONTROL} ${TONES[tone].control} h-6 pr-7`}
         >
           {children}
         </select>
@@ -192,7 +254,7 @@ export function PanelSelect({
             strokeWidth="1.4"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="text-k-on-dark-soft"
+            className={TONES[tone].chevron}
           />
         </svg>
       </div>
@@ -207,6 +269,7 @@ export type PanelTextareaProps = Omit<
   id: string;
   label: string;
   className?: string;
+  tone?: PanelTone;
 };
 
 /** A longer answer, for anything that will not fit on one line. */
@@ -215,6 +278,7 @@ export function PanelTextarea({
   label,
   className,
   required,
+  tone = "dark",
   onFocus,
   onBlur,
   onChange,
@@ -235,6 +299,7 @@ export function PanelTextarea({
       required={required}
       error={error}
       className={className}
+      tone={tone}
     >
       <textarea
         id={id}
@@ -243,7 +308,7 @@ export function PanelTextarea({
         {...handlers}
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? `${id}-error` : undefined}
-        className={`${CONTROL} resize-y leading-[22px]`}
+        className={`${CONTROL} ${TONES[tone].control} resize-y leading-[22px]`}
       />
     </Panel>
   );
