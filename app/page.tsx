@@ -58,7 +58,7 @@ export default function HomePage() {
       {/* Hero, the broker's one screen. */}
       <section className="relative flex min-h-[820px] flex-col justify-end overflow-hidden bg-k-void">
         <HeroVideo
-          poster="/images/stock/kul-hero-poster.jpg"
+          poster="/videos/kul-hero-poster.jpg"
           className="absolute inset-0 h-full w-full object-cover opacity-85"
         />
         {/* Directional scrim. Without it the headline collides with the
@@ -256,7 +256,7 @@ export default function HomePage() {
       {/* The Road Ahead, the vision, made credible rather than boastful. */}
       <section className="relative flex min-h-[620px] items-center justify-center overflow-hidden bg-k-void px-6 py-28">
         <Image
-          src="/images/stock/road-night-light-trails.jpg"
+          src="/images/journey/s12c-night-highway.webp"
           alt=""
           fill
           className="object-cover opacity-60"

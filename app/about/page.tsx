@@ -158,9 +158,13 @@ export default function AboutPage() {
             </Reveal>
             <Reveal className="mt-3.5">
               <div className="relative aspect-[16/9] w-full">
+                {/* Mark's own photograph. Everything on this site is now a
+                    picture he took, which is the point: a carrier that runs
+                    one truck should not illustrate itself with somebody
+                    else's fleet. */}
                 <Image
-                  src="/images/stock/hero-semi-truck-dusk-mountains.jpg"
-                  alt="A tractor-trailer on a mountain road at dusk"
+                  src="/images/journey/s14-confident-highway.webp"
+                  alt="An open highway running ahead under clear sky"
                   fill
                   sizes="(min-width:1024px) 1148px, 100vw"
                   className="object-cover"
@@ -228,8 +232,8 @@ export default function AboutPage() {
               picture of Mark, and it is not one. */}
           <div className="relative min-h-[420px] w-full lg:min-h-[760px] lg:w-1/2">
             <Image
-              src="/images/stock/road-night-light-trails.jpg"
-              alt="A highway at night with headlights drawn into long light trails"
+              src="/images/journey/s07-pines-road.webp"
+              alt="A road running between ordered pines before dawn"
               fill
               sizes="(min-width:1024px) 50vw, 100vw"
               className="object-cover"
