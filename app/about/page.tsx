@@ -1,225 +1,322 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { BirdMark } from "@/components/v2/BirdMark";
-import { ClipReveal } from "@/components/v2/ClipReveal";
-import { CtaBand } from "@/components/v2/CtaBand";
-import { Eyebrow } from "@/components/v2/Eyebrow";
-import { GhostNumeral } from "@/components/v2/GhostNumeral";
-import { HeroFrame } from "@/components/v2/HeroFrame";
-import { LineReveal } from "@/components/v2/LineReveal";
-import { PageHero } from "@/components/v2/PageHero";
-import { Rise, RiseGroup } from "@/components/v2/Rise";
-import { site, stories } from "@/lib/site";
+import Link from "next/link";
+import { site } from "@/lib/site";
+import Reveal, { RuleDraw } from "@/components/k/Reveal";
+
+/**
+ * ABOUT
+ *
+ * This page answers one question a broker actually asks: who is behind the
+ * authority. It is not a company history and it is not a second helping of
+ * the safety page.
+ *
+ * WHAT EACH PAGE ON THE SITE OWNS, so none of them repeat each other:
+ *   Safety      what KUL holds itself to, written as policy
+ *   Road Ahead  the growth plan and the figures as they stand
+ *   About       the person, the licence, and how a one truck carrier runs
+ *
+ * ON THE LAYOUT. Every section here is a different shape on purpose, because
+ * the version of this site the client rejected used one shape eleven times
+ * over. Each shape below was taken from a real site, named in the comment
+ * above it, so nothing here is a house template.
+ *
+ * ON THE WRITING. Short plain sentences and operational nouns. An earlier
+ * draft of this page said things like "trust is in our DNA" and "every mile
+ * teaches something new", which is the sort of line that reads as an advert
+ * rather than as a carrier talking to a customer. If a sentence could be
+ * printed on a poster, it is the wrong sentence.
+ *
+ * TO UPDATE IT: the phone number, email, DOT and MC numbers all come from
+ * content/site.json, so they are changed in that one file and never typed in
+ * here. The wording below is safe to edit directly.
+ */
 
 export const metadata: Metadata = {
   title: "About",
-  description:
-    "The story behind KUL Enterprises: a Georgia freight carrier built from years on the road, run on integrity, safety, communication, and excellence.",
+  description: `KUL Enterprises is a licensed freight carrier in ${site.location}, founded by a driver with eleven years on the road. USDOT ${site.usdot}, MC ${site.mc}.`,
 };
 
-const CONTAINER = "mx-auto w-full max-w-[1760px] px-[clamp(20px,5vw,90px)]";
-const GRID = "grid grid-cols-1 gap-x-[clamp(16px,1.4vw,24px)] lg:grid-cols-12";
-
-/** Pull a story by slug from content/site.json — copy source of truth. */
-function story(slug: string) {
-  const s = stories.find((s) => s.slug === slug);
-  if (!s) throw new Error(`Missing story: ${slug}`);
-  return s;
-}
-
-/** §4.2.3 — growth ledger columns. Facts only; no invented stats. */
-const LEDGER = [
+/**
+ * THE PARTICULARS, set out at the foot of the page like the imprint printed
+ * inside the cover of a magazine.
+ *
+ * The columns are deliberately different widths and different lengths, so
+ * the block ends on a ragged edge rather than lining up into a neat grid.
+ * That is the whole point of the shape, so if you add an entry, do not try
+ * to even them up. The widths themselves are set on the grid further down
+ * the page, in the order the entries appear here.
+ *
+ * "Not yet" is here on purpose. Saying plainly what KUL does not have yet is
+ * worth more to a broker than padding the page with things that sound good.
+ */
+const PARTICULARS = [
   {
-    index: "01",
-    head: "Authority",
-    body: `Federal operating authority, active. USDOT ${site.usdot} · MC ${site.mc}.`,
+    label: "Founded",
+    gold: false,
+    body: <>Registered in Georgia as {site.legalName}. The first load was carried in 2026.</>,
   },
   {
-    index: "02",
-    head: "Home",
-    body: "Based in Loganville, Georgia. The Southeast is a home route; the authority is nationwide.",
+    label: "Authority",
+    gold: false,
+    body: (
+      <>
+        USDOT {site.usdot}. MC {site.mc}. Federal operating authority, active,
+        valid in 48 states. The record is public and the links to check it are
+        on the{" "}
+        <Link href="/safety" className="underline underline-offset-4">
+          safety page
+        </Link>
+        .
+      </>
+    ),
   },
   {
-    index: "03",
-    head: "The Mark",
-    body: "Fifty tractors by the end of 2029. Growth that never outruns the service.",
+    label: "Base",
+    gold: false,
+    body: <>{site.location}. The Southeast is the home region. Loads run nationwide.</>,
+  },
+  {
+    label: "Freight",
+    gold: false,
+    body: (
+      <>
+        Power only, dry van, refrigerated, dedicated, regional, expedited and
+        over the road. Full detail on the{" "}
+        <Link href="/services" className="underline underline-offset-4">
+          services page
+        </Link>
+        .
+      </>
+    ),
+  },
+  {
+    label: "Dispatch",
+    gold: true,
+    body: (
+      <>
+        <a href={site.phoneHref} className="underline underline-offset-4">
+          {site.phone}
+        </a>
+        <br />
+        <a href={`mailto:${site.email}`} className="underline underline-offset-4">
+          {site.email}
+        </a>
+        <br />
+        One number, answered by the driver.
+      </>
+    ),
+  },
+  {
+    label: "Not yet",
+    gold: false,
+    body: (
+      <>
+        No published safety rating history, no customer references and no
+        second truck. Each one appears here on the day it is true.
+      </>
+    ),
   },
 ] as const;
 
 export default function AboutPage() {
-  const everyMile = story("every-mile");
-  // §4.2.4 — the three framed value rows, in spec order.
-  const values = [
-    { story: story("integrity"), imageLeft: true },
-    { story: story("strength-in-motion"), imageLeft: false },
-    { story: story("driven-by-safety"), imageLeft: true },
-  ];
-
   return (
     <>
-      {/* 1 — HERO (§4.2.1). Photo variant, cliffs opener. Gold: none. */}
-      <div className="relative">
-        <PageHero
-          variant="photo"
-          height="80"
-          eyebrow="Our Story"
-          titleLines={["Trust is in", "our DNA."]}
-          deck="Built from miles, not meetings."
-          image={{ src: "/images/photos/cliffs-over-water.jpg", alt: everyMile.alt }}
-        />
-        <HeroFrame />
-      </div>
+      {/* THE OPENING
+          Shape taken from the Face Formula about page: the headline set very
+          large and hard against the left margin, then a single photograph
+          held in below it with a wide margin on one side, and a small line of
+          tracked capitals keyed to the picture's top corner.
 
-      {/* 2 — FOUNDER MANIFESTO (§4.2.2). Paper. Gold: the eyebrow. */}
-      <section data-ground="paper" className="bg-paper py-band-lg">
-        <div className={`${CONTAINER} ${GRID}`}>
-          <div className="lg:col-start-3 lg:col-end-11">
-            <Eyebrow gold>{everyMile.eyebrow}</Eyebrow>
-            <LineReveal
-              as="h2"
-              lines={["Every mile teaches", "something new."]}
-              className="mt-6 max-w-[14ch] font-omnibus text-h2 text-ink"
-            />
-            <Rise delay={0.2}>
-              <p className="mt-10 max-w-[62ch] text-body-l text-graywarm-deep">
-                {everyMile.body}
-              </p>
-            </Rise>
-            <Rise delay={0.3}>
-              <div className="mt-12">
-                <div aria-hidden className="h-px w-6 bg-ink/[0.15]" />
-                <p className="mt-4 text-micro uppercase text-graywarm-deep">
-                  Founder · KUL Enterprises · Loganville, GA
-                </p>
+          The picture is indented from the left and runs out to the right
+          margin, so it leans the opposite way to the headline above it. */}
+      <section className="bg-k-paper px-6 pb-32 pt-36 md:px-12 lg:px-24 lg:pt-44">
+        <div className="mx-auto max-w-[1248px]">
+          <p className="flex items-center gap-2.5 pb-10">
+            <span className="font-text text-k-micro uppercase text-k-ink-soft">
+              KUL
+            </span>
+            <span className="font-text text-k-micro text-k-ink-soft">/</span>
+            <span className="font-text text-k-micro uppercase text-k-gold">
+              About
+            </span>
+          </p>
+
+          <Reveal variant="wipe">
+            <h1 className="max-w-[1060px] font-display text-k-d1 font-black text-k-ink">
+              Eleven years for other carriers. Now under our own authority.
+            </h1>
+          </Reveal>
+
+          <div className="pt-[clamp(3.5rem,2rem+6vw,7.5rem)] lg:pl-[100px]">
+            <Reveal variant="settle">
+              {/* This line describes the company, not the photograph. Do not
+                  turn it into a caption claiming where the picture was taken. */}
+              <span className="font-text text-k-micro uppercase text-k-ink-soft">
+                {site.serviceArea}
+              </span>
+            </Reveal>
+            <Reveal className="mt-3.5">
+              <div className="relative aspect-[16/9] w-full">
+                <Image
+                  src="/images/stock/hero-semi-truck-dusk-mountains.jpg"
+                  alt="A tractor-trailer on a mountain road at dusk"
+                  fill
+                  sizes="(min-width:1024px) 1148px, 100vw"
+                  className="object-cover"
+                  priority
+                />
               </div>
-            </Rise>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* 3 — GROWTH LEDGER (§4.2.3). Ink. Gold: none. */}
-      <section
-        data-ground="ink"
-        className="relative overflow-hidden bg-ink py-band"
-      >
-        <div className={`relative z-10 ${CONTAINER}`}>
-          <Eyebrow>On Purpose</Eyebrow>
-          <LineReveal
-            as="h2"
-            lines={["We grow load by load."]}
-            className="mt-6 max-w-[14ch] font-omnibus text-h2 text-cream"
-          />
-          <RiseGroup className="mt-16 grid grid-cols-1 gap-x-[clamp(16px,1.4vw,24px)] gap-y-12 md:grid-cols-3">
-            {LEDGER.map((col) => (
-              <Rise key={col.index} className="relative border-t border-white/[0.12] pt-6">
-                {/* GhostNumeral 2029 behind column 3 — decoration, never gold. */}
-                {col.index === "03" && (
-                  <GhostNumeral className="-top-10 right-0">2029</GhostNumeral>
-                )}
-                <p className="relative text-label uppercase text-paper/80">
-                  <span aria-hidden className="mr-3 tabular-nums text-paper/60">
-                    {"{"}
-                    {col.index}
-                    {"}"}
-                  </span>
-                  {col.head}
-                </p>
-                <p className="relative mt-4 max-w-[38ch] text-body tabular-nums text-paper/70">
-                  {col.body}
-                </p>
-              </Rise>
+      {/* THE FOUNDER'S NOTE
+          Shape taken from the KÖPPEN founders' note: a narrow column of small
+          dense type on one side, a very large picture filling the other and
+          running off the edge of the screen, and a wide empty gutter left
+          between the two.
+
+          The contrast in size is the whole idea. The type stays small even
+          though there is room to enlarge it, because a quiet column beside a
+          big picture reads as a note somebody wrote, and the same words set
+          large would read as a slogan. */}
+      <section className="bg-k-surface">
+        <div className="flex flex-col lg:flex-row lg:items-stretch lg:justify-between">
+          {/* 396px is the 96px left margin plus a 300px column of text. The
+              two are added together because the padding sits inside the
+              width, and a 300px box here would leave only 204px to read. */}
+          <div className="px-6 py-24 md:px-12 lg:w-[396px] lg:shrink-0 lg:py-32 lg:pl-24 lg:pr-0">
+            <Reveal variant="settle">
+              <span className="font-text text-k-micro uppercase text-k-gold">
+                The founder
+              </span>
+            </Reveal>
+            <Reveal className="mt-5 flex flex-col gap-4">
+              <p className="font-text text-k-small text-k-ink">
+                Mark Brown drove for other carriers for eleven years before KUL
+                Enterprises carried its first load. Mountain passes, port
+                towns, long runs through the middle of the country, and the
+                kind of dock where a driver waits four hours and nobody comes
+                out to say why.
+              </p>
+              <p className="font-text text-k-small text-k-ink">
+                Eleven years is long enough to learn what a shipper is actually
+                paying for. Not the trailer. Whether the person on the phone
+                knows where the truck is, and whether the answer still comes
+                when the news is bad.
+              </p>
+              <p className="font-text text-k-small text-k-ink">
+                KUL was set up to run that way from the first load rather than
+                to grow into it. Today that means one tractor, one driver, and
+                the person who answers dispatch is the person behind the wheel.
+              </p>
+            </Reveal>
+            <Reveal variant="settle" className="mt-7 flex flex-col gap-1">
+              <span className="font-text text-k-small font-semibold text-k-ink">
+                Mark Brown
+              </span>
+              <span className="font-text text-k-micro uppercase text-k-ink-soft">
+                Founder, {site.name}
+              </span>
+            </Reveal>
+          </div>
+
+          {/* The picture has no person in it on purpose. A stock photograph of
+              a stranger sitting beside a note signed by Mark would read as a
+              picture of Mark, and it is not one. */}
+          <div className="relative min-h-[420px] w-full lg:min-h-[760px] lg:w-1/2">
+            <Image
+              src="/images/stock/road-night-light-trails.jpg"
+              alt="A highway at night with headlights drawn into long light trails"
+              fill
+              sizes="(min-width:1024px) 50vw, 100vw"
+              className="object-cover"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* HOW IT RUNS TODAY
+          Shape taken from the mymind principles page: no columns, no rules
+          and no list, just a short passage of running text set much larger
+          than ordinary body copy, with a small label out in the left margin.
+
+          The size is doing the work of a headline, which is why there is no
+          headline. Keep this to two paragraphs. At this scale a third one
+          stops reading as a statement and starts reading as an essay. */}
+      <section className="bg-k-coal px-6 py-32 md:px-12 lg:px-24 lg:py-36">
+        <div className="mx-auto flex max-w-[1248px] flex-col gap-10 lg:flex-row lg:gap-24">
+          <Reveal variant="settle" className="lg:w-[192px] lg:shrink-0 lg:pt-3">
+            <span className="font-text text-k-micro uppercase text-k-on-dark-soft">
+              How it runs today
+            </span>
+          </Reveal>
+          <div className="flex flex-1 flex-col gap-9">
+            <Reveal>
+              <p className="font-text text-k-d3 leading-[1.33] tracking-[-0.01em] text-k-on-dark">
+                One tractor is on the road, and Mark drives it. The same person
+                takes the booking, runs the lane and signs at the receiver,
+                which is why there is one phone number on this site and not a
+                switchboard.
+              </p>
+            </Reveal>
+            <Reveal index={1}>
+              <p className="font-text text-k-d3 leading-[1.33] tracking-[-0.01em] text-k-on-dark-soft">
+                One truck also has limits. KUL cannot cover a lane on a day the
+                truck is already committed, and it holds no spare capacity for
+                a surge. When a load does not fit the schedule we say so on the
+                call rather than book it and work it out later.
+              </p>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* THE PARTICULARS
+          Shape taken from the colophon on Runway's Telescope site: one wide
+          line of capitals across the top, a rule under it, then a row of
+          narrow columns of small print, each headed by a tiny label.
+
+          This is where the page ends. There is no closing call to action
+          because the dispatch column below is one, and because a band saying
+          "get a quote" under an imprint would undo the register the whole
+          page is written in. The footer carries the rest. */}
+      <section className="bg-k-paper px-6 py-32 md:px-12 lg:px-24 lg:py-36">
+        <div className="mx-auto flex max-w-[1248px] flex-col">
+          <Reveal variant="wipe">
+            <h2 className="max-w-[1100px] font-display text-k-d3 font-black uppercase tracking-[0.01em] text-k-ink">
+              {site.legalName} is a licensed motor carrier based in{" "}
+              {site.location}.
+            </h2>
+          </Reveal>
+
+          <RuleDraw className="mt-14" />
+
+          {/* The six column widths, in the order the entries are written
+              above. They are uneven on purpose. */}
+          <div className="mt-10 grid grid-cols-1 items-start gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-[160fr_230fr_160fr_190fr_228fr_160fr]">
+            {PARTICULARS.map((item, i) => (
+              <Reveal
+                key={item.label}
+                variant="settle"
+                index={i}
+                className="flex flex-col gap-3"
+              >
+                <span
+                  className={`font-text text-k-micro uppercase ${
+                    item.gold ? "text-k-gold" : "text-k-ink-soft"
+                  }`}
+                >
+                  {item.label}
+                </span>
+                <p className="font-text text-k-small text-k-ink">{item.body}</p>
+              </Reveal>
             ))}
-          </RiseGroup>
-        </div>
-      </section>
-
-      {/* 4 — VALUES, FRAMED (§4.2.4). Paper; B-state framed images, text beside,
-          never on the photo. Gold: none. */}
-      <section data-ground="paper" className="bg-paper py-band">
-        <div className={`${CONTAINER} space-y-[clamp(4rem,3rem+6vw,8rem)]`}>
-          {values.map(({ story: s, imageLeft }) => (
-            <div key={s.slug} className={`${GRID} items-center gap-y-8`}>
-              <div
-                className={
-                  imageLeft
-                    ? "lg:col-span-6 lg:col-start-1"
-                    : "order-1 lg:order-2 lg:col-span-6 lg:col-start-7"
-                }
-              >
-                <ClipReveal direction="left" className="aspect-[16/9]">
-                  <Image
-                    src={s.image}
-                    alt={s.alt}
-                    fill
-                    sizes="(min-width:768px) 50vw, 100vw"
-                    className="img-grade object-cover"
-                  />
-                </ClipReveal>
-              </div>
-              <div
-                className={
-                  imageLeft
-                    ? "lg:col-span-4 lg:col-start-8"
-                    : "order-2 lg:order-1 lg:col-span-4 lg:col-start-2"
-                }
-              >
-                <Eyebrow>{s.eyebrow}</Eyebrow>
-                <Rise delay={0.15}>
-                  <h3 className="mt-5 max-w-[14ch] font-omnibus text-h3 text-ink">
-                    {s.title}
-                  </h3>
-                </Rise>
-                <Rise delay={0.25}>
-                  <p className="mt-5 max-w-[48ch] text-body text-graywarm-deep">
-                    {s.body}
-                  </p>
-                </Rise>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 5 — BIRDMARK → 2029 CLOSE (§4.2.5). Ink. Gold: the BirdMark —
-          this page's single gold rule and the viewport's 2nd gold. */}
-      <section
-        data-ground="ink"
-        className="relative overflow-hidden bg-ink py-band-lg"
-      >
-        <div className={CONTAINER}>
-          <BirdMark ground="ink" />
-        </div>
-        <div className={`relative mt-[clamp(4rem,3rem+5vw,7rem)] ${CONTAINER} ${GRID}`}>
-          <div className="relative text-center lg:col-start-3 lg:col-end-11">
-            <GhostNumeral className="left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-              2029
-            </GhostNumeral>
-            <LineReveal
-              as="h2"
-              lines={["Fifty tractors.", "One kept promise", "at a time."]}
-              className="relative z-10 font-omnibus text-display-l text-cream"
-            />
-            <Rise delay={0.4}>
-              <p className="relative z-10 mt-10 text-micro uppercase text-paper/60">
-                The service never falls behind the name on the door
-              </p>
-            </Rise>
           </div>
         </div>
       </section>
-
-      {/* 6 — ENDING (§4.2.6): next → Services, then the curtain Footer. */}
-      <CtaBand
-        variant="next"
-        next={{
-          label: "Services",
-          href: "/services",
-          image: {
-            src: "/images/stock/hero-semi-truck-dusk-mountains.jpg",
-            alt: "A tractor-trailer crossing a mountain road at dusk",
-          },
-        }}
-      />
     </>
   );
 }
