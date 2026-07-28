@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/lib/site";
 import HeroVideo from "@/components/k/HeroVideo";
@@ -173,6 +174,30 @@ export default function SafetyPage() {
             <h2 className="pb-10 font-display text-k-d3 font-black text-k-ink">
               Authority and insurance
             </h2>
+          </Reveal>
+
+          {/* THE SAME NUMBERS, ON THE DOOR.
+              Federal rules require a carrier to letter its USDOT number on
+              the tractor, so this decal is the physical object the list below
+              is a copy of. It is here as evidence rather than as decoration,
+              which is why it sits above the list and is captioned as a thing
+              rather than styled as a badge.
+
+              The numbers on it have to match content/site.json. If the DOT or
+              MC number ever changes, the artwork is reprinted for the truck
+              anyway, and the new file replaces this one. A decal on the site
+              that disagrees with the door is worse than no decal. */}
+          <Reveal variant="settle" className="flex flex-col gap-3 pb-12">
+            <Image
+              src="/images/brand/door-decal.webp"
+              alt={`The decal on the tractor door, reading KUL Enterprises LLC, USDOT ${site.usdot}, MC ${site.mc}, ${site.location}`}
+              width={900}
+              height={599}
+              className="h-auto w-full max-w-[380px] rounded-md"
+            />
+            <span className="font-text text-k-micro uppercase text-k-ink-soft">
+              The decal on the tractor door
+            </span>
           </Reveal>
           <ul className="border-t border-k-rule-strong">
             {CREDENTIALS.map((item, i) => (
