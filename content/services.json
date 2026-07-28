@@ -16,10 +16,6 @@
         "Trailer condition documented at pickup and delivery",
         "One dispatch line. One call gets an answer."
       ],
-      "image": {
-        "src": "/images/services/power-only-wide.jpg",
-        "alt": "Highway light trails at night"
-      },
       "blurb": "Tractor and driver for your loaded trailer.",
       "equipment": "Tractor only",
       "equipmentNote": "You provide the trailer",
@@ -78,10 +74,6 @@
         "Appointment-first scheduling with proactive ETAs",
         "Clean, DOT-compliant equipment on every dispatch"
       ],
-      "image": {
-        "src": "/images/services/dry-van-wide.jpg",
-        "alt": "A tractor-trailer crossing a mountain road at dusk"
-      },
       "blurb": "Palletized freight in a sealed 53 foot van.",
       "equipment": "53 ft dry van",
       "equipmentNote": "Sealed at origin",
@@ -140,10 +132,6 @@
         "Continuous temperature monitoring in transit",
         "Immediate notification if anything drifts"
       ],
-      "image": {
-        "src": "/images/services/reefer-wide.jpg",
-        "alt": "A semi truck under warm lights at night"
-      },
       "blurb": "Temperature controlled freight, set points logged.",
       "equipment": "Reefer trailer",
       "equipmentNote": "Set points logged",
@@ -202,10 +190,6 @@
         "Consistent drivers who learn your facility and your people",
         "Pricing that holds. No surge surprises."
       ],
-      "image": {
-        "src": "/images/services/dedicated-wide.jpg",
-        "alt": "A driver at the wheel of his cab in warm evening light"
-      },
       "blurb": "Committed capacity on your recurring lanes.",
       "equipment": "By agreement",
       "equipmentNote": "Van or reefer",
@@ -264,10 +248,6 @@
         "Local knowledge of docks, appointments, and detours",
         "Short-notice capacity when your regular carrier falls through"
       ],
-      "image": {
-        "src": "/images/services/regional-wide.jpg",
-        "alt": "An aerial view of trucks running a highway"
-      },
       "blurb": "Southeast short haul, usually same day.",
       "equipment": "53 ft dry van",
       "equipmentNote": "Southeast base",
@@ -326,10 +306,6 @@
         "Milestone updates at pickup, in transit, and delivery",
         "Speed inside the rules. Fast, never reckless."
       ],
-      "image": {
-        "src": "/images/services/expedited-wide.jpg",
-        "alt": "A professional driver standing at his cab at night"
-      },
       "blurb": "Time critical freight on the fastest compliant path.",
       "equipment": "Any available",
       "equipmentNote": "Whatever is closest",
@@ -388,10 +364,6 @@
         "Daily check-ins on multi-day hauls",
         "One point of contact from quote to proof of delivery"
       ],
-      "image": {
-        "src": "/images/services/otr-wide.jpg",
-        "alt": "Desert rock formations on a cross-country route"
-      },
       "blurb": "Nationwide long haul across forty eight states.",
       "equipment": "53 ft dry van",
       "equipmentNote": "Full operating authority",

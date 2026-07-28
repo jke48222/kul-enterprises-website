@@ -19,8 +19,6 @@ export type Service = {
   description: string;
   bestFor: string[];
   commitments: string[];
-  /** Placeholder imagery per service; swap for KUL fleet shots. */
-  image: { src: string; alt: string };
   /** One plain sentence, shown under the name on the services carousel. */
   blurb: string;
   /** Comparison table values. Keep these short enough to sit on one line. */
@@ -40,6 +38,11 @@ export type Service = {
 
 export const services: Service[] = content.services;
 
-/** Image lookup by slug, kept for callers that only have the slug. */
-export const serviceImages: Record<string, { src: string; alt: string }> =
-  Object.fromEntries(content.services.map((s) => [s.slug, s.image]));
+/**
+ * There used to be a third picture per service here, called `image`, plus a
+ * `serviceImages` lookup beside it. Both went on 28 Jul 2026. Every service
+ * already carries `card` for the carousel and `wide` for the top of its own
+ * page, the third one pointed at stock photography that no longer exists, and
+ * the only things reading it were components that had themselves stopped
+ * being rendered. Two pictures per service is the whole set.
+ */
