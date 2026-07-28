@@ -10,6 +10,12 @@ import Reveal, { RuleDraw } from "@/components/k/Reveal";
  * What a broker wants before giving a carrier a load: the operating authority,
  * the W-9, the certificate of insurance and a signed agreement.
  *
+ * The Paper artboard is "Carrier Packet, desktop 1440". Note the order it
+ * happened in: this page was built from the written plan and the artboard was
+ * drawn afterwards to record it. Every other page went the other way round,
+ * which is the house rule, and this one is the exception rather than a new
+ * precedent.
+ *
  * THE HONEST POSITION, AND WHY THE PAGE IS SHAPED LIKE THIS. KUL has not
  * supplied those documents to the website, so there is nothing here to
  * download and this page does not pretend otherwise. What it can do is tell a

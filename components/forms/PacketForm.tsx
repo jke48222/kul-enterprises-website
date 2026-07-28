@@ -12,10 +12,11 @@ import { useFormSubmit, Honeypot, FormStatus } from "./FormShell";
  * The request is genuinely one sentence long, so it is set as one sentence
  * with the three answers written into it, rather than as a stack of boxes.
  *
- * THERE IS NO ARTBOARD FOR THIS ONE. Every other page on the site was drawn
- * in Paper first and coded second, which is the house rule. This form and the
- * carrier packet page around it were built straight from the written plan,
- * and the artboard still owes to be drawn.
+ * Drawn on the Paper artboard "Carrier Packet, desktop 1440", though that
+ * artboard was drawn after the code rather than before it. Every other page
+ * on the site was designed in Paper first, which is the house rule; this one
+ * was built straight from the written plan and the artboard was made
+ * afterwards to record what shipped.
  *
  * ON THE LABELS. Every blank has a real label attached to it, hidden from the
  * screen but read aloud by a screen reader. The sentence around a blank is not
