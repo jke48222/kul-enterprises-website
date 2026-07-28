@@ -19,7 +19,48 @@
       "image": {
         "src": "/images/stock/road-night-light-trails.jpg",
         "alt": "Highway light trails at night"
-      }
+      },
+      "blurb": "Tractor and driver for your loaded trailer.",
+      "equipment": "Tractor only",
+      "equipmentNote": "You provide the trailer",
+      "lane": "Regional",
+      "laneNote": "Drop and hook",
+      "leadTime": "24 to 48 hrs",
+      "bestForShort": "Shippers with trailers",
+      "card": "/images/services/power-only.jpg",
+      "wide": "/images/services/power-only-wide.jpg",
+      "dimensions": [
+        {
+          "ref": "A",
+          "label": "Overall height",
+          "value": "13 ft 6 in"
+        },
+        {
+          "ref": "B",
+          "label": "Overall width",
+          "value": "8 ft 6 in"
+        },
+        {
+          "ref": "C",
+          "label": "Trailer length",
+          "value": "53 ft 0 in"
+        },
+        {
+          "ref": "D",
+          "label": "Interior height",
+          "value": "110 in"
+        },
+        {
+          "ref": "E",
+          "label": "Kingpin setting",
+          "value": "36 in"
+        },
+        {
+          "ref": "F",
+          "label": "Rear door opening",
+          "value": "105 x 93 in"
+        }
+      ]
     },
     {
       "slug": "dry-van",
@@ -40,7 +81,48 @@
       "image": {
         "src": "/images/stock/hero-semi-truck-dusk-mountains.jpg",
         "alt": "A tractor-trailer crossing a mountain road at dusk"
-      }
+      },
+      "blurb": "Palletized freight in a sealed 53 foot van.",
+      "equipment": "53 ft dry van",
+      "equipmentNote": "Sealed at origin",
+      "lane": "Any",
+      "laneNote": "Regional or long haul",
+      "leadTime": "24 to 48 hrs",
+      "bestForShort": "Retail and packaged goods",
+      "card": "/images/services/dry-van.jpg",
+      "wide": "/images/services/dry-van-wide.jpg",
+      "dimensions": [
+        {
+          "ref": "A",
+          "label": "Overall height",
+          "value": "13 ft 6 in"
+        },
+        {
+          "ref": "B",
+          "label": "Overall width",
+          "value": "8 ft 6 in"
+        },
+        {
+          "ref": "C",
+          "label": "Trailer length",
+          "value": "53 ft 0 in"
+        },
+        {
+          "ref": "D",
+          "label": "Interior height",
+          "value": "110 in"
+        },
+        {
+          "ref": "E",
+          "label": "Kingpin setting",
+          "value": "36 in"
+        },
+        {
+          "ref": "F",
+          "label": "Rear door opening",
+          "value": "105 x 93 in"
+        }
+      ]
     },
     {
       "slug": "reefer",
@@ -61,7 +143,48 @@
       "image": {
         "src": "/images/stock/hero-alt-semi-night-gold-lights.jpg",
         "alt": "A semi truck under warm lights at night"
-      }
+      },
+      "blurb": "Temperature controlled freight, set points logged.",
+      "equipment": "Reefer trailer",
+      "equipmentNote": "Set points logged",
+      "lane": "Any",
+      "laneNote": "Cold chain intact",
+      "leadTime": "48 hrs",
+      "bestForShort": "Produce and chilled food",
+      "card": "/images/services/reefer.jpg",
+      "wide": "/images/services/reefer-wide.jpg",
+      "dimensions": [
+        {
+          "ref": "A",
+          "label": "Overall height",
+          "value": "13 ft 6 in"
+        },
+        {
+          "ref": "B",
+          "label": "Overall width",
+          "value": "8 ft 6 in"
+        },
+        {
+          "ref": "C",
+          "label": "Trailer length",
+          "value": "53 ft 0 in"
+        },
+        {
+          "ref": "D",
+          "label": "Interior height",
+          "value": "110 in"
+        },
+        {
+          "ref": "E",
+          "label": "Kingpin setting",
+          "value": "36 in"
+        },
+        {
+          "ref": "F",
+          "label": "Rear door opening",
+          "value": "105 x 93 in"
+        }
+      ]
     },
     {
       "slug": "dedicated",
@@ -82,7 +205,48 @@
       "image": {
         "src": "/images/stock/driver-in-cab-gold-truck.jpg",
         "alt": "A driver at the wheel of his cab in warm evening light"
-      }
+      },
+      "blurb": "Committed capacity on your recurring lanes.",
+      "equipment": "By agreement",
+      "equipmentNote": "Van or reefer",
+      "lane": "Recurring",
+      "laneNote": "Fixed schedule",
+      "leadTime": "By contract",
+      "bestForShort": "Weekly distribution runs",
+      "card": "/images/services/dedicated.jpg",
+      "wide": "/images/services/dedicated-wide.jpg",
+      "dimensions": [
+        {
+          "ref": "A",
+          "label": "Overall height",
+          "value": "13 ft 6 in"
+        },
+        {
+          "ref": "B",
+          "label": "Overall width",
+          "value": "8 ft 6 in"
+        },
+        {
+          "ref": "C",
+          "label": "Trailer length",
+          "value": "53 ft 0 in"
+        },
+        {
+          "ref": "D",
+          "label": "Interior height",
+          "value": "110 in"
+        },
+        {
+          "ref": "E",
+          "label": "Kingpin setting",
+          "value": "36 in"
+        },
+        {
+          "ref": "F",
+          "label": "Rear door opening",
+          "value": "105 x 93 in"
+        }
+      ]
     },
     {
       "slug": "regional",
@@ -103,7 +267,48 @@
       "image": {
         "src": "/images/stock/kul-hero-poster.jpg",
         "alt": "An aerial view of trucks running a highway"
-      }
+      },
+      "blurb": "Southeast short haul, usually same day.",
+      "equipment": "53 ft dry van",
+      "equipmentNote": "Southeast base",
+      "lane": "Under 500 mi",
+      "laneNote": "Same day where possible",
+      "leadTime": "Same day",
+      "bestForShort": "Georgia and neighbouring states",
+      "card": "/images/services/regional.jpg",
+      "wide": "/images/services/regional-wide.jpg",
+      "dimensions": [
+        {
+          "ref": "A",
+          "label": "Overall height",
+          "value": "13 ft 6 in"
+        },
+        {
+          "ref": "B",
+          "label": "Overall width",
+          "value": "8 ft 6 in"
+        },
+        {
+          "ref": "C",
+          "label": "Trailer length",
+          "value": "53 ft 0 in"
+        },
+        {
+          "ref": "D",
+          "label": "Interior height",
+          "value": "110 in"
+        },
+        {
+          "ref": "E",
+          "label": "Kingpin setting",
+          "value": "36 in"
+        },
+        {
+          "ref": "F",
+          "label": "Rear door opening",
+          "value": "105 x 93 in"
+        }
+      ]
     },
     {
       "slug": "expedited",
@@ -124,7 +329,48 @@
       "image": {
         "src": "/images/stock/driver-portrait-semi-cab-night.jpg",
         "alt": "A professional driver standing at his cab at night"
-      }
+      },
+      "blurb": "Time critical freight on the fastest compliant path.",
+      "equipment": "Any available",
+      "equipmentNote": "Whatever is closest",
+      "lane": "Any",
+      "laneNote": "Direct routing",
+      "leadTime": "Immediate",
+      "bestForShort": "Line down and hot loads",
+      "card": "/images/services/expedited.jpg",
+      "wide": "/images/services/expedited-wide.jpg",
+      "dimensions": [
+        {
+          "ref": "A",
+          "label": "Overall height",
+          "value": "13 ft 6 in"
+        },
+        {
+          "ref": "B",
+          "label": "Overall width",
+          "value": "8 ft 6 in"
+        },
+        {
+          "ref": "C",
+          "label": "Trailer length",
+          "value": "53 ft 0 in"
+        },
+        {
+          "ref": "D",
+          "label": "Interior height",
+          "value": "110 in"
+        },
+        {
+          "ref": "E",
+          "label": "Kingpin setting",
+          "value": "36 in"
+        },
+        {
+          "ref": "F",
+          "label": "Rear door opening",
+          "value": "105 x 93 in"
+        }
+      ]
     },
     {
       "slug": "otr",
@@ -145,7 +391,48 @@
       "image": {
         "src": "/images/photos/desert-rock-formation.jpg",
         "alt": "Desert rock formations on a cross-country route"
-      }
+      },
+      "blurb": "Nationwide long haul across forty eight states.",
+      "equipment": "53 ft dry van",
+      "equipmentNote": "Full operating authority",
+      "lane": "48 states",
+      "laneNote": "Planned before dispatch",
+      "leadTime": "48 to 72 hrs",
+      "bestForShort": "Cross country freight",
+      "card": "/images/services/otr.jpg",
+      "wide": "/images/services/otr-wide.jpg",
+      "dimensions": [
+        {
+          "ref": "A",
+          "label": "Overall height",
+          "value": "13 ft 6 in"
+        },
+        {
+          "ref": "B",
+          "label": "Overall width",
+          "value": "8 ft 6 in"
+        },
+        {
+          "ref": "C",
+          "label": "Trailer length",
+          "value": "53 ft 0 in"
+        },
+        {
+          "ref": "D",
+          "label": "Interior height",
+          "value": "110 in"
+        },
+        {
+          "ref": "E",
+          "label": "Kingpin setting",
+          "value": "36 in"
+        },
+        {
+          "ref": "F",
+          "label": "Rear door opening",
+          "value": "105 x 93 in"
+        }
+      ]
     }
   ]
 }

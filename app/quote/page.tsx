@@ -1,81 +1,147 @@
 import type { Metadata } from "next";
-import PageHero from "@/components/v2/PageHero";
+import Image from "next/image";
+import { site } from "@/lib/site";
 import QuoteForm from "@/components/forms/QuoteForm";
-import FaqAccordion from "@/components/v2/FaqAccordion";
-import Eyebrow from "@/components/v2/Eyebrow";
-import LineReveal from "@/components/v2/LineReveal";
-import faq from "@/content/faq.json";
 
 /**
- * QUOTE — §4.8. The conversion page: lean, fast, form above the fold on
- * laptop. Compact ink opener → paper form (the gold submit pill inside
- * QuoteForm is the page's only gold beyond chrome; the nav CTA renders
- * ghost on this route — §3.1) → paper FAQ with the load-bearing `id="faq"`
- * anchor (the Footer links to /quote#faq) → straight to the curtain Footer.
- * No CtaBand: the page IS the CTA.
+ * QUOTE PAGE
+ *
+ * The most important page on the site. Everything else exists to get a
+ * shipper here.
+ *
+ * The form is deliberately short: origin, destination, freight type, pickup
+ * date and how to reach you. Anything else can be asked on the phone.
+ *
+ * The phone number is given equal weight to the form, because a broker with
+ * a load moving today will call rather than type.
+ *
+ * WHERE THE SUBMISSIONS GO: dispatch@kulenterprises.com, and a copy of every
+ * submission is written to the hosting logs as backup. See .env.example for
+ * the two settings this needs before launch.
  */
 
 export const metadata: Metadata = {
-  title: "Request a Quote",
-  description:
-    "Send your lane and a person prices it the same business day. Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited, and OTR.",
+  title: "Request a Freight Quote",
+  description: `Get a freight quote from KUL Enterprises. Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited and Over the Road. Licensed carrier in ${site.location}, USDOT ${site.usdot}. Dispatch answers 24/7.`,
 };
 
-const CONTAINER = "mx-auto w-full max-w-[1760px] px-[clamp(20px,5vw,90px)]";
-const GRID = "grid grid-cols-1 gap-x-[clamp(16px,1.4vw,24px)] lg:grid-cols-12";
-
-// faq.json items 1, 3, 8 (1-based): quote speed, licensed/insured, updates.
-const FAQ_ITEMS = [faq.items[0], faq.items[2], faq.items[7]];
+/** What happens after the form is sent. Stated so nobody has to wonder. */
+const NEXT_STEPS = [
+  {
+    n: "01",
+    title: "It reaches dispatch",
+    body: "Straight to the person who drives the truck, not a shared inbox nobody owns.",
+  },
+  {
+    n: "02",
+    title: "You get a real number",
+    body: "Usually the same day. If the lane does not suit us we will say so rather than quote high to decline politely.",
+  },
+  {
+    n: "03",
+    title: "Nothing is automated",
+    body: "No sequence of follow up emails. If you do not book, you will not hear from us again unless you ask.",
+  },
+] as const;
 
 export default function QuotePage() {
   return (
     <>
-      {/* 1 · Opener — compact ink band (§4.8.1). Gold: none. */}
-      <PageHero
-        variant="compact"
-        eyebrow="REQUEST A QUOTE"
-        titleLines={["Send your lane."]}
-        deck="Priced by a person who can actually commit capacity. Answered the same business day."
-      />
+      {/* Split layout: the form on one side, a photograph on the other, so
+          the page never reads like paperwork. */}
+      <section className="bg-k-paper px-6 pb-24 pt-40 md:px-12 lg:px-24">
+        <div className="mx-auto flex max-w-[1248px] flex-col gap-16 lg:flex-row lg:gap-24">
+          <div className="flex flex-1 flex-col gap-8">
+            <div className="flex flex-col gap-5">
+              <p className="flex items-center gap-4">
+                <span
+                  className="h-px w-12 shrink-0 bg-k-gold"
+                  aria-hidden="true"
+                />
+                <span className="font-text text-k-label uppercase text-k-gold">
+                  Request a quote
+                </span>
+              </p>
+              <h1 className="font-display text-k-d1 font-black text-k-ink">
+                Tell us about the load.
+              </h1>
+              <p className="max-w-[520px] font-text text-k-lede text-k-ink-soft">
+                Five fields is all we need to price it. Everything else can be
+                sorted out on the phone.
+              </p>
+            </div>
 
-      {/* 2 · Form — paper, visible within first scroll (§4.8.2).
-          Trust strip + tel fallback live inside QuoteForm above the submit;
-          the gold submit pill is this viewport's single gold spend. */}
-      <section data-ground="paper" className="bg-paper py-band-sm">
-        <div className={CONTAINER}>
-          <div className={GRID}>
-            <div className="lg:col-start-2 lg:col-end-9">
-              <QuoteForm />
+            <QuoteForm />
+          </div>
+
+          <div className="flex w-full flex-col gap-8 lg:w-[420px] lg:shrink-0">
+            {/* The phone sits level with the form, not below it. */}
+            <div className="flex flex-col gap-3 border border-k-rule bg-k-surface p-8">
+              <span className="font-text text-k-micro uppercase text-k-ink-faint">
+                Or skip the form
+              </span>
+              <a
+                href={site.phoneHref}
+                className="font-display text-k-d2 font-black tabular-nums text-k-ink"
+              >
+                {site.phone}
+              </a>
+              <p className="font-text text-k-small text-k-ink-soft">
+                Dispatch answers around the clock. If you have a load moving
+                today, calling is faster than anything on this page.
+              </p>
+            </div>
+
+            <Image
+              src="/images/services/otr-wide.jpg"
+              alt="A KUL Enterprises tractor and trailer on the highway"
+              width={1600}
+              height={900}
+              className="h-[280px] w-full object-cover"
+            />
+
+            <div className="flex flex-col gap-6">
+              {NEXT_STEPS.map((step) => (
+                <div
+                  key={step.n}
+                  className="flex gap-5 border-t border-k-rule pt-5"
+                >
+                  <span className="font-text text-k-micro uppercase tabular-nums text-k-gold">
+                    {step.n}
+                  </span>
+                  <div className="flex flex-col gap-1.5">
+                    <h2 className="font-text text-k-body font-semibold text-k-ink">
+                      {step.title}
+                    </h2>
+                    <p className="font-text text-k-small text-k-ink-soft">
+                      {step.body}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* 3 · FAQ — paper, id="faq" is load-bearing: the Footer links to
-          /quote#faq (§4.8.3). Gold: none. */}
-      <section
-        id="faq"
-        data-ground="paper"
-        className="scroll-mt-24 bg-paper py-band-sm"
-      >
-        <div className={CONTAINER}>
-          <div className={GRID}>
-            <div className="lg:col-start-2 lg:col-end-11">
-              <Eyebrow>STRAIGHT ANSWERS</Eyebrow>
-              <LineReveal
-                as="h2"
-                lines={["Asked often."]}
-                className="mt-6 max-w-[14ch] font-omnibus text-h2 text-ink"
-              />
-              <div className="mt-12">
-                <FaqAccordion items={FAQ_ITEMS} ground="paper" jsonLd />
-              </div>
-            </div>
-          </div>
+      <section className="bg-k-coal px-6 py-16 md:px-12 lg:px-24">
+        <div className="mx-auto flex max-w-[1248px] flex-wrap items-center gap-x-10 gap-y-3">
+          {[
+            `USDOT ${site.usdot}`,
+            `MC ${site.mc}`,
+            "Licensed and insured",
+            "Dispatch answers 24/7",
+            site.serviceArea,
+          ].map((item) => (
+            <span
+              key={item}
+              className="font-text text-k-micro uppercase tabular-nums text-k-on-dark-soft"
+            >
+              {item}
+            </span>
+          ))}
         </div>
       </section>
-
-      {/* 4 · Ending — none. Straight to the curtain Footer (§4.8.4). */}
     </>
   );
 }

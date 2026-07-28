@@ -14,8 +14,7 @@ import {
 } from "./FormShell";
 
 /**
- * Contact form on the §3.20 underline system. POST contract unchanged —
- * endpoint /api/contact, field names name/email/message, botcheck honeypot.
+ * Contact form on the §3.20 underline system. POST contract unchanged, * endpoint /api/contact, field names name/email/message, botcheck honeypot.
  */
 export default function ContactForm() {
   const { state, serverError, submit } = useFormSubmit("/api/contact");

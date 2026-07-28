@@ -5,10 +5,10 @@ import { m } from "framer-motion";
 import { EASE } from "@/components/v2/motion";
 
 /**
- * §3.20 underline field system — text input primitive.
+ * §3.20 underline field system, text input primitive.
  *
  * No boxes: transparent background over a resting hairline; focus draws a
- * 1.5px full-strength ink/paper line (NEVER gold — motion is the focus
+ * 1.5px full-strength ink/paper line (NEVER gold, motion is the focus
  * signal, not color). Label sits ABOVE the line in micro, lifts 2px to full
  * opacity on focus. Errors turn line + label desaturated brick and slide a
  * message down 4px. All animation is transform/opacity only;
@@ -25,7 +25,7 @@ export type FieldGround = "paper" | "ink";
  *
  * Every alpha below is a measured WCAG value against the ground it sits on
  * (paper #F7F5F0, ink #0B0B0B), composited in sRGB the way a browser does it.
- * Do not lower them without recomputing — the field system has no boxes, so
+ * Do not lower them without recomputing, the field system has no boxes, so
  * the hairline is the only thing that says "a control lives here" and it is
  * held to the 3:1 non-text floor (WCAG 1.4.11), not to taste.
  */
@@ -47,14 +47,14 @@ export const FIELD_GROUND: Record<
     // ink/60 = 5.07:1 on paper. Was ink/40 = 2.67:1 (WCAG 1.4.3 fail).
     placeholder: "placeholder:text-ink/60",
     label: "text-ink",
-    // Resting hairline — the sole affordance for the control, so WCAG 1.4.11
+    // Resting hairline, the sole affordance for the control, so WCAG 1.4.11
     // applies. ink/50 = 3.62:1. Was ink/15 = 1.39:1 (ink/40 = 2.67:1 also fails).
     rest: "bg-ink/50",
     line: "bg-ink",
     // Restores the keyboard ring that `focus:outline-none` used to suppress.
     // #0B0B0B on paper = 18.06:1; mirrors the paper-ground ring in globals.css.
     // Specificity (0,2,0) so it wins over the `outline-none` reset regardless
-    // of source order — it does not depend on a data-ground ancestor.
+    // of source order, it does not depend on a data-ground ancestor.
     ring:
       "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-ink",
     errorText: "text-[#8C3B2E]", // 6.93:1 on paper
@@ -79,7 +79,7 @@ export const FIELD_GROUND: Record<
 };
 
 /**
- * Desaturated brick for invalid states (§3.20) — never red-alarm, never gold.
+ * Desaturated brick for invalid states (§3.20), never red-alarm, never gold.
  * Paper ground only: 6.93:1 on #F7F5F0, but 2.61:1 on ink. Ink-ground fields
  * use FIELD_ERROR_COLOR_INK (6.94:1 on #0B0B0B) via FIELD_GROUND.ink.
  */
@@ -269,7 +269,7 @@ export function Field({
       className={className}
     >
       {/* `focus:outline-none` used to sit on this input at specificity (0,2,0),
-          beating the global `:focus-visible` ring at (0,1,0) — keyboard focus
+          beating the global `:focus-visible` ring at (0,1,0), keyboard focus
           painted no ring at all. The animated underline stays the primary focus
           signal; g.ring restores a visible ring for keyboard users only. */}
       <input

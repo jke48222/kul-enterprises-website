@@ -1,5 +1,5 @@
 <!--
-  KUL Enterprises favicon — ink tile, gold K.
+  KUL Enterprises favicon, ink tile, gold K.
 
   Replaces a 1,003,078-byte auto-trace of the photoreal lion mark that was
   requested on every page load. A favicon renders at 16-32px, where the
@@ -8,7 +8,7 @@
   lockup (components/v2/Nav.tsx), in brand gold (#B59352) on ink (#0B0B0B).
   On dark browser chrome the tile recedes and the K carries the mark alone.
 
-  Two filled paths, no strokes and no gradients — it rasterizes cleanly at
+  Two filled paths, no strokes and no gradients, so it rasterizes cleanly at
   every size a browser asks for. The lion stays the site's mark everywhere
   it has the room to read.
 -->

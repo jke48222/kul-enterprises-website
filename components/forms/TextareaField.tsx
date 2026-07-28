@@ -8,7 +8,7 @@ import {
 } from "./Field";
 
 /**
- * §3.20 underline field system — multiline primitive. Same label/underline
+ * §3.20 underline field system, multiline primitive. Same label/underline
  * choreography as Field; height comes from `rows` instead of the 64px row.
  */
 
@@ -57,7 +57,7 @@ export function TextareaField({
       error={error}
       className={className}
     >
-      {/* No `focus:outline-none` — it out-specified the global :focus-visible
+      {/* No `focus:outline-none`, it out-specified the global :focus-visible
           ring and left keyboard focus unpainted. g.ring restores it. */}
       <textarea
         id={id}

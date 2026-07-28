@@ -17,7 +17,7 @@ import {
 /**
  * Driver inquiry. Deliberately short; the page above does the recruiting.
  * v2 (§3.20/§4.5): underline system, success takeover "We've got you."
- * POST contract unchanged — endpoint /api/driver, field names
+ * POST contract unchanged, endpoint /api/driver, field names
  * name/contact/experience/note, botcheck honeypot.
  */
 export default function DriverForm() {

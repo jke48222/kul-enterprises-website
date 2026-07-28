@@ -12,6 +12,35 @@ import { site } from "./site";
  *   dispatch@kulenterprises.com. The `from` uses Resend's shared onboarding
  *   sender until the client's domain is verified in Resend.
  */
+/**
+ * WHO THE QUOTE AND CONTACT EMAILS COME FROM
+ *
+ * Resend's shared `onboarding@resend.dev` address can ONLY deliver to the
+ * email address that owns the Resend account. It cannot deliver to
+ * dispatch@kulenterprises.com, so leaving it in place means every lead is
+ * rejected by Resend and never arrives.
+ *
+ * TO FIX THIS PROPERLY, once only:
+ *   1. Add and verify kulenterprises.com as a domain in Resend.
+ *   2. Set RESEND_FROM in the hosting environment, for example
+ *      RESEND_FROM="KUL Enterprises <dispatch@kulenterprises.com>"
+ *   3. Set RESEND_API_KEY in the same place.
+ *
+ * Until step 2 is done this logs a warning on every send, because a silently
+ * rejected lead looks identical to a working form from the outside.
+ */
+function senderAddress(): string {
+  const configured = process.env.RESEND_FROM;
+  if (configured) return configured;
+
+  console.warn(
+    "[email] RESEND_FROM is not set, so the shared onboarding@resend.dev " +
+      `sender is being used. Resend will reject delivery to ${site.email}. ` +
+      "Verify the domain in Resend and set RESEND_FROM to fix this."
+  );
+  return "KUL Website <onboarding@resend.dev>";
+}
+
 export async function sendViaResend({
   subject,
   text,
@@ -42,7 +71,7 @@ export async function sendViaResend({
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "KUL Website <onboarding@resend.dev>",
+        from: senderAddress(),
         to: [site.email],
         subject,
         text,

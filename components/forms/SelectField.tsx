@@ -9,7 +9,7 @@ import {
 } from "./Field";
 
 /**
- * §3.20 underline field system — native `<select>` styled bare (no deps).
+ * §3.20 underline field system, native `<select>` styled bare (no deps).
  * Same underline choreography as Field; the chevron rotates 180° while the
  * select is open (focus is the closest reliable native proxy).
  */
@@ -62,7 +62,7 @@ export function SelectField({
       error={error}
       className={className}
     >
-      {/* No `focus:outline-none` — it out-specified the global :focus-visible
+      {/* No `focus:outline-none`, it out-specified the global :focus-visible
           ring and left keyboard focus unpainted. g.ring restores it. */}
       <select
         id={id}

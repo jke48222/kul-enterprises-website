@@ -21,7 +21,7 @@ import {
  * forms convert; detail can follow in the reply.
  *
  * v2 (§3.20): numbered groups over the underline field system. POST contract
- * unchanged — endpoint /api/quote, field names origin/destination/
+ * unchanged, endpoint /api/quote, field names origin/destination/
  * freightType/pickupDate/contact/details, botcheck honeypot.
  */
 
@@ -185,7 +185,7 @@ export default function QuoteForm() {
                   <a href="tel:+16789721148" className="link-hairline text-ink">
                     678-972-1148
                   </a>{" "}
-                  — dispatch answers 24/7
+                  Dispatch answers 24/7
                 </p>
               </div>
             </div>

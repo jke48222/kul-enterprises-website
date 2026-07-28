@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Montserrat } from "next/font/google";
+import { Montserrat, Archivo, Inter } from "next/font/google";
 import localFont from "next/font/local";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { MotionConfig } from "framer-motion";
@@ -7,9 +7,8 @@ import "./globals.css";
 import { site } from "@/lib/site";
 import MotionProvider from "@/components/motion/MotionProvider";
 import LoadingOverlay from "@/components/brand/LoadingOverlay";
-import Grain from "@/components/v2/Grain";
-import Nav from "@/components/v2/Nav";
-import Footer from "@/components/v2/Footer";
+import Nav from "@/components/k/Nav";
+import Footer from "@/components/k/Footer";
 import StickyMobileBar from "@/components/v2/StickyMobileBar";
 import RouteVeil from "@/components/v2/RouteVeil";
 
@@ -21,8 +20,28 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
-// Omnibus carries the display headings. Loaded here (not the site layout)
-// so the variable exists on every route, the 404 page included.
+/**
+ * Design system faces. Archivo Black 900 is the display voice — a squared
+ * industrial grotesque that matches the KUL wordmark. Inter carries text and
+ * every numeric. Both are variable fonts, so one file covers the range.
+ */
+const archivo = Archivo({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "900"],
+  variable: "--font-archivo",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+// Omnibus and Montserrat are the v2 faces, retained only until the pages
+// still using them are rebuilt. Remove both once nothing references
+// font-omnibus / font-mont.
 const omnibus = localFont({
   src: "./fonts/Omnibus-Bold.ttf",
   weight: "700",
@@ -55,7 +74,7 @@ export const metadata: Metadata = {
         url: "/images/og.jpg",
         width: 1200,
         height: 630,
-        alt: `${site.name} — ${site.tagline}`,
+        alt: `${site.name}. ${site.tagline}`,
       },
     ],
   },
@@ -148,7 +167,7 @@ export default function RootLayout({
       // Third-party extensions routinely stamp attributes on <html> before
       // hydration; suppress React's root attribute mismatch warning for them.
       suppressHydrationWarning
-      className={`${montserrat.variable} ${omnibus.variable}`}
+      className={`${archivo.variable} ${inter.variable} ${montserrat.variable} ${omnibus.variable}`}
     >
       <body className="min-h-screen bg-ink font-mont text-white antialiased">
         <script
@@ -170,10 +189,9 @@ export default function RootLayout({
                 Lighthouse and no-JS visitors never see it. ≤2.5s cap with a
                 visible skip; RouteVeil never replays it. */}
             <LoadingOverlay />
-            <Grain />
             <Nav />
             <RouteVeil>
-              <div className="relative z-[1] bg-ink shadow-[0_30px_60px_rgba(0,0,0,0.45)]">
+              <div className="relative z-[1] bg-k-paper">
                 <main id="main">{children}</main>
                 <div data-content-end aria-hidden />
               </div>
