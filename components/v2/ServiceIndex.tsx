@@ -114,7 +114,7 @@ export function ServiceIndex({ services }: ServiceIndexProps) {
             return (
               <li key={s.slug} className="border-t border-ink/15">
                 <Link
-                  href={`/v2/services/${s.slug}`}
+                  href={`/services/${s.slug}`}
                   className="block"
                   onPointerEnter={(e) => {
                     if (!followerOn || e.pointerType === "touch") return;
@@ -154,7 +154,7 @@ export function ServiceIndex({ services }: ServiceIndexProps) {
                     >
                       <span
                         aria-hidden
-                        className="text-micro uppercase tabular-nums text-ink/40 lg:col-span-1"
+                        className="text-micro uppercase tabular-nums text-ink/60 lg:col-span-1"
                       >
                         {idx}
                       </span>

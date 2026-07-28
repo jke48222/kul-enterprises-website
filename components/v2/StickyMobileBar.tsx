@@ -117,7 +117,7 @@ export default function StickyMobileBar({
                 <PhoneIcon />
               </a>
               <Link
-                href="/v2/quote"
+                href="/quote"
                 className="btn-gold flex-1 justify-center uppercase"
               >
                 Get a Quote

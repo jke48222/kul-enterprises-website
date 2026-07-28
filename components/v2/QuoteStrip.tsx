@@ -44,7 +44,11 @@ export function QuoteStrip({
   const ink = ground === "ink";
   const Heading = headingLevel;
 
-  const restLine = ink ? "bg-white/[0.18]" : "bg-ink/15";
+  // Resting hairline is the only indication a control exists here, so it is
+  // held to the WCAG 1.4.11 3:1 floor, matching FIELD_GROUND.rest:
+  // white/40 = 3.78:1 on ink (was 0.18 = 1.65:1); ink/50 = 3.62:1 on paper
+  // (was ink/15 = 1.39:1).
+  const restLine = ink ? "bg-white/40" : "bg-ink/50";
   const focusLine = ink ? "bg-paper" : "bg-ink";
   const labelColor = ink ? "text-paper/60" : "text-ink/60";
   const inputColor = ink ? "text-paper" : "text-ink";

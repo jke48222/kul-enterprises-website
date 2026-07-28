@@ -28,7 +28,7 @@ function ScrollCue() {
   return (
     <span
       aria-hidden
-      className="flex flex-col items-center gap-3 text-paper/40 motion-reduce:hidden"
+      className="flex flex-col items-center gap-3 text-paper/60 motion-reduce:hidden"
     >
       <span className="text-micro uppercase tracking-[0.18em] [writing-mode:vertical-rl]">
         Scroll

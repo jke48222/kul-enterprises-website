@@ -29,7 +29,8 @@ function GroupLegend({ index, children }: { index: string; children: React.React
   return (
     <legend className="mb-8 block w-full">
       <span className="flex items-baseline gap-3 text-micro uppercase text-ink/60">
-        <span aria-hidden className="text-ink/40 [font-feature-settings:'tnum']">
+        {/* ink/60 = 5.07:1 on paper; ink/40 measured 2.67:1. */}
+        <span aria-hidden className="text-ink/60 [font-feature-settings:'tnum']">
           {index}
         </span>
         <span>{children}</span>

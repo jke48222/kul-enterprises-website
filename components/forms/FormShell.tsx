@@ -137,7 +137,10 @@ export function Label({
       className="mb-1 block text-micro uppercase text-ink opacity-60"
     >
       {children}
-      {optional && <span className="opacity-70"> · optional</span>}
+      {/* No nested opacity: opacity-70 inside this label's opacity-60
+          compounded to 0.42 and measured 2.83:1 on paper. Inheriting the
+          label's own opacity-60 gives the suffix 5.07:1. */}
+      {optional && <span> · optional</span>}
     </label>
   );
 }

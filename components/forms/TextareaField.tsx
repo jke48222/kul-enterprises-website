@@ -57,13 +57,15 @@ export function TextareaField({
       error={error}
       className={className}
     >
+      {/* No `focus:outline-none` — it out-specified the global :focus-visible
+          ring and left keyboard focus unpainted. g.ring restores it. */}
       <textarea
         id={id}
         {...rest}
         {...handlers}
         aria-invalid={error ? true : undefined}
         aria-describedby={describedBy}
-        className={`w-full resize-y appearance-none rounded-none border-0 bg-transparent p-0 py-[19px] font-mont text-[17px] leading-normal caret-current outline-none focus:outline-none ${g.text} ${g.placeholder}`}
+        className={`w-full resize-y appearance-none rounded-none border-0 bg-transparent p-0 py-[19px] font-mont text-[17px] leading-normal caret-current outline-none ${g.ring} ${g.text} ${g.placeholder}`}
       />
     </FieldChrome>
   );

@@ -3,9 +3,8 @@ import { site } from "@/lib/site";
 import { services } from "@/lib/services";
 
 /**
- * Demo period: both versions live under path prefixes and the root is a
- * (noindex) chooser. The sitemap lists the redesign (/v2) as the primary
- * tree; /v1 is a reference copy and stays out of the map.
+ * One tree, at the root. Every public page is listed here; the demo-era
+ * version prefixes and exploration routes are gone, so nothing is withheld.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -24,7 +23,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/climate-statement",
     "/cookies",
   ].map((path) => ({
-    url: `${site.url}/v2${path}`,
+    // site.url carries no trailing slash, so the homepage needs an explicit
+    // "/" — a <loc> must be a full URL with a path. (Next's own canonical for
+    // "/" resolves to the bare origin, no trailing slash; search engines
+    // normalise the two to the same resource, so they do not conflict.)
+    url: `${site.url}${path || "/"}`,
     changeFrequency: "monthly" as const,
     priority: path === "" ? 1 : path.match(/policy|terms|notices|climate|cookies/) ? 0.3 : 0.8,
   }));

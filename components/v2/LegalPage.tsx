@@ -39,11 +39,11 @@ export type LegalPageProps = {
 const CONTAINER = "mx-auto w-full max-w-[1760px] px-[clamp(20px,5vw,90px)]";
 
 const LEGAL_DOCS = [
-  { href: "/v2/privacy-policy", label: "Privacy Policy" },
-  { href: "/v2/terms-conditions", label: "Terms & Conditions" },
-  { href: "/v2/cookies", label: "Cookies" },
-  { href: "/v2/legal-notices", label: "Legal Notices" },
-  { href: "/v2/climate-statement", label: "Climate Statement" },
+  { href: "/privacy-policy", label: "Privacy Policy" },
+  { href: "/terms-conditions", label: "Terms & Conditions" },
+  { href: "/cookies", label: "Cookies" },
+  { href: "/legal-notices", label: "Legal Notices" },
+  { href: "/climate-statement", label: "Climate Statement" },
 ];
 
 const slugify = (s: string) =>
@@ -130,7 +130,7 @@ export function LegalPage({
                       <div className="flex items-baseline gap-4">
                         <span
                           aria-hidden
-                          className="shrink-0 text-micro tabular-nums text-ink/40"
+                          className="shrink-0 text-micro tabular-nums text-ink/60"
                         >
                           {String(i + 1).padStart(2, "0")}
                         </span>

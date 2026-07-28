@@ -20,29 +20,71 @@ import { EASE } from "@/components/v2/motion";
 
 export type FieldGround = "paper" | "ink";
 
-/** Ground-keyed class recipes for the underline system. */
+/**
+ * Ground-keyed class recipes for the underline system.
+ *
+ * Every alpha below is a measured WCAG value against the ground it sits on
+ * (paper #F7F5F0, ink #0B0B0B), composited in sRGB the way a browser does it.
+ * Do not lower them without recomputing — the field system has no boxes, so
+ * the hairline is the only thing that says "a control lives here" and it is
+ * held to the 3:1 non-text floor (WCAG 1.4.11), not to taste.
+ */
 export const FIELD_GROUND: Record<
   FieldGround,
-  { text: string; placeholder: string; label: string; rest: string; line: string }
+  {
+    text: string;
+    placeholder: string;
+    label: string;
+    rest: string;
+    line: string;
+    ring: string;
+    errorText: string;
+    errorLine: string;
+  }
 > = {
   paper: {
     text: "text-ink",
-    placeholder: "placeholder:text-ink/40",
+    // ink/60 = 5.07:1 on paper. Was ink/40 = 2.67:1 (WCAG 1.4.3 fail).
+    placeholder: "placeholder:text-ink/60",
     label: "text-ink",
-    rest: "bg-ink/15",
+    // Resting hairline — the sole affordance for the control, so WCAG 1.4.11
+    // applies. ink/50 = 3.62:1. Was ink/15 = 1.39:1 (ink/40 = 2.67:1 also fails).
+    rest: "bg-ink/50",
     line: "bg-ink",
+    // Restores the keyboard ring that `focus:outline-none` used to suppress.
+    // #0B0B0B on paper = 18.06:1; mirrors the paper-ground ring in globals.css.
+    // Specificity (0,2,0) so it wins over the `outline-none` reset regardless
+    // of source order — it does not depend on a data-ground ancestor.
+    ring:
+      "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-ink",
+    errorText: "text-[#8C3B2E]", // 6.93:1 on paper
+    errorLine: "bg-[#8C3B2E]",
   },
   ink: {
     text: "text-paper",
-    placeholder: "placeholder:text-paper/40",
+    // paper/50 = 4.99:1 on ink. Was paper/40 = 3.57:1 (WCAG 1.4.3 fail).
+    placeholder: "placeholder:text-paper/50",
     label: "text-paper",
-    rest: "bg-white/18",
+    // white/40 = 3.78:1 on ink. Was white/18 = 1.65:1 (WCAG 1.4.11 fail).
+    rest: "bg-white/40",
     line: "bg-paper",
+    // #B59352 on ink = 6.80:1; mirrors the default ring in globals.css.
+    ring:
+      "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-gold",
+    // The paper brick #8C3B2E measures only 2.61:1 on ink; the lifted brick
+    // used by QuoteStrip measures 6.94:1.
+    errorText: "text-[#C98A7A]",
+    errorLine: "bg-[#C98A7A]",
   },
 };
 
-/** Desaturated brick for invalid states (§3.20) — never red-alarm, never gold. */
+/**
+ * Desaturated brick for invalid states (§3.20) — never red-alarm, never gold.
+ * Paper ground only: 6.93:1 on #F7F5F0, but 2.61:1 on ink. Ink-ground fields
+ * use FIELD_ERROR_COLOR_INK (6.94:1 on #0B0B0B) via FIELD_GROUND.ink.
+ */
 export const FIELD_ERROR_COLOR = "#8C3B2E";
+export const FIELD_ERROR_COLOR_INK = "#C98A7A";
 
 /** CSS timing function mirroring EASE.micro for non-framer transitions. */
 export const MICRO_BEZIER = `cubic-bezier(${EASE.micro.join(",")})`;
@@ -133,7 +175,7 @@ export function FieldChrome({
         className={[
           "mb-1 block text-micro uppercase transition-[transform,opacity] duration-200 motion-reduce:transform-none motion-reduce:transition-none",
           error
-            ? "text-[#8C3B2E] opacity-100"
+            ? `${g.errorText} opacity-100`
             : focused
               ? `${g.label} -translate-y-0.5 opacity-100`
               : `${g.label} opacity-60`,
@@ -141,7 +183,10 @@ export function FieldChrome({
         style={{ transitionTimingFunction: MICRO_BEZIER }}
       >
         {label}
-        {optional && <span className="opacity-70"> · optional</span>}
+        {/* No nested opacity: opacity-70 inside the label's own opacity-60
+            compounded to 0.42 and measured 2.83:1. Inheriting the label's
+            treatment gives the suffix the label's 5.07:1 on paper. */}
+        {optional && <span> · optional</span>}
       </label>
 
       <div className="relative">
@@ -150,7 +195,7 @@ export function FieldChrome({
         <span
           aria-hidden
           className={`pointer-events-none absolute inset-x-0 bottom-0 h-px ${
-            error ? "bg-[#8C3B2E]" : g.rest
+            error ? g.errorLine : g.rest
           }`}
         />
         {/* Focus underline: full-strength currentColor ink/paper, NEVER gold.
@@ -159,7 +204,7 @@ export function FieldChrome({
           aria-hidden
           className={[
             "pointer-events-none absolute inset-x-0 bottom-0 h-[1.5px] origin-left transition-transform motion-reduce:transition-none",
-            error ? "bg-[#8C3B2E]" : g.line,
+            error ? g.errorLine : g.line,
             active ? "scale-x-100 duration-[450ms]" : "scale-x-0 duration-200",
           ].join(" ")}
           style={{ transitionTimingFunction: MICRO_BEZIER }}
@@ -172,7 +217,7 @@ export function FieldChrome({
           initial={{ opacity: 0, y: -4 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.25, ease: [...EASE.micro] }}
-          className="mt-2 text-micro uppercase text-[#8C3B2E]"
+          className={`mt-2 text-micro uppercase ${g.errorText}`}
         >
           {error}
         </m.p>
@@ -223,13 +268,17 @@ export function Field({
       error={error}
       className={className}
     >
+      {/* `focus:outline-none` used to sit on this input at specificity (0,2,0),
+          beating the global `:focus-visible` ring at (0,1,0) — keyboard focus
+          painted no ring at all. The animated underline stays the primary focus
+          signal; g.ring restores a visible ring for keyboard users only. */}
       <input
         id={id}
         {...rest}
         {...handlers}
         aria-invalid={error ? true : undefined}
         aria-describedby={describedBy}
-        className={`h-16 w-full appearance-none rounded-none border-0 bg-transparent p-0 font-mont text-[17px] caret-current outline-none focus:outline-none ${g.text} ${g.placeholder}`}
+        className={`h-16 w-full appearance-none rounded-none border-0 bg-transparent p-0 font-mont text-[17px] caret-current outline-none ${g.ring} ${g.text} ${g.placeholder}`}
       />
     </FieldChrome>
   );

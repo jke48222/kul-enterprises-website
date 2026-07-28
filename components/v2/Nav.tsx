@@ -23,11 +23,11 @@ import MenuOverlay from "./MenuOverlay";
 type NavProps = Record<string, never>;
 
 const LINKS = [
-  { label: "Services", href: "/v2/services" },
-  { label: "Drivers", href: "/v2/drivers" },
-  { label: "Safety", href: "/v2/safety" },
-  { label: "About", href: "/v2/about" },
-  { label: "Contact", href: "/v2/contact" },
+  { label: "Services", href: "/services" },
+  { label: "Drivers", href: "/drivers" },
+  { label: "Safety", href: "/safety" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ] as const;
 
 type ScrollState = "top" | "pinned" | "hidden";
@@ -36,7 +36,7 @@ type Ground = "ink" | "paper";
 function Wordmark({ onNavigate }: { onNavigate?: () => void }) {
   return (
     <Link
-      href="/v2"
+      href="/"
       aria-label="KUL Enterprises — home"
       onClick={onNavigate}
       className="relative z-[1] inline-flex h-11 flex-col items-end justify-center leading-none"
@@ -120,7 +120,7 @@ export default function Nav({}: NavProps) {
   const isPaper = theme === "paper";
   const pinned = scrollState === "pinned";
   const hidden = scrollState === "hidden" && !menuOpen;
-  const ctaGhost = pathname === "/v2/quote" || pathname === "/v2/contact";
+  const ctaGhost = pathname === "/quote" || pathname === "/contact";
   const ghostClass = isPaper ? "btn-ghost-light" : "btn-ghost-dark";
 
   return (
@@ -187,7 +187,7 @@ export default function Nav({}: NavProps) {
                   Hidden < md — the StickyMobileBar carries mobile gold (§3.3). */}
               <div className="hidden md:block">
                 <Link
-                  href="/v2/quote"
+                  href="/quote"
                   className={`${ctaGhost ? ghostClass : "btn-gold"} uppercase`}
                 >
                   Request a Quote

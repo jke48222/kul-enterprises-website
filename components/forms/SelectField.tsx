@@ -62,20 +62,22 @@ export function SelectField({
       error={error}
       className={className}
     >
+      {/* No `focus:outline-none` — it out-specified the global :focus-visible
+          ring and left keyboard focus unpainted. g.ring restores it. */}
       <select
         id={id}
         {...rest}
         {...handlers}
         aria-invalid={error ? true : undefined}
         aria-describedby={describedBy}
-        className={`h-16 w-full appearance-none rounded-none border-0 bg-transparent p-0 pr-8 font-mont text-[17px] outline-none focus:outline-none ${g.text}`}
+        className={`h-16 w-full appearance-none rounded-none border-0 bg-transparent p-0 pr-8 font-mont text-[17px] outline-none ${g.ring} ${g.text}`}
       >
         {children}
       </select>
       <span
         aria-hidden
         className={`pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 transition-transform duration-200 motion-reduce:transition-none ${
-          error ? "text-[#8C3B2E]" : g.text
+          error ? g.errorText : g.text
         } ${focused ? "rotate-180" : ""}`}
         style={{ transitionTimingFunction: MICRO_BEZIER }}
       >
