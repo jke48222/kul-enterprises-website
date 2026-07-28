@@ -90,14 +90,14 @@ export async function sendViaResend({
   }
 }
 
-/** Pragmatic email shape check — used to gate reply_to, not to reject leads. */
+/** Pragmatic email shape check, used to gate reply_to, not to reject leads. */
 export function isEmail(value: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
 }
 
 /**
  * Lead redundancy: every submission is also written to the server log as one
- * structured JSON line, so a Resend outage or quota hit never loses a lead —
+ * structured JSON line, so a Resend outage or quota hit never loses a lead.
  * it stays recoverable from the hosting logs. If LEAD_WEBHOOK_URL is set
  * (e.g. a Zapier/Make hook feeding a spreadsheet), the lead is mirrored there
  * too, fire-and-forget.
@@ -109,7 +109,7 @@ export function recordLead(kind: string, data: Record<string, string>): void {
   const webhook = process.env.LEAD_WEBHOOK_URL;
   if (webhook) {
     // after(): a bare fire-and-forget fetch would be frozen with the
-    // serverless instance the moment the route responds — precisely in the
+    // serverless instance the moment the route responds, precisely in the
     // fast-failure paths this mirror exists for.
     after(() =>
       fetch(webhook, {

@@ -1,7 +1,7 @@
 /**
- * GhostNumeral — §3.19. Oversized aria-hidden Omnibus numeral sitting at
+ * GhostNumeral, §3.19. Oversized aria-hidden Omnibus numeral sitting at
  * z-0 behind content, positioned by the caller via className. NEVER gold
- * (§2.7): paper at 6% alpha on ink, ink at 5% alpha on paper — decoration
+ * (§2.7): paper at 6% alpha on ink, ink at 5% alpha on paper. Decoration
  * alphas are exempt from the §2.1 opacity floor because it is aria-hidden.
  * Server component; static (any drift is applied by the caller).
  */

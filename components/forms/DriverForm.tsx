@@ -10,7 +10,7 @@ import { useFormSubmit, Honeypot, FormStatus } from "./FormShell";
  * THE DRIVER FORM
  *
  * Four questions, which is everything needed to put somebody on the list and
- * call them back later. Drawn on the Paper artboard "Drivers — desktop 1440",
+ * call them back later. Drawn on the Paper artboard "Drivers, desktop 1440",
  * where it sits on the warm panel at the foot of the page.
  *
  * IT DOES NOT PROMISE A CALL TODAY. KUL has one truck and one driver, and the

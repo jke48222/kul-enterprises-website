@@ -24,7 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/cookies",
   ].map((path) => ({
     // site.url carries no trailing slash, so the homepage needs an explicit
-    // "/" — a <loc> must be a full URL with a path. (Next's own canonical for
+    // "/" because a <loc> must be a full URL with a path. (Next's own canonical for
     // "/" resolves to the bare origin, no trailing slash; search engines
     // normalise the two to the same resource, so they do not conflict.)
     url: `${site.url}${path || "/"}`,

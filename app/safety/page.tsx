@@ -322,7 +322,7 @@ export default function SafetyPage() {
 
       {/* THE QUOTATION SLOT, HELD OPEN
 
-          Drawn on the Paper artboard "Safety — desktop 1440". The section is
+          Drawn on the Paper artboard "Safety, desktop 1440". The section is
           finished and deliberately left empty. A dashed reserved box says why
           in plain words, and the counter beneath reads 00 / 00 because there
           is nothing yet to page through.

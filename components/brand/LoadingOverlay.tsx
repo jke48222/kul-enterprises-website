@@ -24,7 +24,7 @@ type Phase = "idle" | "show" | "exit" | "done";
  *    mounts from a post-first-paint idle callback (double-rAF then
  *    requestIdleCallback), so the hero poster paints and is measured as LCP
  *    before the overlay exists.
- * 3. Cap: the whole ceremony — film plus exit fade — is gone within 2.5s,
+ * 3. Cap: the whole ceremony, film plus exit fade, is gone within 2.5s,
  *    with a visible SKIP control, Escape, and pointer-down dismissal. If
  *    playback hasn't started by the watchdog, the ceremony is dropped.
  *
@@ -60,7 +60,7 @@ export default function LoadingOverlay() {
     try {
       seen = localStorage.getItem(SEEN_KEY) === "1";
     } catch {
-      // Storage blocked (private browsing): treat as seen — never risk
+      // Storage blocked (private browsing): treat as seen, and never risk
       // replaying the film on every visit.
     }
     if (seen) return;

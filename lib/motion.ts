@@ -2,7 +2,7 @@ import type { Variants } from "framer-motion";
 
 /**
  * Shared motion language: slow, deliberate, cinematic.
- * Rules: transform + opacity ONLY; 0.6–1.0s durations; no bouncy springs;
+ * Rules: transform and opacity ONLY; 0.6 to 1.0s durations; no bouncy springs;
  * every consumer must respect prefers-reduced-motion.
  */
 export const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];

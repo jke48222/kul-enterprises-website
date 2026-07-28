@@ -7,7 +7,7 @@ import { useUnderlineField } from "./Field";
  *
  * Each one is a panel with the question printed small along the top and the
  * visitor's answer underneath it, which is the shape drawn on the Paper
- * artboards "Quote — desktop 1440" and "Drivers — desktop 1440".
+ * artboards "Quote, desktop 1440" and "Drivers, desktop 1440".
  *
  * The question stays printed inside the box even after somebody has typed, on
  * purpose. Forms that use the question as grey placeholder text lose it the

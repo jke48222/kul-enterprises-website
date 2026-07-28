@@ -11,7 +11,7 @@ import { useFormSubmit, Honeypot, FormStatus } from "./FormShell";
  * THE QUOTE FORM
  *
  * Six questions, which is everything needed to put a price on a load. Drawn on
- * the Paper artboard "Quote — desktop 1440", where it sits on the right of the
+ * the Paper artboard "Quote, desktop 1440", where it sits on the right of the
  * dark panel with the explanation on the left.
  *
  * The first four questions sit two to a row because they pair up naturally:

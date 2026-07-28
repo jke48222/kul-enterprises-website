@@ -1,7 +1,7 @@
 /**
  * Small in-memory sliding-window rate limiter for the form endpoints.
  * State is per serverless instance, so this throttles bursts rather than
- * providing a hard global guarantee — the right trade for a marketing site
+ * providing a hard global guarantee, which is the right trade for a marketing site
  * with no external dependencies. Swap for Upstash Ratelimit if abuse appears.
  */
 const hits = new Map<string, number[]>();

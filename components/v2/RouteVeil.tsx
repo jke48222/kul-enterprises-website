@@ -14,10 +14,10 @@ import { m, useReducedMotion } from "framer-motion";
 import { EASE } from "@/components/v2/motion";
 
 /**
- * §3.22 — the 0.45s ink page-transition veil.
+ * §3.22, the 0.45s ink page-transition veil.
  *
  * Implementation is CLICK INTERCEPTION (an enter-only veil keyed on pathname
- * cannot work — it fires after the new route has already rendered): a
+ * cannot work, because it fires after the new route has rendered): a
  * capture-phase click listener on the layout wrapper intercepts same-origin,
  * same-tab anchor clicks, prevents default (Next's <Link> respects
  * `defaultPrevented`), wipes the veil IN over the CURRENT page, calls
@@ -66,7 +66,7 @@ export default function RouteVeil({ children }: RouteVeilProps) {
     }
   }, [pathname, phase]);
 
-  // Back/forward gets NO veil — instant swap, never covered.
+  // Back/forward gets NO veil. Instant swap, never covered.
   useEffect(() => {
     const onPop = () => {
       clearSafety();
@@ -136,7 +136,7 @@ export default function RouteVeil({ children }: RouteVeilProps) {
     () => ({
       navigating: phase !== "idle",
       // 0.35 while a veil-out is in flight; 0 on first load / popstate /
-      // reduced motion — heroes start ~0.1s before the veil fully clears.
+      // reduced motion. Heroes start ~0.1s before the veil fully clears.
       heroDelay: !reduced && phase !== "idle" ? 0.35 : 0,
     }),
     [phase, reduced],

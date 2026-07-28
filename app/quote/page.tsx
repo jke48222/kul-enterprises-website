@@ -6,7 +6,7 @@ import Reveal, { RuleDraw } from "@/components/k/Reveal";
 /**
  * QUOTE PAGE
  *
- * Built from the Paper artboard "Quote — desktop 1440", which follows the
+ * Built from the Paper artboard "Quote, desktop 1440", which follows the
  * capture pattern the design work settled on: a quiet light opening, then one
  * dark panel where the whole request happens, with the reason to fill it in on
  * the left and the questions themselves on the right.

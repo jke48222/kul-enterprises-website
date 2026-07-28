@@ -13,9 +13,9 @@ import {
 import { site } from "@/lib/site";
 
 /**
- * §3.3 — mobile conversion bar. Mounts (spring, y 100% → 0) after 400px of
+ * §3.3, the mobile conversion bar. Mounts (spring, y 100% to 0) after 400px of
  * scroll; unmounts while the `[data-content-end]` sentinel or any <form> is
- * in view (IO) — NEVER observes the sticky footer itself (its rect
+ * in view (IO). It NEVER observes the sticky footer itself (its rect
  * intersects the viewport for essentially the whole scroll). The gold pill
  * is the bar's only gold and substitutes for the nav CTA below md.
  */

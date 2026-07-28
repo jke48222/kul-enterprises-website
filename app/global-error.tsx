@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * Catastrophic error boundary — the only thing that catches a throw in the
+ * Catastrophic error boundary, the only thing that catches a throw in the
  * ROOT LAYOUT itself (design bible §4.11). It REPLACES `app/layout.tsx`
  * entirely, so it must render its own <html> and <body>, and it gets no
  * chrome, no fonts and no Tailwind guarantee: if the layout died, the
@@ -10,7 +10,7 @@
  * Everything is therefore inline-styled against the raw brand hexes
  * (ink #0B0B0B, cream #E3DED0, paper #F7F5F0, gold #B59352) with a system
  * font stack, so this screen renders correctly with zero external CSS. Kept
- * deliberately minimal — every dependency added here is another thing that
+ * deliberately minimal, because every dependency added here is another thing that
  * can fail at the exact moment nothing else is working.
  *
  * In practice this almost never renders; `app/error.tsx` handles page-level
@@ -49,7 +49,7 @@ export default function GlobalError({
             padding: "clamp(20px, 5vw, 90px)",
           }}
         >
-          {/* Attached hairline + tracked label — the Eyebrow at rest (§3.4). */}
+          {/* Attached hairline plus tracked label, the Eyebrow at rest (§3.4). */}
           <p
             style={{
               display: "flex",

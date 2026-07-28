@@ -5,14 +5,14 @@ import Link from "next/link";
 import GhostNumeral from "@/components/v2/GhostNumeral";
 
 /**
- * Route error boundary — the branded counterpart to the 404 (design bible
+ * Route error boundary, the branded counterpart to the 404 (design bible
  * §4.11). Catches render/data exceptions thrown anywhere under `main` and
  * replaces ONLY the page body: the root layout still supplies the chrome
  * (MotionProvider, Grain, Nav, RouteVeil + main#main + the [data-content-end]
  * sentinel, StickyMobileBar, curtain Footer), so this file must never
  * re-mount any of it.
  *
- * Deliberately motion-free. Everything here is CSS-only — no framer-motion,
+ * Deliberately motion-free. Everything here is CSS-only: no framer-motion,
  * no `m`, no MotionProvider dependency. An error boundary that re-enters the
  * animation layer can re-throw the very error it is catching and flip the
  * page to Next's unbranded fallback, so the boundary is kept inert on

@@ -8,7 +8,7 @@ import Reveal, { RuleDraw } from "@/components/k/Reveal";
 /**
  * CONTACT PAGE
  *
- * Built from the Paper artboard "Contact — desktop 1440". It is a routing
+ * Built from the Paper artboard "Contact, desktop 1440". It is a routing
  * directory rather than one big form. Most people arriving here already know
  * what they want, so the page sends them to the right place in one step
  * instead of making everybody fill in the same box.

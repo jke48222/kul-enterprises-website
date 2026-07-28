@@ -18,7 +18,7 @@ export async function POST(req: Request) {
 
   const d = parsed.data;
   recordLead("contact", d);
-  // isEmail gates reply_to only — an unusual-but-real address (the browser's
+  // isEmail gates reply_to only. An unusual but real address (the browser's
   // type=email is looser than the regex) must never cost KUL the lead.
   const result = await sendViaResend({
     subject: `Website Contact: ${d.name}`,

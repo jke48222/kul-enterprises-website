@@ -3,7 +3,7 @@ import { defineConfig } from "tinacms";
 /**
  * TinaCMS: the no-code editing layer over content/*.json (04-tech-foundation).
  * Edits made in /admin commit straight to the GitHub repository the client
- * owns, and Vercel redeploys the site from the commit — no database, no
+ * owns, and Vercel redeploys the site from the commit. No database, no
  * separate content copy, nothing to keep in sync.
  *
  * Local editing:  npm run dev:cms  → http://localhost:3000/admin/index.html

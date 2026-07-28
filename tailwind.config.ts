@@ -1,15 +1,15 @@
 import type { Config } from "tailwindcss";
 
 /**
- * KUL Enterprises brand tokens — v2 (design bible §2).
+ * KUL Enterprises brand tokens, v2 (design bible §2).
  * Gold is an ACCENT, not a theme: the nav CTA is gold element #1 in every
  * viewport, and at most ONE more gold element joins it (§2.7). The site runs
- * an ink/paper editorial rhythm — `ink` carries the cinematic beats, `paper`
+ * an ink/paper editorial rhythm: `ink` carries the cinematic beats, `paper`
  * carries the paperwork/trust beats.
  *
  * Existing token names (gold, gold-dim, gold-soft, ink, ink2, charcoal,
  * paper, cream, graywarm, font-omnibus, font-mont, tracking-eyebrow) are
- * load-bearing — pages depend on them. Never rename.
+ * load-bearing, because pages depend on them. Never rename.
  */
 const config: Config = {
   content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
@@ -22,7 +22,7 @@ const config: Config = {
          * an artboard to a rule without translation.
          *
          * The `k-` prefix exists only to coexist with the v2 tokens below
-         * while pages are rebuilt one at a time — `paper`, `ink`, `gold` and
+         * while pages are rebuilt one at a time. `paper`, `ink`, `gold` and
          * `charcoal` all collide with v2 at different values. Strip the
          * prefix once nothing references the v2 palette.
          */
@@ -48,14 +48,14 @@ const config: Config = {
           error: "var(--color-error)",
         },
         gold: {
-          DEFAULT: "#B59352", // primary accent — rgb(181,147,82)
+          DEFAULT: "#B59352", // primary accent, rgb(181,147,82)
           dim: "#6F5A2C", // deep gold for text on light backgrounds (AA on paper)
           soft: "#CFB484", // lighter gold for hover states
         },
         ink: "#0B0B0B", // base dark / black
         ink2: "#161616", // concept-route ground (v1 reference pages)
         charcoal: "#1A1A1A", // secondary dark
-        paper: "#F7F5F0", // warm light — the editorial counterweight to ink
+        paper: "#F7F5F0", // warm light, the editorial counterweight to ink
         cream: "#E3DED0", // display tone on ink
         graywarm: {
           DEFAULT: "#8B857C", // warm neutral for muted text on dark
@@ -65,7 +65,7 @@ const config: Config = {
       },
       fontFamily: {
         /**
-         * Design system faces. Archivo Black 900 matches the wordmark — a
+         * Design system faces. Archivo Black 900 matches the wordmark: a
          * squared industrial grotesque; its width axis supplies the
          * condensed caps the lockup's tagline uses. Inter carries text and
          * every numeric (tabular figures on DOT numbers and dimensions).
@@ -76,7 +76,7 @@ const config: Config = {
         text: ["var(--font-inter)", "system-ui", "-apple-system", "sans-serif"],
         omnibus: ["var(--font-omnibus)", "Georgia", "serif"],
         mont: ["var(--font-mont)", "system-ui", "sans-serif"],
-        // v3 — single-family Apple/Volvo register (Geist, OFL via Google
+        // v3, single-family Apple/Volvo register (Geist, OFL via Google
         // Fonts; loaded in app/v3/layout.tsx). One family, two optical
         // roles: 600/700 display, 400/500 text.
         geist: [
@@ -92,7 +92,7 @@ const config: Config = {
        */
       fontSize: {
         /**
-         * Design system scale. Headlines very large, copy very small — the
+         * Design system scale. Headlines very large, copy very small, and the
          * middle is deliberately empty. Nothing lives between 36px and 20px:
          * anything reaching for 24 or 28 is a heading that should be a
          * display step, or a paragraph that should be body.
@@ -170,7 +170,7 @@ const config: Config = {
           { lineHeight: "1.4", letterSpacing: "0.18em", fontWeight: "500" },
         ],
         /**
-         * v3 display scale — the Apple/Volvo register measured in
+         * v3 display scale, the Apple/Volvo register measured in
          * project-docs/reference/apple-volvo-tokens.json: SF Pro Display
          * 80px / lh 1.05 / −1.2px; Volvo Novum 700 / −0.48px. Tighter
          * line-height as size grows, slight negative tracking, weight in
@@ -190,7 +190,7 @@ const config: Config = {
         ],
       },
       /**
-       * Band spacing rhythm (bible §2.2) — used as py-band-sm / py-band /
+       * Band spacing rhythm (bible §2.2), used as py-band-sm / py-band /
        * py-band-lg section padding.
        */
       spacing: {
@@ -214,7 +214,7 @@ const config: Config = {
       transitionTimingFunction: {
         out: "cubic-bezier(0.165, 0.84, 0.44, 1)", // entrances, reveals, RISE
         inout: "cubic-bezier(0.77, 0, 0.175, 1)", // curtains, veils, clip wipes
-        kul: "cubic-bezier(0.4, 0, 0, 1)", // house curve — signature moments only
+        kul: "cubic-bezier(0.4, 0, 0, 1)", // house curve, signature moments only
         micro: "cubic-bezier(0.215, 0.61, 0.355, 1)", // hovers, buttons, accordions
         cinematic: "cubic-bezier(0.22, 1, 0.36, 1)", // v1 compat
       },

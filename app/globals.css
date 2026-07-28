@@ -3,29 +3,29 @@
 @tailwind utilities;
 
 /* ------------------------------------------------------------------ */
-/* Design system — the Paper file is the source of truth               */
+/* Design system. The Paper file is the source of truth                */
 /* app.paper.design/file/01KYKPT9QPZPS05X9H4PH1FSGT                     */
 /*                                                                      */
 /* Names match the Paper tokens exactly, so a value can be traced from  */
 /* an artboard to a rule without translation. Every colour was sampled  */
-/* from the 43 Mobbin references or from the KUL mark — none invented.  */
+/* from the 43 Mobbin references or from the KUL mark. None invented.  */
 /* Tailwind exposes these under a `k-` prefix (tailwind.config.ts) to   */
 /* avoid colliding with the v2 tokens still holding up the pages that   */
 /* have not been rebuilt yet. Strip the prefix once v2 is gone.         */
 /* ------------------------------------------------------------------ */
 
 :root {
-  /* Grounds — daylight register (the default; 36 of 43 references) */
+  /* Grounds, daylight register (the default; 36 of 43 references) */
   --color-paper: #f0f0f0;
   --color-surface: #fcfcfc;
   --color-warm-panel: #f8f0e8;
 
-  /* Grounds — instrument register (earned, never default) */
+  /* Grounds, instrument register (earned, never default) */
   --color-blueprint: #242424;
   --color-charcoal: #1c1c1c;
   --color-black: #000000;
 
-  /* Ink on light. #2C2C2C recurs in every reference — text is charcoal. */
+  /* Ink on light. #2C2C2C recurs in every reference, so text is charcoal. */
   --color-ink: #2c2c2c; /* 12.25:1 on paper */
   --color-ink-soft: #5e5e5e; /* 6.40:1 */
   /* Same correction as the faint tone on dark, and the same original mistake:
@@ -50,22 +50,22 @@
      the palest dark ground and therefore the hardest. */
   --color-on-dark-faint: #8c8c8c; /* 6.25:1 void, 5.07:1 charcoal, 4.62:1 blueprint */
 
-  /* Hairlines. The structural device — cards are the exception. */
+  /* Hairlines. The structural device; cards are the exception. */
   --color-rule: #d6d4cf;
   --color-rule-strong: #b8b5ae;
   --color-rule-dark: #3a3a3a;
 
   /* Gold. Two values because one cannot clear AA on both grounds.
-     NEVER a fill — rules, marks, keylines, one element per view. */
-  --color-gold: #a05c08; /* on light  — 4.57:1 on paper */
-  --color-gold-lit: #d6a145; /* on dark   — 7.70:1 on charcoal */
+     NEVER a fill. Rules, marks, keylines, one element per view. */
+  --color-gold: #a05c08; /* on light, 4.57:1 on paper */
+  --color-gold-lit: #d6a145; /* on dark, 7.70:1 on charcoal */
 
-  /* Metallic ramp — lion/wordmark rendering ONLY. Never text, never UI. */
+  /* Metallic ramp, for lion and wordmark rendering ONLY. Never text or UI. */
   --color-gold-metal-hi: #fdc63e;
   --color-gold-metal-core: #ac6303;
   --color-gold-metal-lo: #45200a;
 
-  /* Semantic — forms and credentials only */
+  /* Semantic, for forms and credentials only */
   --color-success: #2f5d3a;
   --color-error: #8c3b2e;
 
@@ -127,7 +127,7 @@ body {
 /* ------------------------------------------------------------------ */
 
 @layer components {
-  /* §2.4 Hairline system — hairlines replace boxes everywhere.
+  /* §2.4 Hairline system. Hairlines replace boxes everywhere.
      rule-gold: max ONE full-width standalone gold rule per page. */
   .rule-ink {
     @apply h-px bg-ink/15;
@@ -139,7 +139,7 @@ body {
     @apply h-px bg-gold/70;
   }
 
-  /* §2.8 Buttons & pills — the only radius on the site is rounded-full. */
+  /* §2.8 Buttons and pills. The only radius on the site is rounded-full. */
   .btn-gold {
     @apply inline-flex h-11 items-center justify-center gap-2 rounded-full bg-gold px-6 text-label uppercase text-ink transition-colors duration-200 hover:bg-gold-soft;
   }
@@ -149,14 +149,14 @@ body {
   .btn-ghost-light {
     @apply inline-flex h-11 items-center justify-center gap-2 rounded-full border border-ink/25 px-6 text-label uppercase text-ink transition-colors duration-200 hover:border-ink;
   }
-  /* v3 — the Volvo primary: filled near-black pill on light grounds
+  /* v3, the Volvo primary: filled near-black pill on light grounds
      (#212121 register). Quiet-primary slot when the gold budget is spent. */
   .btn-ink {
     @apply inline-flex h-11 items-center justify-center gap-2 rounded-full bg-charcoal px-6 text-label uppercase text-paper transition-colors duration-200 hover:bg-[#333333];
   }
 }
 
-/* §2.8 link-hairline — the universal text-link hover: 1px currentColor
+/* §2.8 link-hairline, the universal text-link hover: 1px currentColor
    underline that wipes out-right / in-left. Rest state scaleX(0); the
    -active variant is the persistent underline (e.g. the active nav link). */
 .link-hairline {
@@ -186,7 +186,7 @@ body {
   transform-origin: left;
 }
 
-/* §2.5 Scrim recipes — text sits on photography only inside these zones;
+/* §2.5 Scrim recipes. Text sits on photography only inside these zones;
    flat washes are forbidden. Apply to an overlay layer, not the image. */
 .scrim-b {
   background: linear-gradient(
@@ -218,7 +218,7 @@ body {
   box-shadow: inset 0 0 120px 20px rgba(11, 11, 11, 0.35);
 }
 
-/* §2.6 Unifying film stock — every next/image photograph passes through
+/* §2.6 Unifying film stock. Every next/image photograph passes through
    the same 50%-strength warm cinema grade. Never on the hero video. */
 .img-grade {
   filter: grayscale(0.35) sepia(0.14) brightness(0.94) contrast(1.06)
@@ -226,7 +226,7 @@ body {
 }
 
 /* ------------------------------------------------------------------ */
-/* v1 compat — classes still referenced by not-yet-rebuilt v1 pages     */
+/* v1 compat: classes still referenced by not-yet-rebuilt v1 pages     */
 /* and forms. DELETE this block once the last v1 page is replaced.      */
 /* ------------------------------------------------------------------ */
 

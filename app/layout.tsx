@@ -21,7 +21,7 @@ const montserrat = Montserrat({
 });
 
 /**
- * Design system faces. Archivo Black 900 is the display voice — a squared
+ * Design system faces. Archivo Black 900 is the display voice: a squared
  * industrial grotesque that matches the KUL wordmark. Inter carries text and
  * every numeric. Both are variable fonts, so one file covers the range.
  */
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     url: "./",
     images: [
       {
-        // The file lives at public/images/og.jpg — "/og.jpg" 404s.
+        // The file lives at public/images/og.jpg, so "/og.jpg" 404s.
         // Dimensions verified against the real file (sips): 1200x630.
         url: "/images/og.jpg",
         width: 1200,
@@ -142,16 +142,16 @@ const jsonLd = {
  * The one and only layout: document shell + site chrome (design bible §5.1.3).
  *
  * MotionProvider (LazyMotion strict) wraps the tree, and MotionConfig
- * reducedMotion="user" sits inside it — layer 1 of the three-layer
+ * reducedMotion="user" sits inside it, layer 1 of the three-layer
  * reduced-motion requirement (§2.3).
  *
  * The curtain footer (§3.2): page content lives in a wrapper with an
  * EXPLICIT opaque background (bg-[inherit] would resolve transparent and
  * let the footer bleed through un-painted gaps; paper sections paint their
  * own bg-paper inside), and the sticky footer sits AFTER it in the DOM so
- * content scrolls up and off it — pure CSS, no JS. The zero-height
+ * content scrolls up and off it, in pure CSS with no JS. The zero-height
  * [data-content-end] sentinel is the wrapper's LAST child: FooterReveal
- * scroll-tracks it (never the sticky footer itself — sticky rect
+ * scroll-tracks it (never the sticky footer itself, whose sticky rect
  * measurement gives degenerate progress) and StickyMobileBar's unmount
  * IntersectionObserver watches it.
  */

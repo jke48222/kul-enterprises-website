@@ -16,7 +16,7 @@ const nextConfig = {
     contentDispositionType: "attachment",
   },
   // No redirects: the bare routes ARE the site now. The demo-era 307s from
-  // /about → /v2/about were removed when v2 was promoted to the root — left
+  // /about to /v2/about were removed when v2 was promoted to the root. Left
   // in place they would redirect every page to itself.
 
   /**
