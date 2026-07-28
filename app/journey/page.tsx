@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/lib/site";
+import PinnedStatement from "@/components/k/PinnedStatement";
 import Reveal, { RuleDraw } from "@/components/k/Reveal";
 
 /**
@@ -103,6 +104,14 @@ export default function JourneyPage() {
           </div>
         </div>
       </section>
+
+      {/* One statement, held still while it is read.
+          This is the only place on the site where the page waits for the
+          reader rather than the other way round, and it is here because this
+          is the only page that is not selling anything. It says why the story
+          is on the site at all, which is the question a broker who clicked
+          through by accident is entitled to ask. */}
+      <PinnedStatement text="None of this is a sales argument. It is here because a carrier is a person, and the person hauling your freight spent eleven years learning the job on somebody else's trucks before he bought his own." />
 
       {/* The outline. Each chapter is one thing that is known to be true. */}
       <section className="bg-k-paper px-6 py-28 md:px-12 lg:px-24">
