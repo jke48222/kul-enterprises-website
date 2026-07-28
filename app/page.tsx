@@ -301,7 +301,7 @@ export default function HomePage() {
       <section className="bg-k-warm px-6 py-28 md:px-12 lg:px-24">
         <Reveal className="mx-auto flex max-w-[1248px] flex-col items-center gap-12 lg:flex-row lg:gap-24">
           <Image
-            src="/images/journey/jamaica-childhood.jpg"
+            src="/images/journey/s02-jamaica-childhood.webp"
             alt="Mark Brown and his sister in Jamaica, early 1980s"
             width={1291}
             height={1920}

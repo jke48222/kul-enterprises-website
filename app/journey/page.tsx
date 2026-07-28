@@ -73,7 +73,7 @@ export default function JourneyPage() {
         <div className="mx-auto flex max-w-[1248px] flex-col gap-14 lg:flex-row lg:items-end lg:gap-24">
           <Reveal className="lg:shrink-0">
             <Image
-              src="/images/journey/jamaica-childhood.jpg"
+              src="/images/journey/s02-jamaica-childhood.webp"
               alt="Mark Brown and his sister in Jamaica, early 1980s"
               width={1291}
               height={1920}
