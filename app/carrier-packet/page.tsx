@@ -1,152 +1,273 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CopyButton } from "@/components/v2/CopyButton";
-import { LineReveal } from "@/components/v2/LineReveal";
-import { PageHero } from "@/components/v2/PageHero";
-import { Rise, RiseGroup } from "@/components/v2/Rise";
+import PacketForm from "@/components/forms/PacketForm";
 import { site } from "@/lib/site";
+import Reveal, { RuleDraw } from "@/components/k/Reveal";
+
+/**
+ * CARRIER PACKET
+ *
+ * What a broker wants before giving a carrier a load: the operating authority,
+ * the W-9, the certificate of insurance and a signed agreement.
+ *
+ * THE HONEST POSITION, AND WHY THE PAGE IS SHAPED LIKE THIS. KUL has not
+ * supplied those documents to the website, so there is nothing here to
+ * download and this page does not pretend otherwise. What it can do is tell a
+ * broker where each document comes from, hand them the two facts they can
+ * check for themselves right now without asking anybody, and take the request
+ * in three fields.
+ *
+ * WHAT WAS REMOVED AND MUST NOT COME BACK. The old version promised the full
+ * packet "the same business day", four times over, for documents nobody had
+ * produced. It also listed "broker and shipper references you can call" while
+ * the about page published, as a fact, that KUL has no customer references.
+ * One of those two pages was lying and it was this one. No turnaround is
+ * stated anywhere here until Mark gives one he will hold to in writing.
+ *
+ * ON THE RECORD SECTION. It borrows the federal register's own field names
+ * because those are KUL's own facts under the government's labels. It must
+ * never carry FMCSA marks, colours or chrome: the moment it looks like an
+ * official screenshot it stops being a summary and becomes a forged record.
+ * Power units and drivers both read 1 on purpose. A broker who learns that
+ * later feels misled; a broker who reads it here reads it as candour.
+ */
 
 export const metadata: Metadata = {
   title: "Carrier Packet",
-  description:
-    "Set KUL Enterprises up as a carrier in one email: authority, COI, W-9, references, and signed agreements back the same business day.",
+  description: `Operating authority, W-9 and certificate of insurance for KUL Enterprises, USDOT ${site.usdot}, MC ${site.mc}. Authority and insurance can be checked on the federal record without asking us.`,
 };
 
-const CONTAINER = "mx-auto w-full max-w-[1760px] px-[clamp(20px,5vw,90px)]";
+/**
+ * What is in the packet, and who actually issues each one.
+ *
+ * The third line matters most. A carrier cannot issue its own certificate of
+ * insurance, the agent does, which is why no turnaround is promised for it.
+ */
+const PACKET = [
+  {
+    name: "Operating authority",
+    note: "KUL's own, and already public. The federal record below can be read without asking us for anything.",
+  },
+  {
+    name: "W-9",
+    note: "KUL's own, completed and signed for KUL Enterprises LLC.",
+  },
+  {
+    name: "Certificate of insurance",
+    note: "Issued by KUL's insurance agent rather than by KUL. Your company is named as holder on request, which the agent has to do.",
+  },
+  {
+    name: "Carrier or broker agreement",
+    note: "KUL signs your paper. A one truck carrier does not have an agreement of its own to send you.",
+  },
+] as const;
 
 /**
- * The packet, itemized (§4.7.2). Five documents, one micro line each —
- * micro copy carried over from the v1 packet page; no new claims.
+ * The federal record, in the register's own vocabulary.
+ *
+ * Every value comes from content/site.json or is a plain count. Change the
+ * counts here the day a second truck or a second driver is real, and not
+ * before.
  */
-const DOCUMENTS = [
-  {
-    index: "01",
-    name: "Operating authority",
-    line: `MC ${site.mc}, USDOT ${site.usdot}`,
-  },
-  {
-    index: "02",
-    name: "Certificate of insurance",
-    line: "Your company listed as holder on request",
-  },
-  {
-    index: "03",
-    name: "W-9",
-    line: "Completed and signed for KUL Enterprises LLC",
-  },
-  {
-    index: "04",
-    name: "References",
-    line: "Broker and shipper references you can call",
-  },
-  {
-    index: "05",
-    name: "Signed carrier agreements",
-    line: "Reviewed, signed, and returned promptly",
-  },
-];
+const RECORD = [
+  { field: "Legal name", value: site.legalName },
+  { field: "USDOT number", value: site.usdot },
+  { field: "MC number", value: site.mc },
+  { field: "Entity type", value: "Carrier" },
+  { field: "Operating status", value: "Active" },
+  { field: "Physical address", value: site.location },
+  { field: "Power units", value: "1" },
+  { field: "Drivers", value: "1" },
+  { field: "Operating radius", value: "48 states" },
+] as const;
+
+const SAFER = `https://safer.fmcsa.dot.gov/query.asp?searchtype=ANY&query_type=queryCarrierSnapshot&query_param=USDOT&query_string=${site.usdot}`;
+const LI = "https://li-public.fmcsa.dot.gov/LIVIEW/pkg_menu.prc_menu";
 
 export default function CarrierPacketPage() {
   return (
     <>
-      {/* 1 — Hero (§4.7.1). Compact ink band; zero gold. */}
-      <PageHero
-        variant="compact"
-        eyebrow="FOR BROKERS"
-        titleLines={["The full packet.", "Same business day."]}
-        deck="One email. Authority, COI, W-9, references, and signed agreements come back the same business day."
-      />
+      {/* THE START
+          Shape taken from a GOV.UK service start page: a title, one plain
+          sentence saying what the service is for, the action itself, then a
+          short list of what you get and what to have ready.
 
-      {/* 2 — Document ledger + request (§4.7.2). Paper; gold = the mailto CTA only. */}
-      <section data-ground="paper" className="bg-paper py-band text-ink">
-        <div className={CONTAINER}>
-          {/* sr-only h2 so the h3 rows below never precede the page's first h2 (§2.1). */}
-          <h2 className="sr-only">The packet, itemized</h2>
+          That pattern exists for exactly this situation, a page whose job is
+          a request that gets fulfilled somewhere else, which is why there is
+          no photograph and no second column. */}
+      <section className="bg-k-paper px-6 pb-28 pt-36 md:px-12 lg:px-24 lg:pt-44">
+        <div className="mx-auto max-w-[1248px]">
+          <p className="flex items-center gap-2.5 pb-10">
+            <span className="font-text text-k-micro uppercase text-k-ink-soft">
+              KUL
+            </span>
+            <span className="font-text text-k-micro text-k-ink-soft">/</span>
+            <span className="font-text text-k-micro uppercase text-k-gold">
+              Carrier Packet
+            </span>
+          </p>
 
-          <div className="grid grid-cols-1 gap-x-[clamp(16px,1.4vw,24px)] gap-y-16 lg:grid-cols-12">
-            {/* Request card — above the ledger on mobile, sticky right rail on lg. */}
-            <div className="lg:col-span-5 lg:col-start-8 lg:row-start-1">
-              <div className="lg:sticky lg:top-28">
-                <Rise>
-                  <div className="border-t border-ink/15 pt-8">
-                    <h3 className="font-omnibus text-h3 text-ink">
-                      Request the packet.
-                    </h3>
-                    <p className="mt-4 max-w-[44ch] text-body text-graywarm-deep">
-                      Send your company name and MC or USDOT number.
-                    </p>
-                    <a
-                      href={`mailto:${site.email}?subject=Carrier%20packet%20request`}
-                      className="btn-gold mt-8"
-                    >
-                      Email Dispatch
-                    </a>
-                    <div className="mt-5 flex flex-wrap items-center gap-x-2 text-ink">
-                      <span className="text-sm text-graywarm-deep">
-                        {site.email}
-                      </span>
-                      <CopyButton value={site.email} />
-                    </div>
-                    <p className="mt-4 text-micro uppercase text-graywarm-deep">
-                      Or call{" "}
-                      <a
-                        href={site.phoneHref}
-                        className="link-hairline inline-flex min-h-11 items-center tabular-nums text-ink"
-                      >
-                        {site.phone}
-                      </a>
-                    </p>
-                  </div>
-                </Rise>
-              </div>
-            </div>
+          <div className="max-w-[640px]">
+            <Reveal variant="wipe">
+              <h1 className="font-display text-k-d1 font-black text-k-ink">
+                The packet comes by email.
+              </h1>
+            </Reveal>
 
-            {/* Document ledger — five hairline rows. */}
-            <div className="lg:col-span-7 lg:col-start-1 lg:row-start-1">
-              <RiseGroup className="border-b border-ink/15">
-                {DOCUMENTS.map((doc) => (
-                  <Rise
-                    key={doc.index}
-                    className="grid grid-cols-[3.5rem_1fr] items-baseline gap-x-4 border-t border-ink/15 py-[clamp(20px,3.5vh,36px)]"
-                  >
-                    <span
-                      aria-hidden
-                      className="text-micro uppercase tabular-nums text-ink/60"
-                    >
-                      {doc.index}
+            <Reveal>
+              <p className="pt-8 font-text text-k-body text-k-ink-soft">
+                There are no files on this page. The documents are sent by the
+                person who drives the truck, so ask here and they come back in
+                a reply. The two that matter most, the operating authority and
+                the insurance filing, are on the federal record and you can
+                read both without asking us at all.
+              </p>
+            </Reveal>
+
+            <Reveal variant="settle">
+              <a
+                href="#request"
+                className="mt-9 inline-flex w-fit rounded-full bg-k-gold px-9 py-4 font-text text-k-label uppercase text-k-surface transition-opacity duration-200 hover:opacity-90"
+              >
+                Request the packet
+              </a>
+            </Reveal>
+
+            <RuleDraw className="mt-14" />
+
+            <Reveal variant="settle">
+              <h2 className="pt-10 font-text text-k-micro uppercase text-k-ink-soft">
+                What you get
+              </h2>
+            </Reveal>
+
+            <ol className="flex flex-col gap-6 pt-6">
+              {PACKET.map((doc, i) => (
+                <Reveal
+                  key={doc.name}
+                  variant="settle"
+                  index={i}
+                  className="flex gap-5"
+                >
+                  <span className="w-6 shrink-0 pt-1 font-text text-k-micro uppercase tabular-nums text-k-gold">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="flex flex-col gap-1.5">
+                    <span className="font-text text-k-body font-semibold text-k-ink">
+                      {doc.name}
                     </span>
-                    <div>
-                      <h3 className="font-omnibus text-h3 text-ink">
-                        {doc.name}
-                      </h3>
-                      <p className="mt-2 text-micro uppercase tabular-nums text-graywarm-deep">
-                        {doc.line}
-                      </p>
-                    </div>
-                  </Rise>
-                ))}
-              </RiseGroup>
-            </div>
+                    <span className="font-text text-k-small text-k-ink-soft">
+                      {doc.note}
+                    </span>
+                  </span>
+                </Reveal>
+              ))}
+            </ol>
           </div>
         </div>
       </section>
 
-      {/* 3 — Lean ending (§4.7.3). Ink; zero gold; no CtaBand needed. */}
-      <section data-ground="ink" className="bg-ink py-band text-paper">
-        <div className={CONTAINER}>
-          <LineReveal
-            as="h2"
-            lines={["Already set up?"]}
-            className="font-omnibus text-h2 text-cream"
-          />
-          <Rise delay={0.15}>
-            <Link
-              href="/quote"
-              className="link-hairline mt-8 inline-flex min-h-11 items-center gap-3 text-label uppercase text-paper"
-            >
-              Send the first lane <span aria-hidden>&rarr;</span>
-            </Link>
-          </Rise>
+      {/* THE RECORD
+          Set out the way the federal register sets it out, as a field grid of
+          labels and values rather than as a list of selling points. This is
+          not the safety page's credential list: that one is four wide rows at
+          heading size with a note under each, this is a dense small grid that
+          reads as a printed record.
+
+          Deliberately plain. No badges, no seals, no agency colours. */}
+      <section className="bg-k-surface px-6 py-28 md:px-12 lg:px-24">
+        <div className="mx-auto max-w-[1248px]">
+          <Reveal variant="settle">
+            <h2 className="font-text text-k-micro uppercase text-k-ink-soft">
+              On the federal record
+            </h2>
+          </Reveal>
+
+          <div className="mt-9 max-w-[820px]">
+            {RECORD.map((row, i) => (
+              <div key={row.field} className="flex flex-col">
+                <RuleDraw index={i} />
+                <Reveal
+                  variant="settle"
+                  index={i}
+                  className="flex flex-wrap items-baseline gap-x-8 gap-y-1 py-4"
+                >
+                  <span className="w-[220px] shrink-0 font-text text-k-micro uppercase text-k-ink-soft">
+                    {row.field}
+                  </span>
+                  <span className="font-text text-k-body tabular-nums text-k-ink">
+                    {row.value}
+                  </span>
+                </Reveal>
+              </div>
+            ))}
+            <RuleDraw index={RECORD.length} />
+
+            <Reveal variant="settle" className="flex flex-col gap-3 pt-8">
+              <p className="max-w-[62ch] font-text text-k-small text-k-ink-soft">
+                Both of these are the government&rsquo;s own lookups, not ours.
+                Neither needs an account and neither tells us you looked.
+              </p>
+              <div className="flex flex-wrap gap-x-8 gap-y-2">
+                <a
+                  href={SAFER}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-text text-k-small font-semibold text-k-gold underline underline-offset-4"
+                >
+                  Check the authority on FMCSA SAFER
+                </a>
+                <a
+                  href={LI}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-text text-k-small font-semibold text-k-gold underline underline-offset-4"
+                >
+                  Check the insurance filing
+                </a>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* THE REQUEST
+          The whole request is one sentence, so it is set as one sentence with
+          the three answers written into it. The other three forms on the site
+          are a dark capture panel, a warm band under a heading and a column
+          beside its fields, and this is none of them.
+
+          The page ends here. No closing call to action: the footer carries
+          one, and a "get a quote" band under a document request would be
+          asking for the next thing before delivering the first. */}
+      <section
+        id="request"
+        className="scroll-mt-24 bg-k-warm px-6 py-28 md:px-12 lg:px-24"
+      >
+        <div className="mx-auto max-w-[1248px]">
+          <Reveal variant="wipe">
+            <h2 className="font-display text-k-d3 font-black text-k-ink">
+              Ask for the packet
+            </h2>
+          </Reveal>
+
+          <Reveal className="pt-10">
+            <PacketForm />
+          </Reveal>
+
+          <Reveal variant="settle">
+            <p className="pt-10 font-text text-k-small text-k-ink-soft">
+              Already set up and just need a price?{" "}
+              <Link href="/quote" className="underline underline-offset-4">
+                Send the lane
+              </Link>
+              . Or call{" "}
+              <a href={site.phoneHref} className="underline underline-offset-4">
+                {site.phone}
+              </a>
+              .
+            </p>
+          </Reveal>
         </div>
       </section>
     </>

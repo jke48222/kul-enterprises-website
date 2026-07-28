@@ -41,7 +41,7 @@ const CREDENTIALS = [
   {
     label: "Insurance",
     value: "Licensed and insured",
-    note: "Certificate available on request, or in the carrier packet",
+    note: "Certificate issued by our agent, with your company named as holder",
     href: "/carrier-packet",
   },
   {

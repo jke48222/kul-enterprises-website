@@ -10,7 +10,7 @@
     },
     {
       "q": "Are you licensed and insured?",
-      "a": "Fully. We operate under USDOT 7638788 and MC 66389691, with auto liability and cargo coverage. Verify our authority anytime on the FMCSA SAFER system, and request a certificate of insurance with your company listed as holder."
+      "a": "Yes. KUL operates under USDOT 7638788 and MC 66389691, with auto liability and cargo coverage. Check the authority on the FMCSA SAFER system whenever you like. A certificate of insurance naming your company as holder is issued by our insurance agent on request."
     },
     {
       "q": "Where do you run?",
@@ -18,11 +18,11 @@
     },
     {
       "q": "How do brokers set KUL up as a carrier?",
-      "a": "One email. Send your company name and MC or USDOT number to dispatch and the full carrier packet comes back the same business day: authority, COI, W-9, references, and signed agreements."
+      "a": "Send your company name and MC or USDOT number through the carrier packet page. The operating authority, a signed W-9 and a certificate of insurance come back by email from the person who drives the truck. The authority and the insurance filing are both on the federal record, so you can check those two before we reply."
     },
     {
       "q": "How do I start driving for KUL?",
-      "a": "A thirty-second form. Tell us your name, contact, and CDL-A experience, and we call you back to talk lanes, home time, and equipment."
+      "a": "Leave your name, a contact and how long you have held a CDL-A on the drivers page. The seat opens when the second truck does, and everybody on the list is called then. There is no start date to give you yet."
     },
     {
       "q": "What happens if something changes in transit?",

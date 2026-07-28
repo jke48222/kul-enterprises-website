@@ -38,13 +38,13 @@ const ROUTES = [
   },
   {
     label: "Carrier packet",
-    body: "W-9, certificate of insurance and operating authority for your onboarding file.",
-    action: "Open the packet",
+    body: "W-9, certificate of insurance and operating authority for your onboarding file. Asked for here, sent by email.",
+    action: "Ask for the packet",
     href: "/carrier-packet",
   },
   {
     label: "Drivers",
-    body: "KUL is not hiring yet. Leave your details and you will hear from us when that changes.",
+    body: "Applications are open now for a seat that opens with the second truck. Leave your details and you are called when it does.",
     action: "Join the list",
     href: "/drivers",
   },
