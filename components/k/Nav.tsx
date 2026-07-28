@@ -121,20 +121,40 @@ export default function Nav() {
             "background-color 0.45s cubic-bezier(0.4,0,0.2,1), border-color 0.45s cubic-bezier(0.4,0,0.2,1)",
         }}
       >
-        {/* One fixed width bar. Everything inside is spaced evenly, and the
-            lion stays in the middle because the two menu halves are equal. */}
+        {/* One fixed width bar.
+
+            FROM 1180 PIXELS WIDE AND UP the bar is laid out as three columns.
+            The outer two are always given exactly the same width and the lion
+            sits in the column between them, which is what puts it on the dead
+            centre of the bar. The menus are then pushed out to the two ends,
+            away from the lion. Because the centring comes from the columns
+            rather than from counting menu items, the lion stays put even if
+            the menu gains or loses an item later.
+
+            For that to hold, the padding on the two ends has to stay equal. If
+            you change one side, change the other by the same amount.
+
+            BELOW 1180 PIXELS there is genuinely not enough room across the bar
+            to hold the lion in the middle and still fit both menus and the
+            quote button without them running into each other, so the bar keeps
+            its older arrangement: the two menus share the space evenly and the
+            lion falls wherever that leaves it. 1180 is simply the width the
+            centred version starts to fit at. If menu items are added or their
+            wording gets longer, that number has to go up to match. */}
         <nav
           aria-label="Primary"
-          className="flex w-[min(1180px,94vw)] items-center justify-between py-2.5 pl-9 pr-2.5"
+          className="flex w-[min(1180px,94vw)] items-center justify-between py-2.5 pl-9 pr-2.5 min-[1180px]:grid min-[1180px]:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] min-[1180px]:px-2.5"
         >
-          <ul className="hidden flex-1 items-center justify-evenly md:flex">
+          {/* The menu to the left of the lion. On the widest screens it is
+              packed against the near end of the bar. */}
+          <ul className="hidden flex-1 items-center justify-evenly md:flex min-[1180px]:flex-none min-[1180px]:justify-start min-[1180px]:gap-x-7 min-[1180px]:pl-6">
             {LEFT_LINKS.map(renderLink)}
           </ul>
 
           <Link
             href="/"
             aria-label="KUL Enterprises, back to the home page"
-            className="shrink-0 px-8"
+            className="shrink-0 px-8 min-[1180px]:justify-self-center"
           >
             <Image
               src="/images/brand/lion-mark.webp"
@@ -145,16 +165,21 @@ export default function Nav() {
             />
           </Link>
 
-          <ul className="hidden flex-1 items-center justify-evenly md:flex">
-            {RIGHT_LINKS.map(renderLink)}
-          </ul>
+          {/* The menu to the right of the lion and the quote button. Below
+              1180 this wrapper disappears from the layout entirely, so the two
+              of them sit in the bar exactly as they used to. */}
+          <div className="contents min-[1180px]:flex min-[1180px]:items-center min-[1180px]:justify-end min-[1180px]:gap-x-7">
+            <ul className="hidden flex-1 items-center justify-evenly md:flex min-[1180px]:flex-none min-[1180px]:justify-start min-[1180px]:gap-x-7">
+              {RIGHT_LINKS.map(renderLink)}
+            </ul>
 
-          <Link
-            href="/quote"
-            className="ml-8 shrink-0 whitespace-nowrap rounded-full bg-k-gold-lit px-6 py-3 font-text text-k-label uppercase text-k-void transition-opacity duration-200 hover:opacity-90"
-          >
-            Get a quote
-          </Link>
+            <Link
+              href="/quote"
+              className="ml-8 shrink-0 whitespace-nowrap rounded-full bg-k-gold-lit px-6 py-3 font-text text-k-label uppercase text-k-void transition-opacity duration-200 hover:opacity-90 min-[1180px]:ml-0"
+            >
+              Get a quote
+            </Link>
+          </div>
         </nav>
 
         {/* The services panel. It grows out of the pill, not under it. */}
@@ -199,7 +224,7 @@ export default function Nav() {
                   className="flex w-[180px] shrink-0 flex-col items-start justify-center gap-3 rounded-2xl border border-k-rule bg-k-paper px-5"
                 >
                   <span className="font-display text-[19px] font-black leading-6 tracking-[-0.02em] text-k-ink">
-                    See all seven
+                    Compare all
                   </span>
                   <span className="border-b border-k-gold pb-0.5 font-text text-k-label uppercase text-k-gold">
                     View services
