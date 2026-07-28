@@ -9,7 +9,6 @@ import {
   useRef,
   useState,
 } from "react";
-import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { m, useReducedMotion } from "framer-motion";
 import { EASE } from "@/components/v2/motion";
@@ -163,22 +162,12 @@ export default function RouteVeil({ children }: RouteVeilProps) {
             }}
             onAnimationComplete={handleVeilComplete}
           />
-          {/* Bird mark on its own layer so the wipe's scaleY never distorts it */}
-          <m.div
-            aria-hidden
-            className="pointer-events-none fixed inset-0 z-[101] flex items-center justify-center"
-            initial={false}
-            animate={{ opacity: covering ? 1 : 0 }}
-            transition={{ duration: 0.15 }}
-          >
-            <Image
-              src="/images/brand/doctor-bird-flight.png"
-              alt=""
-              width={148}
-              height={109}
-              className="h-8 w-auto"
-            />
-          </m.div>
+          {/* THE DOCTOR BIRD USED TO FLY ACROSS THIS VEIL AND NO LONGER DOES.
+              It appeared on every internal link, which on a normal visit is
+              dozens of times, and the brief for it is that it appears once.
+              A mark that shows up on every navigation is wallpaper, and the
+              one place it now appears is the chapter on the flight from
+              Jamaica, where it means something. The wipe loses nothing. */}
         </>
       )}
     </VeilContext.Provider>

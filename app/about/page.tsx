@@ -289,6 +289,19 @@ export default function AboutPage() {
           page is written in. The footer carries the rest. */}
       <section className="bg-k-paper px-6 py-32 md:px-12 lg:px-24 lg:py-36">
         <div className="mx-auto flex max-w-[1248px] flex-col">
+          {/* The mark, printed once, where a colophon has always printed one.
+              Small on purpose: a signature at the foot of the page, not a
+              logo band. If it grows enough to compete with the line under it
+              the section stops reading as an imprint. Flat black, no gold,
+              and no entrance, because a signature that animates is a flourish
+              rather than a signature. */}
+          <Image
+            src="/images/brand/lockup-dark.webp"
+            alt=""
+            width={320}
+            height={320}
+            className="mb-9 h-auto w-[112px]"
+          />
           <Reveal variant="wipe">
             <h2 className="max-w-[1100px] font-display text-k-d3 font-black uppercase tracking-[0.01em] text-k-ink">
               {site.legalName} is a licensed motor carrier based in{" "}

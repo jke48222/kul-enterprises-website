@@ -142,6 +142,27 @@ export default function JourneyPage() {
                       {chapter.body}
                     </p>
                   </div>
+
+                  {/* THE DOCTOR BIRD, ONCE, HERE, AND NOWHERE ELSE.
+                      It is Jamaica's national bird, and this is the chapter
+                      about leaving Jamaica. It used to fly across the screen
+                      on every internal link, which made it wallpaper; spent
+                      on the one paragraph it actually belongs to, it means
+                      something again.
+
+                      A silhouette rather than the gold rendering, because
+                      the gold bird next to a gold chapter number would put
+                      two gold things in one row, and because a shape reads
+                      at this size where feather detail would not. */}
+                  {chapter.n === "03" ? (
+                    <Image
+                      src="/images/brand/bird-silhouette.webp"
+                      alt=""
+                      width={420}
+                      height={420}
+                      className="ml-auto hidden h-auto w-[84px] shrink-0 self-center opacity-70 sm:block"
+                    />
+                  ) : null}
                 </Reveal>
               </li>
             ))}

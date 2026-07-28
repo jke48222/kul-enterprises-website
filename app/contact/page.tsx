@@ -82,7 +82,11 @@ export default function ContactPage() {
           <Reveal className="flex flex-col overflow-hidden rounded-md bg-k-surface">
             <Image
               src="/images/services/regional-wide.jpg"
-              alt="A KUL Enterprises tractor and trailer on a Southeast highway"
+              /* The photograph is an open road with no vehicle in it. It used
+                 to be described as a KUL tractor and trailer on a Southeast
+                 highway, which is three things it is not, and somebody using a
+                 screen reader had no way of knowing that. */
+              alt="An open highway running toward distant hills"
               width={1600}
               height={900}
               className="h-[250px] w-full object-cover"

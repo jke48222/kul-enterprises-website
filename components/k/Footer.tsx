@@ -133,6 +133,23 @@ export default function Footer() {
             footer, clear of the lion and the company name behind it. */}
         <div className="flex flex-col gap-16 md:flex-row md:justify-between md:gap-12 lg:max-w-[50%] lg:flex-col lg:gap-14">
           <div className="flex flex-col gap-6">
+            {/* THE MARK, ON NARROW SCREENS ONLY.
+                The big lockup behind this footer is the only place the company
+                name is set out in full anywhere on the site, and it is hidden
+                below 1024px along with the photograph it sits on. That left a
+                phone with no wordmark at all, on any page.
+
+                So this one is a real element in the reading order rather than
+                a picture behind the text, and it is switched off at lg where
+                the large one takes over. Two of them at once would be the same
+                name twice on one screen. */}
+            <Image
+              src="/images/brand/lockup-light.webp"
+              alt="KUL Enterprises LLC"
+              width={320}
+              height={320}
+              className="h-auto w-[136px] lg:hidden"
+            />
             <h2 className="max-w-[520px] font-display text-k-d2 font-black text-k-on-dark">
               Ready when you are.
             </h2>
