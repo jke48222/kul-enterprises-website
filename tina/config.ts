@@ -97,39 +97,6 @@ export default defineConfig({
               { type: "number", name: "longitude", label: "Longitude" },
             ],
           },
-          {
-            type: "object",
-            name: "stories",
-            label: "Story sections (About page)",
-            list: true,
-            ui: {
-              itemProps: (item) => ({ label: item?.title || "Story" }),
-            },
-            fields: [
-              {
-                type: "string",
-                name: "slug",
-                label: "Slug (do not change)",
-                required: true,
-              },
-              { type: "image", name: "image", label: "Photo", required: true },
-              {
-                type: "string",
-                name: "alt",
-                label: "Photo description (for screen readers)",
-                required: true,
-              },
-              { type: "string", name: "eyebrow", label: "Small label", required: true },
-              { type: "string", name: "title", label: "Headline", required: true },
-              {
-                type: "string",
-                name: "body",
-                label: "Paragraph",
-                required: true,
-                ui: { component: "textarea" },
-              },
-            ],
-          },
         ],
       },
       {
@@ -184,20 +151,6 @@ export default defineConfig({
                 name: "commitments",
                 label: "Our commitments (bullets)",
                 list: true,
-              },
-              {
-                type: "object",
-                name: "image",
-                label: "Photo",
-                fields: [
-                  { type: "image", name: "src", label: "Image", required: true },
-                  {
-                    type: "string",
-                    name: "alt",
-                    label: "Photo description (for screen readers)",
-                    required: true,
-                  },
-                ],
               },
             ],
           },

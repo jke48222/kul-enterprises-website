@@ -45,6 +45,35 @@ type Spec = {
   accent?: boolean;
 };
 
+/**
+ * The four elevations shown under the specification row.
+ *
+ * The side view is not in this list: it is the large render above, so
+ * repeating it here would show the same drawing twice on one screen.
+ */
+const ELEVATIONS = [
+  {
+    file: "truck-front",
+    label: "Front",
+    alt: "The tractor and trailer seen head on",
+  },
+  {
+    file: "truck-rear",
+    label: "Rear",
+    alt: "The trailer doors seen from behind, closed",
+  },
+  {
+    file: "truck-right",
+    label: "Right side",
+    alt: "The tractor and trailer seen from the right",
+  },
+  {
+    file: "truck-top",
+    label: "From above",
+    alt: "The tractor and trailer seen from directly above",
+  },
+] as const;
+
 const SPECS: readonly Spec[] = [
   { value: "53", unit: " ft", label: "Dry van trailer" },
   { value: "45,000", unit: " lb", label: "Maximum payload" },
@@ -220,6 +249,64 @@ export default function HomePage() {
               </p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* THE SAME RIG FROM EVERY OTHER SIDE.
+          Four elevations to go with the side view above. They exist because a
+          broker asking about a dock, a door opening or an overhead clearance
+          is asking about a shape, and one profile does not answer that.
+
+          THEY ARE ON A LIGHT GROUND, and that is not a style choice. They are
+          studio renders with a soft floor shadow under each vehicle, made for
+          a white backdrop. Cutting that shadow out to place them on the dark
+          band above speckles the base of every one of them, so instead each
+          is flattened onto this section's own colour and the shadow reads as
+          a shadow. Do not move them onto a dark ground without re-rendering.
+
+          They are computer generated, which the legal notices page says in as
+          many words. They show the configuration KUL runs, not a photograph
+          of the truck in the yard, and the photography document asks Mark for
+          the real thing. */}
+      <section className="bg-k-surface px-6 py-24 md:px-12 lg:px-24">
+        <div className="mx-auto max-w-[1248px]">
+          <Reveal variant="settle">
+            <p className="flex items-center gap-4 pb-3">
+              <span className="h-px w-12 shrink-0 bg-k-gold" aria-hidden="true" />
+              <span className="font-text text-k-label uppercase text-k-gold">
+                Every side of it
+              </span>
+            </p>
+            <p className="max-w-[64ch] pb-12 font-text text-k-small text-k-ink-soft">
+              Drawings rather than photographs, so the proportions can be read
+              rather than guessed at. Measurements are nominal for a 53 foot
+              van and are confirmed against the trailer before a load is
+              quoted against them.
+            </p>
+          </Reveal>
+
+          <div className="grid grid-cols-2 gap-x-8 gap-y-12 lg:grid-cols-4">
+            {ELEVATIONS.map((view, i) => (
+              <Reveal
+                key={view.file}
+                index={i}
+                className="flex flex-col items-center gap-4"
+              >
+                <div className="flex h-[150px] w-full items-center justify-center">
+                  <Image
+                    src={`/images/truck/${view.file}-plate.webp`}
+                    alt={view.alt}
+                    width={1100}
+                    height={836}
+                    className="h-auto max-h-[150px] w-auto max-w-full"
+                  />
+                </div>
+                <span className="font-text text-k-micro uppercase text-k-ink-soft">
+                  {view.label}
+                </span>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 

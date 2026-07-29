@@ -5,22 +5,22 @@
   "scripts": {
     "dev": "next dev",
     "dev:cms": "tinacms dev -c \"next dev\"",
-    "build": "next build",
+    "build": "node scripts/build.mjs",
     "build:cms": "tinacms build && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build:site-only": "next build"
   },
   "dependencies": {
     "@google/model-viewer": "^4.3.1",
     "@next/third-parties": "^15.5.20",
-    "@tinacms/cli": "^2.5.2",
     "framer-motion": "^11.18.0",
     "next": "^15.1.6",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "tinacms": "^3.9.4"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@tinacms/cli": "^2.5.2",
     "@types/node": "^22.10.7",
     "@types/react": "^19.0.7",
     "@types/react-dom": "^19.0.3",
@@ -29,6 +29,7 @@
     "eslint-config-next": "^15.5.20",
     "postcss": "^8.5.1",
     "tailwindcss": "^3.4.17",
+    "tinacms": "^3.9.4",
     "typescript": "^5.7.3"
   }
 }
