@@ -18,9 +18,15 @@ import { site } from "@/lib/site";
  * Below 1180 pixels the bar at the top of the page has no room for the menu,
  * so it shows a Menu button instead. Pressing it covers the screen with this
  * panel. It is the only way to reach the menu on a phone or a tablet, so it
- * has to carry everything the wide bar carries: the seven pages, the seven
+ * has to carry everything the wide bar carries: the eight pages, the seven
  * services that sit behind the Services link on a wide screen, and the two
  * ways of getting in touch.
+ *
+ * It carries one page the wide bar does not. The Road Ahead came off the bar
+ * when The Journey went on it, because the pill was full, so on a phone this
+ * panel is the only navigation that lists it and on a desktop it is reachable
+ * from the home page, the Drivers page and the footer. The reasoning is
+ * written out in full on MENU_ONLY_LINKS in Nav.tsx.
  *
  * The panel is a proper dialog, which means a few things have to hold while
  * it is open, all handled below:
@@ -36,9 +42,9 @@ import { site } from "@/lib/site";
  *   A SCREEN READER        is told the rest of the page is unavailable, so it
  *                          reads the menu and not the page behind it.
  *
- * TO CHANGE THE MENU: edit LEFT_LINKS and RIGHT_LINKS in Nav.tsx. This panel
- * reads the same two lists, so the wide bar and the menu can never drift
- * apart. The services below them come from the CMS.
+ * TO CHANGE THE MENU: edit LEFT_LINKS, RIGHT_LINKS and MENU_ONLY_LINKS in
+ * Nav.tsx. This panel reads those same lists, so the wide bar and the menu can
+ * never drift apart. The services below them come from the CMS.
  */
 
 type MenuOverlayProps = {

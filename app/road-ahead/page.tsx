@@ -35,7 +35,12 @@ export const metadata: Metadata = {
 const LEAD_FIGURE = {
   value: "11",
   label: "Years driving",
-  note: "Eleven years hauling for other carriers before KUL took its first load. It is the only number on this page that is already large.",
+  // Short on purpose. The second sentence used to point out that this is the
+  // only large number on the page, which is a remark about the layout rather
+  // than about the carrier, and "already" quietly promised growth the rest of
+  // the page is careful not to. The column now runs shorter than the ruled
+  // rows beside it; that is the cost and it is the right trade.
+  note: "Eleven years hauling for other carriers before KUL took its first load.",
 };
 
 const POSITION = [
@@ -111,8 +116,8 @@ export default function RoadAheadPage() {
             <Reveal index={2} className="lg:w-[340px] lg:shrink-0 lg:pb-3">
               <p className="font-text text-k-body text-k-ink-soft">
                 The plan below is written in the order it has to happen. None of
-                it has happened yet. The figures are changed the day they change
-                and not before.
+                it has happened yet. The figures are updated the day they
+                change.
               </p>
             </Reveal>
           </div>
@@ -248,8 +253,7 @@ export default function RoadAheadPage() {
             commitment to a customer.
           </p>
           <p className="font-text text-k-body text-k-ink-soft">
-            It is updated when something changes. If the figures above stay the
-            same for a year, the page stays the same for a year.
+            It is updated when something changes.
           </p>
         </Reveal>
       </section>

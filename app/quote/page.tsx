@@ -22,7 +22,7 @@ import Reveal, { RuleDraw } from "@/components/k/Reveal";
 
 export const metadata: Metadata = {
   title: "Request a Freight Quote",
-  description: `Get a freight quote from KUL Enterprises. Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited and Over the Road. Licensed carrier in ${site.location}, USDOT ${site.usdot}. Dispatch answers 24/7.`,
+  description: `Get a freight quote from KUL Enterprises. Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited and Over the Road. Licensed carrier in ${site.location}, USDOT ${site.usdot}. The owner answers dispatch.`,
 };
 
 /** What happens after the form is sent. Stated so nobody has to wonder. */
@@ -30,7 +30,10 @@ const NEXT_STEPS = [
   {
     n: "01",
     title: "It reaches dispatch",
-    body: "It goes to the person who drives the truck. There is no shared inbox and no ticketing system in between.",
+    // The paragraph at the top of this column already says it goes to the
+    // person who drives the truck. This item carries the one fact that
+    // paragraph does not.
+    body: "There is no shared inbox and no ticketing system in between.",
   },
   {
     n: "02",
@@ -40,16 +43,19 @@ const NEXT_STEPS = [
   {
     n: "03",
     title: "Nothing is automated",
-    body: "No automated follow up sequence. If you do not book, you will not hear from us again unless you get in touch.",
+    body: "If you do not book, you will not hear from us again unless you get in touch.",
   },
 ] as const;
 
-/** The line of checkable facts that closes the page. */
+/** The line of checkable facts that closes the page. Matches the Home strip. */
 const CREDENTIALS = [
   `USDOT ${site.usdot}`,
   `MC ${site.mc}`,
   "Licensed and insured",
-  "Dispatch answers 24/7",
+  // See the note on the same row in app/page.tsx. One man who drives cannot
+  // also be a desk answering 24/7, and /road-ahead says dispatch cover is a
+  // stage still to come.
+  "Owner answers dispatch",
 ] as const;
 
 export default function QuotePage() {

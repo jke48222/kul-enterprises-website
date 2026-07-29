@@ -4,7 +4,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { site } from "@/lib/site";
 import { services } from "@/lib/services";
-import Reveal from "@/components/k/Reveal";
+import Reveal, { RuleDraw } from "@/components/k/Reveal";
+import ServiceSpecs from "@/components/k/ServiceSpecs";
 
 /**
  * ONE PAGE PER FREIGHT SERVICE
@@ -17,8 +18,8 @@ import Reveal from "@/components/k/Reveal";
  * an eighth service, add an entry to that file and its page appears by itself.
  *
  * The page runs in this order: name and description over a full width
- * photograph, what the service suits, what KUL commits to, the measured
- * drawing of the truck, and links to the service before and after this one.
+ * photograph, what the service suits, what KUL commits to, the specification
+ * block, and links to the service before and after this one.
  */
 
 type PageProps = {
@@ -54,8 +55,15 @@ export default async function ServiceDetailPage({ params }: PageProps) {
   const previous = services[(index - 1 + services.length) % services.length];
   const next = services[(index + 1) % services.length];
 
-  // The drawing prints the letters A to F beside the truck. The table below
-  // repeats them in two columns, so A sits beside B, C beside D, and so on.
+  /**
+   * The measurements, dealt into two columns for Size it up.
+   *
+   * Alternating rather than splitting the list in half keeps A B C down the
+   * left and D E F down the right, which is the order the letters appear on the
+   * drawings above them. Cutting the list in the middle instead would put A B C
+   * on the left and D E F on the right only for as long as there are exactly
+   * six, and it would silently stop matching the moment a seventh is added.
+   */
   const leftColumn = service.dimensions.filter((_, i) => i % 2 === 0);
   const rightColumn = service.dimensions.filter((_, i) => i % 2 === 1);
 
@@ -153,15 +161,43 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* The measured drawing. */}
-      <section className="bg-k-blueprint px-6 py-24 md:px-12 lg:px-24">
+      {/* The commercial facts, on Rivian's specs shape. The whole section lives
+          in components/k/ServiceSpecs.tsx, including the note on how its scrim
+          was measured. */}
+      <ServiceSpecs service={service} />
+
+      {/* SIZE IT UP. The measured drawing, on the dark ground it has always
+          had.
+
+          IT CAME BACK, AND THE SPLIT WITH THE SECTION ABOVE IS THE POINT. For a
+          while the trailer measurements were tiles in "In detail" alongside the
+          lane and the lead time, and the two drawings were dropped because
+          white lines cannot be seen on a white ground. That merged two
+          different questions. What equipment turns up and how soon is a
+          booking question and belongs on the light section; how tall the box is
+          and how wide the rear door opens is a loading question, asked later,
+          and it is worth nothing without the drawing that shows where each
+          figure is taken from. The letters A to F only mean anything next to
+          the elevations, which is the other half of the argument for keeping
+          them together.
+
+          The drawings are white lines on transparency, so this section stays on
+          the blueprint ground. Do not move it onto paper without inverting them
+          first, or it will look empty. */}
+      <section className="overflow-hidden bg-k-blueprint px-6 py-24 md:px-12 lg:px-24">
         <div className="mx-auto flex max-w-[1248px] flex-col">
-          <h2 className="pb-14 text-center font-display text-k-d3 font-black text-k-on-dark">
-            Size it up
-          </h2>
+          <Reveal>
+            <h2 className="pb-14 text-center font-display text-k-d3 font-black text-k-on-dark">
+              Size it up
+            </h2>
+          </Reveal>
 
           <div className="flex flex-col items-center justify-center gap-10 pb-16 lg:flex-row lg:gap-14">
-            <div className="relative flex w-[238px] shrink-0 items-center justify-center">
+            {/* The two elevations arrive first and their keys follow, which
+                reads as a drawing being annotated rather than as a picture
+                appearing. That is why the letters carry a later index than the
+                drawing they sit on rather than being part of it. */}
+            <Reveal variant="settle" className="relative flex w-[238px] shrink-0 items-center justify-center">
               <Image
                 src="/images/truck/wire/front.webp"
                 alt="Front elevation of the tractor and trailer"
@@ -175,9 +211,9 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               <span className="absolute left-1/2 top-0 font-text text-k-micro uppercase text-k-on-dark-soft">
                 B
               </span>
-            </div>
+            </Reveal>
 
-            <div className="relative flex flex-1 items-center justify-center">
+            <Reveal variant="settle" index={2} className="relative flex flex-1 items-center justify-center">
               <Image
                 src="/images/truck/wire/side.webp"
                 alt="Side elevation of the tractor and trailer"
@@ -197,15 +233,18 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               <span className="absolute bottom-8 right-2 font-text text-k-micro uppercase text-k-on-dark-soft">
                 F
               </span>
-            </div>
+            </Reveal>
           </div>
 
-          <div className="flex flex-col gap-0 border-t border-k-rule-dark pt-2 lg:flex-row lg:gap-16">
+          <RuleDraw tone="dark" />
+          <div className="flex flex-col gap-0 pt-2 lg:flex-row lg:gap-16">
             {[leftColumn, rightColumn].map((column, ci) => (
               <div key={ci} className="flex flex-1 flex-col">
-                {column.map((dim) => (
-                  <div
+                {column.map((dim, ri) => (
+                  <Reveal
                     key={dim.ref}
+                    variant="settle"
+                    index={ri}
                     className="flex items-center justify-between border-b border-k-rule-dark py-3.5 last:border-b-0"
                   >
                     <span className="font-text text-k-small text-k-on-dark-soft">
@@ -214,16 +253,25 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                     <span className="font-text text-k-small font-medium tabular-nums text-k-on-dark">
                       {dim.value}
                     </span>
-                  </div>
+                  </Reveal>
                 ))}
               </div>
             ))}
           </div>
 
-          <p className="pt-6 font-text text-k-micro uppercase text-k-on-dark-faint">
-            Dimensions are nominal for a standard 53 foot van. Confirm at
-            booking.
-          </p>
+          {/* THIS SENTENCE IS LOAD BEARING AND TRAVELS WITH THE MEASUREMENTS.
+              The figures in content/services.json are the book figures for a
+              standard 53 foot van. Nobody has put a tape over the client's own
+              trailer. A broker reading a rear door opening off this page could
+              quote against it, so the page has to say what the number is and is
+              not. Do not delete it, and if the measurements are ever taken off
+              the real trailer, change the words rather than dropping them. */}
+          {service.dimensions.length > 0 ? (
+            <p className="pt-6 font-text text-k-micro uppercase text-k-on-dark-faint">
+              Dimensions are nominal for a standard 53 foot van. Confirm at
+              booking.
+            </p>
+          ) : null}
         </div>
       </section>
 

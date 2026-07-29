@@ -5,6 +5,7 @@ import { MotionConfig } from "framer-motion";
 import "./globals.css";
 import { site } from "@/lib/site";
 import MotionProvider from "@/components/motion/MotionProvider";
+import RouteTransition from "@/components/k/RouteTransition";
 import LoadingOverlay from "@/components/brand/LoadingOverlay";
 import Nav from "@/components/k/Nav";
 import Footer from "@/components/k/Footer";
@@ -176,11 +177,18 @@ export default function RootLayout({
                 main content rather than the ceremony in front of it. Search
                 engines and anybody without JavaScript never see it at all.
 
-                THE INK WIPE BETWEEN PAGES IS GONE. It played on every
-                internal link and cost roughly half a second of black screen
-                each time, which is a poor trade on a site whose own argument
-                is that a broker can get to Services, Safety, Quote and
-                Contact quickly. Navigation is now immediate. */}
+                THE CUT BETWEEN PAGES IS BACK, WITH THE LION ON IT. An
+                earlier plain ink wipe was removed here on the grounds that
+                half a second of black on every internal link is a poor trade
+                for a broker trying to reach Services or Quote. The client has
+                asked for it back carrying the mark, so it is a rebuild rather
+                than a revert, and the objection is answered rather than
+                ignored: it holds for about a third of a second rather than a
+                half, it never fires on the back button, and anybody who has
+                asked for reduced motion is not intercepted at all and gets
+                ordinary instant navigation. See components/k/RouteTransition.tsx
+                for why it has to catch the click rather than watch the route. */}
+            <RouteTransition />
             <LoadingOverlay />
             <Nav />
             <div className="relative z-[1] bg-k-paper">

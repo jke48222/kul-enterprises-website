@@ -52,7 +52,9 @@ export const metadata: Metadata = {
 const PACKET = [
   {
     name: "Operating authority",
-    note: "KUL's own, and already public. The federal record below can be read without asking us for anything.",
+    // "Without asking us" is the hero lede's line and it stays there. Said a
+    // third time on one page it stops being a point and becomes a refrain.
+    note: "KUL's own, and already public. It is set out on the federal record below.",
   },
   {
     name: "W-9",

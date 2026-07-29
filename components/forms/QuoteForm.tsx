@@ -75,8 +75,8 @@ export default function QuoteForm() {
               </p>
             ) : null}
             <p className="font-text text-k-body text-k-on-dark-soft">
-              A person replies the same business day. If the load moves sooner
-              than that, call dispatch instead of waiting.
+              A person replies, usually the same business day. If the load
+              moves sooner than that, call dispatch instead of waiting.
             </p>
           </m.div>
         ) : (
@@ -185,13 +185,15 @@ export default function QuoteForm() {
       {state === "error" ? (
         <p className="pt-5 font-text text-k-small text-[#C98A7A]">
           {serverError ??
-            "That did not send. Call dispatch on 678-972-1148 and the load will be quoted the same way."}
+            "That did not send. Call dispatch on 678-972-1148 and the load can be quoted over the phone instead."}
         </p>
       ) : (
         <FormStatus
           state={state}
           serverError={serverError}
-          successMessage="Quote request received. Dispatch will reply the same business day."
+          /* Hedged to match the confirmation panel above. Both render on
+             success, so an unhedged promise here would contradict it. */
+          successMessage="Quote request received. Dispatch will reply, usually the same business day."
         />
       )}
     </div>

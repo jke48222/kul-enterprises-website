@@ -132,7 +132,11 @@ export default defineConfig({
                 required: true,
                 ui: { component: "textarea" },
               },
-              { type: "string", name: "tagline", label: "Tagline", required: true },
+              // NO PER-SERVICE TAGLINE FIELD. There used to be one, required,
+              // and all seven values were invented slogans ("Cold chain,
+              // unbroken", "When it cannot wait") of exactly the kind the
+              // client banned. Nothing ever rendered them, so they sat in the
+              // CMS waiting to be wired to a component. Do not add it back.
               {
                 type: "string",
                 name: "description",

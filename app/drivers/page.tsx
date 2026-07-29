@@ -51,7 +51,7 @@ export const metadata: Metadata = {
 const THE_SEAT = [
   {
     lead: "The licence.",
-    body: "CDL-A, with a work history we can verify and a motor vehicle record we can pull. Both are checked before an interview rather than after one.",
+    body: "CDL-A, with a work history we can verify and a motor vehicle record we can pull. Both are checked before an interview.",
   },
   {
     lead: "The lanes.",
@@ -63,11 +63,11 @@ const THE_SEAT = [
   },
   {
     lead: "The dispatch.",
-    body: "You will be talking to Mark, who has driven the lane. Hours are planned before dispatch rather than managed after it.",
+    body: "You will be talking to Mark, who drives the truck himself. Hours are planned before dispatch.",
   },
   {
     lead: "The pay.",
-    body: "Not published, because there is no honest number to publish yet. It is set when the second truck is booked and the lanes are known, and it is discussed on the call rather than advertised here.",
+    body: "Not published, because there is no honest number to publish yet. It is set when the second truck is booked and the lanes are known, and it is discussed on the call.",
   },
 ] as const;
 
@@ -162,10 +162,16 @@ export default function DriversPage() {
               <span className="font-text text-k-micro uppercase text-k-ink-soft">
                 What to send now
               </span>
+              {/* FOUR THINGS, BECAUSE THE FORM ASKS FOR FOUR. This used to
+                  list three and then tell the driver everything else waits for
+                  the call, while the fourth field sat below it headed
+                  "Anything else" asking him to write exactly that. If a field
+                  is added or removed, fix this rail and the "Four questions"
+                  line above the form together. */}
               <p className="font-text text-k-small text-k-ink">
-                Your name, a phone number or an email, and how long you have
-                held a CDL-A. That is the whole form. Everything else waits for
-                the call.
+                Your name, a phone number or an email, how long you have held a
+                CDL-A, and anything else you want to add. That is the whole
+                form. The rest waits for the call.
               </p>
             </Reveal>
             <Reveal
@@ -178,8 +184,7 @@ export default function DriversPage() {
               </span>
               <p className="font-text text-k-small text-k-ink">
                 A second driver is held to what is written on the safety page
-                from the first load, not once a record has been built. Read it
-                before you apply.
+                from the first load. Read it before you apply.
               </p>
               <Link
                 href="/safety"

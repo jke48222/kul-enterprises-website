@@ -35,7 +35,10 @@ const CREDENTIALS = [
   `USDOT ${site.usdot}`,
   `MC ${site.mc}`,
   "Licensed & insured",
-  "Dispatch answers 24/7",
+  // NOT "Dispatch answers 24/7". KUL is one man who drives, and /road-ahead
+  // lists dispatch cover as a stage that has not happened yet. Two pages
+  // cannot disagree about whether somebody is sitting by the phone.
+  "Owner answers dispatch",
 ] as const;
 
 type Spec = {
@@ -103,16 +106,23 @@ export default function HomePage() {
 
         <div className="relative mx-auto w-full max-w-[1440px] px-6 pb-16 pt-40 md:px-12 lg:px-24">
           <div className="flex max-w-[1120px] flex-col gap-8">
+            {/* MEASURE LINE TWO BEFORE CHANGING IT. The break is hard, so the
+                second line has to fit its own line at 375px or the hero
+                becomes three lines on a phone. At the 36px floor the column is
+                327px wide: "Owner driven." is 236px, "Driven personally."
+                (the previous wording) was 331px and already wrapped, and
+                "Driven by the owner." is 370px and wraps up to about 460px,
+                which covers most phones in use. */}
             <h1 className="font-display text-k-d1 font-black text-k-on-dark">
               Every mile.
               <br />
-              Driven personally.
+              Owner driven.
             </h1>
 
             <p className="max-w-[620px] font-text text-k-lede text-k-on-dark-soft">
               One truck today. Fifty by 2029. The person who answers dispatch
-              has already driven your lane. Eleven years of it, for other people,
-              before building this.
+              has driven for eleven years, for other carriers, before building
+              this.
             </p>
 
             <div className="flex flex-wrap items-center gap-4 pt-2">
@@ -167,18 +177,18 @@ export default function HomePage() {
               it, and the wipe is built for a single block of display type. */}
           <Reveal variant="wipe" className="flex-1">
             <h2 className="font-display text-k-d2 font-black text-k-ink">
-              A carrier is only as good as the person who answers the phone.
+              The person who answers the phone is the person driving the truck.
             </h2>
           </Reveal>
+          {/* One paragraph, not two. The second one restated the hero above it
+              and the SPECS row below it, which made four statements of the
+              same claim on one page, and it praised our own restraint rather
+              than telling a broker anything. This column is shorter than the
+              headline beside it now, which is fine: nothing is boxed. */}
           <Reveal index={1} className="flex w-full flex-col gap-5 lg:w-[400px] lg:shrink-0">
             <p className="font-text text-k-body text-k-ink-soft">
-              Most carriers this size hand you a dispatcher who has never driven
-              the lane. At KUL that person is Mark Brown, and he has driven it
-              for eleven years.
-            </p>
-            <p className="font-text text-k-body text-k-ink-soft">
-              One truck today, fifty by 2029. Everything on this site is written
-              to where the company actually is, not where it would like to sound.
+              Dispatch at KUL is Mark Brown. He drove for other carriers for
+              eleven years before this, and he still drives every load himself.
             </p>
             <Link
               href="/about"
@@ -278,10 +288,9 @@ export default function HomePage() {
               </span>
             </p>
             <p className="max-w-[64ch] pb-12 font-text text-k-small text-k-ink-soft">
-              Drawings rather than photographs, so the proportions can be read
-              rather than guessed at. Measurements are nominal for a 53 foot
-              van and are confirmed against the trailer before a load is
-              quoted against them.
+              Drawings rather than photographs, so the proportions can be
+              measured. Dimensions are nominal for a 53 foot van and are
+              checked against the trailer before a load is quoted.
             </p>
           </Reveal>
 
@@ -327,7 +336,7 @@ export default function HomePage() {
             </div>
             <p className="font-text text-k-body text-k-ink-soft lg:w-[380px] lg:shrink-0">
               Every service below is one truck and one driver today. If a lane
-              needs more than that, we will tell you before you book, not after.
+              needs more than that, we will tell you before you book.
             </p>
           </Reveal>
 
@@ -377,12 +386,15 @@ export default function HomePage() {
               The road ahead
             </span>
           </p>
+          {/* The headline carries a fact off the page it links to, rather than
+              a slogan. The order of the plan is the point of /road-ahead: the
+              second truck is stage 01 and a second driver is stage 02. */}
           <h2 className="max-w-[1040px] font-display text-k-d1 font-black text-k-on-dark">
-            One truck, one customer, one promise kept.
+            The second truck comes before the second driver.
           </h2>
           <p className="max-w-[620px] font-text text-k-lede text-k-on-dark-soft">
-            Every great fleet begins that way. Fifty trucks by 2029 is the plan,
-            and nothing on this page claims we are there yet.
+            One truck on the road today, fifty by 2029. The plan is written in
+            the order it has to happen, and none of it has happened yet.
           </p>
           <Link
             href="/road-ahead"
@@ -419,11 +431,10 @@ export default function HomePage() {
             <p className="max-w-[560px] font-text text-k-body text-k-ink-soft">
               Jamaica. Construction sites every school holiday. The Air Force.
               Eleven years driving for other people. The Journey is the long
-              version, told slowly and without embellishment, because the story does
-              not need any.
+              version, in Mark&rsquo;s own words.
             </p>
             <p className="max-w-[560px] font-text text-k-body text-k-ink-faint">
-              You do not need to watch it to book a load. It is here for the
+              You do not need to read it to book a load. It is here for the
               people who want to know who is driving.
             </p>
             <Link

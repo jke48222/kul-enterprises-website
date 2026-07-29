@@ -8,8 +8,10 @@ import { site } from "@/lib/site";
  *
  * It is written to be useful rather than clever. An earlier version said "the
  * freight is fine, the page isn't", which is a joke at the expense of somebody
- * who is already lost. This one says what happened in one sentence and then
- * gives them the four places they were most likely trying to reach.
+ * who is already lost. It came back once as "Nothing is wrong with the
+ * freight", the same joke with the punchline filed off, and that is gone too.
+ * This one says what happened in one sentence and then gives them the four
+ * places they were most likely trying to reach.
  *
  * The root layout supplies the navigation and the footer, so this file is the
  * middle of the page only.
@@ -42,8 +44,7 @@ export default function NotFound() {
             That page does not exist.
           </h1>
           <p className="max-w-[440px] font-text text-k-body text-k-on-dark-soft">
-            The link may be out of date, or the page may have moved. Nothing is
-            wrong with the freight.
+            The link may be out of date, or the page may have moved.
           </p>
         </div>
 

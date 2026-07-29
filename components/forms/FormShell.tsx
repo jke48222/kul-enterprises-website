@@ -83,8 +83,15 @@ export function FormStatus({
       <div role="alert">
         {state === "error" && (
           <p className="border-l-2 border-[#8C3B2E] pl-4 text-sm font-medium text-[#8C3B2E]">
+            {/* House voice, matching the four forms' own error paragraphs.
+                This branch is currently unreachable: every form renders
+                `state === "error" ? <own paragraph> : <FormStatus/>`, so
+                FormStatus never mounts while there is an error to report.
+                That is a live accessibility gap, because those visible
+                paragraphs carry no role and nothing is announced. Fixing it
+                means giving them role="alert", not deleting this fallback. */}
             {serverError ??
-              "Something went wrong sending your message. Please try again, or call us directly at 678-972-1148."}
+              "That did not send. Call dispatch on 678-972-1148 and it can be handled on the phone instead."}
           </p>
         )}
       </div>

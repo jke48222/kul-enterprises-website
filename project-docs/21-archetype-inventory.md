@@ -17,6 +17,7 @@ the moment you spend a shape.**
 | Unbroken rail | `/services` |
 | Alternating photo and text | `/services` |
 | Horizontal snap scroller | `/services` |
+| Photographic stat tiles beside a ruled record panel | `/services/<slug>` |
 | Centred restrained hero | `/safety` |
 | Ledger table | `/safety` |
 | Policy clauses, title held left | `/safety` |
@@ -49,6 +50,21 @@ the moment you spend a shape.**
 | Recovery list | `/not-found` |
 | Plain apology with one action | `/error` |
 | Elevation row, four views on one baseline | `/` |
+
+## Spent, then given back
+
+**The blueprint band on `/services/<slug>` is gone,** and this is the first row the list has had
+to retire. It was a dark section holding two wire-frame elevations of the rig with the letters A
+to F printed beside them, and a table underneath repeating those letters in two columns. It was
+replaced on 29 Jul 2026 by the tiles row above, taken from the Rivian product specs page the
+client sent, with the client's own amendment that the tiles carry photographs rather than the
+reference's flat grey.
+
+Two consequences worth knowing before anyone reinstates anything. **The letters went with the
+drawings**, because a reference letter with nothing to point at is worse than no letter, which
+means `ServiceDimension.ref` in `lib/services.ts` is now read only as a React key. **The
+elevations themselves are not lost:** `/` owns the elevation row and shows the same renders from
+four sides, so the rig is still drawn on the site exactly once.
 
 ## Sanctioned exceptions
 

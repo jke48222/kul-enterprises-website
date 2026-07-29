@@ -55,8 +55,8 @@ export default function ContactForm() {
               </p>
             ) : null}
             <p className="max-w-[62ch] font-text text-k-body text-k-ink-soft">
-              A person reads it and replies the same business day. If the load
-              moves sooner than that, call dispatch rather than wait.
+              A person reads it and replies, usually the same business day. If
+              it is more urgent than that, call dispatch instead of waiting.
             </p>
           </m.div>
         ) : (
@@ -124,7 +124,7 @@ export default function ContactForm() {
         <FormStatus
           state={state}
           serverError={serverError}
-          successMessage="Message received. A person replies the same business day."
+          successMessage="Message received. A person replies, usually the same business day."
         />
       )}
     </div>

@@ -65,9 +65,8 @@ export default function Error({
           </h1>
 
           <p className="max-w-[54ch] pt-8 font-text text-k-lede text-k-on-dark-soft">
-            The page hit an error on our side and nothing you did caused it.
-            Loading it again usually works. If it does not, call dispatch and we
-            will sort it out on the phone rather than leave you here.
+            The page hit an error on our side. Loading it again usually works.
+            If it does not, call dispatch and we will sort it out on the phone.
           </p>
 
           <div className="flex flex-wrap items-center gap-4 pt-10">

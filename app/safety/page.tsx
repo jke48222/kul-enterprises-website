@@ -22,7 +22,10 @@ import Reveal, { RuleDraw } from "@/components/k/Reveal";
 
 export const metadata: Metadata = {
   title: "Safety and Compliance",
-  description: `KUL Enterprises is a licensed and insured freight carrier, USDOT ${site.usdot}, MC ${site.mc}. Verify our authority and safety record directly with the FMCSA.`,
+  // NOT "safety record". The lede on this page says there is no long safety
+  // record to point at yet, so sending a broker to FMCSA expecting one is the
+  // page contradicting itself in the search result.
+  description: `KUL Enterprises is a licensed and insured freight carrier, USDOT ${site.usdot}, MC ${site.mc}. Verify our authority and insurance filing directly with the FMCSA.`,
 };
 
 /** Each of these can be checked by a broker without asking us. */
@@ -36,7 +39,10 @@ const CREDENTIALS = [
   {
     label: "MC number",
     value: site.mc,
-    note: "Operating authority, active and in good standing",
+    // "In good standing" is not a field FMCSA publishes. Operating status is,
+    // and it reads Active. On the one page whose argument is that everything
+    // can be checked, every line has to be checkable.
+    note: "Operating authority, active",
     href: null,
   },
   {
@@ -48,7 +54,7 @@ const CREDENTIALS = [
   {
     label: "Base",
     value: site.location,
-    note: "Southeast based, authorised in 48 states",
+    note: "Southeast based, authorized in 48 states",
     href: null,
   },
 ] as const;
@@ -92,22 +98,30 @@ const ICONS = {
   ),
 } as const;
 
-/** Written as policy, because a policy is true from day one. */
+/**
+ * Written as policy, because a policy is true from day one.
+ *
+ * ONE "X RATHER THAN Y" IN THIS SECTION, AND IT IS SPENT. It is "we say so
+ * when you ask, not when we are late", where the contrast carries a real
+ * difference in behaviour. There used to be four of them across these clauses
+ * and the section rail above, and at that density the shape reads as a house
+ * tic rather than as a distinction. If you add another, take that one out.
+ */
 const COMMITMENTS = [
   {
     icon: "maintenance",
     title: "Maintenance",
-    body: "The truck is inspected before every dispatch, not on a schedule that suits the calendar. Anything found is fixed before the load moves, even when that costs us the load.",
+    body: "The truck is inspected before every dispatch. Anything found is fixed before the load moves, even when that costs us the load.",
   },
   {
     icon: "hours",
     title: "Hours of service",
-    body: "Hours are planned before dispatch rather than managed after it. If a lane cannot be run legally inside the clock, we say so when you ask, not when we are late.",
+    body: "Hours are planned before dispatch. If a lane cannot be run legally inside the clock, we say so when you ask, not when we are late.",
   },
   {
     icon: "communication",
     title: "Communication",
-    body: "You hear about a delay from us first. One phone number reaches the person driving the truck, around the clock, and it is answered.",
+    body: "You hear about a delay from us first. One phone number reaches the person driving the truck, around the clock.",
   },
   {
     icon: "cargo",
@@ -152,7 +166,7 @@ export default function SafetyPage() {
           <p className="flex items-center gap-4">
             <span className="h-px w-12 shrink-0 bg-k-gold" aria-hidden="true" />
             <span className="font-text text-k-label uppercase text-k-gold">
-              The responsibility
+              Safety and compliance
             </span>
           </p>
           <h1 className="font-display text-k-d1 font-black text-k-ink">
@@ -250,8 +264,8 @@ export default function SafetyPage() {
         />
         <div className="relative mx-auto w-full max-w-[1248px] px-6 pb-14 md:px-12 lg:px-24">
           <p className="max-w-[620px] font-text text-k-lede text-k-on-dark">
-            Eleven years driving for other carriers, before a single mile was
-            driven for this one.
+            Eleven years driving for other carriers before the first mile under
+            this authority.
           </p>
         </div>
       </section>
@@ -274,7 +288,7 @@ export default function SafetyPage() {
             </h2>
             <p className="pt-4 font-text text-k-small text-k-ink-soft">
               Written as standing policy. Every clause applies from the first
-              load rather than once a record has been built.
+              load.
             </p>
           </Reveal>
 
@@ -346,8 +360,7 @@ export default function SafetyPage() {
                 <p className="max-w-[520px] font-text text-k-body text-k-ink-soft">
                   This is where customer quotations will sit. It is empty
                   because KUL has not carried enough freight to have earned one
-                  honestly. The structure is built and waiting; nothing
-                  invented goes here.
+                  honestly.
                 </p>
               </Reveal>
             ) : (

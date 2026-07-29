@@ -5,21 +5,24 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
-import { services } from "@/lib/services";
 import MenuOverlay from "@/components/k/MenuOverlay";
+import { NAV_PANELS, type PanelKey } from "@/components/k/NavPanels";
 
 /**
  * SITE NAVIGATION
  *
  * One floating pill sits at the top of every page. It never changes shape as
- * you scroll; only its background fades in, so the movement stays calm.
+ * you scroll; only the material it is made of firms up, so the movement stays
+ * calm.
  *
- *   AT THE TOP OF THE PAGE   The pill is see-through and the hero picture
- *                            shows behind it.
+ *   AT THE TOP OF THE HOME   A light smoked glass. The hero film carries on
+ *   PAGE                     moving and colouring through it, and the pill
+ *                            lifts off the picture on the faintest shadow.
  *
- *   ONCE SCROLLED            The same pill fades to a mostly solid dark
- *                            background so the words stay readable over
- *                            whatever is behind them.
+ *   ONCE SCROLLED, AND ON    The same glass, firmer. The tint deepens, the
+ *   EVERY INTERIOR PAGE      lit edge along its top brightens, and a layered
+ *                            shadow arrives underneath so the bar separates
+ *                            from the page rather than floating on it.
  *
  *   SERVICES HOVERED         The pill stretches downward into a white panel.
  *                            The pill and the panel are one shape, so it
@@ -31,34 +34,74 @@ import MenuOverlay from "@/components/k/MenuOverlay";
  * the links ended up touching each other and the quote button was cut off by
  * the edge of the pill.
  *
- * TO CHANGE THE MENU: edit LEFT_LINKS and RIGHT_LINKS below. Keep them the
- * same length so the lion stays centred, and read the note on
- * MENU_BREAKPOINT before adding a link or lengthening a label.
+ * TO CHANGE THE MENU: edit the three lists below. Read the note on
+ * MENU_BREAKPOINT before adding a link or lengthening a label, because the
+ * bar is already close to full.
  */
 
-/** Menu items shown to the left of the lion. */
+/**
+ * Menu items to the left of the lion. Everything on this side is the freight:
+ * what we haul, who drives it, how it is kept safe, and the paperwork a broker
+ * needs to set us up. The Carrier Packet reads as a company page and is not
+ * one, which is why the footer has always filed it under Freight; it sits here
+ * now so the bar and the footer agree.
+ */
 const LEFT_LINKS = [
-  { href: "/services", label: "Services", panel: true },
-  { href: "/drivers", label: "Drivers", panel: false },
-  { href: "/safety", label: "Safety", panel: false },
-  { href: "/road-ahead", label: "Road Ahead", panel: false },
-] as const;
-
-/** Menu items shown to the right of the lion. */
-const RIGHT_LINKS = [
-  { href: "/about", label: "About", panel: false },
-  { href: "/carrier-packet", label: "Carrier Packet", panel: false },
-  { href: "/contact", label: "Contact", panel: false },
+  { href: "/services", label: "Services", panel: "services" },
+  { href: "/drivers", label: "Drivers", panel: "drivers" },
+  { href: "/safety", label: "Safety", panel: "safety" },
+  { href: "/carrier-packet", label: "Carrier Packet", panel: "carrier-packet" },
 ] as const;
 
 /**
- * The same pages again as one list, for the menu panel to read. Reading the
- * two lists above rather than keeping a third copy is what stops the wide bar
- * and the menu panel drifting apart when a page is added to one of them.
+ * Menu items to the right of the lion. Everything on this side is the company
+ * and the conversation.
+ *
+ * THE JOURNEY SITS HERE, DIRECTLY AFTER ABOUT, and that placement is the whole
+ * argument for where it goes. It is the founder's story rather than anything
+ * being sold, so putting it on the left among Services and Safety would file a
+ * story page as an operations page and a broker scanning for a service would
+ * stop on it by mistake. About is the page that raises the question the
+ * Journey answers, so the two belong next to each other, which is exactly how
+ * the footer already groups them under Company.
  */
-const MENU_LINKS = [...LEFT_LINKS, ...RIGHT_LINKS];
+const RIGHT_LINKS = [
+  { href: "/about", label: "About", panel: "about" },
+  { href: "/journey", label: "The Journey", panel: "journey" },
+  { href: "/contact", label: "Contact", panel: "contact" },
+] as const;
 
-/** How far down the page the visitor scrolls before the background fades in. */
+/**
+ * Pages the menu carries but the wide bar has no room for.
+ *
+ * Seven top-level links, the lion and the quote button already filled the bar;
+ * the arithmetic under MENU_BREAKPOINT below is how close it was. An eighth
+ * did not fit at any width the bar is asked to work at, so one link had to come
+ * off, and The Road Ahead is the one that costs least. It is a vision page with
+ * nothing transactional on it, the home page links to it directly from the
+ * fleet numbers, the Drivers page links to it in the body copy, and the footer
+ * lists it under Company. Nothing else on the bar has that many ways in.
+ *
+ * TO PUT IT BACK ON THE BAR something else has to leave, because the widths
+ * below have no slack for a fourth link on the right of the lion.
+ */
+const MENU_ONLY_LINKS = [
+  { href: "/road-ahead", label: "The Road Ahead", panel: null },
+] as const;
+
+/**
+ * Every page again as one list, for the menu panel to read. Reading the lists
+ * above rather than keeping a separate copy is what stops the wide bar and the
+ * menu panel drifting apart when a page is added to one of them.
+ *
+ * The menu-only page is spliced in before the right-hand links rather than
+ * added at the end, because the menu is read straight down and Contact should
+ * be the last page a thumb passes before the quote button and the phone number
+ * pinned at the foot of the panel.
+ */
+const MENU_LINKS = [...LEFT_LINKS, ...MENU_ONLY_LINKS, ...RIGHT_LINKS];
+
+/** How far down the page the visitor scrolls before the glass firms up. */
 const SCROLL_TRIGGER_PX = 60;
 
 /**
@@ -68,16 +111,27 @@ const SCROLL_TRIGGER_PX = 60;
  *
  * Where 1180 comes from. The pill is 94% of the window, the lion sits dead
  * centre, and the two halves either side of it are given equal width for that
- * to hold, so the bar is governed by whichever half is wider. Measured today
- * that is the right one at 479 pixels: three links, the gaps between them,
- * and the quote button. Two of those plus the lion and the padding is 1080
- * pixels of pill, which the window reaches at 1149.
+ * to hold, so the bar is governed by whichever half is wider. Measured in the
+ * browser at the 12px tracked caps the links are set in:
  *
- * The number here is 1180 rather than 1149 so the bar is never asked to run
- * at exactly its own limit. That leaves about 30 pixels of window spare, and
- * spending it is what any change below has to come out of first.
+ *   RIGHT HALF, 457px   About 51, The Journey 103, Contact 71, two 28px gaps
+ *                       between them, a 28px gap after them, and the 148px
+ *                       quote button. This half governs, because the quote
+ *                       button only exists on this side.
  *
- * ADDING A LINK OR LENGTHENING A LABEL widens that half and eats the margin,
+ *   LEFT HALF, 426px    24px of inset, then Services 72, Drivers 63, Safety 58
+ *                       and Carrier Packet 125 with three 28px gaps.
+ *
+ * Two of the wider half, plus the lion column at 102 and the pill's own 20 of
+ * padding, is 1036 pixels of pill, which the window reaches at 1102.
+ *
+ * The number here is 1180 rather than 1102 so the bar is never asked to run at
+ * its own limit. That leaves about 78 pixels of window spare. It used to be
+ * about 30: the Carrier Packet moving to the left half took the longest label
+ * on the bar off the half that governs, which bought back more room than The
+ * Journey spends.
+ *
+ * ADDING A LINK OR LENGTHENING A LABEL widens one half and eats that margin,
  * and once it is gone this number has to rise or the bar starts clipping
  * again. Every extra pixel on the wider half costs two pixels of pill and a
  * little over two pixels here. Measure it in a browser rather than trusting
@@ -86,14 +140,145 @@ const SCROLL_TRIGGER_PX = 60;
  */
 const MENU_BREAKPOINT = 1180;
 
-/** Ties the Services link to the panel it opens, for screen readers. */
-const SERVICES_PANEL_ID = "kul-services-panel";
+/**
+ * THE BAR AS A MATERIAL, NOT A BOX.
+ *
+ * The bar reads as a piece of smoked glass laid over the page: the page keeps
+ * its colour and its movement through it, a lit hairline runs along its top
+ * edge where the light would catch, and a layered shadow sets it above the
+ * page rather than printed on it. Three states, and the difference between
+ * them is how firm the glass is, never how big it is.
+ *
+ * WHY THE TINTS ARE THESE NUMBERS AND NOT LIGHTER. The bar has to stay legible
+ * over two opposite grounds: the near-white interior pages, and full-bleed
+ * photography that runs from black to a blown-out white. Because it is
+ * see-through, its real colour is a mix of this tint and whatever is behind it,
+ * so the lighter the tint the lighter that mix gets and the harder the words
+ * are to read. The binding constraint is the gold hover, never the resting
+ * white, because gold-lit is a much darker colour than the paper white the
+ * links sit at when nobody is pointing at them.
+ *
+ * These were measured, not guessed. Each figure below comes from reading the
+ * real pixels the browser had behind the bar, compositing this tint over them,
+ * and taking the ratio against #fcfcfc resting and #d6a145 hovered. The
+ * brightest single pixel inside a link's own text box was used every time,
+ * which is the worst case a reader can actually hit:
+ *
+ *   FIRM, 0.84   On the light pages the ground is k-paper #f0f0f0 and the
+ *                glass composites to #323232: 12.47:1 resting, 5.51:1 hovered.
+ *                On the Journey the sequence puts eleven photographs under the
+ *                bar and one of them has a pure white #ffffff pixel there; the
+ *                glass composites even that to #353535, 12.03:1 and 5.32:1.
+ *
+ *   HERO, 0.55   Sampled across fourteen frames of the whole 8.67 second hero
+ *                film. The worst frame lands behind the Journey link and
+ *                composites to #3d3839: 11.19:1 resting and 4.94:1 hovered.
+ *                Dropping this to 0.50 takes the hover to 4.61:1 and 0.42 puts
+ *                it under the 4.5:1 minimum, so there is roughly one step of
+ *                room here and no more.
+ *
+ * ANY CHANGE TO THESE VALUES HAS TO BE RE-MEASURED against both grounds, and
+ * the gold hover is the one that fails first. Changing the hero film counts as
+ * changing these values, because the numbers above are a property of that film.
+ *
+ * The tints are hand-written rgba on purpose. Tailwind's opacity modifiers do
+ * not work on the k- tokens, and `bg-k-void/70` renders nothing at all rather
+ * than a see-through surface, which has shipped as a bug here twice.
+ */
+const GLASS_FILTER = "blur(20px) saturate(165%)";
+
+/**
+ * EVERY STATE BELOW HAS THE SAME FIVE SHADOW LAYERS IN THE SAME ORDER, and
+ * every layer is inset in all three states or in none of them. This is not
+ * tidiness. A browser can only ease one box-shadow into another when the two
+ * have the same number of layers and each pair agrees about being inset; the
+ * moment they differ it gives up and swaps them on the first frame. The first
+ * version of this had three layers over the hero and five once scrolled, and
+ * the shadow banged into place while the tint was still easing. Layers that a
+ * state does not want are kept as a fully transparent `0 0 0 0`, which costs
+ * nothing to paint and gives the transition something to interpolate to.
+ *
+ *   1  the ring that gives the pill its edge
+ *   2  the hairline along the top where the light catches
+ *   3  the tight contact shadow
+ *   4  the mid lift
+ *   5  the wide soft pool
+ *
+ * Layers 3 to 5 are three shadows rather than one because a single large blur
+ * reads as a sticker dropped on the page, and a contact shadow with a lift and
+ * a pool behind it reads as an object held above it. The two wide ones are
+ * pulled in hard with a negative spread so nothing bleeds sideways past the
+ * pill and turns into a halo.
+ */
+const SURFACE = {
+  /** The top of the home page, over the hero film. */
+  hero: {
+    tint: "rgba(14,14,14,0.55)",
+    /* A sheen down the first 18 pixels, which is where a curved glass edge
+       would catch the sky. Held in pixels rather than a percentage because
+       this same background stretches over the services panel when it opens,
+       and a percentage would smear the sheen down the whole panel. It stops
+       well above the caps, which start at 26 pixels, so it lifts the edge
+       without lifting the ground the words are measured against. */
+    sheen:
+      "linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0) 18px)",
+    /* No contact shadow and no pool. The bar is sitting on a photograph here,
+       and a dark halo on a dark photograph reads as a smudge, so all the lift
+       comes from the single soft layer four. */
+    shadow: [
+      "inset 0 0 0 1px rgba(255,255,255,0.06)",
+      "inset 0 1px 0 rgba(255,255,255,0.14)",
+      "0 0 0 0 rgba(0,0,0,0)",
+      "0 10px 26px -18px rgba(0,0,0,0.55)",
+      "0 0 0 0 rgba(0,0,0,0)",
+    ].join(", "),
+  },
+  /** Scrolled, and every interior page from its first frame. */
+  firm: {
+    tint: "rgba(14,14,14,0.84)",
+    sheen:
+      "linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0) 18px)",
+    shadow: [
+      "inset 0 0 0 1px rgba(255,255,255,0.08)",
+      "inset 0 1px 0 rgba(255,255,255,0.18)",
+      "0 1px 1px 0 rgba(0,0,0,0.04)",
+      "0 10px 22px -12px rgba(0,0,0,0.26)",
+      "0 26px 56px -30px rgba(0,0,0,0.40)",
+    ].join(", "),
+  },
+  /** The services panel is open and the pill has turned into paper. */
+  panel: {
+    tint: "rgba(252,252,252,0.97)",
+    /* The sheen is kept as a shape and emptied rather than set to `none`. A
+       white highlight on a white panel would be invisible anyway, and a
+       gradient cannot cross-fade into a keyword, so this keeps the door open
+       for ever animating it. The ring below flips to ink instead, because a
+       lit top edge on paper is a thing glass does and paper does not. */
+    sheen:
+      "linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,0) 18px)",
+    shadow: [
+      "inset 0 0 0 1px rgba(0,0,0,0.07)",
+      "inset 0 1px 0 rgba(255,255,255,0)",
+      "0 2px 4px 0 rgba(0,0,0,0.04)",
+      "0 24px 60px -28px rgba(0,0,0,0.34)",
+      "0 0 0 0 rgba(0,0,0,0)",
+    ].join(", "),
+  },
+} as const;
+
+/**
+ * Ties whichever link is hovered to the panel it opens, for screen readers.
+ *
+ * One id rather than one per link, because only one panel is ever open and
+ * only the link that opened it carries aria-controls at that moment.
+ */
+const PANEL_ID = "kul-nav-panel";
 
 export default function Nav() {
   const pathname = usePathname();
   const reduced = useReducedMotion();
   const [scrolled, setScrolled] = useState(false);
-  const [panelOpen, setPanelOpen] = useState(false);
+  const [openPanel, setOpenPanel] = useState<PanelKey | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
   /**
@@ -116,7 +301,7 @@ export default function Nav() {
   // menu links close the menu on their way out too, but this also covers the
   // back button, which they never see.
   useEffect(() => {
-    setPanelOpen(false);
+    setOpenPanel(null);
     setMenuOpen(false);
   }, [pathname]);
 
@@ -136,9 +321,14 @@ export default function Nav() {
     ? { duration: 0 }
     : { duration: 0.55, ease: [0.16, 1, 0.3, 1] as const };
 
-  // Interior pages have no hero picture, so the pill starts solid there.
+  // Interior pages have no hero picture, so the glass starts firm there.
   const onHome = pathname === "/";
-  const solid = scrolled || panelOpen || !onHome;
+  const panelOpen = openPanel !== null;
+  const surface = panelOpen
+    ? SURFACE.panel
+    : scrolled || !onHome
+      ? SURFACE.firm
+      : SURFACE.hero;
 
   // The panel turns the pill white, so the menu has to switch to dark text.
   const linkColour = panelOpen
@@ -148,42 +338,46 @@ export default function Nav() {
   /**
    * One row of the menu.
    *
-   * The Services row also opens the panel of service cards below the bar.
-   * That used to happen on hover and on nothing else, which meant the panel
-   * did not exist for anybody using a keyboard: the pointer was the only way
-   * in. Focus is the keyboard's version of hover, so it opens the panel too,
-   * and Escape closes it again without leaving the link.
+   * EVERY LINK ON THE BAR OPENS A PANEL, and each opens a different one. The
+   * link still goes to its own page when it is followed, so nothing is trapped
+   * behind a panel. On a touch screen, where there is no hover at all, tapping
+   * simply goes to the page, which is the right result.
    *
-   * The link still goes to the services page when it is followed, so nothing
-   * is trapped behind the panel. On a touch screen, where there is no hover
-   * at all, tapping simply goes to that page, which is the right result.
+   * Opening on focus as well as on hover is what makes the panels exist for
+   * somebody using a keyboard. Focus is the keyboard's hover, and without it
+   * the pointer was the only way in. Escape closes the panel again without
+   * leaving the link, so a keyboard user is never made to tab out through the
+   * whole panel to get past it.
    */
-  const renderLink = (link: { href: string; label: string; panel: boolean }) => (
-    <li key={link.href}>
-      <Link
-        href={link.href}
-        onMouseEnter={() => setPanelOpen(link.panel)}
-        onFocus={() => setPanelOpen(link.panel)}
-        onKeyDown={(e) => {
-          if (e.key === "Escape" && panelOpen) setPanelOpen(false);
-        }}
-        {...(link.panel
-          ? { "aria-expanded": panelOpen, "aria-controls": SERVICES_PANEL_ID }
-          : {})}
-        className={`whitespace-nowrap font-text text-k-label uppercase transition-colors duration-200 ${
-          link.panel && panelOpen ? "text-k-gold" : linkColour
-        }`}
-      >
-        {link.label}
-      </Link>
-    </li>
-  );
+  const renderLink = (link: { href: string; label: string; panel: PanelKey | null }) => {
+    const isOpen = link.panel !== null && link.panel === openPanel;
+    return (
+      <li key={link.href}>
+        <Link
+          href={link.href}
+          onMouseEnter={() => setOpenPanel(link.panel)}
+          onFocus={() => setOpenPanel(link.panel)}
+          onKeyDown={(e) => {
+            if (e.key === "Escape" && openPanel) setOpenPanel(null);
+          }}
+          {...(link.panel
+            ? { "aria-expanded": isOpen, "aria-controls": PANEL_ID }
+            : {})}
+          className={`whitespace-nowrap font-text text-k-label uppercase transition-colors duration-200 ${
+            isOpen ? "text-k-gold" : linkColour
+          }`}
+        >
+          {link.label}
+        </Link>
+      </li>
+    );
+  };
 
   return (
     <>
       <header
         className="fixed inset-x-0 top-0 z-50 flex justify-center px-4"
-        onMouseLeave={() => setPanelOpen(false)}
+        onMouseLeave={() => setOpenPanel(null)}
       >
         {/* The pill. It carries the width for everything inside it, which is
             what keeps the bar and the services panel below it exactly the same
@@ -195,30 +389,41 @@ export default function Nav() {
             on any screen under about 530 pixels, and the pill quietly crops
             the far end off, taking the gap to the right of the quote button
             with it. `max-w-full` rather than another window measurement so it
-            keeps working when a scrollbar is taking up part of the window. */}
-        <m.div
-          layout
-          transition={sweep}
-          className="mt-4 w-[min(1180px,94vw)] max-w-full overflow-hidden backdrop-blur"
+            keeps working when a scrollbar is taking up part of the window.
+
+            THIS IS A PLAIN DIV, NOT AN `m.div`. It used to carry framer's
+            `layout` prop, which does nothing here: layout animations live in
+            the domMax feature set and this app runs LazyMotion on domAnimation,
+            so the prop was failing silently and reading as though the pill
+            animated its own size when it never has. Every state change on it is
+            a CSS transition, below, which is also the only reason it stays
+            smooth while the services panel is animating its height.
+
+            THE EDGE AND THE SHADOW ARE BOX-SHADOWS, NOT A BORDER. A real border
+            would have to be present in every state to avoid the bar changing
+            height by two pixels the moment it firms up, and it cannot be given
+            the top-lit hairline that makes the glass read as a curved edge. An
+            inset shadow costs no layout at all. */}
+        <div
+          className="mt-4 w-[min(1180px,94vw)] max-w-full overflow-hidden"
           style={{
             borderRadius: panelOpen ? 28 : 999,
-            // Only the background fades. The pill itself never resizes on
-            // scroll, which is what keeps the movement quiet.
-            backgroundColor: panelOpen
-              ? "rgba(252,252,252,0.97)"
-              : solid
-                ? "rgba(18,18,18,0.75)"
-                : "rgba(18,18,18,0)",
-            // At the very top of the home page the bar is completely invisible,
-            // outline included, so nothing sits between the visitor and the
-            // hero picture. It only draws itself once you start scrolling.
-            border: panelOpen
-              ? "1px solid rgba(0,0,0,0.08)"
-              : solid
-                ? "1px solid rgba(255,255,255,0.10)"
-                : "1px solid rgba(255,255,255,0)",
+            backgroundColor: surface.tint,
+            backgroundImage: surface.sheen,
+            boxShadow: surface.shadow,
+            /* The blur and the saturation never change, so the browser is
+               never asked to re-blur the whole backdrop at a new radius while
+               a frame is in flight. Saturation is what stops translucency
+               reading as fog: the colour of the page underneath stays alive
+               through the glass instead of going grey. */
+            backdropFilter: GLASS_FILTER,
+            WebkitBackdropFilter: GLASS_FILTER,
+            /* The shadow is given a little longer than the tint so the depth
+               settles just after the colour does, which is what makes the bar
+               feel like it is being set down rather than switched on. Both
+               curves are the house micro easing from globals.css. */
             transition:
-              "background-color 0.45s cubic-bezier(0.4,0,0.2,1), border-color 0.45s cubic-bezier(0.4,0,0.2,1)",
+              "background-color var(--duration-standard) var(--ease-micro), box-shadow 520ms var(--ease-micro)",
           }}
         >
           {/* One fixed width bar, in two arrangements.
@@ -236,10 +441,11 @@ export default function Nav() {
 
               BELOW 1180 PIXELS the menu is put away. The bar becomes the lion at
               one end and the Menu and quote buttons at the other, and the menu
-              itself moves into the panel in MenuOverlay.tsx. There is no third
-              arrangement in between, because there is no width between a phone
-              and 1180 where seven links, the lion and the quote button fit on
-              one line with room to breathe. See MENU_BREAKPOINT above. */}
+              itself moves into the panel in MenuOverlay.tsx, which is also the
+              only place The Road Ahead appears. There is no third arrangement in
+              between, because there is no width between a phone and 1180 where
+              seven links, the lion and the quote button fit on one line with
+              room to breathe. See MENU_BREAKPOINT above. */}
           <nav
             aria-label="Primary"
             className="flex w-full items-center justify-between py-2.5 pl-6 pr-2.5 min-[1180px]:grid min-[1180px]:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] min-[1180px]:px-2.5"
@@ -295,60 +501,34 @@ export default function Nav() {
             </div>
           </nav>
 
-          {/* The services panel. It grows out of the pill, not under it. */}
-          <AnimatePresence initial={false}>
-            {panelOpen ? (
+          {/* The panel. It grows out of the pill, not under it, and which one
+              it is depends on the link being hovered. The shapes are all in
+              components/k/NavPanels.tsx; nothing about them is decided here.
+
+              KEYED ON THE PANEL NAME so that moving from one link to the next
+              swaps the contents rather than closing and reopening. Without the
+              key, React reuses the same element and the new panel's markup
+              appears inside the old one's height animation, which reads as the
+              menu stuttering. */}
+          <AnimatePresence initial={false} mode="wait">
+            {openPanel ? (
               <m.div
-                key="panel"
+                key={openPanel}
                 initial={reduced ? false : { height: 0, opacity: 0 }}
                 animate={{ height: "auto", opacity: 1 }}
                 exit={reduced ? undefined : { height: 0, opacity: 0 }}
                 transition={sweep}
-                id={SERVICES_PANEL_ID}
+                id={PANEL_ID}
                 className="overflow-hidden"
               >
-                {/* Every service is in this row. It scrolls sideways rather
-                    than shrinking the cards to fit. */}
-                <div className="flex w-full gap-4 overflow-x-auto px-5 pb-6 pt-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                  {services.map((service) => (
-                    <Link
-                      key={service.slug}
-                      href={`/services/${service.slug}`}
-                      className="flex w-[220px] shrink-0 flex-col gap-2.5"
-                    >
-                      <Image
-                        src={service.card}
-                        alt=""
-                        width={900}
-                        height={900}
-                        className="h-[150px] w-full rounded-2xl object-cover"
-                      />
-                      <span className="font-display text-[19px] font-black leading-6 tracking-[-0.02em] text-k-ink">
-                        {service.name}
-                      </span>
-                      <span className="font-text text-[12px] leading-[18px] text-k-ink-soft">
-                        {service.blurb}
-                      </span>
-                    </Link>
-                  ))}
-
-                  {/* Sits at the end of the row, after the last service. */}
-                  <Link
-                    href="/services"
-                    className="flex w-[180px] shrink-0 flex-col items-start justify-center gap-3 rounded-2xl border border-k-rule bg-k-paper px-5"
-                  >
-                    <span className="font-display text-[19px] font-black leading-6 tracking-[-0.02em] text-k-ink">
-                      Compare all
-                    </span>
-                    <span className="border-b border-k-gold pb-0.5 font-text text-k-label uppercase text-k-gold">
-                      View services
-                    </span>
-                  </Link>
-                </div>
+                {(() => {
+                  const Panel = NAV_PANELS[openPanel];
+                  return <Panel />;
+                })()}
               </m.div>
             ) : null}
           </AnimatePresence>
-        </m.div>
+        </div>
       </header>
 
       {/* The menu panel for every width below the swap point. It sits outside

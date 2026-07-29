@@ -24,7 +24,7 @@ import Reveal from "@/components/k/Reveal";
 export const metadata: Metadata = {
   title: "Freight Services",
   description:
-    "Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited and Over the Road freight services from KUL Enterprises. Licensed carrier based in Loganville, Georgia, authorised in 48 states.",
+    "Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited and Over the Road freight services from KUL Enterprises. Licensed carrier based in Loganville, Georgia, authorized in 48 states.",
 };
 
 /** The three services explained at length lower down the page. */
@@ -34,11 +34,14 @@ const EXPANDED = ["power-only", "reefer", "dedicated"] as const;
 const EXPANDED_COPY: Record<string, { heading: string; body: string }> = {
   "power-only": {
     heading: "Power Only keeps your trailers moving",
-    body: "If you own trailers and need tractive power, KUL supplies the tractor and a CDL driver on your schedule. Drop and hook keeps dwell time low, and the driver reports in before pickup rather than after.",
+    body: "If you own trailers and need tractive power, KUL supplies the tractor and a CDL driver on your schedule. Drop and hook keeps dwell time low, and the driver reports in before pickup.",
   },
   reefer: {
+    // NOT pharmaceuticals. Pharma haulage carries its own compliance regime
+    // and KUL holds none of it. The Reefer record in content/services.json
+    // says fresh and frozen food and produce, and this has to match it.
     heading: "Reefer freight with the set point logged",
-    body: "Temperature controlled loads run on a recorded set point from pickup to delivery. Produce, chilled food and pharmaceuticals move under a cold chain you can audit after the fact.",
+    body: "Temperature controlled loads run on a recorded set point from pickup to delivery. Produce, chilled food and frozen goods move under a cold chain you can audit after the fact.",
   },
   dedicated: {
     heading: "Dedicated capacity on a lane you run weekly",

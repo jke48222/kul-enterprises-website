@@ -15,7 +15,6 @@ export type Service = {
   slug: string;
   name: string;
   short: string;
-  tagline: string;
   description: string;
   bestFor: string[];
   commitments: string[];

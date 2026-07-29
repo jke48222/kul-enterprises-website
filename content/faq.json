@@ -2,7 +2,7 @@
   "items": [
     {
       "q": "How fast do I get a freight quote?",
-      "a": "The same business day. Send the lane through the quote form or call dispatch, and a person who can actually commit capacity prices it and answers."
+      "a": "The same business day. Send the lane through the quote form or call dispatch. The person who prices it is the person who commits the truck."
     },
     {
       "q": "What freight does KUL haul?",
@@ -30,7 +30,7 @@
     },
     {
       "q": "Can I get updates while my freight moves?",
-      "a": "Yes. Milestone updates at pickup, in transit, and delivery are standard, and 24/7 dispatch means a person answers whenever you call."
+      "a": "Yes. Milestone updates at pickup, in transit, and delivery are standard, and the dispatch line reaches the person driving the truck."
     }
   ]
 }

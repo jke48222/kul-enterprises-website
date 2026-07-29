@@ -98,9 +98,9 @@ export default function PacketForm() {
               The request reached dispatch.
             </p>
             <p className="max-w-[62ch] font-text text-k-body text-k-ink-soft">
-              The packet is attached to a reply by the person who drives the
-              truck, so it comes back when he is not on a load. If you need it
-              inside a fixed window, call and say so.
+              The person who drives the truck attaches it to his reply, so it
+              comes back when he is not on a load. If you need it inside a
+              fixed window, call and say so.
             </p>
           </m.div>
         ) : (

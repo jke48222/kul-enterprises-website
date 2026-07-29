@@ -207,14 +207,14 @@ export default function AboutPage() {
               </p>
               <p className="font-text text-k-small text-k-ink">
                 Eleven years is long enough to learn what a shipper is actually
-                paying for. Not the trailer. Whether the person on the phone
-                knows where the truck is, and whether the answer still comes
-                when the news is bad.
+                paying for. It is whether the person on the phone knows where
+                the truck is, and whether the answer still comes when the news
+                is bad.
               </p>
               <p className="font-text text-k-small text-k-ink">
-                KUL was set up to run that way from the first load rather than
-                to grow into it. Today that means one tractor, one driver, and
-                the person who answers dispatch is the person behind the wheel.
+                KUL was set up to run that way from the first load. Today that
+                means one tractor, one driver, and the person who answers
+                dispatch is the person behind the wheel.
               </p>
             </Reveal>
             <Reveal variant="settle" className="mt-7 flex flex-col gap-1">

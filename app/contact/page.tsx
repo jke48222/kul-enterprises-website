@@ -25,7 +25,7 @@ import Reveal, { RuleDraw } from "@/components/k/Reveal";
 
 export const metadata: Metadata = {
   title: "Contact Dispatch",
-  description: `Contact KUL Enterprises. Dispatch answers 24/7 on ${site.phone}. Freight quotes, carrier packet requests and driver enquiries. Based in ${site.location}.`,
+  description: `Contact KUL Enterprises. Dispatch is ${site.phone}, answered by the driver. Freight quotes, carrier packet requests and driver enquiries. Based in ${site.location}.`,
 };
 
 /** One row per destination, so nobody has to guess where to write. */
@@ -44,7 +44,7 @@ const ROUTES = [
   },
   {
     label: "Drivers",
-    body: "Applications are open now for a seat that opens with the second truck. Leave your details and you are called when it does.",
+    body: "Applications are open now for a seat that opens with the second truck. Leave your details and you are called when that happens.",
     action: "Join the list",
     href: "/drivers",
   },
@@ -162,8 +162,8 @@ export default function ContactPage() {
               Where to send it
             </h2>
             <p className="max-w-[620px] font-text text-k-body text-k-ink-soft">
-              Three reasons people write in. All three reach the same inbox, so
-              use whichever fits and say so in the first line.
+              All three rows below reach the same inbox, so use whichever fits
+              and say so in the first line.
             </p>
           </Reveal>
 
@@ -222,8 +222,7 @@ export default function ContactPage() {
               Anything else
             </h2>
             <p className="font-text text-k-body text-k-ink-soft">
-              For anything that does not fit the rows above, write here and it
-              reaches the same inbox as everything else.
+              Write here and it reaches the same inbox as everything else.
             </p>
             <a
               href={`mailto:${site.email}`}
