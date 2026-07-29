@@ -109,6 +109,16 @@ export default function ServicesPage() {
 
       {/* Photograph carousel. */}
       <section className="bg-k-paper">
+        {/* The carousel has no heading on screen, by design: the seven
+            photographs and their names are the heading. But each card names
+            its service in an h3, and with nothing above them the page jumped
+            from its h1 straight to an h3, which is a hole in the outline
+            somebody navigating by headings falls through.
+
+            So the heading exists and is read aloud, without being drawn. It
+            also does a second job: somebody listening to the page arrives at
+            seven service names with no idea what the group is. */}
+        <h2 className="sr-only">All {services.length} services</h2>
         <ServiceCarousel services={services} />
       </section>
 
