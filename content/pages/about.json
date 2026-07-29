@@ -4,7 +4,7 @@
     "description": "KUL Enterprises is a licensed freight carrier in {location}, founded by a driver with eleven years on the road. USDOT {usdot}, MC {mc}."
   },
   "opening": {
-    "heading": "Eleven years for other carriers. Now under our authority.",
+    "heading": "Eleven years for other carriers. Now under our own authority.",
     "caption": "{serviceArea}",
     "image": "/images/journey/s14-confident-highway.webp",
     "imageAlt": "An open highway running ahead under clear sky"
