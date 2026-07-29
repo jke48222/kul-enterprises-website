@@ -50,7 +50,7 @@ const STEPS = [
   {
     n: "01",
     name: "Enquiry",
-    body: "Call dispatch, or send origin, destination, freight type and pickup date. Five fields.",
+    body: "Call dispatch, or send the lane. Six fields: origin, destination, freight type, pickup date, how to reach you, and anything else we should know.",
   },
   {
     n: "02",
@@ -235,7 +235,7 @@ export default function ServicesPage() {
               Four steps, no surprises
             </h2>
             <p className="font-text text-k-lede text-k-ink-soft">
-              Five fields in, one phone number throughout.
+              Six fields in, one phone number throughout.
             </p>
           </Reveal>
 
