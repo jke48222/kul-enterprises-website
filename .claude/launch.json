@@ -7,6 +7,13 @@
       "runtimeArgs": ["run", "dev"],
       "port": 3010,
       "autoPort": true
+    },
+    {
+      "name": "kul-cms",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev:cms"],
+      "port": 3000,
+      "autoPort": true
     }
   ]
 }

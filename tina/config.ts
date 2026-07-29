@@ -156,6 +156,111 @@ export default defineConfig({
                 label: "Our commitments (bullets)",
                 list: true,
               },
+
+              /* ==============================================================
+                 EVERYTHING BELOW WAS IN THE CONTENT AND NOT IN THE CMS.
+                 ==============================================================
+                 content/services.json carries sixteen fields per service and
+                 this collection exposed six of them, so ten things that are
+                 visibly on a service page could only be changed by editing JSON
+                 in the repository. That included both photographs, every figure
+                 in the specification table, and the short lines used on the
+                 services index.
+
+                 It matters most for the dimensions. Those are nominal 53 foot
+                 values that nobody has measured against the real trailer, and
+                 correcting them is on the client's own list. He could not do it
+                 from the CMS he is paying for.
+
+                 The two lines that are still not here are `slug`, which is
+                 above and marked do not change because URLs depend on it, and
+                 nothing else. Sixteen of sixteen are now reachable. */
+
+              {
+                type: "string",
+                name: "blurb",
+                label: "Card blurb (services index)",
+                description:
+                  "One short line under the service name on the services page.",
+              },
+              {
+                type: "string",
+                name: "bestForShort",
+                label: "Best for, in three or four words",
+                description: "Used in the comparison list, so keep it short.",
+              },
+              {
+                type: "image",
+                name: "card",
+                label: "Card photograph",
+                description: "Portrait crop, shown on the services index.",
+              },
+              {
+                type: "image",
+                name: "wide",
+                label: "Wide photograph",
+                description: "Landscape crop, shown at the top of this service.",
+              },
+              {
+                type: "string",
+                name: "equipment",
+                label: "Equipment",
+                description: "For example: Tractor only, or 53 ft dry van.",
+              },
+              {
+                type: "string",
+                name: "equipmentNote",
+                label: "Equipment note",
+                description: "The small grey line under Equipment.",
+              },
+              {
+                type: "string",
+                name: "lane",
+                label: "Lane",
+                description: "For example: Regional, or Over the road.",
+              },
+              {
+                type: "string",
+                name: "laneNote",
+                label: "Lane note",
+                description: "The small grey line under Lane.",
+              },
+              {
+                type: "string",
+                name: "leadTime",
+                label: "Lead time",
+                description: "For example: 24 to 48 hrs.",
+              },
+              {
+                type: "object",
+                name: "dimensions",
+                label: "Trailer dimensions",
+                description:
+                  "The measurements drawn on the blueprint. Check these against the real trailer before trusting them.",
+                list: true,
+                ui: {
+                  itemProps: (item) => ({
+                    label: item?.label
+                      ? `${item.label}: ${item.value ?? ""}`
+                      : "Dimension",
+                  }),
+                },
+                fields: [
+                  {
+                    type: "string",
+                    name: "ref",
+                    label: "Drawing reference",
+                    description: "The letter used on the drawing, A, B, C and so on.",
+                  },
+                  { type: "string", name: "label", label: "What is measured" },
+                  {
+                    type: "string",
+                    name: "value",
+                    label: "Measurement",
+                    description: "As it should read, for example 13 ft 6 in.",
+                  },
+                ],
+              },
             ],
           },
         ],
