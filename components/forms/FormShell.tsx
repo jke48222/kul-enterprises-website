@@ -9,8 +9,9 @@ import { useReducedMotion } from "framer-motion";
  *
  * v2 note: submission logic (useFormSubmit), the honeypot, and the
  * FormStatus live-region semantics are the v1 contract and MUST NOT change.
- * Only presentation below (SubmitButton, Label, FormStatus styling,
- * SuccessPanel) belongs to the v2 underline system (§3.20).
+ * What is left here is shared behaviour only. The submit button and the
+ * confirmation panel used to live here too and carried the old look with
+ * them; every form now draws its own, so those are gone.
  */
 export type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -73,7 +74,8 @@ export function FormStatus({
   return (
     <div className="min-h-6">
       {/* Success is announced politely; the visible confirmation is the
-          editorial SuccessPanel takeover, so the message here is sr-only. */}
+          own confirmation panel, so the message here is for screen readers
+          only and never appears twice. */}
       <div role="status" aria-live="polite">
         {state === "success" && <p className="sr-only">{successMessage}</p>}
       </div>
@@ -90,103 +92,8 @@ export function FormStatus({
   );
 }
 
-export function SubmitButton({
-  state,
-  children,
-}: {
-  state: FormState;
-  children: React.ReactNode;
-}) {
-  const submitting = state === "submitting";
-  return (
-    <button
-      type="submit"
-      disabled={submitting}
-      aria-busy={submitting}
-      className="btn-gold w-full uppercase disabled:cursor-wait disabled:opacity-60 sm:w-auto"
-    >
-      {/* Masked label roll: children roll up to SENDING… in 120ms (§3.20). */}
-      <span className="block h-[1.25em] overflow-hidden">
-        <span
-          className={`flex flex-col transition-transform duration-[120ms] ease-linear motion-reduce:transition-none ${
-            submitting ? "-translate-y-1/2" : ""
-          }`}
-        >
-          <span className="block h-[1.25em]">{children}</span>
-          <span aria-hidden className="block h-[1.25em]">
-            Sending…
-          </span>
-        </span>
-      </span>
-    </button>
-  );
-}
 
-export function Label({
-  htmlFor,
-  children,
-  optional,
-}: {
-  htmlFor: string;
-  children: React.ReactNode;
-  optional?: boolean;
-}) {
-  return (
-    <label
-      htmlFor={htmlFor}
-      className="mb-1 block text-micro uppercase text-ink opacity-60"
-    >
-      {children}
-      {/* No nested opacity: opacity-70 inside this label's opacity-60
-          compounded to 0.42 and measured 2.83:1 on paper. Inheriting the
-          label's own opacity-60 gives the suffix 5.07:1. */}
-      {optional && <span> · optional</span>}
-    </label>
-  );
-}
 
-/**
- * Editorial success takeover (§3.20): serif headline, echo of the submitted
- * lane/name in body-l, tabular micro note, tel: fallback. Rendered by the
- * forms inside an AnimatePresence swap; scrolls itself into view on mobile.
- * Paper ground (all three v2 forms live on paper sections).
- */
-export function SuccessPanel({
-  headline,
-  body,
-  note,
-}: {
-  headline: string;
-  body?: string;
-  note?: string;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const reduced = useReducedMotion();
 
-  useEffect(() => {
-    if (window.matchMedia("(max-width: 767px)").matches) {
-      ref.current?.scrollIntoView({
-        block: "center",
-        behavior: reduced ? "auto" : "smooth",
-      });
-    }
-  }, [reduced]);
 
-  return (
-    <div ref={ref} className="py-6">
-      <p className="max-w-[14ch] font-omnibus text-h2 text-ink">{headline}</p>
-      {body && <p className="mt-4 max-w-[62ch] text-body-l text-graywarm-deep">{body}</p>}
-      {note && (
-        <p className="mt-6 text-micro uppercase text-ink/60 [font-feature-settings:'tnum']">
-          {note}
-        </p>
-      )}
-      <p className="mt-3 text-micro uppercase text-ink/60 [font-feature-settings:'tnum']">
-        Time-critical?{" "}
-        <a href="tel:+16789721148" className="link-hairline font-semibold text-ink">
-          678-972-1148
-        </a>
-      </p>
-    </div>
-  );
-}
+

@@ -27,8 +27,7 @@ import Reveal, { RuleDraw } from "@/components/k/Reveal";
  * is worth knowing before anybody goes looking:
  *
  *   Chapter 02, the construction sites, has no photograph and never will.
- *   Chapter 03, the plane, has none either, which is why the Doctor Bird
- *   carries it instead.
+ *   Chapter 03, the plane, has none either.
  *   Chapter 04, the Air Force, has none.
  *
  * Three of the six chapters are therefore pictureless, and giving the other
@@ -160,26 +159,15 @@ export default function JourneyPage() {
                     </p>
                   </div>
 
-                  {/* THE DOCTOR BIRD, ONCE, HERE, AND NOWHERE ELSE.
-                      It is Jamaica's national bird, and this is the chapter
-                      about leaving Jamaica. It used to fly across the screen
-                      on every internal link, which made it wallpaper; spent
-                      on the one paragraph it actually belongs to, it means
-                      something again.
-
-                      A silhouette rather than the gold rendering, because
-                      the gold bird next to a gold chapter number would put
-                      two gold things in one row, and because a shape reads
-                      at this size where feather detail would not. */}
-                  {chapter.n === "03" ? (
-                    <Image
-                      src="/images/brand/bird-silhouette.webp"
-                      alt=""
-                      width={420}
-                      height={420}
-                      className="ml-auto hidden h-auto w-[84px] shrink-0 self-center opacity-70 sm:block"
-                    />
-                  ) : null}
+                  {/* THE DOCTOR BIRD IS NOT HERE ANY MORE, AND THAT IS
+                      DELIBERATE. It sat on this chapter for a while, which
+                      was a reasonable home: this is the chapter about
+                      leaving Jamaica and the bird is Jamaica's own. But the
+                      client's rule is that it appears exactly once on the
+                      whole site, and he placed that once in the opening. It
+                      now flies across the black screen a visitor sees on
+                      their first ever visit, and nowhere else. Do not put a
+                      second one back. */}
                 </Reveal>
               </li>
             ))}

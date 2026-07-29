@@ -5,7 +5,7 @@
   requested on every page load. A favicon renders at 16-32px, where the
   lion's mane detail collapses into a gold smudge, so the mark here is the
   wordmark's initial instead: the same letterform register as the nav
-  lockup (components/v2/Nav.tsx), in brand gold (#B59352) on ink (#0B0B0B).
+  lockup (components/k/Nav.tsx), in brand gold (#B59352) on ink (#0B0B0B).
   On dark browser chrome the tile recedes and the K carries the mark alone.
 
   Two filled paths, no strokes and no gradients, so it rasterizes cleanly at

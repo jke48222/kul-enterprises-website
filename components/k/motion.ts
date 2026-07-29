@@ -1,6 +1,6 @@
 /**
  * v2 motion tokens (design bible §2.3). The single motion import.
- * Every framer-motion transition in components/v2 pulls its values here.
+ * Every framer-motion transition on the site pulls its values from here.
  *
  * Interaction law: slow enter, fast leave. Hover-in 0.45s EASE.micro,
  * hover-out 0.2s. Nothing animates longer than 0.8s except the page veil

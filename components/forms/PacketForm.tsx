@@ -2,7 +2,7 @@
 
 import { useId } from "react";
 import { AnimatePresence, m } from "framer-motion";
-import { DUR, EASE } from "@/components/v2/motion";
+import { DUR, EASE } from "@/components/k/motion";
 import { useUnderlineField } from "./Field";
 import { useFormSubmit, Honeypot, FormStatus } from "./FormShell";
 

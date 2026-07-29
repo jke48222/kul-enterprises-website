@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat, Archivo, Inter } from "next/font/google";
-import localFont from "next/font/local";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { MotionConfig } from "framer-motion";
 import "./globals.css";
@@ -9,8 +8,6 @@ import MotionProvider from "@/components/motion/MotionProvider";
 import LoadingOverlay from "@/components/brand/LoadingOverlay";
 import Nav from "@/components/k/Nav";
 import Footer from "@/components/k/Footer";
-import StickyMobileBar from "@/components/v2/StickyMobileBar";
-import RouteVeil from "@/components/v2/RouteVeil";
 
 // Montserrat is the site-wide body font (intro overlay included).
 const montserrat = Montserrat({
@@ -39,15 +36,6 @@ const inter = Inter({
   display: "swap",
 });
 
-// Omnibus and Montserrat are the v2 faces, retained only until the pages
-// still using them are rebuilt. Remove both once nothing references
-// font-omnibus / font-mont.
-const omnibus = localFont({
-  src: "./fonts/Omnibus-Bold.ttf",
-  weight: "700",
-  variable: "--font-omnibus",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -167,9 +155,9 @@ export default function RootLayout({
       // Third-party extensions routinely stamp attributes on <html> before
       // hydration; suppress React's root attribute mismatch warning for them.
       suppressHydrationWarning
-      className={`${archivo.variable} ${inter.variable} ${montserrat.variable} ${omnibus.variable}`}
+      className={`${archivo.variable} ${inter.variable} ${montserrat.variable}`}
     >
-      <body className="min-h-screen bg-ink font-mont text-white antialiased">
+      <body className="min-h-screen bg-k-void font-text text-k-on-dark antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -182,21 +170,23 @@ export default function RootLayout({
         </a>
         <MotionProvider>
           <MotionConfig reducedMotion="user">
-            {/* First-visit-ever intro film (design bible §3.22): renders
-                nothing in the server HTML and mounts itself from a
-                post-first-paint idle callback, so the hero poster paints and
-                is measured as LCP before the film appears. Crawlers,
-                Lighthouse and no-JS visitors never see it. ≤2.5s cap with a
-                visible skip; RouteVeil never replays it. */}
+            {/* The opening, shown once in a visitor's life. It renders
+                nothing in the server HTML and mounts itself after the first
+                paint, so the hero is what the browser measures as the page's
+                main content rather than the ceremony in front of it. Search
+                engines and anybody without JavaScript never see it at all.
+
+                THE INK WIPE BETWEEN PAGES IS GONE. It played on every
+                internal link and cost roughly half a second of black screen
+                each time, which is a poor trade on a site whose own argument
+                is that a broker can get to Services, Safety, Quote and
+                Contact quickly. Navigation is now immediate. */}
             <LoadingOverlay />
             <Nav />
-            <RouteVeil>
-              <div className="relative z-[1] bg-k-paper">
-                <main id="main">{children}</main>
-                <div data-content-end aria-hidden />
-              </div>
-            </RouteVeil>
-            <StickyMobileBar />
+            <div className="relative z-[1] bg-k-paper">
+              <main id="main">{children}</main>
+              <div data-content-end aria-hidden />
+            </div>
             <Footer />
           </MotionConfig>
         </MotionProvider>

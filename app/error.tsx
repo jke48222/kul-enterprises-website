@@ -2,25 +2,28 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import GhostNumeral from "@/components/v2/GhostNumeral";
+import { site } from "@/lib/site";
 
 /**
- * Route error boundary, the branded counterpart to the 404 (design bible
- * §4.11). Catches render/data exceptions thrown anywhere under `main` and
- * replaces ONLY the page body: the root layout still supplies the chrome
- * (MotionProvider, Grain, Nav, RouteVeil + main#main + the [data-content-end]
- * sentinel, StickyMobileBar, curtain Footer), so this file must never
- * re-mount any of it.
+ * THE ERROR PAGE
  *
- * Deliberately motion-free. Everything here is CSS-only: no framer-motion,
- * no `m`, no MotionProvider dependency. An error boundary that re-enters the
- * animation layer can re-throw the very error it is catching and flip the
- * page to Next's unbranded fallback, so the boundary is kept inert on
- * purpose. The markup below is pixel-identical to Eyebrow/LineReveal at REST
- * (their post-animation state), so it reads as the same design system.
+ * What a visitor sees when something on our side throws. It replaces only the
+ * page body: the nav and the footer come from the layout, so nothing here
+ * re-mounts either.
  *
- * Single ink viewport. Gold ledger: the nav CTA is gold #1; TRY AGAIN is the
- * page's one additional gold element (§2.7).
+ * IT USES NO ANIMATION LIBRARY, ON PURPOSE, and that is not an oversight. An
+ * error boundary that reaches back into the animation layer can re-throw the
+ * very error it was built to catch, and the visitor lands on the framework's
+ * own unbranded grey page instead of this one. The small entrance below is
+ * plain CSS for the same reason, and it is switched off for anybody who has
+ * asked their computer to reduce motion.
+ *
+ * ON THE SHAPE. Deliberately the plainest page on the site. A 404 can afford
+ * to be helpful and offer somewhere else to go, because the visitor typed
+ * something wrong. This is the other case: they did nothing wrong, we broke,
+ * and the only useful things are to say so, offer the one action that might
+ * work, and print the reference they can read back to us. Anything more
+ * decorative here would be the site preening while it is failing.
  */
 export default function Error({
   error,
@@ -30,60 +33,72 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Surfaces the stack in the browser console / server logs. `digest` is
-    // the only identifier a visitor can read back to us in production, where
-    // React redacts the real message.
+    // Puts the real stack in the browser console and the server log. In
+    // production React hides the message from the page, so `digest` is the
+    // only thing a visitor can actually read back to us.
     console.error("[kul] route error boundary:", error);
   }, [error]);
 
   return (
     <>
-      {/* CSS-only entrance, mirroring the 404's bird float: wrapped in
-          no-preference so reduced motion gets the static rest state (§2.3). */}
       <style>{`
         @media (prefers-reduced-motion: no-preference) {
-          @keyframes err-rise {
+          @keyframes kul-err-rise {
             from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: none; }
           }
-          .err-rise { animation: err-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+          .kul-err-rise { animation: kul-err-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
         }
       `}</style>
-      <section
-        data-ground="ink"
-        className="relative flex min-h-svh items-center overflow-hidden bg-ink"
-      >
-        <GhostNumeral className="left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 !text-[clamp(12rem,30vw,26rem)]">
-          500
-        </GhostNumeral>
-        <div className="err-rise relative z-[1] mx-auto w-full max-w-[1760px] px-[clamp(20px,5vw,90px)] pb-band-sm pt-32">
-          {/* Eyebrow at rest: attached hairline + tracked label (§3.4). */}
-          <p className="flex items-center gap-4 text-label uppercase text-paper/60">
-            <span aria-hidden className="h-px w-16 shrink-0 bg-current" />
-            <span>Load rejected</span>
+
+      <section className="flex min-h-svh items-center bg-k-coal px-6 md:px-12 lg:px-24">
+        <div className="kul-err-rise mx-auto w-full max-w-[1248px] py-32">
+          <p className="flex items-center gap-4 pb-10">
+            <span className="h-px w-12 shrink-0 bg-k-gold-lit" aria-hidden="true" />
+            <span className="font-text text-k-label uppercase text-k-gold-lit">
+              Something broke
+            </span>
           </p>
-          {/* LineReveal at rest: hand-authored lines, one block each (§3.6). */}
-          <h1 className="mt-6 max-w-[16ch] font-omnibus text-display-l text-cream">
-            <span className="block">Something</span>
-            <span className="block">threw a rod.</span>
+
+          <h1 className="max-w-[16ch] font-display text-k-d1 font-black text-k-on-dark">
+            This one is on us.
           </h1>
-          <p className="mt-6 max-w-[52ch] text-body-l text-paper/70">
-            This page hit an error on our end &mdash; nothing you did. Try it
-            again, and if it sticks, call dispatch and we&apos;ll sort it out.
+
+          <p className="max-w-[54ch] pt-8 font-text text-k-lede text-k-on-dark-soft">
+            The page hit an error on our side and nothing you did caused it.
+            Loading it again usually works. If it does not, call dispatch and we
+            will sort it out on the phone rather than leave you here.
           </p>
-          <div className="mt-10 flex flex-wrap items-center gap-4">
-            <button type="button" onClick={reset} className="btn-gold">
+
+          <div className="flex flex-wrap items-center gap-4 pt-10">
+            <button
+              type="button"
+              onClick={reset}
+              className="rounded-full bg-k-on-dark px-8 py-4 font-text text-k-label uppercase text-k-ink transition-opacity duration-200 hover:opacity-85"
+            >
               Try again
             </button>
-            <Link href="/" className="btn-ghost-dark">
-              Back home
+            <a
+              href={site.phoneHref}
+              className="rounded-full border border-k-on-dark-faint px-8 py-4 font-text text-k-label uppercase tabular-nums text-k-on-dark transition-colors duration-200 hover:border-k-on-dark"
+            >
+              Call dispatch · {site.phone}
+            </a>
+            <Link
+              href="/"
+              className="font-text text-k-small text-k-on-dark-soft underline underline-offset-4 transition-colors duration-200 hover:text-k-on-dark"
+            >
+              Back to the home page
             </Link>
           </div>
-          {error.digest && (
-            <p className="mt-10 text-micro uppercase text-paper/40">
+
+          {/* The only thing a visitor can quote back to us, so it is printed
+              rather than only logged. */}
+          {error.digest ? (
+            <p className="pt-12 font-text text-k-micro uppercase tabular-nums text-k-on-dark-soft">
               Reference {error.digest}
             </p>
-          )}
+          ) : null}
         </div>
       </section>
     </>

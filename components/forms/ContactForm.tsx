@@ -2,27 +2,33 @@
 
 import { useId, useState } from "react";
 import { AnimatePresence, m } from "framer-motion";
-import { DUR, EASE } from "@/components/v2/motion";
-import { Field } from "./Field";
-import { TextareaField } from "./TextareaField";
-import {
-  useFormSubmit,
-  Honeypot,
-  FormStatus,
-  SubmitButton,
-  SuccessPanel,
-} from "./FormShell";
+import { DUR, EASE } from "@/components/k/motion";
+import { PanelField, PanelTextarea } from "./PanelField";
+import { useFormSubmit, Honeypot, FormStatus } from "./FormShell";
 
 /**
- * Contact form on the §3.20 underline system. POST contract unchanged, * endpoint /api/contact, field names name/email/message, botcheck honeypot.
+ * THE CONTACT FORM
+ *
+ * For anything the three routing rows on the contact page do not cover. It
+ * sends name, email and message to app/api/contact.
+ *
+ * IT USED TO END ON THE WRONG TYPEFACE. The confirmation came from a shared
+ * panel that set its headline in Omnibus, the serif the client rejected, so
+ * the last thing a broker saw after successfully making contact was the one
+ * face that is not the brand. It now matches the quote, driver and packet
+ * forms: its own confirmation, in the display face, on a light panel.
+ *
+ * The fields wear the light colourway, because this form sits on a light
+ * ground rather than the dark panel the quote form uses.
  */
 export default function ContactForm() {
   const { state, serverError, submit } = useFormSubmit("/api/contact");
-  // Instance-scoped ids: this form renders twice on some pages (body + closing).
+  // Instance-scoped ids, because this form renders twice on some pages.
   const uid = useId();
   const [sender, setSender] = useState<string | null>(null);
 
-  // Echo the name into the success takeover; submission itself is untouched.
+  // Remember the name so the confirmation can use it. The sending itself is
+  // untouched by this.
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     const data = new FormData(e.currentTarget);
     setSender(String(data.get("name") ?? ""));
@@ -30,7 +36,7 @@ export default function ContactForm() {
   };
 
   return (
-    <div>
+    <div className="w-full">
       <AnimatePresence mode="wait" initial={false}>
         {state === "success" ? (
           <m.div
@@ -38,12 +44,20 @@ export default function ContactForm() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: DUR.base, ease: [...EASE.out] }}
+            className="flex max-w-[760px] flex-col gap-5 rounded-sm border border-k-rule bg-k-surface p-9"
           >
-            <SuccessPanel
-              headline="It’s with dispatch."
-              body={sender ? `Thanks, ${sender}.` : undefined}
-              note="A person replies the same business day."
-            />
+            <p className="font-display text-k-d3 font-black text-k-ink">
+              It is with dispatch.
+            </p>
+            {sender ? (
+              <p className="font-text text-k-lede text-k-gold">
+                Thank you, {sender}.
+              </p>
+            ) : null}
+            <p className="max-w-[62ch] font-text text-k-body text-k-ink-soft">
+              A person reads it and replies the same business day. If the load
+              moves sooner than that, call dispatch rather than wait.
+            </p>
           </m.div>
         ) : (
           <m.form
@@ -51,12 +65,13 @@ export default function ContactForm() {
             onSubmit={handleSubmit}
             exit={{ opacity: 0 }}
             transition={{ duration: DUR.fast, ease: [...EASE.micro] }}
-            className="space-y-10"
+            className="flex max-w-[760px] flex-col gap-3"
           >
             <Honeypot />
 
-            <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2">
-              <Field
+            <div className="grid gap-3 sm:grid-cols-2">
+              <PanelField
+                tone="light"
                 id={`${uid}-name`}
                 label="Your name"
                 name="name"
@@ -65,7 +80,8 @@ export default function ContactForm() {
                 maxLength={200}
                 autoComplete="name"
               />
-              <Field
+              <PanelField
+                tone="light"
                 id={`${uid}-email`}
                 label="Email"
                 name="email"
@@ -76,28 +92,41 @@ export default function ContactForm() {
               />
             </div>
 
-            <TextareaField
+            <PanelTextarea
+              tone="light"
               id={`${uid}-message`}
-              label="How can we help?"
+              label="How can we help"
               name="message"
               rows={5}
               required
               maxLength={2000}
             />
 
-            {/* The gold submit pill is this viewport's single gold spend. */}
-            <SubmitButton state={state}>Send Message</SubmitButton>
+            <div className="flex flex-col gap-6 pt-5">
+              <button
+                type="submit"
+                disabled={state === "submitting"}
+                className="w-fit rounded-full bg-k-gold px-9 py-4 font-text text-k-label uppercase text-k-surface transition-opacity duration-200 hover:opacity-90 disabled:cursor-wait disabled:opacity-60"
+              >
+                {state === "submitting" ? "Sending" : "Send the message"}
+              </button>
+            </div>
           </m.form>
         )}
       </AnimatePresence>
 
-      <div className="mt-6">
+      {state === "error" ? (
+        <p className="pt-5 font-text text-k-small text-k-error">
+          {serverError ??
+            "That did not send. Call dispatch on 678-972-1148 and it can be handled on the phone instead."}
+        </p>
+      ) : (
         <FormStatus
           state={state}
           serverError={serverError}
-          successMessage="Message received. We'll get back to you shortly."
+          successMessage="Message received. A person replies the same business day."
         />
-      </div>
+      )}
     </div>
   );
 }

@@ -3,7 +3,7 @@
 import { useId, useState } from "react";
 import { AnimatePresence, m } from "framer-motion";
 import { services } from "@/lib/services";
-import { DUR, EASE } from "@/components/v2/motion";
+import { DUR, EASE } from "@/components/k/motion";
 import { PanelField, PanelSelect, PanelTextarea } from "./PanelField";
 import { useFormSubmit, Honeypot, FormStatus } from "./FormShell";
 
