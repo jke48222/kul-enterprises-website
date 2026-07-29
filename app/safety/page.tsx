@@ -285,6 +285,7 @@ export default function SafetyPage() {
         <HeroVideo
           name="dash-night"
           poster="/videos/dash-night-poster.jpg"
+          label="the dashcam footage"
           className="absolute inset-0 h-full w-full object-cover opacity-70"
         />
         <div

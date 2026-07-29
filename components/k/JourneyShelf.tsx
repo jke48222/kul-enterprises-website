@@ -5,6 +5,7 @@ import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { CHAPTERS, GROUND_CLASS, type Chapter } from "@/lib/journey";
+import Breadcrumb from "@/components/k/Breadcrumb";
 
 /**
  * THE SHELF
@@ -102,11 +103,11 @@ export default function JourneyShelf() {
       />
 
       <div className="relative mx-auto max-w-[1248px] px-6 md:px-12 lg:px-24">
-        <p className="flex items-center gap-2.5">
-          <span className="font-text text-k-micro uppercase text-k-ink-faint">KUL</span>
-          <span className="font-text text-k-micro text-k-ink-faint">/</span>
-          <span className="font-text text-k-micro uppercase text-k-gold">The Journey</span>
-        </p>
+        {/* The last of the hand-rolled trails, dead until 29 Jul 2026 like the
+            one in LegalPage. Shared component now, so KUL goes home. */}
+        <Breadcrumb
+          items={[{ label: "KUL", href: "/" }, { label: "The Journey" }]}
+        />
         <h1 className="max-w-[16ch] pt-6 font-display text-k-d2 font-black text-k-ink">
           Before the first truck, there was a boy on a plane.
         </h1>

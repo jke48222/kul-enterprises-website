@@ -5,6 +5,8 @@ import { services } from "@/lib/services";
 import HeroVideo from "@/components/k/HeroVideo";
 import Reveal from "@/components/k/Reveal";
 import ShapeGrid from "@/components/k/ShapeGrid";
+import Faq from "@/components/k/Faq";
+import { faqJsonLd } from "@/lib/faq";
 
 /**
  * Home, the page a visitor lands on first.
@@ -95,6 +97,7 @@ export default function HomePage() {
       <section className="relative flex min-h-[820px] flex-col justify-end overflow-hidden bg-k-void">
         <HeroVideo
           poster="/videos/kul-hero-poster.jpg"
+          label="the hero film"
           className="absolute inset-0 h-full w-full object-cover opacity-85"
         />
         {/* Directional scrim. Without it the headline collides with the
@@ -557,6 +560,46 @@ THE ALPHAS ARE SET BY A CONTRAST SUM, NOT BY EYE, AND THE FIRST
             See the plan
           </Link>
         </Reveal>
+      </section>
+
+      {/* THE QUESTIONS.
+          Mark's plan put an FAQ here, between the plan and the story, and the
+          eight answers have been sitting written in content/faq.json since the
+          early build with nothing importing them. This renders them, and emits
+          the FAQPage data he specced alongside.
+
+          It sits at this point in the page on purpose. Everything above it is
+          KUL talking; this is the first thing on the page that answers a
+          question the reader actually arrived with, and it is the last thing
+          before the page stops selling and offers the story instead.
+
+          The section and the structured data read the same file, so an answer
+          cannot say one thing here and another in a search result. */}
+      <section className="bg-k-surface px-6 py-32 md:px-12 lg:px-24">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd()) }}
+        />
+        <div className="mx-auto flex max-w-[1248px] flex-col gap-12 lg:flex-row lg:gap-24">
+          <Reveal variant="wipe" className="lg:w-[380px] lg:shrink-0">
+            <h2 className="font-display text-k-d2 font-black text-k-ink">
+              Questions we get asked.
+            </h2>
+            <p className="max-w-[34ch] pt-6 font-text text-k-body text-k-ink-soft">
+              If yours is not here, call dispatch on{" "}
+              <a
+                href={site.phoneHref}
+                className="tabular-nums text-k-ink underline underline-offset-4"
+              >
+                {site.phone}
+              </a>
+              .
+            </p>
+          </Reveal>
+          <Reveal index={1} className="flex-1">
+            <Faq />
+          </Reveal>
+        </div>
       </section>
 
       {/* The Journey, an invitation, not a nav item. */}

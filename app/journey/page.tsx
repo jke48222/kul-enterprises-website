@@ -367,6 +367,7 @@ export default function JourneyPage() {
           <HeroVideo
             name="dash-night"
             poster="/videos/dash-night-poster.jpg"
+            label="the dashcam footage"
             className="absolute inset-0 h-full w-full object-cover"
           />
           {/* Dark at the very top so the floating nav has something to sit on,

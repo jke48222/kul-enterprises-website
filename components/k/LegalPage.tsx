@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { site } from "@/lib/site";
+import Breadcrumb from "@/components/k/Breadcrumb";
 import Reveal from "@/components/k/Reveal";
 
 /**
@@ -93,15 +94,16 @@ export function LegalPage({
       {/* The title band. */}
       <section className="bg-k-coal px-6 pb-20 pt-36 md:px-12 lg:px-24 lg:pt-44">
         <div className="mx-auto max-w-[1248px]">
-          <p className="flex items-center gap-2.5 pb-10">
-            <span className="font-text text-k-micro uppercase text-k-on-dark-soft">
-              KUL
-            </span>
-            <span className="font-text text-k-micro text-k-on-dark-soft">/</span>
-            <span className="font-text text-k-micro uppercase text-k-gold-lit">
-              {eyebrow}
-            </span>
-          </p>
+          {/* THIS WAS THREE DEAD SPANS UNTIL 29 JUL 2026. It drew the same
+              "KUL / Climate Statement" trail as every other page and none of it
+              went anywhere, which meant all five legal documents were left with
+              an unclickable breadcrumb after the rest of the site got real
+              links. It is the shared component now, on its dark colourway. */}
+          <Breadcrumb
+            className="pb-10"
+            tone="dark"
+            items={[{ label: "KUL", href: "/" }, { label: eyebrow }]}
+          />
 
           <Reveal variant="wipe">
             <h1 className="max-w-[20ch] font-display text-k-d1 font-black text-k-on-dark">

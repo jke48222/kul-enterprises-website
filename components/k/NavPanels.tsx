@@ -147,11 +147,20 @@ export function DriversPanel() {
         </Link>
       </div>
 
+      {/* "The pay" was the third entry and went on 29 Jul 2026 with the matching
+          one on the Drivers page. It said the figure was not published because
+          there was no honest one to publish. True, and not a thing to put in
+          front of a driver as one of the three facts about the seat. Pay is
+          discussed on the call.
+
+          The equipment took its place rather than the row dropping to two,
+          because it is the third thing a driver actually asks after the licence
+          and the lanes, and it matches what the Drivers page already says. */}
       <dl className="grid gap-x-10 gap-y-5 pt-6 md:grid-cols-3">
         {[
           ["The licence", "CDL-A, with a work history we can verify and a motor vehicle record we can pull."],
           ["The lanes", `Southeast regional out of ${site.location}, with over the road available.`],
-          ["The pay", "Not published, because there is no honest number to publish yet."],
+          ["The equipment", "A 53 foot dry van behind a sleeper tractor, inspected before every dispatch."],
         ].map(([term, detail]) => (
           <div key={term}>
             <dt className="font-text text-k-micro uppercase text-k-gold">{term}</dt>
