@@ -236,6 +236,27 @@ body {
     display: none !important;
   }
 
+  /* The streaming contact sheet. Standing still it is a field of photographs
+     with the sentence over it, which is a perfectly good section: the columns
+     just do not travel and the film does not fade up under them. */
+  .kul-scatter {
+    height: auto !important;
+  }
+  .kul-scatter-stage {
+    position: static !important;
+    height: auto !important;
+    min-height: 100svh;
+    overflow: visible !important;
+  }
+  .kul-scatter-field,
+  .kul-scatter-words,
+  .kul-scatter-film {
+    opacity: 1 !important;
+  }
+  .kul-scatter-col {
+    transform: translateY(-50%) !important;
+  }
+
   /* The held statement, same bug and the same cure. Two screens of scrolling
      to read one sentence is the motion; without it the sentence is just a
      sentence, fully inked, in a section of ordinary height. */
@@ -290,6 +311,85 @@ body {
 .img-grade {
   filter: grayscale(0.35) sepia(0.14) brightness(0.94) contrast(1.06)
     saturate(0.9);
+}
+
+/* ------------------------------------------------------------------ */
+/* The footer's lit box                                                */
+/* ------------------------------------------------------------------ */
+
+/* The footer is one panel of slowly moving light, and this is the movement.
+   The gradients themselves are authored in components/k/Footer.tsx, next to
+   the contrast figures that depend on their alphas; only the drift lives here.
+
+   THE WHOLE THING IS INSIDE prefers-reduced-motion: no-preference, ON PURPOSE.
+   A reader who has asked their machine for less movement gets the gradient
+   exactly as it is authored, standing still, and loses nothing: the light is
+   the decoration, not the content. Doing it this way rather than in the
+   component means it is correct in the first byte, with JavaScript off, and
+   there is no hydration swap under anybody.
+
+   NOTHING HERE ANIMATES ANYTHING BUT transform AND opacity. This panel is the
+   full width of the page and is on every route, so a property that forces a
+   repaint would have the browser redrawing a screen-sized area sixty times a
+   second for as long as the page is open. Sliding and fading an already
+   rasterised gradient costs the compositor almost nothing, and will-change
+   keeps each layer on its own texture so a scale does not send it back to be
+   redrawn.
+
+   The three periods are 29, 41 and 53 seconds. They are deliberately coprime,
+   so the three layers do not come back into the same arrangement for over
+   sixteen hours and the light never visibly loops. */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes kul-footer-box {
+    0%,
+    100% {
+      transform: translate3d(-2.5%, 1.5%, 0) scale(1.04);
+      opacity: 0.82;
+    }
+    50% {
+      transform: translate3d(3%, -2%, 0) scale(1.14);
+      opacity: 1;
+    }
+  }
+
+  @keyframes kul-footer-core {
+    0%,
+    100% {
+      transform: translate3d(4%, -2%, 0) scale(1.1);
+      opacity: 1;
+    }
+    50% {
+      transform: translate3d(-5%, 3%, 0) scale(1.02);
+      opacity: 0.55;
+    }
+  }
+
+  @keyframes kul-footer-ember {
+    0%,
+    100% {
+      transform: translate3d(3%, 3%, 0) scale(1);
+      opacity: 0.5;
+    }
+    50% {
+      transform: translate3d(-4%, -3%, 0) scale(1.12);
+      opacity: 1;
+    }
+  }
+
+  .kul-footer-box,
+  .kul-footer-core,
+  .kul-footer-ember {
+    will-change: transform, opacity;
+  }
+  .kul-footer-box {
+    animation: kul-footer-box 41s ease-in-out infinite;
+  }
+  .kul-footer-core {
+    animation: kul-footer-core 29s ease-in-out infinite;
+  }
+  .kul-footer-ember {
+    animation: kul-footer-ember 53s ease-in-out infinite;
+  }
 }
 
 /* ------------------------------------------------------------------ */

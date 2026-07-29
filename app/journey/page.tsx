@@ -4,6 +4,7 @@ import Link from "next/link";
 import { site } from "@/lib/site";
 import PinnedStatement from "@/components/k/PinnedStatement";
 import JourneyShelf from "@/components/k/JourneyShelf";
+import JourneyScatter from "@/components/k/JourneyScatter";
 import JourneySequence from "@/components/k/JourneySequence";
 import HeroVideo from "@/components/k/HeroVideo";
 import Reveal, { RuleDraw } from "@/components/k/Reveal";
@@ -195,6 +196,37 @@ const ROAD = [
   },
 ] as const;
 
+/**
+ * The photographs the sequence has no room for.
+ *
+ * These are the rest of the twenty-six the curation kept, plus a few of the
+ * eleven so the columns are evenly stocked. They stream past as thumbnails and
+ * are never the subject, so a frame that is not strong enough to hold a screen
+ * on its own is still worth its place here. Alt text is empty on purpose: this
+ * is one decorative field, described once by the sentence held over it, not
+ * eighteen separate things for a screen reader to be read out.
+ */
+const SCATTER = [
+  { src: "/images/journey/hero-open-road-blue.webp", alt: "" },
+  { src: "/images/journey/s09b-elevated-traffic.webp", alt: "" },
+  { src: "/images/journey/gal-alpine-lake.webp", alt: "" },
+  { src: "/images/journey/s14-confident-highway.webp", alt: "" },
+  { src: "/images/journey/hero-sage-plain.webp", alt: "" },
+  { src: "/images/journey/s16-valley-from-height.webp", alt: "" },
+  { src: "/images/journey/s10-endless-road.webp", alt: "" },
+  { src: "/images/journey/gal-river-rocks.webp", alt: "" },
+  { src: "/images/journey/s11b-sunrise-cloud.webp", alt: "" },
+  { src: "/images/journey/hero-two-lane-centred.webp", alt: "" },
+  { src: "/images/journey/s12b-predawn-peaks-alt.webp", alt: "" },
+  { src: "/images/journey/s07-pines-road.webp", alt: "" },
+  { src: "/images/journey/gal-waterfall-figure.webp", alt: "" },
+  { src: "/images/journey/s02b-caribbean-water.webp", alt: "" },
+  { src: "/images/journey/s08b-rockcut-bend.webp", alt: "" },
+  { src: "/images/journey/s06-wide-horizon.webp", alt: "" },
+  { src: "/images/journey/s04-dawn-road-mist.webp", alt: "" },
+  { src: "/images/journey/s09-interstate-traffic.webp", alt: "" },
+] as const;
+
 export default function JourneyPage() {
   return (
     <>
@@ -362,6 +394,25 @@ export default function JourneyPage() {
             saw them in.
           </p>
         </div>
+      </section>
+
+      {/* THE CONTACT SHEET, STREAMING, AND THE WINDSCREEN IT RESOLVES ONTO.
+          Everything the curation kept but the sequence has no room for, going
+          past in columns while one sentence holds still, and then the field
+          clears onto Mark's daylight dashcam. Stills, then the thing that took
+          them, then the eleven in the order the light runs. */}
+      <JourneyScatter
+        tiles={SCATTER}
+        eyebrow="Twenty-six kept, eleven shown"
+        statement="He did not photograph the road once. He photographed it for eleven years, and these are the ones that survived the cut."
+      />
+
+      {/* One line of plain fact between the film and the sequence, so the
+          eleven do not begin over the top of the video's last frame. */}
+      <section className="bg-k-void px-6 py-20 md:px-12 lg:px-24">
+        <p className="mx-auto max-w-[52ch] text-center font-text text-k-body text-k-on-dark-soft">
+          What follows are eleven of them, in the order the light runs.
+        </p>
       </section>
 
       <JourneySequence frames={ROAD} />
