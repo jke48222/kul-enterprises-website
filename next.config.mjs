@@ -48,9 +48,27 @@ const nextConfig = {
             key: "Referrer-Policy",
             value: "strict-origin-when-cross-origin",
           },
-          // Nothing on this site is meant to be framed. Clickjacking guard
-          // for browsers predating frame-ancestors.
-          { key: "X-Frame-Options", value: "DENY" },
+          /**
+           * Clickjacking guard, for browsers predating frame-ancestors.
+           *
+           * SAMEORIGIN RATHER THAN DENY, AND THE DIFFERENCE IS LOAD BEARING.
+           * DENY forbids framing by everyone including this site itself, which
+           * is fine right up until something on the same origin needs to frame
+           * a page. TinaCMS's visual editor at /admin does exactly that: it
+           * loads the real page in an iframe beside the fields so the client
+           * can watch their edits land. Under DENY the browser refuses, the
+           * panel shows a broken document, and the editor waits forever for a
+           * page that will never announce itself.
+           *
+           * SAMEORIGIN keeps the entire protection that matters. An attacker's
+           * site is a different origin and is still refused, which is the whole
+           * clickjacking threat. What it now permits is this origin framing
+           * itself, and /admin is served from this origin.
+           *
+           * Do not put it back to DENY without also accepting that visual
+           * editing stops working.
+           */
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
           // The site asks for no device permissions; deny the three that
           // matter most, for this document and every embed within it.
           {
