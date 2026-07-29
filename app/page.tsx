@@ -4,6 +4,7 @@ import { site } from "@/lib/site";
 import { services } from "@/lib/services";
 import HeroVideo from "@/components/k/HeroVideo";
 import Reveal from "@/components/k/Reveal";
+import ShapeGrid from "@/components/k/ShapeGrid";
 
 /**
  * Home, the page a visitor lands on first.
@@ -31,15 +32,12 @@ const EQUIPMENT: Record<string, string> = {
   otr: "48 states",
 };
 
-const CREDENTIALS = [
-  `USDOT ${site.usdot}`,
-  `MC ${site.mc}`,
-  "Licensed & insured",
-  // NOT "Dispatch answers 24/7". KUL is one man who drives, and /road-ahead
-  // lists dispatch cover as a stage that has not happened yet. Two pages
-  // cannot disagree about whether somebody is sitting by the phone.
-  "Owner answers dispatch",
-] as const;
+/* A CREDENTIALS list lived here and is gone with the hero strip that read it.
+   It held the two authority numbers plus "Licensed & insured" and "Owner
+   answers dispatch". The numbers are written into the strip directly now, and
+   the two claims are made properly on /safety and /about instead of asserted
+   in six words over a video. The same list still exists on the quote page,
+   where it closes a page rather than opening one. */
 
 type Spec = {
   value: string;
@@ -81,7 +79,13 @@ const SPECS: readonly Spec[] = [
   { value: "53", unit: " ft", label: "Dry van trailer" },
   { value: "45,000", unit: " lb", label: "Maximum payload" },
   { value: "48", unit: " states", label: "Operating authority" },
-  { value: "1", unit: "", label: "Trucks today · 50 by 2029", accent: true },
+  // THE FOURTH FIGURE IS NO LONGER THE FLEET COUNT. It read "1 / Trucks today
+  // · 50 by 2029", then "1 / Tractor on the road", and it went on 29 Jul 2026
+  // with the rest of the headcount talk: a row headed "The equipment", set in
+  // the largest numerals on the page, is the worst possible place to print the
+  // smallest number the company owns. The other three figures are all about
+  // what the equipment can carry, and this one now is too.
+  { value: "2026", unit: "", label: "Under our own authority", accent: true },
 ];
 
 export default function HomePage() {
@@ -119,10 +123,28 @@ export default function HomePage() {
               Owner driven.
             </h1>
 
+            {/* ============================================================
+                THE FLEET COUNT IS NOT IN THE FIRST LINE OF THIS SITE ANY MORE.
+                ============================================================
+                It read "One truck today. Fifty by 2029." and it went on
+                29 Jul 2026 at the client's word, along with the same framing
+                on eight other pages.
+
+                It was honest and it was the wrong thing to lead with. A broker
+                arrives asking whether this carrier can move their freight, and
+                the first sentence answered a question they had not asked with
+                the smallest number the company owns. Nothing is hidden by
+                taking it out: the equipment on the road is still set out in
+                figures further down this page, the growth plan still has a
+                page of its own, and the About page still lists what KUL does
+                not have yet. It is simply not the opening line.
+
+                THE ELEVEN YEARS ALSO CAME OUT, separately. The very next
+                section is nothing but that fact, set as a display headline, so
+                saying it here first spent it before the reader arrived. */}
             <p className="max-w-[620px] font-text text-k-lede text-k-on-dark-soft">
-              One truck today. Fifty by 2029. The person who answers dispatch
-              has driven for eleven years, for other carriers, before building
-              this.
+              Freight services out of {site.location}, authorized in 48
+              states, dispatched by the person driving.
             </p>
 
             <div className="flex flex-wrap items-center gap-4 pt-2">
@@ -142,19 +164,30 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* The strip along the bottom of the opening screen. The facts a broker
-            checks first sit on the left, and where we are based sits on its own
-            at the right hand end, picked out in gold. */}
+        {/* THE STRIP ALONG THE BOTTOM OF THE OPENING SCREEN, HALVED.
+            It carried five things: USDOT, MC, "Licensed & insured", "Owner
+            answers dispatch", and the base plus service area in gold. On a
+            phone that wrapped to three lines of small capitals under a
+            headline, a paragraph and two buttons, and the client called it too
+            much text for the first view. It was.
+
+            Two things are left, and they are the two a broker checks before
+            anything else: the authority numbers, which they copy into their
+            own system, and where the truck is based. Everything cut from here
+            is still on the page or one click away. "Licensed & insured" and
+            "Owner answers dispatch" are both said properly on the safety and
+            about pages rather than asserted in six words on a hero, and the
+            service area is in the footer of every page.
+
+            The numbers stay together on one line at every width, which is why
+            they are one span with a separator rather than two items in a wrap
+            container: a DOT number broken across two lines is a DOT number
+            somebody mistypes. */}
         <div className="relative border-t border-white/15">
           <div className="mx-auto flex max-w-[1440px] flex-wrap items-center gap-x-10 gap-y-2 px-6 py-5 md:px-12 lg:px-24">
-            {CREDENTIALS.map((item) => (
-              <span
-                key={item}
-                className="font-text text-k-micro uppercase tabular-nums text-k-on-dark-soft"
-              >
-                {item}
-              </span>
-            ))}
+            <span className="whitespace-nowrap font-text text-k-micro uppercase tabular-nums text-k-on-dark-soft">
+              USDOT {site.usdot} · MC {site.mc}
+            </span>
 
             <span className="flex items-center gap-4 md:ml-auto">
               <span
@@ -162,22 +195,102 @@ export default function HomePage() {
                 aria-hidden="true"
               />
               <span className="font-text text-k-micro uppercase text-k-gold-lit">
-                {site.location} · {site.serviceArea}
+                {site.location}
               </span>
             </span>
           </div>
         </div>
       </section>
 
-      {/* Statement, the trust thesis, stated plainly. */}
-      <section className="bg-k-paper px-6 py-32 md:px-12 lg:px-24">
-        <div className="mx-auto flex max-w-[1248px] flex-col gap-12 lg:flex-row lg:gap-24">
+      {/* ==================================================================
+          STATEMENT, THE TRUST THESIS, ON A DRAFTED GROUND.
+          ==================================================================
+          It was a flat sheet of #f0f0f0 and the client asked for something
+          behind it, not a photograph and not something simple.
+
+          WHAT IT IS: a drafting sheet. Two grids at different intervals, the
+          fine one every 26px and the major one every six of those, exactly the
+          way a plan sheet divides minor and major. That is not decoration
+          picked at random: the service pages already carry measured wireframe
+          elevations on a blueprint ground, so the one section on the home page
+          that makes a promise now sits on the same paper the promises are
+          drawn on. Over it, a warm bloom lifts the middle so the type has
+          somewhere to sit, and a vignette in the ground's own colour dissolves
+          the grid before it reaches any edge. A grid that runs into the edge
+          of a section reads as a table; one that fades reads as a sheet.
+
+          REFERENCE: Reducto, pulled from Mobbin, does the same thing on a warm
+          light ground with a faint engineering grid and a soft centre.
+
+THE ALPHAS ARE SET BY A CONTRAST SUM, NOT BY EYE, AND THE FIRST
+          ATTEMPT FAILED IT. Every layer here only darkens, and the darkest
+          pixel is where a fine line, a major line and the peak of the bloom
+          all cross. At the alphas this shipped with first, 0.045 / 0.075 /
+          0.05, that pixel was rgb(214,211,207), and --color-ink-soft measured
+          4.35:1 on it, which is under the 4.5:1 the paragraph in this section
+          needs. Text can and does sit on a grid intersection, so that is a
+          real failure and not a theoretical one.
+
+          At the values shipped now, an outline at 0.055 plus a hover fill at
+          0.05 plus the peak of the bloom, that pixel is rgb(223,218,211): ink
+          is 10.05:1, ink-soft is 4.66:1, and gold is 3.75:1, which is fine
+          because gold is only ever the border under the link here and a border
+          needs 3:1. ink-soft is the one with the least room, at 0.16 above the
+          floor. Re-run that sum before raising anything.
+
+          THE GRID IS A CANVAS AND THE REST IS CSS. Both stop for anyone who
+          has asked for less motion: the bloom through a keyframe in
+          globals.css, the grid by checking the same query itself. */}
+      <section className="relative isolate overflow-hidden bg-k-paper px-6 py-32 md:px-12 lg:px-24">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
+          {/* THE SHEET ITSELF, in components/k/ShapeGrid.tsx. A drifting field
+              of squares that lights up under the pointer with a short fading
+              wake behind it. It replaced two static repeating-gradients at the
+              client's request, with these settings.
+
+              Diagonal at a tenth of a cell per second is one cell every ten
+              seconds: slow enough that a reader registers the page is alive
+              without ever catching it moving. The trail is four, so the
+              pointer draws a wake rather than lighting one lonely square.
+
+              THESE ARE THE COLOURS THE SUM BELOW WAS DONE ON. Ink at 0.055 for
+              the outline, brand gold at 0.05 for the fill. Both only darken,
+              which is what makes that sum a bound rather than a guess. */}
+          <ShapeGrid
+            squareSize={40}
+            speed={0.1}
+            direction="diagonal"
+            shape="square"
+            borderColor="rgba(44,44,44,0.055)"
+            hoverFillColor="rgba(160,92,8,0.05)"
+            hoverTrailAmount={4}
+          />
+          {/* The warmth under the headline, drifting very slowly. */}
+          <div
+            className="kul-sheet-bloom absolute inset-[-20%]"
+            style={{
+              backgroundImage:
+                "radial-gradient(58% 46% at 34% 46%, rgba(160,92,8,0.035) 0%, rgba(160,92,8,0.016) 46%, rgba(160,92,8,0) 78%)",
+            }}
+          />
+          {/* The dissolve, in the ground's own colour, so the grid never
+              reaches an edge and the section has no visible box. */}
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                "radial-gradient(112% 88% at 42% 48%, rgba(240,240,240,0) 34%, rgba(240,240,240,0.72) 74%, var(--color-paper) 100%)",
+            }}
+          />
+        </div>
+
+        <div className="relative mx-auto flex max-w-[1248px] flex-col gap-12 lg:flex-row lg:gap-24">
           {/* The headline uncovers on its own. Wrapping the whole row in that
               entrance would uncover the paragraph column left to right with
               it, and the wipe is built for a single block of display type. */}
           <Reveal variant="wipe" className="flex-1">
             <h2 className="font-display text-k-d2 font-black text-k-ink">
-              The person who answers the phone is the person driving the truck.
+              You will always be talking to the driver.
             </h2>
           </Reveal>
           {/* One paragraph, not two. The second one restated the hero above it
@@ -186,9 +299,12 @@ export default function HomePage() {
               than telling a broker anything. This column is shorter than the
               headline beside it now, which is fine: nothing is boxed. */}
           <Reveal index={1} className="flex w-full flex-col gap-5 lg:w-[400px] lg:shrink-0">
+            {/* The third clause, "and he still drives every load himself",
+                went with the same pass: it is the headline beside it said
+                again in smaller type. */}
             <p className="font-text text-k-body text-k-ink-soft">
               Dispatch at KUL is Mark Brown. He drove for other carriers for
-              eleven years before this, and he still drives every load himself.
+              eleven years before starting it.
             </p>
             <Link
               href="/about"
@@ -280,20 +396,13 @@ export default function HomePage() {
           the real thing. */}
       <section className="bg-k-surface px-6 py-24 md:px-12 lg:px-24">
         <div className="mx-auto max-w-[1248px]">
-          <Reveal variant="settle">
-            <p className="flex items-center gap-4 pb-3">
-              <span className="h-px w-12 shrink-0 bg-k-gold" aria-hidden="true" />
-              <span className="font-text text-k-label uppercase text-k-gold">
-                Every side of it
-              </span>
-            </p>
-            <p className="max-w-[64ch] pb-12 font-text text-k-small text-k-ink-soft">
-              Drawings rather than photographs, so the proportions can be
-              measured. Dimensions are nominal for a 53 foot van and are
-              checked against the trailer before a load is quoted.
-            </p>
-          </Reveal>
-
+          {/* THE HEADING AND THE CAVEAT ARE BOTH GONE, at the client's word,
+              and the row says what it is without them. Four views of the same
+              rig on one baseline, each captioned with the side it is, is not a
+              thing anybody needs a label above. The nominal-dimensions caveat
+              still exists where the numbers are actually printed, on Size it
+              up on every service page; it was never needed here, because no
+              measurement appears on this row at all. */}
           <div className="grid grid-cols-2 gap-x-8 gap-y-12 lg:grid-cols-4">
             {ELEVATIONS.map((view, i) => (
               <Reveal
@@ -302,12 +411,46 @@ export default function HomePage() {
                 className="flex flex-col items-center gap-4"
               >
                 <div className="flex h-[150px] w-full items-center justify-center">
+                  {/* ================================================== */}
+                  {/* THE WHITE BOX BEHIND EACH RENDER IS GONE, AND IT IS */}
+                  {/* NOT CUT OUT. IT IS MULTIPLIED OUT.                  */}
+                  {/* ================================================== */}
+                  {/*
+                      These four files have no alpha channel: they are renders
+                      standing on white, and against this section's #fcfcfc
+                      they each drew a faint white rectangle you could see the
+                      corners of.
+
+                      CUTTING THEM WAS TRIED FIRST AND CANNOT WORK. Measured
+                      pixel by pixel: the trailer roof on the top view sits 13
+                      away from white, and the soft drop shadow beside the
+                      wheels sits 20 away. The background is darker than the
+                      subject, so there is no threshold anywhere that separates
+                      them, and a border flood fill run at any tolerance either
+                      leaves the shadow behind or eats its way through the
+                      panel seams and hollows out the roof. It did exactly that
+                      on the first attempt.
+
+                      Multiply has no such problem, because it does not have to
+                      decide what is background. Every channel is multiplied by
+                      the ground: white is 255 and leaves the ground exactly as
+                      it was, so the box disappears completely, while the
+                      shadow stays a shadow and darkens the ground the way a
+                      shadow should. Nothing is thrown away and no edge is cut,
+                      which is also why the wheels keep their contact shadows.
+
+                      IT ONLY WORKS ON A LIGHT GROUND. Multiplying onto a dark
+                      one turns the whole render black. If this row is ever
+                      moved onto a dark panel, the files have to be re-rendered
+                      on transparency instead; there is no CSS that saves it.
+                  */}
                   <Image
                     src={`/images/truck/${view.file}-plate.webp`}
                     alt={view.alt}
                     width={1100}
                     height={836}
                     className="h-auto max-h-[150px] w-auto max-w-full"
+                    style={{ mixBlendMode: "multiply" }}
                   />
                 </div>
                 <span className="font-text text-k-micro uppercase text-k-ink-soft">
@@ -334,9 +477,12 @@ export default function HomePage() {
                 Seven ways to move it.
               </h2>
             </div>
+            {/* This opened "Every service below is one truck and one driver
+                today". The promise in the second half is the part worth
+                keeping and it stands without the headcount in front of it. */}
             <p className="font-text text-k-body text-k-ink-soft lg:w-[380px] lg:shrink-0">
-              Every service below is one truck and one driver today. If a lane
-              needs more than that, we will tell you before you book.
+              If a lane needs more capacity than we can commit to, we will tell
+              you before you book rather than after.
             </p>
           </Reveal>
 
@@ -386,15 +532,23 @@ export default function HomePage() {
               The road ahead
             </span>
           </p>
-          {/* The headline carries a fact off the page it links to, rather than
-              a slogan. The order of the plan is the point of /road-ahead: the
-              second truck is stage 01 and a second driver is stage 02. */}
+          {/* The headline carries a fact off the page it links to rather than
+              a slogan. It used to be "The second truck comes before the second
+              driver", which is true, is the order of the plan, and put the
+              fleet count in display type on the home page. What is left is the
+              principle underneath it, which is the part that would still be
+              true at fifty trucks. */}
           <h2 className="max-w-[1040px] font-display text-k-d1 font-black text-k-on-dark">
-            The second truck comes before the second driver.
+            We grow the fleet before we sell the capacity.
           </h2>
+          {/* "One truck on the road today, fifty by 2029" opened this
+              paragraph until 29 Jul 2026, which made it the third time that
+              same sentence appeared on this page: once in the hero, once in
+              the equipment figures, and again here. It is the hero's line.
+              What is left is the part only this section says. */}
           <p className="max-w-[620px] font-text text-k-lede text-k-on-dark-soft">
-            One truck on the road today, fifty by 2029. The plan is written in
-            the order it has to happen, and none of it has happened yet.
+            Written in the order it has to happen, with a date against
+            nothing until it is booked.
           </p>
           <Link
             href="/road-ahead"
@@ -433,10 +587,14 @@ export default function HomePage() {
               Eleven years driving for other people. The Journey is the long
               version, in Mark&rsquo;s own words.
             </p>
-            <p className="max-w-[560px] font-text text-k-body text-k-ink-faint">
-              You do not need to read it to book a load. It is here for the
-              people who want to know who is driving.
-            </p>
+            {/* A second paragraph sat here saying "You do not need to read it
+                to book a load. It is here for the people who want to know who
+                is driving." It went on 29 Jul 2026. Both halves say the same
+                thing, once negatively and once positively, which is a shape
+                that reads as writing rather than as information, and the
+                paragraph above already ends by saying what the Journey is. A
+                section that has to reassure you it is optional is a section
+                that does not trust its own first line. */}
             <Link
               href="/journey"
               className="w-fit border-b border-k-gold pb-1 font-text text-k-label uppercase text-k-ink"

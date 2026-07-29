@@ -158,6 +158,32 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${archivo.variable} ${inter.variable} ${montserrat.variable}`}
     >
+      <head>
+        {/* ================================================================
+            THE ONE LINE THAT DECIDES WHETHER ANYTHING IS ALLOWED TO BE
+            HIDDEN. IT RUNS BEFORE FIRST PAINT AND IT IS NOT OPTIONAL.
+            ================================================================
+            Entrances on this site are CSS, and the rule that hides an element
+            before its entrance is scoped to `html[data-reveal]`. This sets
+            that attribute, and it sets it only when there is a script running,
+            when the browser can tell us what has scrolled into view, and when
+            the visitor has not asked for less motion.
+
+            So: no JavaScript, an ancient browser, a blocked bundle, or a
+            reader who has declined motion, and nothing on the page is ever
+            hidden in the first place. See the header of
+            components/k/Reveal.tsx for why that matters more than it sounds.
+
+            It is inline and in <head> on purpose. Anything slower than that
+            paints the page unhidden and then hides it, which is a flash of
+            content going away, and that is worse than no entrance at all. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(window.IntersectionObserver&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.setAttribute('data-reveal','')}catch(e){}",
+          }}
+        />
+      </head>
       <body className="min-h-screen bg-k-void font-text text-k-on-dark antialiased">
         <script
           type="application/ld+json"

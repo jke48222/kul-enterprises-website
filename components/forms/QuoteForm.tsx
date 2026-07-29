@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { AnimatePresence, m } from "framer-motion";
 import { services } from "@/lib/services";
 import { DUR, EASE } from "@/components/k/motion";
@@ -44,6 +44,37 @@ export default function QuoteForm() {
     null
   );
   const [today] = useState(localToday);
+
+  /**
+   * THE FREIGHT TYPE ARRIVES ALREADY CHOSEN WHEN THE VISITOR CAME FROM A
+   * SERVICE PAGE.
+   *
+   * "Quote this service" on /services/reefer links to /quote?service=reefer,
+   * and this turns that into a selected option. Somebody who has just read a
+   * page about reefer should not have to tell us it is reefer.
+   *
+   * IT READS THE URL IN AN EFFECT RATHER THAN DURING RENDER, and that is not
+   * laziness. The server has no query string when it renders this form, so
+   * picking the value up during render would produce different markup on the
+   * two sides and React would throw a hydration mismatch. Starting empty and
+   * setting it after mount is the version that agrees with itself. It also
+   * avoids `useSearchParams`, which in the App Router forces the whole form
+   * into a Suspense boundary to stay statically renderable.
+   *
+   * THE VALUE IS NOT TRUSTED. It is a slug from a URL anybody can edit, so it
+   * is looked up in the real service list and discarded unless it matches. The
+   * option values are service names, so what goes into state is the name we
+   * found, never the string that arrived.
+   */
+  const [freightType, setFreightType] = useState("");
+
+  useEffect(() => {
+    const slug = new URLSearchParams(window.location.search).get("service");
+    if (!slug) return;
+    const match = services.find((s) => s.slug === slug);
+    if (match) setFreightType(match.name);
+    else if (slug === "not-sure") setFreightType("Not sure");
+  }, []);
 
   // The lane is read back so the thank you can repeat it to the sender.
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -120,7 +151,11 @@ export default function QuoteForm() {
                 label="Freight type"
                 name="freightType"
                 required
-                defaultValue=""
+                // Controlled, because the effect above may set it from the URL
+                // after the first render. An uncontrolled select with a
+                // defaultValue would ignore that.
+                value={freightType}
+                onChange={(e) => setFreightType(e.target.value)}
               >
                 <option value="" disabled>
                   Select a service

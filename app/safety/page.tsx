@@ -60,40 +60,61 @@ const CREDENTIALS = [
 ] as const;
 
 /**
- * The four small drawings that head each commitment below.
+ * REDRAWN 29 JUL 2026, because the first set were clip-art.
  *
- * These are drawn here as shapes rather than loaded as picture files, so they
- * stay perfectly sharp on any screen and pick up their colour from the page.
- * Every one is drawn on the same 24 by 24 square, which is what keeps them
- * looking like a matched set rather than four unrelated pictures.
+ * They were a hex nut, a clock, a speech bubble and a shipping crate: the four
+ * shapes any icon set gives you for free, and none of them said anything a
+ * carrier would say. A crate for "cargo" is what a stock library thinks
+ * freight looks like; KUL hauls a sealed 53 foot van, not a wooden box.
  *
- * TO CHANGE A DRAWING: replace the shapes inside the matching entry. To add a
- * fifth commitment, add a drawing here first, then add it to COMMITMENTS below
- * using the same one word name.
+ * These are drawn from the clause each one heads, not from the category:
+ *
+ *   maintenance    a wheel and hub seen straight on, which is the part that is
+ *                  actually checked before every dispatch
+ *   hours          a clock, kept, because the clause is literally about the
+ *                  hours-of-service clock, but redrawn as a dial with the
+ *                  eleven-hour mark ticked rather than a generic round face
+ *   communication  a handset, not a chat bubble. The promise is a phone call
+ *                  from a person, and a speech bubble is what software does
+ *   cargo          a trailer door with the seal hanging on it, which is the
+ *                  exact object the clause promises to put a number on
+ *
+ * ON THE DRAWING ITSELF. One weight, 1.4, round caps and joins, everything on
+ * a 24 grid with a 2 unit margin, no fills. That consistency is most of what
+ * separates a considered set from four icons that happen to sit together, and
+ * it is why a fifth must be drawn to the same rules rather than pasted in.
+ *
+ * TO ADD ONE: draw it here first, then add it to COMMITMENTS below using the
+ * same one word name.
  */
 const ICONS = {
-  // A nut, the kind turned by a spanner. Stands for the truck being worked on.
+  // A wheel: rim, hub and five studs. The pre-trip inspection, drawn.
   maintenance: (
     <>
-      <path d="M12 2.6 20.1 7v10L12 21.4 3.9 17V7Z" />
-      <circle cx="12" cy="12" r="3.6" />
+      <circle cx="12" cy="12" r="9" />
+      <circle cx="12" cy="12" r="3.2" />
+      <path d="M12 2.9v2.1M20.6 8.2l-2 .7M17.3 19.2l-1.2-1.7M6.7 19.2l1.2-1.7M3.4 8.2l2 .7" />
     </>
   ),
-  // A clock face reading ten past ten. Stands for the hours in the day.
+  // The hours clock, with the eleven-hour mark ticked off the dial.
   hours: (
     <>
-      <circle cx="12" cy="12" r="9.2" />
-      <path d="M12 6.6V12l4 2.4" />
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 6.9V12l3.4 2" />
+      <path d="M12 3v1.4" />
     </>
   ),
-  // A speech bubble. Stands for the phone being picked up.
-  communication: <path d="M3.2 4.6h17.6v11.2h-9.4l-4.6 3.6v-3.6H3.2Z" />,
-  // A crate seen from the corner. Stands for the freight itself.
+  // A handset, because the promise is a call from a person.
+  communication: (
+    <path d="M7.4 3.6 9.9 8 8.2 10a11.4 11.4 0 0 0 5.8 5.8l2-1.7 4.4 2.5v3a1.4 1.4 0 0 1-1.5 1.4C10.2 20.4 3.6 13.8 3 5.1A1.4 1.4 0 0 1 4.4 3.6Z" />
+  ),
+  // A trailer door with the seal hanging on it. The number goes on the paper.
   cargo: (
     <>
-      <path d="m12 2.8 8.6 4v10.4l-8.6 4-8.6-4V6.8Z" />
-      <path d="m3.4 6.8 8.6 4 8.6-4" />
-      <path d="M12 10.8v10.4" />
+      <path d="M4 4.4h16v15.2H4Z" />
+      <path d="M12 4.4v15.2" />
+      <path d="M9.4 11.4h-1M15.6 11.4h-1" />
+      <path d="M20 8.6h1.6v3.2a1.6 1.6 0 0 1-3.2 0" />
     </>
   ),
 } as const;
@@ -172,11 +193,15 @@ export default function SafetyPage() {
           <h1 className="font-display text-k-d1 font-black text-k-ink">
             Everything here can be checked.
           </h1>
+          {/* The tail used to run "so this page gives you the things you can
+              verify today and the standards we hold ourselves to while that
+              record is built", which is the page describing its own table of
+              contents to a reader who is about to see it. The two section
+              headings underneath say the same thing and are impossible to
+              miss. */}
           <p className="max-w-[620px] font-text text-k-lede text-k-ink-soft">
-            KUL Enterprises has been running one truck since 2026. There is no
-            long safety record to point at yet, so this page gives you the
-            things you can verify today and the standards we hold ourselves to
-            while that record is built.
+            KUL Enterprises has been under its own authority since 2026, so
+            there is no long safety record to point at yet.
           </p>
         </div>
       </section>
@@ -201,7 +226,14 @@ export default function SafetyPage() {
               MC number ever changes, the artwork is reprinted for the truck
               anyway, and the new file replaces this one. A decal on the site
               that disagrees with the door is worse than no decal. */}
-          <Reveal variant="settle" className="flex flex-col gap-3 pb-12">
+          {/* THE CAPTION IS GONE AND THE PICTURE STAYS. "The decal on the
+              tractor door" was struck out on 29 Jul 2026. It labelled a
+              photograph of a decal as a photograph of a decal, which the
+              picture manages on its own, and it sat directly above a list that
+              prints the same two numbers at four times the size. The
+              description a screen reader gets is unchanged, because that one
+              is doing real work: it reads the numbers out. */}
+          <Reveal variant="settle" className="pb-12">
             <Image
               src="/images/brand/door-decal.webp"
               alt={`The decal on the tractor door, reading KUL Enterprises LLC, USDOT ${site.usdot}, MC ${site.mc}, ${site.location}`}
@@ -209,9 +241,6 @@ export default function SafetyPage() {
               height={599}
               className="h-auto w-full max-w-[380px] rounded-md"
             />
-            <span className="font-text text-k-micro uppercase text-k-ink-soft">
-              The decal on the tractor door
-            </span>
           </Reveal>
           <ul className="border-t border-k-rule-strong">
             {CREDENTIALS.map((item, i) => (
@@ -244,7 +273,7 @@ export default function SafetyPage() {
 
       {/* TWELVE SECONDS OF THE REAL THING
           Not a photograph and not a stock clip: this is Mark's own dashcam,
-          multi-lane in heavy rain, trucks running lights, uncut and silent.
+          an interstate at night, uncut and silent.
 
           It is here rather than anywhere else on the site because this is the
           page that admits KUL has no safety rating history yet and asks to be
@@ -254,8 +283,8 @@ export default function SafetyPage() {
           still frame, which reads perfectly well on its own. */}
       <section className="relative flex min-h-[460px] items-end overflow-hidden bg-k-void">
         <HeroVideo
-          name="dash-rain"
-          poster="/videos/dash-rain-poster.jpg"
+          name="dash-night"
+          poster="/videos/dash-night-poster.jpg"
           className="absolute inset-0 h-full w-full object-cover opacity-70"
         />
         <div
@@ -287,8 +316,7 @@ export default function SafetyPage() {
               What we hold ourselves to
             </h2>
             <p className="pt-4 font-text text-k-small text-k-ink-soft">
-              Written as standing policy. Every clause applies from the first
-              load.
+              Standing policy, applying from the first load.
             </p>
           </Reveal>
 
@@ -334,36 +362,32 @@ export default function SafetyPage() {
         </div>
       </section>
 
-      {/* THE QUOTATION SLOT, HELD OPEN
+      {/* THE QUOTATION SLOT, WHICH NO LONGER PRINTS ITSELF EMPTY.
 
-          Drawn on the Paper artboard "Safety, desktop 1440". The section is
-          finished and deliberately left empty. A dashed reserved box says why
-          in plain words, and the counter beneath reads 00 / 00 because there
-          is nothing yet to page through.
+          It used to render whether or not there was anything in it: a heading
+          reading "What customers say", a dashed box underneath saying the
+          section was reserved and not yet filled, a sentence explaining that
+          KUL had not carried enough freight to have earned a quotation
+          honestly, and a counter reading 00 / 00. All of that was true and
+          none of it was worth a broker's scroll. It told them nothing they
+          could act on, and the About page already carries the same admission
+          in one line, in its "Not yet" block, where it belongs beside the
+          other two things KUL does not have yet.
 
-          The section is printed empty rather than left out, so a broker can
-          see the structure exists and that nothing has been put in it. */}
-      <section className="bg-k-surface px-6 py-28 md:px-12 lg:px-24">
-        <div className="mx-auto max-w-[1248px]">
-          <div className="flex max-w-[744px] flex-col gap-7">
-            <Reveal>
-              <h2 className="font-display text-k-d2 font-black text-k-ink">
-                What customers say
-              </h2>
-            </Reveal>
-
-            {TESTIMONIALS.length === 0 ? (
-              <Reveal className="flex flex-col gap-4 border border-dashed border-k-rule-strong p-8">
-                <span className="font-text text-k-micro uppercase text-k-ink-faint">
-                  Reserved, not yet filled
-                </span>
-                <p className="max-w-[520px] font-text text-k-body text-k-ink-soft">
-                  This is where customer quotations will sit. It is empty
-                  because KUL has not carried enough freight to have earned one
-                  honestly.
-                </p>
+          So the section is now conditional on there being a quotation. The
+          filled state below is untouched and appears on its own the day the
+          first one is added to TESTIMONIALS, without anybody having to
+          remember to put the section back. */}
+      {TESTIMONIALS.length > 0 ? (
+        <section className="bg-k-surface px-6 py-28 md:px-12 lg:px-24">
+          <div className="mx-auto max-w-[1248px]">
+            <div className="flex max-w-[744px] flex-col gap-7">
+              <Reveal>
+                <h2 className="font-display text-k-d2 font-black text-k-ink">
+                  What customers say
+                </h2>
               </Reveal>
-            ) : (
+
               <Reveal className="flex flex-col gap-5 border border-k-rule bg-k-paper p-8">
                 <blockquote className="max-w-[560px] font-text text-k-lede text-k-ink">
                   “{TESTIMONIALS[0].quote}”
@@ -373,27 +397,26 @@ export default function SafetyPage() {
                   {TESTIMONIALS[0].lane}
                 </p>
               </Reveal>
-            )}
 
-            {/* Paging controls. They sit here so the section is complete, and
-                stay inert until there is more than one quotation to page. */}
-            <div className="flex items-center gap-3">
-              <span
-                className="h-9 w-9 shrink-0 rounded-full border border-k-rule-strong"
-                aria-hidden="true"
-              />
-              <span
-                className="h-9 w-9 shrink-0 rounded-full border border-k-rule-strong"
-                aria-hidden="true"
-              />
-              <span className="pl-2 font-text text-k-micro uppercase tabular-nums text-k-ink-faint">
-                {String(Math.min(TESTIMONIALS.length, 1)).padStart(2, "0")} /{" "}
-                {String(TESTIMONIALS.length).padStart(2, "0")}
-              </span>
+              {/* Paging controls. They stay inert until there is more than one
+                  quotation to page between. */}
+              <div className="flex items-center gap-3">
+                <span
+                  className="h-9 w-9 shrink-0 rounded-full border border-k-rule-strong"
+                  aria-hidden="true"
+                />
+                <span
+                  className="h-9 w-9 shrink-0 rounded-full border border-k-rule-strong"
+                  aria-hidden="true"
+                />
+                <span className="pl-2 font-text text-k-micro uppercase tabular-nums text-k-ink-faint">
+                  01 / {String(TESTIMONIALS.length).padStart(2, "0")}
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
 
       {/* There is deliberately no closing call to action here. The footer on
           every page already carries the same dark band, the same Request a

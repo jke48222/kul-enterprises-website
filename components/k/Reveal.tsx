@@ -1,6 +1,6 @@
 "use client";
 
-import { m, useReducedMotion } from "framer-motion";
+import { useEffect, useRef } from "react";
 import type { ReactNode } from "react";
 
 /**
@@ -28,26 +28,58 @@ import type { ReactNode } from "react";
  *            sideways scrollbar for the length of the movement.
  *   rule     For the hairlines. The line draws itself across from the left.
  *
- * Everything here plays ONCE when it comes into view and is never tied to the
- * scroll wheel, so nothing jitters when somebody scrolls back up.
+ * ============================================================================
+ * THIS WAS REBUILT ON 29 JUL 2026 BECAUSE IT COULD HIDE THE PAGE.
+ * ============================================================================
  *
- * ANYONE WHO HAS ASKED THEIR COMPUTER TO REDUCE MOTION sees none of it. Every
- * component below checks that first and simply renders the finished state.
+ * The previous version was framer-motion `whileInView`, with each variant
+ * declaring an `initial` state that was invisible: opacity 0 for three of them
+ * and `clip-path: inset(0 100% 0 0)` for the wipe. That is a normal way to
+ * write an entrance and it has one catastrophic property. THE ANIMATION WAS
+ * THE ONLY THING THAT MADE THE CONTENT VISIBLE, so anything that stopped the
+ * animation stopped the reader seeing the words.
+ *
+ * It was caught on the About page, reported as an empty space with a question
+ * mark drawn over it. Measured at 928px wide: fifteen elements on that one page
+ * were invisible at once, the h1 was frozen part-way through its wipe reading
+ * "Ele / car / ow", and scrolling them into view did not recover any of them.
+ * The section heading, the founder's note, the imprint and half the page were
+ * simply not there. Across the site that failure mode was available at 105
+ * call sites.
+ *
+ * Framer drives these on requestAnimationFrame. A browser stops issuing frames
+ * to a tab nobody is looking at, so an animation caught by a tab switch, a
+ * heavy paint, or a slow first load can stall at whatever value it had reached
+ * and never resume, and `whileInView` with `once: true` will not fire again to
+ * rescue it.
+ *
+ * SO THE RULE HERE IS NOW: NOTHING ON THIS SITE IS INVISIBLE UNLESS SOMETHING
+ * ACTIVELY HID IT, AND WHATEVER HID IT IS GUARANTEED TO PUT IT BACK.
+ *
+ * Three things enforce that, and all three have to stay:
+ *
+ *   1. THE VISIBLE STATE IS THE CSS DEFAULT. `.kul-rv` on its own is a plain
+ *      visible element. The hiding rule in app/globals.css is scoped to
+ *      `html[data-reveal]`, and that attribute is set by the inline script in
+ *      app/layout.tsx, which runs before first paint and only when there is a
+ *      script running at all. No JavaScript, an old browser, a thrown error
+ *      during hydration: the page is simply legible.
+ *
+ *   2. THE ENTRANCE IS A CSS ANIMATION, NOT A JAVASCRIPT ONE. CSS keyframes
+ *      are not driven by requestAnimationFrame from this thread, they run to
+ *      completion in a background tab, and `animation-fill-mode: both` pins
+ *      the finished state when they land. The stall that started all of this
+ *      is not reachable from here.
+ *
+ *   3. THERE IS A BACKSTOP, in `arm()` below. Anything still unplayed after
+ *      SAFETY_MS is shown regardless of whether the observer ever fired, and
+ *      anything unplayed when a hidden tab becomes visible again is shown at
+ *      once. An entrance is worth having; it is not worth a paragraph.
+ *
+ * ANYONE WHO HAS ASKED THEIR COMPUTER TO REDUCE MOTION sees none of it, and
+ * that is enforced twice: the inline script does not set the attribute, so
+ * nothing is ever hidden, and globals.css switches the animations off as well.
  */
-
-/** The house curve. Fast to start, long slow finish. */
-const EASE = [0.16, 1, 0.3, 1] as const;
-
-/** How long each entrance runs, in seconds. */
-const DURATION = {
-  rise: 0.8,
-  wipe: 1.05,
-  settle: 0.55,
-  // Longer than the rest on purpose: a vehicle that arrives as fast as a
-  // paragraph does not read as a vehicle.
-  roll: 1.4,
-  rule: 0.9,
-} as const;
 
 export type RevealVariant = "rise" | "wipe" | "settle" | "roll";
 
@@ -60,23 +92,58 @@ type RevealProps = {
   className?: string;
 };
 
-/** Where each variant starts from, and what it settles to. */
-const STATES: Record<
-  RevealVariant,
-  { from: Record<string, string | number>; to: Record<string, string | number> }
-> = {
-  rise: { from: { opacity: 0, y: 24 }, to: { opacity: 1, y: 0 } },
-  settle: { from: { opacity: 0, y: 8 }, to: { opacity: 1, y: 0 } },
-  // The words are uncovered rather than faded. Opacity stays at 1 the whole
-  // time, so the type never looks washed out half way through.
-  wipe: {
-    from: { clipPath: "inset(0 100% 0 0)", opacity: 1 },
-    to: { clipPath: "inset(0 0% 0 0)", opacity: 1 },
-  },
-  // Percentages travel with the element, so the tractor covers the same
-  // proportion of its own length on a phone as it does on a desktop.
-  roll: { from: { opacity: 0, x: "22%" }, to: { opacity: 1, x: "0%" } },
-};
+/**
+ * How long anything may stay hidden waiting to be noticed, in milliseconds.
+ *
+ * Generous, because it is a safety net and not a schedule: a reader on a slow
+ * connection should get the entrance rather than have it snatched away. But it
+ * is finite, which is the whole point.
+ */
+const SAFETY_MS = 2600;
+
+/** How near the edge of the screen an element is when it counts as arrived. */
+const OBSERVER_MARGIN = "0px 0px -12% 0px";
+
+/**
+ * One observer for the whole document rather than one per element.
+ *
+ * There are 87 of these on the site and a page can hold thirty. Thirty
+ * IntersectionObservers all watching the same scroller is thirty callbacks per
+ * scroll; one observer with thirty targets is one.
+ */
+let observer: IntersectionObserver | null = null;
+
+/** Everything hidden and still waiting, so the backstops can find them. */
+const waiting = new Set<HTMLElement>();
+
+function show(el: HTMLElement) {
+  if (!waiting.delete(el)) return;
+  observer?.unobserve(el);
+  el.setAttribute("data-shown", "");
+}
+
+function ensureObserver() {
+  if (observer || typeof IntersectionObserver === "undefined") return;
+
+  observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) show(entry.target as HTMLElement);
+      }
+    },
+    { rootMargin: OBSERVER_MARGIN, threshold: 0 },
+  );
+
+  // THE SECOND BACKSTOP. A tab that was hidden while its reveals were queued
+  // comes back to a page that has already decided they are off screen, and on
+  // a short page nothing will scroll again to correct it. Everything still
+  // waiting is simply shown.
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") {
+      for (const el of [...waiting]) show(el);
+    }
+  });
+}
 
 export default function Reveal({
   children,
@@ -84,25 +151,51 @@ export default function Reveal({
   index = 0,
   className,
 }: RevealProps) {
-  const reduced = useReducedMotion();
-  if (reduced) return <div className={className}>{children}</div>;
+  const ref = useRef<HTMLDivElement>(null);
 
-  const state = STATES[variant];
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    // The attribute is only on <html> when the inline script decided this
+    // visitor gets entrances at all. Without it nothing was ever hidden and
+    // there is nothing to reveal.
+    if (!document.documentElement.hasAttribute("data-reveal")) return;
+    if (el.hasAttribute("data-shown")) return;
+
+    ensureObserver();
+    if (!observer) {
+      // No IntersectionObserver in this browser. Show it and move on; an
+      // entrance is not worth withholding a paragraph over.
+      el.setAttribute("data-shown", "");
+      return;
+    }
+
+    waiting.add(el);
+    observer.observe(el);
+
+    // THE FIRST BACKSTOP. If the observer never reports this element, for any
+    // reason at all, it stops being hidden.
+    const safety = window.setTimeout(() => show(el), SAFETY_MS);
+
+    return () => {
+      window.clearTimeout(safety);
+      waiting.delete(el);
+      observer?.unobserve(el);
+    };
+  }, []);
 
   return (
-    <m.div
-      className={className}
-      initial={state.from}
-      whileInView={state.to}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{
-        duration: DURATION[variant],
-        delay: index * 0.06,
-        ease: [...EASE],
-      }}
+    <div
+      ref={ref}
+      className={`kul-rv ${className ?? ""}`}
+      data-rv={variant}
+      // The stagger is a custom property rather than a class, because the
+      // index is arbitrary and Tailwind cannot generate a class per number.
+      style={index ? ({ "--rv-delay": `${index * 60}ms` } as React.CSSProperties) : undefined}
     >
       {children}
-    </m.div>
+    </div>
   );
 }
 
@@ -112,6 +205,10 @@ export default function Reveal({
  * Use it in place of a border on the rules that head a section. It scales
  * rather than growing, because animating the width of anything inside a
  * scrolling page makes the browser re-lay out the whole thing on every frame.
+ *
+ * IT IS THE SAME MECHANISM AS Reveal ABOVE and for the same reason: a rule
+ * that never draws is a section with no rule under its heading, which is a
+ * visible hole rather than a missing flourish.
  */
 export function RuleDraw({
   className,
@@ -123,21 +220,39 @@ export function RuleDraw({
   /** Which ground the line sits on, so it picks the right grey. */
   tone?: "light" | "dark";
 }) {
-  const reduced = useReducedMotion();
+  const ref = useRef<HTMLSpanElement>(null);
   const colour = tone === "dark" ? "bg-k-rule-dark" : "bg-k-rule-strong";
 
-  if (reduced) {
-    return <span className={`block h-px w-full ${colour} ${className ?? ""}`} />;
-  }
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (!document.documentElement.hasAttribute("data-reveal")) return;
+    if (el.hasAttribute("data-shown")) return;
+
+    ensureObserver();
+    if (!observer) {
+      el.setAttribute("data-shown", "");
+      return;
+    }
+
+    waiting.add(el);
+    observer.observe(el);
+    const safety = window.setTimeout(() => show(el), SAFETY_MS);
+
+    return () => {
+      window.clearTimeout(safety);
+      waiting.delete(el);
+      observer?.unobserve(el);
+    };
+  }, []);
 
   return (
-    <m.span
+    <span
+      ref={ref}
       aria-hidden="true"
-      className={`block h-px w-full origin-left ${colour} ${className ?? ""}`}
-      initial={{ scaleX: 0 }}
-      whileInView={{ scaleX: 1 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: DURATION.rule, delay: index * 0.06, ease: [...EASE] }}
+      className={`kul-rv block h-px w-full origin-left ${colour} ${className ?? ""}`}
+      data-rv="rule"
+      style={index ? ({ "--rv-delay": `${index * 60}ms` } as React.CSSProperties) : undefined}
     />
   );
 }

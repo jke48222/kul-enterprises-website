@@ -2,19 +2,49 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { m } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Service } from "@/lib/services";
 
 /**
  * SERVICES CAROUSEL
  *
- * The row of photographs near the top of the Services page.
+ * The row of photographs near the top of the Services page. All seven services
+ * sit in one row that moves sideways. You can grab it and pull, use a trackpad
+ * or a wheel, press the arrows, or click the dots underneath. The service
+ * nearest the middle of the screen grows larger and shows its description; the
+ * others stay smaller but are always sharp and clickable.
  *
- * All seven services sit in one row that scrolls sideways. You can drag it,
- * use a trackpad, use the arrow buttons, or click the dots underneath. The
- * service nearest the middle of the screen grows larger and shows its
- * description; the others stay smaller but are always sharp and clickable.
+ * ============================================================================
+ * TWO THINGS WERE WRONG WITH IT AND BOTH ARE FIXED HERE. READ THIS BEFORE
+ * CHANGING ANY OF THE NUMBERS OR THE POINTER HANDLERS.
+ * ============================================================================
+ *
+ * ONE. IT SAID "DRAG" AND COULD NOT BE DRAGGED. The row had `overflow-x: auto`
+ * and nothing else, which gets you a wheel, a trackpad and a touch screen, and
+ * on a desktop with a mouse gets you nothing at all: press on a photograph and
+ * pull, and the browser starts its own native image drag instead, so the
+ * pointer picks the picture up like a file being moved to the desktop and the
+ * row never moves. That is the exact complaint. The fix is in three parts and
+ * all three are needed:
+ *
+ *   `draggable={false}` on every image, which is what actually stops the
+ *   browser's own drag starting. Without it the rest does nothing.
+ *   Pointer handlers below that translate a press and a pull into scrollLeft.
+ *   `touch-action: pan-y` so a touch screen keeps its own native sideways
+ *   scrolling, which is better than anything reimplemented here, while a
+ *   vertical swipe still scrolls the page.
+ *
+ * TWO. IT MOVED TOO FAST. Both the arrows and the dots called `scrollTo` with
+ * the browser's own `behavior: "smooth"`, whose duration is fixed by the
+ * browser and is roughly a fifth of a second for any distance. Over a 400px
+ * card that is a snap, and over the width of the row it is a blur. There is no
+ * property that slows it down, so the glide is run here instead, on the clock,
+ * over GLIDE_MS. See `glideTo`.
+ *
+ * The snap is gone with it. `snap-x` fights a hand-run glide: the browser
+ * arrives at the end of the animation and drags the row somewhere else, which
+ * reads as the carousel correcting you. The glide already lands each card dead
+ * centre, so there is nothing left for the snap to do.
  *
  * TO CHANGE WHICH PHOTOGRAPH A SERVICE USES: replace the file in
  * public/images/services/ keeping the same file name. Photographs are square
@@ -35,6 +65,34 @@ const ACTIVE_SCALE = 1.4;
 const SIDE_SCALE = 0.8;
 const GAP = 64;
 
+/**
+ * How long one glide takes, in milliseconds, however far it has to travel.
+ *
+ * It is deliberately long. The browser's own smooth scrolling is about 200ms
+ * and the client asked for this to be slowed down a lot; at 1100 a card takes
+ * over a second to cross, which is slow enough to watch the photograph arrive
+ * rather than register that something changed. A constant duration rather than
+ * a constant speed is what keeps a jump from the first dot to the last from
+ * taking seven times as long as a press of the arrow.
+ */
+const GLIDE_MS = 1100;
+
+/**
+ * How long the row must be still before it settles onto the nearest service.
+ *
+ * Trackpad momentum keeps delivering scroll events after the fingers lift, and
+ * every one of them restarts this timer, so the wait only ever begins once the
+ * row has genuinely stopped. That is why it can be this short: 260 is a quarter
+ * of a second of stillness, not a quarter of a second from the last gesture.
+ */
+const REST_MS = 260;
+
+/** How long the correction onto the nearest card takes once the row is still. */
+const SETTLE_MS = 420;
+
+/** The house easing. Fast out of the gate, long settle, no overshoot. */
+const easeOut = (t: number) => 1 - Math.pow(1 - t, 3.2);
+
 type ServiceCarouselProps = {
   services: Service[];
 };
@@ -43,33 +101,115 @@ export default function ServiceCarousel({ services }: ServiceCarouselProps) {
   const railRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   /**
-   * Whether the sideways hint has been earned out. It disappears the first
-   * time the row is moved by any means and never comes back for the rest of
-   * the visit, which is why the flag is held here rather than being worked
-   * out from the scroll position each time.
+   * Whether the row has been moved yet, by any means.
+   *
+   * Nothing reads it since the hint pill was removed. It is kept because it is
+   * the one bit of state a hint would need if one is ever wanted again, and
+   * because the scroll and pull handlers already set it for free.
    */
-  const [hinted, setHinted] = useState(false);
+  const [, setHinted] = useState(false);
   const noteHint = useCallback(() => setHinted(true), []);
   // A plain copy of the same number, so the arrows can read where we are
   // without waiting for React to re-render.
   const activeRef = useRef(0);
 
+  /** The frame handle for the running glide, so a new one can cancel it. */
+  const glide = useRef<number | null>(null);
+
+  /**
+   * Runs the row to a scroll position over GLIDE_MS.
+   *
+   * The browser's `behavior: "smooth"` is not used anywhere in this component,
+   * because its duration cannot be set. This is the same movement on our own
+   * clock, and it is cancellable: grabbing the row mid-glide stops it dead
+   * rather than fighting it to the end.
+   */
+  const glideTo = useCallback((left: number, ms: number = GLIDE_MS) => {
+    const rail = railRef.current;
+    if (!rail) return;
+    if (glide.current !== null) cancelAnimationFrame(glide.current);
+
+    const from = rail.scrollLeft;
+    const delta = left - from;
+    if (Math.abs(delta) < 1) return;
+
+    const start = performance.now();
+    const step = (now: number) => {
+      const t = Math.min(1, (now - start) / ms);
+      rail.scrollLeft = from + delta * easeOut(t);
+      if (t < 1) glide.current = requestAnimationFrame(step);
+      else glide.current = null;
+    };
+    glide.current = requestAnimationFrame(step);
+  }, []);
+
+  const stopGlide = useCallback(() => {
+    if (glide.current !== null) {
+      cancelAnimationFrame(glide.current);
+      glide.current = null;
+    }
+  }, []);
+
+  useEffect(
+    () => () => {
+      stopGlide();
+      if (rest.current) clearTimeout(rest.current);
+    },
+    [stopGlide],
+  );
+
   /**
    * Scrolls so the chosen service sits in the middle of the screen.
    *
    * Which card counts as the middle one is decided by the watcher below, not
-   * here, so dragging the row and pressing the arrows always agree.
+   * here, so pulling the row and pressing the arrows always agree.
    */
-  const scrollTo = useCallback((index: number) => {
-    const rail = railRef.current;
-    if (!rail) return;
-    const card = rail.children[index] as HTMLElement | undefined;
-    if (!card) return;
-    rail.scrollTo({
-      left: card.offsetLeft - (rail.clientWidth - card.offsetWidth) / 2,
-      behavior: "smooth",
-    });
-  }, []);
+  const scrollTo = useCallback(
+    (index: number, ms?: number) => {
+      const rail = railRef.current;
+      if (!rail) return;
+      const card = rail.children[index] as HTMLElement | undefined;
+      if (!card) return;
+      glideTo(card.offsetLeft - (rail.clientWidth - card.offsetWidth) / 2, ms);
+    },
+    [glideTo],
+  );
+
+  /**
+   * THE ROW SETTLES ON WHOEVER IT LANDS ON.
+   *
+   * A wheel, a trackpad flick or a pull leaves the row wherever momentum ran
+   * out, which is usually between two services with neither of them centred
+   * and neither of them showing its description. The client asked for it to
+   * focus on whichever one it lands on, and this is that: once the scrolling
+   * has actually stopped, glide the nearest card to the middle.
+   *
+   * IT WAITS FOR REST RATHER THAN REACTING TO EVERY EVENT. Scroll fires
+   * continuously and a browser gives no "scroll ended" event you can rely on
+   * across engines, so the timer is restarted on every one and only the last
+   * one survives to fire. REST_MS is long enough to sit out trackpad momentum,
+   * which keeps arriving for a good half second after the fingers have lifted;
+   * shorter than this and the row starts correcting somebody who is still
+   * moving it, which is the single most annoying thing a carousel can do.
+   *
+   * It is deliberately NOT armed while a pull is in progress. `endDrag` does
+   * its own settle when the pointer lifts, and a hand still on the row must
+   * never be fought.
+   */
+  const rest = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const settleSoon = useCallback(() => {
+    if (rest.current) clearTimeout(rest.current);
+    rest.current = setTimeout(() => {
+      // A pull in progress owns the row; leave it alone.
+      if (drag.current) return;
+      // SETTLING IS NOT THE SAME MOVE AS PRESSING AN ARROW. An arrow is a
+      // request to travel and is worth watching; a settle is a correction of
+      // a few dozen pixels the reader did not ask for, and at the arrow's
+      // pace it reads as the carousel taking over. It lands in SETTLE_MS.
+      scrollTo(activeRef.current, SETTLE_MS);
+    }, REST_MS);
+  }, [scrollTo]);
 
   /** Moves one service left or right from wherever the row currently sits. */
   const step = useCallback(
@@ -84,12 +224,117 @@ export default function ServiceCarousel({ services }: ServiceCarouselProps) {
   );
 
   /**
+   * GRAB AND PULL.
+   *
+   * Pointer events rather than mouse events, so a pen works and a touch screen
+   * is handled by the same code path if it ever needs to be. Touch is left to
+   * the browser: `touch-action: pan-y` on the rail keeps native sideways
+   * scrolling, with its own momentum and rubber banding, which is better than
+   * anything reproduced here.
+   *
+   * THE POINTER IS NOT CAPTURED UNTIL IT HAS ACTUALLY MOVED. Capturing on the
+   * press would swallow the click that follows, and every card is a link: the
+   * row would move beautifully and nothing in it could be opened. So the press
+   * only records where it started, and the capture happens on the first move
+   * past DRAG_SLOP. A press that never travels that far stays an ordinary
+   * click on a link.
+   */
+  const DRAG_SLOP = 4;
+  const drag = useRef<{ id: number; x: number; left: number; live: boolean } | null>(null);
+
+  /**
+   * Set the instant a pull ends, and read by the click handler below.
+   *
+   * IT CANNOT BE THE DRAG ITSELF, AND THIS IS THE PART THAT WAS WRONG.
+   * `click` does not fire during the drag; it fires after `pointerup`, by
+   * which time the drag has already been torn down and there is nothing left
+   * to test. Measured, with the drag as the only guard: pull the row, let go,
+   * and the release lands a click on whichever photograph is under the pointer
+   * and opens that service page. Which is precisely the thing the guard was
+   * written to stop.
+   *
+   * So the flag outlives the drag by exactly one click, and it is also cleared
+   * on the next press in case a pull ever ends without one following.
+   */
+  const swallowClick = useRef(false);
+
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === "touch") return;
+    const rail = railRef.current;
+    if (!rail) return;
+    stopGlide();
+    swallowClick.current = false;
+    drag.current = { id: e.pointerId, x: e.clientX, left: rail.scrollLeft, live: false };
+  };
+
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const d = drag.current;
+    const rail = railRef.current;
+    if (!d || !rail || d.id !== e.pointerId) return;
+    const travelled = e.clientX - d.x;
+    if (!d.live) {
+      if (Math.abs(travelled) < DRAG_SLOP) return;
+      d.live = true;
+      // CAPTURE IS AN IMPROVEMENT, NOT A REQUIREMENT, AND IT CAN THROW.
+      // setPointerCapture raises NotFoundError if the id is no longer an
+      // active pointer, which happens if the button came up somewhere this
+      // element never heard about. Uncaught, that throws out of the handler
+      // before the row has moved and before `live` has done its other job,
+      // which is telling the click handler below to swallow the click: the
+      // drag would die and open a service page on the way out. Without
+      // capture the pull simply stops tracking once the pointer leaves the
+      // rail, which is a much smaller problem than that.
+      try {
+        rail.setPointerCapture(e.pointerId);
+      } catch {
+        /* not capturable, carry on without it */
+      }
+      noteHint();
+    }
+    rail.scrollLeft = d.left - travelled;
+  };
+
+  const endDrag = (e: React.PointerEvent<HTMLDivElement>) => {
+    const d = drag.current;
+    const rail = railRef.current;
+    if (!d || !rail || d.id !== e.pointerId) return;
+    if (d.live) {
+      if (rail.hasPointerCapture(e.pointerId)) {
+        rail.releasePointerCapture(e.pointerId);
+      }
+      // The click this release is about to produce belongs to the pull, not
+      // to the card underneath it. See `swallowClick` above.
+      swallowClick.current = true;
+      // The pull is over and the row is between two cards. Settle it onto
+      // whichever one the watcher below says is nearest the middle, using the
+      // same glide as the arrows so a pull and a press end the same way.
+      scrollTo(activeRef.current);
+    }
+    drag.current = null;
+  };
+
+  /**
+   * A card is a link, and a link that has just been pulled must not open.
+   *
+   * Capture phase, so it runs before the anchor and before the site's own
+   * route transition, both of which are further down the tree. stopPropagation
+   * as well as preventDefault, because preventing the default alone still lets
+   * Next's Link see the click and navigate on its own.
+   */
+  const onClickCapture = (e: React.MouseEvent) => {
+    if (!swallowClick.current && !drag.current?.live) return;
+    swallowClick.current = false;
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  /**
    * Decides which service is the middle one.
    *
    * The browser is asked to report whichever card overlaps a narrow strip
    * down the centre of the row. That is far steadier than measuring scroll
    * positions ourselves, because it does not depend on how often the browser
-   * chooses to report scrolling, which differs between a drag, a trackpad
+   * chooses to report scrolling, which differs between a pull, a trackpad
    * flick and a jump straight to the end.
    */
   useEffect(() => {
@@ -124,33 +369,43 @@ export default function ServiceCarousel({ services }: ServiceCarouselProps) {
 
   return (
     <div className="relative flex flex-col gap-8 py-14 pb-24">
-      {/* A quiet note that the row moves sideways.
-          On a thirteen inch laptop the arrows and dots sit below the fold of
-          the card row, so a first time visitor sees seven photographs and no
-          sign that there are more or that they can be moved. This says so
-          once and then gets out of the way for the rest of the visit.
+      {/* THE "DRAG OR SCROLL SIDEWAYS" PILL IS GONE, at the client's word.
+          It floated over the middle of the row until the first time anything
+          moved it. The argument for it was that the arrows and dots sit below
+          the fold on a thirteen inch laptop, so a first-time visitor might not
+          know the row moves; the argument against is that it is a label
+          apologising for the control underneath it, and a carousel that has to
+          caption itself is one the reader has already been given a reason to
+          distrust. The affordances that remain do the job without narration:
+          the cursor is a grab hand, the row is cut mid-card at both ends so it
+          visibly continues, and the arrows and dots are directly under it.
 
-          It is ink on paper, never gold. Gold is spent on the navigation
-          button in every viewport and again on the active dot below this row,
-          and a third gold thing here would break the page's budget. */}
-      <m.div
-        aria-hidden="true"
-        initial={false}
-        animate={{ opacity: hinted ? 0 : 1 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
-        className="pointer-events-none absolute left-1/2 top-4 z-10 -translate-x-1/2 rounded-full border border-k-rule bg-k-surface px-4 py-2 font-text text-k-micro uppercase text-k-ink-soft"
-      >
-        Drag or scroll sideways
-      </m.div>
+          `hinted` and `noteHint` stay because the scroll handler still calls
+          them and they cost nothing; if a hint is ever wanted again, this is
+          where it went. */}
 
       {/* The vertical padding leaves room for the middle card to scale up
           without being clipped, because a sideways scroller also clips
-          anything that overflows top or bottom. */}
+          anything that overflows top or bottom.
+
+          `select-none` is here so a pull does not leave a trail of highlighted
+          service names behind it, and `touch-action: pan-y` hands vertical
+          swipes back to the page while keeping the browser's own sideways
+          scrolling on a touch screen. */}
       <div
         ref={railRef}
-        onScroll={noteHint}
-        className="flex snap-x snap-proximity items-center overflow-x-auto py-[100px] pl-[max(1.5rem,calc((100vw-400px)/2))] pr-[max(1.5rem,calc((100vw-400px)/2))] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        style={{ gap: GAP }}
+        onScroll={() => {
+          noteHint();
+          settleSoon();
+        }}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+        onClickCapture={onClickCapture}
+        onWheel={stopGlide}
+        className="flex touch-pan-y select-none items-center overflow-x-auto py-[100px] pl-[max(1.5rem,calc((100vw-400px)/2))] pr-[max(1.5rem,calc((100vw-400px)/2))] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        style={{ gap: GAP, cursor: "grab" }}
       >
         {services.map((service, i) => {
           const isActive = i === active;
@@ -158,7 +413,8 @@ export default function ServiceCarousel({ services }: ServiceCarouselProps) {
             <Link
               key={service.slug}
               href={`/services/${service.slug}`}
-              className="flex shrink-0 snap-center flex-col gap-5"
+              draggable={false}
+              className="flex shrink-0 flex-col gap-5"
               style={{
                 width: SLOT,
                 zIndex: isActive ? 1 : 0,
@@ -172,6 +428,12 @@ export default function ServiceCarousel({ services }: ServiceCarouselProps) {
                 width={900}
                 height={900}
                 priority={i < 3}
+                // THIS IS THE LINE THAT MAKES THE ROW DRAGGABLE. An image is
+                // draggable by default and the browser's own drag wins over
+                // any pointer handling above it, which is why pressing a
+                // photograph used to pick the picture up instead of pulling
+                // the row.
+                draggable={false}
                 className="h-auto w-full object-cover"
                 style={{
                   // Divided by the scale so the corner looks the same size

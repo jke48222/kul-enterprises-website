@@ -67,6 +67,14 @@ type SpecTile = {
   key: string;
   label: string;
   value: string;
+  /**
+   * The condition attached to the value, where the data carries one: "You
+   * provide the trailer" under "Tractor only". It used to be printed in the
+   * panel on the right, on a row that repeated the tile's label and value to
+   * get to it, which meant every service page printed Equipment twice and
+   * Typical lane twice within one section.
+   */
+  note?: string;
   /** Present only on the tile whose value is an action, which is underlined. */
   href?: string;
 };
@@ -96,10 +104,27 @@ export default function ServiceSpecs({ service }: { service: Service }) {
    * hole. See `lastFillsRow` below.
    */
   const tiles: SpecTile[] = [
-    { key: "equipment", label: "Equipment", value: service.equipment },
-    { key: "lane", label: "Typical lane", value: service.lane },
+    {
+      key: "equipment",
+      label: "Equipment",
+      value: service.equipment,
+      note: service.equipmentNote,
+    },
+    {
+      key: "lane",
+      label: "Typical lane",
+      value: service.lane,
+      note: service.laneNote,
+    },
     { key: "lead", label: "Lead time", value: service.leadTime },
-    { key: "best", label: "Best for", value: service.bestForShort },
+    // "Best for" until 29 Jul 2026, which put two different lists under the
+    // same label on one page: this tile carries the one-line summary from
+    // content/services.json, while the section directly above carries the
+    // three-item list, and a reader met the same heading twice with different
+    // answers under it. The values are a mix of what moves and who ships it
+    // ("Produce and chilled food", "Shippers with trailers"), so the label has
+    // to cover both.
+    { key: "best", label: "Typically carries", value: service.bestForShort },
     { key: "based", label: "Dispatched from", value: site.location },
     {
       key: "questions",
@@ -120,27 +145,32 @@ export default function ServiceSpecs({ service }: { service: Service }) {
   const lastFillsRow = tiles.length % 2 === 1;
 
   /**
-   * The panel is the record: the things that are true of the service in
-   * writing, rather than the headline facts on the tiles beside it.
+   * THE PANEL IS ABOUT THE CARRIER. THE TILES ARE ABOUT THE SERVICE.
    *
-   * It carries the notes the tiles have no room for, the federal numbers, and
-   * what KUL has actually undertaken to do on this service, which is the part a
-   * broker is deciding on. Nothing here is invented: every value is read from
-   * content/services.json or content/site.json.
+   * That split is the whole rule, and it is what the panel got wrong until
+   * 29 Jul 2026. It used to open with Equipment and Typical lane, which are
+   * the first two tiles two columns to its left, and it closed on "What we
+   * commit to", which is the right-hand half of the section directly above
+   * this one, printed word for word. A broker reading a service page from the
+   * top therefore met the same three commitments twice within one screen and
+   * the equipment twice within one section.
+   *
+   * What is left is the part the tiles cannot answer, and the question a
+   * broker asks next once the service itself fits: can this carrier be
+   * onboarded. Nothing here is invented; every value is read from
+   * content/site.json or repeats what the safety page already publishes.
    */
   const rows: PanelRow[] = [
-    {
-      label: "Equipment",
-      value: service.equipment,
-      note: service.equipmentNote,
-    },
-    { label: "Typical lane", value: service.lane, note: service.laneNote },
     { label: "Service area", value: site.serviceArea },
     {
       label: "Operating authority",
       items: [`USDOT ${site.usdot}`, `MC ${site.mc}`],
     },
-    { label: "What we commit to", items: [...service.commitments] },
+    {
+      label: "Insurance",
+      value: "Licensed and insured",
+      note: "Certificate issued by our agent, with your company named as holder",
+    },
   ];
 
   return (
@@ -271,6 +301,20 @@ export default function ServiceSpecs({ service }: { service: Service }) {
                             {tile.value}
                           </span>
                         )}
+                        {/* The condition, where there is one. Set in the soft
+                            on-dark grey rather than full white so it stays
+                            subordinate to the value above it, and measured on
+                            the same worst-case pixel as everything else on
+                            this tile: #d4d4d4 over the weakest point of the
+                            scrim is 4.90:1, which clears the 4.5:1 that body
+                            text at this size has to hold. Do not swap it for
+                            the site's #a8a8a8, which measures 3.05:1 here and
+                            fails. See the scrim note above. */}
+                        {tile.note ? (
+                          <span className="max-w-[26ch] font-text text-k-small text-[#d4d4d4]">
+                            {tile.note}
+                          </span>
+                        ) : null}
                       </div>
                     </li>
                   );

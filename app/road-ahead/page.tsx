@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { site } from "@/lib/site";
 import Reveal, { RuleDraw } from "@/components/k/Reveal";
+import Breadcrumb from "@/components/k/Breadcrumb";
 
 /**
  * THE ROAD AHEAD
@@ -97,15 +98,10 @@ export default function RoadAheadPage() {
           right, so the two do not stack into the usual centred block. */}
       <section className="bg-k-paper px-6 pb-28 pt-36 md:px-12 lg:px-24">
         <div className="mx-auto max-w-[1248px]">
-          <p className="flex items-center gap-2.5 pb-10">
-            <span className="font-text text-k-micro uppercase text-k-ink-faint">
-              KUL
-            </span>
-            <span className="font-text text-k-micro text-k-ink-faint">/</span>
-            <span className="font-text text-k-micro uppercase text-k-gold">
-              Road Ahead
-            </span>
-          </p>
+          <Breadcrumb
+            className="pb-10"
+            items={[{ label: "KUL", href: "/" }, { label: "Road Ahead" }]}
+          />
 
           <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between lg:gap-24">
             <Reveal variant="wipe" className="lg:max-w-[760px]">
@@ -115,8 +111,8 @@ export default function RoadAheadPage() {
             </Reveal>
             <Reveal index={2} className="lg:w-[340px] lg:shrink-0 lg:pb-3">
               <p className="font-text text-k-body text-k-ink-soft">
-                The plan below is written in the order it has to happen. None of
-                it has happened yet. The figures are updated the day they
+                Written in the order it has to happen, and nothing on it is
+                dated until it is booked. The figures are updated the day they
                 change.
               </p>
             </Reveal>
@@ -183,8 +179,12 @@ export default function RoadAheadPage() {
       <section className="bg-k-paper px-6 py-28 md:px-12 lg:px-24">
         <div className="mx-auto flex max-w-[1248px] flex-col gap-12">
           <Reveal variant="wipe">
+            {/* "in the order it happens" came off this heading on 29 Jul
+                2026. The page's own opening paragraph says the plan is
+                written in the order it has to happen, and the stages below
+                are numbered 01, 02, 03. */}
             <h2 className="max-w-[820px] font-display text-k-d2 font-black text-k-ink">
-              The plan, in the order it happens
+              The plan
             </h2>
           </Reveal>
 
@@ -247,13 +247,17 @@ export default function RoadAheadPage() {
           <h2 className="font-display text-k-d3 font-black text-k-ink">
             What this page is not
           </h2>
+          {/* This opened "It is a plan, not a record." and closed on a second
+              paragraph reading "It is updated when something changes." Both
+              are in the page's first paragraph already, which says the stages
+              are undated until booked and that the figures change the day they
+              do. What is left is the part that appears nowhere else: the two
+              things this page refuses to do and the one thing it is not. The
+              heading supplies the "not a record" on its own. */}
           <p className="font-text text-k-body text-k-ink-soft">
-            It is a plan, not a record. There is no funding announcement here
-            and no photographs of equipment KUL does not own. Nothing on it is a
-            commitment to a customer.
-          </p>
-          <p className="font-text text-k-body text-k-ink-soft">
-            It is updated when something changes.
+            There is no funding announcement here and no photographs of
+            equipment KUL does not own. Nothing on it is a commitment to a
+            customer.
           </p>
         </Reveal>
       </section>

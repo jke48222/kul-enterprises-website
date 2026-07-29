@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import {
   AnimatePresence,
@@ -132,35 +131,35 @@ function Panel({ onClose, links }: Omit<MenuOverlayProps, "open">) {
             }
       }
     >
-      {/* The top of the panel repeats the top of the bar, in the same place,
-          so the lion does not appear to jump when the panel opens. */}
-      <div className="flex shrink-0 items-center justify-between px-6 py-[18px] sm:px-8">
-        <Link
-          href="/"
-          aria-label="KUL Enterprises, back to the home page"
-          onClick={onClose}
-          className="shrink-0"
-        >
-          <Image
-            src="/images/brand/lion-mark.webp"
-            alt="KUL Enterprises"
-            width={38}
-            height={38}
-          />
-        </Link>
-        <button
-          ref={closeRef}
-          type="button"
-          onClick={onClose}
-          className="px-4 py-3 font-text text-k-label uppercase text-k-on-dark transition-colors duration-200 hover:text-k-gold-lit"
-        >
-          Close
-        </button>
-      </div>
+      {/* THIS PANEL NO LONGER DRAWS ITS OWN HEADER.
+          It used to repeat the top of the bar, lion on the left and a Close
+          button on the right, because the real bar was underneath it and
+          invisible. The bar is now stacked above this panel, so the lion and
+          the mark that opened the menu are both still on screen, in the place
+          the reader left them, and the mark folds into a cross to become the
+          way out. Drawing a second lion here would have printed it twice.
+
+          WHAT IS LEFT IN ITS PLACE IS A CLOSE BUTTON FOR THE KEYBOARD, and it
+          is not decoration. This panel is aria-modal, which makes everything
+          outside it unavailable to a screen reader, including the button in
+          the bar that closes it. So the panel keeps its own, first in the tab
+          order, hidden until it is focused and then perfectly visible. It is
+          the same device as the skip link in app/layout.tsx. Escape closes the
+          panel as well, for everybody. */}
+      <button
+        ref={closeRef}
+        type="button"
+        onClick={onClose}
+        className="sr-only left-6 top-6 z-10 rounded-full bg-k-on-dark px-6 py-3 font-text text-k-label uppercase text-k-ink focus:not-sr-only focus:absolute"
+      >
+        Close menu
+      </button>
 
       {/* The middle scrolls on its own if a short screen cannot hold the
-          whole menu, which keeps the quote button at the bottom reachable. */}
-      <div className="min-h-0 flex-1 overflow-y-auto px-6 pb-8 sm:px-8">
+          whole menu, which keeps the quote button at the bottom reachable.
+          The top padding is the height of the bar hanging over it, so the
+          first link is never delivered underneath the pill. */}
+      <div className="min-h-0 flex-1 overflow-y-auto px-6 pb-8 pt-[104px] sm:px-8">
         <nav aria-label="Menu">
           <ul>
             {links.map((link, index) => (

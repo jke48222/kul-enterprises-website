@@ -4,7 +4,7 @@ import LegalPage from "@/components/k/LegalPage";
 export const metadata: Metadata = {
   title: "Climate Statement",
   description:
-    "What KUL Enterprises does about fuel and emissions today, running one truck, and what it does not claim.",
+    "What KUL Enterprises does about fuel and emissions today, and what it does not claim.",
 };
 
 /**
@@ -35,7 +35,14 @@ export default function ClimateStatement() {
   return (
     <LegalPage
       eyebrow="Responsibility"
-      title="Fuel, emissions and one truck"
+      // THE HEADCOUNT STAYS IN THE BODY OF THIS PAGE, ON PURPOSE, and it is
+      // the one place on the site that is true of. The whole argument here is
+      // that KUL will not publish a fleet emissions programme because it does
+      // not have a fleet to apply one to, and that argument does not survive
+      // having its premise taken out: what is left reads as a policy with no
+      // reason for being so thin. The title and the search description are
+      // chrome rather than argument, so those are neutral now.
+      title="Fuel, emissions and what we do not claim"
       updated="July 2026"
       sections={[
         {

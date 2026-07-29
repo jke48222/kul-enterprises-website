@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { site } from "@/lib/site";
 import QuoteForm from "@/components/forms/QuoteForm";
 import Reveal, { RuleDraw } from "@/components/k/Reveal";
+import Breadcrumb from "@/components/k/Breadcrumb";
 
 /**
  * QUOTE PAGE
@@ -64,21 +65,19 @@ export default function QuotePage() {
       {/* The opening. Light, quiet, and short, because the work is below it. */}
       <section className="bg-k-paper px-6 pb-24 pt-36 md:px-12 lg:px-24">
         <div className="mx-auto flex max-w-[1248px] flex-col gap-7">
-          <p className="flex items-center gap-2.5">
-            <span className="font-text text-k-micro uppercase text-k-ink-faint">
-              KUL
-            </span>
-            <span className="font-text text-k-micro text-k-ink-faint">/</span>
-            <span className="font-text text-k-micro uppercase text-k-gold">
-              Quote
-            </span>
-          </p>
+          <Breadcrumb
+            className=""
+            items={[{ label: "KUL", href: "/" }, { label: "Quote" }]}
+          />
           <h1 className="max-w-[700px] font-display text-k-d1 font-black text-k-ink">
             Tell us about the load.
           </h1>
+          {/* The count came out of this line on 29 Jul 2026: the panel below
+              counted the fields too, so the page counted them twice. That
+              panel's headline has since been rewritten as well. */}
           <p className="max-w-[560px] font-text text-k-lede text-k-ink-soft">
-            Six fields is all we need to price it. Everything else can be
-            sorted out on the phone.
+            Everything we need to price it is below. The rest can be sorted out
+            on the phone.
           </p>
         </div>
       </section>
@@ -91,13 +90,19 @@ export default function QuotePage() {
             <span className="font-text text-k-micro uppercase text-k-gold-lit">
               The request
             </span>
+            {/* "Six fields, then a real number." was rejected on 29 Jul 2026
+                for sounding like a slogan rather than a heading. This one
+                describes the thing underneath it. */}
             <h2 className="font-display text-k-d2 font-black text-k-on-dark">
-              Six fields, then a real number.
+              Send us the lane.
             </h2>
-            <p className="font-text text-k-body text-k-on-dark-soft">
-              This goes straight to the person who drives the truck. Nothing
-              here is automated and nobody else sees it.
-            </p>
+            {/* A paragraph sat here reading "This goes straight to the person
+                who drives the truck. Nothing here is automated and nobody
+                else sees it." It was a summary of the three numbered points
+                further down this same panel, which say it reaches dispatch
+                with no shared inbox in between, that nothing is automated, and
+                what does and does not happen afterwards. Saying it first in
+                shorter words spent the three points before they were read. */}
 
             {/* The way out for anyone who would rather just call. */}
             <div className="mt-4 flex flex-col gap-2 border-t border-k-rule-dark pt-8">

@@ -5,6 +5,7 @@ import { site } from "@/lib/site";
 import { services } from "@/lib/services";
 import ServiceCarousel from "@/components/k/ServiceCarousel";
 import Reveal from "@/components/k/Reveal";
+import Breadcrumb from "@/components/k/Breadcrumb";
 
 /**
  * SERVICES PAGE
@@ -16,37 +17,37 @@ import Reveal from "@/components/k/Reveal";
  * this page is typed in directly; it all comes from that file, so the client
  * can edit it through the CMS without touching code.
  *
- * The page runs in this order: title, photograph carousel, comparison table,
- * how a load moves, three services explained at length, and a closing call
- * to action.
+ * The page runs in this order: title, the photograph carousel, the seven
+ * services compared, how a load moves.
+ *
+ * ============================================================================
+ * ONE CAROUSEL AND ONE LIST. IT USED TO BE TWO CAROUSELS AND TWO LISTS.
+ * ============================================================================
+ *
+ * There were three passes over the same seven services: a photograph carousel
+ * you pulled, then a comparison row you also pulled sideways, then three of the
+ * seven written out again at length underneath. Two of those are gone.
+ *
+ * The carousel stays and is the point of the page. It is the only place the
+ * seven photographs are shown at a size worth looking at, and it is where
+ * somebody who does not yet know what they need goes to browse. Its dragging
+ * and its speed are dealt with in components/k/ServiceCarousel.tsx.
+ *
+ * The comparison row that followed it did not stay. It carried the same seven
+ * names a second time and it had to be pulled sideways to be read, which is
+ * the one thing a comparison must not be: two services are never on screen
+ * together for long enough to compare them. It is a list reading downwards
+ * now, and because the facts sit in the same column on every row they can be
+ * run down with one eye.
+ *
+ * The third pass, "In detail", was three of the seven explained again in worse
+ * words than their own pages use. See the note at the foot of this file.
  */
 
 export const metadata: Metadata = {
   title: "Freight Services",
   description:
     "Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited and Over the Road freight services from KUL Enterprises. Licensed carrier based in Loganville, Georgia, authorized in 48 states.",
-};
-
-/** The three services explained at length lower down the page. */
-const EXPANDED = ["power-only", "reefer", "dedicated"] as const;
-
-/** A longer explanation for each of the three services above. */
-const EXPANDED_COPY: Record<string, { heading: string; body: string }> = {
-  "power-only": {
-    heading: "Power Only keeps your trailers moving",
-    body: "If you own trailers and need tractive power, KUL supplies the tractor and a CDL driver on your schedule. Drop and hook keeps dwell time low, and the driver reports in before pickup.",
-  },
-  reefer: {
-    // NOT pharmaceuticals. Pharma haulage carries its own compliance regime
-    // and KUL holds none of it. The Reefer record in content/services.json
-    // says fresh and frozen food and produce, and this has to match it.
-    heading: "Reefer freight with the set point logged",
-    body: "Temperature controlled loads run on a recorded set point from pickup to delivery. Produce, chilled food and frozen goods move under a cold chain you can audit after the fact.",
-  },
-  dedicated: {
-    heading: "Dedicated capacity on a lane you run weekly",
-    body: "Committed equipment on a fixed schedule, with one driver who learns the route, the dock and the receiver. Dedicated freight is contracted rather than quoted load by load.",
-  },
 };
 
 const STEPS = [
@@ -73,23 +74,15 @@ const STEPS = [
 ] as const;
 
 export default function ServicesPage() {
-  // Every service appears in the comparison row.
-  const compared = services;
-
   return (
     <>
       {/* Title row. */}
       <section className="bg-k-paper px-6 pt-36 md:px-12 lg:px-24">
         <div className="mx-auto max-w-[1248px]">
-          <p className="flex items-center gap-2 pb-5">
-            <span className="font-text text-k-micro uppercase text-k-ink-faint">
-              KUL
-            </span>
-            <span className="font-text text-k-micro text-k-ink-faint">/</span>
-            <span className="font-text text-k-micro uppercase text-k-gold">
-              Services
-            </span>
-          </p>
+          <Breadcrumb
+            className="pb-5"
+            items={[{ label: "KUL", href: "/" }, { label: "Services" }]}
+          />
           <div className="flex flex-col gap-6 border-b border-k-rule pb-6 lg:flex-row lg:items-end lg:justify-between">
             <h1 className="font-display text-k-d1 font-black text-k-ink">
               Services
@@ -110,7 +103,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Photograph carousel. */}
+      {/* The photograph carousel. */}
       <section className="bg-k-paper">
         {/* The carousel has no heading on screen, by design: the seven
             photographs and their names are the heading. But each card names
@@ -125,7 +118,14 @@ export default function ServicesPage() {
         <ServiceCarousel services={services} />
       </section>
 
-      {/* Comparison table. Every service, scrolled sideways. */}
+      {/* THE SEVEN SERVICES, READ DOWNWARDS.
+          One row each. The photograph and the name are on the left where the
+          eye lands, the sentence and the two actions are in the middle, and
+          the three facts a shipper is comparing are pinned to the right in a
+          fixed-width column so they line up on every row from the top of the
+          list to the bottom. That alignment is the whole point: it is what
+          lets somebody run their eye down "Equipment" for all seven without
+          reading any of the prose. */}
       <section className="bg-k-surface px-6 py-28 md:px-12 lg:px-24">
         <div className="mx-auto flex max-w-[1248px] flex-col gap-10">
           <Reveal variant="settle" className="flex flex-col items-center gap-3.5">
@@ -133,94 +133,129 @@ export default function ServicesPage() {
               Find the service that fits your lane
             </h2>
             <p className="max-w-[660px] text-center font-text text-k-small text-k-ink-soft">
-              All {services.length} services. Scroll sideways to compare. If
-              none of them obviously fits, describe the load and we will tell
-              you which one does, including when the answer is that KUL is not
-              the right carrier for it.
+              If none of them obviously fits, describe the load and we will
+              tell you which one does, including when the answer is that KUL is
+              not the right carrier for it.
             </p>
           </Reveal>
 
-          {/* All seven sit in one row that scrolls sideways, so no service
-              gets squeezed narrower than it can be read.
+          <ul className="flex flex-col">
+            {services.map((service, i) => (
+              <li key={service.slug}>
+                {/* THE ROW KEEPS ITS SHAPE ON A PHONE. It used to collapse to
+                    one column, which turned a 232px thumbnail into a 342px
+                    square photograph and pushed the service name most of a
+                    screen below its own row: seven services became seven full
+                    screens of road. The picture is 96px on a phone and 128px
+                    from sm, so the name and the sentence stay beside it exactly
+                    as they do on a desktop.
 
-              The scroll-pl values below are what keep the first service, Power
-              Only, from sitting hard against the left edge of the screen. The
-              row snaps each service into place as you drag it, and without
-              these the snap would pull that first card past the page margin.
-              They must always match the px values on the same line. */}
-          <div className="-mx-6 flex snap-x snap-mandatory scroll-pl-6 overflow-x-auto border-t border-k-rule-strong px-6 md:-mx-12 md:scroll-pl-12 md:px-12 lg:-mx-24 lg:scroll-pl-24 lg:px-24 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {compared.map((service, i) => (
-              <div
-                key={service.slug}
-                className={`flex w-[286px] shrink-0 snap-start flex-col pt-7 ${
-                  i < compared.length - 1 ? "mr-6 border-r border-k-rule pr-6" : ""
-                }`}
-              >
-                <h3 className="font-display text-k-d3 font-black text-k-ink">
-                  {service.name}
-                </h3>
-                <p className="pt-1.5 font-text text-k-small text-k-ink-soft">
-                  {service.leadTime === "By contract"
-                    ? "By contract"
-                    : `Lead time ${service.leadTime}`}
-                </p>
-
-                <div className="flex items-center gap-2 pb-5 pt-4">
-                  <Link
-                    href="/quote"
-                    className="rounded-full bg-k-ink px-4 py-2.5 font-text text-k-micro uppercase text-k-paper transition-opacity duration-200 hover:opacity-85"
-                  >
-                    Get a quote
-                  </Link>
+                    The facts drop under both columns rather than beside them,
+                    because three columns do not fit in 390px and the labels
+                    would wrap to two lines each. That is the one part of the
+                    desktop arrangement that cannot survive, and it is the part
+                    a reader consults rather than reads. */}
+                <Reveal
+                  index={i}
+                  className="grid grid-cols-[96px_minmax(0,1fr)] gap-x-5 gap-y-6 border-t border-k-rule-strong py-9 sm:grid-cols-[128px_minmax(0,1fr)] sm:gap-x-7 lg:grid-cols-[232px_minmax(0,1fr)_296px] lg:items-start lg:gap-12"
+                >
+                  {/* The photograph is a link to the same place the name goes,
+                      because a picture of a reefer is the thing a shipper
+                      reaches for first and it should not be the one part of
+                      the row that does nothing when clicked. It is decorative
+                      beside a heading that already names the service, so it
+                      carries an empty alt rather than saying "Reefer" twice
+                      in a row to a screen reader. */}
                   <Link
                     href={`/services/${service.slug}`}
-                    className="border-b border-k-gold pb-0.5 font-text text-k-micro uppercase text-k-ink"
+                    tabIndex={-1}
+                    aria-hidden="true"
+                    className="block overflow-hidden rounded-sm"
                   >
-                    Details
+                    <Image
+                      src={service.card}
+                      alt=""
+                      width={900}
+                      height={900}
+                      sizes="(min-width: 1024px) 232px, (min-width: 640px) 128px, 96px"
+                      priority={i < 2}
+                      className="h-auto w-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.04]"
+                    />
                   </Link>
-                </div>
 
-                <p className="pb-6 font-text text-k-small text-k-ink-soft">
-                  {service.short}
-                </p>
-
-                {[
-                  {
-                    label: "Equipment",
-                    value: service.equipment,
-                    note: service.equipmentNote,
-                  },
-                  {
-                    label: "Typical lane",
-                    value: service.lane,
-                    note: service.laneNote,
-                  },
-                  {
-                    label: "Best for",
-                    value: service.bestForShort,
-                    note: null,
-                  },
-                ].map((row) => (
-                  <div
-                    key={row.label}
-                    className="flex flex-col gap-1 border-t border-k-rule py-4"
-                  >
-                    <p className="font-text text-k-micro uppercase text-k-ink-faint">
-                      {row.label}
+                  <div className="flex flex-col gap-3">
+                    <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                      <h3 className="font-display text-k-d3 font-black text-k-ink">
+                        {service.name}
+                      </h3>
+                      <span className="font-text text-k-micro uppercase tabular-nums text-k-ink-faint">
+                        {service.leadTime === "By contract"
+                          ? "By contract"
+                          : `Lead time ${service.leadTime}`}
+                      </span>
+                    </div>
+                    <p className="max-w-[52ch] font-text text-k-body text-k-ink-soft">
+                      {service.short}
                     </p>
-                    <p className="font-text text-k-body font-medium text-k-ink">
-                      {row.value}
-                    </p>
-                    {row.note ? (
-                      <p className="font-text text-k-small text-k-ink-soft">
-                        {row.note}
-                      </p>
-                    ) : null}
+                    <div className="flex flex-wrap items-center gap-x-5 gap-y-3 pt-2">
+                      {/* Carries the slug, same as the service page's own
+                          button, so the form opens on the right freight type
+                          from either route in. */}
+                      <Link
+                        href={`/quote?service=${service.slug}`}
+                        className="rounded-full bg-k-ink px-5 py-2.5 font-text text-k-micro uppercase text-k-paper transition-opacity duration-200 hover:opacity-85"
+                      >
+                        Get a quote
+                      </Link>
+                      <Link
+                        href={`/services/${service.slug}`}
+                        className="border-b border-k-gold pb-0.5 font-text text-k-micro uppercase text-k-ink transition-colors duration-200 hover:text-k-gold"
+                      >
+                        {service.name} in detail
+                      </Link>
+                    </div>
                   </div>
-                ))}
-              </div>
+
+                  {/* The comparison facts. A description list, because that is
+                      what this is: three labels and their values. */}
+                  <dl className="col-span-2 flex flex-col gap-3.5 border-t border-k-rule pt-5 lg:col-span-1 lg:border-t-0 lg:pt-1">
+                    {[
+                      {
+                        label: "Equipment",
+                        value: service.equipment,
+                        note: service.equipmentNote,
+                      },
+                      {
+                        label: "Typical lane",
+                        value: service.lane,
+                        note: service.laneNote,
+                      },
+                      {
+                        label: "Best for",
+                        value: service.bestForShort,
+                        note: null,
+                      },
+                    ].map((row) => (
+                      <div key={row.label} className="flex flex-col gap-0.5">
+                        <dt className="font-text text-k-micro uppercase text-k-ink-faint">
+                          {row.label}
+                        </dt>
+                        <dd className="font-text text-k-small font-medium text-k-ink">
+                          {row.value}
+                          {row.note ? (
+                            <span className="font-normal text-k-ink-soft">
+                              {" "}
+                              · {row.note}
+                            </span>
+                          ) : null}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                </Reveal>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
@@ -237,9 +272,11 @@ export default function ServicesPage() {
             <h2 className="font-display text-k-d2 font-black text-k-ink">
               Four steps, no surprises
             </h2>
-            <p className="font-text text-k-lede text-k-ink-soft">
-              Six fields in, one phone number throughout.
-            </p>
+            {/* A lede sat here reading "Six fields in, one phone number
+                throughout." Step 01 below it already names the six fields and
+                lists them, and step 04 already ends on "one phone number
+                throughout", so the summary was made entirely of the two lines
+                directly underneath it. */}
           </Reveal>
 
           {/*
@@ -321,56 +358,23 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Three services explained at length. */}
-      <section className="bg-k-paper px-6 py-32 md:px-12 lg:px-24">
-        <div className="mx-auto flex max-w-[1248px] flex-col gap-10">
-          <h2 className="font-display text-k-d3 font-black text-k-ink">
-            In detail
-          </h2>
-          {EXPANDED.map((slug, i) => {
-            const service = services.find((s) => s.slug === slug);
-            const copy = EXPANDED_COPY[slug];
-            if (!service || !copy) return null;
-            return (
-              <Reveal
-                key={slug}
-                index={i}
-                className="flex flex-col items-start gap-8 lg:flex-row lg:gap-16"
-              >
-                <Image
-                  src={service.wide}
-                  alt={service.name}
-                  width={1600}
-                  height={900}
-                  className="h-auto w-full shrink-0 object-cover lg:w-[520px]"
-                />
-                <div className="flex flex-1 flex-col gap-3 pt-1">
-                  <h3 className="font-display text-k-d3 font-black text-k-ink">
-                    {copy.heading}
-                  </h3>
-                  <p className="max-w-[520px] font-text text-k-body text-k-ink-soft">
-                    {copy.body}
-                  </p>
-                  <Link
-                    href={`/services/${slug}`}
-                    className="mt-1 w-fit border-b border-k-gold pb-1 font-text text-k-label uppercase text-k-ink"
-                  >
-                    View {service.name}
-                  </Link>
-                </div>
-              </Reveal>
-            );
-          })}
-        </div>
-      </section>
+      {/* THREE OF THE SEVEN USED TO BE WRITTEN OUT AGAIN HERE, under the
+          heading "In detail": Power Only, Reefer and Dedicated, each with a
+          wide photograph and two sentences. It went on 29 Jul 2026 and should
+          not come back.
 
-      {/* There is deliberately no closing call to action here. The footer on
-          every page already carries the same dark band, the same Request a
-          quote button and the same phone number, so putting one here as well
-          simply printed it twice in a row. The one sentence worth keeping from
-          it, about describing a load when none of the services obviously fits,
-          now sits above the comparison row where the question is actually
-          being asked. */}
+          Every word of it was a shorter version of the service's own page,
+          which is one click away from the row above and carries the full
+          description, what it is best for, what KUL commits to, the
+          measurements and the drawings. Saying a worse version of that first
+          made the page longer without making it more useful, and it quietly
+          told a reader that four of the seven services were less important
+          than the other three, which is not true and is not something KUL
+          would say out loud.
+
+          There is deliberately no closing call to action either. The footer on
+          every page already carries the same dark band, the same quote link
+          and the same phone number. */}
     </>
   );
 }

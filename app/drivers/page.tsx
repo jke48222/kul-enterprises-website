@@ -3,6 +3,7 @@ import Link from "next/link";
 import DriverForm from "@/components/forms/DriverForm";
 import { site } from "@/lib/site";
 import Reveal from "@/components/k/Reveal";
+import Breadcrumb from "@/components/k/Breadcrumb";
 
 /**
  * DRIVERS
@@ -34,7 +35,7 @@ import Reveal from "@/components/k/Reveal";
 
 export const metadata: Metadata = {
   title: "Drive With KUL",
-  description: `KUL Enterprises is taking driver applications now for a seat that opens with its second truck. CDL-A, Southeast regional out of ${site.location}, with over the road available.`,
+  description: `KUL Enterprises is taking driver applications now, ahead of the seat opening. CDL-A, Southeast regional out of ${site.location}, with over the road available.`,
 };
 
 /**
@@ -45,8 +46,8 @@ export const metadata: Metadata = {
  * not want to give a whole line to. Keep the lead short, two or three words,
  * or the paragraph stops reading as a sentence.
  *
- * "The pay" is last on purpose. It is the question every driver has, and the
- * honest answer is that there is not one yet.
+ * THERE IS NO "PAY" ENTRY, and that is deliberate rather than an oversight.
+ * See the note where it used to sit at the foot of this list.
  */
 const THE_SEAT = [
   {
@@ -59,16 +60,17 @@ const THE_SEAT = [
   },
   {
     lead: "The equipment.",
-    body: "One tractor today and a second when the freight supports it. It is inspected before every dispatch, and anything found is fixed before the load moves.",
+    body: "A 53 foot dry van behind a sleeper tractor, inspected before every dispatch. Anything found is fixed before the load moves, even when that costs us the load.",
   },
   {
     lead: "The dispatch.",
     body: "You will be talking to Mark, who drives the truck himself. Hours are planned before dispatch.",
   },
-  {
-    lead: "The pay.",
-    body: "Not published, because there is no honest number to publish yet. It is set when the second truck is booked and the lanes are known, and it is discussed on the call.",
-  },
+  // "The pay" was the fifth entry and it went on 29 Jul 2026 at the client's
+  // word. It said the figure was not published because there was no honest one
+  // to publish, which is true and is not a thing to lead a driver with in a
+  // list of what the seat offers. Pay is discussed on the call, where it can be
+  // a conversation instead of a disclaimer.
 ] as const;
 
 export default function DriversPage() {
@@ -85,15 +87,10 @@ export default function DriversPage() {
           and it is why the rules are not cropped to the text. */}
       <section className="bg-k-paper px-6 pb-32 pt-36 md:px-12 lg:px-24 lg:pt-44">
         <div className="mx-auto max-w-[1248px]">
-          <p className="flex items-center gap-2.5 pb-10">
-            <span className="font-text text-k-micro uppercase text-k-ink-soft">
-              KUL
-            </span>
-            <span className="font-text text-k-micro text-k-ink-soft">/</span>
-            <span className="font-text text-k-micro uppercase text-k-gold">
-              Drivers
-            </span>
-          </p>
+          <Breadcrumb
+            className="pb-10"
+            items={[{ label: "KUL", href: "/" }, { label: "Drivers" }]}
+          />
 
           <Reveal variant="wipe">
             <h1 className="pb-14 font-display text-k-d3 font-black text-k-ink">
@@ -103,22 +100,34 @@ export default function DriversPage() {
 
           <div className="border-y border-k-ink">
             <Reveal className="max-w-[640px] py-8">
+              {/* ============================================================
+                  THIS IS THE ONE PLACE ON THE SITE THAT STILL SAYS IT PLAINLY,
+                  AND IT HAS TO.
+                  ============================================================
+                  The headcount framing came off the commercial pages on
+                  29 Jul 2026 because it read as an apology to a broker. It
+                  cannot come off here. A driver is being asked to hand over a
+                  licence number and a work history for a seat that does not
+                  exist yet, and the reason it does not exist yet is the fleet
+                  size. Softening that would be taking applications under a
+                  false impression, which is worse than sounding small.
+
+                  What did go is the repetition. It was said four times on this
+                  page and twice more in the form; it is said once now, in the
+                  first block, where a driver meets it before spending any
+                  time. */}
               <p className="font-text text-k-lede font-semibold text-k-ink">
-                Applications are open now. The seat opens when the second truck
-                does.
+                Applications are open now. The seat opens with the second
+                truck.
               </p>
               <p className="pt-5 font-text text-k-small text-k-ink-soft">
-                KUL runs one tractor today and Mark drives it. A second tractor
-                goes on the road once there is repeat freight to keep both
-                loaded through a full month, and the driver&rsquo;s seat opens
-                at the same time. We take applications before that happens so
-                the seat goes to somebody already spoken to, rather than
-                whoever answers an advert on the day.
-              </p>
-              <p className="pt-4 font-text text-k-small text-k-ink-soft">
-                There is no start date to give you. When the second truck is
-                booked, everybody who has applied is called. The plan itself is
-                on{" "}
+                A second tractor goes on the road once there is repeat freight
+                to keep both loaded through a full month, and the
+                driver&rsquo;s seat opens at the same time. We take
+                applications before that happens so the seat goes to somebody
+                already spoken to, rather than whoever answers an advert on the
+                day. There is no start date to give you, and everybody who has
+                applied is called when there is. The plan is on{" "}
                 <Link href="/road-ahead" className="underline underline-offset-4">
                   the road ahead page
                 </Link>
@@ -170,8 +179,8 @@ export default function DriversPage() {
                   line above the form together. */}
               <p className="font-text text-k-small text-k-ink">
                 Your name, a phone number or an email, how long you have held a
-                CDL-A, and anything else you want to add. That is the whole
-                form. The rest waits for the call.
+                CDL-A, and anything else you want to add. The rest waits for
+                the call.
               </p>
             </Reveal>
             <Reveal
@@ -215,10 +224,16 @@ export default function DriversPage() {
             </h2>
           </Reveal>
           <Reveal variant="settle">
+            {/* "When the second truck is booked, everybody on this list is
+                called" closed this paragraph until 29 Jul 2026. The notice at
+                the top of the page says it, and the paragraph beneath that
+                notice says it again, so by the time a driver reached the form
+                it was the third time. What is left is the part only this
+                position can say, which is what happens if you fill the form in
+                this afternoon. */}
             <p className="max-w-[560px] pt-4 font-text text-k-body text-k-ink-soft">
               Four questions. Nobody is called today, because the seat is not
-              open today. When the second truck is booked, everybody on this
-              list is called.
+              open today.
             </p>
           </Reveal>
 

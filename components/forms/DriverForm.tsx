@@ -156,7 +156,7 @@ export default function DriverForm() {
         <FormStatus
           state={state}
           serverError={serverError}
-          successMessage="Your details are on the list. Nobody is called until the second truck is booked."
+          successMessage="Your details are on the list. Nobody is called until the seat opens."
         />
       )}
     </div>

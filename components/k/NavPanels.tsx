@@ -86,9 +86,13 @@ export function ServicesPanel() {
         </Link>
       ))}
 
+      {/* The card at the end of the row. Both lines are centred in it rather
+          than set against its left edge: it is the only tile in the row with
+          no photograph, so its type is the whole of it, and type ranged left
+          in a box this shape leaves the weight in one corner. */}
       <Link
         href="/services"
-        className="flex w-[180px] shrink-0 flex-col items-start justify-center gap-3 rounded-2xl border border-k-rule bg-k-paper px-5"
+        className="flex w-[180px] shrink-0 flex-col items-center justify-center gap-3 rounded-2xl border border-k-rule bg-k-paper px-5 text-center"
       >
         <span className="font-display text-[19px] font-black leading-6 tracking-[-0.02em] text-k-ink">
           Compare all
@@ -119,8 +123,21 @@ export function DriversPanel() {
       <PanelLabel>Driving for KUL</PanelLabel>
 
       <div className="flex flex-col gap-2 border-b border-k-rule pb-6 md:flex-row md:items-baseline md:justify-between md:gap-8">
+        {/* The second half read "The seat opens when the second truck does".
+            The fact is still on the Drivers page, where a driver needs it
+            before applying; a menu is not the place to lead with the fleet
+            count. See the note on headcount in app/page.tsx. */}
+        {/* The second half read "The seat opens when the second truck does".
+            The fact is still on the Drivers page, where a driver needs it
+            before applying; a menu is not the place to lead with the fleet
+            count. See the note on headcount in app/page.tsx.
+
+            AND IT DOES NOT NAME A DATE. There is no start date anywhere in
+            content/ or on /road-ahead, so a panel cannot invent one. What is
+            here instead is true and checkable: applications go to Mark. */}
         <p className="max-w-[34ch] font-display text-[21px] font-black leading-7 tracking-[-0.02em] text-k-ink">
-          Applications are open now. The seat opens when the second truck does.
+          Applications are open now, and read by the person you would be
+          driving for.
         </p>
         <Link
           href="/drivers"
@@ -274,9 +291,11 @@ export function AboutPanel() {
           className="h-[104px] w-[104px] shrink-0 rounded-2xl object-cover"
         />
 
+        {/* "One tractor, one driver, and a phone number that reaches the
+            person driving it." The last clause was always the point; the
+            headcount in front of it was not. */}
         <p className="max-w-[38ch] font-display text-[20px] font-black leading-7 tracking-[-0.02em] text-k-ink">
-          One tractor, one driver, and a phone number that reaches the person
-          driving it.
+          One phone number, and it reaches the person driving the truck.
         </p>
 
         <dl className="flex gap-8 md:ml-auto">
@@ -313,22 +332,74 @@ export function AboutPanel() {
  */
 export function JourneyPanel() {
   return (
-    <div className={PAD}>
+    // THE SLEEVES SHARE THE BAR RATHER THAN SITTING IN A ROW AT ONE END.
+    //
+    // They were 132px wide and fixed, which is 852px of content in a 1180px
+    // pill, so the panel opened with a third of itself empty and white down
+    // the right hand side. The client drew a line round it: the panel is
+    // supposed to end where the chapters end.
+    //
+    // A panel narrower than the bar above it is not available here, because
+    // both are drawn inside one pill that has to stay the width of the
+    // navigation. So the chapters take the width instead. `basis-0 flex-1`
+    // makes all six exactly equal and lets them divide whatever is left after
+    // the gaps, at any pill width, which also means the covers arrive larger
+    // than they were. Nothing scrolls: six is the whole set and always fits.
+    <div className="px-6 pb-5 pt-3">
       <PanelLabel>Six chapters</PanelLabel>
 
-      <ul className="flex gap-3 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <ul className="flex gap-3">
         {CHAPTERS.map((chapter) => (
-          <li key={chapter.n} className="w-[132px] shrink-0">
+          <li key={chapter.n} className="min-w-0 flex-1 basis-0">
             <Link href={`/journey${chapter.href}`} className="group block">
               <span className="relative block aspect-square w-full overflow-hidden rounded-2xl">
+                {/* TWO OF THE SIX MOVE, AND THEY ARE THE TWO ABOUT DRIVING.
+                    Six still photographs in a row reads as a contact sheet;
+                    two of them running turns it into a shelf you want to take
+                    something off. Which two is decided in lib/journey.ts and
+                    not here, because the footage has to be of the chapter it
+                    is on.
+
+                    Every attribute below is doing a job. `poster` is the same
+                    file the still sleeves use, so the tile is never empty
+                    while the clip loads. `preload="metadata"` fetches the
+                    header and not the video: this panel is behind a hover and
+                    most visitors never open it, so pulling two megabytes on
+                    every page load to decorate a menu would be indefensible.
+                    `playsInline` stops iOS taking the clip fullscreen, `muted`
+                    is what makes autoplay legal at all, and `tabIndex={-1}`
+                    keeps a decorative element out of the tab order inside a
+                    link that is already focusable.
+
+                    ANYONE WHO HAS ASKED FOR REDUCED MOTION GETS THE POSTER.
+                    That switch is in CSS, in app/globals.css, rather than in a
+                    JavaScript branch here: useReducedMotion() returns false on
+                    the server every time, so branching the markup on it would
+                    ship the video to those readers and then take it away. */}
                 {chapter.cover ? (
-                  <Image
-                    src={chapter.cover}
-                    alt=""
-                    fill
-                    sizes="132px"
-                    className="object-cover"
-                  />
+                  <>
+                    <Image
+                      src={chapter.cover}
+                      alt=""
+                      fill
+                      sizes="200px"
+                      className="object-cover"
+                    />
+                    {chapter.clip ? (
+                      <video
+                        className="kul-sleeve-clip absolute inset-0 h-full w-full object-cover"
+                        src={chapter.clip}
+                        poster={chapter.cover}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
+                        tabIndex={-1}
+                        aria-hidden="true"
+                      />
+                    ) : null}
+                  </>
                 ) : (
                   <span
                     className={`absolute inset-0 flex items-end p-3 ${GROUND_CLASS[chapter.ground]}`}

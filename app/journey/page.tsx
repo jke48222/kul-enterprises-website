@@ -407,13 +407,14 @@ export default function JourneyPage() {
         statement="He did not photograph the road once. He photographed it for eleven years, and these are the ones that survived the cut."
       />
 
-      {/* One line of plain fact between the film and the sequence, so the
-          eleven do not begin over the top of the video's last frame. */}
-      <section className="bg-k-void px-6 py-20 md:px-12 lg:px-24">
-        <p className="mx-auto max-w-[52ch] text-center font-text text-k-body text-k-on-dark-soft">
-          What follows are eleven of them, in the order the light runs.
-        </p>
-      </section>
+      {/* A line sat here reading "What follows are eleven of them, in the order
+          the light runs." Both of its facts are in the block immediately above
+          it: the contact sheet's own label is "Twenty-six kept, eleven shown",
+          and the chapter's opening line already says the photographs run in the
+          order the light does. The band is kept, empty, because its job was
+          never the sentence: it is the dark gap that stops the eleven starting
+          on top of the film's last frame. */}
+      <div className="bg-k-void py-20" aria-hidden="true" />
 
       <JourneySequence frames={ROAD} />
 
@@ -489,10 +490,13 @@ export default function JourneyPage() {
                 sizes="(min-width: 1280px) 774px, 100vw"
                 className="aspect-[4/3] w-full object-cover"
               />
+              {/* "The last two are his as well" opened this and went on
+                  29 Jul 2026: the closing note at the foot of the page states
+                  that every image on the page is one Mark took himself, which
+                  covers these two and the other twenty-four at once. The
+                  second half also said "photographed" twice in eight words. */}
               <p className="pt-4 font-text text-k-small text-k-ink-faint">
-                The last two are his as well. There is no photograph of the KUL
-                tractor here yet, because it has not been photographed properly
-                yet.
+                There is no photograph of the KUL tractor here yet.
               </p>
             </Reveal>
           </div>
@@ -510,11 +514,19 @@ export default function JourneyPage() {
             </h2>
           </Reveal>
           <div className="flex max-w-[62ch] flex-1 flex-col gap-6">
+            {/* THIS PARAGRAPH IS THE ONLY THING KEEPING THE COVERS HONEST.
+                Chapters 02, 03 and 04 used to print "No photograph" on a plain
+                sleeve; they now carry pictures, and the pictures are not of
+                what the chapters describe. Nothing on a sleeve says so,
+                because a sleeve is a number and a title. This says so. If a
+                cover changes, this changes with it. See lib/journey.ts. */}
             <p className="font-text text-k-body text-k-ink-soft">
-              Three of the six chapters have no photograph, because none was
-              ever taken. Nothing has been staged, bought or generated to fill
-              those gaps, and the words carry them instead. Every image on this
-              page is one Mark took himself.
+              Every image on this page is one Mark took himself, and none of it
+              has been staged, bought or generated. Three of the six chapters
+              have no photograph of what they describe, because none was ever
+              taken: the construction sites, leaving home and the Air Force
+              carry pictures from his own archive instead, and the words carry
+              the rest.
             </p>
             <p className="font-text text-k-body text-k-ink-soft">
               The words are his too. They come from the story he wrote out for

@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/lib/site";
 import Reveal, { RuleDraw } from "@/components/k/Reveal";
+import Breadcrumb from "@/components/k/Breadcrumb";
 
 /**
  * ABOUT
@@ -107,16 +108,13 @@ const PARTICULARS = [
       </>
     ),
   },
-  {
-    label: "Not yet",
-    gold: false,
-    body: (
-      <>
-        No published safety rating history, no customer references and no
-        second truck. Each one appears here on the day it is true.
-      </>
-    ),
-  },
+  // A sixth entry headed "Not yet" listed what KUL does not have: no published
+  // safety rating history, no customer references. It came out on 29 Jul 2026
+  // at the client's word. It was honest and it was the last thing in an
+  // imprint, which is the position a reader remembers, so the block ended on
+  // an absence. Nothing that was in it is contradicted anywhere else on the
+  // site; the safety page still says in its own first line that there is no
+  // long record yet, which is where a broker looking for one will be.
 ] as const;
 
 export default function AboutPage() {
@@ -132,15 +130,10 @@ export default function AboutPage() {
           margin, so it leans the opposite way to the headline above it. */}
       <section className="bg-k-paper px-6 pb-32 pt-36 md:px-12 lg:px-24 lg:pt-44">
         <div className="mx-auto max-w-[1248px]">
-          <p className="flex items-center gap-2.5 pb-10">
-            <span className="font-text text-k-micro uppercase text-k-ink-soft">
-              KUL
-            </span>
-            <span className="font-text text-k-micro text-k-ink-soft">/</span>
-            <span className="font-text text-k-micro uppercase text-k-gold">
-              About
-            </span>
-          </p>
+          <Breadcrumb
+            className="pb-10"
+            items={[{ label: "KUL", href: "/" }, { label: "About" }]}
+          />
 
           <Reveal variant="wipe">
             <h1 className="max-w-[1060px] font-display text-k-d1 font-black text-k-ink">
@@ -211,10 +204,14 @@ export default function AboutPage() {
                 the truck is, and whether the answer still comes when the news
                 is bad.
               </p>
+              {/* The tail of this used to spell out "one tractor, one driver,
+                  and the person who answers dispatch is the person behind the
+                  wheel", which is the whole of the "How it runs today" section
+                  a few inches below, written out in advance. The founder note
+                  ends on the principle and lets that section carry the
+                  arrangement. */}
               <p className="font-text text-k-small text-k-ink">
-                KUL was set up to run that way from the first load. Today that
-                means one tractor, one driver, and the person who answers
-                dispatch is the person behind the wheel.
+                KUL was set up to run that way from the first load.
               </p>
             </Reveal>
             <Reveal variant="settle" className="mt-7 flex flex-col gap-1">
@@ -230,6 +227,23 @@ export default function AboutPage() {
           {/* The picture has no person in it on purpose. A stock photograph of
               a stranger sitting beside a note signed by Mark would read as a
               picture of Mark, and it is not one. */}
+          {/* IT IS FOOTAGE NOW, NOT A STILL, at the client's word. It was a
+              photograph of a road between pines; this is Mark's own dashcam,
+              filmed forward from the cab, which is a better answer to the note
+              beside it: the column is about what he does all day and now the
+              picture is a recording of him doing it.
+
+              The still it replaced is the poster, so the column is never an
+              empty half-screen while the video loads and anyone who has asked
+              for reduced motion keeps a picture rather than a blank. That
+              switch is in CSS in app/globals.css, not in a JavaScript branch
+              here, for the reason set out in components/k/Reveal.tsx.
+
+              `preload="metadata"` rather than auto: this sits well down the
+              page and most readers never reach it, so it fetches the header
+              and waits. Muted is what makes autoplay legal, playsInline stops
+              iOS taking it fullscreen, and it is decoration beside a signed
+              note, so it is hidden from assistive technology entirely. */}
           <div className="relative min-h-[420px] w-full lg:min-h-[760px] lg:w-1/2">
             <Image
               src="/images/journey/s07-pines-road.webp"
@@ -237,6 +251,18 @@ export default function AboutPage() {
               fill
               sizes="(min-width:1024px) 50vw, 100vw"
               className="object-cover"
+            />
+            <video
+              className="kul-sleeve-clip absolute inset-0 h-full w-full object-cover"
+              src="/videos/dash-daylight-720.mp4"
+              poster="/images/journey/s07-pines-road.webp"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              tabIndex={-1}
+              aria-hidden="true"
             />
           </div>
         </div>
@@ -259,19 +285,26 @@ export default function AboutPage() {
           </Reveal>
           <div className="flex flex-1 flex-col gap-9">
             <Reveal>
+              {/* THE HEADCOUNT CAME OFF THE FRONT OF BOTH OF THESE and the
+                  substance of both is untouched. What KUL can and cannot
+                  commit to is a real limit and a broker is entitled to it
+                  before they book, so the second paragraph still says it. It
+                  says it as a scheduling fact, which is what a broker acts on,
+                  rather than as a headcount, which is only ever an apology.
+                  See the note in app/page.tsx. */}
               <p className="font-text text-k-d3 leading-[1.33] tracking-[-0.01em] text-k-on-dark">
-                One tractor is on the road, and Mark drives it. The same person
-                takes the booking, runs the lane and signs at the receiver,
-                which is why there is one phone number on this site and not a
-                switchboard.
+                Mark drives the truck, takes the booking, runs the lane and
+                signs at the receiver. That is why there is one phone number on
+                this site and not a switchboard.
               </p>
             </Reveal>
             <Reveal index={1}>
               <p className="font-text text-k-d3 leading-[1.33] tracking-[-0.01em] text-k-on-dark-soft">
-                One truck also has limits. KUL cannot cover a lane on a day the
-                truck is already committed, and it holds no spare capacity for
-                a surge. When a load does not fit the schedule we say so on the
-                call rather than book it and work it out later.
+                It also means capacity is committed rather than pooled. KUL
+                cannot cover a lane on a day it is already booked, and it holds
+                nothing back for a surge. When a load does not fit the schedule
+                we say so on the call rather than take it and work it out
+                later.
               </p>
             </Reveal>
           </div>
@@ -288,25 +321,47 @@ export default function AboutPage() {
           "get a quote" under an imprint would undo the register the whole
           page is written in. The footer carries the rest. */}
       <section className="bg-k-paper px-6 py-32 md:px-12 lg:px-24 lg:py-36">
+        {/* THE MARK MOVED RATHER THAN LEAVING, AND IT IS A DIFFERENT FILE.
+            It used to sit alone above the sentence at 112px, which left the
+            imprint opening on a small floating image with nothing beside it.
+            It was struck out, then asked back with two corrections: move it,
+            and use the right logo.
+
+            WHERE: opposite the sentence rather than above it, so the row reads
+            as a signature at the end of a document, which is what an imprint
+            is. Below lg it goes after the sentence rather than before, because
+            stacked, a logo above a line of type is the arrangement that was
+            wrong in the first place.
+
+            WHICH FILE: logo-lockup.webp, the full colour lion with the wordmark
+            and the tagline. The one that was here was lockup-dark.webp, a flat
+            monochrome trace, which put the brand on the page in a completely
+            different language from the gold lion in the bar a few hundred
+            pixels above it. Both files are genuinely cut out, checked over a
+            magenta ground rather than assumed: neither carries a white matte.
+            This one is also 1024x867 rather than 320 square, so it survives
+            being printed at any size worth printing it at.
+
+            It carries an empty alt. The sentence beside it is the company's
+            legal name, so a screen reader that read the mark as well would
+            hear the name twice in a row. */}
         <div className="mx-auto flex max-w-[1248px] flex-col">
-          {/* The mark, printed once, where a colophon has always printed one.
-              Small on purpose: a signature at the foot of the page, not a
-              logo band. If it grows enough to compete with the line under it
-              the section stops reading as an imprint. Flat black, no gold,
-              and no entrance, because a signature that animates is a flourish
-              rather than a signature. */}
-          <Image
-            src="/images/brand/lockup-dark.webp"
-            alt=""
-            width={320}
-            height={320}
-            className="mb-9 h-auto w-[112px]"
-          />
-          <Reveal variant="wipe">
-            <h2 className="max-w-[1100px] font-display text-k-d3 font-black uppercase tracking-[0.01em] text-k-ink">
+          <Reveal
+            variant="wipe"
+            className="flex flex-col-reverse items-start gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-16"
+          >
+            <h2 className="max-w-[840px] font-display text-k-d3 font-black uppercase tracking-[0.01em] text-k-ink">
               {site.legalName} is a licensed motor carrier based in{" "}
               {site.location}.
             </h2>
+            <Image
+              src="/images/brand/logo-lockup.webp"
+              alt=""
+              width={1024}
+              height={867}
+              sizes="132px"
+              className="h-auto w-[104px] shrink-0 lg:w-[132px]"
+            />
           </Reveal>
 
           <RuleDraw className="mt-14" />

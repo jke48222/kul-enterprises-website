@@ -3,6 +3,7 @@ import Link from "next/link";
 import PacketForm from "@/components/forms/PacketForm";
 import { site } from "@/lib/site";
 import Reveal, { RuleDraw } from "@/components/k/Reveal";
+import Breadcrumb from "@/components/k/Breadcrumb";
 
 /**
  * CARRIER PACKET
@@ -66,7 +67,7 @@ const PACKET = [
   },
   {
     name: "Carrier or broker agreement",
-    note: "KUL signs your paper. A one truck carrier does not have an agreement of its own to send you.",
+    note: "KUL signs your paper rather than sending its own. Send the agreement with the packet request and it comes back executed.",
   },
 ] as const;
 
@@ -105,15 +106,10 @@ export default function CarrierPacketPage() {
           no photograph and no second column. */}
       <section className="bg-k-paper px-6 pb-28 pt-36 md:px-12 lg:px-24 lg:pt-44">
         <div className="mx-auto max-w-[1248px]">
-          <p className="flex items-center gap-2.5 pb-10">
-            <span className="font-text text-k-micro uppercase text-k-ink-soft">
-              KUL
-            </span>
-            <span className="font-text text-k-micro text-k-ink-soft">/</span>
-            <span className="font-text text-k-micro uppercase text-k-gold">
-              Carrier Packet
-            </span>
-          </p>
+          <Breadcrumb
+            className="pb-10"
+            items={[{ label: "KUL", href: "/" }, { label: "Carrier Packet" }]}
+          />
 
           <div className="max-w-[640px]">
             <Reveal variant="wipe">
@@ -123,12 +119,17 @@ export default function CarrierPacketPage() {
             </Reveal>
 
             <Reveal>
+              {/* Cut from five clauses to two on 29 Jul 2026. The original
+                  explained that there are no files on the page, who sends
+                  them, that they arrive as a reply, which two matter most and
+                  that both can be read without asking. The federal record is
+                  linked in its own section further down with the same point
+                  made there, so this only has to say what to do here. */}
               <p className="pt-8 font-text text-k-body text-k-ink-soft">
-                There are no files on this page. The documents are sent by the
-                person who drives the truck, so ask here and they come back in
-                a reply. The two that matter most, the operating authority and
-                the insurance filing, are on the federal record and you can
-                read both without asking us at all.
+                Ask here and the documents come back by email, from the person
+                who drives the truck. The authority and the insurance filing
+                are on the federal record below if you would rather check them
+                yourself.
               </p>
             </Reveal>
 

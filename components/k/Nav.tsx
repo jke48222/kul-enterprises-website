@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
 import MenuOverlay from "@/components/k/MenuOverlay";
+import MenuMark from "@/components/k/MenuMark";
 import { NAV_PANELS, type PanelKey } from "@/components/k/NavPanels";
 
 /**
@@ -324,9 +325,14 @@ export default function Nav() {
   // Interior pages have no hero picture, so the glass starts firm there.
   const onHome = pathname === "/";
   const panelOpen = openPanel !== null;
+  // WITH THE MENU OPEN THE PILL IS SITTING ON THE MENU, NOT ON THE PAGE. The
+  // hero surface is nearly clear glass, which is right over a photograph and
+  // wrong over a flat dark panel: the pill loses its edge entirely and the
+  // mark appears to be floating on the menu rather than held in the bar. So
+  // the menu firms it up, exactly as scrolling does.
   const surface = panelOpen
     ? SURFACE.panel
-    : scrolled || !onHome
+    : scrolled || !onHome || menuOpen
       ? SURFACE.firm
       : SURFACE.hero;
 
@@ -376,7 +382,13 @@ export default function Nav() {
   return (
     <>
       <header
-        className="fixed inset-x-0 top-0 z-50 flex justify-center px-4"
+        // THE BAR STACKS ABOVE THE MENU PANEL, WHICH IS WHY THIS IS 95 AND NOT
+        // 50. MenuOverlay sits at 90 and covers the whole screen, so at 50 it
+        // buried the button that opened it and the menu had to grow a second,
+        // differently placed Close control. Above it, one button does both
+        // jobs without moving, and the pill it lives in stays where the reader
+        // last saw it. The route transition is at 200 and still covers both.
+        className="fixed inset-x-0 top-0 z-[95] flex justify-center px-4"
         onMouseLeave={() => setOpenPanel(null)}
       >
         {/* The pill. It carries the width for everything inside it, which is
@@ -481,15 +493,35 @@ export default function Nav() {
                 {RIGHT_LINKS.map(renderLink)}
               </ul>
 
+              {/* THE MENU BUTTON IS A MARK, NOT THE WORD, AND IT IS ALSO THE
+                  CLOSE BUTTON.
+                  The word had to be set in the same size, case and face as the
+                  seven links it stands in for, so on a phone it read as an
+                  eighth destination sitting next to Get a quote rather than as
+                  the way in to the other seven.
+
+                  ONE CONTROL, TWO STATES. The panel used to carry its own
+                  Close button at the other side of its own header row, so
+                  opening the menu made the mark disappear from one place and a
+                  word appear in another. Now the bar stays above the open
+                  panel and this same button folds into a cross, which is why
+                  the header is stacked above MenuOverlay rather than under it.
+                  The drawing and the fold are in components/k/MenuMark.tsx.
+
+                  THE ACCESSIBLE NAME IS ON THE BUTTON, and it changes with the
+                  state, so a screen reader hears "Menu, expanded" and then
+                  "Close menu". The square is 44 by 44, the smallest target a
+                  thumb can be asked to find. */}
               <button
                 type="button"
-                onClick={() => setMenuOpen(true)}
+                onClick={() => setMenuOpen((v) => !v)}
                 aria-expanded={menuOpen}
                 aria-haspopup="dialog"
                 aria-controls="k-menu"
-                className={`shrink-0 whitespace-nowrap px-4 py-3 font-text text-k-label uppercase transition-colors duration-200 min-[1180px]:hidden ${linkColour}`}
+                aria-label={menuOpen ? "Close menu" : "Menu"}
+                className={`flex h-11 w-11 shrink-0 items-center justify-center transition-colors duration-200 min-[1180px]:hidden ${linkColour}`}
               >
-                Menu
+                <MenuMark open={menuOpen} />
               </button>
 
               <Link

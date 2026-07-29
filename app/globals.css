@@ -18,7 +18,25 @@
   /* Grounds, daylight register (the default; 36 of 43 references) */
   --color-paper: #f0f0f0;
   --color-surface: #fcfcfc;
-  --color-warm-panel: #f8f0e8;
+  /* THE WARM PANEL, REPLACED 29 JUL 2026. It was #f8f0e8, which the client
+     rejected. That value had sixteen points between its red and its blue,
+     which on a light ground reads as peach rather than as warmth, and next to
+     a brand built on black and gold it looked like a different company's
+     palette had leaked in.
+
+     This is the same tone with the pink taken out: nine points of warmth
+     instead of sixteen, so it still reads as a warm ground beside the two
+     neutral ones and no longer reads as a colour. It is distinguished from
+     --color-paper by hue rather than by value, which is deliberate; the two
+     are within 0.006 of each other in luminance, so a panel of this on paper
+     reads as a change of material rather than a change of level.
+
+     EVERY COLOUR THAT SITS ON IT WAS RE-MEASURED, because lightening a ground
+     moves all of them at once: ink 12.17:1, ink-soft 5.65:1, ink-faint
+     4.71:1, gold 4.54:1. Gold is the one with no room. It carries the eyebrow
+     labels at 12px, which is small text and needs 4.5:1, and it clears by
+     0.04. Darkening this ground by more than about two points breaks it. */
+  --color-warm-panel: #f2efe9;
 
   /* Grounds, instrument register (earned, never default) */
   --color-blueprint: #242424;
@@ -76,6 +94,133 @@
   --duration-standard: 400ms;
   --duration-reveal: 800ms;
   --duration-atmospheric: 1600ms;
+}
+
+/* ==================================================================== */
+/* ENTRANCES. THE OTHER HALF OF components/k/Reveal.tsx                  */
+/* ==================================================================== */
+/*
+ * READ THE HEADER OF THAT FILE BEFORE CHANGING ANY OF THIS. The short version
+ * is that these entrances used to be JavaScript animations whose start state
+ * was invisible, and when one stalled the words never appeared: fifteen
+ * elements on the About page at once, including its h1, frozen part-way
+ * through a wipe. Everything below is arranged so that cannot happen again.
+ *
+ * THE ORDER OF THESE RULES IS THE SAFETY. An element with .kul-rv and nothing
+ * else is a normal, visible element. It is only hidden inside html[data-reveal],
+ * an attribute set by the inline script in app/layout.tsx, which runs before
+ * first paint and only when scripting is on and motion has not been declined.
+ * If that script never runs, none of the hiding below ever applies.
+ *
+ * Do not add `opacity: 0` to `.kul-rv` itself. That single change would put
+ * the whole site one JavaScript error away from being blank.
+ */
+
+/* The waiting state. Scoped to the attribute, never to the class alone. */
+html[data-reveal] .kul-rv:not([data-shown]) {
+  opacity: 0;
+}
+/* The wipe holds full opacity and is uncovered instead, so heavy display type
+   is never seen at a half strength that reads as washed out. */
+html[data-reveal] .kul-rv[data-rv="wipe"]:not([data-shown]) {
+  opacity: 1;
+  clip-path: inset(0 100% 0 0);
+}
+html[data-reveal] .kul-rv[data-rv="rule"]:not([data-shown]) {
+  opacity: 1;
+  transform: scaleX(0);
+}
+
+/* The arrival. `both` is what pins the finished state when the animation
+   lands, and it is why nothing needs a class adding at the end. */
+.kul-rv[data-shown] {
+  animation-duration: var(--rv-dur, 800ms);
+  animation-delay: var(--rv-delay, 0ms);
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-fill-mode: both;
+}
+.kul-rv[data-shown][data-rv="rise"] {
+  animation-name: kul-rv-rise;
+}
+.kul-rv[data-shown][data-rv="settle"] {
+  animation-name: kul-rv-settle;
+  --rv-dur: 550ms;
+}
+.kul-rv[data-shown][data-rv="wipe"] {
+  animation-name: kul-rv-wipe;
+  --rv-dur: 1050ms;
+}
+/* Longer than the rest on purpose: a vehicle that arrives as fast as a
+   paragraph does not read as a vehicle. */
+.kul-rv[data-shown][data-rv="roll"] {
+  animation-name: kul-rv-roll;
+  --rv-dur: 1400ms;
+}
+.kul-rv[data-shown][data-rv="rule"] {
+  animation-name: kul-rv-rule;
+  --rv-dur: 900ms;
+}
+
+@keyframes kul-rv-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes kul-rv-settle {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes kul-rv-wipe {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0% 0 0);
+  }
+}
+/* Percentages travel with the element, so the tractor covers the same
+   proportion of its own length on a phone as it does on a desktop. */
+@keyframes kul-rv-roll {
+  from {
+    opacity: 0;
+    transform: translate3d(22%, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes kul-rv-rule {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* The second guarantee for anyone who has declined motion. The inline script
+   already refuses to set the attribute for them, so nothing is hidden in the
+   first place; this makes it true even if that script is ever changed. */
+@media (prefers-reduced-motion: reduce) {
+  html[data-reveal] .kul-rv,
+  html[data-reveal] .kul-rv:not([data-shown]) {
+    opacity: 1 !important;
+    clip-path: none !important;
+    transform: none !important;
+    animation: none !important;
+  }
 }
 
 /* ------------------------------------------------------------------ */
@@ -209,6 +354,18 @@ body {
    What a reader gets here: eleven photographs one under the other, each with
    its caption, in the order the light runs. The same eleven, at their own pace. */
 @media (prefers-reduced-motion: reduce) {
+  /* The two moving sleeves in the Journey navigation panel. Hiding the video
+     uncovers the poster underneath it, which is the same photograph the other
+     four sleeves show, so the row stays complete and simply stops moving.
+
+     THIS IS CSS AND NOT A JAVASCRIPT BRANCH ON PURPOSE. useReducedMotion()
+     returns false during server rendering every time, so a component that
+     branched its markup on it would send the video to exactly the readers who
+     asked not to have it and then remove it after hydration. */
+  .kul-sleeve-clip {
+    display: none !important;
+  }
+
   .kul-seq-track {
     height: auto !important;
   }
@@ -376,9 +533,25 @@ body {
     }
   }
 
+  /* The cool counterweight, opposite the ember pool. It drifts against the
+     other three rather than with them, which is what stops the whole panel
+     breathing in and out as one object. */
+  @keyframes kul-footer-deep {
+    0%,
+    100% {
+      transform: translate3d(-3%, -2%, 0) scale(1.06);
+      opacity: 0.7;
+    }
+    50% {
+      transform: translate3d(4%, 3%, 0) scale(1);
+      opacity: 1;
+    }
+  }
+
   .kul-footer-box,
   .kul-footer-core,
-  .kul-footer-ember {
+  .kul-footer-ember,
+  .kul-footer-deep {
     will-change: transform, opacity;
   }
   .kul-footer-box {
@@ -389,6 +562,28 @@ body {
   }
   .kul-footer-ember {
     animation: kul-footer-ember 53s ease-in-out infinite;
+  }
+  /* Deliberately coprime-ish with the other three, so the four never come
+     back into phase and the panel never repeats a frame you have seen. */
+  .kul-footer-deep {
+    animation: kul-footer-deep 67s ease-in-out infinite;
+  }
+
+  /* The warm bloom on the drafted ground of the home statement. Very slow and
+     very small: it is the only moving thing on a light section, so anything
+     faster than this reads as the page breathing at you. */
+  @keyframes kul-sheet-bloom {
+    0%,
+    100% {
+      transform: translate3d(-2%, -1.5%, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(3%, 2%, 0) scale(1.1);
+    }
+  }
+  .kul-sheet-bloom {
+    will-change: transform;
+    animation: kul-sheet-bloom 74s ease-in-out infinite;
   }
 }
 

@@ -6,6 +6,7 @@ import { site } from "@/lib/site";
 import { services } from "@/lib/services";
 import Reveal, { RuleDraw } from "@/components/k/Reveal";
 import ServiceSpecs from "@/components/k/ServiceSpecs";
+import Breadcrumb from "@/components/k/Breadcrumb";
 
 /**
  * ONE PAGE PER FREIGHT SERVICE
@@ -90,20 +91,14 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               name and description, then the two buttons. */}
           <div className="absolute inset-0 flex flex-col justify-evenly p-10 md:p-14">
             <div className="flex flex-col gap-5">
-              <p className="flex items-center gap-2">
-                <Link
-                  href="/services"
-                  className="font-text text-k-micro uppercase text-k-on-dark-soft"
-                >
-                  Services
-                </Link>
-                <span className="font-text text-k-micro text-k-on-dark-faint">
-                  /
-                </span>
-                <span className="font-text text-k-micro uppercase text-k-gold-lit">
-                  {service.name}
-                </span>
-              </p>
+              <Breadcrumb
+                tone="dark"
+                items={[
+                  { label: "KUL", href: "/" },
+                  { label: "Services", href: "/services" },
+                  { label: service.name },
+                ]}
+              />
               <h1 className="font-display text-k-d1 font-black text-k-on-dark">
                 {service.name}
               </h1>
@@ -112,8 +107,14 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-4">
+              {/* The slug travels with the click, so the quote form opens with
+                  this service already chosen. See the note on the freight type
+                  in components/forms/QuoteForm.tsx: the value is looked up in
+                  the real service list at the other end and dropped if it does
+                  not match, so a hand-edited URL cannot put anything into the
+                  form that is not a service KUL runs. */}
               <Link
-                href="/quote"
+                href={`/quote?service=${service.slug}`}
                 className="rounded-full bg-k-on-dark px-8 py-4 font-text text-k-label uppercase text-k-ink transition-opacity duration-200 hover:opacity-85"
               >
                 Quote this service

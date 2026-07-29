@@ -25,5 +25,8 @@ export const DUR = {
 
 export const STAGGER = { lines: 0.1, items: 0.07 } as const;
 
-/** Default whileInView viewport: fire once, 15% early margin. */
-export const VIEWPORT = { once: true, margin: "-15% 0px" } as const;
+/* VIEWPORT was exported from here and is gone as of 29 Jul 2026. It was the
+   shared `whileInView` config, and nothing imports it any more: entrances moved
+   to CSS in components/k/Reveal.tsx after a stalled `whileInView` left fifteen
+   elements of the About page permanently invisible. Leaving the constant here
+   would be an invitation to build the same failure again. */

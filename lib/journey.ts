@@ -9,11 +9,33 @@
  * `title` and `blurb` fields are the only editorial writing here, and they name
  * things rather than characterise them.
  *
- * `cover` is null for the three chapters no photograph exists of, and that is
- * load bearing rather than a gap to be filled later. Those three get a
- * typographic sleeve on the ground their own section uses further down the
- * page, so a reader who reaches chapter 02 recognises the sleeve they saw at
- * the top. Nothing may be bought, staged or generated to give them a picture.
+ * ============================================================================
+ * ALL SIX HAVE A COVER NOW, AND THREE OF THEM ARE NOT OF WHAT THEY LABEL.
+ * ============================================================================
+ *
+ * Chapters 02, 03 and 04 carried `cover: null` until 29 Jul 2026 and printed a
+ * typographic sleeve reading "No photograph", because no photograph of a
+ * construction site, of leaving home or of the Air Force has ever existed in
+ * this archive. The client asked for all six to carry an image.
+ *
+ * WHAT THAT DOES AND DOES NOT MEAN. Nothing has been bought, staged or
+ * generated, and that rule has not moved. All three covers are photographs
+ * Mark took himself, pulled from the same archive as the rest of the page, and
+ * chosen for what they are like rather than for what they show:
+ *
+ *   02  a rock cut, which is earth that has been worked
+ *   03  a road running away to the horizon
+ *   04  peaks before dawn, in the cold blue the chapter is set in
+ *
+ * NOTHING ON THE PAGE CLAIMS THEY ARE OF THE EVENTS. A sleeve prints its
+ * number and its title and no caption, so no image here asserts anything. The
+ * closing note at the foot of app/journey/page.tsx says in plain words that
+ * three of the chapters have no photograph of what they describe and carry
+ * images from the archive instead. If a cover is ever changed, check that note
+ * still tells the truth: it is the only thing standing between this and a lie.
+ *
+ * The type is still `string | null` so a sleeve can go back to being coverless
+ * without a schema change.
  */
 
 export type Chapter = {
@@ -24,6 +46,21 @@ export type Chapter = {
   blurb: string;
   /** Mark's own closing line for the chapter, printed on the sleeve back. */
   lesson: string;
+  /**
+   * A dashcam clip that plays in place of the cover in the navigation panel,
+   * where six sleeves sit side by side and two of them moving is what stops
+   * the row reading as a contact sheet.
+   *
+   * IT IS ONLY EVER SET ON A CHAPTER THE FOOTAGE IS ACTUALLY OF. Both clips
+   * are Mark's own, filmed forward from the cab, so they belong to the two
+   * driving chapters and to nothing else. Do not put one on chapter 02 to even
+   * the row up: the road is not a construction site.
+   *
+   * `cover` stays set alongside it and is the poster, so the sleeve has
+   * something to show before the video has a frame and for anyone who has
+   * asked their machine to reduce motion.
+   */
+  clip?: string;
   /**
    * The photograph on the front of the sleeve, or null where none was ever
    * taken. Null means a typographic sleeve, not a placeholder.
@@ -58,7 +95,7 @@ export const CHAPTERS: readonly Chapter[] = [
     title: "Construction sites, every school break",
     blurb: "Not a summer job so much as an education.",
     lesson: "Character is often built long before opportunity arrives.",
-    cover: null,
+    cover: "/images/journey/s08b-rockcut-bend.webp",
     ground: "void",
     lines: [
       "While most kids spent their summers playing, mine were spent on construction sites.",
@@ -73,7 +110,7 @@ export const CHAPTERS: readonly Chapter[] = [
     title: "Leaving home",
     blurb: "The first decisions that were his own to get wrong.",
     lesson: "Growth begins the moment excuses end.",
-    cover: null,
+    cover: "/images/journey/s17-road-to-horizon.webp",
     ground: "coal",
     lines: [
       "As I grew older I began to notice something. I wasn't satisfied with simply being told how things were.",
@@ -88,7 +125,7 @@ export const CHAPTERS: readonly Chapter[] = [
     title: "The Air Force",
     blurb: "Where the habit of checking equipment before trusting it comes from.",
     lesson: "Character grows when comfort is replaced with commitment.",
-    cover: null,
+    cover: "/images/journey/s12-predawn-peaks.webp",
     ground: "blueprint",
     lines: [
       "Freedom brought a question. What kind of man did I want to become?",
@@ -104,6 +141,7 @@ export const CHAPTERS: readonly Chapter[] = [
     blurb: "Eleven photographs taken through a windscreen, in the order the light runs.",
     lesson: "Trust is earned long before it's ever expected.",
     cover: "/images/journey/s05-sunrise-horizon.webp",
+    clip: "/videos/dash-night-720.mp4",
     ground: "void",
     lines: [
       "I thought I was learning how to drive a truck.",
@@ -119,6 +157,7 @@ export const CHAPTERS: readonly Chapter[] = [
     blurb: "KUL Enterprises, from 2026. One tractor, one driver.",
     lesson: "Principles are promises you keep, even when they're difficult.",
     cover: "/images/journey/s07-pines-road.webp",
+    clip: "/videos/dash-daylight-720.mp4",
     ground: "paper",
     lines: [
       "Every company begins with paperwork. But that's not where KUL began.",

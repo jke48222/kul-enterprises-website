@@ -4,6 +4,8 @@ import Link from "next/link";
 import { site } from "@/lib/site";
 import ContactForm from "@/components/forms/ContactForm";
 import Reveal, { RuleDraw } from "@/components/k/Reveal";
+import Breadcrumb from "@/components/k/Breadcrumb";
+import ServiceMap from "@/components/k/ServiceMap";
 
 /**
  * CONTACT PAGE
@@ -44,7 +46,7 @@ const ROUTES = [
   },
   {
     label: "Drivers",
-    body: "Applications are open now for a seat that opens with the second truck. Leave your details and you are called when that happens.",
+    body: "Applications are open now, ahead of the seat. Leave your details and you are called when it opens.",
     action: "Join the list",
     href: "/drivers",
   },
@@ -56,15 +58,10 @@ export default function ContactPage() {
       {/* The opening. Short, because the two cards below it do the work. */}
       <section className="bg-k-paper px-6 pb-20 pt-36 md:px-12 lg:px-24">
         <div className="mx-auto flex max-w-[1248px] flex-col gap-7">
-          <p className="flex items-center gap-2.5">
-            <span className="font-text text-k-micro uppercase text-k-ink-faint">
-              KUL
-            </span>
-            <span className="font-text text-k-micro text-k-ink-faint">/</span>
-            <span className="font-text text-k-micro uppercase text-k-gold">
-              Contact
-            </span>
-          </p>
+          <Breadcrumb
+            className=""
+            items={[{ label: "KUL", href: "/" }, { label: "Contact" }]}
+          />
           <h1 className="max-w-[820px] font-display text-k-d1 font-black text-k-ink">
             One number, and it is answered.
           </h1>
@@ -120,12 +117,15 @@ export default function ContactPage() {
                 >
                   Email dispatch
                 </a>
-                <Link
-                  href="/services"
+                {/* It pointed at /services, which is the list of freight
+                    types and says nothing about where a truck goes. It goes to
+                    the map further down this page now. */}
+                <a
+                  href="#service-area"
                   className="border-b border-k-gold pb-0.5 font-text text-k-small text-k-ink"
                 >
                   See the service area
-                </Link>
+                </a>
               </div>
             </div>
           </Reveal>
@@ -140,9 +140,12 @@ export default function ContactPage() {
             <h2 className="max-w-[500px] font-display text-k-d2 font-black text-k-on-dark">
               Call the person driving.
             </h2>
+            {/* "Nights and weekends included" was the third statement of the
+                same fact inside one screen: the card to the left of this one
+                prints "Dispatch: 24 hours", and the label directly above this
+                headline reads "Dispatch, around the clock". */}
             <p className="max-w-[440px] font-text text-k-body text-k-on-dark-soft">
-              If a load is moving today, this is faster than any form. Nights
-              and weekends included.
+              If a load is moving today, this is faster than any form.
             </p>
             <a
               href={site.phoneHref}
@@ -214,6 +217,27 @@ export default function ContactPage() {
         </div>
       </section>
 
+      {/* WHERE KUL RUNS. Mark asked for a map in his brief and this is it; the
+          component carries the note on how it stays honest and how it works
+          without a pointer. It sits on Contact rather than Home because the
+          question it answers, "do you come to me", is the one somebody has in
+          their head at the moment they are deciding to get in touch. */}
+      <section
+        id="service-area"
+        className="scroll-mt-28 bg-k-paper px-6 py-28 md:px-12 lg:px-24"
+      >
+        <div className="mx-auto flex max-w-[1248px] flex-col gap-12">
+          <Reveal variant="wipe">
+            <h2 className="max-w-[700px] font-display text-k-d2 font-black text-k-ink">
+              Southeast based, authorized nationwide.
+            </h2>
+          </Reveal>
+          <Reveal index={1}>
+            <ServiceMap />
+          </Reveal>
+        </div>
+      </section>
+
       {/* The catch-all, for anything the three rows above do not cover. */}
       <section className="bg-k-paper px-6 py-28 md:px-12 lg:px-24">
         <div className="mx-auto flex max-w-[1248px] flex-col gap-12 lg:flex-row lg:gap-24">
@@ -221,9 +245,10 @@ export default function ContactPage() {
             <h2 className="font-display text-k-d3 font-black text-k-ink">
               Anything else
             </h2>
-            <p className="font-text text-k-body text-k-ink-soft">
-              Write here and it reaches the same inbox as everything else.
-            </p>
+            {/* This used to read "Write here and it reaches the same inbox as
+                everything else", which is the line directly above the three
+                routing rows said a second time, and the address printed
+                underneath it makes the point without a sentence. */}
             <a
               href={`mailto:${site.email}`}
               className="w-fit border-b border-k-gold pb-0.5 font-text text-k-small text-k-ink"
@@ -237,36 +262,15 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* One closing line, for anyone who arrived with a load already on. */}
-      <section className="border-t border-k-rule bg-k-warm px-6 py-14 md:px-12 lg:px-24">
-        <div className="mx-auto flex max-w-[1248px] flex-col items-start gap-8 md:flex-row md:items-center md:justify-between">
-          <h2 className="font-display text-k-d3 font-black text-k-ink">
-            Have a load ready now?
-          </h2>
-          <Link
-            href="/quote"
-            className="flex items-center gap-3.5 rounded-full bg-k-ink px-8 py-4 font-text text-k-label uppercase text-k-on-dark transition-opacity duration-200 hover:opacity-85"
-          >
-            Request a quote
-            <svg
-              width="16"
-              height="10"
-              viewBox="0 0 18 12"
-              fill="none"
-              aria-hidden="true"
-              className="shrink-0"
-            >
-              <path
-                d="M1 6h15M11.5 1 16.8 6l-5.3 5"
-                stroke="currentColor"
-                strokeWidth="1.4"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </Link>
-        </div>
-      </section>
+      {/* A CLOSING BAND SAT HERE READING "Have a load ready now?" beside a
+          Request a quote button. It went on 29 Jul 2026.
+
+          By the time a reader reached it they had already passed the same
+          offer three times on this one page: the first of the three routing
+          rows is headed Freight quotes and ends on a Request a quote link, the
+          bar at the top of every page carries Get a quote, and the footer
+          under this band asks again. A fourth is not emphasis, it is the page
+          not believing the reader saw the first three. */}
     </>
   );
 }

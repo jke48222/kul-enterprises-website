@@ -110,9 +110,13 @@ export default function JourneyShelf() {
         <h1 className="max-w-[16ch] pt-6 font-display text-k-d2 font-black text-k-ink">
           Before the first truck, there was a boy on a plane.
         </h1>
+        {/* "You do not need any of it to book a load" closed this line until
+            29 Jul 2026. It was said to somebody who has already chosen to open
+            the page, and the pinned statement further down says the same thing
+            far better and on purpose: none of this is a sales argument. What
+            is left is the only part that is an instruction. */}
         <p className="max-w-[46ch] pt-5 font-text text-k-body text-k-ink-soft">
-          Six chapters. Take one off the shelf, or read them in order below. You
-          do not need any of it to book a load.
+          Six chapters. Take one off the shelf, or read them in order below.
         </p>
       </div>
 
