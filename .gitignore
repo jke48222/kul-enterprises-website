@@ -20,8 +20,14 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env*.local
-.env
+#
+# .env* catches backups and variants too. The narrower ".env" and ".env*.local"
+# that used to be here left .env.bak, .env.old and .env.production sitting in
+# the working tree where an untracked file with a live API token is one
+# `git add -A` away from being published. The exception below keeps the
+# committed template, which holds only the names of the variables.
+.env*
+!.env.example
 
 # typescript
 *.tsbuildinfo
