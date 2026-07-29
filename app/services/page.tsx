@@ -50,26 +50,126 @@ export const metadata: Metadata = {
     "Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited and Over the Road freight services from KUL Enterprises. Licensed carrier based in Loganville, Georgia, authorized in 48 states.",
 };
 
+/**
+ * THE FOUR MARKS THAT HEAD THE STEPS.
+ *
+ * ============================================================================
+ * THEY ARE DRAWN AS SMALL TECHNICAL ELEVATIONS, NOT AS APP ICONS.
+ * ============================================================================
+ * The first pass was a handset, a page, a road and a clipboard, which is the
+ * set any icon library hands you and which the client rejected twice. The
+ * problem was not the line weight. It was that none of the four had anything to
+ * do with freight: the same four marks would have suited a dentist.
+ *
+ * These are specific. A lane drawn as two waypoints and the route between them,
+ * a rate sheet with the figure ruled under it, the tractor and trailer in side
+ * elevation, and the mark that closes the job. Three of the four could not be
+ * lifted into another industry, which is the whole point of drawing them.
+ *
+ * THEY SPEAK THE SITE'S OWN DRAUGHTING LANGUAGE. This page already carries wire
+ * elevations of the truck at public/images/truck/wire, the safety page is set
+ * as numbered clauses and the home page has a drafting sheet behind its
+ * statement. A technical pen is the house style here, so these are drawn with
+ * one: a single 1.5 stroke, round caps and joins, no fill anywhere except the
+ * one deliberate solid dot, and every mark laid on the same 32 unit grid with
+ * the same 3 unit margin so the four carry identical optical weight in a row.
+ *
+ * ONE IDEA PER ICON. The dispatch mark was a road plus a map pin, and at this
+ * size the verge strokes and the pin read as three unrelated marks instead of
+ * one object. If a mark needs two nouns to explain it, it is the wrong mark.
+ *
+ * They are aria-hidden. The step name beside each is the content, and a screen
+ * reader announcing "handset" before "Enquiry" adds a word and no meaning.
+ */
+const STEP_ICON_PROPS = {
+  width: 32,
+  height: 32,
+  viewBox: "0 0 32 32",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 1.5,
+  strokeLinecap: "round",
+  strokeLinejoin: "round",
+  "aria-hidden": true,
+} as const;
+
 const STEPS = [
   {
     n: "01",
     name: "Enquiry",
     body: "Call dispatch, or send the lane. Six fields: origin, destination, freight type, pickup date, how to reach you, and anything else we should know.",
+    icon: (
+      <svg {...STEP_ICON_PROPS}>
+        {/* THE LANE. An origin left open as a ring, a destination closed as a
+            solid dot, and the route running between them. It is the only mark
+            in the set carrying a filled shape, and that is doing work: open
+            means not yet, closed means arrived, so the direction of travel is
+            legible without an arrowhead. */}
+        <circle cx="7.5" cy="24" r="3" />
+        <path d="M10 21.5C15 17.5 12.5 12 20.5 9.5" />
+        <circle cx="24.5" cy="8" r="3" fill="currentColor" stroke="none" />
+      </svg>
+    ),
   },
   {
     n: "02",
     name: "Quote",
     body: "A real number, usually the same day. If the lane does not suit us, we say so then.",
+    icon: (
+      <svg {...STEP_ICON_PROPS}>
+        {/* THE RATE SHEET. Two ruled lines of description, then the figure set
+            apart under its own rule at the foot, which is how a rate actually
+            sits on a quote and what makes this a quote rather than a generic
+            page. The corner is turned because a folded corner is the fastest
+            way to say paper in four strokes. */}
+        <path d="M7 3.5h12l6 6v19H7Z" />
+        <path d="M19 3.5v6h6" />
+        <path d="M11.5 14.5h9M11.5 18.5h6" />
+        <path d="M11.5 23.5h5.5" />
+      </svg>
+    ),
   },
   {
     n: "03",
     name: "Dispatch",
     body: "You get the route, the timing and the driver before the wheels turn.",
+    icon: (
+      <svg {...STEP_ICON_PROPS}>
+        {/* THE TRACTOR AND TRAILER IN SIDE ELEVATION, which is the one mark on
+            this page that could not belong to any other trade. It is drawn the
+            way the wire elevations at public/images/truck/wire are drawn:
+            chassis line, box, sloped cab, wheels on the line.
+
+            The wheels sit with their centres below the chassis and their tops
+            just above it, which is what a side elevation actually looks like
+            and what stops the rig reading as a box on two circles. */}
+        <path d="M14.5 21V7.5h14.5V21" />
+        <path d="M14.5 21v-8.5H7L3.5 17V21" />
+        <path d="M3.5 21H29" />
+        <circle cx="9" cy="23.6" r="2.7" />
+        <circle cx="24" cy="23.6" r="2.7" />
+      </svg>
+    ),
   },
   {
     n: "04",
     name: "Delivery",
     body: "Updates on the way, proof on arrival, one phone number throughout.",
+    icon: (
+      <svg {...STEP_ICON_PROPS}>
+        {/* THE MARK THAT CLOSES THE JOB. A ring and a check, and nothing else.
+
+            It is the only round silhouette in the row, which is deliberate: the
+            other three are a diagonal, an upright rectangle and a long
+            horizontal one, so a circle at the end gives the four marks four
+            distinct shapes at a glance and stops the row reading as one texture
+            repeated. The ring is set at the same radius as the frame the other
+            three fill, so it carries the same optical weight rather than
+            looking smaller for being round. */}
+        <circle cx="16" cy="16" r="12.5" />
+        <path d="m10 16.5 4 4 8-8.5" />
+      </svg>
+    ),
   },
 ] as const;
 
@@ -259,102 +359,116 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* How a load moves. */}
-      <section
-        className="px-6 py-32 md:px-12 lg:px-24"
-        style={{ backgroundColor: "#FDC63E17" }}
-      >
-        <div className="mx-auto flex max-w-[1248px] flex-col gap-16">
-          <Reveal variant="wipe" className="mx-auto flex max-w-[42ch] flex-col items-center gap-4 text-center">
-            <p className="font-text text-k-label uppercase text-k-gold">
-              How a load moves
-            </p>
-            <h2 className="font-display text-k-d2 font-black text-k-ink">
-              Four steps, no surprises
-            </h2>
-            {/* A lede sat here reading "Six fields in, one phone number
-                throughout." Step 01 below it already names the six fields and
-                lists them, and step 04 already ends on "one phone number
-                throughout", so the summary was made entirely of the two lines
-                directly underneath it. */}
+      {/* ==================================================================
+          HOW A LOAD MOVES.
+          ==================================================================
+          Shape taken 1:1 from the Hims "How it works" section, pulled from
+          Mobbin at the client's choosing: the title along the left with a
+          single filled pill hard right on the same line, then four equal
+          columns each led by a line drawn mark, a bold name and one short
+          paragraph. No rules, no numerals, no cards, and a great deal of air.
+
+          IT WAS A HORIZONTAL RAIL WITH FOUR DOTS. That worked and it read as a
+          diagram: four small labels strung along a line, none of them large
+          enough to be the thing you looked at, and a printed 01 beside each
+          name saying what four columns in a row already say. The rail and the
+          numerals both went with it.
+
+          WHAT THIS BUYS. The old arrangement had two devices doing the
+          sequencing, the line and the numbers, and nothing at all doing the
+          looking. Now the marks carry the eye across, the names are the only
+          bold thing in the section, and the pill gives the reader somewhere to
+          go at the exact moment the page has finished explaining the process.
+
+          THE GROUND WAS A HARDCODED #FDC63E17, which is the metal highlight
+          from the logo gradient laid on at 9% and reads as pale yellow. The
+          client's standing instruction is gold and not yellow, and this is the
+          warm panel token every other warm ground on the site uses. */}
+      <section className="bg-k-warm px-6 py-32 md:px-12 lg:px-24">
+        <div className="mx-auto max-w-[1248px]">
+          {/* THE HEADING ROW, WITH THE ACTION ON THE SAME LINE. The reference
+              runs its title along the left and puts a single filled pill hard
+              right on the same baseline, which is the one piece of weight in an
+              otherwise weightless section. It is worth having here for a reason
+              beyond the borrowing: this section explains how to start, and
+              until now it explained it and then offered no way to. */}
+          <Reveal
+            variant="wipe"
+            // THE PILL DROPS UNDER THE HEADING BELOW lg, NOT BELOW sm. Sharing
+            // the line from 640px up left 24px between the two at 700px, which
+            // is not a gap, it is a near miss. The heading needs the full
+            // measure until there is genuinely room beside it.
+            className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-12"
+          >
+            <div className="flex flex-col gap-4">
+              <p className="font-text text-k-label uppercase text-k-gold">
+                How a load moves
+              </p>
+              {/* "Four steps, no surprises" was here and went on 29 Jul 2026 at
+                  the client's word. Two things were wrong with it. It counted
+                  the steps, which the four columns underneath already do by
+                  being four columns, and "no surprises" is a promise about how
+                  the job will go rather than a statement of what happens, which
+                  is the register this whole site avoids.
+
+                  This names the four things the reader actually receives, in
+                  the order they arrive, and every one of those nouns is already
+                  in the step it belongs to: "Call dispatch", "A real number",
+                  "You get the route", "proof on arrival". */}
+              <h2 className="font-display text-k-d2 font-black text-k-ink">
+                The call, the number, the route, the proof.
+              </h2>
+              {/* A lede sat here reading "Six fields in, one phone number
+                  throughout." Step 01 below it already names the six fields and
+                  lists them, and step 04 already ends on "one phone number
+                  throughout", so the summary was made entirely of the two lines
+                  directly underneath it. */}
+            </div>
+            <Link
+              href="/quote"
+              className="w-fit shrink-0 whitespace-nowrap rounded-full bg-k-ink px-8 py-4 font-text text-k-label uppercase text-k-on-dark transition-opacity duration-200 hover:opacity-85"
+            >
+              Request a quote
+            </Link>
           </Reveal>
 
           {/*
-           * The four steps read as one route rather than four cards: a single
-           * unbroken rail with a mark at each step, running across at lg and
-           * down the left below it.
+           * THE FOUR STEPS, FOUR ACROSS AND UNRULED.
            *
-           * The grid has NO gap on purpose. The rail has to cross from one
-           * step to the next without breaking, so the breathing room is
-           * padding inside each step rather than a gap the line would have to
-           * jump. Adding gap-x or gap-y here will cut the line into pieces.
+           * This was a single rail with a dot at each step, running across at
+           * lg and down the left below it. The rail is gone and so are the
+           * numerals, which is the reference's argument and it holds: four
+           * columns read left to right in order without being told, so a
+           * drawn line and a printed 01 were both spending ink to say what
+           * the arrangement already said.
+           *
+           * WHAT CARRIES THE STEP NOW IS ITS MARK, then its name, then the
+           * sentence. Nothing is boxed and there is no rule between columns.
+           * The separation is the gap, which is why the gap is large and must
+           * stay large: at anything under about 40px the four columns start to
+           * read as one paragraph in four pieces.
+           *
+           * It is an ordered list because the order is the meaning. The marker
+           * is suppressed by the flex container rather than by list-none, so
+           * the semantics survive.
            */}
-          <div className="grid grid-cols-1 lg:grid-cols-4">
-            {STEPS.map((step, i) => {
-              const last = i === STEPS.length - 1;
-              return (
-                <Reveal
-                  key={step.n}
-                  index={i}
-                  className={`relative flex gap-5 lg:flex-col lg:gap-0 ${
-                    last ? "" : "pb-10 lg:pb-0"
-                  }`}
-                >
-                  {/*
-                   * Below lg the rail runs down the left instead of across.
-                   * It is drawn from this mark's centre to the next mark's
-                   * centre (12.5px = 8px offset + half the 9px mark), which
-                   * is why it overhangs the bottom by the same amount.
-                   */}
-                  {last ? null : (
-                    <span
-                      className="absolute -bottom-[12.5px] left-1 top-[12.5px] w-px bg-k-rule-strong lg:hidden"
-                      aria-hidden="true"
-                    />
-                  )}
-
-                  {/*
-                   * The mark. At lg it sits on the rail and carries the line
-                   * to the next one; the last step draws no line, so the rail
-                   * ends on arrival rather than running off the edge.
-                   */}
-                  <div className="flex shrink-0 items-start pt-2 lg:w-full lg:items-center lg:pt-0">
-                    <span
-                      className={`block h-[9px] w-[9px] shrink-0 rounded-full ${
-                        last ? "bg-k-gold" : "bg-k-ink"
-                      }`}
-                    />
-                    {last ? null : (
-                      <span
-                        className="hidden h-px flex-1 bg-k-rule-strong lg:block"
-                        aria-hidden="true"
-                      />
-                    )}
-                  </div>
-
-                  {/* At lg, a short drop tying the label back to its mark. */}
-                  <span
-                    className="ml-1 hidden h-7 w-px bg-k-rule lg:block"
-                    aria-hidden="true"
-                  />
-
-                  <div className="flex flex-col gap-2 lg:pr-10">
-                    <div className="flex items-baseline gap-3">
-                      <span className="font-text text-k-micro uppercase tabular-nums text-k-ink-faint">
-                        {step.n}
-                      </span>
-                      <h3 className="font-display text-k-d3 font-black text-k-ink">
-                        {step.name}
-                      </h3>
-                    </div>
-                    <p className="font-text text-k-small text-k-ink-soft">
+          <ol className="mt-20 grid grid-cols-1 gap-x-12 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
+            {STEPS.map((step, i) => (
+              <li key={step.n} className="flex">
+                <Reveal index={i} className="flex flex-col gap-5">
+                  <span className="text-k-gold">{step.icon}</span>
+                  <div className="flex flex-col gap-2.5">
+                    <h3 className="font-display text-k-lede font-black text-k-ink">
+                      {step.name}
+                    </h3>
+                    <p className="max-w-[34ch] font-text text-k-small text-k-ink-soft">
                       {step.body}
                     </p>
                   </div>
                 </Reveal>
-              );
-            })}
-          </div>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
