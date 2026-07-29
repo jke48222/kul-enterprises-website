@@ -173,11 +173,22 @@ export const page = (
   file: string,
   fields: TinaField[],
   /**
-   * The address this page lives at. Not passed to Tina yet: it is the value
-   * that becomes `ui.router` on the day the wiring above is done, and it is
-   * carried here so the schema already records which page is which.
+   * The address this page lives at.
+   *
+   * Setting it turns that collection's entry in /admin into the visual editor:
+   * the real page renders in a panel beside the fields, updates as the client
+   * types, and any element carrying a data-tina-field can be clicked to jump
+   * straight to the field behind it.
+   *
+   * ONLY SET IT ONCE THE PAGE IS WIRED. A page is wired when it is split into
+   * a server half that queries through tina/__generated__/client and a client
+   * half that subscribes with useTina. app/page.tsx and app/home-view.tsx are
+   * the worked example. Set it on a page that still imports its JSON directly
+   * and /admin opens the editor, finds nothing registered, and sits on "Please
+   * wait while TinaCMS loads your content" forever. Leave it off and that
+   * collection keeps the ordinary form, which edits the same content just as
+   * well without the preview.
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   route?: string,
 ) => ({
   name,
@@ -185,7 +196,10 @@ export const page = (
   path: "content/pages",
   format: "json" as const,
   match: { include: file },
-  ui: { allowedActions: { create: false, delete: false } },
+  ui: {
+    allowedActions: { create: false, delete: false },
+    ...(route ? { router: () => route } : {}),
+  },
   fields,
 });
 

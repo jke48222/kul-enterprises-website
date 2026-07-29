@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { site } from "@/lib/site";
-import { fill, linkHref } from "@/lib/content";
+import { fill, linkHref, type CmsText } from "@/lib/content";
 
 /**
  * A PIECE OF CMS COPY, RENDERED.
@@ -50,7 +50,7 @@ import { fill, linkHref } from "@/lib/content";
 
 type Props = {
   /** The sentence as stored in the CMS. Tokens are filled here. */
-  text: string;
+  text: CmsText;
   className?: string;
   /** Class applied to links, and to the phone and email inside the sentence. */
   linkClassName?: string;
@@ -160,7 +160,7 @@ export default function Copy({
  * The same rendering without a wrapping element, for the places that already
  * have one and only want the inside of it.
  */
-export function copyNodes(text: string, linkClassName?: string) {
+export function copyNodes(text: CmsText, linkClassName?: string) {
   return renderCopy(fill(text), linkClassName);
 }
 
@@ -197,7 +197,7 @@ export function Prose({
   className,
   linkClassName,
 }: {
-  text: string;
+  text: CmsText;
   className?: string;
   linkClassName?: string;
 }) {

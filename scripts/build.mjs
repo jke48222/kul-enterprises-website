@@ -37,6 +37,66 @@
  * visible; it just is not contagious.
  */
 import { spawnSync } from "node:child_process";
+import { existsSync, mkdirSync, writeFileSync } from "node:fs";
+
+/**
+ * ==================================================================
+ * THE GENERATED CLIENT HAS TO EXIST EVEN WHEN TINA FAILS.
+ * ==================================================================
+ * lib/tina.ts imports tina/__generated__/client, which `tinacms build`
+ * writes. That directory is not committed, because the file it produces holds
+ * the API token in plain text and has no business being in git.
+ *
+ * Which means the resilience above was worth nothing on its own: if the editor
+ * build failed, the generated client would be missing, `next build` would stop
+ * on an unresolvable import, and the site would fail to deploy exactly as it
+ * did before, just one step later and with a more confusing error.
+ *
+ * So when the editor build has not produced a client, a stub is written that
+ * throws the moment anything calls it. lib/tina.ts already runs every query
+ * inside a try, so that throw is caught, the page falls back to the JSON in
+ * content/, and the site builds. The failure stays loud in the log and stops
+ * being able to take the website down.
+ */
+function ensureGeneratedClient() {
+  const dir = "tina/__generated__";
+  const file = `${dir}/client.ts`;
+  if (existsSync(file)) return;
+
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(
+    file,
+    `// AUTO-GENERATED STAND-IN, written by scripts/build.mjs.
+//
+// The real file comes from \`tinacms build\`. That did not run or did not
+// succeed, so this exists purely so the import in lib/tina.ts resolves and
+// the site can still be built. Every call throws, lib/tina.ts catches it, and
+// the pages render from content/ instead. Delete it and re-run the build once
+// Tina Cloud is reachable.
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const unavailable = () => {
+  throw new Error(
+    "Tina client was not generated: the editor build did not succeed.",
+  );
+};
+
+// Shaped like the real client so the call sites in lib/tina.ts still
+// typecheck. Reading any query throws, which lib/tina.ts catches.
+export const client = new Proxy(
+  {},
+  {
+    get: () => new Proxy({}, { get: () => unavailable }),
+  },
+) as { queries: Record<string, (...args: any[]) => Promise<any>> };
+
+export default client;
+`,
+  );
+  console.log(
+    "[build] Wrote a stand-in tina/__generated__/client.ts so the site can " +
+      "build without the editor. Pages will render from content/ directly.",
+  );
+}
 
 const hasEditorCredentials = Boolean(
   process.env.NEXT_PUBLIC_TINA_CLIENT_ID && process.env.TINA_TOKEN,
@@ -89,12 +149,14 @@ if (hasEditorCredentials) {
       "  Full list: https://tina.io/docs/tinacloud/troubleshooting",
     ]);
   }
+  ensureGeneratedClient();
 } else {
   console.log(
     "[build] No Tina Cloud credentials, so /admin is not built. Set " +
       "NEXT_PUBLIC_TINA_CLIENT_ID and TINA_TOKEN in the hosting environment " +
       "to switch the editor on. The site builds and runs without it.",
   );
+  ensureGeneratedClient();
 }
 
 run("next", ["build"]);

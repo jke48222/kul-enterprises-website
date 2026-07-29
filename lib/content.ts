@@ -52,18 +52,28 @@ const TOKENS: Record<string, string> = {
 export const TOKEN_HELP =
   "You can drop a business fact into this text with a token: {name}, {location}, {city}, {state}, {phone}, {email}, {usdot}, {mc}. They fill in from Business Facts, so you never have to retype a phone number here.";
 
+/**
+ * Anything a CMS field can hand back.
+ *
+ * IT INCLUDES NULL AND UNDEFINED ON PURPOSE. Every field in Tina's generated
+ * types is optional, because every field in the CMS can be emptied, and a
+ * client will empty one sooner or later. Before these helpers tolerated it,
+ * clearing a headline in the sidebar would have thrown on .replace and taken
+ * the page down while they were looking at it. Missing copy should leave a
+ * gap, not a stack trace.
+ */
+export type CmsText = string | null | undefined;
+
 /** Replaces {token} with the matching business fact. Unknown tokens survive. */
-export function fill(text: string): string;
-export function fill(text: string | undefined): string | undefined;
-export function fill(text: string | undefined) {
-  if (!text) return text;
+export function fill(text: CmsText): string {
+  if (!text) return "";
   return text.replace(/\{(\w+)\}/g, (whole, key: string) =>
     key in TOKENS ? TOKENS[key] : whole,
   );
 }
 
 /** fill() over a list, for the bullet arrays the CMS stores. */
-export function fillAll(items: readonly string[] | undefined): string[] {
+export function fillAll(items: readonly CmsText[] | null | undefined): string[] {
   return (items ?? []).map((item) => fill(item));
 }
 
@@ -85,15 +95,27 @@ export function fillAll(items: readonly string[] | undefined): string[] {
  * {phone} or {email} and linkHref() below turns it into a proper tel: or
  * mailto: link, so the client never has to know the syntax.
  */
-export type CmsLink = { label: string; href: string };
+export type CmsLink = { label?: CmsText; href?: CmsText };
 
-export function linkHref(href: string): string {
+export function linkHref(href: CmsText): string {
   if (href === "{phone}") return site.phoneHref;
   if (href === "{email}") return `mailto:${site.email}`;
   return fill(href);
 }
 
-/** A link ready to render: tokens filled on both halves. */
-export function link(cta: CmsLink): CmsLink {
-  return { label: fill(cta.label), href: linkHref(cta.href) };
+/**
+ * A link ready to render: tokens filled on both halves.
+ *
+ * A link with no target set comes back pointing at "#", which renders a dead
+ * anchor rather than crashing next/link, whose href is required. That is the
+ * right failure for a half-filled CMS field: visible, harmless, obvious.
+ */
+export function link(cta: CmsLink | null | undefined): {
+  label: string;
+  href: string;
+} {
+  return {
+    label: fill(cta?.label),
+    href: linkHref(cta?.href) || "#",
+  };
 }

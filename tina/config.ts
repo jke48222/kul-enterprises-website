@@ -374,7 +374,7 @@ export default defineConfig({
             ],
           },
         ]),
-      ], "/services"),
+      ]),  // visual editing not wired yet; route is "/services"
 
       page("driversPage", "Drivers page", "drivers", [
         seo(),
@@ -420,7 +420,7 @@ export default defineConfig({
           longText("intro", "Sentence above the form"),
           text("equalOpportunityLine", "Line under the form", TOKENS),
         ]),
-      ], "/drivers"),
+      ]),  // visual editing not wired yet; route is "/drivers"
 
       page("safetyPage", "Safety page", "safety", [
         seo(),
@@ -495,7 +495,7 @@ export default defineConfig({
             ],
           },
         ]),
-      ], "/safety"),
+      ]),  // visual editing not wired yet; route is "/safety"
 
       page("carrierPacketPage", "Carrier Packet page", "carrier-packet", [
         seo(),
@@ -534,7 +534,7 @@ export default defineConfig({
           text("heading", "Section heading"),
           longText("footnote", "Line under the form"),
         ]),
-      ], "/carrier-packet"),
+      ]),  // visual editing not wired yet; route is "/carrier-packet"
 
       page("aboutPage", "About page", "about", [
         seo(),
@@ -579,7 +579,7 @@ export default defineConfig({
             ],
           },
         ]),
-      ], "/about"),
+      ]),  // visual editing not wired yet; route is "/about"
 
       page("journeyPage", "The Journey page", "journey", [
         seo(),
@@ -654,7 +654,7 @@ export default defineConfig({
           ),
           links("links", "The two links at the end"),
         ]),
-      ], "/journey"),
+      ]),  // visual editing not wired yet; route is "/journey"
 
       {
         name: "journeyChapters",
@@ -745,7 +745,7 @@ export default defineConfig({
           text("heading", "Section heading"),
           longText("body", "Paragraph"),
         ]),
-      ], "/road-ahead"),
+      ]),  // visual editing not wired yet; route is "/road-ahead"
 
       page("quotePage", "Quote page", "quote", [
         seo(),
@@ -771,7 +771,7 @@ export default defineConfig({
           paragraphs("items", "The facts", `One entry each. ${TOKENS}`),
           text("locationLine", "The gold line on the right", TOKENS),
         ]),
-      ], "/quote"),
+      ]),  // visual editing not wired yet; route is "/quote"
 
       page("contactPage", "Contact page", "contact", [
         seo(),
@@ -817,7 +817,7 @@ export default defineConfig({
           text("heading", "Section heading"),
           text("emailLabel", "The address", TOKENS),
         ]),
-      ], "/contact"),
+      ]),  // visual editing not wired yet; route is "/contact"
 
       /* ============================================================
          THE SHARED FURNITURE
