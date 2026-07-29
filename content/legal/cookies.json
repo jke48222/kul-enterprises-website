@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "title": "Manage Cookies",
+    "description": "What this website stores in your browser, why, and how to control it."
+  },
+  "eyebrow": "Legal",
+  "title": "Manage Cookies",
+  "updated": "July 2026",
+  "pull": "",
+  "sections": [
+    {
+      "heading": "Introduction",
+      "body": "This page explains what is stored in your browser when you use our website, why it is stored, and how you can control it. We would rather set it out plainly than leave you guessing, so everything the site keeps is listed below. What we will not do is use any of it to advertise to you, to follow you onto other websites, or to sell to anyone.",
+      "onlyWithAnalytics": false
+    },
+    {
+      "heading": "What we store",
+      "body": "One entry, named kul-intro-seen, which records that our opening film has already played so that it does not greet you a second time. Its value is the single character 1. It holds nothing about you, and it is never transmitted to us or to anyone else.\n\nIt is kept in your browser's local storage rather than in a cookie, and that distinction is worth stating precisely: it does not expire on a schedule, and it is not cleared when you close the tab. It stays until you clear this site's data , which is what lets the film play once in your life rather than on every visit.",
+      "onlyWithAnalytics": false
+    },
+    {
+      "heading": "Traffic measurement",
+      "body": "We use Google Analytics to understand how many people reach our website and which pages they actually read. Unlike the flag above, this does set cookies: a pair on this domain, one named _ga and one beginning _ga_, which tell a returning visitor apart from a new one. They last about two years unless you clear them first.\n\nThose measurements are sent to Google, who process them on our behalf, and we read them only in aggregate. We do not use them to advertise to you and we do not sell them. You can block these cookies in your browser settings or with Google's opt-out browser add-on, and nothing on this website will stop working.",
+      "onlyWithAnalytics": true
+    },
+    {
+      "heading": "How to control it",
+      "body": "None of it is required for the website to function. You can clear everything described above through your browser's site-data or privacy controls for this domain, or avoid it in the first place by browsing in a private window. If you block storage for this site altogether, the site notices and simply skips the opening film; every page, form, and phone number behaves exactly as it otherwise would.",
+      "onlyWithAnalytics": false
+    },
+    {
+      "heading": "Changes to this page",
+      "body": "If what we store or measure changes, this page and our Privacy Policy will be updated to say so plainly before the change takes effect. Questions about any of it can be sent to {email}.",
+      "onlyWithAnalytics": false
+    }
+  ]
+}

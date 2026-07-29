@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "title": "Freight Services",
+    "description": "Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited and Over the Road freight services from KUL Enterprises. Licensed carrier based in Loganville, Georgia, authorized in 48 states."
+  },
+  "title": {
+    "heading": "Services",
+    "serviceAreaBefore": "Serving",
+    "serviceAreaHighlight": "{city}, {state} 30052",
+    "serviceAreaAfter": "and 48 states",
+    "countSuffix": "services"
+  },
+  "compare": {
+    "heading": "Find the service that fits your lane",
+    "body": "If none of them obviously fits, describe the load and we will tell you which one does, including when the answer is that KUL is not the right carrier for it.",
+    "quoteLabel": "Get a quote",
+    "detailLabel": "in detail",
+    "leadTimePrefix": "Lead time",
+    "labels": {
+      "equipment": "Equipment",
+      "lane": "Typical lane",
+      "bestFor": "Best for"
+    }
+  },
+  "detail": {
+    "metaTitleSuffix": "Freight Service",
+    "metaDescriptionTail": "freight from KUL Enterprises, a licensed carrier based in {location}. USDOT {usdot}.",
+    "quoteCta": "Quote this service",
+    "callCta": "Call dispatch",
+    "bestForLabel": "Best for",
+    "commitmentsLabel": "What we commit to",
+    "sizeHeading": "Size it up",
+    "dimensionsCaveat": "Dimensions are nominal for a standard 53 foot van. Confirm at booking.",
+    "previousLabel": "Previous",
+    "nextLabel": "Next"
+  },
+  "howItMoves": {
+    "eyebrow": "How a load moves",
+    "heading": "The call, the number, the route, the proof.",
+    "cta": { "label": "Request a quote", "href": "/quote" },
+    "steps": [
+      {
+        "n": "01",
+        "name": "Enquiry",
+        "body": "Call dispatch, or send the lane. Six fields: origin, destination, freight type, pickup date, how to reach you, and anything else we should know."
+      },
+      {
+        "n": "02",
+        "name": "Quote",
+        "body": "A real number, usually the same day. If the lane does not suit us, we say so then."
+      },
+      {
+        "n": "03",
+        "name": "Dispatch",
+        "body": "You get the route, the timing and the driver before the wheels turn."
+      },
+      {
+        "n": "04",
+        "name": "Delivery",
+        "body": "Updates on the way, proof on arrival, one phone number throughout."
+      }
+    ]
+  }
+}

@@ -4,9 +4,20 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { site } from "@/lib/site";
 import { services } from "@/lib/services";
+import { fill } from "@/lib/content";
+import indexPage from "@/content/pages/services-index.json";
 import Reveal, { RuleDraw } from "@/components/k/Reveal";
 import ServiceSpecs from "@/components/k/ServiceSpecs";
 import Breadcrumb from "@/components/k/Breadcrumb";
+
+/**
+ * The wording shared by all seven pages, as opposed to the wording that is
+ * different on each. The per-service copy is in content/services.json under
+ * "Services"; the labels and buttons below are in content/pages/
+ * services-index.json under "Services page", because they belong to the
+ * template rather than to any one service.
+ */
+const t = indexPage.detail;
 
 /**
  * ONE PAGE PER FREIGHT SERVICE
@@ -40,8 +51,8 @@ export async function generateMetadata({
   if (!service) return {};
 
   return {
-    title: `${service.name} Freight Service`,
-    description: `${service.short} ${service.name} freight from KUL Enterprises, a licensed carrier based in ${site.location}. USDOT ${site.usdot}.`,
+    title: `${service.name} ${fill(t.metaTitleSuffix)}`,
+    description: `${service.short} ${service.name} ${fill(t.metaDescriptionTail)}`,
   };
 }
 
@@ -117,13 +128,13 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 href={`/quote?service=${service.slug}`}
                 className="rounded-full bg-k-on-dark px-8 py-4 font-text text-k-label uppercase text-k-ink transition-opacity duration-200 hover:opacity-85"
               >
-                Quote this service
+                {fill(t.quoteCta)}
               </Link>
               <a
                 href={site.phoneHref}
                 className="rounded-full border border-k-on-dark-faint px-8 py-4 font-text text-k-label uppercase text-k-on-dark transition-colors duration-200 hover:border-k-on-dark"
               >
-                Call dispatch
+                {fill(t.callCta)}
               </a>
             </div>
           </div>
@@ -134,8 +145,8 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       <section className="bg-k-paper px-6 py-28 md:px-12 lg:px-24">
         <div className="mx-auto flex max-w-[1248px] flex-col gap-16 lg:flex-row lg:gap-24">
           {[
-            { label: "Best for", items: service.bestFor },
-            { label: "What we commit to", items: service.commitments },
+            { label: fill(t.bestForLabel), items: service.bestFor },
+            { label: fill(t.commitmentsLabel), items: service.commitments },
           ].map((block, i) => (
             <Reveal key={block.label} variant="settle" index={i} className="flex flex-1 flex-col gap-6">
               <p className="flex items-center gap-4">
@@ -189,7 +200,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         <div className="mx-auto flex max-w-[1248px] flex-col">
           <Reveal>
             <h2 className="pb-14 text-center font-display text-k-d3 font-black text-k-on-dark">
-              Size it up
+              {fill(t.sizeHeading)}
             </h2>
           </Reveal>
 
@@ -269,8 +280,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               the real trailer, change the words rather than dropping them. */}
           {service.dimensions.length > 0 ? (
             <p className="pt-6 font-text text-k-micro uppercase text-k-on-dark-faint">
-              Dimensions are nominal for a standard 53 foot van. Confirm at
-              booking.
+              {fill(t.dimensionsCaveat)}
             </p>
           ) : null}
         </div>
@@ -286,7 +296,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
           className="flex flex-1 flex-col gap-2 border-b border-k-rule px-6 py-10 transition-colors duration-200 hover:bg-k-paper sm:border-b-0 sm:border-r md:px-12 lg:px-24"
         >
           <span className="font-text text-k-micro uppercase text-k-ink-faint">
-            Previous
+            {fill(t.previousLabel)}
           </span>
           <span className="font-display text-k-d3 font-black text-k-ink">
             {previous.name}
@@ -297,7 +307,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
           className="flex flex-1 flex-col items-end gap-2 px-6 py-10 transition-colors duration-200 hover:bg-k-paper md:px-12 lg:px-24"
         >
           <span className="font-text text-k-micro uppercase text-k-ink-faint">
-            Next
+            {fill(t.nextLabel)}
           </span>
           <span className="font-display text-k-d3 font-black text-k-ink">
             {next.name}

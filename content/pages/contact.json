@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "title": "Contact Dispatch",
+    "description": "Contact KUL Enterprises. Dispatch is {phone}, answered by the driver. Freight quotes, carrier packet requests and driver enquiries. Based in {location}."
+  },
+  "opening": {
+    "heading": "One number, and it is answered.",
+    "lede": "There is no phone tree and no ticket queue. The number below reaches the person who drives the truck."
+  },
+  "locationCard": {
+    "image": "/images/services/regional-wide.jpg",
+    "imageAlt": "An open highway running toward distant hills",
+    "heading": "{location}",
+    "addressLines": ["{city}, Georgia 30052", "{serviceArea}"],
+    "hoursLines": ["Dispatch: 24 hours", "USDOT {usdot} · MC {mc}"],
+    "emailCta": { "label": "Email dispatch", "href": "{email}" },
+    "mapCta": { "label": "See the service area", "href": "#service-area" }
+  },
+  "dispatchCard": {
+    "eyebrow": "Dispatch, around the clock",
+    "heading": "Call the person driving.",
+    "body": "If a load is moving today, this is faster than any form.",
+    "cta": { "label": "Call {phone}", "href": "{phone}" }
+  },
+  "routes": {
+    "heading": "Where to send it",
+    "intro": "All three rows below reach the same inbox, so use whichever fits and say so in the first line.",
+    "items": [
+      {
+        "label": "Freight quotes",
+        "body": "Origin, destination, freight type and pickup date. Priced the same day where we can.",
+        "action": "Request a quote",
+        "href": "/quote"
+      },
+      {
+        "label": "Carrier packet",
+        "body": "W-9, certificate of insurance and operating authority for your onboarding file. Asked for here, sent by email.",
+        "action": "Ask for the packet",
+        "href": "/carrier-packet"
+      },
+      {
+        "label": "Drivers",
+        "body": "Applications are open now, ahead of the seat. Leave your details and you are called when it opens.",
+        "action": "Join the list",
+        "href": "/drivers"
+      }
+    ]
+  },
+  "map": {
+    "heading": "Southeast based, authorized nationwide."
+  },
+  "catchAll": {
+    "heading": "Anything else",
+    "emailLabel": "{email}"
+  }
+}

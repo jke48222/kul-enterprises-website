@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import { site } from "@/lib/site";
 import Reveal, { RuleDraw } from "@/components/k/Reveal";
 import Breadcrumb from "@/components/k/Breadcrumb";
+import Copy from "@/components/k/Copy";
+import { fill } from "@/lib/content";
+import page from "@/content/pages/road-ahead.json";
 
 /**
  * THE ROAD AHEAD
@@ -22,74 +24,24 @@ import Breadcrumb from "@/components/k/Breadcrumb";
  * columns. Four sections of three equal columns is what made the earlier
  * version of this page feel like a template.
  *
- * TO UPDATE IT AS THE COMPANY GROWS: change the numbers in POSITION the day
- * they are true. When a stage in PLAN is done, set its status to "Done" and
- * leave it in place, so the page keeps its own record.
+ * TO UPDATE IT AS THE COMPANY GROWS: everything on this page is at /admin
+ * under "Road Ahead page". Change the figures under "Where it stands today"
+ * the day they are true. When a stage in the plan is done, set its status to
+ * "Done" and leave it in place, so the page keeps its own record.
+ *
+ * THE LEAD FIGURE IS SET APART because it is the real asset: eleven years of
+ * driving, against one truck and one driver. Its note is short on purpose. A
+ * second sentence there used to point out that this is the only large number
+ * on the page, which is a remark about the layout rather than about the
+ * carrier, and the word "already" quietly promised growth the rest of the page
+ * is careful not to. The column runs shorter than the ruled rows beside it;
+ * that is the cost and it is the right trade.
  */
 
 export const metadata: Metadata = {
-  title: "The Road Ahead",
-  description: `KUL Enterprises runs one truck today and plans fifty by 2029. The plan in order, what has to happen first, and what does not change on the way. Licensed carrier in ${site.location}, USDOT ${site.usdot}.`,
+  title: fill(page.meta.title),
+  description: fill(page.meta.description),
 };
-
-/** The real figures. The lead one is set apart because it is the real asset. */
-const LEAD_FIGURE = {
-  value: "11",
-  label: "Years driving",
-  // Short on purpose. The second sentence used to point out that this is the
-  // only large number on the page, which is a remark about the layout rather
-  // than about the carrier, and "already" quietly promised growth the rest of
-  // the page is careful not to. The column now runs shorter than the ruled
-  // rows beside it; that is the cost and it is the right trade.
-  note: "Eleven years hauling for other carriers before KUL took its first load.",
-};
-
-const POSITION = [
-  {
-    value: "1",
-    label: "Trucks in service",
-    note: "One tractor, on the road since 2026.",
-  },
-  {
-    value: "1",
-    label: "Drivers",
-    note: "Mark Brown, who also answers dispatch.",
-  },
-  {
-    value: "48",
-    label: "States authorised",
-    note: "Operating authority is already nationwide.",
-  },
-] as const;
-
-/** The plan, in the order it has to happen. Status, never a date. */
-const PLAN = [
-  {
-    n: "01",
-    title: "The second truck",
-    status: "Next",
-    body: "A second tractor goes on the road once there is repeat freight to keep both loaded through a full month. Until that is true the money stays in maintenance and insurance on the first one.",
-  },
-  {
-    n: "02",
-    title: "A second driver",
-    status: "After that",
-    body: "Hired on a verified work history and a clean motor vehicle record, held to the standards written on the safety page. Recruiting starts once the second truck is booked, not before.",
-  },
-  {
-    n: "03",
-    title: "Dispatch cover",
-    status: "After that",
-    body: "A second person on the phone, so calls are answered while the first is driving. The number on this site does not change when that happens.",
-  },
-] as const;
-
-/** What stays the same at any size. */
-const FIXED = [
-  "Dispatch stays one phone number, answered by somebody who has driven the lane.",
-  "No load is accepted that cannot be run legally inside hours of service.",
-  "Delays come from us before they come from your receiver.",
-] as const;
 
 export default function RoadAheadPage() {
   return (
@@ -106,15 +58,15 @@ export default function RoadAheadPage() {
           <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between lg:gap-24">
             <Reveal variant="wipe" className="lg:max-w-[760px]">
               <h1 className="font-display text-k-d1 font-black text-k-ink">
-                One truck today. Fifty by 2029.
+                {fill(page.opening.heading)}
               </h1>
             </Reveal>
             <Reveal index={2} className="lg:w-[340px] lg:shrink-0 lg:pb-3">
-              <p className="font-text text-k-body text-k-ink-soft">
-                Written in the order it has to happen, and nothing on it is
-                dated until it is booked. The figures are updated the day they
-                change.
-              </p>
+              <Copy
+                text={page.opening.body}
+                className="font-text text-k-body text-k-ink-soft"
+                linkClassName="underline underline-offset-4"
+              />
             </Reveal>
           </div>
         </div>
@@ -126,7 +78,7 @@ export default function RoadAheadPage() {
         <div className="mx-auto flex max-w-[1248px] flex-col gap-12">
           <Reveal variant="settle">
             <span className="font-text text-k-micro uppercase text-k-ink-faint">
-              Where it stands today
+              {fill(page.position.eyebrow)}
             </span>
           </Reveal>
 
@@ -134,19 +86,21 @@ export default function RoadAheadPage() {
             <Reveal className="lg:w-[520px] lg:shrink-0">
               <div className="flex flex-col gap-4">
                 <span className="font-display text-[clamp(5rem,14vw,11rem)] font-black leading-[0.86] tracking-[-0.035em] text-k-gold">
-                  {LEAD_FIGURE.value}
+                  {fill(page.position.leadFigure.value)}
                 </span>
                 <span className="font-text text-k-micro uppercase text-k-ink-faint">
-                  {LEAD_FIGURE.label}
+                  {fill(page.position.leadFigure.label)}
                 </span>
-                <p className="max-w-[420px] font-text text-k-body text-k-ink-soft">
-                  {LEAD_FIGURE.note}
-                </p>
+                <Copy
+                  text={page.position.leadFigure.note}
+                  className="max-w-[420px] font-text text-k-body text-k-ink-soft"
+                  linkClassName="underline underline-offset-4"
+                />
               </div>
             </Reveal>
 
             <div className="flex flex-1 flex-col">
-              {POSITION.map((fact, i) => (
+              {page.position.facts.map((fact, i) => (
                 <div key={fact.label} className="flex flex-col">
                   <RuleDraw index={i} />
                   <Reveal
@@ -155,20 +109,23 @@ export default function RoadAheadPage() {
                     className="flex items-baseline gap-8 py-7"
                   >
                     <span className="w-[92px] shrink-0 font-display text-k-d2 font-black tabular-nums text-k-ink">
-                      {fact.value}
+                      {fill(fact.value)}
                     </span>
                     <span className="flex flex-1 flex-col gap-1.5">
                       <span className="font-text text-k-micro uppercase text-k-ink-faint">
-                        {fact.label}
+                        {fill(fact.label)}
                       </span>
-                      <span className="font-text text-k-small text-k-ink-soft">
-                        {fact.note}
-                      </span>
+                      <Copy
+                        as="span"
+                        text={fact.note}
+                        className="font-text text-k-small text-k-ink-soft"
+                        linkClassName="underline underline-offset-4"
+                      />
                     </span>
                   </Reveal>
                 </div>
               ))}
-              <RuleDraw index={POSITION.length} />
+              <RuleDraw index={page.position.facts.length} />
             </div>
           </div>
         </div>
@@ -184,35 +141,37 @@ export default function RoadAheadPage() {
                 written in the order it has to happen, and the stages below
                 are numbered 01, 02, 03. */}
             <h2 className="max-w-[820px] font-display text-k-d2 font-black text-k-ink">
-              The plan
+              {fill(page.plan.heading)}
             </h2>
           </Reveal>
 
           <div className="flex flex-col">
-            {PLAN.map((stage, i) => (
+            {page.plan.stages.map((stage, i) => (
               <div key={stage.n} className="flex flex-col">
                 <RuleDraw index={i} />
                 <Reveal index={i} className="flex flex-col gap-4 py-9">
                   <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2">
                     <div className="flex items-baseline gap-6">
                       <span className="font-text text-k-micro uppercase tabular-nums text-k-gold">
-                        {stage.n}
+                        {fill(stage.n)}
                       </span>
                       <h3 className="font-display text-k-d2 font-black text-k-ink">
-                        {stage.title}
+                        {fill(stage.title)}
                       </h3>
                     </div>
                     <span className="font-text text-k-micro uppercase text-k-ink-faint">
-                      {stage.status}
+                      {fill(stage.status)}
                     </span>
                   </div>
-                  <p className="max-w-[720px] font-text text-k-body text-k-ink-soft lg:pl-[76px]">
-                    {stage.body}
-                  </p>
+                  <Copy
+                    text={stage.body}
+                    className="max-w-[720px] font-text text-k-body text-k-ink-soft lg:pl-[76px]"
+                    linkClassName="underline underline-offset-4"
+                  />
                 </Reveal>
               </div>
             ))}
-            <RuleDraw index={PLAN.length} />
+            <RuleDraw index={page.plan.stages.length} />
           </div>
         </div>
       </section>
@@ -223,20 +182,24 @@ export default function RoadAheadPage() {
         <div className="mx-auto flex max-w-[1248px] flex-col gap-12 lg:flex-row lg:gap-24">
           <Reveal variant="wipe" className="lg:w-[480px] lg:shrink-0">
             <h2 className="font-display text-k-d2 font-black text-k-on-dark">
-              What does not change at any size
+              {fill(page.fixed.heading)}
             </h2>
           </Reveal>
 
           <ul className="flex flex-1 flex-col">
-            {FIXED.map((line, i) => (
+            {page.fixed.items.map((line, i) => (
               <li key={line} className="flex flex-col">
                 <RuleDraw index={i} tone="dark" />
                 <Reveal index={i} className="py-7">
-                  <p className="font-text text-k-lede text-k-on-dark">{line}</p>
+                  <Copy
+                    text={line}
+                    className="font-text text-k-lede text-k-on-dark"
+                    linkClassName="underline underline-offset-4"
+                  />
                 </Reveal>
               </li>
             ))}
-            <RuleDraw index={FIXED.length} tone="dark" />
+            <RuleDraw index={page.fixed.items.length} tone="dark" />
           </ul>
         </div>
       </section>
@@ -245,7 +208,7 @@ export default function RoadAheadPage() {
       <section className="bg-k-warm px-6 py-24 md:px-12 lg:px-24">
         <Reveal className="mx-auto flex max-w-[820px] flex-col gap-5">
           <h2 className="font-display text-k-d3 font-black text-k-ink">
-            What this page is not
+            {fill(page.limits.heading)}
           </h2>
           {/* This opened "It is a plan, not a record." and closed on a second
               paragraph reading "It is updated when something changes." Both
@@ -254,11 +217,11 @@ export default function RoadAheadPage() {
               do. What is left is the part that appears nowhere else: the two
               things this page refuses to do and the one thing it is not. The
               heading supplies the "not a record" on its own. */}
-          <p className="font-text text-k-body text-k-ink-soft">
-            There is no funding announcement here and no photographs of
-            equipment KUL does not own. Nothing on it is a commitment to a
-            customer.
-          </p>
+          <Copy
+            text={page.limits.body}
+            className="font-text text-k-body text-k-ink-soft"
+            linkClassName="underline underline-offset-4"
+          />
         </Reveal>
       </section>
     </>

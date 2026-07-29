@@ -1,0 +1,142 @@
+{
+  "meta": {
+    "title": "The Journey",
+    "description": "How KUL Enterprises started. Jamaica, the Air Force, eleven years driving for other carriers, and the first truck of his own. The story behind the carrier in {location}."
+  },
+  "pinnedStatement": "None of this is a sales argument. It is here because a carrier is a person, and the person hauling your freight spent eleven years learning the job on somebody else's trucks before he bought his own.",
+  "chapterOne": {
+    "eyebrow": "Chapter 01",
+    "heading": "Jamaica",
+    "paragraphs": [
+      "I was born in Jamaica.",
+      "My mother brought my sister and me to America. She told us we were spending the summer with our father."
+    ],
+    "closingLine": "We never went back.",
+    "image": "/images/journey/s02-jamaica-childhood.webp",
+    "imageAlt": "Mark Brown and his sister in Jamaica, early 1980s"
+  },
+  "chapterFive": {
+    "eyebrow": "Chapter 05",
+    "heading": "Eleven years, other people's trucks",
+    "body": "Every photograph from here on is one he took through a windscreen. They run in the order the light does, because that is the order he saw them in.",
+    "video": "dash-night",
+    "poster": "/videos/dash-night-poster.jpg",
+    "frames": [
+      {
+        "src": "/images/journey/s12c-night-highway.webp",
+        "alt": "An interstate at night, headlights and lane markings drawing forward",
+        "time": "Night",
+        "line": "I thought I was learning how to drive a truck."
+      },
+      {
+        "src": "/images/journey/s12-predawn-peaks.webp",
+        "alt": "Mountain peaks in violet light before sunrise",
+        "time": "Before first light",
+        "line": "What I didn't realize was that the road was teaching me something far greater."
+      },
+      {
+        "src": "/images/journey/s13-first-daylight.webp",
+        "alt": "A grey blue sky lifting over the interstate before sunrise",
+        "time": "The sky begins to lift",
+        "line": "Every mile introduced me to a new place."
+      },
+      {
+        "src": "/images/journey/s04-dawn-road-mist.webp",
+        "alt": "A road running into low mist at dawn",
+        "time": "Dawn, in mist",
+        "line": "Every state introduced me to different people."
+      },
+      {
+        "src": "/images/journey/s11-sunrise-band.webp",
+        "alt": "A band of sunrise colour along the horizon above the highway",
+        "time": "Sunrise",
+        "line": "Every delivery reminded me that trust travels farther than freight."
+      },
+      {
+        "src": "/images/journey/s05-sunrise-horizon.webp",
+        "alt": "The sun breaking the horizon at the end of a straight road",
+        "time": "The sun clears the horizon",
+        "line": "I had a plan. But plans have a way of changing."
+      },
+      {
+        "src": "/images/journey/s08-desert-bend.webp",
+        "alt": "A desert highway bending out of sight",
+        "time": "Mid morning",
+        "line": "There were victories. There were setbacks. Both became teachers."
+      },
+      {
+        "src": "/images/journey/s09-interstate-traffic.webp",
+        "alt": "Traffic across several lanes of interstate in daylight",
+        "time": "Late morning",
+        "line": "I wasn't chasing titles. I was learning to become dependable."
+      },
+      {
+        "src": "/images/journey/s06-wide-horizon.webp",
+        "alt": "A wide horizon opening out on both sides of the road",
+        "time": "Midday",
+        "line": "Freight moved every day. But what truly kept the industry moving wasn't trucks. It was people."
+      },
+      {
+        "src": "/images/journey/s08b-rockcut-bend.webp",
+        "alt": "A highway curving through a rock cut under a bright sky",
+        "time": "Afternoon",
+        "line": "Every load represented someone's trust. Every mile represented someone's promise."
+      },
+      {
+        "src": "/images/journey/s17-road-to-horizon.webp",
+        "alt": "The road running on with the sun high and no destination visible",
+        "time": "Sun high",
+        "line": "The farther I traveled, the more I realized every person has a story."
+      }
+    ]
+  },
+  "contactSheet": {
+    "eyebrow": "Twenty-six kept, eleven shown",
+    "statement": "He did not photograph the road once. He photographed it for eleven years, and these are the ones that survived the cut.",
+    "tiles": [
+      "/images/journey/hero-open-road-blue.webp",
+      "/images/journey/s09b-elevated-traffic.webp",
+      "/images/journey/gal-alpine-lake.webp",
+      "/images/journey/s14-confident-highway.webp",
+      "/images/journey/hero-sage-plain.webp",
+      "/images/journey/s16-valley-from-height.webp",
+      "/images/journey/s10-endless-road.webp",
+      "/images/journey/gal-river-rocks.webp",
+      "/images/journey/s11b-sunrise-cloud.webp",
+      "/images/journey/hero-two-lane-centred.webp",
+      "/images/journey/s12b-predawn-peaks-alt.webp",
+      "/images/journey/s07-pines-road.webp",
+      "/images/journey/gal-waterfall-figure.webp",
+      "/images/journey/s02b-caribbean-water.webp",
+      "/images/journey/s08b-rockcut-bend.webp",
+      "/images/journey/s06-wide-horizon.webp",
+      "/images/journey/s04-dawn-road-mist.webp",
+      "/images/journey/s09-interstate-traffic.webp"
+    ]
+  },
+  "chapterSix": {
+    "eyebrow": "Chapter 06",
+    "heading": "One truck of his own",
+    "paragraphs": [
+      "Every company begins with paperwork. But that's not where KUL began. KUL began with a promise.",
+      "We didn't build this company to be the biggest. We built it to be trusted."
+    ],
+    "footnote": "KUL Enterprises LLC, from 2026. One tractor, one driver, and a phone number that reaches the person driving it.",
+    "imageWide": "/images/journey/s07-pines-road.webp",
+    "imageWideAlt": "A two lane road running on through dense pine forest",
+    "imageInset": "/images/journey/s16-valley-from-height.webp",
+    "imageInsetAlt": "A road seen from height, running down through a valley",
+    "imageInsetCaption": "There is no photograph of the KUL tractor here yet."
+  },
+  "close": {
+    "heading": "About the photographs",
+    "paragraphs": [
+      "Every image on this page is one Mark took himself, and none of it has been staged, bought or generated. Three of the six chapters have no photograph of what they describe, because none was ever taken: the construction sites, leaving home and the Air Force carry pictures from his own archive instead, and the words carry the rest.",
+      "The words are his too. They come from the story he wrote out for this page, kept as he wrote it."
+    ],
+    "links": [
+      { "label": "More about the company", "href": "/about" },
+      { "label": "Get a rate", "href": "/quote" }
+    ]
+  }
+}

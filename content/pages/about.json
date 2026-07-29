@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "title": "About",
+    "description": "KUL Enterprises is a licensed freight carrier in {location}, founded by a driver with eleven years on the road. USDOT {usdot}, MC {mc}."
+  },
+  "opening": {
+    "heading": "Eleven years for other carriers. Now under our own authority.",
+    "caption": "{serviceArea}",
+    "image": "/images/journey/s14-confident-highway.webp",
+    "imageAlt": "An open highway running ahead under clear sky"
+  },
+  "founder": {
+    "eyebrow": "The founder",
+    "paragraphs": [
+      "Mark Brown drove for other carriers for eleven years before KUL Enterprises carried its first load. Mountain passes, port towns, long runs through the middle of the country, and the kind of dock where a driver waits four hours and nobody comes out to say why.",
+      "Eleven years is long enough to learn what a shipper is actually paying for. It is whether the person on the phone knows where the truck is, and whether the answer still comes when the news is bad.",
+      "KUL was set up to run that way from the first load."
+    ],
+    "signatureName": "Mark Brown",
+    "signatureRole": "Founder, {name}",
+    "posterImage": "/images/journey/s07-pines-road.webp",
+    "posterImageAlt": "A road running between ordered pines before dawn",
+    "video": "/videos/dash-daylight-720.mp4"
+  },
+  "today": {
+    "eyebrow": "How it runs today",
+    "paragraphs": [
+      "Mark drives the truck, takes the booking, runs the lane and signs at the receiver. That is why there is one phone number on this site and not a switchboard.",
+      "It also means capacity is committed rather than pooled. KUL cannot cover a lane on a day it is already booked, and it holds nothing back for a surge. When a load does not fit the schedule we say so on the call rather than take it and work it out later."
+    ]
+  },
+  "imprint": {
+    "statement": "{legalName} is a licensed motor carrier based in {location}.",
+    "logo": "/images/brand/logo-lockup.webp",
+    "particulars": [
+      {
+        "label": "Founded",
+        "gold": false,
+        "body": "Registered in Georgia as {legalName}. The first load was carried in 2026."
+      },
+      {
+        "label": "Authority",
+        "gold": false,
+        "body": "USDOT {usdot}. MC {mc}. Federal operating authority, active, valid in 48 states. The record is public and the links to check it are on the [safety page](/safety)."
+      },
+      {
+        "label": "Base",
+        "gold": false,
+        "body": "{location}. The Southeast is the home region. Loads run nationwide."
+      },
+      {
+        "label": "Freight",
+        "gold": false,
+        "body": "Power only, dry van, refrigerated, dedicated, regional, expedited and over the road. Full detail on the [services page](/services)."
+      },
+      {
+        "label": "Dispatch",
+        "gold": true,
+        "body": "{phone}\n{email}\nOne number, answered by the driver."
+      }
+    ]
+  }
+}

@@ -1,12 +1,15 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { site } from "@/lib/site";
 import { services } from "@/lib/services";
 import HeroVideo from "@/components/k/HeroVideo";
 import Reveal from "@/components/k/Reveal";
 import ShapeGrid from "@/components/k/ShapeGrid";
 import Faq from "@/components/k/Faq";
+import Copy from "@/components/k/Copy";
 import { faqJsonLd } from "@/lib/faq";
+import { fill, link } from "@/lib/content";
+import home from "@/content/pages/home.json";
 
 /**
  * Home, the page a visitor lands on first.
@@ -21,17 +24,27 @@ import { faqJsonLd } from "@/lib/faq";
  *
  * A broker gets what KUL hauls and how to reach dispatch inside the first
  * screen. Everyone else is invited into the story, further down, optionally.
+ *
+ * ------------------------------------------------------------------
+ * EVERY WORD ON THIS PAGE IS IN content/pages/home.json.
+ * ------------------------------------------------------------------
+ * Nothing readable is written in this file any more. The headline, the
+ * figures under the rig, the caption on each elevation, the tag closing each
+ * service row: all of it is edited at /admin under "Home page", and this file
+ * only decides where those things sit and how they move.
+ *
+ * THE COMMENTS ABOUT WORDING BELOW ARE KEPT ON PURPOSE. They record why a
+ * line is short, why a break falls where it does, and what was tried and
+ * removed. Anyone editing the copy in the CMS is editing against those
+ * constraints whether they know it or not, so the reasoning stays next to the
+ * markup that enforces it.
  */
 
-/** Equipment tag closing each service row. Keyed to lib/services slugs. */
-const EQUIPMENT: Record<string, string> = {
-  "power-only": "Tractor only",
-  "dry-van": "53 ft van",
-  reefer: "Temp controlled",
-  dedicated: "Recurring lanes",
-  regional: "Southeast",
-  expedited: "Time critical",
-  otr: "48 states",
+export const metadata: Metadata = {
+  // absolute, because the layout's title template would otherwise append the
+  // company name to a title that already opens with it.
+  title: { absolute: fill(home.meta.title) },
+  description: fill(home.meta.description),
 };
 
 /* A CREDENTIALS list lived here and is gone with the hero strip that read it.
@@ -41,54 +54,17 @@ const EQUIPMENT: Record<string, string> = {
    in six words over a video. The same list still exists on the quote page,
    where it closes a page rather than opening one. */
 
-type Spec = {
-  value: string;
-  unit: string;
-  label: string;
-  accent?: boolean;
-};
-
 /**
- * The four elevations shown under the specification row.
+ * The tag closing each service row, looked up by slug.
  *
- * The side view is not in this list: it is the large render above, so
- * repeating it here would show the same drawing twice on one screen.
+ * It is stored as a list in the CMS rather than an object so the client can
+ * see it as seven labelled rows, and turned back into a lookup here. A
+ * service with no tag set simply closes its row with nothing, which is why
+ * this reads with a fallback rather than asserting.
  */
-const ELEVATIONS = [
-  {
-    file: "truck-front",
-    label: "Front",
-    alt: "The tractor and trailer seen head on",
-  },
-  {
-    file: "truck-rear",
-    label: "Rear",
-    alt: "The trailer doors seen from behind, closed",
-  },
-  {
-    file: "truck-right",
-    label: "Right side",
-    alt: "The tractor and trailer seen from the right",
-  },
-  {
-    file: "truck-top",
-    label: "From above",
-    alt: "The tractor and trailer seen from directly above",
-  },
-] as const;
-
-const SPECS: readonly Spec[] = [
-  { value: "53", unit: " ft", label: "Dry van trailer" },
-  { value: "45,000", unit: " lb", label: "Maximum payload" },
-  { value: "48", unit: " states", label: "Operating authority" },
-  // THE FOURTH FIGURE IS NO LONGER THE FLEET COUNT. It read "1 / Trucks today
-  // · 50 by 2029", then "1 / Tractor on the road", and it went on 29 Jul 2026
-  // with the rest of the headcount talk: a row headed "The equipment", set in
-  // the largest numerals on the page, is the worst possible place to print the
-  // smallest number the company owns. The other three figures are all about
-  // what the equipment can carry, and this one now is too.
-  { value: "2026", unit: "", label: "Under our own authority", accent: true },
-];
+const TAGS: Record<string, string> = Object.fromEntries(
+  home.services.tags.map((t) => [t.slug, t.tag]),
+);
 
 export default function HomePage() {
   return (
@@ -96,7 +72,7 @@ export default function HomePage() {
       {/* Hero, the broker's one screen. */}
       <section className="relative flex min-h-[820px] flex-col justify-end overflow-hidden bg-k-void">
         <HeroVideo
-          poster="/videos/kul-hero-poster.jpg"
+          poster={home.hero.poster}
           label="the hero film"
           controlSlotId="hero-film-control"
           className="absolute inset-0 h-full w-full object-cover opacity-85"
@@ -121,10 +97,17 @@ export default function HomePage() {
                 (the previous wording) was 331px and already wrapped, and
                 "Driven by the owner." is 370px and wraps up to about 460px,
                 which covers most phones in use. */}
+            {/* One line per entry in the CMS, with a hard break between them.
+                Adding a third line is allowed and will simply stack; read the
+                measurement note above before doing it on a headline this
+                size. */}
             <h1 className="font-display text-k-d1 font-black text-k-on-dark">
-              Every mile.
-              <br />
-              Owner driven.
+              {home.hero.headlineLines.map((lineText, i) => (
+                <span key={lineText}>
+                  {i > 0 ? <br /> : null}
+                  {fill(lineText)}
+                </span>
+              ))}
             </h1>
 
             {/* ============================================================
@@ -147,22 +130,25 @@ export default function HomePage() {
                 section is nothing but that fact, set as a display headline, so
                 saying it here first spent it before the reader arrived. */}
             <p className="max-w-[620px] font-text text-k-lede text-k-on-dark-soft">
-              Freight services out of {site.location}, authorized in 48
-              states, dispatched by the person driving.
+              {fill(home.hero.lede)}
             </p>
 
+            {/* Two buttons, both editable, both able to point anywhere. The
+                second one's target is stored as {phone}, which lib/content
+                turns into a click-to-call link, so the client can change the
+                wording without knowing what tel: means. */}
             <div className="flex flex-wrap items-center gap-4 pt-2">
               <Link
-                href="/quote"
+                href={link(home.hero.primaryCta).href}
                 className="rounded-full bg-k-on-dark px-8 py-4 font-text text-k-label uppercase text-k-ink transition-opacity duration-200 hover:opacity-85"
               >
-                Request a quote
+                {link(home.hero.primaryCta).label}
               </Link>
               <a
-                href={site.phoneHref}
+                href={link(home.hero.secondaryCta).href}
                 className="rounded-full border border-k-on-dark-faint px-8 py-4 font-text text-k-label uppercase text-k-on-dark transition-colors duration-200 hover:border-k-on-dark"
               >
-                Call dispatch · {site.phone}
+                {link(home.hero.secondaryCta).label}
               </a>
             </div>
           </div>
@@ -190,7 +176,7 @@ export default function HomePage() {
         <div className="relative border-t border-white/15">
           <div className="mx-auto flex max-w-[1440px] flex-wrap items-center gap-x-10 gap-y-2 px-6 py-5 md:px-12 lg:px-24">
             <span className="whitespace-nowrap font-text text-k-micro uppercase tabular-nums text-k-on-dark-soft">
-              USDOT {site.usdot} · MC {site.mc}
+              {fill(home.hero.credentials)}
             </span>
 
             <span className="flex items-center gap-4 md:ml-auto">
@@ -199,7 +185,7 @@ export default function HomePage() {
                 aria-hidden="true"
               />
               <span className="font-text text-k-micro uppercase text-k-gold-lit">
-                {site.location}
+                {fill(home.hero.locationLine)}
               </span>
             </span>
 
@@ -312,7 +298,7 @@ THE ALPHAS ARE SET BY A CONTRAST SUM, NOT BY EYE, AND THE FIRST
               it, and the wipe is built for a single block of display type. */}
           <Reveal variant="wipe" className="flex-1">
             <h2 className="font-display text-k-d2 font-black text-k-ink">
-              You will always be talking to the driver.
+              {fill(home.statement.heading)}
             </h2>
           </Reveal>
           {/* One paragraph, not two. The second one restated the hero above it
@@ -324,15 +310,16 @@ THE ALPHAS ARE SET BY A CONTRAST SUM, NOT BY EYE, AND THE FIRST
             {/* The third clause, "and he still drives every load himself",
                 went with the same pass: it is the headline beside it said
                 again in smaller type. */}
-            <p className="font-text text-k-body text-k-ink-soft">
-              Dispatch at KUL is Mark Brown. He drove for other carriers for
-              eleven years before starting it.
-            </p>
+            <Copy
+              text={home.statement.body}
+              className="font-text text-k-body text-k-ink-soft"
+              linkClassName="text-k-ink underline underline-offset-4"
+            />
             <Link
-              href="/about"
+              href={link(home.statement.cta).href}
               className="w-fit border-b border-k-gold pb-1 font-text text-k-label uppercase text-k-ink"
             >
-              Read the full story
+              {link(home.statement.cta).label}
             </Link>
           </Reveal>
         </div>
@@ -344,7 +331,7 @@ THE ALPHAS ARE SET BY A CONTRAST SUM, NOT BY EYE, AND THE FIRST
           <p className="flex items-center gap-4 pb-12">
             <span className="h-px w-12 shrink-0 bg-k-gold-lit" aria-hidden="true" />
             <span className="font-text text-k-label uppercase text-k-gold-lit">
-              The equipment
+              {fill(home.equipment.eyebrow)}
             </span>
           </p>
         </div>
@@ -363,21 +350,27 @@ THE ALPHAS ARE SET BY A CONTRAST SUM, NOT BY EYE, AND THE FIRST
             keeps the travel from adding a sideways scrollbar. */}
         <Reveal variant="roll" className="mx-auto flex max-w-[1248px] justify-center px-6">
           <Image
-            src="/images/truck/truck-body.webp"
-            alt="KUL Enterprises tractor and 53-foot dry van trailer, side profile"
+            src={home.equipment.image}
+            alt={fill(home.equipment.imageAlt)}
             width={1975}
             height={577}
             className="h-auto w-full max-w-[1248px]"
           />
         </Reveal>
 
+        {/* Four figures, or however many the CMS holds. The row is a two-up
+            on a phone and a four-up from large up, so a fifth figure would
+            leave a gap on the wide arrangement and a sixth would fill it.
+            Keep it at four unless you are prepared to look at both. */}
         <div className="mt-16 grid grid-cols-2 border-t border-k-rule-dark lg:grid-cols-4">
-          {SPECS.map((spec, i) => (
+          {home.equipment.specs.map((spec, i) => (
             <div
               key={spec.label}
               className={[
                 "flex flex-col gap-2 px-6 py-8 md:px-10",
-                i < SPECS.length - 1 ? "lg:border-r lg:border-k-rule-dark" : "",
+                i < home.equipment.specs.length - 1
+                  ? "lg:border-r lg:border-k-rule-dark"
+                  : "",
               ].join(" ")}
             >
               <p
@@ -385,7 +378,7 @@ THE ALPHAS ARE SET BY A CONTRAST SUM, NOT BY EYE, AND THE FIRST
                   spec.accent ? "text-k-gold-lit" : "text-k-on-dark"
                 }`}
               >
-                {spec.value}
+                {fill(spec.value)}
                 {spec.unit ? (
                   <span className="font-text text-k-body font-normal tracking-normal text-k-on-dark-soft">
                     {spec.unit}
@@ -393,7 +386,7 @@ THE ALPHAS ARE SET BY A CONTRAST SUM, NOT BY EYE, AND THE FIRST
                 ) : null}
               </p>
               <p className="font-text text-k-micro uppercase text-k-on-dark-faint">
-                {spec.label}
+                {fill(spec.label)}
               </p>
             </div>
           ))}
@@ -425,10 +418,14 @@ THE ALPHAS ARE SET BY A CONTRAST SUM, NOT BY EYE, AND THE FIRST
               still exists where the numbers are actually printed, on Size it
               up on every service page; it was never needed here, because no
               measurement appears on this row at all. */}
+          {/* THE SIDE VIEW IS NOT IN THIS LIST. It is the large render in the
+              section above, so adding it here would show the same drawing
+              twice on one screen. The four in the CMS are the four the side
+              view does not already answer. */}
           <div className="grid grid-cols-2 gap-x-8 gap-y-12 lg:grid-cols-4">
-            {ELEVATIONS.map((view, i) => (
+            {home.equipment.elevations.map((view, i) => (
               <Reveal
-                key={view.file}
+                key={view.image}
                 index={i}
                 className="flex flex-col items-center gap-4"
               >
@@ -467,8 +464,8 @@ THE ALPHAS ARE SET BY A CONTRAST SUM, NOT BY EYE, AND THE FIRST
                       on transparency instead; there is no CSS that saves it.
                   */}
                   <Image
-                    src={`/images/truck/${view.file}-plate.webp`}
-                    alt={view.alt}
+                    src={view.image}
+                    alt={fill(view.alt)}
                     width={1100}
                     height={836}
                     className="h-auto max-h-[150px] w-auto max-w-full"
@@ -476,7 +473,7 @@ THE ALPHAS ARE SET BY A CONTRAST SUM, NOT BY EYE, AND THE FIRST
                   />
                 </div>
                 <span className="font-text text-k-micro uppercase text-k-ink-soft">
-                  {view.label}
+                  {fill(view.label)}
                 </span>
               </Reveal>
             ))}
@@ -492,20 +489,21 @@ THE ALPHAS ARE SET BY A CONTRAST SUM, NOT BY EYE, AND THE FIRST
               <p className="flex items-center gap-4">
                 <span className="h-px w-12 shrink-0 bg-k-gold" aria-hidden="true" />
                 <span className="font-text text-k-label uppercase text-k-gold">
-                  What we haul
+                  {fill(home.services.eyebrow)}
                 </span>
               </p>
               <h2 className="font-display text-k-d1 font-black text-k-ink">
-                Seven ways to move it.
+                {fill(home.services.heading)}
               </h2>
             </div>
             {/* This opened "Every service below is one truck and one driver
                 today". The promise in the second half is the part worth
                 keeping and it stands without the headcount in front of it. */}
-            <p className="font-text text-k-body text-k-ink-soft lg:w-[380px] lg:shrink-0">
-              If a lane needs more capacity than we can commit to, we will tell
-              you before you book rather than after.
-            </p>
+            <Copy
+              text={home.services.note}
+              className="font-text text-k-body text-k-ink-soft lg:w-[380px] lg:shrink-0"
+              linkClassName="text-k-ink underline underline-offset-4"
+            />
           </Reveal>
 
           <ul className="border-t border-k-rule-strong">
@@ -525,7 +523,7 @@ THE ALPHAS ARE SET BY A CONTRAST SUM, NOT BY EYE, AND THE FIRST
                     {service.short}
                   </span>
                   <span className="shrink-0 font-text text-k-micro uppercase text-k-ink-faint md:w-[150px] md:text-right">
-                    {EQUIPMENT[service.slug]}
+                    {TAGS[service.slug] ?? ""}
                   </span>
                 </Link>
               </li>
@@ -537,7 +535,7 @@ THE ALPHAS ARE SET BY A CONTRAST SUM, NOT BY EYE, AND THE FIRST
       {/* The Road Ahead, the vision, made credible rather than boastful. */}
       <section className="relative flex min-h-[620px] items-center justify-center overflow-hidden bg-k-void px-6 py-28">
         <Image
-          src="/images/journey/s12c-night-highway.webp"
+          src={home.vision.image}
           alt=""
           fill
           className="object-cover opacity-60"
@@ -551,7 +549,7 @@ THE ALPHAS ARE SET BY A CONTRAST SUM, NOT BY EYE, AND THE FIRST
           <p className="flex items-center gap-4">
             <span className="h-px w-12 shrink-0 bg-k-gold-lit" aria-hidden="true" />
             <span className="font-text text-k-label uppercase text-k-gold-lit">
-              The road ahead
+              {fill(home.vision.eyebrow)}
             </span>
           </p>
           {/* The headline carries a fact off the page it links to rather than
@@ -561,22 +559,23 @@ THE ALPHAS ARE SET BY A CONTRAST SUM, NOT BY EYE, AND THE FIRST
               principle underneath it, which is the part that would still be
               true at fifty trucks. */}
           <h2 className="max-w-[1040px] font-display text-k-d1 font-black text-k-on-dark">
-            We grow the fleet before we sell the capacity.
+            {fill(home.vision.heading)}
           </h2>
           {/* "One truck on the road today, fifty by 2029" opened this
               paragraph until 29 Jul 2026, which made it the third time that
               same sentence appeared on this page: once in the hero, once in
               the equipment figures, and again here. It is the hero's line.
               What is left is the part only this section says. */}
-          <p className="max-w-[620px] font-text text-k-lede text-k-on-dark-soft">
-            Written in the order it has to happen, with a date against
-            nothing until it is booked.
-          </p>
+          <Copy
+            text={home.vision.body}
+            className="max-w-[620px] font-text text-k-lede text-k-on-dark-soft"
+            linkClassName="text-k-on-dark underline underline-offset-4"
+          />
           <Link
-            href="/road-ahead"
+            href={link(home.vision.cta).href}
             className="mt-2 rounded-full border border-k-on-dark-faint px-8 py-4 font-text text-k-label uppercase text-k-on-dark transition-colors duration-200 hover:border-k-on-dark"
           >
-            See the plan
+            {link(home.vision.cta).label}
           </Link>
         </Reveal>
       </section>
@@ -602,18 +601,16 @@ THE ALPHAS ARE SET BY A CONTRAST SUM, NOT BY EYE, AND THE FIRST
         <div className="mx-auto flex max-w-[1248px] flex-col gap-12 lg:flex-row lg:gap-24">
           <Reveal variant="wipe" className="lg:w-[380px] lg:shrink-0">
             <h2 className="font-display text-k-d2 font-black text-k-ink">
-              Questions we get asked.
+              {fill(home.faq.heading)}
             </h2>
-            <p className="max-w-[34ch] pt-6 font-text text-k-body text-k-ink-soft">
-              If yours is not here, call dispatch on{" "}
-              <a
-                href={site.phoneHref}
-                className="tabular-nums text-k-ink underline underline-offset-4"
-              >
-                {site.phone}
-              </a>
-              .
-            </p>
+            {/* The number inside this sentence links itself. Write the
+                sentence however you like and put {phone} where the number
+                should fall; see components/k/Copy.tsx. */}
+            <Copy
+              text={home.faq.intro}
+              className="max-w-[34ch] pt-6 font-text text-k-body text-k-ink-soft"
+              linkClassName="text-k-ink underline underline-offset-4"
+            />
           </Reveal>
           <Reveal index={1} className="flex-1">
             <Faq />
@@ -625,8 +622,8 @@ THE ALPHAS ARE SET BY A CONTRAST SUM, NOT BY EYE, AND THE FIRST
       <section className="bg-k-warm px-6 py-28 md:px-12 lg:px-24">
         <Reveal className="mx-auto flex max-w-[1248px] flex-col items-center gap-12 lg:flex-row lg:gap-24">
           <Image
-            src="/images/journey/s02-jamaica-childhood.webp"
-            alt="Mark Brown and his sister in Jamaica, early 1980s"
+            src={home.journey.image}
+            alt={fill(home.journey.imageAlt)}
             width={1291}
             height={1920}
             className="h-auto w-[280px] shrink-0 object-cover lg:w-[380px]"
@@ -638,17 +635,17 @@ THE ALPHAS ARE SET BY A CONTRAST SUM, NOT BY EYE, AND THE FIRST
                   running time. Neither exists yet, so it now says what the
                   Journey page actually holds today. */}
               <span className="font-text text-k-label uppercase text-k-gold">
-                Six chapters · the story so far
+                {fill(home.journey.eyebrow)}
               </span>
             </p>
             <h2 className="font-display text-k-d2 font-black text-k-ink">
-              Before the first truck, there was a boy on a plane.
+              {fill(home.journey.heading)}
             </h2>
-            <p className="max-w-[560px] font-text text-k-body text-k-ink-soft">
-              Jamaica. Construction sites every school holiday. The Air Force.
-              Eleven years driving for other people. The Journey is the long
-              version, in Mark&rsquo;s own words.
-            </p>
+            <Copy
+              text={home.journey.body}
+              className="max-w-[560px] font-text text-k-body text-k-ink-soft"
+              linkClassName="text-k-ink underline underline-offset-4"
+            />
             {/* A second paragraph sat here saying "You do not need to read it
                 to book a load. It is here for the people who want to know who
                 is driving." It went on 29 Jul 2026. Both halves say the same

@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import { site } from "@/lib/site";
 import Reveal, { RuleDraw } from "@/components/k/Reveal";
 import Breadcrumb from "@/components/k/Breadcrumb";
+import Copy from "@/components/k/Copy";
+import { fill } from "@/lib/content";
+import about from "@/content/pages/about.json";
 
 /**
  * ABOUT
@@ -28,94 +29,24 @@ import Breadcrumb from "@/components/k/Breadcrumb";
  * rather than as a carrier talking to a customer. If a sentence could be
  * printed on a poster, it is the wrong sentence.
  *
- * TO UPDATE IT: the phone number, email, DOT and MC numbers all come from
- * content/site.json, so they are changed in that one file and never typed in
- * here. The wording below is safe to edit directly.
+ * TO UPDATE IT: every word is in content/pages/about.json and is edited at
+ * /admin under "About page". The phone number, email, DOT and MC numbers are
+ * not written there either: the copy carries {phone} and {usdot} tokens that
+ * fill from Business Facts, so those exist in exactly one place on the site.
+ *
+ * A SIXTH PARTICULAR headed "Not yet" listed what KUL does not have: no
+ * published safety rating history, no customer references. It came out on
+ * 29 Jul 2026 at the client's word. It was honest and it was the last thing
+ * in an imprint, which is the position a reader remembers, so the block ended
+ * on an absence. Nothing that was in it is contradicted anywhere else on the
+ * site; the safety page still says in its own first line that there is no long
+ * record yet, which is where a broker looking for one will be.
  */
 
 export const metadata: Metadata = {
-  title: "About",
-  description: `KUL Enterprises is a licensed freight carrier in ${site.location}, founded by a driver with eleven years on the road. USDOT ${site.usdot}, MC ${site.mc}.`,
+  title: fill(about.meta.title),
+  description: fill(about.meta.description),
 };
-
-/**
- * THE PARTICULARS, set out at the foot of the page like the imprint printed
- * inside the cover of a magazine.
- *
- * The columns are deliberately different widths and different lengths, so
- * the block ends on a ragged edge rather than lining up into a neat grid.
- * That is the whole point of the shape, so if you add an entry, do not try
- * to even them up. The widths themselves are set on the grid further down
- * the page, in the order the entries appear here.
- *
- * "Not yet" is here on purpose. Saying plainly what KUL does not have yet is
- * worth more to a broker than padding the page with things that sound good.
- */
-const PARTICULARS = [
-  {
-    label: "Founded",
-    gold: false,
-    body: <>Registered in Georgia as {site.legalName}. The first load was carried in 2026.</>,
-  },
-  {
-    label: "Authority",
-    gold: false,
-    body: (
-      <>
-        USDOT {site.usdot}. MC {site.mc}. Federal operating authority, active,
-        valid in 48 states. The record is public and the links to check it are
-        on the{" "}
-        <Link href="/safety" className="underline underline-offset-4">
-          safety page
-        </Link>
-        .
-      </>
-    ),
-  },
-  {
-    label: "Base",
-    gold: false,
-    body: <>{site.location}. The Southeast is the home region. Loads run nationwide.</>,
-  },
-  {
-    label: "Freight",
-    gold: false,
-    body: (
-      <>
-        Power only, dry van, refrigerated, dedicated, regional, expedited and
-        over the road. Full detail on the{" "}
-        <Link href="/services" className="underline underline-offset-4">
-          services page
-        </Link>
-        .
-      </>
-    ),
-  },
-  {
-    label: "Dispatch",
-    gold: true,
-    body: (
-      <>
-        <a href={site.phoneHref} className="underline underline-offset-4">
-          {site.phone}
-        </a>
-        <br />
-        <a href={`mailto:${site.email}`} className="underline underline-offset-4">
-          {site.email}
-        </a>
-        <br />
-        One number, answered by the driver.
-      </>
-    ),
-  },
-  // A sixth entry headed "Not yet" listed what KUL does not have: no published
-  // safety rating history, no customer references. It came out on 29 Jul 2026
-  // at the client's word. It was honest and it was the last thing in an
-  // imprint, which is the position a reader remembers, so the block ended on
-  // an absence. Nothing that was in it is contradicted anywhere else on the
-  // site; the safety page still says in its own first line that there is no
-  // long record yet, which is where a broker looking for one will be.
-] as const;
 
 export default function AboutPage() {
   return (
@@ -137,7 +68,7 @@ export default function AboutPage() {
 
           <Reveal variant="wipe">
             <h1 className="max-w-[1060px] font-display text-k-d1 font-black text-k-ink">
-              Eleven years for other carriers. Now under our own authority.
+              {fill(about.opening.heading)}
             </h1>
           </Reveal>
 
@@ -146,7 +77,7 @@ export default function AboutPage() {
               {/* This line describes the company, not the photograph. Do not
                   turn it into a caption claiming where the picture was taken. */}
               <span className="font-text text-k-micro uppercase text-k-ink-soft">
-                {site.serviceArea}
+                {fill(about.opening.caption)}
               </span>
             </Reveal>
             <Reveal className="mt-3.5">
@@ -156,8 +87,8 @@ export default function AboutPage() {
                     one truck should not illustrate itself with somebody
                     else's fleet. */}
                 <Image
-                  src="/images/journey/s14-confident-highway.webp"
-                  alt="An open highway running ahead under clear sky"
+                  src={about.opening.image}
+                  alt={fill(about.opening.imageAlt)}
                   fill
                   sizes="(min-width:1024px) 1148px, 100vw"
                   className="object-cover"
@@ -187,39 +118,33 @@ export default function AboutPage() {
           <div className="px-6 py-24 md:px-12 lg:w-[396px] lg:shrink-0 lg:py-32 lg:pl-24 lg:pr-0">
             <Reveal variant="settle">
               <span className="font-text text-k-micro uppercase text-k-gold">
-                The founder
+                {fill(about.founder.eyebrow)}
               </span>
             </Reveal>
+            {/* The tail of the last paragraph used to spell out "one tractor,
+                one driver, and the person who answers dispatch is the person
+                behind the wheel", which is the whole of the "How it runs
+                today" section a few inches below, written out in advance. The
+                founder note ends on the principle and lets that section carry
+                the arrangement. Keep it to three paragraphs: the column is
+                300px wide and a fourth pushes the signature off the picture
+                beside it. */}
             <Reveal className="mt-5 flex flex-col gap-4">
-              <p className="font-text text-k-small text-k-ink">
-                Mark Brown drove for other carriers for eleven years before KUL
-                Enterprises carried its first load. Mountain passes, port
-                towns, long runs through the middle of the country, and the
-                kind of dock where a driver waits four hours and nobody comes
-                out to say why.
-              </p>
-              <p className="font-text text-k-small text-k-ink">
-                Eleven years is long enough to learn what a shipper is actually
-                paying for. It is whether the person on the phone knows where
-                the truck is, and whether the answer still comes when the news
-                is bad.
-              </p>
-              {/* The tail of this used to spell out "one tractor, one driver,
-                  and the person who answers dispatch is the person behind the
-                  wheel", which is the whole of the "How it runs today" section
-                  a few inches below, written out in advance. The founder note
-                  ends on the principle and lets that section carry the
-                  arrangement. */}
-              <p className="font-text text-k-small text-k-ink">
-                KUL was set up to run that way from the first load.
-              </p>
+              {about.founder.paragraphs.map((paragraph) => (
+                <Copy
+                  key={paragraph.slice(0, 40)}
+                  text={paragraph}
+                  className="font-text text-k-small text-k-ink"
+                  linkClassName="underline underline-offset-4"
+                />
+              ))}
             </Reveal>
             <Reveal variant="settle" className="mt-7 flex flex-col gap-1">
               <span className="font-text text-k-small font-semibold text-k-ink">
-                Mark Brown
+                {fill(about.founder.signatureName)}
               </span>
               <span className="font-text text-k-micro uppercase text-k-ink-soft">
-                Founder, {site.name}
+                {fill(about.founder.signatureRole)}
               </span>
             </Reveal>
           </div>
@@ -246,16 +171,16 @@ export default function AboutPage() {
               note, so it is hidden from assistive technology entirely. */}
           <div className="relative min-h-[420px] w-full lg:min-h-[760px] lg:w-1/2">
             <Image
-              src="/images/journey/s07-pines-road.webp"
-              alt="A road running between ordered pines before dawn"
+              src={about.founder.posterImage}
+              alt={fill(about.founder.posterImageAlt)}
               fill
               sizes="(min-width:1024px) 50vw, 100vw"
               className="object-cover"
             />
             <video
               className="kul-sleeve-clip absolute inset-0 h-full w-full object-cover"
-              src="/videos/dash-daylight-720.mp4"
-              poster="/images/journey/s07-pines-road.webp"
+              src={about.founder.video}
+              poster={about.founder.posterImage}
               autoPlay
               muted
               loop
@@ -280,33 +205,33 @@ export default function AboutPage() {
         <div className="mx-auto flex max-w-[1248px] flex-col gap-10 lg:flex-row lg:gap-24">
           <Reveal variant="settle" className="lg:w-[192px] lg:shrink-0 lg:pt-3">
             <span className="font-text text-k-micro uppercase text-k-on-dark-soft">
-              How it runs today
+              {fill(about.today.eyebrow)}
             </span>
           </Reveal>
+          {/* KEEP THIS TO TWO PARAGRAPHS. At this size the type is doing the
+              work of a headline, which is why the section has no headline, and
+              a third paragraph stops reading as a statement and starts reading
+              as an essay. The first is set in full strength, everything after
+              it a step softer, so the eye is told which one to read.
+
+              THE HEADCOUNT CAME OFF THE FRONT OF BOTH OF THESE and the
+              substance of both is untouched. What KUL can and cannot commit to
+              is a real limit and a broker is entitled to it before they book,
+              so the second paragraph still says it. It says it as a scheduling
+              fact, which is what a broker acts on, rather than as a headcount,
+              which is only ever an apology. See the note in app/page.tsx. */}
           <div className="flex flex-1 flex-col gap-9">
-            <Reveal>
-              {/* THE HEADCOUNT CAME OFF THE FRONT OF BOTH OF THESE and the
-                  substance of both is untouched. What KUL can and cannot
-                  commit to is a real limit and a broker is entitled to it
-                  before they book, so the second paragraph still says it. It
-                  says it as a scheduling fact, which is what a broker acts on,
-                  rather than as a headcount, which is only ever an apology.
-                  See the note in app/page.tsx. */}
-              <p className="font-text text-k-d3 leading-[1.33] tracking-[-0.01em] text-k-on-dark">
-                Mark drives the truck, takes the booking, runs the lane and
-                signs at the receiver. That is why there is one phone number on
-                this site and not a switchboard.
-              </p>
-            </Reveal>
-            <Reveal index={1}>
-              <p className="font-text text-k-d3 leading-[1.33] tracking-[-0.01em] text-k-on-dark-soft">
-                It also means capacity is committed rather than pooled. KUL
-                cannot cover a lane on a day it is already booked, and it holds
-                nothing back for a surge. When a load does not fit the schedule
-                we say so on the call rather than take it and work it out
-                later.
-              </p>
-            </Reveal>
+            {about.today.paragraphs.map((paragraph, i) => (
+              <Reveal key={paragraph.slice(0, 40)} index={i}>
+                <Copy
+                  text={paragraph}
+                  className={`font-text text-k-d3 leading-[1.33] tracking-[-0.01em] ${
+                    i === 0 ? "text-k-on-dark" : "text-k-on-dark-soft"
+                  }`}
+                  linkClassName="underline underline-offset-4"
+                />
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
@@ -351,11 +276,10 @@ export default function AboutPage() {
             className="flex flex-col-reverse items-start gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-16"
           >
             <h2 className="max-w-[840px] font-display text-k-d3 font-black uppercase tracking-[0.01em] text-k-ink">
-              {site.legalName} is a licensed motor carrier based in{" "}
-              {site.location}.
+              {fill(about.imprint.statement)}
             </h2>
             <Image
-              src="/images/brand/logo-lockup.webp"
+              src={about.imprint.logo}
               alt=""
               width={1024}
               height={867}
@@ -366,10 +290,17 @@ export default function AboutPage() {
 
           <RuleDraw className="mt-14" />
 
-          {/* The six column widths, in the order the entries are written
-              above. They are uneven on purpose. */}
+          {/* THE COLUMN WIDTHS ARE UNEVEN ON PURPOSE, so the block ends on a
+              ragged edge rather than lining up into a neat grid. That is the
+              whole point of the shape: do not try to even them up.
+
+              The template names six tracks and the CMS currently holds five
+              entries, which leaves the last track empty and is what gives the
+              row its open right-hand end. Adding a seventh entry in the CMS
+              wraps it to a second row rather than breaking anything, but the
+              widths are a design decision and live here, not in the CMS. */}
           <div className="mt-10 grid grid-cols-1 items-start gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-[160fr_230fr_160fr_190fr_228fr_160fr]">
-            {PARTICULARS.map((item, i) => (
+            {about.imprint.particulars.map((item, i) => (
               <Reveal
                 key={item.label}
                 variant="settle"
@@ -381,9 +312,13 @@ export default function AboutPage() {
                     item.gold ? "text-k-gold" : "text-k-ink-soft"
                   }`}
                 >
-                  {item.label}
+                  {fill(item.label)}
                 </span>
-                <p className="font-text text-k-small text-k-ink">{item.body}</p>
+                <Copy
+                  text={item.body}
+                  className="font-text text-k-small text-k-ink"
+                  linkClassName="underline underline-offset-4"
+                />
               </Reveal>
             ))}
           </div>

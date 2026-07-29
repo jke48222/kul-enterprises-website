@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { site } from "@/lib/site";
 import ContactForm from "@/components/forms/ContactForm";
 import Reveal, { RuleDraw } from "@/components/k/Reveal";
 import Breadcrumb from "@/components/k/Breadcrumb";
 import ServiceMap from "@/components/k/ServiceMap";
+import Copy from "@/components/k/Copy";
+import { fill, link, linkHref } from "@/lib/content";
+import page from "@/content/pages/contact.json";
 
 /**
  * CONTACT PAGE
@@ -20,37 +22,15 @@ import ServiceMap from "@/components/k/ServiceMap";
  * about, a box for anything that does not fit those three, and one closing
  * line for anyone who came here with a load already loaded.
  *
- * TO CHANGE WHERE ENQUIRIES GO: edit ROUTES below. Each row is one reason
- * somebody writes in, and the link at the bottom of it is where that reason
- * should be sent.
+ * TO CHANGE WHERE ENQUIRIES GO: edit "Where to send it" at /admin under
+ * "Contact page". Each row is one reason somebody writes in, and the link at
+ * the end of it is where that reason should be sent.
  */
 
 export const metadata: Metadata = {
-  title: "Contact Dispatch",
-  description: `Contact KUL Enterprises. Dispatch is ${site.phone}, answered by the driver. Freight quotes, carrier packet requests and driver enquiries. Based in ${site.location}.`,
+  title: fill(page.meta.title),
+  description: fill(page.meta.description),
 };
-
-/** One row per destination, so nobody has to guess where to write. */
-const ROUTES = [
-  {
-    label: "Freight quotes",
-    body: "Origin, destination, freight type and pickup date. Priced the same day where we can.",
-    action: "Request a quote",
-    href: "/quote",
-  },
-  {
-    label: "Carrier packet",
-    body: "W-9, certificate of insurance and operating authority for your onboarding file. Asked for here, sent by email.",
-    action: "Ask for the packet",
-    href: "/carrier-packet",
-  },
-  {
-    label: "Drivers",
-    body: "Applications are open now, ahead of the seat. Leave your details and you are called when it opens.",
-    action: "Join the list",
-    href: "/drivers",
-  },
-] as const;
 
 export default function ContactPage() {
   return (
@@ -63,12 +43,13 @@ export default function ContactPage() {
             items={[{ label: "KUL", href: "/" }, { label: "Contact" }]}
           />
           <h1 className="max-w-[820px] font-display text-k-d1 font-black text-k-ink">
-            One number, and it is answered.
+            {fill(page.opening.heading)}
           </h1>
-          <p className="max-w-[600px] font-text text-k-lede text-k-ink-soft">
-            There is no phone tree and no ticket queue. The number below reaches
-            the person who drives the truck.
-          </p>
+          <Copy
+            text={page.opening.lede}
+            className="max-w-[600px] font-text text-k-lede text-k-ink-soft"
+            linkClassName="underline underline-offset-4"
+          />
         </div>
       </section>
 
@@ -77,54 +58,56 @@ export default function ContactPage() {
       <section className="bg-k-paper px-6 pb-28 md:px-12 lg:px-24">
         <div className="mx-auto grid max-w-[1248px] grid-cols-1 gap-6 lg:grid-cols-2">
           <Reveal className="flex flex-col overflow-hidden rounded-md bg-k-surface">
+            {/* The photograph is an open road with no vehicle in it. It used
+                to be described as a KUL tractor and trailer on a Southeast
+                highway, which is three things it is not, and somebody using a
+                screen reader had no way of knowing that. Keep the description
+                honest about what is actually in the picture. */}
             <Image
-              src="/images/services/regional-wide.jpg"
-              /* The photograph is an open road with no vehicle in it. It used
-                 to be described as a KUL tractor and trailer on a Southeast
-                 highway, which is three things it is not, and somebody using a
-                 screen reader had no way of knowing that. */
-              alt="An open highway running toward distant hills"
+              src={page.locationCard.image}
+              alt={fill(page.locationCard.imageAlt)}
               width={1600}
               height={900}
               className="h-[250px] w-full object-cover"
             />
             <div className="flex flex-1 flex-col gap-6 p-8">
               <h2 className="font-display text-k-d3 font-black text-k-ink">
-                {site.location}
+                {fill(page.locationCard.heading)}
               </h2>
+              {/* Two stacks of short lines rather than one list, because they
+                  sit side by side and wrap independently. Add a line to either
+                  in the CMS and it joins that column. */}
               <div className="flex flex-wrap gap-x-14 gap-y-4">
-                <div className="flex flex-col gap-1">
-                  <span className="font-text text-k-small text-k-ink-soft">
-                    {site.city}, Georgia 30052
-                  </span>
-                  <span className="font-text text-k-small text-k-ink-soft">
-                    {site.serviceArea}
-                  </span>
-                </div>
-                <div className="flex flex-col gap-1">
-                  <span className="font-text text-k-small text-k-ink-soft">
-                    Dispatch: 24 hours
-                  </span>
-                  <span className="font-text text-k-small text-k-ink-soft">
-                    USDOT {site.usdot} · MC {site.mc}
-                  </span>
-                </div>
+                {[page.locationCard.addressLines, page.locationCard.hoursLines].map(
+                  (lines, ci) => (
+                    <div key={ci} className="flex flex-col gap-1">
+                      {lines.map((line) => (
+                        <span
+                          key={line}
+                          className="font-text text-k-small text-k-ink-soft"
+                        >
+                          {fill(line)}
+                        </span>
+                      ))}
+                    </div>
+                  ),
+                )}
               </div>
               <div className="mt-auto flex flex-wrap items-center gap-x-7 gap-y-4 pt-2">
                 <a
-                  href={`mailto:${site.email}`}
+                  href={link(page.locationCard.emailCta).href}
                   className="rounded-full bg-k-ink px-7 py-3.5 font-text text-k-label uppercase text-k-on-dark transition-opacity duration-200 hover:opacity-85"
                 >
-                  Email dispatch
+                  {link(page.locationCard.emailCta).label}
                 </a>
-                {/* It pointed at /services, which is the list of freight
-                    types and says nothing about where a truck goes. It goes to
-                    the map further down this page now. */}
+                {/* The second link pointed at /services, which is the list of
+                    freight types and says nothing about where a truck goes. It
+                    goes to the map further down this page now. */}
                 <a
-                  href="#service-area"
+                  href={link(page.locationCard.mapCta).href}
                   className="border-b border-k-gold pb-0.5 font-text text-k-small text-k-ink"
                 >
-                  See the service area
+                  {link(page.locationCard.mapCta).label}
                 </a>
               </div>
             </div>
@@ -135,23 +118,23 @@ export default function ContactPage() {
             className="flex flex-col justify-end gap-6 rounded-md bg-k-coal p-11"
           >
             <span className="font-text text-k-micro uppercase text-k-gold-lit">
-              Dispatch, around the clock
+              {fill(page.dispatchCard.eyebrow)}
             </span>
             <h2 className="max-w-[500px] font-display text-k-d2 font-black text-k-on-dark">
-              Call the person driving.
+              {fill(page.dispatchCard.heading)}
             </h2>
             {/* "Nights and weekends included" was the third statement of the
                 same fact inside one screen: the card to the left of this one
                 prints "Dispatch: 24 hours", and the label directly above this
                 headline reads "Dispatch, around the clock". */}
             <p className="max-w-[440px] font-text text-k-body text-k-on-dark-soft">
-              If a load is moving today, this is faster than any form.
+              {fill(page.dispatchCard.body)}
             </p>
             <a
-              href={site.phoneHref}
+              href={link(page.dispatchCard.cta).href}
               className="w-fit rounded-full bg-k-on-dark px-8 py-4 font-text text-k-label uppercase tabular-nums text-k-ink transition-opacity duration-200 hover:opacity-85"
             >
-              Call {site.phone}
+              {link(page.dispatchCard.cta).label}
             </a>
           </Reveal>
         </div>
@@ -162,12 +145,13 @@ export default function ContactPage() {
         <div className="mx-auto flex max-w-[1248px] flex-col gap-12">
           <Reveal className="flex flex-col gap-4">
             <h2 className="font-display text-k-d2 font-black text-k-ink">
-              Where to send it
+              {fill(page.routes.heading)}
             </h2>
-            <p className="max-w-[620px] font-text text-k-body text-k-ink-soft">
-              All three rows below reach the same inbox, so use whichever fits
-              and say so in the first line.
-            </p>
+            <Copy
+              text={page.routes.intro}
+              className="max-w-[620px] font-text text-k-body text-k-ink-soft"
+              linkClassName="underline underline-offset-4"
+            />
           </Reveal>
 
           {/* A directory rather than three cards. Each reason sits on one
@@ -175,22 +159,22 @@ export default function ContactPage() {
               row is the link, so it is a far bigger target than a text link
               tucked under a paragraph. */}
           <ul className="flex flex-col">
-            {ROUTES.map((route, i) => (
+            {page.routes.items.map((route, i) => (
               <li key={route.href} className="flex flex-col">
                 <RuleDraw index={i} />
                 <Reveal index={i}>
                   <Link
-                    href={route.href}
+                    href={linkHref(route.href)}
                     className="group flex flex-col gap-4 py-8 transition-colors duration-200 md:flex-row md:items-baseline md:gap-12"
                   >
                     <span className="font-display text-k-d3 font-black text-k-ink transition-colors duration-200 group-hover:text-k-gold md:w-[260px] md:shrink-0">
-                      {route.label}
+                      {fill(route.label)}
                     </span>
                     <span className="font-text text-k-body text-k-ink-soft md:flex-1">
-                      {route.body}
+                      {fill(route.body)}
                     </span>
                     <span className="flex shrink-0 items-center gap-2.5 font-text text-k-micro uppercase text-k-gold">
-                      {route.action}
+                      {fill(route.action)}
                       <svg
                         width="16"
                         height="10"
@@ -212,7 +196,7 @@ export default function ContactPage() {
                 </Reveal>
               </li>
             ))}
-            <RuleDraw index={ROUTES.length} />
+            <RuleDraw index={page.routes.items.length} />
           </ul>
         </div>
       </section>
@@ -229,7 +213,7 @@ export default function ContactPage() {
         <div className="mx-auto flex max-w-[1248px] flex-col gap-12">
           <Reveal variant="wipe">
             <h2 className="max-w-[700px] font-display text-k-d2 font-black text-k-ink">
-              Southeast based, authorized nationwide.
+              {fill(page.map.heading)}
             </h2>
           </Reveal>
           <Reveal index={1}>
@@ -243,18 +227,17 @@ export default function ContactPage() {
         <div className="mx-auto flex max-w-[1248px] flex-col gap-12 lg:flex-row lg:gap-24">
           <div className="flex flex-col gap-5 lg:w-[420px] lg:shrink-0">
             <h2 className="font-display text-k-d3 font-black text-k-ink">
-              Anything else
+              {fill(page.catchAll.heading)}
             </h2>
-            {/* This used to read "Write here and it reaches the same inbox as
-                everything else", which is the line directly above the three
-                routing rows said a second time, and the address printed
-                underneath it makes the point without a sentence. */}
-            <a
-              href={`mailto:${site.email}`}
-              className="w-fit border-b border-k-gold pb-0.5 font-text text-k-small text-k-ink"
-            >
-              {site.email}
-            </a>
+            {/* A sentence used to sit here reading "Write here and it reaches
+                the same inbox as everything else", which is the line directly
+                above the three routing rows said a second time, and the address
+                printed underneath it makes the point without a sentence. */}
+            <Copy
+              text={page.catchAll.emailLabel}
+              className="w-fit font-text text-k-small text-k-ink"
+              linkClassName="border-b border-k-gold pb-0.5"
+            />
           </div>
           <div className="lg:flex-1">
             <ContactForm />

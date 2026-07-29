@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "title": "The Road Ahead",
+    "description": "KUL Enterprises runs one truck today and plans fifty by 2029. The plan in order, what has to happen first, and what does not change on the way. Licensed carrier in {location}, USDOT {usdot}."
+  },
+  "opening": {
+    "heading": "One truck today. Fifty by 2029.",
+    "body": "Written in the order it has to happen, and nothing on it is dated until it is booked. The figures are updated the day they change."
+  },
+  "position": {
+    "eyebrow": "Where it stands today",
+    "leadFigure": {
+      "value": "11",
+      "label": "Years driving",
+      "note": "Eleven years hauling for other carriers before KUL took its first load."
+    },
+    "facts": [
+      {
+        "value": "1",
+        "label": "Trucks in service",
+        "note": "One tractor, on the road since 2026."
+      },
+      {
+        "value": "1",
+        "label": "Drivers",
+        "note": "Mark Brown, who also answers dispatch."
+      },
+      {
+        "value": "48",
+        "label": "States authorised",
+        "note": "Operating authority is already nationwide."
+      }
+    ]
+  },
+  "plan": {
+    "heading": "The plan",
+    "stages": [
+      {
+        "n": "01",
+        "title": "The second truck",
+        "status": "Next",
+        "body": "A second tractor goes on the road once there is repeat freight to keep both loaded through a full month. Until that is true the money stays in maintenance and insurance on the first one."
+      },
+      {
+        "n": "02",
+        "title": "A second driver",
+        "status": "After that",
+        "body": "Hired on a verified work history and a clean motor vehicle record, held to the standards written on the safety page. Recruiting starts once the second truck is booked, not before."
+      },
+      {
+        "n": "03",
+        "title": "Dispatch cover",
+        "status": "After that",
+        "body": "A second person on the phone, so calls are answered while the first is driving. The number on this site does not change when that happens."
+      }
+    ]
+  },
+  "fixed": {
+    "heading": "What does not change at any size",
+    "items": [
+      "Dispatch stays one phone number, answered by somebody who has driven the lane.",
+      "No load is accepted that cannot be run legally inside hours of service.",
+      "Delays come from us before they come from your receiver."
+    ]
+  },
+  "limits": {
+    "heading": "What this page is not",
+    "body": "There is no funding announcement here and no photographs of equipment KUL does not own. Nothing on it is a commitment to a customer."
+  }
+}

@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { site } from "@/lib/site";
 import { services } from "@/lib/services";
+import { fill, link } from "@/lib/content";
+import page from "@/content/pages/services-index.json";
 import ServiceCarousel from "@/components/k/ServiceCarousel";
 import Reveal from "@/components/k/Reveal";
 import Breadcrumb from "@/components/k/Breadcrumb";
+import Copy from "@/components/k/Copy";
 
 /**
  * SERVICES PAGE
@@ -45,9 +47,8 @@ import Breadcrumb from "@/components/k/Breadcrumb";
  */
 
 export const metadata: Metadata = {
-  title: "Freight Services",
-  description:
-    "Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited and Over the Road freight services from KUL Enterprises. Licensed carrier based in Loganville, Georgia, authorized in 48 states.",
+  title: fill(page.meta.title),
+  description: fill(page.meta.description),
 };
 
 /**
@@ -93,12 +94,20 @@ const STEP_ICON_PROPS = {
   "aria-hidden": true,
 } as const;
 
-const STEPS = [
-  {
-    n: "01",
-    name: "Enquiry",
-    body: "Call dispatch, or send the lane. Six fields: origin, destination, freight type, pickup date, how to reach you, and anything else we should know.",
-    icon: (
+/**
+ * THE MARKS THEMSELVES, KEYED TO THE STEP NUMBER IN THE CMS.
+ *
+ * The words beside each mark are editable at /admin and these drawings are
+ * not, which is the right split: a client renaming "Enquiry" to "Your lane"
+ * should not be able to leave the rate sheet pointing at the wrong step, and
+ * nobody is drawing a new technical elevation in a text field.
+ *
+ * A step whose number has no mark here simply renders without one rather than
+ * throwing, so adding a fifth step in the CMS degrades to a column of type
+ * instead of a broken page. If a fifth step is ever real, draw it a mark.
+ */
+const STEP_ICONS: Record<string, React.ReactNode> = {
+  "01": (
       <svg {...STEP_ICON_PROPS}>
         {/* THE LANE. An origin left open as a ring, a destination closed as a
             solid dot, and the route running between them. It is the only mark
@@ -109,13 +118,8 @@ const STEPS = [
         <path d="M10 21.5C15 17.5 12.5 12 20.5 9.5" />
         <circle cx="24.5" cy="8" r="3" fill="currentColor" stroke="none" />
       </svg>
-    ),
-  },
-  {
-    n: "02",
-    name: "Quote",
-    body: "A real number, usually the same day. If the lane does not suit us, we say so then.",
-    icon: (
+  ),
+  "02": (
       <svg {...STEP_ICON_PROPS}>
         {/* THE RATE SHEET. Two ruled lines of description, then the figure set
             apart under its own rule at the foot, which is how a rate actually
@@ -127,13 +131,8 @@ const STEPS = [
         <path d="M11.5 14.5h9M11.5 18.5h6" />
         <path d="M11.5 23.5h5.5" />
       </svg>
-    ),
-  },
-  {
-    n: "03",
-    name: "Dispatch",
-    body: "You get the route, the timing and the driver before the wheels turn.",
-    icon: (
+  ),
+  "03": (
       <svg {...STEP_ICON_PROPS}>
         {/* THE TRACTOR AND TRAILER IN SIDE ELEVATION, which is the one mark on
             this page that could not belong to any other trade. It is drawn the
@@ -149,13 +148,8 @@ const STEPS = [
         <circle cx="9" cy="23.6" r="2.7" />
         <circle cx="24" cy="23.6" r="2.7" />
       </svg>
-    ),
-  },
-  {
-    n: "04",
-    name: "Delivery",
-    body: "Updates on the way, proof on arrival, one phone number throughout.",
-    icon: (
+  ),
+  "04": (
       <svg {...STEP_ICON_PROPS}>
         {/* THE MARK THAT CLOSES THE JOB. A ring and a check, and nothing else.
 
@@ -169,9 +163,8 @@ const STEPS = [
         <circle cx="16" cy="16" r="12.5" />
         <path d="m10 16.5 4 4 8-8.5" />
       </svg>
-    ),
-  },
-] as const;
+  ),
+};
 
 export default function ServicesPage() {
   return (
@@ -185,18 +178,24 @@ export default function ServicesPage() {
           />
           <div className="flex flex-col gap-6 border-b border-k-rule pb-6 lg:flex-row lg:items-end lg:justify-between">
             <h1 className="font-display text-k-d1 font-black text-k-ink">
-              Services
+              {fill(page.title.heading)}
             </h1>
             <div className="flex flex-wrap items-center gap-x-8 gap-y-1 pb-2.5">
+              {/* Three fields rather than one sentence, because the middle of
+                  this line carries a gold rule under it and the two halves
+                  around it do not. Storing it whole would mean either losing
+                  the underline or asking the client to mark it up. */}
               <p className="font-text text-k-small text-k-ink-soft">
-                Serving{" "}
+                {fill(page.title.serviceAreaBefore)}{" "}
                 <span className="border-b border-k-gold text-k-ink">
-                  {site.city}, {site.state} 30052
+                  {fill(page.title.serviceAreaHighlight)}
                 </span>{" "}
-                and 48 states
+                {fill(page.title.serviceAreaAfter)}
               </p>
+              {/* The count is the real number of services, never typed in, so
+                  it cannot disagree with the list underneath it. */}
               <p className="font-text text-k-small text-k-ink-soft">
-                {services.length} services
+                {services.length} {fill(page.title.countSuffix)}
               </p>
             </div>
           </div>
@@ -230,13 +229,13 @@ export default function ServicesPage() {
         <div className="mx-auto flex max-w-[1248px] flex-col gap-10">
           <Reveal variant="settle" className="flex flex-col items-center gap-3.5">
             <h2 className="max-w-[700px] text-center font-display text-k-d2 font-black text-k-ink">
-              Find the service that fits your lane
+              {fill(page.compare.heading)}
             </h2>
-            <p className="max-w-[660px] text-center font-text text-k-small text-k-ink-soft">
-              If none of them obviously fits, describe the load and we will
-              tell you which one does, including when the answer is that KUL is
-              not the right carrier for it.
-            </p>
+            <Copy
+              text={page.compare.body}
+              className="max-w-[660px] text-center font-text text-k-small text-k-ink-soft"
+              linkClassName="underline underline-offset-4"
+            />
           </Reveal>
 
           <ul className="flex flex-col">
@@ -289,9 +288,12 @@ export default function ServicesPage() {
                         {service.name}
                       </h3>
                       <span className="font-text text-k-micro uppercase tabular-nums text-k-ink-faint">
+                        {/* "By contract" is not a lead time, so it is printed
+                            as it stands rather than being prefixed into
+                            "Lead time By contract". */}
                         {service.leadTime === "By contract"
-                          ? "By contract"
-                          : `Lead time ${service.leadTime}`}
+                          ? service.leadTime
+                          : `${fill(page.compare.leadTimePrefix)} ${service.leadTime}`}
                       </span>
                     </div>
                     <p className="max-w-[52ch] font-text text-k-body text-k-ink-soft">
@@ -305,13 +307,13 @@ export default function ServicesPage() {
                         href={`/quote?service=${service.slug}`}
                         className="rounded-full bg-k-ink px-5 py-2.5 font-text text-k-micro uppercase text-k-paper transition-opacity duration-200 hover:opacity-85"
                       >
-                        Get a quote
+                        {fill(page.compare.quoteLabel)}
                       </Link>
                       <Link
                         href={`/services/${service.slug}`}
                         className="border-b border-k-gold pb-0.5 font-text text-k-micro uppercase text-k-ink transition-colors duration-200 hover:text-k-gold"
                       >
-                        {service.name} in detail
+                        {service.name} {fill(page.compare.detailLabel)}
                       </Link>
                     </div>
                   </div>
@@ -321,17 +323,17 @@ export default function ServicesPage() {
                   <dl className="col-span-2 flex flex-col gap-3.5 border-t border-k-rule pt-5 lg:col-span-1 lg:border-t-0 lg:pt-1">
                     {[
                       {
-                        label: "Equipment",
+                        label: fill(page.compare.labels.equipment),
                         value: service.equipment,
                         note: service.equipmentNote,
                       },
                       {
-                        label: "Typical lane",
+                        label: fill(page.compare.labels.lane),
                         value: service.lane,
                         note: service.laneNote,
                       },
                       {
-                        label: "Best for",
+                        label: fill(page.compare.labels.bestFor),
                         value: service.bestForShort,
                         note: null,
                       },
@@ -402,7 +404,7 @@ export default function ServicesPage() {
           >
             <div className="flex flex-col gap-4">
               <p className="font-text text-k-label uppercase text-k-gold">
-                How a load moves
+                {fill(page.howItMoves.eyebrow)}
               </p>
               {/* "Four steps, no surprises" was here and went on 29 Jul 2026 at
                   the client's word. Two things were wrong with it. It counted
@@ -416,7 +418,7 @@ export default function ServicesPage() {
                   in the step it belongs to: "Call dispatch", "A real number",
                   "You get the route", "proof on arrival". */}
               <h2 className="font-display text-k-d2 font-black text-k-ink">
-                The call, the number, the route, the proof.
+                {fill(page.howItMoves.heading)}
               </h2>
               {/* A lede sat here reading "Six fields in, one phone number
                   throughout." Step 01 below it already names the six fields and
@@ -425,10 +427,10 @@ export default function ServicesPage() {
                   directly underneath it. */}
             </div>
             <Link
-              href="/quote"
+              href={link(page.howItMoves.cta).href}
               className="w-fit shrink-0 whitespace-nowrap rounded-full bg-k-ink px-8 py-4 font-text text-k-label uppercase text-k-on-dark transition-opacity duration-200 hover:opacity-85"
             >
-              Request a quote
+              {link(page.howItMoves.cta).label}
             </Link>
           </Reveal>
 
@@ -453,17 +455,19 @@ export default function ServicesPage() {
            * the semantics survive.
            */}
           <ol className="mt-20 grid grid-cols-1 gap-x-12 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
-            {STEPS.map((step, i) => (
+            {page.howItMoves.steps.map((step, i) => (
               <li key={step.n} className="flex">
                 <Reveal index={i} className="flex flex-col gap-5">
-                  <span className="text-k-gold">{step.icon}</span>
+                  <span className="text-k-gold">{STEP_ICONS[step.n]}</span>
                   <div className="flex flex-col gap-2.5">
                     <h3 className="font-display text-k-lede font-black text-k-ink">
-                      {step.name}
+                      {fill(step.name)}
                     </h3>
-                    <p className="max-w-[34ch] font-text text-k-small text-k-ink-soft">
-                      {step.body}
-                    </p>
+                    <Copy
+                      text={step.body}
+                      className="max-w-[34ch] font-text text-k-small text-k-ink-soft"
+                      linkClassName="underline underline-offset-4"
+                    />
                   </div>
                 </Reveal>
               </li>

@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { site } from "@/lib/site";
 import HeroVideo from "@/components/k/HeroVideo";
 import Reveal, { RuleDraw } from "@/components/k/Reveal";
+import Copy from "@/components/k/Copy";
+import { fill, linkHref } from "@/lib/content";
+import page from "@/content/pages/safety.json";
 
 /**
  * SAFETY PAGE
@@ -21,43 +23,27 @@ import Reveal, { RuleDraw } from "@/components/k/Reveal";
  */
 
 export const metadata: Metadata = {
-  title: "Safety and Compliance",
   // NOT "safety record". The lede on this page says there is no long safety
   // record to point at yet, so sending a broker to FMCSA expecting one is the
   // page contradicting itself in the search result.
-  description: `KUL Enterprises is a licensed and insured freight carrier, USDOT ${site.usdot}, MC ${site.mc}. Verify our authority and insurance filing directly with the FMCSA.`,
+  title: fill(page.meta.title),
+  description: fill(page.meta.description),
 };
 
-/** Each of these can be checked by a broker without asking us. */
-const CREDENTIALS = [
-  {
-    label: "USDOT number",
-    value: site.usdot,
-    note: "Look this up on the FMCSA SAFER system",
-    href: `https://safer.fmcsa.dot.gov/query.asp?searchtype=ANY&query_type=queryCarrierSnapshot&query_param=USDOT&query_string=${site.usdot}`,
-  },
-  {
-    label: "MC number",
-    value: site.mc,
-    // "In good standing" is not a field FMCSA publishes. Operating status is,
-    // and it reads Active. On the one page whose argument is that everything
-    // can be checked, every line has to be checkable.
-    note: "Operating authority, active",
-    href: null,
-  },
-  {
-    label: "Insurance",
-    value: "Licensed and insured",
-    note: "Certificate issued by our agent, with your company named as holder",
-    href: "/carrier-packet",
-  },
-  {
-    label: "Base",
-    value: site.location,
-    note: "Southeast based, authorized in 48 states",
-    href: null,
-  },
-] as const;
+/**
+ * EVERY LINE IN THE CREDENTIALS LIST HAS TO BE CHECKABLE BY A BROKER WITHOUT
+ * ASKING US. That is the whole argument of the page, so it is the one rule to
+ * hold when editing that list in the CMS.
+ *
+ * The note on the MC number reads "Operating authority, active" and not "in
+ * good standing", because good standing is not a field FMCSA publishes and
+ * operating status is. On the one page whose argument is that everything can be
+ * checked, a line that cannot be checked undoes the rest.
+ *
+ * The DOT and MC numbers are written as {usdot} and {mc} tokens, so the list,
+ * the description a screen reader reads off the door decal, the search result
+ * and the footer can never disagree with content/site.json.
+ */
 
 /**
  * REDRAWN 29 JUL 2026, because the first set were clip-art.
@@ -128,28 +114,20 @@ const ICONS = {
  * and the section rail above, and at that density the shape reads as a house
  * tic rather than as a distinction. If you add another, take that one out.
  */
-const COMMITMENTS = [
-  {
-    icon: "maintenance",
-    title: "Maintenance",
-    body: "The truck is inspected before every dispatch. Anything found is fixed before the load moves, even when that costs us the load.",
-  },
-  {
-    icon: "hours",
-    title: "Hours of service",
-    body: "Hours are planned before dispatch. If a lane cannot be run legally inside the clock, we say so when you ask, not when we are late.",
-  },
-  {
-    icon: "communication",
-    title: "Communication",
-    body: "You hear about a delay from us first. One phone number reaches the person driving the truck, around the clock.",
-  },
-  {
-    icon: "cargo",
-    title: "Cargo",
-    body: "Freight is secured to FMCSA standards and sealed at origin where a seal applies. The seal number goes on the paperwork so the receiver can check it.",
-  },
-] as const satisfies readonly { icon: keyof typeof ICONS; title: string; body: string }[];
+/**
+ * The clauses, written as policy, because a policy is true from day one.
+ *
+ * ONE "X RATHER THAN Y" IN THIS SECTION, AND IT IS SPENT. It is "we say so
+ * when you ask, not when we are late", where the contrast carries a real
+ * difference in behaviour. There used to be four of them across these clauses
+ * and the section rail above, and at that density the shape reads as a house
+ * tic rather than as a distinction. If you add another, take that one out.
+ *
+ * A clause whose `icon` does not name one of the four drawings above prints
+ * without a mark rather than failing, so a fifth clause added in the CMS
+ * degrades quietly. Draw it a mark rather than leaving it that way.
+ */
+const COMMITMENTS = page.commitments.items;
 
 /** One customer quotation, and who said it. */
 type Testimonial = {
@@ -162,20 +140,19 @@ type Testimonial = {
 /**
  * CUSTOMER QUOTATIONS
  *
- * Empty on purpose. KUL has not carried enough freight to have earned one
- * honestly, so the section prints a reserved box saying exactly that, and the
- * counter beneath it reads 00 / 00.
+ * Empty on purpose, and the section does not render at all while it is. KUL
+ * has not carried enough freight to have earned one honestly.
  *
- * TO PUBLISH THE FIRST QUOTATION: add it to the list below, like this, and
- * the reserved box is replaced by the words themselves.
+ * TO PUBLISH THE FIRST QUOTATION: add it at /admin under "Safety page", and
+ * the section appears on its own without anybody having to put it back.
  *
- *   { quote: "They called before we had to.", name: "A. Fielding",
- *     company: "Kestrel Foods", lane: "Atlanta to Charlotte" },
+ * NEVER PUBLISH ONE NOBODY SAID. The argument of this entire page is that
+ * every line on it can be checked, and an invented quotation cannot.
  *
- * Never write one nobody said. The point of printing an empty box is that it
- * is verifiable, and an invented quotation is not.
+ * The annotation is load bearing while the list is empty: an empty array in
+ * JSON infers as never[], and without it every read below fails to compile.
  */
-const TESTIMONIALS: Testimonial[] = [];
+const TESTIMONIALS: Testimonial[] = page.testimonials.items;
 
 export default function SafetyPage() {
   return (
@@ -187,11 +164,11 @@ export default function SafetyPage() {
           <p className="flex items-center gap-4">
             <span className="h-px w-12 shrink-0 bg-k-gold" aria-hidden="true" />
             <span className="font-text text-k-label uppercase text-k-gold">
-              Safety and compliance
+              {fill(page.opening.eyebrow)}
             </span>
           </p>
           <h1 className="font-display text-k-d1 font-black text-k-ink">
-            Everything here can be checked.
+            {fill(page.opening.heading)}
           </h1>
           {/* The tail used to run "so this page gives you the things you can
               verify today and the standards we hold ourselves to while that
@@ -199,10 +176,11 @@ export default function SafetyPage() {
               contents to a reader who is about to see it. The two section
               headings underneath say the same thing and are impossible to
               miss. */}
-          <p className="max-w-[620px] font-text text-k-lede text-k-ink-soft">
-            KUL Enterprises has been under its own authority since 2026, so
-            there is no long safety record to point at yet.
-          </p>
+          <Copy
+            text={page.opening.lede}
+            className="max-w-[620px] font-text text-k-lede text-k-ink-soft"
+            linkClassName="underline underline-offset-4"
+          />
         </div>
       </section>
 
@@ -211,7 +189,7 @@ export default function SafetyPage() {
         <div className="mx-auto max-w-[1248px]">
           <Reveal>
             <h2 className="pb-10 font-display text-k-d3 font-black text-k-ink">
-              Authority and insurance
+              {fill(page.credentials.heading)}
             </h2>
           </Reveal>
 
@@ -235,33 +213,36 @@ export default function SafetyPage() {
               is doing real work: it reads the numbers out. */}
           <Reveal variant="settle" className="pb-12">
             <Image
-              src="/images/brand/door-decal.webp"
-              alt={`The decal on the tractor door, reading KUL Enterprises LLC, USDOT ${site.usdot}, MC ${site.mc}, ${site.location}`}
+              src={page.credentials.decal}
+              alt={fill(page.credentials.decalAlt)}
               width={900}
               height={599}
               className="h-auto w-full max-w-[380px] rounded-md"
             />
           </Reveal>
           <ul className="border-t border-k-rule-strong">
-            {CREDENTIALS.map((item, i) => (
+            {page.credentials.items.map((item, i) => (
               <Reveal key={item.label} index={i}>
                 <li className="flex flex-col gap-2 border-b border-k-rule py-6 md:flex-row md:items-baseline md:gap-8">
                   <span className="font-text text-k-micro uppercase text-k-ink-faint md:w-[180px] md:shrink-0">
-                    {item.label}
+                    {fill(item.label)}
                   </span>
                   <span className="font-display text-k-d3 font-black tabular-nums text-k-ink md:w-[300px] md:shrink-0">
-                    {item.value}
+                    {fill(item.value)}
                   </span>
+                  {/* A row with no link set prints its note as plain text.
+                      That is how the MC number and the base read today: there
+                      is no public page to send a broker to for either. */}
                   {item.href ? (
                     <Link
-                      href={item.href}
+                      href={linkHref(item.href)}
                       className="w-fit border-b border-k-gold pb-0.5 font-text text-k-small text-k-ink-soft"
                     >
-                      {item.note}
+                      {fill(item.note)}
                     </Link>
                   ) : (
                     <span className="font-text text-k-small text-k-ink-soft">
-                      {item.note}
+                      {fill(item.note)}
                     </span>
                   )}
                 </li>
@@ -283,8 +264,8 @@ export default function SafetyPage() {
           still frame, which reads perfectly well on its own. */}
       <section className="relative flex min-h-[460px] items-end overflow-hidden bg-k-void">
         <HeroVideo
-          name="dash-night"
-          poster="/videos/dash-night-poster.jpg"
+          name={page.dashcam.video}
+          poster={page.dashcam.poster}
           label="the dashcam footage"
           className="absolute inset-0 h-full w-full object-cover opacity-70"
         />
@@ -293,10 +274,11 @@ export default function SafetyPage() {
           aria-hidden="true"
         />
         <div className="relative mx-auto w-full max-w-[1248px] px-6 pb-14 md:px-12 lg:px-24">
-          <p className="max-w-[620px] font-text text-k-lede text-k-on-dark">
-            Eleven years driving for other carriers before the first mile under
-            this authority.
-          </p>
+          <Copy
+            text={page.dashcam.caption}
+            className="max-w-[620px] font-text text-k-lede text-k-on-dark"
+            linkClassName="underline underline-offset-4"
+          />
         </div>
       </section>
 
@@ -314,10 +296,10 @@ export default function SafetyPage() {
         <div className="mx-auto flex max-w-[1248px] flex-col gap-12 lg:flex-row lg:gap-24">
           <Reveal variant="settle" className="lg:w-[300px] lg:shrink-0">
             <h2 className="font-display text-k-d3 font-black text-k-ink">
-              What we hold ourselves to
+              {fill(page.commitments.heading)}
             </h2>
             <p className="pt-4 font-text text-k-small text-k-ink-soft">
-              Standing policy, applying from the first load.
+              {fill(page.commitments.note)}
             </p>
           </Reveal>
 
@@ -345,15 +327,17 @@ export default function SafetyPage() {
                         aria-hidden="true"
                         className="shrink-0 text-k-gold"
                       >
-                        {ICONS[item.icon]}
+                        {ICONS[item.icon as keyof typeof ICONS]}
                       </svg>
                       <h3 className="font-text text-k-small font-semibold uppercase tracking-[0.1em] text-k-ink">
-                        {item.title}
+                        {fill(item.title)}
                       </h3>
                     </div>
-                    <p className="max-w-[62ch] font-text text-k-body text-k-ink-soft">
-                      {item.body}
-                    </p>
+                    <Copy
+                      text={item.body}
+                      className="max-w-[62ch] font-text text-k-body text-k-ink-soft"
+                      linkClassName="underline underline-offset-4"
+                    />
                   </div>
                 </Reveal>
               </li>
@@ -385,7 +369,7 @@ export default function SafetyPage() {
             <div className="flex max-w-[744px] flex-col gap-7">
               <Reveal>
                 <h2 className="font-display text-k-d2 font-black text-k-ink">
-                  What customers say
+                  {fill(page.testimonials.heading)}
                 </h2>
               </Reveal>
 

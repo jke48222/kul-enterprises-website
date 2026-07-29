@@ -5,6 +5,12 @@ import { AnimatePresence, m } from "framer-motion";
 import { DUR, EASE } from "@/components/k/motion";
 import { PanelField, PanelTextarea } from "./PanelField";
 import { useFormSubmit, Honeypot, FormStatus } from "./FormShell";
+import { fill } from "@/lib/content";
+import Copy from "@/components/k/Copy";
+import forms from "@/content/forms.json";
+
+/** Everything this form says. Edited at /admin under "Forms". */
+const t = forms.contact;
 
 /**
  * THE CONTACT FORM
@@ -47,17 +53,18 @@ export default function ContactForm() {
             className="flex max-w-[760px] flex-col gap-5 rounded-sm border border-k-rule bg-k-surface p-9"
           >
             <p className="font-display text-k-d3 font-black text-k-ink">
-              It is with dispatch.
+              {fill(t.successHeading)}
             </p>
             {sender ? (
               <p className="font-text text-k-lede text-k-gold">
-                Thank you, {sender}.
+                {fill(t.successThanks).replace("{sender}", sender)}
               </p>
             ) : null}
-            <p className="max-w-[62ch] font-text text-k-body text-k-ink-soft">
-              A person reads it and replies, usually the same business day. If
-              it is more urgent than that, call dispatch instead of waiting.
-            </p>
+            <Copy
+              text={t.successBody}
+              className="max-w-[62ch] font-text text-k-body text-k-ink-soft"
+              linkClassName="underline underline-offset-4"
+            />
           </m.div>
         ) : (
           <m.form
@@ -73,7 +80,7 @@ export default function ContactForm() {
               <PanelField
                 tone="light"
                 id={`${uid}-name`}
-                label="Your name"
+                label={fill(t.fields.name.label)}
                 name="name"
                 type="text"
                 required
@@ -83,7 +90,7 @@ export default function ContactForm() {
               <PanelField
                 tone="light"
                 id={`${uid}-email`}
-                label="Email"
+                label={fill(t.fields.email.label)}
                 name="email"
                 type="email"
                 required
@@ -95,7 +102,7 @@ export default function ContactForm() {
             <PanelTextarea
               tone="light"
               id={`${uid}-message`}
-              label="How can we help"
+              label={fill(t.fields.message.label)}
               name="message"
               rows={5}
               required
@@ -108,7 +115,9 @@ export default function ContactForm() {
                 disabled={state === "submitting"}
                 className="w-fit rounded-full bg-k-gold px-9 py-4 font-text text-k-label uppercase text-k-surface transition-opacity duration-200 hover:opacity-90 disabled:cursor-wait disabled:opacity-60"
               >
-                {state === "submitting" ? "Sending" : "Send the message"}
+                {state === "submitting"
+                  ? fill(forms.shared.sendingLabel)
+                  : fill(t.submitLabel)}
               </button>
             </div>
           </m.form>
@@ -117,14 +126,13 @@ export default function ContactForm() {
 
       {state === "error" ? (
         <p className="pt-5 font-text text-k-small text-k-error">
-          {serverError ??
-            "That did not send. Call dispatch on 678-972-1148 and it can be handled on the phone instead."}
+          {serverError ?? fill(t.error)}
         </p>
       ) : (
         <FormStatus
           state={state}
           serverError={serverError}
-          successMessage="Message received. A person replies, usually the same business day."
+          successMessage={fill(t.successAnnouncement)}
         />
       )}
     </div>

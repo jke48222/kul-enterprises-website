@@ -5,6 +5,12 @@ import { AnimatePresence, m } from "framer-motion";
 import { DUR, EASE } from "@/components/k/motion";
 import { useUnderlineField } from "./Field";
 import { useFormSubmit, Honeypot, FormStatus } from "./FormShell";
+import { fill } from "@/lib/content";
+import Copy from "@/components/k/Copy";
+import forms from "@/content/forms.json";
+
+/** Everything this form says. Edited at /admin under "Forms". */
+const t = forms.packet;
 
 /**
  * THE CARRIER PACKET REQUEST
@@ -95,13 +101,13 @@ export default function PacketForm() {
             className="flex max-w-[760px] flex-col gap-5 rounded-sm border border-k-rule bg-k-surface p-9"
           >
             <p className="font-display text-k-d3 font-black text-k-ink">
-              The request reached dispatch.
+              {fill(t.successHeading)}
             </p>
-            <p className="max-w-[62ch] font-text text-k-body text-k-ink-soft">
-              The person who drives the truck attaches it to his reply, so it
-              comes back when he is not on a load. If you need it inside a
-              fixed window, call and say so.
-            </p>
+            <Copy
+              text={t.successBody}
+              className="max-w-[62ch] font-text text-k-body text-k-ink-soft"
+              linkClassName="underline underline-offset-4"
+            />
           </m.div>
         ) : (
           <m.form
@@ -116,44 +122,47 @@ export default function PacketForm() {
             {/* The sentence. leading-loose gives the blanks room to sit on
                 their own underline without the lines colliding when it wraps. */}
             <p className="max-w-[900px] font-text text-k-lede leading-loose text-k-ink">
-              Send the packet for{" "}
+              {fill(t.sentence.before)}{" "}
               <Blank
                 id={`${uid}-company`}
                 name="company"
-                label="Your company name"
+                label={fill(t.fields.company.label)}
                 size={18}
                 autoComplete="organization"
               />
-              , MC or USDOT{" "}
+              {fill(t.sentence.afterCompany)}{" "}
               <Blank
                 id={`${uid}-authority`}
                 name="authority"
-                label="Your MC or USDOT number"
+                label={fill(t.fields.authority.label)}
                 size={12}
               />
-              , to{" "}
+              {fill(t.sentence.afterAuthority)}{" "}
               <Blank
                 id={`${uid}-email`}
                 name="email"
-                label="Where to send it"
+                label={fill(t.fields.email.label)}
                 size={22}
                 type="email"
                 autoComplete="email"
               />
-              .
+              {fill(t.sentence.end)}
             </p>
 
             <div className="flex flex-col gap-6">
-              <p className="max-w-[560px] font-text text-[12px] leading-[19px] text-k-ink-soft">
-                We use this to send the packet and nothing else. You are not
-                added to a mailing list and your details are not passed on.
-              </p>
+              <Copy
+                text={t.consent}
+                className="max-w-[560px] font-text text-[12px] leading-[19px] text-k-ink-soft"
+                linkClassName="underline underline-offset-2"
+              />
               <button
                 type="submit"
                 disabled={state === "submitting"}
                 className="w-fit rounded-full bg-k-gold px-9 py-4 font-text text-k-label uppercase text-k-surface transition-opacity duration-200 hover:opacity-90 disabled:cursor-wait disabled:opacity-60"
               >
-                {state === "submitting" ? "Sending" : "Send the request"}
+                {state === "submitting"
+                  ? fill(forms.shared.sendingLabel)
+                  : fill(t.submitLabel)}
               </button>
             </div>
           </m.form>
@@ -163,13 +172,13 @@ export default function PacketForm() {
       {state === "error" ? (
         <p className="pt-5 font-text text-k-small text-k-error">
           {serverError ??
-            "That did not send. Call dispatch on 678-972-1148 and the packet can be sent from the phone instead."}
+            fill(t.error)}
         </p>
       ) : (
         <FormStatus
           state={state}
           serverError={serverError}
-          successMessage="The packet request reached dispatch."
+          successMessage={fill(t.successAnnouncement)}
         />
       )}
     </div>

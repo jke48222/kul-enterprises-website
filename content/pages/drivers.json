@@ -1,0 +1,49 @@
+{
+  "meta": {
+    "title": "Drive With KUL",
+    "description": "KUL Enterprises is taking driver applications now, ahead of the seat opening. CDL-A, Southeast regional out of {location}, with over the road available."
+  },
+  "notice": {
+    "heading": "Driving for KUL",
+    "lead": "Applications are open now. The seat opens with the second truck.",
+    "body": "A second tractor goes on the road once there is repeat freight to keep both loaded through a full month, and the driver's seat opens at the same time. We take applications before that happens so the seat goes to somebody already spoken to, rather than whoever answers an advert on the day. There is no start date to give you, and everybody who has applied is called when there is. The plan is on [the road ahead page](/road-ahead)."
+  },
+  "seat": {
+    "heading": "The seat, when it opens",
+    "rows": [
+      {
+        "lead": "The licence.",
+        "body": "CDL-A, with a work history we can verify and a motor vehicle record we can pull. Both are checked before an interview."
+      },
+      {
+        "lead": "The lanes.",
+        "body": "Southeast regional out of {location}, with over the road available. Most weeks run inside the home region."
+      },
+      {
+        "lead": "The equipment.",
+        "body": "A 53 foot dry van behind a sleeper tractor, inspected before every dispatch. Anything found is fixed before the load moves, even when that costs us the load."
+      },
+      {
+        "lead": "The dispatch.",
+        "body": "You will be talking to Mark, who drives the truck himself. Hours are planned before dispatch."
+      }
+    ],
+    "rail": [
+      {
+        "label": "What to send now",
+        "body": "Your name, a phone number or an email, how long you have held a CDL-A, and anything else you want to add. The rest waits for the call.",
+        "cta": { "label": "", "href": "" }
+      },
+      {
+        "label": "The standards",
+        "body": "A second driver is held to what is written on the safety page from the first load. Read it before you apply.",
+        "cta": { "label": "Read the safety page", "href": "/safety" }
+      }
+    ]
+  },
+  "form": {
+    "heading": "Leave your details",
+    "intro": "Four questions. Nobody is called today, because the seat is not open today.",
+    "equalOpportunityLine": "{legalName} is an equal opportunity employer"
+  }
+}

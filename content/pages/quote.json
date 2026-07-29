@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "title": "Request a Freight Quote",
+    "description": "Get a freight quote from KUL Enterprises. Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited and Over the Road. Licensed carrier in {location}, USDOT {usdot}. The owner answers dispatch."
+  },
+  "opening": {
+    "heading": "Tell us about the load.",
+    "lede": "Everything we need to price it is below. The rest can be sorted out on the phone."
+  },
+  "request": {
+    "eyebrow": "The request",
+    "heading": "Send us the lane.",
+    "skipLabel": "Or skip the form",
+    "skipNote": "If the load is moving today, calling is faster than anything on this page.",
+    "nextSteps": [
+      {
+        "title": "It reaches dispatch",
+        "body": "There is no shared inbox and no ticketing system in between."
+      },
+      {
+        "title": "You get a real number",
+        "body": "Usually the same day. If the lane does not suit our equipment or our hours, we say so and tell you why."
+      },
+      {
+        "title": "Nothing is automated",
+        "body": "If you do not book, you will not hear from us again unless you get in touch."
+      }
+    ]
+  },
+  "credentials": {
+    "items": [
+      "USDOT {usdot}",
+      "MC {mc}",
+      "Licensed and insured",
+      "Owner answers dispatch"
+    ],
+    "locationLine": "{location} · {serviceArea}"
+  }
+}

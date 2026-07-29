@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import DriverForm from "@/components/forms/DriverForm";
-import { site } from "@/lib/site";
 import Reveal from "@/components/k/Reveal";
 import Breadcrumb from "@/components/k/Breadcrumb";
+import Copy from "@/components/k/Copy";
+import { fill, link } from "@/lib/content";
+import page from "@/content/pages/drivers.json";
 
 /**
  * DRIVERS
@@ -34,44 +36,27 @@ import Breadcrumb from "@/components/k/Breadcrumb";
  */
 
 export const metadata: Metadata = {
-  title: "Drive With KUL",
-  description: `KUL Enterprises is taking driver applications now, ahead of the seat opening. CDL-A, Southeast regional out of ${site.location}, with over the road available.`,
+  title: fill(page.meta.title),
+  description: fill(page.meta.description),
 };
 
 /**
- * THE JOB, WRITTEN AS A DOCUMENT.
+ * THE JOB IS WRITTEN AS A DOCUMENT, AND IT IS IN THE CMS.
  *
- * Each entry prints as a paragraph whose first few words are set bold and read
- * straight into the sentence, the way a printed handbook sets a heading it does
- * not want to give a whole line to. Keep the lead short, two or three words,
+ * Each entry under "The seat, when it opens" prints as a paragraph whose first
+ * few words are set bold and read straight into the sentence, the way a printed
+ * handbook sets a heading it does not want to give a whole line to. That is why
+ * the CMS splits each row into a lead and a body: they are one sentence set two
+ * ways, not a heading and a paragraph. KEEP THE LEAD SHORT, two or three words,
  * or the paragraph stops reading as a sentence.
  *
- * THERE IS NO "PAY" ENTRY, and that is deliberate rather than an oversight.
- * See the note where it used to sit at the foot of this list.
+ * THERE IS NO "PAY" ROW, and that is deliberate rather than an oversight. It
+ * was the fifth entry and it went on 29 Jul 2026 at the client's word. It said
+ * the figure was not published because there was no honest one to publish,
+ * which is true and is not a thing to lead a driver with in a list of what the
+ * seat offers. Pay is discussed on the call, where it can be a conversation
+ * instead of a disclaimer.
  */
-const THE_SEAT = [
-  {
-    lead: "The licence.",
-    body: "CDL-A, with a work history we can verify and a motor vehicle record we can pull. Both are checked before an interview.",
-  },
-  {
-    lead: "The lanes.",
-    body: `Southeast regional out of ${site.location}, with over the road available. Most weeks run inside the home region.`,
-  },
-  {
-    lead: "The equipment.",
-    body: "A 53 foot dry van behind a sleeper tractor, inspected before every dispatch. Anything found is fixed before the load moves, even when that costs us the load.",
-  },
-  {
-    lead: "The dispatch.",
-    body: "You will be talking to Mark, who drives the truck himself. Hours are planned before dispatch.",
-  },
-  // "The pay" was the fifth entry and it went on 29 Jul 2026 at the client's
-  // word. It said the figure was not published because there was no honest one
-  // to publish, which is true and is not a thing to lead a driver with in a
-  // list of what the seat offers. Pay is discussed on the call, where it can be
-  // a conversation instead of a disclaimer.
-] as const;
 
 export default function DriversPage() {
   return (
@@ -94,7 +79,7 @@ export default function DriversPage() {
 
           <Reveal variant="wipe">
             <h1 className="pb-14 font-display text-k-d3 font-black text-k-ink">
-              Driving for KUL
+              {fill(page.notice.heading)}
             </h1>
           </Reveal>
 
@@ -117,22 +102,13 @@ export default function DriversPage() {
                   first block, where a driver meets it before spending any
                   time. */}
               <p className="font-text text-k-lede font-semibold text-k-ink">
-                Applications are open now. The seat opens with the second
-                truck.
+                {fill(page.notice.lead)}
               </p>
-              <p className="pt-5 font-text text-k-small text-k-ink-soft">
-                A second tractor goes on the road once there is repeat freight
-                to keep both loaded through a full month, and the
-                driver&rsquo;s seat opens at the same time. We take
-                applications before that happens so the seat goes to somebody
-                already spoken to, rather than whoever answers an advert on the
-                day. There is no start date to give you, and everybody who has
-                applied is called when there is. The plan is on{" "}
-                <Link href="/road-ahead" className="underline underline-offset-4">
-                  the road ahead page
-                </Link>
-                .
-              </p>
+              <Copy
+                text={page.notice.body}
+                className="pt-5 font-text text-k-small text-k-ink-soft"
+                linkClassName="underline underline-offset-4"
+              />
             </Reveal>
           </div>
         </div>
@@ -151,57 +127,63 @@ export default function DriversPage() {
           <div className="lg:w-[760px] lg:shrink-0">
             <Reveal variant="wipe">
               <h2 className="pb-9 font-display text-k-d2 font-black text-k-ink">
-                The seat, when it opens
+                {fill(page.seat.heading)}
               </h2>
             </Reveal>
             <div className="flex flex-col gap-4">
-              {THE_SEAT.map((row, i) => (
+              {page.seat.rows.map((row, i) => (
                 <Reveal key={row.lead} index={i}>
                   <p className="max-w-[68ch] font-text text-k-body text-k-ink">
-                    <strong className="font-semibold">{row.lead} </strong>
-                    {row.body}
+                    <strong className="font-semibold">{fill(row.lead)} </strong>
+                    <Copy
+                      as="span"
+                      text={row.body}
+                      linkClassName="underline underline-offset-4"
+                    />
                   </p>
                 </Reveal>
               ))}
             </div>
           </div>
 
+          {/* THE RAIL IS NOT A SUMMARY OF THE COLUMN. Repeating the column in
+              shorter words beside itself is the usual mistake with this shape.
+
+              THE FIRST CARD LISTS FOUR THINGS BECAUSE THE FORM ASKS FOR FOUR.
+              It used to list three and then tell the driver everything else
+              waits for the call, while the fourth field sat below it headed
+              "Anything else" asking him to write exactly that. If a field is
+              added or removed, fix this card and the "Four questions" line
+              above the form together. Both are in the CMS.
+
+              A card with no link label simply prints without a link, which is
+              how the first one renders today. */}
           <div className="flex flex-col gap-4 lg:w-[400px] lg:shrink-0 lg:pt-3">
-            <Reveal variant="settle" className="flex flex-col gap-3 bg-k-warm p-7">
-              <span className="font-text text-k-micro uppercase text-k-ink-soft">
-                What to send now
-              </span>
-              {/* FOUR THINGS, BECAUSE THE FORM ASKS FOR FOUR. This used to
-                  list three and then tell the driver everything else waits for
-                  the call, while the fourth field sat below it headed
-                  "Anything else" asking him to write exactly that. If a field
-                  is added or removed, fix this rail and the "Four questions"
-                  line above the form together. */}
-              <p className="font-text text-k-small text-k-ink">
-                Your name, a phone number or an email, how long you have held a
-                CDL-A, and anything else you want to add. The rest waits for
-                the call.
-              </p>
-            </Reveal>
-            <Reveal
-              variant="settle"
-              index={1}
-              className="flex flex-col gap-3 bg-k-warm p-7"
-            >
-              <span className="font-text text-k-micro uppercase text-k-ink-soft">
-                The standards
-              </span>
-              <p className="font-text text-k-small text-k-ink">
-                A second driver is held to what is written on the safety page
-                from the first load. Read it before you apply.
-              </p>
-              <Link
-                href="/safety"
-                className="font-text text-k-small font-semibold text-k-gold underline underline-offset-4"
+            {page.seat.rail.map((card, i) => (
+              <Reveal
+                key={card.label}
+                variant="settle"
+                index={i}
+                className="flex flex-col gap-3 bg-k-warm p-7"
               >
-                Read the safety page
-              </Link>
-            </Reveal>
+                <span className="font-text text-k-micro uppercase text-k-ink-soft">
+                  {fill(card.label)}
+                </span>
+                <Copy
+                  text={card.body}
+                  className="font-text text-k-small text-k-ink"
+                  linkClassName="underline underline-offset-4"
+                />
+                {card.cta?.label ? (
+                  <Link
+                    href={link(card.cta).href}
+                    className="font-text text-k-small font-semibold text-k-gold underline underline-offset-4"
+                  >
+                    {link(card.cta).label}
+                  </Link>
+                ) : null}
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
@@ -220,7 +202,7 @@ export default function DriversPage() {
         <div className="mx-auto max-w-[1248px]">
           <Reveal variant="wipe">
             <h2 className="font-display text-k-d3 font-black text-k-ink">
-              Leave your details
+              {fill(page.form.heading)}
             </h2>
           </Reveal>
           <Reveal variant="settle">
@@ -231,10 +213,11 @@ export default function DriversPage() {
                 it was the third time. What is left is the part only this
                 position can say, which is what happens if you fill the form in
                 this afternoon. */}
-            <p className="max-w-[560px] pt-4 font-text text-k-body text-k-ink-soft">
-              Four questions. Nobody is called today, because the seat is not
-              open today.
-            </p>
+            <Copy
+              text={page.form.intro}
+              className="max-w-[560px] pt-4 font-text text-k-body text-k-ink-soft"
+              linkClassName="underline underline-offset-4"
+            />
           </Reveal>
 
           <Reveal className="pt-11">
@@ -243,7 +226,7 @@ export default function DriversPage() {
 
           <Reveal variant="settle">
             <p className="pt-10 font-text text-k-micro uppercase text-k-ink-soft">
-              {site.legalName} is an equal opportunity employer
+              {fill(page.form.equalOpportunityLine)}
             </p>
           </Reveal>
         </div>

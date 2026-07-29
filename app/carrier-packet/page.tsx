@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import PacketForm from "@/components/forms/PacketForm";
-import { site } from "@/lib/site";
 import Reveal, { RuleDraw } from "@/components/k/Reveal";
 import Breadcrumb from "@/components/k/Breadcrumb";
+import Copy from "@/components/k/Copy";
+import { fill, link, linkHref } from "@/lib/content";
+import page from "@/content/pages/carrier-packet.json";
 
 /**
  * CARRIER PACKET
@@ -40,58 +41,23 @@ import Breadcrumb from "@/components/k/Breadcrumb";
  */
 
 export const metadata: Metadata = {
-  title: "Carrier Packet",
-  description: `Operating authority, W-9 and certificate of insurance for KUL Enterprises, USDOT ${site.usdot}, MC ${site.mc}. Authority and insurance can be checked on the federal record without asking us.`,
+  title: fill(page.meta.title),
+  description: fill(page.meta.description),
 };
 
 /**
- * What is in the packet, and who actually issues each one.
+ * WHAT IS IN THE PACKET, AND WHO ACTUALLY ISSUES EACH ONE.
  *
- * The third line matters most. A carrier cannot issue its own certificate of
- * insurance, the agent does, which is why no turnaround is promised for it.
- */
-const PACKET = [
-  {
-    name: "Operating authority",
-    // "Without asking us" is the hero lede's line and it stays there. Said a
-    // third time on one page it stops being a point and becomes a refrain.
-    note: "KUL's own, and already public. It is set out on the federal record below.",
-  },
-  {
-    name: "W-9",
-    note: "KUL's own, completed and signed for KUL Enterprises LLC.",
-  },
-  {
-    name: "Certificate of insurance",
-    note: "Issued by KUL's insurance agent rather than by KUL. Your company is named as holder on request, which the agent has to do.",
-  },
-  {
-    name: "Carrier or broker agreement",
-    note: "KUL signs your paper rather than sending its own. Send the agreement with the packet request and it comes back executed.",
-  },
-] as const;
-
-/**
- * The federal record, in the register's own vocabulary.
+ * The certificate of insurance matters most of the four. A carrier cannot
+ * issue its own certificate, the agent does, which is why no turnaround is
+ * promised for it. Do not add one in the CMS.
  *
- * Every value comes from content/site.json or is a plain count. Change the
- * counts here the day a second truck or a second driver is real, and not
- * before.
+ * THE FEDERAL RECORD BELOW IT is set out in the register's own vocabulary, and
+ * every value is either a token filled from Business Facts or a plain count.
+ * CHANGE THE COUNTS THE DAY A SECOND TRUCK OR A SECOND DRIVER IS REAL, and not
+ * before. Power units and drivers both read 1 on purpose: a broker who learns
+ * that later feels misled, and one who reads it here reads it as candour.
  */
-const RECORD = [
-  { field: "Legal name", value: site.legalName },
-  { field: "USDOT number", value: site.usdot },
-  { field: "MC number", value: site.mc },
-  { field: "Entity type", value: "Carrier" },
-  { field: "Operating status", value: "Active" },
-  { field: "Physical address", value: site.location },
-  { field: "Power units", value: "1" },
-  { field: "Drivers", value: "1" },
-  { field: "Operating radius", value: "48 states" },
-] as const;
-
-const SAFER = `https://safer.fmcsa.dot.gov/query.asp?searchtype=ANY&query_type=queryCarrierSnapshot&query_param=USDOT&query_string=${site.usdot}`;
-const LI = "https://li-public.fmcsa.dot.gov/LIVIEW/pkg_menu.prc_menu";
 
 export default function CarrierPacketPage() {
   return (
@@ -114,7 +80,7 @@ export default function CarrierPacketPage() {
           <div className="max-w-[640px]">
             <Reveal variant="wipe">
               <h1 className="font-display text-k-d1 font-black text-k-ink">
-                The packet comes by email.
+                {fill(page.start.heading)}
               </h1>
             </Reveal>
 
@@ -125,20 +91,19 @@ export default function CarrierPacketPage() {
                   that both can be read without asking. The federal record is
                   linked in its own section further down with the same point
                   made there, so this only has to say what to do here. */}
-              <p className="pt-8 font-text text-k-body text-k-ink-soft">
-                Ask here and the documents come back by email, from the person
-                who drives the truck. The authority and the insurance filing
-                are on the federal record below if you would rather check them
-                yourself.
-              </p>
+              <Copy
+                text={page.start.body}
+                className="pt-8 font-text text-k-body text-k-ink-soft"
+                linkClassName="underline underline-offset-4"
+              />
             </Reveal>
 
             <Reveal variant="settle">
               <a
-                href="#request"
+                href={link(page.start.cta).href}
                 className="mt-9 inline-flex w-fit rounded-full bg-k-gold px-9 py-4 font-text text-k-label uppercase text-k-surface transition-opacity duration-200 hover:opacity-90"
               >
-                Request the packet
+                {link(page.start.cta).label}
               </a>
             </Reveal>
 
@@ -146,12 +111,12 @@ export default function CarrierPacketPage() {
 
             <Reveal variant="settle">
               <h2 className="pt-10 font-text text-k-micro uppercase text-k-ink-soft">
-                What you get
+                {fill(page.start.listLabel)}
               </h2>
             </Reveal>
 
             <ol className="flex flex-col gap-6 pt-6">
-              {PACKET.map((doc, i) => (
+              {page.start.documents.map((doc, i) => (
                 <Reveal
                   key={doc.name}
                   variant="settle"
@@ -163,11 +128,14 @@ export default function CarrierPacketPage() {
                   </span>
                   <span className="flex flex-col gap-1.5">
                     <span className="font-text text-k-body font-semibold text-k-ink">
-                      {doc.name}
+                      {fill(doc.name)}
                     </span>
-                    <span className="font-text text-k-small text-k-ink-soft">
-                      {doc.note}
-                    </span>
+                    <Copy
+                      as="span"
+                      text={doc.note}
+                      className="font-text text-k-small text-k-ink-soft"
+                      linkClassName="underline underline-offset-4"
+                    />
                   </span>
                 </Reveal>
               ))}
@@ -188,12 +156,12 @@ export default function CarrierPacketPage() {
         <div className="mx-auto max-w-[1248px]">
           <Reveal variant="settle">
             <h2 className="font-text text-k-micro uppercase text-k-ink-soft">
-              On the federal record
+              {fill(page.record.heading)}
             </h2>
           </Reveal>
 
           <div className="mt-9 max-w-[820px]">
-            {RECORD.map((row, i) => (
+            {page.record.rows.map((row, i) => (
               <div key={row.field} className="flex flex-col">
                 <RuleDraw index={i} />
                 <Reveal
@@ -202,38 +170,37 @@ export default function CarrierPacketPage() {
                   className="flex flex-wrap items-baseline gap-x-8 gap-y-1 py-4"
                 >
                   <span className="w-[220px] shrink-0 font-text text-k-micro uppercase text-k-ink-soft">
-                    {row.field}
+                    {fill(row.field)}
                   </span>
                   <span className="font-text text-k-body tabular-nums text-k-ink">
-                    {row.value}
+                    {fill(row.value)}
                   </span>
                 </Reveal>
               </div>
             ))}
-            <RuleDraw index={RECORD.length} />
+            <RuleDraw index={page.record.rows.length} />
 
             <Reveal variant="settle" className="flex flex-col gap-3 pt-8">
-              <p className="max-w-[62ch] font-text text-k-small text-k-ink-soft">
-                Both of these are the government&rsquo;s own lookups, not ours.
-                Neither needs an account and neither tells us you looked.
-              </p>
+              <Copy
+                text={page.record.note}
+                className="max-w-[62ch] font-text text-k-small text-k-ink-soft"
+                linkClassName="underline underline-offset-4"
+              />
+              {/* These open in a new tab because they leave for a government
+                  site, and a broker checking the record should not lose the
+                  page they were checking it against. */}
               <div className="flex flex-wrap gap-x-8 gap-y-2">
-                <a
-                  href={SAFER}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-text text-k-small font-semibold text-k-gold underline underline-offset-4"
-                >
-                  Check the authority on FMCSA SAFER
-                </a>
-                <a
-                  href={LI}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-text text-k-small font-semibold text-k-gold underline underline-offset-4"
-                >
-                  Check the insurance filing
-                </a>
+                {page.record.links.map((item) => (
+                  <a
+                    key={item.href}
+                    href={linkHref(item.href)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-text text-k-small font-semibold text-k-gold underline underline-offset-4"
+                  >
+                    {fill(item.label)}
+                  </a>
+                ))}
               </div>
             </Reveal>
           </div>
@@ -256,7 +223,7 @@ export default function CarrierPacketPage() {
         <div className="mx-auto max-w-[1248px]">
           <Reveal variant="wipe">
             <h2 className="font-display text-k-d3 font-black text-k-ink">
-              Ask for the packet
+              {fill(page.request.heading)}
             </h2>
           </Reveal>
 
@@ -265,17 +232,11 @@ export default function CarrierPacketPage() {
           </Reveal>
 
           <Reveal variant="settle">
-            <p className="pt-10 font-text text-k-small text-k-ink-soft">
-              Already set up and just need a price?{" "}
-              <Link href="/quote" className="underline underline-offset-4">
-                Send the lane
-              </Link>
-              . Or call{" "}
-              <a href={site.phoneHref} className="underline underline-offset-4">
-                {site.phone}
-              </a>
-              .
-            </p>
+            <Copy
+              text={page.request.footnote}
+              className="pt-10 font-text text-k-small text-k-ink-soft"
+              linkClassName="underline underline-offset-4"
+            />
           </Reveal>
         </div>
       </section>

@@ -5,6 +5,12 @@ import { AnimatePresence, m } from "framer-motion";
 import { DUR, EASE } from "@/components/k/motion";
 import { PanelField, PanelSelect, PanelTextarea } from "./PanelField";
 import { useFormSubmit, Honeypot, FormStatus } from "./FormShell";
+import { fill } from "@/lib/content";
+import Copy from "@/components/k/Copy";
+import forms from "@/content/forms.json";
+
+/** Everything this form says. Edited at /admin under "Forms". */
+const t = forms.driver;
 
 /**
  * THE DRIVER FORM
@@ -54,18 +60,18 @@ export default function DriverForm() {
             className="flex max-w-[760px] flex-col gap-5 rounded-sm border border-k-rule bg-k-surface p-9"
           >
             <p className="font-display text-k-d3 font-black text-k-ink">
-              You are on the list.
+              {fill(t.successHeading)}
             </p>
             {applicant ? (
               <p className="font-text text-k-lede text-k-gold">
-                Thank you, {applicant}.
+                {fill(t.successThanks).replace("{sender}", applicant)}
               </p>
             ) : null}
-            <p className="max-w-[62ch] font-text text-k-body text-k-ink-soft">
-              Your details are with Mark. There is no call today, because the
-              seat is not open today. When the second truck is booked, everybody
-              on this list is called.
-            </p>
+            <Copy
+              text={t.successBody}
+              className="max-w-[62ch] font-text text-k-body text-k-ink-soft"
+              linkClassName="underline underline-offset-4"
+            />
           </m.div>
         ) : (
           <m.form
@@ -81,7 +87,7 @@ export default function DriverForm() {
               <PanelField
                 tone="light"
                 id={`${uid}-name`}
-                label="Your name"
+                label={fill(t.fields.name.label)}
                 name="name"
                 type="text"
                 required
@@ -91,7 +97,7 @@ export default function DriverForm() {
               <PanelField
                 tone="light"
                 id={`${uid}-contact`}
-                label="Phone or email"
+                label={fill(t.fields.contact.label)}
                 name="contact"
                 type="text"
                 required
@@ -103,43 +109,43 @@ export default function DriverForm() {
             <PanelSelect
               tone="light"
               id={`${uid}-experience`}
-              label="How long have you held a CDL-A"
+              label={fill(t.fields.experience.label)}
               name="experience"
               required
               defaultValue=""
             >
               <option value="" disabled>
-                Choose one
+                {fill(t.fields.experience.placeholder)}
               </option>
-              <option>Less than one year</option>
-              <option>One to three years</option>
-              <option>Three to five years</option>
-              <option>Five to ten years</option>
-              <option>More than ten years</option>
+              {t.fields.experience.options.map((option) => (
+                <option key={option}>{fill(option)}</option>
+              ))}
             </PanelSelect>
 
             <PanelTextarea
               tone="light"
               id={`${uid}-note`}
-              label="Anything else"
+              label={fill(t.fields.note.label)}
               name="note"
               rows={4}
               maxLength={2000}
-              placeholder="Lanes you know, endorsements you hold, when you would be free to start."
+              placeholder={fill(t.fields.note.placeholder)}
             />
 
             <div className="flex flex-col gap-6 pt-5">
-              <p className="max-w-[560px] font-text text-[12px] leading-[19px] text-k-ink-soft">
-                By sending this you agree we may contact you about driving work.
-                We do not add you to a mailing list and we do not pass your
-                details to anyone else.
-              </p>
+              <Copy
+                text={t.consent}
+                className="max-w-[560px] font-text text-[12px] leading-[19px] text-k-ink-soft"
+                linkClassName="underline underline-offset-2"
+              />
               <button
                 type="submit"
                 disabled={state === "submitting"}
                 className="w-fit rounded-full bg-k-gold px-9 py-4 font-text text-k-label uppercase text-k-surface transition-opacity duration-200 hover:opacity-90 disabled:cursor-wait disabled:opacity-60"
               >
-                {state === "submitting" ? "Sending" : "Send my details"}
+                {state === "submitting"
+                  ? fill(forms.shared.sendingLabel)
+                  : fill(t.submitLabel)}
               </button>
             </div>
           </m.form>
@@ -149,14 +155,13 @@ export default function DriverForm() {
       {/* Anything the form needs to say back, including a failure to send. */}
       {state === "error" ? (
         <p className="pt-5 font-text text-k-small text-k-error">
-          {serverError ??
-            "That did not send. Call dispatch on 678-972-1148 and your details can be taken over the phone instead."}
+          {serverError ?? fill(t.error)}
         </p>
       ) : (
         <FormStatus
           state={state}
           serverError={serverError}
-          successMessage="Your details are on the list. Nobody is called until the seat opens."
+          successMessage={fill(t.successAnnouncement)}
         />
       )}
     </div>

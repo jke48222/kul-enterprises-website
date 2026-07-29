@@ -3,6 +3,9 @@ import { site } from "@/lib/site";
 import QuoteForm from "@/components/forms/QuoteForm";
 import Reveal from "@/components/k/Reveal";
 import Breadcrumb from "@/components/k/Breadcrumb";
+import Copy from "@/components/k/Copy";
+import { fill } from "@/lib/content";
+import page from "@/content/pages/quote.json";
 
 /**
  * QUOTE PAGE
@@ -16,58 +19,30 @@ import Breadcrumb from "@/components/k/Breadcrumb";
  * everything inside it is the visitor working, so the change of ground tells
  * them where the actual task is without a single instruction.
  *
- * TO CHANGE THE QUESTIONS: they live in components/forms/QuoteForm.tsx, not
- * here. If the number of them changes, fix the sentence under the headline
- * that says how many there are.
+ * THE QUESTIONS THEMSELVES are in components/forms/QuoteForm.tsx and their
+ * labels are at /admin under "Forms". Everything this page says around them is
+ * under "Quote page".
+ *
+ * WHAT HAPPENS AFTER IT IS SENT is the three labelled pairs beside the form.
+ * THE NUMBERS ARE GONE from those: they were 01, 02, 03 down a ruled column
+ * with the title set bold and the body running on from it inside the same
+ * sentence, and the client rejected the format. The run of bold into grey
+ * inside one line is what made it look cramped, and the numbering was the
+ * fourth numbered list on a site that already has three. They are laid out as
+ * labelled pairs now, taken from Fiasco's contact page on Mobbin, where each
+ * item is a small caps label with its detail underneath and two sit to a row.
+ * It reads wider and shorter, which is what this column needed: it is beside a
+ * form, not competing with one.
+ *
+ * THE CLOSING ROW OF FACTS matches the strip on the home page. See the note
+ * there on "Owner answers dispatch": one man who drives cannot also be a desk
+ * answering 24/7, and /road-ahead says dispatch cover is a stage still to come.
  */
 
 export const metadata: Metadata = {
-  title: "Request a Freight Quote",
-  description: `Get a freight quote from KUL Enterprises. Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited and Over the Road. Licensed carrier in ${site.location}, USDOT ${site.usdot}. The owner answers dispatch.`,
+  title: fill(page.meta.title),
+  description: fill(page.meta.description),
 };
-
-/**
- * What happens after the form is sent. Stated so nobody has to wonder.
- *
- * THE NUMBERS ARE GONE. These were 01, 02, 03 down a ruled column with the
- * title set bold and the body running on from it inside the same sentence, and
- * the client rejected the format. The run of bold into grey inside one line is
- * what made it look cramped, and the numbering was the fourth numbered list on
- * a site that already has three.
- *
- * They are laid out as labelled pairs now, taken from Fiasco's contact page on
- * Mobbin, where each item is a small caps label with its detail underneath and
- * two sit to a row. It reads wider and shorter, which is what this column
- * needed: it is beside a form, not competing with one.
- */
-const NEXT_STEPS = [
-  {
-    title: "It reaches dispatch",
-    // The paragraph at the top of this column already says it goes to the
-    // person who drives the truck. This item carries the one fact that
-    // paragraph does not.
-    body: "There is no shared inbox and no ticketing system in between.",
-  },
-  {
-    title: "You get a real number",
-    body: "Usually the same day. If the lane does not suit our equipment or our hours, we say so and tell you why.",
-  },
-  {
-    title: "Nothing is automated",
-    body: "If you do not book, you will not hear from us again unless you get in touch.",
-  },
-] as const;
-
-/** The line of checkable facts that closes the page. Matches the Home strip. */
-const CREDENTIALS = [
-  `USDOT ${site.usdot}`,
-  `MC ${site.mc}`,
-  "Licensed and insured",
-  // See the note on the same row in app/page.tsx. One man who drives cannot
-  // also be a desk answering 24/7, and /road-ahead says dispatch cover is a
-  // stage still to come.
-  "Owner answers dispatch",
-] as const;
 
 export default function QuotePage() {
   return (
@@ -80,15 +55,16 @@ export default function QuotePage() {
             items={[{ label: "KUL", href: "/" }, { label: "Quote" }]}
           />
           <h1 className="max-w-[700px] font-display text-k-d1 font-black text-k-ink">
-            Tell us about the load.
+            {fill(page.opening.heading)}
           </h1>
           {/* The count came out of this line on 29 Jul 2026: the panel below
               counted the fields too, so the page counted them twice. That
               panel's headline has since been rewritten as well. */}
-          <p className="max-w-[560px] font-text text-k-lede text-k-ink-soft">
-            Everything we need to price it is below. The rest can be sorted out
-            on the phone.
-          </p>
+          <Copy
+            text={page.opening.lede}
+            className="max-w-[560px] font-text text-k-lede text-k-ink-soft"
+            linkClassName="underline underline-offset-4"
+          />
         </div>
       </section>
 
@@ -109,13 +85,13 @@ export default function QuotePage() {
         <div className="mx-auto flex max-w-[1248px] flex-col gap-16 lg:flex-row lg:items-start lg:gap-[104px]">
           <div className="flex flex-col gap-6 lg:w-[440px] lg:shrink-0">
             <span className="font-text text-k-micro uppercase text-k-gold-lit">
-              The request
+              {fill(page.request.eyebrow)}
             </span>
             {/* "Six fields, then a real number." was rejected on 29 Jul 2026
                 for sounding like a slogan rather than a heading. This one
                 describes the thing underneath it. */}
             <h2 className="font-display text-k-d2 font-black text-k-on-dark">
-              Send us the lane.
+              {fill(page.request.heading)}
             </h2>
             {/* A paragraph sat here reading "This goes straight to the person
                 who drives the truck. Nothing here is automated and nobody
@@ -128,7 +104,7 @@ export default function QuotePage() {
             {/* The way out for anyone who would rather just call. */}
             <div className="mt-4 flex flex-col gap-2 border-t border-k-rule-dark pt-8">
               <span className="font-text text-k-micro uppercase text-k-on-dark-faint">
-                Or skip the form
+                {fill(page.request.skipLabel)}
               </span>
               <a
                 href={site.phoneHref}
@@ -137,8 +113,7 @@ export default function QuotePage() {
                 {site.phone}
               </a>
               <p className="font-text text-k-small text-k-on-dark-soft">
-                If the load is moving today, calling is faster than anything on
-                this page.
+                {fill(page.request.skipNote)}
               </p>
             </div>
 
@@ -153,15 +128,17 @@ export default function QuotePage() {
                 single rule is what separates this from the phone number above
                 rather than what separates the items from each other. */}
             <ul className="grid grid-cols-1 gap-x-10 gap-y-8 border-t border-k-rule-dark pt-8 sm:grid-cols-2">
-              {NEXT_STEPS.map((step, i) => (
+              {page.request.nextSteps.map((step, i) => (
                 <li key={step.title}>
                   <Reveal variant="settle" index={i} className="flex flex-col gap-2">
                     <h2 className="font-text text-k-micro uppercase text-k-gold-lit">
-                      {step.title}
+                      {fill(step.title)}
                     </h2>
-                    <p className="font-text text-k-small text-k-on-dark-soft">
-                      {step.body}
-                    </p>
+                    <Copy
+                      text={step.body}
+                      className="font-text text-k-small text-k-on-dark-soft"
+                      linkClassName="underline underline-offset-4"
+                    />
                   </Reveal>
                 </li>
               ))}
@@ -178,16 +155,16 @@ export default function QuotePage() {
           the request was made on. */}
       <section className="bg-k-coal px-6 py-14 md:px-12 lg:px-24">
         <div className="mx-auto flex max-w-[1248px] flex-wrap items-center gap-x-10 gap-y-3">
-          {CREDENTIALS.map((item) => (
+          {page.credentials.items.map((item) => (
             <span
               key={item}
               className="font-text text-k-micro uppercase tabular-nums text-k-on-dark-soft"
             >
-              {item}
+              {fill(item)}
             </span>
           ))}
           <span className="font-text text-k-micro uppercase text-k-gold-lit md:ml-auto">
-            {site.location} · {site.serviceArea}
+            {fill(page.credentials.locationLine)}
           </span>
         </div>
       </section>

@@ -1,8 +1,21 @@
+import content from "@/content/journey.json";
+
 /**
  * THE SIX CHAPTERS, IN ONE PLACE
  *
  * Both the shelf at the top of /journey and the chapter sections below it read
  * from here, so a line cannot be changed in one and left stale in the other.
+ *
+ * THAT SENTENCE WAS NOT TRUE UNTIL 29 JUL 2026. app/journey/page.tsx kept its
+ * own copy of chapters 02 to 04, with the same words typed out a second time,
+ * so the shelf and the page were two sources that happened to agree. Once the
+ * words moved into the CMS that stopped being survivable: a client editing
+ * chapter 03 would have changed the sleeve and left the section beneath it
+ * saying something else. The page derives those three from this list now, and
+ * the words exist once.
+ *
+ * The words themselves live in content/journey.json and are edited at /admin
+ * under "The Journey, chapters".
  *
  * EVERY WORD IN `lesson` AND `lines` IS MARK'S, VERBATIM, from the screenplay
  * kept at briefs/the-journey-screenplay.md. Copy is sacred on this project. The
@@ -70,104 +83,27 @@ export type Chapter = {
   ground: "void" | "coal" | "blueprint" | "warm" | "paper";
   /** The chapter's on-screen copy, numbered on the back of the sleeve. */
   lines: readonly string[];
-  /** The section on the page this sleeve opens to. */
+  /**
+   * The section on the page this sleeve opens to.
+   *
+   * Derived from the number rather than stored, because the two must agree and
+   * a chapter whose sleeve scrolls to the wrong section is a bug the CMS should
+   * not be able to create.
+   */
   href: string;
 };
 
-export const CHAPTERS: readonly Chapter[] = [
-  {
-    n: "01",
-    title: "Jamaica",
-    blurb: "Where it starts, and the oldest photograph the company owns.",
-    lesson: "Sometimes life's greatest journeys begin without our permission.",
-    cover: "/images/journey/s02-jamaica-childhood.webp",
-    ground: "warm",
-    lines: [
-      "I was born in Jamaica.",
-      "My mother brought my sister and me to America.",
-      "She told us we were spending the summer with our father.",
-      "We never went back.",
-    ],
-    href: "#chapter-01",
-  },
-  {
-    n: "02",
-    title: "Construction sites, every school break",
-    blurb: "Not a summer job so much as an education.",
-    lesson: "Character is often built long before opportunity arrives.",
-    cover: "/images/journey/s08b-rockcut-bend.webp",
-    ground: "void",
-    lines: [
-      "While most kids spent their summers playing, mine were spent on construction sites.",
-      "Every school break. Every holiday. Every vacation. I worked alongside my father.",
-      "At the time I didn't understand why. I only knew that it was expected.",
-      "Work isn't something to avoid. It's something to take pride in.",
-    ],
-    href: "#chapter-02",
-  },
-  {
-    n: "03",
-    title: "Leaving home",
-    blurb: "The first decisions that were his own to get wrong.",
-    lesson: "Growth begins the moment excuses end.",
-    cover: "/images/journey/s17-road-to-horizon.webp",
-    ground: "coal",
-    lines: [
-      "As I grew older I began to notice something. I wasn't satisfied with simply being told how things were.",
-      "I wanted to understand why they worked the way they did.",
-      "Leaving home wasn't just about finding a place to live. It was about finding out who I was.",
-      "Independence isn't the freedom to avoid mistakes. It's accepting responsibility for them.",
-    ],
-    href: "#chapter-03",
-  },
-  {
-    n: "04",
-    title: "The Air Force",
-    blurb: "Where the habit of checking equipment before trusting it comes from.",
-    lesson: "Character grows when comfort is replaced with commitment.",
-    cover: "/images/journey/s12-predawn-peaks.webp",
-    ground: "blueprint",
-    lines: [
-      "Freedom brought a question. What kind of man did I want to become?",
-      "I wanted structure. I wanted to be challenged. That's what led me to the United States Air Force.",
-      "It demanded consistency. Accountability. Commitment.",
-      "Discipline isn't about being controlled. It's about learning to control yourself.",
-    ],
-    href: "#chapter-04",
-  },
-  {
-    n: "05",
-    title: "Eleven years, other people's trucks",
-    blurb: "Eleven photographs taken through a windscreen, in the order the light runs.",
-    lesson: "Trust is earned long before it's ever expected.",
-    cover: "/images/journey/s05-sunrise-horizon.webp",
-    clip: "/videos/dash-night-720.mp4",
-    ground: "void",
-    lines: [
-      "I thought I was learning how to drive a truck.",
-      "What I didn't realize was that the road was teaching me something far greater.",
-      "Every delivery reminded me that trust travels farther than freight.",
-      "The farther I traveled, the more I realized every person has a story.",
-    ],
-    href: "#chapter-05",
-  },
-  {
-    n: "06",
-    title: "One truck of his own",
-    blurb: "KUL Enterprises, from 2026. One tractor, one driver.",
-    lesson: "Principles are promises you keep, even when they're difficult.",
-    cover: "/images/journey/s07-pines-road.webp",
-    clip: "/videos/dash-daylight-720.mp4",
-    ground: "paper",
-    lines: [
-      "Every company begins with paperwork. But that's not where KUL began.",
-      "KUL began with a promise.",
-      "We didn't build this company to be the biggest. We built it to be trusted.",
-      "A company's reputation isn't created by advertising. It's created by the decisions no one else sees.",
-    ],
-    href: "#chapter-06",
-  },
-] as const;
+export const CHAPTERS: readonly Chapter[] = content.chapters.map((c) => ({
+  ...c,
+  // An empty string is what the CMS stores for "no video on this chapter",
+  // because a Tina field cannot hold null. The type wants undefined, and a
+  // sleeve checks for truthiness, so the two are reconciled here rather than
+  // in three components.
+  clip: c.clip || undefined,
+  cover: c.cover || null,
+  ground: c.ground as Chapter["ground"],
+  href: `#chapter-${c.n}`,
+}));
 
 /** Tailwind ground classes, kept beside the data so a sleeve and its section match. */
 export const GROUND_CLASS: Record<Chapter["ground"], string> = {

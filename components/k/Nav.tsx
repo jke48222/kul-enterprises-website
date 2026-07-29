@@ -8,6 +8,8 @@ import { useCallback, useEffect, useState } from "react";
 import MenuOverlay from "@/components/k/MenuOverlay";
 import MenuMark from "@/components/k/MenuMark";
 import { NAV_PANELS, type PanelKey } from "@/components/k/NavPanels";
+import { fill } from "@/lib/content";
+import nav from "@/content/navigation.json";
 
 /**
  * SITE NAVIGATION
@@ -47,12 +49,23 @@ import { NAV_PANELS, type PanelKey } from "@/components/k/NavPanels";
  * one, which is why the footer has always filed it under Freight; it sits here
  * now so the bar and the footer agree.
  */
-const LEFT_LINKS = [
-  { href: "/services", label: "Services", panel: "services" },
-  { href: "/drivers", label: "Drivers", panel: "drivers" },
-  { href: "/safety", label: "Safety", panel: "safety" },
-  { href: "/carrier-packet", label: "Carrier Packet", panel: "carrier-packet" },
-] as const;
+/**
+ * A link as the CMS stores it, turned into a link this file can trust.
+ *
+ * `panel` arrives from JSON as a plain string, and only some strings name a
+ * real preview panel in NavPanels. Rather than assert, the value is checked
+ * against the panels that actually exist: a link naming a panel that was never
+ * built simply gets no preview and still navigates, which is the right way for
+ * a CMS field to fail. An empty string is how the CMS says "no panel".
+ */
+const withPanel = (links: readonly { href: string; label: string; panel: string }[]) =>
+  links.map((l) => ({
+    href: l.href,
+    label: fill(l.label),
+    panel: (l.panel && l.panel in NAV_PANELS ? l.panel : null) as PanelKey | null,
+  }));
+
+const LEFT_LINKS = withPanel(nav.bar.leftLinks);
 
 /**
  * Menu items to the right of the lion. Everything on this side is the company
@@ -66,11 +79,7 @@ const LEFT_LINKS = [
  * Journey answers, so the two belong next to each other, which is exactly how
  * the footer already groups them under Company.
  */
-const RIGHT_LINKS = [
-  { href: "/about", label: "About", panel: "about" },
-  { href: "/journey", label: "The Journey", panel: "journey" },
-  { href: "/contact", label: "Contact", panel: "contact" },
-] as const;
+const RIGHT_LINKS = withPanel(nav.bar.rightLinks);
 
 /**
  * Pages the menu carries but the wide bar has no room for.
@@ -86,9 +95,7 @@ const RIGHT_LINKS = [
  * TO PUT IT BACK ON THE BAR something else has to leave, because the widths
  * below have no slack for a fourth link on the right of the lion.
  */
-const MENU_ONLY_LINKS = [
-  { href: "/road-ahead", label: "The Road Ahead", panel: null },
-] as const;
+const MENU_ONLY_LINKS = withPanel(nav.bar.menuOnlyLinks);
 
 /**
  * Every page again as one list, for the menu panel to read. Reading the lists

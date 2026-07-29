@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "title": "KUL Enterprises | Reliable Freight Transportation Built on Trust",
+    "description": "KUL Enterprises LLC is a licensed and insured freight carrier based in {location}. Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited, and Over-the-Road service. Southeast based, nationwide. USDOT {usdot}, MC {mc}."
+  },
+  "hero": {
+    "headlineLines": ["Every mile.", "Owner driven."],
+    "lede": "Freight services out of {location}, authorized in 48 states, dispatched by the person driving.",
+    "primaryCta": { "label": "Request a quote", "href": "/quote" },
+    "secondaryCta": { "label": "Call dispatch · {phone}", "href": "{phone}" },
+    "credentials": "USDOT {usdot} · MC {mc}",
+    "locationLine": "{location}",
+    "poster": "/videos/kul-hero-poster.jpg"
+  },
+  "statement": {
+    "heading": "You will always be talking to the driver.",
+    "body": "Dispatch at KUL is Mark Brown. He drove for other carriers for eleven years before starting it.",
+    "cta": { "label": "Read the full story", "href": "/about" }
+  },
+  "equipment": {
+    "eyebrow": "The equipment",
+    "image": "/images/truck/truck-body.webp",
+    "imageAlt": "KUL Enterprises tractor and 53-foot dry van trailer, side profile",
+    "specs": [
+      { "value": "53", "unit": " ft", "label": "Dry van trailer", "accent": false },
+      { "value": "45,000", "unit": " lb", "label": "Maximum payload", "accent": false },
+      { "value": "48", "unit": " states", "label": "Operating authority", "accent": false },
+      { "value": "2026", "unit": "", "label": "Under our own authority", "accent": true }
+    ],
+    "elevations": [
+      {
+        "image": "/images/truck/truck-front-plate.webp",
+        "label": "Front",
+        "alt": "The tractor and trailer seen head on"
+      },
+      {
+        "image": "/images/truck/truck-rear-plate.webp",
+        "label": "Rear",
+        "alt": "The trailer doors seen from behind, closed"
+      },
+      {
+        "image": "/images/truck/truck-right-plate.webp",
+        "label": "Right side",
+        "alt": "The tractor and trailer seen from the right"
+      },
+      {
+        "image": "/images/truck/truck-top-plate.webp",
+        "label": "From above",
+        "alt": "The tractor and trailer seen from directly above"
+      }
+    ]
+  },
+  "services": {
+    "eyebrow": "What we haul",
+    "heading": "Seven ways to move it.",
+    "note": "If a lane needs more capacity than we can commit to, we will tell you before you book rather than after.",
+    "tags": [
+      { "slug": "power-only", "tag": "Tractor only" },
+      { "slug": "dry-van", "tag": "53 ft van" },
+      { "slug": "reefer", "tag": "Temp controlled" },
+      { "slug": "dedicated", "tag": "Recurring lanes" },
+      { "slug": "regional", "tag": "Southeast" },
+      { "slug": "expedited", "tag": "Time critical" },
+      { "slug": "otr", "tag": "48 states" }
+    ]
+  },
+  "vision": {
+    "eyebrow": "The road ahead",
+    "heading": "We grow the fleet before we sell the capacity.",
+    "body": "Written in the order it has to happen, with a date against nothing until it is booked.",
+    "cta": { "label": "See the plan", "href": "/road-ahead" },
+    "image": "/images/journey/s12c-night-highway.webp"
+  },
+  "faq": {
+    "heading": "Questions we get asked.",
+    "intro": "If yours is not here, call dispatch on {phone}."
+  },
+  "journey": {
+    "eyebrow": "Six chapters · the story so far",
+    "heading": "Before the first truck, there was a boy on a plane.",
+    "body": "Jamaica. Construction sites every school holiday. The Air Force. Eleven years driving for other people. The Journey is the long version, in Mark's own words.",
+    "cta": { "label": "Begin the journey", "href": "/journey" },
+    "image": "/images/journey/s02-jamaica-childhood.webp",
+    "imageAlt": "Mark Brown and his sister in Jamaica, early 1980s"
+  }
+}

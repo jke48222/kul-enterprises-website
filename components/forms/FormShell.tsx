@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
+import { fill } from "@/lib/content";
+import forms from "@/content/forms.json";
 
 /**
  * Shared client-side form machinery: idle, submitting, success or error,
@@ -90,8 +92,7 @@ export function FormStatus({
                 That is a live accessibility gap, because those visible
                 paragraphs carry no role and nothing is announced. Fixing it
                 means giving them role="alert", not deleting this fallback. */}
-            {serverError ??
-              "That did not send. Call dispatch on 678-972-1148 and it can be handled on the phone instead."}
+            {serverError ?? fill(forms.shared.genericError)}
           </p>
         )}
       </div>

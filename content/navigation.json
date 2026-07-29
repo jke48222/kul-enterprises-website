@@ -1,0 +1,63 @@
+{
+  "bar": {
+    "leftLinks": [
+      { "href": "/services", "label": "Services", "panel": "services" },
+      { "href": "/drivers", "label": "Drivers", "panel": "drivers" },
+      { "href": "/safety", "label": "Safety", "panel": "safety" },
+      {
+        "href": "/carrier-packet",
+        "label": "Carrier Packet",
+        "panel": "carrier-packet"
+      }
+    ],
+    "rightLinks": [
+      { "href": "/about", "label": "About", "panel": "about" },
+      { "href": "/journey", "label": "The Journey", "panel": "journey" },
+      { "href": "/contact", "label": "Contact", "panel": "contact" }
+    ],
+    "menuOnlyLinks": [
+      { "href": "/road-ahead", "label": "The Road Ahead", "panel": "" }
+    ]
+  },
+  "footer": {
+    "heading": "Ready when you are.",
+    "dispatchLead": "Reach dispatch directly at",
+    "pagesLabel": "Company",
+    "pages": [
+      { "href": "/services", "label": "Services" },
+      { "href": "/safety", "label": "Safety" },
+      { "href": "/carrier-packet", "label": "Carrier Packet" },
+      { "href": "/about", "label": "About" },
+      { "href": "/journey", "label": "The Journey" },
+      { "href": "/road-ahead", "label": "The Road Ahead" },
+      { "href": "/drivers", "label": "Drivers" },
+      { "href": "/contact", "label": "Contact" }
+    ],
+    "authorityLabel": "Operating authority",
+    "usdotLabel": "USDOT",
+    "mcLabel": "MC",
+    "verifyLabel": "Verify on FMCSA",
+    "verifyHref": "https://safer.fmcsa.dot.gov/query.asp?searchtype=ANY&query_type=queryCarrierSnapshot&query_param=USDOT&query_string={usdot}",
+    "copyright": "{legalName} · {location}",
+    "legalLinks": [
+      { "href": "/privacy-policy", "label": "Privacy" },
+      { "href": "/terms-conditions", "label": "Terms" },
+      { "href": "/cookies", "label": "Cookies" },
+      { "href": "/legal-notices", "label": "Legal Notices" }
+    ],
+    "logo": "/images/brand/footer-lockup.webp"
+  },
+  "legalChrome": {
+    "updatedPrefix": "Last updated",
+    "indexLabel": "On this page",
+    "otherDocumentsLabel": "The other documents",
+    "questionLine": "A question about any of this goes to {email}.",
+    "documents": [
+      { "href": "/privacy-policy", "label": "Privacy Policy" },
+      { "href": "/terms-conditions", "label": "Terms and Conditions" },
+      { "href": "/cookies", "label": "Cookies" },
+      { "href": "/legal-notices", "label": "Legal Notices" },
+      { "href": "/climate-statement", "label": "Climate Statement" }
+    ]
+  }
+}

@@ -3,9 +3,18 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { site } from "@/lib/site";
 import Breadcrumb from "@/components/k/Breadcrumb";
 import Reveal from "@/components/k/Reveal";
+import Copy from "@/components/k/Copy";
+import { fill, linkHref } from "@/lib/content";
+import nav from "@/content/navigation.json";
+
+/**
+ * The wording shared by all five documents. It is one entry in the CMS rather
+ * than five, because "Last updated" reading differently on the privacy policy
+ * and the cookie page would be a mistake nobody would catch.
+ */
+const chrome = nav.legalChrome;
 
 /**
  * THE SHARED SHAPE FOR THE FIVE LEGAL DOCUMENTS
@@ -43,13 +52,7 @@ export type LegalPageProps = {
   pull?: string;
 };
 
-const DOCUMENTS = [
-  { href: "/privacy-policy", label: "Privacy Policy" },
-  { href: "/terms-conditions", label: "Terms and Conditions" },
-  { href: "/cookies", label: "Cookies" },
-  { href: "/legal-notices", label: "Legal Notices" },
-  { href: "/climate-statement", label: "Climate Statement" },
-];
+const DOCUMENTS = chrome.documents;
 
 const slugify = (s: string) =>
   s
@@ -113,7 +116,7 @@ export function LegalPage({
 
           <Reveal variant="settle">
             <p className="pt-8 font-text text-k-micro uppercase tabular-nums text-k-on-dark-soft">
-              Last updated {updated}
+              {fill(chrome.updatedPrefix)} {fill(updated)}
             </p>
           </Reveal>
 
@@ -173,7 +176,7 @@ export function LegalPage({
               >
                 <div className="sticky top-28">
                   <p className="font-text text-k-micro uppercase text-k-ink-soft">
-                    On this page
+                    {fill(chrome.indexLabel)}
                   </p>
                   <ul className="mt-5 flex flex-col gap-3">
                     {sections.map((s, i) => {
@@ -207,30 +210,25 @@ export function LegalPage({
       <section className="bg-k-coal px-6 py-20 md:px-12 lg:px-24">
         <div className="mx-auto max-w-[1248px]">
           <p className="font-text text-k-micro uppercase text-k-on-dark-soft">
-            The other documents
+            {fill(chrome.otherDocumentsLabel)}
           </p>
           <ul className="mt-6 flex flex-wrap gap-x-10 gap-y-4">
             {DOCUMENTS.filter((doc) => doc.href !== pathname).map((doc) => (
               <li key={doc.href}>
                 <Link
-                  href={doc.href}
+                  href={linkHref(doc.href)}
                   className="font-text text-k-small text-k-on-dark underline underline-offset-4 transition-colors duration-200 hover:text-k-gold-lit"
                 >
-                  {doc.label}
+                  {fill(doc.label)}
                 </Link>
               </li>
             ))}
           </ul>
-          <p className="mt-10 font-text text-k-small text-k-on-dark-soft">
-            A question about any of this goes to{" "}
-            <a
-              href={`mailto:${site.email}`}
-              className="text-k-on-dark underline underline-offset-4"
-            >
-              {site.email}
-            </a>
-            .
-          </p>
+          <Copy
+            text={chrome.questionLine}
+            className="mt-10 font-text text-k-small text-k-on-dark-soft"
+            linkClassName="text-k-on-dark underline underline-offset-4"
+          />
         </div>
       </section>
     </>

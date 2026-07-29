@@ -1,0 +1,32 @@
+{
+  "meta": {
+    "title": "Climate Statement",
+    "description": "What KUL Enterprises does about fuel and emissions today, and what it does not claim."
+  },
+  "eyebrow": "Responsibility",
+  "title": "Fuel, emissions and what we do not claim",
+  "updated": "July 2026",
+  "pull": "",
+  "sections": [
+    {
+      "heading": "What this company is",
+      "body": "KUL Enterprises runs one tractor. Mark Brown drives it and answers dispatch. That is the whole operation as this page is written, and it is the reason the page is short.\n\nA climate programme needs a fleet to apply it to. What follows is what one truck actually does, which is a smaller thing than a policy, and setting it out as a policy would be dishonest.",
+      "onlyWithAnalytics": false
+    },
+    {
+      "heading": "What is true today",
+      "body": "Empty miles are planned out of a route wherever the freight allows it. That is not an environmental initiative, it is how a one truck carrier stays solvent, because a mile run empty is paid for and not billed. The environmental effect and the commercial interest happen to point the same way, and it is worth saying plainly that the commercial one came first.\n\nThe tractor is maintained on a schedule rather than on failure. Tyres are kept at pressure and the engine is serviced when it is due. A truck kept properly burns less fuel than the same truck neglected, and the inspection that catches a fuel problem is the one that catches a safety problem.\n\nLoads that cannot be run legally inside hours of service are turned down rather than run badly. Rushing a lane costs fuel along with everything else it costs.",
+      "onlyWithAnalytics": false
+    },
+    {
+      "heading": "What is not claimed here",
+      "body": "KUL does not measure its emissions. There is no carbon accounting behind this page, no independent audit and no certification. No figure appears anywhere on it, because nothing is producing one.\n\nKUL does not buy offsets and does not describe any load as carbon neutral. It has set no reduction target and no target date. It runs a diesel tractor, which is what the freight it carries currently requires.\n\nNothing here is a commitment to a customer, and none of it should be relied on for a shipper's own reporting. If you need emissions data for a lane, ask when you book and you will be told honestly what can and cannot be provided, which today is very little.",
+      "onlyWithAnalytics": false
+    },
+    {
+      "heading": "What would change this page",
+      "body": "A second tractor, and then more of them, is the point where equipment choice becomes a real decision rather than a description of the only truck available. Lower emission drivetrains are worth weighing when KUL is buying, rather than while it is running what it already has.\n\nThis page is updated when one of those things is true, and not before. If it has not changed in a year, nothing on it has changed in a year.",
+      "onlyWithAnalytics": false
+    }
+  ]
+}

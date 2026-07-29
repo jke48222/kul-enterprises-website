@@ -1,0 +1,95 @@
+{
+  "shared": {
+    "sendingLabel": "Sending",
+    "genericError": "That did not send. Call dispatch on {phone} and it can be handled on the phone instead."
+  },
+  "quote": {
+    "fields": {
+      "origin": { "label": "Origin (city, state)", "placeholder": "Atlanta, GA" },
+      "destination": {
+        "label": "Destination (city, state)",
+        "placeholder": "Charlotte, NC"
+      },
+      "freightType": {
+        "label": "Freight type",
+        "placeholder": "Select a service",
+        "notSureOption": "Not sure, advise me"
+      },
+      "pickupDate": { "label": "Target pickup date", "placeholder": "" },
+      "contact": {
+        "label": "Your email or phone",
+        "placeholder": "you@company.com or 555-123-4567"
+      },
+      "details": {
+        "label": "Weight, dimensions, commodity",
+        "placeholder": "24 pallets, 38,000 lbs, packaged food product"
+      }
+    },
+    "consent": "I agree KUL may contact me about this load. We do not add you to a mailing list and we do not pass your details to anyone else. See the [Privacy Policy](/privacy-policy) and [Terms](/terms-conditions).",
+    "submitLabel": "Send the request",
+    "successHeading": "Sent to dispatch.",
+    "successBody": "A person replies, usually the same business day. If the load moves sooner than that, call dispatch instead of waiting.",
+    "successAnnouncement": "Quote request received. Dispatch will reply, usually the same business day.",
+    "error": "That did not send. Call dispatch on {phone} and the load can be quoted over the phone instead."
+  },
+  "contact": {
+    "fields": {
+      "name": { "label": "Your name" },
+      "email": { "label": "Email" },
+      "message": { "label": "How can we help" }
+    },
+    "submitLabel": "Send the message",
+    "successHeading": "It is with dispatch.",
+    "successThanks": "Thank you, {sender}.",
+    "successBody": "A person reads it and replies, usually the same business day. If it is more urgent than that, call dispatch instead of waiting.",
+    "successAnnouncement": "Message received. A person replies, usually the same business day.",
+    "error": "That did not send. Call dispatch on {phone} and it can be handled on the phone instead."
+  },
+  "driver": {
+    "fields": {
+      "name": { "label": "Your name" },
+      "contact": { "label": "Phone or email" },
+      "experience": {
+        "label": "How long have you held a CDL-A",
+        "placeholder": "Choose one",
+        "options": [
+          "Less than one year",
+          "One to three years",
+          "Three to five years",
+          "Five to ten years",
+          "More than ten years"
+        ]
+      },
+      "note": {
+        "label": "Anything else",
+        "placeholder": "Lanes you know, endorsements you hold, when you would be free to start."
+      }
+    },
+    "consent": "By sending this you agree we may contact you about driving work. We do not add you to a mailing list and we do not pass your details to anyone else.",
+    "submitLabel": "Send my details",
+    "successHeading": "You are on the list.",
+    "successThanks": "Thank you, {sender}.",
+    "successBody": "Your details are with Mark. There is no call today, because the seat is not open today. When the second truck is booked, everybody on this list is called.",
+    "successAnnouncement": "Your details are on the list. Nobody is called until the seat opens.",
+    "error": "That did not send. Call dispatch on {phone} and your details can be taken over the phone instead."
+  },
+  "packet": {
+    "sentence": {
+      "before": "Send the packet for",
+      "afterCompany": ", MC or USDOT",
+      "afterAuthority": ", to",
+      "end": "."
+    },
+    "fields": {
+      "company": { "label": "Your company name" },
+      "authority": { "label": "Your MC or USDOT number" },
+      "email": { "label": "Where to send it" }
+    },
+    "consent": "We use this to send the packet and nothing else. You are not added to a mailing list and your details are not passed on.",
+    "submitLabel": "Send the request",
+    "successHeading": "The request reached dispatch.",
+    "successBody": "The person who drives the truck attaches it to his reply, so it comes back when he is not on a load. If you need it inside a fixed window, call and say so.",
+    "successAnnouncement": "The packet request reached dispatch.",
+    "error": "That did not send. Call dispatch on {phone} and the packet can be sent from the phone instead."
+  }
+}

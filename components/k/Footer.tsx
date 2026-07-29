@@ -1,6 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/lib/site";
+import { fill, linkHref } from "@/lib/content";
+import nav from "@/content/navigation.json";
+
+/** Everything the footer says. Edited at /admin under "Navigation & Footer". */
+const t = nav.footer;
 
 /**
  * SITE FOOTER
@@ -45,31 +50,13 @@ import { site } from "@/lib/site";
  */
 
 /**
- * One column of page links, because the reference has one. Everything a
+ * ONE COLUMN OF PAGE LINKS, because the reference has one. Everything a
  * visitor might still want is in it, in the order a stranger reads the
  * company: what it hauls, whether it is safe, what to send a broker, who it
  * is, where it came from, where it is going, who it is hiring, how to talk.
+ * That order is the point of the list, so reordering it in the CMS is a real
+ * decision rather than a cosmetic one.
  */
-const PAGES = [
-  { href: "/services", label: "Services" },
-  { href: "/safety", label: "Safety" },
-  { href: "/carrier-packet", label: "Carrier Packet" },
-  { href: "/about", label: "About" },
-  { href: "/journey", label: "The Journey" },
-  { href: "/road-ahead", label: "The Road Ahead" },
-  { href: "/drivers", label: "Drivers" },
-  { href: "/contact", label: "Contact" },
-] as const;
-
-const LEGAL = [
-  { href: "/privacy-policy", label: "Privacy" },
-  { href: "/terms-conditions", label: "Terms" },
-  { href: "/cookies", label: "Cookies" },
-  { href: "/legal-notices", label: "Legal Notices" },
-] as const;
-
-/** The carrier snapshot, keyed to the DOT number in content/site.json. */
-const SAFER = `https://safer.fmcsa.dot.gov/query.asp?searchtype=ANY&query_type=queryCarrierSnapshot&query_param=USDOT&query_string=${site.usdot}`;
 
 /* ==================================================================== */
 /* THE LIGHT, AND WHERE EVERY COLOUR IN IT CAME FROM                    */
@@ -208,7 +195,7 @@ export default function Footer() {
           <div className="flex flex-col gap-14 lg:flex-row lg:justify-between lg:gap-16">
             <div className="max-w-[460px]">
               <h2 className="font-display text-k-d2 font-black text-k-on-dark">
-                Ready when you are.
+                {fill(t.heading)}
               </h2>
 
               {/* The reference sets one short bold line here and hangs its two
@@ -217,7 +204,7 @@ export default function Footer() {
                   Same here: the sentence ends on "directly at" and the address
                   and the number finish it. */}
               <p className="pt-7 font-text text-k-small font-semibold text-k-on-dark">
-                Reach dispatch directly at
+                {fill(t.dispatchLead)}
               </p>
               <p className="flex flex-wrap items-center gap-x-3 gap-y-2 pt-2">
                 <a
@@ -248,16 +235,16 @@ export default function Footer() {
                 makes the footer usable rather than decorative. */}
             <nav aria-label="Footer" className="lg:pt-1">
               <h3 className="font-text text-k-micro uppercase text-k-on-dark-soft">
-                Company
+                {fill(t.pagesLabel)}
               </h3>
               <ul className="flex flex-col gap-1.5 pt-5">
-                {PAGES.map((link) => (
-                  <li key={link.href}>
+                {t.pages.map((item) => (
+                  <li key={item.href}>
                     <Link
-                      href={link.href}
+                      href={linkHref(item.href)}
                       className="font-text text-k-lede text-k-on-dark transition-colors duration-200 hover:text-k-gold-lit"
                     >
-                      {link.label}
+                      {fill(item.label)}
                     </Link>
                   </li>
                 ))}
@@ -272,12 +259,12 @@ export default function Footer() {
                 up under each other. */}
             <div className="lg:pt-1">
               <h3 className="font-text text-k-micro uppercase text-k-on-dark-soft">
-                Operating authority
+                {fill(t.authorityLabel)}
               </h3>
               <dl className="flex gap-8 pt-5 lg:flex-col lg:gap-3">
                 <div>
                   <dt className="font-text text-k-micro uppercase text-k-on-dark-soft">
-                    USDOT
+                    {fill(t.usdotLabel)}
                   </dt>
                   <dd className="font-display text-k-d3 font-black tabular-nums text-k-on-dark">
                     {site.usdot}
@@ -285,7 +272,7 @@ export default function Footer() {
                 </div>
                 <div>
                   <dt className="font-text text-k-micro uppercase text-k-on-dark-soft">
-                    MC
+                    {fill(t.mcLabel)}
                   </dt>
                   <dd className="font-display text-k-d3 font-black tabular-nums text-k-on-dark">
                     {site.mc}
@@ -293,12 +280,12 @@ export default function Footer() {
                 </div>
               </dl>
               <a
-                href={SAFER}
+                href={linkHref(t.verifyHref)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-5 inline-flex items-center gap-2 rounded-full border border-k-on-dark-faint px-5 py-2.5 font-text text-k-micro uppercase text-k-on-dark transition-colors duration-200 hover:border-k-gold-lit hover:text-k-gold-lit"
               >
-                Verify on FMCSA
+                {fill(t.verifyLabel)}
                 <span aria-hidden="true">&#8599;</span>
                 <span className="sr-only">(opens in a new tab)</span>
               </a>
@@ -311,16 +298,16 @@ export default function Footer() {
           <div className="flex flex-col gap-10 pt-20 lg:flex-row lg:items-end lg:justify-between lg:gap-16 lg:pt-4">
             <div className="flex flex-col gap-2.5 lg:pb-2">
               <p className="font-text text-k-micro uppercase text-k-on-dark-soft">
-                © {new Date().getFullYear()} {site.legalName} · {site.location}
+                © {new Date().getFullYear()} {fill(t.copyright)}
               </p>
               <p className="flex flex-wrap items-center gap-x-6 gap-y-2">
-                {LEGAL.map((link) => (
+                {t.legalLinks.map((item) => (
                   <Link
-                    key={link.href}
-                    href={link.href}
+                    key={item.href}
+                    href={linkHref(item.href)}
                     className="font-text text-k-micro uppercase text-k-on-dark-soft transition-colors duration-200 hover:text-k-on-dark"
                   >
-                    {link.label}
+                    {fill(item.label)}
                   </Link>
                 ))}
               </p>
@@ -383,7 +370,7 @@ export default function Footer() {
               aria-hidden="true"
             >
               <Image
-                src="/images/brand/footer-lockup.webp"
+                src={t.logo}
                 alt=""
                 width={1942}
                 height={809}

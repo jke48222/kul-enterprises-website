@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "title": "Safety and Compliance",
+    "description": "KUL Enterprises is a licensed and insured freight carrier, USDOT {usdot}, MC {mc}. Verify our authority and insurance filing directly with the FMCSA."
+  },
+  "opening": {
+    "eyebrow": "Safety and compliance",
+    "heading": "Everything here can be checked.",
+    "lede": "KUL Enterprises has been under its own authority since 2026, so there is no long safety record to point at yet."
+  },
+  "credentials": {
+    "heading": "Authority and insurance",
+    "decal": "/images/brand/door-decal.webp",
+    "decalAlt": "The decal on the tractor door, reading KUL Enterprises LLC, USDOT {usdot}, MC {mc}, {location}",
+    "items": [
+      {
+        "label": "USDOT number",
+        "value": "{usdot}",
+        "note": "Look this up on the FMCSA SAFER system",
+        "href": "https://safer.fmcsa.dot.gov/query.asp?searchtype=ANY&query_type=queryCarrierSnapshot&query_param=USDOT&query_string={usdot}"
+      },
+      {
+        "label": "MC number",
+        "value": "{mc}",
+        "note": "Operating authority, active",
+        "href": ""
+      },
+      {
+        "label": "Insurance",
+        "value": "Licensed and insured",
+        "note": "Certificate issued by our agent, with your company named as holder",
+        "href": "/carrier-packet"
+      },
+      {
+        "label": "Base",
+        "value": "{location}",
+        "note": "Southeast based, authorized in 48 states",
+        "href": ""
+      }
+    ]
+  },
+  "dashcam": {
+    "video": "dash-night",
+    "poster": "/videos/dash-night-poster.jpg",
+    "caption": "Eleven years driving for other carriers before the first mile under this authority."
+  },
+  "commitments": {
+    "heading": "What we hold ourselves to",
+    "note": "Standing policy, applying from the first load.",
+    "items": [
+      {
+        "icon": "maintenance",
+        "title": "Maintenance",
+        "body": "The truck is inspected before every dispatch. Anything found is fixed before the load moves, even when that costs us the load."
+      },
+      {
+        "icon": "hours",
+        "title": "Hours of service",
+        "body": "Hours are planned before dispatch. If a lane cannot be run legally inside the clock, we say so when you ask, not when we are late."
+      },
+      {
+        "icon": "communication",
+        "title": "Communication",
+        "body": "You hear about a delay from us first. One phone number reaches the person driving the truck, around the clock."
+      },
+      {
+        "icon": "cargo",
+        "title": "Cargo",
+        "body": "Freight is secured to FMCSA standards and sealed at origin where a seal applies. The seal number goes on the paperwork so the receiver can check it."
+      }
+    ]
+  },
+  "testimonials": {
+    "heading": "What customers say",
+    "items": []
+  }
+}

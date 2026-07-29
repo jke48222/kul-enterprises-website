@@ -1,12 +1,17 @@
 "use client";
 
 import { useEffect, useId, useState } from "react";
-import Link from "next/link";
 import { AnimatePresence, m } from "framer-motion";
 import { services } from "@/lib/services";
 import { DUR, EASE } from "@/components/k/motion";
 import { PanelField, PanelSelect, PanelTextarea } from "./PanelField";
 import { useFormSubmit, Honeypot, FormStatus } from "./FormShell";
+import { fill } from "@/lib/content";
+import Copy, { copyNodes } from "@/components/k/Copy";
+import forms from "@/content/forms.json";
+
+/** Everything this form says. Edited at /admin under "Forms". */
+const t = forms.quote;
 
 /**
  * THE QUOTE FORM
@@ -101,17 +106,18 @@ export default function QuoteForm() {
             className="flex flex-col gap-5 rounded-xl bg-k-coal p-6 md:p-9"
           >
             <p className="font-display text-k-d2 font-black text-k-on-dark">
-              Sent to dispatch.
+              {fill(t.successHeading)}
             </p>
             {lane ? (
               <p className="font-text text-k-lede text-k-gold-lit">
                 {lane.origin} to {lane.destination}
               </p>
             ) : null}
-            <p className="font-text text-k-body text-k-on-dark-soft">
-              A person replies, usually the same business day. If the load
-              moves sooner than that, call dispatch instead of waiting.
-            </p>
+            <Copy
+              text={t.successBody}
+              className="font-text text-k-body text-k-on-dark-soft"
+              linkClassName="underline underline-offset-4"
+            />
           </m.div>
         ) : (
           <m.form
@@ -132,23 +138,23 @@ export default function QuoteForm() {
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <PanelField
                 id={`${uid}-origin`}
-                label="Origin (city, state)"
+                label={fill(t.fields.origin.label)}
                 name="origin"
                 type="text"
                 required
                 maxLength={200}
                 autoComplete="off"
-                placeholder="Atlanta, GA"
+                placeholder={fill(t.fields.origin.placeholder)}
               />
               <PanelField
                 id={`${uid}-destination`}
-                label="Destination (city, state)"
+                label={fill(t.fields.destination.label)}
                 name="destination"
                 type="text"
                 required
                 maxLength={200}
                 autoComplete="off"
-                placeholder="Charlotte, NC"
+                placeholder={fill(t.fields.destination.placeholder)}
               />
             </div>
 
@@ -156,7 +162,7 @@ export default function QuoteForm() {
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <PanelSelect
                 id={`${uid}-freightType`}
-                label="Freight type"
+                label={fill(t.fields.freightType.label)}
                 name="freightType"
                 required
                 // Controlled, because the effect above may set it from the URL
@@ -166,18 +172,20 @@ export default function QuoteForm() {
                 onChange={(e) => setFreightType(e.target.value)}
               >
                 <option value="" disabled>
-                  Select a service
+                  {fill(t.fields.freightType.placeholder)}
                 </option>
                 {services.map((s) => (
                   <option key={s.slug} value={s.name}>
                     {s.name}
                   </option>
                 ))}
-                <option value="Not sure">Not sure, advise me</option>
+                <option value="Not sure">
+                  {fill(t.fields.freightType.notSureOption)}
+                </option>
               </PanelSelect>
               <PanelField
                 id={`${uid}-pickupDate`}
-                label="Target pickup date"
+                label={fill(t.fields.pickupDate.label)}
                 name="pickupDate"
                 type="date"
                 required
@@ -188,22 +196,22 @@ export default function QuoteForm() {
 
             <PanelField
               id={`${uid}-contact`}
-              label="Your email or phone"
+              label={fill(t.fields.contact.label)}
               name="contact"
               type="text"
               required
               maxLength={200}
               autoComplete="email"
-              placeholder="you@company.com or 555-123-4567"
+              placeholder={fill(t.fields.contact.placeholder)}
             />
 
             <PanelTextarea
               id={`${uid}-details`}
-              label="Weight, dimensions, commodity"
+              label={fill(t.fields.details.label)}
               name="details"
               rows={3}
               maxLength={2000}
-              placeholder="24 pallets, 38,000 lbs, packaged food product"
+              placeholder={fill(t.fields.details.placeholder)}
             />
 
             {/* ============================================================
@@ -236,23 +244,10 @@ export default function QuoteForm() {
                   className="relative mt-px h-[18px] w-[18px] shrink-0 cursor-pointer appearance-none rounded-[3px] border border-k-rule-dark bg-k-blueprint transition-colors duration-200 checked:border-k-gold-lit checked:bg-k-gold-lit focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-k-gold-lit checked:after:absolute checked:after:left-[5.5px] checked:after:top-[1.5px] checked:after:h-[9px] checked:after:w-[4px] checked:after:rotate-45 checked:after:border-b-2 checked:after:border-r-2 checked:after:border-k-void checked:after:content-['']"
                 />
                 <span className="font-text text-[12px] leading-[19px] text-k-on-dark-soft">
-                  I agree KUL may contact me about this load. We do not add you
-                  to a mailing list and we do not pass your details to anyone
-                  else. See the{" "}
-                  <Link
-                    href="/privacy-policy"
-                    className="text-k-on-dark underline underline-offset-2 transition-colors duration-200 hover:text-k-gold-lit"
-                  >
-                    Privacy Policy
-                  </Link>{" "}
-                  and{" "}
-                  <Link
-                    href="/terms-conditions"
-                    className="text-k-on-dark underline underline-offset-2 transition-colors duration-200 hover:text-k-gold-lit"
-                  >
-                    Terms
-                  </Link>
-                  .
+                  {copyNodes(
+                    t.consent,
+                    "text-k-on-dark underline underline-offset-2 transition-colors duration-200 hover:text-k-gold-lit",
+                  )}
                 </span>
               </label>
 
@@ -265,7 +260,9 @@ export default function QuoteForm() {
                   disabled={state === "submitting"}
                   className="rounded-full bg-k-gold-lit px-9 py-4 font-text text-k-label uppercase text-k-void transition-opacity duration-200 hover:opacity-90 disabled:cursor-wait disabled:opacity-60"
                 >
-                  {state === "submitting" ? "Sending" : "Send the request"}
+                  {state === "submitting"
+                    ? fill(forms.shared.sendingLabel)
+                    : fill(t.submitLabel)}
                 </button>
               </div>
             </div>
@@ -276,8 +273,7 @@ export default function QuoteForm() {
       {/* Anything the form needs to say back, including a failure to send. */}
       {state === "error" ? (
         <p className="pt-5 font-text text-k-small text-[#C98A7A]">
-          {serverError ??
-            "That did not send. Call dispatch on 678-972-1148 and the load can be quoted over the phone instead."}
+          {serverError ?? fill(t.error)}
         </p>
       ) : (
         <FormStatus
@@ -285,7 +281,7 @@ export default function QuoteForm() {
           serverError={serverError}
           /* Hedged to match the confirmation panel above. Both render on
              success, so an unhedged promise here would contradict it. */
-          successMessage="Quote request received. Dispatch will reply, usually the same business day."
+          successMessage={fill(t.successAnnouncement)}
         />
       )}
     </div>
