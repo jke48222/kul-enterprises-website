@@ -132,11 +132,16 @@ export default function HomePage() {
 
       {/* Statement, the trust thesis, stated plainly. */}
       <section className="bg-k-paper px-6 py-32 md:px-12 lg:px-24">
-        <Reveal className="mx-auto flex max-w-[1248px] flex-col gap-12 lg:flex-row lg:gap-24">
-          <h2 className="flex-1 font-display text-k-d2 font-black text-k-ink">
-            A carrier is only as good as the person who answers the phone.
-          </h2>
-          <div className="flex w-full flex-col gap-5 lg:w-[400px] lg:shrink-0">
+        <div className="mx-auto flex max-w-[1248px] flex-col gap-12 lg:flex-row lg:gap-24">
+          {/* The headline uncovers on its own. Wrapping the whole row in that
+              entrance would uncover the paragraph column left to right with
+              it, and the wipe is built for a single block of display type. */}
+          <Reveal variant="wipe" className="flex-1">
+            <h2 className="font-display text-k-d2 font-black text-k-ink">
+              A carrier is only as good as the person who answers the phone.
+            </h2>
+          </Reveal>
+          <Reveal index={1} className="flex w-full flex-col gap-5 lg:w-[400px] lg:shrink-0">
             <p className="font-text text-k-body text-k-ink-soft">
               Most carriers this size hand you a dispatcher who has never driven
               the lane. At KUL that person is Mark Brown, and he has driven it
@@ -152,8 +157,8 @@ export default function HomePage() {
             >
               Read the full story
             </Link>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
       </section>
 
       {/* The rig, instrument register, the truck renders' first appearance. */}
@@ -175,7 +180,11 @@ export default function HomePage() {
             word directly behind the real one, and two wordmarks in one view
             make the real livery look like a repeat of itself. The rig is the
             brand moment on this page and it does not need the help. */}
-        <Reveal className="mx-auto flex max-w-[1248px] justify-center px-6">
+        {/* The rig arrives rather than appears. It is drawn facing left, so
+            it comes in from the right, which is the side it would be driving
+            away from. The section already clips its overflow, which is what
+            keeps the travel from adding a sideways scrollbar. */}
+        <Reveal variant="roll" className="mx-auto flex max-w-[1248px] justify-center px-6">
           <Image
             src="/images/truck/truck-body.webp"
             alt="KUL Enterprises tractor and 53-foot dry van trailer, side profile"
@@ -217,7 +226,7 @@ export default function HomePage() {
       {/* Services, seven hairline rows. Deliberately not a card grid. */}
       <section className="bg-k-paper px-6 py-32 md:px-12 lg:px-24">
         <div className="mx-auto max-w-[1248px]">
-          <Reveal className="flex flex-col gap-12 pb-14 lg:flex-row lg:items-end lg:justify-between lg:gap-24">
+          <Reveal variant="settle" className="flex flex-col gap-12 pb-14 lg:flex-row lg:items-end lg:justify-between lg:gap-24">
             <div className="flex flex-1 flex-col gap-5">
               <p className="flex items-center gap-4">
                 <span className="h-px w-12 shrink-0 bg-k-gold" aria-hidden="true" />
@@ -274,7 +283,7 @@ export default function HomePage() {
           className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.55)_0%,rgba(0,0,0,0.25)_45%,rgba(0,0,0,0.8)_100%)]"
           aria-hidden="true"
         />
-        <Reveal className="relative flex flex-col items-center gap-7 text-center">
+        <Reveal variant="settle" className="relative flex flex-col items-center gap-7 text-center">
           <p className="flex items-center gap-4">
             <span className="h-px w-12 shrink-0 bg-k-gold-lit" aria-hidden="true" />
             <span className="font-text text-k-label uppercase text-k-gold-lit">

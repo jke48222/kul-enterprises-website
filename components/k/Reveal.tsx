@@ -9,7 +9,7 @@ import type { ReactNode } from "react";
  * One shared set of entrances, so the whole site moves in the same handwriting
  * rather than every page inventing its own.
  *
- * There are four, and they are deliberately different from each other. A page
+ * There are five, and they are deliberately different from each other. A page
  * where every single thing fades upward by the same amount reads as flat as a
  * page where every section is the same three columns, which is the reason this
  * file exists at all.
@@ -21,6 +21,11 @@ import type { ReactNode } from "react";
  *            of a section a single strong move.
  *   settle   Almost nothing: a very small lift, no travel. For dense rows of
  *            small print where a big movement would look silly.
+ *   roll     Comes in from the right and slows to a stop. Built for the
+ *            tractor on the home page, which is drawn facing left and so has
+ *            to arrive from the side it is driving away from. Anything using
+ *            this needs a parent with overflow hidden, or the page gains a
+ *            sideways scrollbar for the length of the movement.
  *   rule     For the hairlines. The line draws itself across from the left.
  *
  * Everything here plays ONCE when it comes into view and is never tied to the
@@ -38,10 +43,13 @@ const DURATION = {
   rise: 0.8,
   wipe: 1.05,
   settle: 0.55,
+  // Longer than the rest on purpose: a vehicle that arrives as fast as a
+  // paragraph does not read as a vehicle.
+  roll: 1.4,
   rule: 0.9,
 } as const;
 
-export type RevealVariant = "rise" | "wipe" | "settle";
+export type RevealVariant = "rise" | "wipe" | "settle" | "roll";
 
 type RevealProps = {
   children: ReactNode;
@@ -65,6 +73,9 @@ const STATES: Record<
     from: { clipPath: "inset(0 100% 0 0)", opacity: 1 },
     to: { clipPath: "inset(0 0% 0 0)", opacity: 1 },
   },
+  // Percentages travel with the element, so the tractor covers the same
+  // proportion of its own length on a phone as it does on a desktop.
+  roll: { from: { opacity: 0, x: "22%" }, to: { opacity: 1, x: "0%" } },
 };
 
 export default function Reveal({

@@ -125,7 +125,7 @@ export default function ServicesPage() {
       {/* Comparison table. Every service, scrolled sideways. */}
       <section className="bg-k-surface px-6 py-28 md:px-12 lg:px-24">
         <div className="mx-auto flex max-w-[1248px] flex-col gap-10">
-          <Reveal className="flex flex-col items-center gap-3.5">
+          <Reveal variant="settle" className="flex flex-col items-center gap-3.5">
             <h2 className="max-w-[700px] text-center font-display text-k-d2 font-black text-k-ink">
               Find the service that fits your lane
             </h2>
@@ -227,7 +227,7 @@ export default function ServicesPage() {
         style={{ backgroundColor: "#FDC63E17" }}
       >
         <div className="mx-auto flex max-w-[1248px] flex-col gap-16">
-          <Reveal className="mx-auto flex max-w-[42ch] flex-col items-center gap-4 text-center">
+          <Reveal variant="wipe" className="mx-auto flex max-w-[42ch] flex-col items-center gap-4 text-center">
             <p className="font-text text-k-label uppercase text-k-gold">
               How a load moves
             </p>

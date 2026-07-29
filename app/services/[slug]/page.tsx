@@ -127,8 +127,8 @@ export default async function ServiceDetailPage({ params }: PageProps) {
           {[
             { label: "Best for", items: service.bestFor },
             { label: "What we commit to", items: service.commitments },
-          ].map((block) => (
-            <Reveal key={block.label} className="flex flex-1 flex-col gap-6">
+          ].map((block, i) => (
+            <Reveal key={block.label} variant="settle" index={i} className="flex flex-1 flex-col gap-6">
               <p className="flex items-center gap-4">
                 <span
                   className="h-px w-12 shrink-0 bg-k-gold"

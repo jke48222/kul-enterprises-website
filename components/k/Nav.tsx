@@ -86,6 +86,9 @@ const SCROLL_TRIGGER_PX = 60;
  */
 const MENU_BREAKPOINT = 1180;
 
+/** Ties the Services link to the panel it opens, for screen readers. */
+const SERVICES_PANEL_ID = "kul-services-panel";
+
 export default function Nav() {
   const pathname = usePathname();
   const reduced = useReducedMotion();
@@ -142,11 +145,31 @@ export default function Nav() {
     ? "text-k-ink hover:text-k-gold"
     : "text-k-on-dark hover:text-k-gold-lit";
 
+  /**
+   * One row of the menu.
+   *
+   * The Services row also opens the panel of service cards below the bar.
+   * That used to happen on hover and on nothing else, which meant the panel
+   * did not exist for anybody using a keyboard: the pointer was the only way
+   * in. Focus is the keyboard's version of hover, so it opens the panel too,
+   * and Escape closes it again without leaving the link.
+   *
+   * The link still goes to the services page when it is followed, so nothing
+   * is trapped behind the panel. On a touch screen, where there is no hover
+   * at all, tapping simply goes to that page, which is the right result.
+   */
   const renderLink = (link: { href: string; label: string; panel: boolean }) => (
     <li key={link.href}>
       <Link
         href={link.href}
         onMouseEnter={() => setPanelOpen(link.panel)}
+        onFocus={() => setPanelOpen(link.panel)}
+        onKeyDown={(e) => {
+          if (e.key === "Escape" && panelOpen) setPanelOpen(false);
+        }}
+        {...(link.panel
+          ? { "aria-expanded": panelOpen, "aria-controls": SERVICES_PANEL_ID }
+          : {})}
         className={`whitespace-nowrap font-text text-k-label uppercase transition-colors duration-200 ${
           link.panel && panelOpen ? "text-k-gold" : linkColour
         }`}
@@ -281,6 +304,7 @@ export default function Nav() {
                 animate={{ height: "auto", opacity: 1 }}
                 exit={reduced ? undefined : { height: 0, opacity: 0 }}
                 transition={sweep}
+                id={SERVICES_PANEL_ID}
                 className="overflow-hidden"
               >
                 {/* Every service is in this row. It scrolls sideways rather
