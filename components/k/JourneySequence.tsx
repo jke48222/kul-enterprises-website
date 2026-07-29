@@ -252,7 +252,18 @@ function SequenceFrame({
           <span className="font-text text-k-micro uppercase tabular-nums text-k-on-dark">
             {frame.time}
           </span>
-          <p className="max-w-[640px] pt-4 font-display text-k-d3 font-black text-k-on-dark">
+          {/* THE SIZE IS TIED TO THE STAGE, NOT ONLY TO THE ROOT FONT, and that
+              is an accessibility fix rather than a stylistic one. This caption
+              is pinned inside a stage exactly one screen tall that cannot grow.
+              Under text-only zoom the root font doubles while the stage does
+              not, and the longest line in the chapter goes from two lines to
+              about nineteen on a phone, most of them off the top of the frame.
+
+              clamp keeps it responsive to the reader's text size at the bottom
+              of the range and stops it outgrowing the screen it lives on at the
+              top. Page zoom, which is what most people actually use, scales the
+              viewport too, so the vh term scales with it and nothing changes. */}
+          <p className="max-w-[640px] pt-4 font-display text-[clamp(1.125rem,3.6vh,1.75rem)] font-black leading-[1.12] text-k-on-dark">
             {frame.line}
           </p>
           <span className="sr-only">Photograph: {frame.alt}.</span>
