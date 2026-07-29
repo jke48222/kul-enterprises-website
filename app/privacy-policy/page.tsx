@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import LegalPage from "@/components/k/LegalPage";
-import { Prose } from "@/components/k/Copy";
 import { fill } from "@/lib/content";
-import doc from "@/content/legal/privacy-policy.json";
+import { client, tinaPage } from "@/lib/tina";
+import docJson from "@/content/legal/privacy-policy.json";
+import PrivacyPolicyView from "./privacy-policy-view";
 
 /**
  * PRIVACY POLICY
@@ -19,26 +19,17 @@ import doc from "@/content/legal/privacy-policy.json";
  */
 
 export const metadata: Metadata = {
-  title: fill(doc.meta.title),
-  description: fill(doc.meta.description),
+  title: fill(docJson.meta.title),
+  description: fill(docJson.meta.description),
 };
 
-export default function PrivacyPolicy() {
-  return (
-    <LegalPage
-      eyebrow={fill(doc.eyebrow)}
-      title={fill(doc.title)}
-      updated={doc.updated}
-      sections={doc.sections
-        // A clause marked "only when analytics is on" is dropped from the
-        // document unless the site is actually running Google Analytics. It is
-        // the same build-time flag that renders the tag in app/layout.tsx, so
-        // this page can never describe measurement that is switched off.
-        .filter((s) => !s.onlyWithAnalytics || Boolean(process.env.NEXT_PUBLIC_GA_ID))
-        .map((s) => ({
-          heading: fill(s.heading),
-          body: <Prose text={s.body} linkClassName="underline underline-offset-2" />,
-        }))}
-    />
+export default async function PrivacyPolicy() {
+  const page = await tinaPage(
+    "privacy-policy",
+    () => client.queries.legal({ relativePath: "privacy-policy.json" }),
+    // The shape the query would have returned, built from the file on disk.
+    { legal: docJson } as never,
   );
+
+  return <PrivacyPolicyView {...page} />;
 }

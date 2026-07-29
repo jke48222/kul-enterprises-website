@@ -50,6 +50,16 @@ export type LegalPageProps = {
   sections: { heading: string; body: React.ReactNode }[];
   /** One sentence set large before the body. Used by the climate statement. */
   pull?: string;
+  /**
+   * Tina's click-to-edit path for the title, from tinaField(doc, "title").
+   *
+   * Passed in rather than computed here because this component is shared and
+   * knows nothing about which document it is drawing. Absent outside the
+   * editor, where the attribute is inert anyway.
+   */
+  titleField?: string;
+  /** The same for each clause heading, in the order the clauses are given. */
+  sectionFields?: (string | undefined)[];
 };
 
 const DOCUMENTS = chrome.documents;
@@ -66,6 +76,8 @@ export function LegalPage({
   updated,
   sections,
   pull,
+  titleField,
+  sectionFields,
 }: LegalPageProps) {
   const pathname = usePathname();
   const ids = sections.map((s) => slugify(s.heading));
@@ -109,7 +121,10 @@ export function LegalPage({
           />
 
           <Reveal variant="wipe">
-            <h1 className="max-w-[20ch] font-display text-k-d1 font-black text-k-on-dark">
+            <h1
+              data-tina-field={titleField}
+              className="max-w-[20ch] font-display text-k-d1 font-black text-k-on-dark"
+            >
               {title}
             </h1>
           </Reveal>
@@ -157,7 +172,10 @@ export function LegalPage({
                       {/* Set at reading size rather than display size. Twelve
                           headings at 36px turns a policy into a shouting
                           match; at 20px it reads as a document. */}
-                      <h2 className="font-display text-k-lede font-black text-k-ink">
+                      <h2
+                        data-tina-field={sectionFields?.[i]}
+                        className="font-display text-k-lede font-black text-k-ink"
+                      >
                         {s.heading}
                       </h2>
                     </div>

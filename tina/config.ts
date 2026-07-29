@@ -132,7 +132,25 @@ export default defineConfig({
         path: "content",
         format: "json",
         match: { include: "services" },
-        ui: { allowedActions: { create: false, delete: false } },
+        ui: {
+          allowedActions: { create: false, delete: false },
+          /**
+           * The preview opens on the services page, because that is the one
+           * address that shows all seven at once and this is a single document
+           * holding all seven.
+           *
+           * KEEPING THEM IN ONE DOCUMENT IS THE REASON THE CLIENT CAN REORDER
+           * THEM. A collection of seven separate files would give each its own
+           * preview URL, and would take the drag handle away, because files in
+           * a folder have no order. The order is what numbers the rows 01 to 07
+           * on the home page, so it is worth more than a per-service route.
+           *
+           * Nothing is lost in the preview: from /services the client clicks
+           * into any individual service and app/services/[slug] keeps editing
+           * live, because it subscribes to this same document.
+           */
+          router: () => "/services",
+        },
         fields: [
           {
             type: "object",
@@ -939,7 +957,19 @@ export default defineConfig({
         label: "Legal documents",
         path: "content/legal",
         format: "json",
-        ui: { allowedActions: { create: false, delete: false } },
+        ui: {
+          allowedActions: { create: false, delete: false },
+          /**
+           * Unlike the page collections, this one holds five documents rather
+           * than one, so the route cannot be a constant. Each document's
+           * filename is its address: privacy-policy.json is served at
+           * /privacy-policy. That is a convention rather than a coincidence,
+           * and it is the reason creating documents here is switched off. A
+           * sixth file would need its own folder under app/ before it had a
+           * page to preview.
+           */
+          router: ({ document }) => `/${document._sys.filename}`,
+        },
         fields: [
           seo(),
           text("eyebrow", "Breadcrumb label", "Usually Legal."),
