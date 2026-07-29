@@ -71,10 +71,15 @@ import type { ReactNode } from "react";
  *      the finished state when they land. The stall that started all of this
  *      is not reachable from here.
  *
- *   3. THERE IS A BACKSTOP, in `arm()` below. Anything still unplayed after
- *      SAFETY_MS is shown regardless of whether the observer ever fired, and
- *      anything unplayed when a hidden tab becomes visible again is shown at
- *      once. An entrance is worth having; it is not worth a paragraph.
+ *   3. THERE IS A BACKSTOP, the shared sweep below. Anything ON SCREEN and
+ *      still unplayed is shown regardless of whether the observer ever fired,
+ *      swept every SAFETY_MS and again the moment a hidden tab comes back. An
+ *      entrance is worth having; it is not worth a paragraph.
+ *
+ *      It deliberately does not touch anything off screen. Rescuing an element
+ *      nobody can see does not save a reader from anything, and it throws that
+ *      element's entrance away before they ever scroll to it. See the note on
+ *      the sweep for the truck this broke.
  *
  * ANYONE WHO HAS ASKED THEIR COMPUTER TO REDUCE MOTION sees none of it, and
  * that is enforced twice: the inline script does not set the attribute, so
@@ -93,7 +98,8 @@ type RevealProps = {
 };
 
 /**
- * How long anything may stay hidden waiting to be noticed, in milliseconds.
+ * How often the backstop sweeps for anything on screen that is still hidden,
+ * in milliseconds.
  *
  * Generous, because it is a safety net and not a schedule: a reader on a slow
  * connection should get the entrance rather than have it snatched away. But it
@@ -122,6 +128,52 @@ function show(el: HTMLElement) {
   el.setAttribute("data-shown", "");
 }
 
+/** Is any part of this element on the screen right now. */
+function onScreen(el: HTMLElement) {
+  const r = el.getBoundingClientRect();
+  return r.top < window.innerHeight && r.bottom > 0;
+}
+
+/**
+ * ============================================================================
+ * THE BACKSTOP ONLY RESCUES WHAT IS ACTUALLY ON SCREEN, AND THAT IS THE POINT.
+ * ============================================================================
+ *
+ * It used to be one timer per element that called show() after SAFETY_MS no
+ * matter where that element was, which quietly broke every entrance below the
+ * fold. The tractor on the home page was the obvious casualty: it is drawn
+ * facing left and rolls in from the right across a fifth of its own length, and
+ * it was spending that entrance two and a half seconds after load, while it sat
+ * a couple of thousand pixels below the fold. By the time anybody scrolled down
+ * to it the truck had already arrived, so the whole animation only ever played
+ * to an empty screen. The client asked why the truck does not drive in.
+ *
+ * A thing nobody can see cannot be stranded, so it does not need rescuing. What
+ * needs rescuing is an element that IS on screen and is still hidden, which is
+ * the failure the backstop was written for in the first place.
+ *
+ * ONE SWEEP FOR THE WHOLE DOCUMENT, for the same reason there is one observer:
+ * thirty timers each reading their own rect is thirty forced layouts. This
+ * reads only the elements still waiting, and it stops itself the moment none
+ * are left, so a settled page runs no timer at all.
+ */
+let sweepTimer = 0;
+
+function sweep() {
+  for (const el of [...waiting]) {
+    if (onScreen(el)) show(el);
+  }
+  if (waiting.size === 0 && sweepTimer) {
+    window.clearInterval(sweepTimer);
+    sweepTimer = 0;
+  }
+}
+
+function startSweeping() {
+  if (sweepTimer) return;
+  sweepTimer = window.setInterval(sweep, SAFETY_MS);
+}
+
 function ensureObserver() {
   if (observer || typeof IntersectionObserver === "undefined") return;
 
@@ -136,12 +188,10 @@ function ensureObserver() {
 
   // THE SECOND BACKSTOP. A tab that was hidden while its reveals were queued
   // comes back to a page that has already decided they are off screen, and on
-  // a short page nothing will scroll again to correct it. Everything still
-  // waiting is simply shown.
+  // a short page nothing will scroll again to correct it. Anything on screen
+  // and still waiting is shown at once rather than waiting for the next sweep.
   document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "visible") {
-      for (const el of [...waiting]) show(el);
-    }
+    if (document.visibilityState === "visible") sweep();
   });
 }
 
@@ -174,12 +224,12 @@ export default function Reveal({
     waiting.add(el);
     observer.observe(el);
 
-    // THE FIRST BACKSTOP. If the observer never reports this element, for any
-    // reason at all, it stops being hidden.
-    const safety = window.setTimeout(() => show(el), SAFETY_MS);
+    // THE FIRST BACKSTOP. If the observer never reports this element, the sweep
+    // above shows it anyway, but only once it is somewhere a reader could see
+    // it. Off screen it keeps its entrance and waits.
+    startSweeping();
 
     return () => {
-      window.clearTimeout(safety);
       waiting.delete(el);
       observer?.unobserve(el);
     };
@@ -237,10 +287,11 @@ export function RuleDraw({
 
     waiting.add(el);
     observer.observe(el);
-    const safety = window.setTimeout(() => show(el), SAFETY_MS);
+    // Same shared sweep as Reveal, so a rule below the fold keeps its draw
+    // instead of scaling itself open where nobody is looking.
+    startSweeping();
 
     return () => {
-      window.clearTimeout(safety);
       waiting.delete(el);
       observer?.unobserve(el);
     };
