@@ -41,6 +41,10 @@ the moment you spend a shape.**
 | Federal-record field grid | `/carrier-packet` |
 | Madlib sentence form | `/carrier-packet` |
 | Pinned word-by-word statement | `/journey` |
+| Photograph beside a line held on its own | `/journey`, chapter 01 |
+| Held chapter beat, label left and words right | `/journey`, chapters 02 to 04 |
+| Photograph filling the frame, one line at its foot | `/journey`, chapter 05 |
+| Two plates offset, wide above and narrow below right | `/journey`, chapter 06 |
 | Recovery list | `/not-found` |
 | Plain apology with one action | `/error` |
 | Elevation row, four views on one baseline | `/` |
@@ -51,6 +55,23 @@ the moment you spend a shape.**
 statement from one shape. That is deliberate and recorded: they are content pages with no
 commercial function, and a reader who opens two of them expects them to match. It licenses
 nothing on the commercial spine.
+
+**Two shapes repeat inside `/journey`,** and both repeat for the same reason: a sequence needs
+one shape, or it stops being a sequence.
+
+The held chapter beat runs three times, for chapters 02, 03 and 04. Those three have no
+photograph and never will, because none was ever taken. Giving each a different layout to
+disguise that would make the absence look like a mistake somebody was covering up. One shape
+three times makes it read as a decision, which is what it is. The only thing that changes
+between them is the ground, which walks from black to charcoal to blueprint.
+
+`components/k/JourneyFrame.tsx` runs eleven times, once per photograph in chapter 05. Eleven
+photographs in eleven treatments is a scrapbook. One treatment repeated is a sequence, and a
+sequence is the only thing that can carry the light arc those eleven frames were curated for.
+The words alternate left and right down the run, and that is the whole of the variation.
+
+Neither licenses a repeat anywhere else. Both are inside one page, in one run, and the page is
+the only one on the site with nothing to sell.
 
 ## References that were used, and ones that were not
 
