@@ -186,6 +186,73 @@ body {
   transform-origin: left;
 }
 
+/* ------------------------------------------------------------------ */
+/* The Journey sequence, unpinned                                      */
+/* ------------------------------------------------------------------ */
+
+/* Chapter five of /journey holds one screen still and stacks eleven
+   photographs inside it. Everything that makes that happen is switched off
+   here rather than in the component, and this is the only correct place for
+   it.
+
+   Framer Motion's useReducedMotion() returns false on the server, every time,
+   because there is no media query to read there. A component that branches its
+   markup on that value therefore sends the nine-thousand-pixel pinned track to
+   everybody and swaps it for stacked sections on hydration, which is a huge
+   jump under the reader, landing on precisely the people who asked for less
+   movement. Doing it in CSS means the correct layout is in the first byte, is
+   right with JavaScript disabled, and never moves.
+
+   !important throughout because the component sets these as inline styles, and
+   an inline style beats a stylesheet without it.
+
+   What a reader gets here: eleven photographs one under the other, each with
+   its caption, in the order the light runs. The same eleven, at their own pace. */
+@media (prefers-reduced-motion: reduce) {
+  .kul-seq-track {
+    height: auto !important;
+  }
+  .kul-seq-stage {
+    position: static !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .kul-seq-frame {
+    position: relative !important;
+    height: 86svh;
+  }
+  .kul-seq-media {
+    opacity: 1 !important;
+    content-visibility: visible !important;
+  }
+  .kul-seq-media > * {
+    transform: none !important;
+  }
+  .kul-seq-cap {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .kul-seq-rail {
+    display: none !important;
+  }
+
+  /* The held statement, same bug and the same cure. Two screens of scrolling
+     to read one sentence is the motion; without it the sentence is just a
+     sentence, fully inked, in a section of ordinary height. */
+  .kul-pin {
+    height: auto !important;
+  }
+  .kul-pin-stage {
+    position: static !important;
+    height: auto !important;
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+  .kul-pin-word {
+    opacity: 1 !important;
+  }
+}
+
 /* §2.5 Scrim recipes. Text sits on photography only inside these zones;
    flat washes are forbidden. Apply to an overlay layer, not the image. */
 .scrim-b {

@@ -3,7 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/lib/site";
 import PinnedStatement from "@/components/k/PinnedStatement";
-import JourneyFrame from "@/components/k/JourneyFrame";
+import JourneyShelf from "@/components/k/JourneyShelf";
+import JourneySequence from "@/components/k/JourneySequence";
+import HeroVideo from "@/components/k/HeroVideo";
 import Reveal, { RuleDraw } from "@/components/k/Reveal";
 
 /**
@@ -196,31 +198,16 @@ const ROAD = [
 export default function JourneyPage() {
   return (
     <>
-      {/* THE OPENING. Type on black, nothing else. The Doctor Bird is not here
-          and must not be added: it appears exactly once on the whole site, in
-          the sequence a visitor sees on their first ever visit. */}
-      <section className="flex min-h-[92svh] items-end bg-k-void px-6 pb-24 pt-40 md:px-12 lg:px-24">
-        <div className="mx-auto w-full max-w-[1248px]">
-          <p className="flex items-center gap-2.5">
-            <span className="font-text text-k-micro uppercase text-k-on-dark-faint">
-              KUL
-            </span>
-            <span className="font-text text-k-micro text-k-on-dark-faint">/</span>
-            <span className="font-text text-k-micro uppercase text-k-gold">
-              The Journey
-            </span>
-          </p>
-          <Reveal variant="wipe" className="pt-7">
-            <h1 className="max-w-[900px] font-display text-k-d1 font-black text-k-on-dark">
-              Before the first truck, there was a boy on a plane.
-            </h1>
-          </Reveal>
-          <p className="max-w-[560px] pt-7 font-text text-k-lede text-k-on-dark-soft">
-            You do not need to read this to book a load. It is here for the
-            people who want to know who is driving.
-          </p>
-        </div>
-      </section>
+      {/* THE OPENING IS A SHELF. Six chapters standing like records in a rack,
+          taken from the shopify.com/editions hero the client sent through.
+          Everything the page says in long form downstairs, it offers here in
+          one screen: pick a chapter up, turn it over, read the lines on the
+          back, or leave it and scroll.
+
+          The Doctor Bird is not here and must not be added: it appears exactly
+          once on the whole site, in the sequence a visitor sees on their first
+          ever visit. */}
+      <JourneyShelf />
 
       {/* One statement, held still while it is read. This is the only place on
           the site where the page waits for the reader rather than the other way
@@ -233,7 +220,7 @@ export default function JourneyPage() {
           company owns and the reason the rest of the page exists. It is a boy
           and a girl, and the line it lands on is about a boy and a girl, which
           is why it is not merely an illustration of this chapter. */}
-      <section className="bg-k-warm px-6 py-24 md:px-12 lg:px-24 lg:py-32">
+      <section id="chapter-01" className="scroll-mt-24 bg-k-warm px-6 py-24 md:px-12 lg:px-24 lg:py-32">
         <div className="mx-auto flex max-w-[1248px] flex-col gap-14 lg:flex-row lg:items-end lg:gap-24">
           <Reveal className="lg:shrink-0">
             <Image
@@ -241,7 +228,10 @@ export default function JourneyPage() {
               alt="Mark Brown and his sister in Jamaica, early 1980s"
               width={1291}
               height={1920}
-              priority
+              // Not priority. It is three screens down, and the page's largest
+              // contentful paint was measured as the opening paragraph at
+              // 140ms, not a picture. Preloading this only takes bandwidth from
+              // the font that paragraph needs.
               className="h-auto w-full max-w-[400px] object-cover lg:w-[400px]"
             />
           </Reveal>
@@ -277,11 +267,12 @@ export default function JourneyPage() {
       {HELD_CHAPTERS.map((chapter) => (
         <section
           key={chapter.n}
-          className={`flex min-h-[80svh] items-center px-6 py-28 md:px-12 lg:px-24 ${chapter.ground}`}
+          id={`chapter-${chapter.n}`}
+          className={`scroll-mt-24 flex min-h-[80svh] items-center px-6 py-28 md:px-12 lg:px-24 ${chapter.ground}`}
         >
           <div className="mx-auto flex w-full max-w-[1248px] flex-col gap-10 lg:flex-row lg:gap-24">
             <Reveal variant="settle" className="lg:w-[240px] lg:shrink-0">
-              <span className="font-text text-k-micro uppercase tabular-nums text-k-gold">
+              <span className="font-text text-k-micro uppercase tabular-nums text-k-gold-lit">
                 Chapter {chapter.n}
               </span>
               <h2 className="pt-4 font-display text-k-d3 font-black text-k-on-dark">
@@ -315,10 +306,49 @@ export default function JourneyPage() {
       ))}
 
       {/* CHAPTER 05, THE CENTREPIECE. Eleven photographs he took through a
-          windscreen, running in the order the light runs. */}
-      <section className="flex min-h-[62svh] items-center bg-k-void px-6 py-28 md:px-12 lg:px-24">
-        <div className="mx-auto w-full max-w-[1248px]">
-          <span className="font-text text-k-micro uppercase tabular-nums text-k-gold">
+          windscreen, running in the order the light runs.
+
+          THIS IS THE ONE MOVING PICTURE ON THE PAGE, and it is here rather than
+          at the top for a reason. The card says the photographs that follow were
+          taken through a windscreen; behind the card is that windscreen,
+          moving, at night, from Mark's own dashcam. Then the sequence opens on a
+          still of a night highway. The road moves, and then it is remembered.
+          Putting this at the top of the page instead would have been the
+          obvious choice and the wrong one: it would be a video hero, which is
+          every trucking site, and it would spend the effect before the chapter
+          that needs it. */}
+      <section id="chapter-05" className="scroll-mt-24 bg-k-void">
+        {/* THE SHOT, THEN THE TITLE CARD. Type over the film was the first
+            attempt and it had to go, on measurement rather than taste. The film
+            has headlights and a lit trailer moving through it, and against those
+            the gold chapter marker reads 2.44:1 at its worst. Nothing fixes
+            that: a gold dark enough to survive a headlight fails against the
+            night sky in the same frame, and a scrim heavy enough to crush the
+            headlight leaves no film to look at.
+
+            So the film gets its own band and keeps all of its light, and the
+            card sits under it on plain black where the marker reads 9.04:1. It
+            is also the better cut. Type over a moving windscreen is what every
+            trucking site does; a shot that dissolves into a title card is what a
+            film does. */}
+        <div className="relative h-[54svh] overflow-hidden">
+          <HeroVideo
+            name="dash-night"
+            poster="/videos/dash-night-poster.jpg"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          {/* Dark at the very top so the floating nav has something to sit on,
+              clear through the middle where the road is, then all the way to
+              solid black at the foot so the band has no edge and the card below
+              it begins on true black rather than on a seam. */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.42)_0%,rgba(0,0,0,0.04)_26%,rgba(0,0,0,0.04)_58%,rgba(0,0,0,0.72)_84%,rgba(0,0,0,1)_100%)]"
+          />
+        </div>
+
+        <div className="mx-auto w-full max-w-[1248px] px-6 pb-28 pt-16 md:px-12 lg:px-24">
+          <span className="font-text text-k-micro uppercase tabular-nums text-k-gold-lit">
             Chapter 05
           </span>
           <Reveal className="pt-4">
@@ -334,21 +364,11 @@ export default function JourneyPage() {
         </div>
       </section>
 
-      {ROAD.map((frame, i) => (
-        <JourneyFrame
-          key={frame.src}
-          src={frame.src}
-          alt={frame.alt}
-          time={frame.time}
-          line={frame.line}
-          align={i % 2 === 1 ? "right" : "left"}
-          priority={i === 0}
-        />
-      ))}
+      <JourneySequence frames={ROAD} />
 
       {/* CHAPTER 06. The light has arrived, so the ground does too. This is the
           only chapter set on paper, and it is the last one. */}
-      <section className="bg-k-paper px-6 py-28 md:px-12 lg:px-24 lg:py-36">
+      <section id="chapter-06" className="scroll-mt-24 bg-k-paper px-6 py-28 md:px-12 lg:px-24 lg:py-36">
         <div className="mx-auto max-w-[1248px]">
           <div className="flex flex-col gap-10 lg:flex-row lg:gap-24">
             <Reveal variant="settle" className="lg:w-[240px] lg:shrink-0">

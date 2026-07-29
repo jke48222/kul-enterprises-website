@@ -43,7 +43,8 @@ the moment you spend a shape.**
 | Pinned word-by-word statement | `/journey` |
 | Photograph beside a line held on its own | `/journey`, chapter 01 |
 | Held chapter beat, label left and words right | `/journey`, chapters 02 to 04 |
-| Photograph filling the frame, one line at its foot | `/journey`, chapter 05 |
+| Film band dissolving into a title card | `/journey`, opening chapter 05 |
+| Pinned frame, photographs stacking inside it | `/journey`, chapter 05 |
 | Two plates offset, wide above and narrow below right | `/journey`, chapter 06 |
 | Recovery list | `/not-found` |
 | Plain apology with one action | `/error` |
@@ -65,13 +66,41 @@ disguise that would make the absence look like a mistake somebody was covering u
 three times makes it read as a decision, which is what it is. The only thing that changes
 between them is the ground, which walks from black to charcoal to blueprint.
 
-`components/k/JourneyFrame.tsx` runs eleven times, once per photograph in chapter 05. Eleven
-photographs in eleven treatments is a scrapbook. One treatment repeated is a sequence, and a
-sequence is the only thing that can carry the light arc those eleven frames were curated for.
-The words alternate left and right down the run, and that is the whole of the variation.
+`components/k/JourneySequence.tsx` runs one shape eleven times, once per photograph in chapter
+05. Eleven photographs in eleven treatments is a scrapbook. One treatment repeated is a
+sequence, and a sequence is the only thing that can carry the light arc those eleven frames were
+curated for.
 
 Neither licenses a repeat anywhere else. Both are inside one page, in one run, and the page is
 the only one on the site with nothing to sell.
+
+**The captions used to alternate left and right down that run and no longer do.** When the
+eleven were eleven separate scrolling sections, the alternation was the whole of the variation
+and was the stated reason the repeat read as a sequence rather than a scrapbook. Chapter 05 is
+now one pinned frame with the photographs stacking inside it, and a line that jumps to the other
+side of the screen while the picture behind it is still arriving reads as a fault. The light
+arc does the work the alternation used to do. Recorded here because it was a deliberate reversal
+of a decision this file had already recorded, not an oversight.
+
+## Motion, and the two scrubs
+
+`project-docs/15-v2-design-bible.md` caps scroll-linked motion at two sequences per page. On
+`/journey` the pinned chapter-05 frame spends one and nothing else spends the second.
+`PinnedStatement` is a sticky container with a trigger-once stagger, not a scrub, so it costs
+nothing against that budget.
+
+**Two rules that were learned the hard way and are not obvious:**
+
+Never branch a component's markup on `useReducedMotion()`. It returns false on the server every
+time, so the server sends the moving version to everyone and React replaces it on hydration.
+On this page that was a nine-thousand-pixel jump, landing on the readers who asked for less
+movement. Both `JourneySequence` and `PinnedStatement` now emit one tree and switch it off in a
+`prefers-reduced-motion` block in `app/globals.css`, which arrives in the first byte and works
+with JavaScript disabled.
+
+`MotionConfig reducedMotion="user"` does not stop a scrub. It gates animations, and a MotionValue
+bound to `style` writes straight to the DOM without going near the animation system. The
+`useReducedMotion()` guard in a scrubbed component is doing all of the work, not half of it.
 
 ## References that were used, and ones that were not
 
