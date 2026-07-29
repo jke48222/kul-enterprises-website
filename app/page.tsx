@@ -98,6 +98,7 @@ export default function HomePage() {
         <HeroVideo
           poster="/videos/kul-hero-poster.jpg"
           label="the hero film"
+          controlSlotId="hero-film-control"
           className="absolute inset-0 h-full w-full object-cover opacity-85"
         />
         {/* Directional scrim. Without it the headline collides with the
@@ -201,6 +202,24 @@ export default function HomePage() {
                 {site.location}
               </span>
             </span>
+
+            {/* WHERE THE FILM'S PAUSE CONTROL LANDS.
+                It used to float over the bottom right of the hero, which put it
+                on top of this strip at every width and, from 768px up, directly
+                over the location beside it: measured at 900px, the button's box
+                started at 832 and the location text ran to 852.
+
+                It is a member of this row now rather than something laid over
+                it. The row is items-center, so the control shares a centre line
+                with the DOT number and the location instead of being nudged
+                towards one, and it is set in the same micro caps they are.
+
+                The slot is empty markup on purpose. HeroVideo owns the button,
+                because the button's state has to come from the video element's
+                own play and pause events, so it is portalled in here rather
+                than rebuilt. An id rather than a ref because this page is a
+                server component and cannot make one. */}
+            <span id="hero-film-control" className="flex items-center" />
           </div>
         </div>
       </section>

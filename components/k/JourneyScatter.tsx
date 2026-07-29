@@ -1,8 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
-import { m, useReducedMotion, useScroll, useTransform, type MotionValue } from "framer-motion";
+import { useRef, useState } from "react";
+import {
+  m,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
 import HeroVideo from "@/components/k/HeroVideo";
 
 /**
@@ -114,6 +121,25 @@ export default function JourneyScatter({
     [0, 1, 1, 0],
   );
 
+  /**
+   * Whether the film has actually surfaced, which is what decides if its pause
+   * control exists.
+   *
+   * The film is at opacity zero until 62% of this section has scrolled past, so
+   * for most of the piece there is a video playing that nobody can see. Its
+   * control was rendered the whole time and inherited the same zero opacity,
+   * which made it invisible but left it in the tab order and clickable. Opacity
+   * hides a thing from eyes and from nothing else.
+   *
+   * The threshold is 0.15 rather than 0 so the control does not appear while
+   * the film is still a ghost under the thumbnails. A boolean is only flipped
+   * across that line, so this does not re-render on every scroll frame.
+   */
+  const [filmShown, setFilmShown] = useState(false);
+  useMotionValueEvent(filmOpacity, "change", (v) => {
+    setFilmShown(v > 0.15);
+  });
+
   // Deal the tiles out to the columns in order, so neighbouring columns do not
   // show the same photograph at the same height.
   const columns = [...LEFT_COLUMNS, ...RIGHT_COLUMNS];
@@ -135,6 +161,8 @@ export default function JourneyScatter({
           <HeroVideo
             name="dash-daylight"
             poster="/videos/dash-daylight-poster.jpg"
+            label="the dashcam footage"
+            controlHidden={!filmShown}
             className="absolute inset-0 h-full w-full object-cover"
           />
           <div

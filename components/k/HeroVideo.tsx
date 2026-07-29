@@ -1,6 +1,25 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+
+/**
+ * One rule of the fold, and the three states it moves between.
+ *
+ * Both rules are pinned to the top of the same 6 by 9 box and moved by
+ * transform alone, so nothing is laid out twice and each turns about its own
+ * centre rather than about a moving edge.
+ *
+ * THE REST STATE IS WRITTEN OUT AS AN IDENTITY rather than left unset, so both
+ * states carry the same three functions in the same order. A transform list
+ * interpolates function by function against another list; against `none` the
+ * browser has to infer one, and this is not a place to rely on inference.
+ */
+const RULE =
+  "absolute top-0 h-[9px] w-[1.5px] origin-center rounded-full bg-current transition-transform duration-[340ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none";
+const MARK_REST = "[transform:translate(0px,0px)_rotate(0deg)_scaleY(1)]";
+const MARK_FOLD_UPPER = "[transform:translate(2.5px,-2.25px)_rotate(-45deg)_scaleY(0.707)]";
+const MARK_FOLD_LOWER = "[transform:translate(-2px,2.25px)_rotate(45deg)_scaleY(0.707)]";
 
 type HeroVideoProps = {
   poster: string;
@@ -16,6 +35,33 @@ type HeroVideoProps = {
    * "the dashcam". It is read as "Pause the hero film".
    */
   label?: string;
+  /**
+   * Suppress the control entirely, for a caller whose film is not currently
+   * being presented.
+   *
+   * THIS EXISTS BECAUSE OF JourneyScatter, where the film sits inside a wrapper
+   * whose opacity is driven by scroll position and is zero for the first
+   * two thirds of the piece. A button at opacity zero is still in the tab order
+   * and still takes a click, so without this a reader tabbing through that
+   * section landed on an invisible control that paused a film they could not
+   * see. Opacity is not a way to remove something from a page.
+   *
+   * It removes the button from the tree rather than hiding it, because hidden
+   * and unfocusable is the only combination that is actually true here.
+   */
+  controlHidden?: boolean;
+  /**
+   * The id of an element to put the control inside, instead of floating it in
+   * the corner of the film.
+   *
+   * IT IS AN ID AND NOT A REF ON PURPOSE. The pages that use this are server
+   * components and cannot create a ref, so the only thing they can hand a
+   * client component is a string. The control is then portalled into that
+   * element, which is what lets it be a real flex child of the credential
+   * strip on the home page and share the strip's centre line with the DOT
+   * number rather than being positioned near it and hoping.
+   */
+  controlSlotId?: string;
 };
 
 /**
@@ -60,7 +106,24 @@ export default function HeroVideo({
   className,
   name = "kul-hero",
   label = "the background film",
+  controlHidden = false,
+  controlSlotId,
 }: HeroVideoProps) {
+  const slotted = Boolean(controlSlotId);
+  /**
+   * The element the control is portalled into, once it exists.
+   *
+   * Resolved in an effect rather than during render, because the slot is
+   * markup from a server component and is not in the document while this is
+   * first rendering. Until it resolves, a slotted control renders nothing at
+   * all: showing it in the corner for one frame and then moving it into the
+   * strip is worse than showing it a frame late.
+   */
+  const [slot, setSlot] = useState<HTMLElement | null>(null);
+  useEffect(() => {
+    if (!controlSlotId) return;
+    setSlot(document.getElementById(controlSlotId));
+  }, [controlSlotId]);
   const ref = useRef<HTMLVideoElement>(null);
   /**
    * WHETHER THE FILM IS ACTUALLY RUNNING, READ FROM THE ELEMENT.
@@ -144,6 +207,131 @@ export default function HeroVideo({
     // instead of claiming a film is running that never started.
   };
 
+  /**
+   * THE CONTROL IS A LINE OF TYPE, NOT A PLATE OVER THE PICTURE.
+   *
+   * It was a 40px frosted circle: a white hairline ring, a black fill at 35%,
+   * a backdrop blur, and 45% opacity until you touched it. That is the default
+   * media-player look and it was the only element on this site wearing one.
+   * Everything else here is a hairline and a line of tracked micro caps, so
+   * the one component that reached for a glass pill was the one that read as
+   * borrowed from somewhere else.
+   *
+   * So it is set in exactly what the credential strip beside it is set in:
+   * font-text, text-k-micro, uppercase. On the home page it is literally a
+   * member of that row, sitting on the same centre line as the DOT number and
+   * the location, which is what the client asked for and is also the only
+   * placement that cannot collide with them.
+   *
+   * THE WORD IS NOT DECORATION. A bare glyph over film is ambiguous at 11px,
+   * and the word is what makes the mark legible as play rather than as an
+   * arrow. It also means the control reads the same way the rest of the page
+   * does, at a glance, without anybody having to recognise an icon.
+   *
+   * THE TARGET IS BIGGER THAN THE INK. The type is about 16px tall, which is
+   * under the 24px WCAG asks of a control. The `after` pseudo-element pushes
+   * the hit area out to 28px without changing the layout of the row it sits
+   * in, so the strip keeps its height and the button keeps its target.
+   */
+  const control =
+    playable && !controlHidden ? (
+      <button
+        type="button"
+        onClick={toggle}
+        // The name changes with the state rather than the button being
+        // labelled "play/pause", so a screen reader announces the action
+        // about to happen instead of the two it could.
+        //
+        // THE VISIBLE WORD IS THE FIRST WORD OF THAT NAME, deliberately. WCAG
+        // 2.5.3 Label in Name wants the visible text to open the accessible
+        // name, so somebody driving this page by voice can say "pause" and hit
+        // the thing that reads Pause. Do not change the visible word to
+        // "Pause film": it is not a substring of "Pause the hero film" and it
+        // would break exactly those readers.
+        aria-label={`${playing ? "Pause" : "Play"} ${label}`}
+        className={[
+          // POSITION IS SET ONCE, IN THE CONDITIONAL BELOW, AND NEVER HERE.
+          // `relative` used to sit in this line and `absolute` was added lower
+          // down for the floating call sites. Both are the same specificity, so
+          // the winner was whichever Tailwind happened to emit last rather than
+          // whichever was written last, and `relative` won: the control stayed
+          // in normal flow and the safety band put it hard against the left
+          // edge, 1175px from where right-8 says it should be.
+          "group inline-flex items-center gap-2.5 whitespace-nowrap font-text text-k-micro uppercase",
+          // THE WORD IS AT FULL STRENGTH, AND THAT IS A CONTRAST DECISION
+          // RATHER THAN A LOUDNESS ONE. #fcfcfc is the only tone that clears
+          // 4.5:1 in all four places this appears. Measured against a blown
+          // highlight it reads 10.1:1 on the home strip, 14.9:1 low on the
+          // safety band, about 11:1 in the journey film band and 6.9:1 on the
+          // daylight windscreen in the contact sheet. The soft grey one step
+          // down lands at 3.0:1 on that last one, which fails, and buying it
+          // back would mean regrading Mark's own footage to protect a colour
+          // choice. Never soften this to text-k-on-dark-soft.
+          //
+          // IT IS MONOCHROME FOR THE SAME REASON. Gold is the tone that fails
+          // hardest over film: app/journey/page.tsx already records 2.44:1 for
+          // gold over this exact dashcam footage. The fold and the word carry
+          // the state without needing a colour to help.
+          "text-k-on-dark",
+          // THE TARGET IS BIGGER THAN THE INK. The type is about 16px tall,
+          // under the 24px WCAG 2.5.8 asks of a control. The pseudo-element
+          // takes the hit area to roughly 32px without adding a single pixel
+          // to the row it sits in, so the credential strip keeps its height.
+          "before:absolute before:-inset-x-3 before:-inset-y-2 before:content-['']",
+          "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-k-on-dark",
+          // The three floating call sites sit over moving film, where a bright
+          // frame can pass under the type. The shadow keeps it readable there.
+          // In the strip it costs nothing, so it is simply not applied.
+          // In the strip it is a flex child and only needs a containing block
+          // for its own target pseudo-element. Floating, `absolute` provides
+          // that containing block itself, so `relative` must not be added too.
+          slotted
+            ? "relative"
+            : "absolute bottom-6 right-6 z-20 [text-shadow:0_1px_3px_rgba(0,0,0,0.85)] md:bottom-8 md:right-8",
+        ].join(" ")}
+      >
+        {/* THE MARK IS THE MENU MARK CONJUGATED A SECOND TIME. Two rules stand
+            parallel as the pause bars and fold to a chevron for play. Nothing
+            appears and nothing fades out mid-movement: the same two strokes do
+            both jobs, which is the argument components/k/MenuMark.tsx makes and
+            the reason this reads as one fold rather than two icons swapped.
+
+            THE NUMBERS ARE DERIVED, NOT EYEBALLED. To become a chevron each
+            rule travels to the middle, turns 45 degrees and shortens to the
+            length of a 45 degree run, which is 1 over root 2. The upper stroke
+            runs from (1,0) to the apex at (5.5,4.5) and the lower from that
+            apex to (1,9), so both midpoints land on the same x and the rounded
+            caps meet at the point. Working back gives the translations below.
+
+            THE ROUNDED CAPS ARE LOAD BEARING, as on the menu mark: square ends
+            leave two corners at the vertex and it stops reading as a fold. */}
+        <span aria-hidden="true" className="relative block h-[9px] w-[6px] shrink-0">
+          <span className={`${RULE} left-0 ${playing ? MARK_REST : MARK_FOLD_UPPER}`} />
+          <span className={`${RULE} right-0 ${playing ? MARK_REST : MARK_FOLD_LOWER}`} />
+        </span>
+
+        {/* THE WORD, IN A CELL THAT CANNOT CHANGE SIZE. "Pause" is five letters
+            and "Play" is four, so one span would shrink the lockup at the
+            moment it is pressed and jog the mark out from under the reader's
+            own cursor. Both words share one grid cell with the longer one
+            always present and invisible, so the cell is measured from the type
+            actually rendering, whatever face the reader ends up with. */}
+        <span className="relative grid">
+          <span aria-hidden="true" className="invisible col-start-1 row-start-1">
+            Pause
+          </span>
+          <span className="col-start-1 row-start-1">{playing ? "Pause" : "Play"}</span>
+          {/* The hairline is the hover, which is the idiom this site already
+              teaches for interactive type. It is also what stops the word
+              reading as a fourth credential in a row of three. */}
+          <span
+            aria-hidden="true"
+            className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-current transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100 group-focus-visible:scale-x-100 motion-reduce:transition-none"
+          />
+        </span>
+      </button>
+    ) : null;
+
   return (
     <>
       <video
@@ -165,31 +353,7 @@ export default function HeroVideo({
         <source src={`/videos/${name}.mp4`} type="video/mp4" />
       </video>
 
-      {playable ? (
-        <button
-          type="button"
-          onClick={toggle}
-          // The name changes with the state rather than the button being
-          // labelled "play/pause", so a screen reader announces the action
-          // about to happen instead of the two it could.
-          aria-label={`${playing ? "Pause" : "Play"} ${label}`}
-          className="absolute bottom-5 right-5 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-black/35 text-k-on-dark opacity-45 backdrop-blur-sm transition-opacity duration-200 hover:opacity-100 focus-visible:opacity-100 md:bottom-7 md:right-7"
-        >
-          {playing ? (
-            // Running, so the control offers to stop it: two bars.
-            <svg width="10" height="14" viewBox="0 0 10 14" aria-hidden="true">
-              <path d="M0 0h3.2v14H0ZM6.8 0H10v14H6.8Z" fill="currentColor" />
-            </svg>
-          ) : (
-            // Stopped, so it offers to start it. The triangle is nudged right
-            // of centre because a triangle centred on its bounding box always
-            // reads left-heavy: its visual mass is not its geometric middle.
-            <svg width="12" height="14" viewBox="0 0 12 14" aria-hidden="true" className="ml-0.5">
-              <path d="M0 0.6 11 7 0 13.4Z" fill="currentColor" />
-            </svg>
-          )}
-        </button>
-      ) : null}
+      {slotted ? (slot ? createPortal(control, slot) : null) : control}
     </>
   );
 }
