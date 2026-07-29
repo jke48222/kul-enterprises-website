@@ -185,6 +185,41 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-k-void font-text text-k-on-dark antialiased">
+        {/* FIRST THING IN THE BODY, AND BLOCKING ON PURPOSE.
+
+            The opening mounts after the first paint so the hero, not the
+            ceremony, is what the browser measures as the main content. Without
+            this the visitor sees the homepage for a few frames and then has it
+            snatched away, which reads as a bug rather than as an opening.
+
+            This runs before the browser has painted anything, decides whether
+            the film is going to play at all, and if so drops a cover over the
+            page until the overlay takes over. It never runs for a returning
+            visitor, so nobody who has already seen it pays a black frame.
+
+            The cover is a plain element carrying inline styles rather than a
+            class, deliberately. A stylesheet is a second thing that has to
+            arrive and compile before it can hide anything, which is exactly
+            the race this exists to win. Inline styles are applied the moment
+            the node is appended.
+
+            The failsafe matters: if the bundle fails to load or throws, the
+            cover would otherwise sit over a working site forever, so it takes
+            itself away. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{" +
+              "if(localStorage.getItem('kul-intro-seen')==='1')return;" +
+              "var d=document.createElement('div');d.id='kul-intro-cover';" +
+              "d.setAttribute('aria-hidden','true');" +
+              "d.style.cssText='position:fixed;inset:0;z-index:99;background:#050301;pointer-events:none';" +
+              "document.body.appendChild(d);" +
+              "setTimeout(function(){var n=document.getElementById('kul-intro-cover');" +
+              "if(n&&n.parentNode)n.parentNode.removeChild(n)},8000);" +
+              "}catch(e){}})()",
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
