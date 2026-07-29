@@ -16,6 +16,11 @@ export async function POST(req: Request) {
     "freightType",
     "pickupDate",
     "contact",
+    // The agreement checkbox. It is required here and not only in the browser,
+    // because `required` on an input stops a browser and nothing else, and this
+    // endpoint can be posted to directly. An unticked box sends no value at
+    // all, so a missing key is exactly the case this rejects.
+    "consent",
   ]);
   if ("error" in parsed) {
     return NextResponse.json({ ok: false, error: parsed.error }, { status: 400 });
@@ -37,6 +42,11 @@ export async function POST(req: Request) {
       `Pickup date:  ${d.pickupDate}`,
       `Contact:      ${d.contact}`,
       d.details ? `\nDetails:\n${d.details}` : "",
+      // The record that consent was actually given, which is the point of
+      // asking for it. Without this line the agreement exists only as a tick
+      // nobody kept.
+      "",
+      "Sender agreed to be contacted about this load, and to the privacy policy and terms.",
     ].join("\n"),
   });
 

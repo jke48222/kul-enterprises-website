@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { site } from "@/lib/site";
 import QuoteForm from "@/components/forms/QuoteForm";
-import Reveal, { RuleDraw } from "@/components/k/Reveal";
+import Reveal from "@/components/k/Reveal";
 import Breadcrumb from "@/components/k/Breadcrumb";
 
 /**
@@ -26,10 +26,22 @@ export const metadata: Metadata = {
   description: `Get a freight quote from KUL Enterprises. Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited and Over the Road. Licensed carrier in ${site.location}, USDOT ${site.usdot}. The owner answers dispatch.`,
 };
 
-/** What happens after the form is sent. Stated so nobody has to wonder. */
+/**
+ * What happens after the form is sent. Stated so nobody has to wonder.
+ *
+ * THE NUMBERS ARE GONE. These were 01, 02, 03 down a ruled column with the
+ * title set bold and the body running on from it inside the same sentence, and
+ * the client rejected the format. The run of bold into grey inside one line is
+ * what made it look cramped, and the numbering was the fourth numbered list on
+ * a site that already has three.
+ *
+ * They are laid out as labelled pairs now, taken from Fiasco's contact page on
+ * Mobbin, where each item is a small caps label with its detail underneath and
+ * two sit to a row. It reads wider and shorter, which is what this column
+ * needed: it is beside a form, not competing with one.
+ */
 const NEXT_STEPS = [
   {
-    n: "01",
     title: "It reaches dispatch",
     // The paragraph at the top of this column already says it goes to the
     // person who drives the truck. This item carries the one fact that
@@ -37,12 +49,10 @@ const NEXT_STEPS = [
     body: "There is no shared inbox and no ticketing system in between.",
   },
   {
-    n: "02",
     title: "You get a real number",
     body: "Usually the same day. If the lane does not suit our equipment or our hours, we say so and tell you why.",
   },
   {
-    n: "03",
     title: "Nothing is automated",
     body: "If you do not book, you will not hear from us again unless you get in touch.",
   },
@@ -82,9 +92,20 @@ export default function QuotePage() {
         </div>
       </section>
 
-      {/* The capture. One dark panel: the reason on the left, the questions on
-          the right. This is the only place on the page anything is asked. */}
-      <section className="bg-k-coal px-6 py-24 md:px-12 lg:px-24">
+      {/* The capture. The reason on the left, the questions on the right, which
+          is the only place on the page anything is asked.
+
+          THE GROUND DROPPED FROM COAL TO BLACK so the form can sit on it as a
+          panel. Fiasco's contact page, which this is taken from, works by
+          having three steps of dark rather than two: a near black page, the
+          form held on a lighter card, and the fields lighter again inside it.
+          With the page at coal there was nowhere for the card to go, because
+          the fields were already the only lift available.
+
+          Contrast improves rather than suffers. The faint tone measures 6.25:1
+          on black against 5.07:1 on charcoal, and it is the weakest thing in
+          this column. */}
+      <section className="bg-k-void px-6 py-24 md:px-12 lg:px-24">
         <div className="mx-auto flex max-w-[1248px] flex-col gap-16 lg:flex-row lg:items-start lg:gap-[104px]">
           <div className="flex flex-col gap-6 lg:w-[440px] lg:shrink-0">
             <span className="font-text text-k-micro uppercase text-k-gold-lit">
@@ -124,27 +145,27 @@ export default function QuotePage() {
             {/* What happens after it is sent. This used to be a row of three
                 cards in its own section further down the page. It reassures
                 far better here, next to the form, at the moment somebody is
-                deciding whether to fill it in. */}
-            <ol className="flex flex-col pt-4">
+                deciding whether to fill it in.
+
+                ONE RULE ABOVE THE BLOCK, NONE INSIDE IT. The previous version
+                drew a hairline between every item, which cut a short column
+                into three shorter ones. The gap does that job here, and the
+                single rule is what separates this from the phone number above
+                rather than what separates the items from each other. */}
+            <ul className="grid grid-cols-1 gap-x-10 gap-y-8 border-t border-k-rule-dark pt-8 sm:grid-cols-2">
               {NEXT_STEPS.map((step, i) => (
-                <li key={step.n} className="flex flex-col">
-                  <RuleDraw index={i} tone="dark" />
-                  <Reveal
-                    variant="settle"
-                    index={i}
-                    className="flex gap-5 py-4"
-                  >
-                    <span className="shrink-0 font-text text-k-micro uppercase tabular-nums text-k-gold-lit">
-                      {step.n}
-                    </span>
-                    <span className="font-text text-k-small text-k-on-dark-soft">
-                      <span className="text-k-on-dark">{step.title}.</span>{" "}
+                <li key={step.title}>
+                  <Reveal variant="settle" index={i} className="flex flex-col gap-2">
+                    <h2 className="font-text text-k-micro uppercase text-k-gold-lit">
+                      {step.title}
+                    </h2>
+                    <p className="font-text text-k-small text-k-on-dark-soft">
                       {step.body}
-                    </span>
+                    </p>
                   </Reveal>
                 </li>
               ))}
-            </ol>
+            </ul>
           </div>
 
           <div className="w-full lg:flex-1">

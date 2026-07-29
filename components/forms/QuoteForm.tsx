@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useState } from "react";
+import Link from "next/link";
 import { AnimatePresence, m } from "framer-motion";
 import { services } from "@/lib/services";
 import { DUR, EASE } from "@/components/k/motion";
@@ -95,7 +96,9 @@ export default function QuoteForm() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: DUR.base, ease: [...EASE.out] }}
-            className="flex flex-col gap-5 rounded-sm border border-k-rule-dark bg-k-blueprint p-9"
+            // Same card as the form it replaces, so the panel does not change
+            // shape or colour at the moment of success.
+            className="flex flex-col gap-5 rounded-xl bg-k-coal p-6 md:p-9"
           >
             <p className="font-display text-k-d2 font-black text-k-on-dark">
               Sent to dispatch.
@@ -116,7 +119,12 @@ export default function QuoteForm() {
             onSubmit={handleSubmit}
             exit={{ opacity: 0 }}
             transition={{ duration: DUR.fast, ease: [...EASE.micro] }}
-            className="flex flex-col gap-5"
+            // THE FORM IS HELD ON A CARD, which is the move that makes this
+            // read as Fiasco's rather than as fields floating on a page. Three
+            // steps of dark: the section is black, this card is coal, and the
+            // fields inside are blueprint. Each is one step lighter than what
+            // holds it, so nothing needs a border to be legible as a layer.
+            className="flex flex-col gap-5 rounded-xl bg-k-coal p-6 md:p-9"
           >
             <Honeypot />
 
@@ -198,19 +206,68 @@ export default function QuoteForm() {
               placeholder="24 pallets, 38,000 lbs, packaged food product"
             />
 
-            <div className="flex flex-col gap-6 pt-1">
-              <p className="max-w-[560px] font-text text-[12px] leading-[19px] text-k-on-dark-soft">
-                By sending this you agree we may contact you about this load. We
-                do not add you to a mailing list and we do not pass your details
-                to anyone else.
-              </p>
-              <button
-                type="submit"
-                disabled={state === "submitting"}
-                className="w-fit rounded-full bg-k-gold-lit px-9 py-4 font-text text-k-label uppercase text-k-void transition-opacity duration-200 hover:opacity-90 disabled:cursor-wait disabled:opacity-60"
-              >
-                {state === "submitting" ? "Sending" : "Send the request"}
-              </button>
+            {/* ============================================================
+                THE AGREEMENT IS A CHECKBOX NOW, NOT A SENTENCE.
+                ============================================================
+                It used to be a paragraph saying "by sending this you agree",
+                which is consent by ambush: the reader agrees by doing the thing
+                they came to do, and there is no record that they ever saw it.
+                A ticked box is a deliberate act, and it is the shape the client
+                asked for after seeing Fiasco's contact form.
+
+                IT IS ENFORCED ON THE SERVER AS WELL. `required` here only stops
+                a browser, and anyone can post the endpoint directly, so
+                app/api/quote/route.ts lists consent among its required fields
+                and the reply records that it was given. An agreement that can
+                be skipped by a curl command is not an agreement.
+
+                THE INPUT IS A REAL CHECKBOX, styled with appearance-none rather
+                than hidden behind a decorative span. A visually hidden required
+                control cannot be focused when validation fails, and Chrome
+                refuses to submit while reporting that it has nothing to point
+                at, which strands the reader on a form that will not send and
+                will not say why. */}
+            <div className="flex flex-col gap-7 pt-2">
+              <label className="flex max-w-[560px] cursor-pointer items-start gap-3">
+                <input
+                  type="checkbox"
+                  name="consent"
+                  required
+                  className="relative mt-px h-[18px] w-[18px] shrink-0 cursor-pointer appearance-none rounded-[3px] border border-k-rule-dark bg-k-blueprint transition-colors duration-200 checked:border-k-gold-lit checked:bg-k-gold-lit focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-k-gold-lit checked:after:absolute checked:after:left-[5.5px] checked:after:top-[1.5px] checked:after:h-[9px] checked:after:w-[4px] checked:after:rotate-45 checked:after:border-b-2 checked:after:border-r-2 checked:after:border-k-void checked:after:content-['']"
+                />
+                <span className="font-text text-[12px] leading-[19px] text-k-on-dark-soft">
+                  I agree KUL may contact me about this load. We do not add you
+                  to a mailing list and we do not pass your details to anyone
+                  else. See the{" "}
+                  <Link
+                    href="/privacy-policy"
+                    className="text-k-on-dark underline underline-offset-2 transition-colors duration-200 hover:text-k-gold-lit"
+                  >
+                    Privacy Policy
+                  </Link>{" "}
+                  and{" "}
+                  <Link
+                    href="/terms-conditions"
+                    className="text-k-on-dark underline underline-offset-2 transition-colors duration-200 hover:text-k-gold-lit"
+                  >
+                    Terms
+                  </Link>
+                  .
+                </span>
+              </label>
+
+              {/* Hard right, on the reference. It is the last thing in the
+                  panel and the only filled shape in it, so it reads as the end
+                  of the form rather than as another field. */}
+              <div className="flex justify-end">
+                <button
+                  type="submit"
+                  disabled={state === "submitting"}
+                  className="rounded-full bg-k-gold-lit px-9 py-4 font-text text-k-label uppercase text-k-void transition-opacity duration-200 hover:opacity-90 disabled:cursor-wait disabled:opacity-60"
+                >
+                  {state === "submitting" ? "Sending" : "Send the request"}
+                </button>
+              </div>
             </div>
           </m.form>
         )}
