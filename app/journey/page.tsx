@@ -21,8 +21,25 @@ import Reveal, { RuleDraw } from "@/components/k/Reveal";
  * NOTHING ON THIS PAGE IS INVENTED. Every line is something the family has
  * confirmed. If a detail is not known, it is left out rather than filled in.
  *
- * TO EXTEND IT: add chapters to CHAPTERS below. When the photographs are
- * ready, each chapter takes one, and this becomes the scene by scene version.
+ * THE PHOTOGRAPHS ARE READY AND THAT IS NO LONGER THE THING HOLDING THIS UP.
+ * Twenty-six of Mark's own frames now ship in public/images/journey, curated
+ * against the screenplay. What is missing is narrower than it looks, and it
+ * is worth knowing before anybody goes looking:
+ *
+ *   Chapter 02, the construction sites, has no photograph and never will.
+ *   Chapter 03, the plane, has none either, which is why the Doctor Bird
+ *   carries it instead.
+ *   Chapter 04, the Air Force, has none.
+ *
+ * Three of the six chapters are therefore pictureless, and giving the other
+ * three a photograph each would make those three look like the ones that
+ * matter. That is why the outline below is still all type. Mark's own note on
+ * the gap, kept in the curation README, is that where a picture does not
+ * exist the words can carry it alone.
+ *
+ * TO EXTEND IT: add chapters to CHAPTERS below. The scene by scene version is
+ * a different page rather than more rows on this one, and it needs the two
+ * frames nobody has yet: somebody working on a truck, and a road from above.
  */
 
 export const metadata: Metadata = {
