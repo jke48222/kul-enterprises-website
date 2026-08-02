@@ -837,6 +837,30 @@ export default defineConfig({
         ]),
       ], "/contact"),
 
+      /**
+       * NO route ON THIS ONE. Every other page collection wires `route` to
+       * its real address, which is what lets the visual editor open a live
+       * preview beside the fields. This page has no address of its own: it
+       * renders for whatever wrong URL somebody typed, and there is no
+       * single path that would preview it correctly. It still gets the
+       * ordinary form, which edits the same content just as well.
+       */
+      page("notFoundPage", "Page Not Found (404)", "not-found", [
+        seo(),
+        group("hero", "The whole page", [
+          text(
+            "video",
+            "Which film plays behind it",
+            "The file name with no .mp4 on the end, for example kul-hero or dash-night. It plays in black and white on this page. Both that file and its -720 version have to be in the videos folder.",
+          ),
+          image("poster", "Still shown before the film starts"),
+          text("numeral", "The very large number"),
+          text("heading", "Headline"),
+          longText("subheading", "Line under the headline"),
+          cta("cta", "Button", "The only way out on this page. It should go to the home page."),
+        ]),
+      ]),
+
       /* ============================================================
          THE SHARED FURNITURE
          ============================================================ */

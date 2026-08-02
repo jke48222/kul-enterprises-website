@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "title": "Page Not Found",
+    "description": "The page you were looking for doesn't exist or has moved. Return to the KUL Enterprises home page, or reach dispatch on {phone}."
+  },
+  "hero": {
+    "video": "dash-rain",
+    "poster": "/videos/dash-rain-poster.jpg",
+    "numeral": "404",
+    "heading": "That page does not exist.",
+    "subheading": "The link may be out of date, or the page may have moved.",
+    "cta": { "label": "Return home", "href": "/" }
+  }
+}

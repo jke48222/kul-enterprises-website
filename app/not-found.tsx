@@ -1,72 +1,41 @@
-import Link from "next/link";
-import { site } from "@/lib/site";
+import type { Metadata } from "next";
+import { fill } from "@/lib/content";
+import { client, tinaPage } from "@/lib/tina";
+import pageJson from "@/content/pages/not-found.json";
+import NotFoundView from "./not-found-view";
 
 /**
- * THE 404 PAGE
+ * THE 404 PAGE, THE SERVER HALF.
  *
- * What somebody sees when a link is wrong or a page has moved.
+ * Fetches the content and owns the page metadata; app/not-found-view.tsx draws
+ * it. The split is what Tina's visual editor needs, because useTina is a hook
+ * and so the subscribing component has to be a client component. See the note
+ * on the "notFoundPage" collection in tina/config.ts for why this one has no
+ * live preview route.
  *
- * It is written to be useful rather than clever. An earlier version said "the
- * freight is fine, the page isn't", which is a joke at the expense of somebody
- * who is already lost. It came back once as "Nothing is wrong with the
- * freight", the same joke with the punchline filed off, and that is gone too.
- * This one says what happened in one sentence and then gives them the four
- * places they were most likely trying to reach.
+ * Every word is in content/pages/not-found.json and is edited at /admin. The
+ * import below is not a second source of truth: it is the fallback used when
+ * Tina cannot be reached, so a CMS outage cannot stop the site building.
  *
- * The root layout supplies the navigation and the footer, so this file is the
- * middle of the page only.
+ * NOINDEX ON PURPOSE. This renders for every broken link on the site, at
+ * whatever URL somebody typed, so it is the same document at an unlimited
+ * number of addresses. A search engine that indexed it would be indexing a
+ * dead end.
  */
 
-/** The places worth offering somebody who has landed in the wrong place. */
-const WAYS_BACK = [
-  { href: "/services", label: "Services", note: "All seven, side by side" },
-  {
-    href: "/quote",
-    label: "Request a quote",
-    note: "Six fields, priced by a person",
-  },
-  { href: "/safety", label: "Safety", note: "Authority, insurance and policy" },
-  { href: "/contact", label: "Contact", note: `Dispatch on ${site.phone}` },
-] as const;
+export const metadata: Metadata = {
+  title: fill(pageJson.meta.title),
+  description: fill(pageJson.meta.description),
+  robots: { index: false, follow: true },
+};
 
-export default function NotFound() {
-  return (
-    <section className="flex min-h-[78svh] items-center bg-k-coal px-6 py-32 md:px-12 lg:px-24">
-      <div className="mx-auto flex w-full max-w-[1248px] flex-col gap-12 lg:flex-row lg:items-start lg:gap-24">
-        <div className="flex flex-col gap-6 lg:w-[520px] lg:shrink-0">
-          <span
-            className="font-display text-[clamp(6rem,16vw,13rem)] font-black leading-[0.82] tracking-[-0.035em] text-k-gold-lit"
-            aria-hidden="true"
-          >
-            404
-          </span>
-          <h1 className="font-display text-k-d2 font-black text-k-on-dark">
-            That page does not exist.
-          </h1>
-          <p className="max-w-[440px] font-text text-k-body text-k-on-dark-soft">
-            The link may be out of date, or the page may have moved.
-          </p>
-        </div>
-
-        {/* The four places somebody was most likely heading for. */}
-        <ul className="flex flex-1 flex-col border-t border-k-rule-dark">
-          {WAYS_BACK.map((way) => (
-            <li key={way.href}>
-              <Link
-                href={way.href}
-                className="group flex items-baseline justify-between gap-8 border-b border-k-rule-dark py-6"
-              >
-                <span className="font-display text-k-d3 font-black text-k-on-dark transition-colors duration-200 group-hover:text-k-gold-lit">
-                  {way.label}
-                </span>
-                <span className="text-right font-text text-k-small text-k-on-dark-soft">
-                  {way.note}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
+export default async function NotFound() {
+  const page = await tinaPage(
+    "Page Not Found (404)",
+    () => client.queries.notFoundPage({ relativePath: "not-found.json" }),
+    // The shape the query would have returned, built from the file on disk.
+    { notFoundPage: pageJson } as never,
   );
+
+  return <NotFoundView {...page} />;
 }
