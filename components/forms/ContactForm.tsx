@@ -125,7 +125,11 @@ export default function ContactForm() {
       </AnimatePresence>
 
       {state === "error" ? (
-        <p className="pt-5 font-text text-k-small text-k-error">
+        // role="alert": the send just failed and the reader may be hearing
+        // this page rather than seeing it. Without it the FormStatus live
+        // region below is unmounted at the exact moment there is something
+        // to announce, and a failed send is silent. WCAG 4.1.3.
+        <p role="alert" className="pt-5 font-text text-k-small text-k-error">
           {serverError ?? fill(t.error)}
         </p>
       ) : (

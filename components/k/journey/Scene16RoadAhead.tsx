@@ -110,15 +110,17 @@ export default function Scene16RoadAhead({ copy }: { copy: Scene16Copy }) {
             measure is restated in words for anyone who cannot see it, and
             every gold mark has an ink label saying the same thing.
             ============================================================== */}
-        <div
-          data-lit
-          className="k-jl k-jset mt-[9svh]"
-          role="img"
-          aria-label="Fleet measure. One tractor in service today. The target is fifty tractors by the end of 2029. Forty-nine of the fifty marks on this rule are empty."
-        >
+        <div data-lit className="k-jl k-jset mt-[9svh]">
+          {/* role="img" sits on the comb ALONE. Everything inside it, the
+              ticks, the numerals, the endpoint captions, is one drawing that
+              the label restates in full. The stations below are NOT inside
+              it: they are Mark's own sentences and exist nowhere else, and a
+              role="img" wrapper would silence them for assistive tech. */}
           <div
             ref={combRef}
             className="relative"
+            role="img"
+            aria-label="Fleet measure. One tractor in service today. The target is fifty tractors by the end of 2029. Forty-nine of the fifty marks on this rule are empty."
             onPointerMove={onProbe}
             onPointerLeave={() => setProbe(null)}
           >

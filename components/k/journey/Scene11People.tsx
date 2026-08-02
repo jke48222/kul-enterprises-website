@@ -221,13 +221,14 @@ export default function Scene11People({ copy }: { copy: Scene11Copy }) {
                   ref={(el) => {
                     rowsRef.current[i] = el;
                   }}
+                  // Pointer only, on purpose. These are sentences, not
+                  // controls: scroll answers them for everyone, hover lets a
+                  // pointer peek ahead, and a tab stop that operates nothing
+                  // (and drives a well that is display:none below lg) would
+                  // cost a keyboard reader six stops for nothing.
                   onMouseEnter={() => hold(i)}
                   onMouseLeave={release}
-                  onFocus={() => hold(i)}
-                  onBlur={release}
-                  tabIndex={0}
-                  aria-current={on ? "true" : undefined}
-                  className="group relative flex items-baseline gap-5 py-[1.4svh] outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#12141A]"
+                  className="group relative flex items-baseline gap-5 py-[1.4svh]"
                 >
                   {/* The tick is the margin marker, and it is the only thing on
                       this scene that moves. Scale rather than width, so it

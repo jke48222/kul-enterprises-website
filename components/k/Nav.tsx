@@ -397,6 +397,12 @@ export default function Nav() {
         // last saw it. The route transition is at 200 and still covers both.
         className="fixed inset-x-0 top-0 z-[95] flex justify-center px-4"
         onMouseLeave={() => setOpenPanel(null)}
+        // Escape works wherever focus is. It sat on the trigger link alone,
+        // so a keyboard reader who tabbed INTO the open panel had no way
+        // back except through every link in it.
+        onKeyDown={(e) => {
+          if (e.key === "Escape") setOpenPanel(null);
+        }}
       >
         {/* The pill. It carries the width for everything inside it, which is
             what keeps the bar and the services panel below it exactly the same

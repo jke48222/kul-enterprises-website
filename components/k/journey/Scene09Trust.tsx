@@ -63,6 +63,10 @@ const DESIGN: ReadonlyArray<{ width: string; photo?: string; note?: boolean }> =
 export type Scene09Copy = {
   cards: string[];
   note: string;
+  /** Mark's words in the film, verbatim. Empty until he supplies them; the
+   *  dialog shows them under the video so the note is readable as well as
+   *  hearable. WCAG 1.2.2 is only genuinely met once this is filled in. */
+  transcript: string;
   lesson: string;
   lessonWord: string;
 };
@@ -221,6 +225,13 @@ export default function Scene09Trust({ copy }: { copy: Scene09Copy }) {
         >
           <source src="/videos/mark-fieldnote.mp4" type="video/mp4" />
         </video>
+        {/* The transcript, once Mark writes it down. Until then the absence
+            is honest: nothing here invents his speech. */}
+        {copy.transcript ? (
+          <p className="mt-4 max-h-[20svh] overflow-y-auto font-text text-[13px] leading-[1.6] text-[#FCFCFC]">
+            {copy.transcript}
+          </p>
+        ) : null}
       </dialog>
 
       <Furniture scene={SCENE} />

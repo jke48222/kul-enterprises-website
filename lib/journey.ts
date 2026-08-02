@@ -43,7 +43,7 @@ export type Chapter = {
 const ACT_STRUCTURE = [
   { n: "01", href: "#beginning", cover: "/images/journey/s02-jamaica-childhood.webp", clip: null },
   { n: "02", href: "#work", cover: "/images/journey/s04-dawn-road-mist.webp", clip: null },
-  { n: "03", href: "#straight-line", cover: "/images/journey/s10-endless-road.webp", clip: "/videos/dash-daylight.mp4" },
+  { n: "03", href: "#straight-line", cover: "/images/journey/s10-endless-road.webp", clip: "/videos/dash-daylight-720.mp4" },
   { n: "04", href: "#people", cover: "/images/journey/mark-portrait.webp", clip: null },
   { n: "05", href: "#values", cover: "/images/journey/s17-road-to-horizon.webp", clip: null },
 ] as const;

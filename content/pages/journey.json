@@ -4,11 +4,21 @@
     "description": "How KUL Enterprises started. Jamaica, the Air Force, eleven years driving for other carriers, and the first truck of his own. The story behind the carrier in {location}."
   },
   "acts": [
-    { "title": "The Origin" },
-    { "title": "Formation" },
-    { "title": "The Road" },
-    { "title": "The Company" },
-    { "title": "The Institution" }
+    {
+      "title": "The Origin"
+    },
+    {
+      "title": "Formation"
+    },
+    {
+      "title": "The Road"
+    },
+    {
+      "title": "The Company"
+    },
+    {
+      "title": "The Institution"
+    }
   ],
   "s01": {
     "setup": [
@@ -38,7 +48,11 @@
     ],
     "turnA": "While most kids spent their summers playing…",
     "turnB": "Mine were spent on construction sites.",
-    "triplet": ["Every school break…", "Every holiday…", "Every vacation…"],
+    "triplet": [
+      "Every school break…",
+      "Every holiday…",
+      "Every vacation…"
+    ],
     "father": "I worked alongside my father.",
     "coupletA": "Work isn't something to avoid.",
     "coupletB": "It's something to take pride in.",
@@ -83,7 +97,11 @@
   },
   "s07": {
     "lead": "Some lessons can only be learned through discipline. It demanded:",
-    "drilled": ["Consistency.", "Accountability.", "Commitment."],
+    "drilled": [
+      "Consistency.",
+      "Accountability.",
+      "Commitment."
+    ],
     "couplet": "Discipline doesn't change who you are. It reveals who you're willing to become."
   },
   "s08": {
@@ -113,33 +131,85 @@
       "It's about being someone others can count on."
     ],
     "note": "Field note · 2022 · 0:17 · Sound",
-    "lesson": "Trust is earned long before it's ever expected."
+    "lesson": "Trust is earned long before it's ever expected.",
+    "transcript": ""
   },
   "s10": {
     "frames": [
-      { "light": "Night", "line": "I thought I was learning how to drive a truck." },
-      { "light": "Before first light", "line": "What I didn't realize was that the road was teaching me something far greater." },
-      { "light": "The sky begins to lift", "line": "Every mile introduced me to a new place." },
-      { "light": "Dawn, in mist", "line": "Every state introduced me to different people." },
-      { "light": "Sunrise", "line": "Every delivery reminded me that trust travels farther than freight." },
-      { "light": "The sun clears the horizon", "line": "I had a plan. But plans have a way of changing." },
-      { "light": "Mid morning", "line": "There were victories. There were setbacks. Both became teachers." },
-      { "light": "Late morning", "line": "I wasn't chasing titles. I was learning to become dependable." },
-      { "light": "Midday", "line": "The country was changing. And so was I." },
-      { "light": "Afternoon", "line": "Every load represented someone's trust. Every mile represented someone's promise." },
-      { "light": "Sun high", "line": "The farther I traveled, the more I realized every person has a story." }
+      {
+        "light": "Night",
+        "line": "I thought I was learning how to drive a truck."
+      },
+      {
+        "light": "Before first light",
+        "line": "What I didn't realize was that the road was teaching me something far greater."
+      },
+      {
+        "light": "The sky begins to lift",
+        "line": "Every mile introduced me to a new place."
+      },
+      {
+        "light": "Dawn, in mist",
+        "line": "Every state introduced me to different people."
+      },
+      {
+        "light": "Sunrise",
+        "line": "Every delivery reminded me that trust travels farther than freight."
+      },
+      {
+        "light": "The sun clears the horizon",
+        "line": "I had a plan. But plans have a way of changing."
+      },
+      {
+        "light": "Mid morning",
+        "line": "There were victories. There were setbacks. Both became teachers."
+      },
+      {
+        "light": "Late morning",
+        "line": "I wasn't chasing titles. I was learning to become dependable."
+      },
+      {
+        "light": "Midday",
+        "line": "The country was changing. And so was I."
+      },
+      {
+        "light": "Afternoon",
+        "line": "Every load represented someone's trust. Every mile represented someone's promise."
+      },
+      {
+        "light": "Sun high",
+        "line": "The farther I traveled, the more I realized every person has a story."
+      }
     ]
   },
   "s11": {
     "premise": "Freight moved every day. But what truly kept the industry moving wasn't trucks.",
     "people": "It was people.",
     "roll": [
-      { "word": "Drivers.", "note": "The only driver this archive has a picture of is the man who made it." },
-      { "word": "Dispatchers.", "note": "" },
-      { "word": "Mechanics.", "note": "" },
-      { "word": "Customers.", "note": "" },
-      { "word": "Brokers.", "note": "" },
-      { "word": "Families waiting at home.", "note": "His own, in the only photograph of them." }
+      {
+        "word": "Drivers.",
+        "note": "The only driver this archive has a picture of is the man who made it."
+      },
+      {
+        "word": "Dispatchers.",
+        "note": ""
+      },
+      {
+        "word": "Mechanics.",
+        "note": ""
+      },
+      {
+        "word": "Customers.",
+        "note": ""
+      },
+      {
+        "word": "Brokers.",
+        "note": ""
+      },
+      {
+        "word": "Families waiting at home.",
+        "note": "His own, in the only photograph of them."
+      }
     ]
   },
   "s12": {
@@ -188,7 +258,11 @@
     "lesson": "Principles are promises you keep, even when they're difficult."
   },
   "s14": {
-    "fragments": ["Every mile.", "Every lesson.", "Every decision."],
+    "fragments": [
+      "Every mile.",
+      "Every lesson.",
+      "Every decision."
+    ],
     "led": "Led here.",
     "say": "We didn't build this company to be the biggest. We built it to be trusted.",
     "welcome": "Welcome to KUL Enterprises",
@@ -199,12 +273,30 @@
     "introA": "Every company has values.",
     "introB": "Ours were learned… long before this company existed.",
     "values": [
-      { "name": "Integrity", "promise": "We do the right thing… even when no one is watching." },
-      { "name": "Safety", "promise": "Every load matters. Every person matters more." },
-      { "name": "Communication", "promise": "Trust grows when people know what's happening." },
-      { "name": "Respect", "promise": "We believe relationships are built… one conversation at a time." },
-      { "name": "Excellence", "promise": "Good enough has never been our destination." },
-      { "name": "Accountability", "promise": "When we make a promise… We intend to keep it." }
+      {
+        "name": "Integrity",
+        "promise": "We do the right thing… even when no one is watching."
+      },
+      {
+        "name": "Safety",
+        "promise": "Every load matters. Every person matters more."
+      },
+      {
+        "name": "Communication",
+        "promise": "Trust grows when people know what's happening."
+      },
+      {
+        "name": "Respect",
+        "promise": "We believe relationships are built… one conversation at a time."
+      },
+      {
+        "name": "Excellence",
+        "promise": "Good enough has never been our destination."
+      },
+      {
+        "name": "Accountability",
+        "promise": "When we make a promise… We intend to keep it."
+      }
     ],
     "closeA": "Values don't matter because they're written.",
     "closeB": "They matter because they're lived."
@@ -240,12 +332,22 @@
     "silenceWord": "Silence",
     "thesisA": "Trust isn't given.",
     "thesisB": "It's earned.",
-    "cadence": ["One mile.", "One decision.", "One relationship at a time."],
+    "cadence": [
+      "One mile.",
+      "One decision.",
+      "One relationship at a time."
+    ],
     "invite": "Whenever you're ready… we'll be honored… to take the next one with you.",
     "continueWord": "Continue",
     "doors": [
-      { "label": "Request a rate", "path": "/quote" },
-      { "label": "What we haul", "path": "/services" }
+      {
+        "label": "Request a rate",
+        "path": "/quote"
+      },
+      {
+        "label": "What we haul",
+        "path": "/services"
+      }
     ],
     "indexLabel": "Plate index",
     "indexTitle": "The Journey, 2026",

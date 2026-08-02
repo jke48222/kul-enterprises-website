@@ -689,6 +689,11 @@ export default defineConfig({
         group("s09", "Scene 09, earning trust", [
           paragraphs("cards", "The eight strata", "Three of them carry the working-life photographs from 2021 and 2022; which three is structure and lives in code."),
           text("note", "The field note label", "The seventeen-second video with sound. It only ever plays when asked."),
+          longText(
+            "transcript",
+            "What Mark says in the field note",
+            "Word for word. Shown under the film and read by anyone who cannot hear it; until it is filled in, deaf readers get only the label. Nobody but Mark should write this.",
+          ),
           longText("lesson", "The lesson"),
         ]),
         group("s10", "Scene 10, the road", [

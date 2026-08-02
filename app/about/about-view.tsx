@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import HeroVideo from "@/components/k/HeroVideo";
 import Reveal, { RuleDraw } from "@/components/k/Reveal";
 import Breadcrumb from "@/components/k/Breadcrumb";
 import Copy from "@/components/k/Copy";
@@ -219,17 +220,15 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
               sizes="(min-width:1024px) 50vw, 100vw"
               className="object-cover"
             />
-            <video
-              className="kul-sleeve-clip absolute inset-0 h-full w-full object-cover"
-              src={about.founder.video}
+            {/* Through HeroVideo for the pause control and the honest
+                reduced-motion path; the Image behind it is the poster
+                fallback either way. The name is derived from the CMS path
+                so the field keeps its one job: naming the file. */}
+            <HeroVideo
+              name={about.founder.video.replace(/^\/videos\//, "").replace(/(-720)?\.mp4$/, "")}
               poster={about.founder.posterImage}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              tabIndex={-1}
-              aria-hidden="true"
+              label="the founder film"
+              className="absolute inset-0 h-full w-full object-cover"
             />
           </div>
         </div>

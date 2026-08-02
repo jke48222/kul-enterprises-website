@@ -1,6 +1,7 @@
 "use client";
 
 import { SCENES } from "@/lib/journey-spine";
+import HeroVideo from "@/components/k/HeroVideo";
 import Furniture from "./Furniture";
 import { useStageProgress, span, lerp } from "./useStageProgress";
 
@@ -114,22 +115,23 @@ export default function Scene01Beginning({ copy }: { copy: Scene01Copy }) {
       <div ref={stageRef} className="sticky top-0 h-[100svh] overflow-hidden">
         {/* The film. Muted, looping, and graded hard enough that a single
             weight of type holds contrast anywhere in the frame. It is the
-            night dashcam, which is the only footage that belongs under a
-            scene whose light stage is "Night". */}
-        <video
-          className="absolute inset-0 h-full w-full object-cover"
+            night dashcam, the only footage that belongs under a scene whose
+            light stage is "Night".
+
+            IT GOES THROUGH HeroVideo RATHER THAN A BARE TAG, which is what
+            gives it the three things a looping film owes its reader: the
+            poster and no motion under prefers-reduced-motion, a pause
+            control (WCAG 2.2.2, and Mark asked for the device himself), and
+            play state read from the element rather than assumed. The control
+            is portalled into the slot below, above the furniture strap, so
+            the two never collide. */}
+        <HeroVideo
+          name="dash-night"
           poster="/videos/dash-night-poster.jpg"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          aria-hidden="true"
-          tabIndex={-1}
-        >
-          <source src="/videos/dash-night-720.mp4" type="video/mp4" media="(max-width: 768px)" />
-          <source src="/videos/dash-night.mp4" type="video/mp4" />
-        </video>
+          label="the night film"
+          className="absolute inset-0 h-full w-full object-cover"
+          controlSlotId="s01-film-control"
+        />
 
         {/* Flat veil, so the grade does not have to do all the work and the
             film keeps its detail in the highlights. */}
@@ -203,6 +205,13 @@ export default function Scene01Beginning({ copy }: { copy: Scene01Copy }) {
             className="k-s01-dot absolute left-1/2 top-0 block h-1 w-1 -translate-x-1/2 rounded-full bg-[#D6A145]"
           />
         </a>
+
+        {/* Where the film's pause control lands: clear of the strap below
+            and the scroll cue at centre. */}
+        <div
+          id="s01-film-control"
+          className="absolute bottom-[86px] right-5 z-30 md:bottom-24 md:right-10"
+        />
 
         <Furniture scene={SCENE} />
       </div>

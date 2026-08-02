@@ -21,7 +21,7 @@ import content from "@/content/site.json";
  *   Carrier Packet  A manifest, with a column saying what is already in the
  *                   packet and what has to be asked for.
  *   About           A calling card. One photograph, one line, three facts.
- *   The Journey     Six sleeves off the shelf, in order.
+ *   The Journey     Five act sleeves off the shelf, in order.
  *   Contact         Three lanes on one baseline, all of them live links.
  *
  * WHY THE SHAPES DIFFER RATHER THAN MATCH. The client rejected an earlier
@@ -34,9 +34,10 @@ import content from "@/content/site.json";
  * the page it belongs to. Nothing in a menu may be written for the menu: if it
  * is not true on the page, it does not belong in the panel that opens onto it.
  *
- * THE PANELS ARE PLAIN SERVER MARKUP. The bar that opens them is a client
- * component and handles all the state; nothing in this file needs the browser,
- * so none of it is shipped as behaviour.
+ * THE PANELS ARE MOSTLY PLAIN MARKUP. The bar that opens them is a client
+ * component and handles the open state; the one behaviour in this file is the
+ * journey sleeve's play-on-hover, which exists so nothing in a menu ever moves
+ * without the reader asking it to.
  */
 
 /** The width the pill gives a panel to work in, matched across all of them. */
@@ -360,7 +361,28 @@ export function JourneyPanel() {
       <ul className="flex gap-3">
         {CHAPTERS.map((chapter) => (
           <li key={chapter.n} className="min-w-0 flex-1 basis-0">
-            <Link href={`/journey${chapter.href}`} className="group block">
+            <Link
+              href={`/journey${chapter.href}`}
+              className="group block"
+              // The clip runs only while this sleeve is under the pointer or
+              // holding focus. Nothing in the menu moves on its own, so the
+              // pause-control requirement never arises, and the film costs
+              // nothing until somebody shows interest in exactly this act.
+              onMouseEnter={(e) => {
+                const v = e.currentTarget.querySelector("video");
+                if (v) void v.play().catch(() => undefined);
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.querySelector("video")?.pause();
+              }}
+              onFocus={(e) => {
+                const v = e.currentTarget.querySelector("video");
+                if (v) void v.play().catch(() => undefined);
+              }}
+              onBlur={(e) => {
+                e.currentTarget.querySelector("video")?.pause();
+              }}
+            >
               <span className="relative block aspect-square w-full overflow-hidden rounded-2xl">
                 {/* ONE OF THE FIVE MOVES, AND IT IS THE ONE ABOUT DRIVING.
                     Five still photographs in a row reads as a contact sheet;
@@ -399,11 +421,10 @@ export function JourneyPanel() {
                         className="kul-sleeve-clip absolute inset-0 h-full w-full object-cover"
                         src={chapter.clip}
                         poster={chapter.cover}
-                        autoPlay
                         muted
                         loop
                         playsInline
-                        preload="metadata"
+                        preload="none"
                         tabIndex={-1}
                         aria-hidden="true"
                       />
