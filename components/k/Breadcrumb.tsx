@@ -63,9 +63,16 @@ export default function Breadcrumb({
               {last || !item.href ? (
                 <span aria-current="page">{item.label}</span>
               ) : (
+                /* 11px of caps sets a 16px line box, so the only way back up
+                   the breadcrumb was a 16px-tall target. These are navigation
+                   rather than links inside a sentence, so they get no help from
+                   the inline exemption in WCAG 2.5.8 and were simply under the
+                   24px minimum. The pseudo-element takes them to 28 without
+                   moving the row; the separator lives on the `li`, so the
+                   link's own `before` was free to use. */
                 <Link
                   href={item.href}
-                  className={`underline-offset-4 transition-colors duration-200 hover:underline ${hoverTo}`}
+                  className={`relative underline-offset-4 transition-colors duration-200 before:absolute before:-inset-y-1.5 before:inset-x-0 before:content-[''] hover:underline ${hoverTo}`}
                 >
                   {item.label}
                 </Link>

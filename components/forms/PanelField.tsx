@@ -132,9 +132,23 @@ function Panel({
   );
 }
 
-/** Shared look for the part the visitor actually types into. */
+/**
+ * Shared look for the part the visitor actually types into.
+ *
+ * THE 16px FLOOR ON PHONES IS NOT A TYPE DECISION, IT IS A ZOOM ONE. iOS Safari
+ * zooms the page in whenever a control it is focusing is set below 16px, and it
+ * does not zoom back out on blur. At the design size of 14px every tap on every
+ * field jumped the layout and left the visitor scrolled sideways in a form they
+ * were halfway through. Three forms did this: quote, contact and drivers.
+ *
+ * 16px is the smallest value that suppresses it, so the mobile step is exactly
+ * that and no larger. `text-base` also carries a 24px line box, which is the
+ * height the control is already fixed to (`h-6`), so nothing moves: the panels
+ * keep the height they had. From `md` up the design size is restored and the
+ * artboard still matches at 1440.
+ */
 const CONTROL =
-  "w-full appearance-none border-0 bg-transparent p-0 font-text text-k-small caret-current outline-none focus-visible:outline-none";
+  "w-full appearance-none border-0 bg-transparent p-0 font-text text-base caret-current outline-none focus-visible:outline-none md:text-k-small";
 
 export type PanelFieldProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,

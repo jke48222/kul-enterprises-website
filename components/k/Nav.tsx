@@ -478,10 +478,17 @@ export default function Nav() {
             {/* The lion. The wide bar gives it padding on both sides, which is
                 what holds the menu off it; the narrow bar has nothing beside it
                 to hold off, so it sits on the end of the pill instead. */}
+            {/* THE MARK IS 38px AND SO WAS ITS TARGET, three pixels under the
+                44px a thumb needs, and it is the control every visitor reaches
+                for to get home. The pseudo-element takes the target to exactly
+                44 square without adding a pixel to the pill, which would
+                otherwise grow the whole bar. It helps the wide bar too: the
+                horizontal padding there was already generous but the height
+                was still 38. */}
             <Link
               href="/"
               aria-label="KUL Enterprises, back to the home page"
-              className="shrink-0 min-[1180px]:justify-self-center min-[1180px]:px-8"
+              className="relative shrink-0 before:absolute before:-inset-[3px] before:content-[''] min-[1180px]:justify-self-center min-[1180px]:px-8"
             >
               <Image
                 src="/images/brand/lion-mark.webp"
@@ -533,7 +540,13 @@ export default function Nav() {
 
               <Link
                 href="/quote"
-                className="shrink-0 whitespace-nowrap rounded-full bg-k-gold-lit px-6 py-3 font-text text-k-label uppercase text-k-void transition-opacity duration-200 hover:opacity-90"
+                /* 12px of caps in 12px of padding measures 40px tall, four
+                   short of the target a thumb needs on the one button the whole
+                   site is trying to get people to press. The height is bought
+                   with a pseudo-element rather than more padding, because
+                   padding here grows the pill and the pill sets the height of
+                   the bar at every width. */
+                className="relative shrink-0 whitespace-nowrap rounded-full bg-k-gold-lit px-6 py-3 font-text text-k-label uppercase text-k-void transition-opacity duration-200 before:absolute before:-inset-y-0.5 before:inset-x-0 before:content-[''] hover:opacity-90"
               >
                 Get a quote
               </Link>

@@ -13,6 +13,27 @@ import type { Config } from "tailwindcss";
  */
 const config: Config = {
   content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
+  /**
+   * EVERY `hover:` ON THE SITE BECOMES DESKTOP ONLY.
+   *
+   * This compiles the hover variant to `@media (hover: hover)` instead of a
+   * bare `:hover`, and it is one line here rather than an edit to each of the
+   * couple of hundred call sites.
+   *
+   * THE BUG IT FIXES IS THE STUCK STATE. A touch browser fires `:hover` on tap
+   * and then leaves it applied until something else is tapped, so on a phone
+   * every card, button and link that had been touched stayed lit: the nav CTA
+   * held its darkened fill, service cards held their raised border, and the
+   * effect read as a selection the visitor could not clear.
+   *
+   * IT IS SAFE HERE BECAUSE NOTHING IS REACHABLE ONLY BY HOVER. Two components
+   * reveal anything on hover, the hairline under the film control and the one
+   * on the journey shelf, and both are decoration that also answers to
+   * `focus-visible`, so neither keyboard nor touch loses a way in.
+   */
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
   theme: {
     extend: {
       colors: {

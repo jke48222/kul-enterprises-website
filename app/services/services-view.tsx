@@ -351,9 +351,16 @@ export default function ServicesView(props: TinaPage<{ servicesPage: unknown }>)
                       >
                         {fill(page.compare.quoteLabel)}
                       </Link>
+                      {/* 11px of caps over a 2px gap and a hairline measures 19px
+                          tall. It sits in a row beside a proper button rather
+                          than inside a sentence, so it is a control and owes the
+                          24px of WCAG 2.5.8 that an inline link does not. The
+                          target is taken to 27px with a pseudo-element, which
+                          the 12px row gap absorbs without the two rows ever
+                          touching. */}
                       <Link
                         href={`/services/${service.slug}`}
-                        className="border-b border-k-gold pb-0.5 font-text text-k-micro uppercase text-k-ink transition-colors duration-200 hover:text-k-gold"
+                        className="relative border-b border-k-gold pb-0.5 font-text text-k-micro uppercase text-k-ink transition-colors duration-200 before:absolute before:-inset-y-1 before:inset-x-0 before:content-[''] hover:text-k-gold"
                       >
                         {service.name} {fill(page.compare.detailLabel)}
                       </Link>

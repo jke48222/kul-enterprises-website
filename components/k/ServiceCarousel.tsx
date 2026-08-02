@@ -475,7 +475,21 @@ export default function ServiceCarousel({ services }: ServiceCarouselProps) {
           &#8592;
         </button>
 
-        <div className="flex items-center gap-2.5">
+        {/* THE DOTS ARE 6px OF INK AND WERE ALSO 6px OF TARGET, which is
+            unusable with a thumb and failed WCAG 2.5.8 outright. The ink is
+            unchanged; only the target grew, using the pseudo-element idiom
+            components/k/HeroVideo.tsx already established, so the row keeps its
+            height and the pagination still reads as a row of small marks.
+
+            THE GAP WIDENS ON PHONES BECAUSE THE TARGETS HAVE TO TILE. At the
+            design gap of 10px the centres sit 16px apart, so 44px-wide targets
+            would overlap and a tap near a boundary would select the wrong
+            service. 20px of gap puts the centres 26px apart, and the -10px
+            inset then makes neighbouring targets meet exactly without ever
+            crossing. From `md` up the design gap and a matching 5px inset are
+            restored, so the desktop artboard is untouched and the targets there
+            tile at 16px instead of overlapping. */}
+        <div className="flex items-center gap-5 md:gap-2.5">
           {services.map((service, i) => (
             <button
               key={service.slug}
@@ -483,7 +497,7 @@ export default function ServiceCarousel({ services }: ServiceCarouselProps) {
               onClick={() => scrollTo(i)}
               aria-label={`Show ${service.name}`}
               aria-current={i === active}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
+              className={`relative h-1.5 rounded-full transition-all duration-300 before:absolute before:-inset-x-[10px] before:-inset-y-[19px] before:content-[''] md:before:-inset-x-[5px] ${
                 i === active ? "w-6 bg-k-gold" : "w-1.5 bg-k-rule-strong"
               }`}
             />

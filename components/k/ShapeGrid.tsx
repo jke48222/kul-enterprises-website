@@ -91,6 +91,28 @@ export default function ShapeGrid({
     if (!ctx) return;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    /**
+     * THE DRIFT DOES NOT RUN ON A TOUCH DEVICE, AND THE GRID STILL DRAWS.
+     *
+     * This canvas is the full width and height of its section, so animating it
+     * is a full-viewport repaint every frame, for ever, on a battery. What that
+     * buys on a phone is nothing anybody can collect: the pointer wake is
+     * already declined for touch in `onPointer` below, so the only thing left
+     * moving is a drift deliberately set slow enough that a reader "never
+     * catches it moving". A phone pays the whole cost of the effect and is the
+     * one device that cannot see either half of it.
+     *
+     * `hover: none` rather than `pointer: coarse`, to match the media query the
+     * `hover:` variants now compile to after `hoverOnlyWhenSupported` was turned
+     * on in tailwind.config.ts. A touchscreen laptop reports `hover: hover` and
+     * keeps the animation, which is right: it has a pointer that can light it.
+     *
+     * IT IS A PAUSE, NOT A REMOVAL. `resize()` calls `draw()` on mount and on
+     * every resize, so the field of squares is painted exactly as designed and
+     * simply holds still. Nothing disappears at any width.
+     */
+    const still =
+      reduced || window.matchMedia("(hover: none)").matches;
 
     let width = 0;
     let height = 0;
@@ -178,7 +200,7 @@ export default function ShapeGrid({
     };
 
     const start = () => {
-      if (raf !== null || reduced || speed === 0) return;
+      if (raf !== null || still || speed === 0) return;
       last = 0;
       raf = requestAnimationFrame(frame);
     };
@@ -263,7 +285,7 @@ export default function ShapeGrid({
       if (!inside) {
         if (lit.length) {
           lit = [];
-          if (reduced || speed === 0) draw();
+          if (still || speed === 0) draw();
         }
         return;
       }

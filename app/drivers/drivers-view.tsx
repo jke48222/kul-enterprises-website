@@ -218,9 +218,13 @@ export default function DriversView(props: TinaPage<{ driversPage: unknown }>) {
                   linkClassName="underline underline-offset-4"
                 />
                 {card.cta?.label ? (
+                  /* A standalone call to action on its own line, not a link
+                     inside a sentence, so the 24px of WCAG 2.5.8 applies and a
+                     22px line box was two short. Bought with a pseudo-element
+                     so the card's rhythm does not change. */
                   <Link
                     href={link(card.cta).href}
-                    className="font-text text-k-small font-semibold text-k-gold underline underline-offset-4"
+                    className="relative font-text text-k-small font-semibold text-k-gold underline underline-offset-4 before:absolute before:-inset-y-0.5 before:inset-x-0 before:content-['']"
                   >
                     {link(card.cta).label}
                   </Link>

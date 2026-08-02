@@ -241,7 +241,10 @@ export default function CarrierPacketView(props: TinaPage<{ carrierPacketPage: u
                     href={linkHref(item.href)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-text text-k-small font-semibold text-k-gold underline underline-offset-4"
+                    /* Standalone controls in a row of their own, so 24px of
+                       target applies and a 22px line box was short. The 8px row
+                       gap absorbs the 2px the pseudo-element adds each side. */
+                    className="relative font-text text-k-small font-semibold text-k-gold underline underline-offset-4 before:absolute before:-inset-y-0.5 before:inset-x-0 before:content-['']"
                   >
                     {fill(item.label)}
                   </a>

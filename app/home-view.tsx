@@ -81,17 +81,46 @@ export default function HomeView(props: TinaPage<{ homePage: unknown }>) {
   return (
     <>
       {/* Hero, the broker's one screen. */}
-      <section className="relative flex min-h-[820px] flex-col justify-end overflow-hidden bg-k-void">
+      {/* THE HEIGHT IS A VIEWPORT ON PHONES AND A FIXED BLOCK EVERYWHERE ELSE.
+          820px was measured against a laptop and is taller than an entire small
+          phone: on a 320x568 viewport the hero ran 820px, so the quote button
+          and the authority numbers both sat below the fold and the opening
+          screen of the site ended before its call to action. `svh` rather than
+          `dvh` deliberately, matching what the journey page already uses: it is
+          the height with the browser chrome shown, so it is the smallest the
+          viewport ever gets and the content is laid out to fit the worst case
+          instead of reflowing when the chrome slides away. */}
+      <section className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden bg-k-void md:min-h-[820px]">
         <HeroVideo
           poster={home.hero.poster}
           label="the hero film"
           controlSlotId="hero-film-control"
-          className="absolute inset-0 h-full w-full object-cover opacity-85"
+          /* THE CROP IS MOVED OFF CENTRE ON PHONES, AND THE REASON IS THE
+             WORDMARK. The film is 16:9 and the fold is portrait, so `cover`
+             keeps the full height and shows about 494 source pixels of width.
+             Centred, that window lands on source x 713 to 1207, which cuts the
+             trailer's own KUL ENTERPRISES lettering clean down the middle and
+             put a half wordmark reading "K... ENTER..." directly behind the
+             headline. 38% moves the window to roughly 542 to 1036: the road
+             curve, the tractor, and the head of the lion, with the lettering
+             cropped out entirely. That is the same argument the scrim below
+             makes, solved by framing instead of by darkness, and it is the
+             reason not to simply pan further right onto the full wordmark. */
+          className="absolute inset-0 h-full w-full object-cover object-[38%_50%] opacity-85 md:object-center"
         />
         {/* Directional scrim. Without it the headline collides with the
-            trailer's own KUL livery and two wordmarks fight each other. */}
+            trailer's own KUL livery and two wordmarks fight each other.
+
+            IT TURNS THROUGH NINETY DEGREES ON PHONES. The 90deg ramp protects a
+            headline sitting in the left third of a wide frame, which is where
+            it sits on a laptop. On a phone the headline is the full width of
+            the column, so a left-to-right ramp leaves its right-hand end over
+            open picture: measured at 375px, the last third of "Owner driven."
+            sat on scrim of 0.28 while the first third had 0.92. Vertical puts
+            the dark where the type actually is at this width, and keeps the top
+            of the frame clear so the truck still reads. */}
         <div
-          className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.92)_0%,rgba(0,0,0,0.78)_34%,rgba(0,0,0,0.28)_62%,rgba(0,0,0,0.45)_100%)]"
+          className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.34)_0%,rgba(0,0,0,0.30)_30%,rgba(0,0,0,0.76)_64%,rgba(0,0,0,0.92)_100%)] md:bg-[linear-gradient(90deg,rgba(0,0,0,0.92)_0%,rgba(0,0,0,0.78)_34%,rgba(0,0,0,0.28)_62%,rgba(0,0,0,0.45)_100%)]"
           aria-hidden="true"
         />
         <div
@@ -99,7 +128,11 @@ export default function HomeView(props: TinaPage<{ homePage: unknown }>) {
           aria-hidden="true"
         />
 
-        <div className="relative mx-auto w-full max-w-[1440px] px-6 pb-16 pt-40 md:px-12 lg:px-24">
+        {/* The 160px of head room is a laptop measurement too. On a phone it is
+            most of the gap between the nav and the headline, and it is what
+            pushed the buttons off the bottom of a small screen once the hero
+            was allowed to be exactly one viewport tall. */}
+        <div className="relative mx-auto w-full max-w-[1440px] px-6 pb-16 pt-28 md:px-12 md:pt-40 lg:px-24">
           <div className="flex max-w-[1120px] flex-col gap-8">
             {/* MEASURE LINE TWO BEFORE CHANGING IT. The break is hard, so the
                 second line has to fit its own line at 375px or the hero
