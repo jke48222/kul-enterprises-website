@@ -118,7 +118,7 @@ export default function Scene09Trust({ copy }: { copy: Scene09Copy }) {
             <li
               key={text}
               data-lit
-              className="k-jl k-s09-card mt-3 first:mt-0"
+              className="k-jl k-s09-card k-card-cine mt-3 first:mt-0"
               style={{ maxWidth: card.width, "--lit-floor": "0.66" } as React.CSSProperties}
             >
               <div className="flex items-start gap-5 p-5 md:gap-7 md:p-7">

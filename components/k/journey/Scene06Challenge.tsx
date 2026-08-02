@@ -75,7 +75,7 @@ export default function Scene06Challenge({ copy }: { copy: Scene06Copy }) {
         color: ink,
       }}
     >
-      <div className="mx-auto flex w-full max-w-[1296px] flex-col items-center px-5 py-[12svh] pb-[20svh] md:px-10">
+      <div className="k-cine mx-auto flex w-full max-w-[1296px] flex-col items-center px-5 py-[12svh] pb-[20svh] md:px-10">
         {/* THE QUESTION. Above the plate, so the line is drawn in answer. */}
         <div className="max-w-[34ch] text-center">
           <p data-lit className="k-jl font-text text-[clamp(1.0625rem,1.7vw,1.5rem)] leading-[1.5]">
@@ -86,8 +86,7 @@ export default function Scene06Challenge({ copy }: { copy: Scene06Copy }) {
           </p>
           <h2
             id={`${SCENE.slug}-heading`}
-            data-lit
-            className="k-jl mt-[5svh] text-balance font-display text-[clamp(1.625rem,3.6vw,3rem)] font-medium leading-[1.12] tracking-[-0.015em]"
+            className="k-title-cine mt-[5svh] text-balance font-display text-[clamp(1.625rem,3.6vw,3rem)] font-medium leading-[1.12] tracking-[-0.015em]"
           >
             {copy.question}
           </h2>

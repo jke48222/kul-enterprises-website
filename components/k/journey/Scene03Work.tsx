@@ -79,7 +79,7 @@ export default function Scene03Work({ copy }: { copy: Scene03Copy }) {
           hold the warmth of the hour they happened in. */}
       <div aria-hidden="true" className="k-s03-warmth pointer-events-none absolute inset-0" />
 
-      <div className="relative mx-auto w-full max-w-[1296px] px-5 py-[16svh] pb-[22svh] md:px-10 lg:px-24">
+      <div className="k-cine relative mx-auto w-full max-w-[1296px] px-5 py-[16svh] pb-[22svh] md:px-10 lg:px-24">
         {/* THE ARRIVAL. Three short declaratives, quiet, plain. */}
         <div className="max-w-[30ch]">
           {copy.opening.map((line) => (
@@ -96,8 +96,7 @@ export default function Scene03Work({ copy }: { copy: Scene03Copy }) {
         {/* THE TURN. The pair that sets up the ledger. */}
         <h2
           id={`${SCENE.slug}-heading`}
-          data-lit
-          className="k-jl mt-[9svh] max-w-[24ch] font-display text-[clamp(1.75rem,4.2vw,3.5rem)] font-black leading-[1.06] tracking-[-0.02em]"
+          className="k-title-cine mt-[9svh] max-w-[24ch] font-display text-[clamp(1.75rem,4.2vw,3.5rem)] font-black leading-[1.06] tracking-[-0.02em]"
         >
           {copy.turnA}
         </h2>

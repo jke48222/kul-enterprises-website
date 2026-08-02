@@ -80,7 +80,7 @@ export default function Scene08StraightLine({ copy }: { copy: Scene08Copy }) {
         color: ink,
       }}
     >
-      <div className="mx-auto w-full max-w-[1296px] px-5 py-[12svh] pb-[20svh] md:px-10 lg:px-24">
+      <div className="k-cine mx-auto w-full max-w-[1296px] px-5 py-[12svh] pb-[20svh] md:px-10 lg:px-24">
         <div className="relative">
           {/* THE ROAD. One drawn line threading the indents. Decoration: the
               bend it describes is already fully carried by the text insets,
@@ -147,7 +147,7 @@ export default function Scene08StraightLine({ copy }: { copy: Scene08Copy }) {
             {/* THE QUESTION. The largest type in the scene, home at the left
                 edge, broken where he broke it. */}
             <li data-lit className="k-jl mt-[6svh]" style={{ "--lit-floor": "0.55" } as React.CSSProperties}>
-              <p className="max-w-[18ch] font-display text-[clamp(1.75rem,4vw,3.375rem)] font-black leading-[1.08] tracking-[-0.02em]">
+              <p className="k-title-cine max-w-[18ch] font-display text-[clamp(1.75rem,4vw,3.375rem)] font-black leading-[1.08] tracking-[-0.02em]">
                 {copy.questionA}
                 <br />
                 {copy.questionB}

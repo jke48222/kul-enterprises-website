@@ -100,7 +100,7 @@ export default function Scene07Discipline({ copy }: { copy: Scene07Copy }) {
     >
       <div
         ref={stageRef}
-        className="flex h-full flex-col justify-center px-5 md:px-10 lg:px-24"
+        className="k-cine flex h-full flex-col justify-center px-5 md:px-10 lg:px-24"
       >
         <div className="mx-auto w-full max-w-[1296px]">
           <h2

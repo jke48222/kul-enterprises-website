@@ -67,7 +67,7 @@ export default function SmoothScroll() {
         lenis = new Lenis({
           // Long enough to smooth the steps out of a wheel, short enough that
           // the page never feels like it is deciding whether to obey.
-          duration: 1.05,
+          duration: 1.25,
           easing: (t: number) => 1 - Math.pow(1 - t, 3),
           // Touch is left completely alone. A phone's own inertia is better
           // than anything re-implemented on top of it, and overriding it is

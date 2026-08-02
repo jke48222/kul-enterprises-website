@@ -202,7 +202,7 @@ export default function Scene11People({ copy }: { copy: Scene11Copy }) {
         color: ink,
       }}
     >
-      <div className="mx-auto flex h-full w-full max-w-[1296px] flex-col px-5 pt-[12svh] md:px-10 lg:px-24">
+      <div className="k-cine mx-auto flex h-full w-full max-w-[1296px] flex-col px-5 pt-[12svh] md:px-10 lg:px-24">
         {/* THE PREMISE. The answer arrives alone, in empty ground. */}
         <div className="max-w-[34ch]">
           <h2
@@ -211,7 +211,7 @@ export default function Scene11People({ copy }: { copy: Scene11Copy }) {
           >
             {copy.premise}
           </h2>
-          <p className="mt-[8svh] font-display text-[clamp(2rem,5.4vw,4.5rem)] font-black leading-[1.02] tracking-[-0.025em]">
+          <p className="k-title-cine mt-[8svh] font-display text-[clamp(2rem,5.4vw,4.5rem)] font-black leading-[1.02] tracking-[-0.025em]">
             {copy.people}
           </p>
         </div>

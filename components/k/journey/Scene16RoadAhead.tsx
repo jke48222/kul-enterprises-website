@@ -87,13 +87,12 @@ export default function Scene16RoadAhead({ copy }: { copy: Scene16Copy }) {
         color: ink,
       }}
     >
-      <div className="mx-auto w-full max-w-[1296px] px-5 py-[12svh] pb-[20svh] md:px-10 lg:px-24">
+      <div className="k-cine mx-auto w-full max-w-[1296px] px-5 py-[12svh] pb-[20svh] md:px-10 lg:px-24">
         {/* THE TRIAD. */}
         <div>
           <h2
             id={`${SCENE.slug}-heading`}
-            data-lit
-            className="k-jl k-jset max-w-[18ch] font-display text-[clamp(1.875rem,4.2vw,3.625rem)] font-black leading-[1.06] tracking-[-0.02em]"
+            className="k-title-cine max-w-[18ch] font-display text-[clamp(1.875rem,4.2vw,3.625rem)] font-black leading-[1.06] tracking-[-0.02em]"
           >
             {copy.triad[0]}
           </h2>

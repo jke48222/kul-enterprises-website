@@ -1280,6 +1280,157 @@ body {
   -webkit-mask-composite: source-in;
 }
 
+/* ==================================================================== */
+/* THE CINEMA LAYER (client direction, 2 Aug 2026)                       */
+/* ==================================================================== */
+/*
+ * The client watched the first cut and asked for a film, not a document:
+ * "the entire thing should flow like an animation video with transitions."
+ * That overrides the earlier restraint rules ON MOTION, and only on motion.
+ * What still holds, absolutely: the honesty rules, and the visibility
+ * contract. Every animation here is scroll-driven CSS inside
+ * @supports (animation-timeline: view()) and no-preference, so a browser
+ * without support, a failed script, or a reduced-motion reader gets the
+ * complete still page.
+ *
+ * The grammar, from the scrollytelling references reviewed for this pass
+ * (scrollytelling.ai/examples; the Awwwards scroll volumes): a scene's
+ * content ENTERS rising toward the reader and EXITS lifting away, so every
+ * seam is a handoff rather than a hard cut; grounds move slower than words
+ * (depth); the biggest lines resolve like film titles; and once a device is
+ * established it is scrubbed by the reader's own hand, never played on a
+ * timer.
+ */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* Every flow scene's content: in through the bottom of the viewport,
+       away through the top. Two timelines on one element. */
+    .k-cine {
+      animation-name: k-cine-enter, k-cine-exit;
+      animation-timing-function: linear, linear;
+      animation-fill-mode: both, both;
+      animation-timeline: view(), view();
+      animation-range: entry 0% entry 85%, exit 15% exit 100%;
+    }
+    /* Grounds travel slower than the words in front of them. The constant
+       scale is what keeps a translating cover image covering. */
+    .k-parallax {
+      animation: k-parallax-y linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+    /* The biggest lines resolve like titles: out of light blur, settling
+       by a breath. Blur is expensive, which is why only one line per scene
+       is ever allowed to carry this. */
+    .k-title-cine {
+      animation: k-title-resolve linear both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 75%;
+    }
+    /* Scene 5's restored shear: the two surfaces of the split travel at
+       opposing rates, which is what makes them read as independent. */
+    .k-shear-a {
+      animation: k-shear-a linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+    .k-shear-b {
+      animation: k-shear-b linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+    /* Scene 9's strata tip up into place out of a shallow deck. */
+    .k-card-cine {
+      animation: k-card-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 90%;
+    }
+    /* Scene 15's press, scrubbed: each stratum travels from its displaced
+       position to sealed under the reader's own hand. Overrides the
+       transition mechanic, which remains the fallback for browsers that
+       cannot drive animation from scroll. */
+    .k-s15-row {
+      animation: k-s15-seal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 85%;
+    }
+  }
+}
+@keyframes k-cine-enter {
+  from {
+    opacity: 0.03;
+    transform: translateY(9svh) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes k-cine-exit {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0.1;
+    transform: translateY(-8svh) scale(0.985);
+  }
+}
+@keyframes k-parallax-y {
+  from {
+    transform: translateY(-6%) scale(1.14);
+  }
+  to {
+    transform: translateY(6%) scale(1.14);
+  }
+}
+@keyframes k-title-resolve {
+  from {
+    opacity: 0;
+    filter: blur(14px);
+    transform: scale(1.05);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: none;
+  }
+}
+@keyframes k-shear-a {
+  from {
+    transform: translateY(4svh);
+  }
+  to {
+    transform: translateY(-4svh);
+  }
+}
+@keyframes k-shear-b {
+  from {
+    transform: translateY(-6svh);
+  }
+  to {
+    transform: translateY(6svh);
+  }
+}
+@keyframes k-card-rise {
+  from {
+    opacity: 0.04;
+    transform: perspective(900px) translateY(90px) rotateX(9deg);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(900px) translateY(0) rotateX(0deg);
+  }
+}
+@keyframes k-s15-seal {
+  from {
+    transform: translateY(var(--s15-dy, 0px));
+  }
+  to {
+    transform: none;
+  }
+}
+
 /* Anybody who asked for less movement is never armed by the driver, so none of
    the rules above ever apply to them. This is the second guarantee, in case
    the arming is ever changed: every scene stands still, fully readable. */
@@ -1308,7 +1459,13 @@ body {
   .k-s15-row,
   .k-s17-thesis,
   .k-s17-door,
-  .k-drift {
+  .k-drift,
+  .k-cine,
+  .k-parallax,
+  .k-title-cine,
+  .k-shear-a,
+  .k-shear-b,
+  .k-card-cine {
     transform: none !important;
     opacity: 1 !important;
     transition: none !important;

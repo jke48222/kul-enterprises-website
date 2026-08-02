@@ -74,7 +74,7 @@ export default function Scene15Values({ copy }: { copy: Scene15Copy }) {
         color: ink,
       }}
     >
-      <div className="mx-auto w-full max-w-[1296px] px-5 py-[12svh] pb-[20svh] md:px-10 lg:px-24">
+      <div className="k-cine mx-auto w-full max-w-[1296px] px-5 py-[12svh] pb-[20svh] md:px-10 lg:px-24">
         <p className="font-display text-[11px] font-medium uppercase tracking-[0.2em]">
           {copy.kicker}
         </p>

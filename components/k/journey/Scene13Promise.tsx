@@ -78,13 +78,13 @@ export default function Scene13Promise({ copy }: { copy: Scene13Copy }) {
           alt=""
           fill
           sizes="72vw"
-          className="k-s13-day k-drift object-cover"
+          className="k-s13-day k-parallax object-cover"
           style={{ objectPosition: "50% 30%" }}
         />
       </div>
       <p className="sr-only">{plate("s13-first-daylight").alt}</p>
 
-      <div className="relative mx-auto grid w-full max-w-[1296px] grid-cols-1 gap-x-14 px-5 py-[12svh] pb-[20svh] md:grid-cols-[240px_1fr] md:px-10 lg:px-24">
+      <div className="k-cine relative mx-auto grid w-full max-w-[1296px] grid-cols-1 gap-x-14 px-5 py-[12svh] pb-[20svh] md:grid-cols-[240px_1fr] md:px-10 lg:px-24">
         {/* THE FILING LANE. The institution's texture, in the institution's
             voice, at the institution's size. Scenery, not information. */}
         {/* On a phone the ledger follows the words that explain it; on the
@@ -115,8 +115,7 @@ export default function Scene13Promise({ copy }: { copy: Scene13Copy }) {
 
           <h2
             id={`${SCENE.slug}-heading`}
-            data-lit
-            className="k-jl k-jset mt-[6svh] max-w-[16ch] font-display text-[clamp(2rem,4.6vw,4rem)] font-black leading-[1.05] tracking-[-0.02em]"
+            className="k-title-cine mt-[6svh] max-w-[16ch] font-display text-[clamp(2rem,4.6vw,4rem)] font-black leading-[1.05] tracking-[-0.02em]"
           >
             {copy.hinge}
           </h2>

@@ -94,7 +94,7 @@ export default function Scene04Questions({ copy }: { copy: Scene04Copy }) {
           alt=""
           fill
           sizes="100vw"
-          className="k-s04-ground k-drift object-cover"
+          className="k-s04-ground k-parallax object-cover"
           style={{ objectPosition: "50% 60%" }}
         />
         <div className="k-s04-scrim absolute inset-0" />
@@ -104,7 +104,7 @@ export default function Scene04Questions({ copy }: { copy: Scene04Copy }) {
 
       {/* Nothing is centred. The whole scene hangs off one left edge, like a
           page of notes. */}
-      <div className="relative mx-auto w-full max-w-[1296px] px-5 py-[14svh] pb-[20svh] md:px-10 lg:px-24">
+      <div className="k-cine relative mx-auto w-full max-w-[1296px] px-5 py-[14svh] pb-[20svh] md:px-10 lg:px-24">
         <div className="max-w-[26ch]">
           <p data-lit className="k-jl font-text text-[clamp(1.0625rem,1.7vw,1.5rem)] leading-[1.5]">
             {copy.leadA}

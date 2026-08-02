@@ -93,7 +93,7 @@ export default function Scene05Independence({ copy }: { copy: Scene05Copy }) {
             style={{ background: gold ?? "currentColor", opacity: 0.5 }}
           />
         </div>
-        <div className="px-5 pb-[18svh] pt-10">
+        <div className="k-cine px-5 pb-[18svh] pt-10">
           <MobileCopy copy={copy} ink={ink} gold={gold} />
         </div>
       </div>
@@ -115,7 +115,7 @@ export default function Scene05Independence({ copy }: { copy: Scene05Copy }) {
         {/* THE PHOTOGRAPH. Right half only, its left edge crisp on the seam,
             every other edge feathered into the ground. The object-position is
             tuned so the road's painted centre stripe lands on that left edge. */}
-        <div className="pointer-events-none absolute inset-y-[8svh] left-1/2 right-0">
+        <div className="k-shear-b pointer-events-none absolute inset-y-[8svh] left-1/2 right-0">
           <div className="k-s05-mask relative h-full w-full">
             <Image
               src={`/images/journey/${PLATE}.webp`}
@@ -155,8 +155,7 @@ export default function Scene05Independence({ copy }: { copy: Scene05Copy }) {
             </p>
             <h2
               id={`${SCENE.slug}-heading`}
-              data-lit
-              className="k-jl mt-[6svh] font-display text-[clamp(2.5rem,5.5vw,4.75rem)] font-black leading-[1.02] tracking-[-0.025em]"
+              className="k-title-cine mt-[6svh] font-display text-[clamp(2.5rem,5.5vw,4.75rem)] font-black leading-[1.02] tracking-[-0.025em]"
             >
               {copy.mine}
             </h2>
@@ -164,7 +163,7 @@ export default function Scene05Independence({ copy }: { copy: Scene05Copy }) {
 
           {/* PHASE C: the split. Type keeps 120px of dark air off the seam;
               the words never touch the line. */}
-          <div className="mt-[10svh] pr-[8%]">
+          <div className="k-shear-a mt-[10svh] pr-[8%]">
             <p data-lit className="k-jl max-w-[22ch] font-text text-[clamp(1.0625rem,1.7vw,1.5rem)] leading-[1.5]">
               {copy.leaving}
             </p>
