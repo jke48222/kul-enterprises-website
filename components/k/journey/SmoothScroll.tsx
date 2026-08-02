@@ -47,7 +47,11 @@ export default function SmoothScroll() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    let lenis: { raf: (t: number) => void; destroy: () => void } | null = null;
+    let lenis: {
+      raf: (t: number) => void;
+      destroy: () => void;
+      scrollTo: (target: number | string, opts?: { immediate?: boolean }) => void;
+    } | null = null;
     let frame = 0;
     let cancelled = false;
 
@@ -66,7 +70,19 @@ export default function SmoothScroll() {
           // the single most common way these libraries ruin a mobile page.
           smoothWheel: true,
           syncTouch: false,
+          // WITHOUT THIS, EVERY IN-PAGE ANCHOR ON THE ROUTE SILENTLY DIES.
+          // Lenis animates the scroll toward its own target every frame, so a
+          // native anchor jump, including the keyboard user's skip link, gets
+          // written straight back to where it was. This hands anchor clicks to
+          // Lenis so they scroll like everything else does.
+          anchors: true,
         });
+        // The transport control, exposed for the dev harness only: driving the
+        // page to a scene programmatically has to go through Lenis, because
+        // Lenis will override anyone who goes around it. Never in production.
+        if (process.env.NODE_ENV !== "production") {
+          (window as unknown as Record<string, unknown>).__kulLenis = lenis;
+        }
         const raf = (time: number) => {
           lenis?.raf(time);
           frame = requestAnimationFrame(raf);
@@ -81,6 +97,9 @@ export default function SmoothScroll() {
       cancelled = true;
       cancelAnimationFrame(frame);
       lenis?.destroy();
+      if (process.env.NODE_ENV !== "production") {
+        delete (window as unknown as Record<string, unknown>).__kulLenis;
+      }
     };
   }, []);
 
