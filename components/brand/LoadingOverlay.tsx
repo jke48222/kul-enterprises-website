@@ -124,10 +124,19 @@ export default function LoadingOverlay() {
   }, []);
 
   // The gate, and the mount after first paint.
+  //
+  // SESSION-SCOPED AND HOME-ONLY, both on purpose (client direction,
+  // 2 Aug 2026). sessionStorage is per tab: every new tab, window or
+  // browser session that arrives at the front door gets the opening, and
+  // moving around inside one session never replays it. The pathname check
+  // matches the pre-paint cover script in app/layout.tsx: the ceremony
+  // belongs to the home page, and a deep link to /quote or /services is
+  // never made to sit through it.
   useEffect(() => {
+    if (window.location.pathname !== "/") return;
     let seen = true;
     try {
-      seen = localStorage.getItem(SEEN_KEY) === "1";
+      seen = sessionStorage.getItem(SEEN_KEY) === "1";
     } catch {
       // Storage blocked, in a private window for example. Treat as seen, so
       // the opening can never replay on every single visit.
@@ -136,7 +145,7 @@ export default function LoadingOverlay() {
 
     const markSeen = () => {
       try {
-        localStorage.setItem(SEEN_KEY, "1");
+        sessionStorage.setItem(SEEN_KEY, "1");
       } catch {
         /* best effort */
       }

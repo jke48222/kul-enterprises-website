@@ -283,23 +283,28 @@ export function CarrierPacketPanel() {
 /* ------------------------------------------------------------------ */
 
 /**
- * A calling card: one photograph, one line, three facts.
+ * A calling card: the mark, one line, three facts.
  *
- * The photograph is the oldest thing the company owns, which is the only image
- * on the site that earns a place in a menu.
+ * The image is the client's own full-colour lockup, the one file in the
+ * supplied kit that is genuinely transparent (all four corners sample
+ * rgba 0,0,0,0), so it sits on the panel without a box. Resized only,
+ * never trimmed: trim() has cropped into the lion before. The label sits
+ * on the RIGHT of this one panel, by client direction (2 Aug 2026).
  */
 export function AboutPanel() {
   return (
     <div className={PAD}>
-      <PanelLabel>The company</PanelLabel>
+      <span className="block pb-4 text-right font-text text-k-micro uppercase text-k-ink-faint">
+        About KUL
+      </span>
 
       <div className="flex flex-col gap-6 md:flex-row md:items-center md:gap-8">
         <Image
-          src="/images/journey/s02-jamaica-childhood.webp"
+          src="/images/brand/lockup-colour.webp"
           alt=""
-          width={1291}
-          height={1920}
-          className="h-[104px] w-[104px] shrink-0 rounded-2xl object-cover"
+          width={760}
+          height={643}
+          className="h-auto w-[132px] shrink-0"
         />
 
         {/* "One tractor, one driver, and a phone number that reaches the

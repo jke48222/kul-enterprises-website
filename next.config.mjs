@@ -8,6 +8,13 @@ const nextConfig = {
     // Every quality used by an <Image quality={...}> must be listed here:
     // Next 16 makes unlisted values a hard error (15.5 already warns).
     qualities: [75],
+    // FOR THE VISUAL EDITOR'S LIVE PREVIEW ONLY. Public pages never render
+    // this host: lib/tina.ts folds every assets.tina.io URL back to the
+    // repo's own /images path before content reaches a page. But inside
+    // /admin, useTina re-fetches over its own connection and hands the raw
+    // CDN URLs straight to next/image, and without this entry the optimiser
+    // answers 400 and the editor previews broken images.
+    remotePatterns: [{ protocol: "https", hostname: "assets.tina.io" }],
     // The hero + story artwork are first-party local SVG stand-ins
     // (REPLACEABLE ASSETs) served via next/image. Locked down with a CSP and
     // attachment disposition per Next.js guidance.

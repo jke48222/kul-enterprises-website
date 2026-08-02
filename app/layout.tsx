@@ -223,7 +223,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html:
               "(function(){try{" +
-              "if(localStorage.getItem('kul-intro-seen')==='1')return;" +
+              // Home only, once per SESSION: a new tab or browser plays the
+              // opening again; a broker deep-linked to /quote never sees it.
+              "if(location.pathname!=='/')return;" +
+              "if(sessionStorage.getItem('kul-intro-seen')==='1')return;" +
               "var d=document.createElement('div');d.id='kul-intro-cover';" +
               "d.setAttribute('aria-hidden','true');" +
               "d.style.cssText='position:fixed;inset:0;z-index:99;background:#050301;pointer-events:none';" +
