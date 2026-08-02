@@ -7,6 +7,14 @@ in the browser (desktop; the mobile pass stands on the measured 31 July evidence
 code has not contradicted since). Nothing was fixed during the audit; this document is the
 work list.
 
+**RESOLVED 2 August 2026, same day.** Every finding below was fixed in five commits
+(`a2d1780` harden, `52456cf` distill, `40ea447` clarify, `dfad76c` adapt, `9b8ea29`
+polish), verified in Chrome and by a clean production build. Two items remain open by
+their nature, both client-side: the field-note transcript needs Mark's own words (the
+field, the dialog rendering, and the briefing request are in place), and the MC number
+remains his confirmation. ShapeGrid's motion gate still samples once at mount; its CSS
+layer responds live, and the residue is recorded here rather than half-fixed.
+
 One environment note so nobody re-litigates ghosts: the Chrome window was occluded during
 the run, which freezes CSS transitions, delays IntersectionObserver, and leaves loaded
 images unpainted. Everything that looked broken for that reason was re-verified against the
