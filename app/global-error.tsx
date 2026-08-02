@@ -2,16 +2,20 @@
 
 /**
  * Catastrophic error boundary, the only thing that catches a throw in the
- * ROOT LAYOUT itself (design bible §4.11). It REPLACES `app/layout.tsx`
- * entirely, so it must render its own <html> and <body>, and it gets no
- * chrome, no fonts and no Tailwind guarantee: if the layout died, the
- * className that carries --font-omnibus / --font-mont never reached <html>.
+ * ROOT LAYOUT itself. It REPLACES `app/layout.tsx` entirely, so it must
+ * render its own <html> and <body>, and it gets no chrome, no fonts and no
+ * Tailwind guarantee: if the layout died, none of the site's CSS reached
+ * this document.
  *
- * Everything is therefore inline-styled against the raw brand hexes
- * (ink #0B0B0B, cream #E3DED0, paper #F7F5F0, gold #B59352) with a system
- * font stack, so this screen renders correctly with zero external CSS. Kept
- * deliberately minimal, because every dependency added here is another thing that
- * can fail at the exact moment nothing else is working.
+ * Everything is therefore inline-styled against the k system's own raw
+ * values (void #000000, on-dark #FCFCFC, on-dark-soft #A8A8A8, gold-lit
+ * #D6A145) with a system font stack, so this screen renders correctly with
+ * zero external CSS and still looks like the site that broke. Kept
+ * deliberately minimal, because every dependency added here is another thing
+ * that can fail at the exact moment nothing else is working. The copy is
+ * hardcoded for the same reason, as the one sanctioned exception to the
+ * everything-in-the-CMS rule: this screen exists for the moment the rest of
+ * the machine is not available.
  *
  * In practice this almost never renders; `app/error.tsx` handles page-level
  * failures with the full design system. Note that global-error is production
@@ -35,8 +39,8 @@ export default function GlobalError({
           minHeight: "100vh",
           display: "flex",
           alignItems: "center",
-          backgroundColor: "#0B0B0B",
-          color: "#F7F5F0",
+          backgroundColor: "#000000",
+          color: "#FCFCFC",
           fontFamily: SANS,
           WebkitFontSmoothing: "antialiased",
         }}
@@ -61,7 +65,7 @@ export default function GlobalError({
               fontWeight: 600,
               letterSpacing: "0.22em",
               textTransform: "uppercase",
-              color: "rgba(247, 245, 240, 0.6)",
+              color: "rgba(252, 252, 252, 0.62)",
             }}
           >
             <span
@@ -82,7 +86,7 @@ export default function GlobalError({
               lineHeight: 0.9,
               letterSpacing: "-0.01em",
               fontWeight: 700,
-              color: "#E3DED0",
+              color: "#FCFCFC",
             }}
           >
             The whole rig
@@ -95,7 +99,7 @@ export default function GlobalError({
               maxWidth: "52ch",
               fontSize: "1.0625rem",
               lineHeight: 1.55,
-              color: "rgba(247, 245, 240, 0.7)",
+              color: "#A8A8A8",
             }}
           >
             KUL Enterprises hit an unexpected error. Reload the page to get
@@ -121,8 +125,8 @@ export default function GlobalError({
                 padding: "0 24px",
                 border: "none",
                 borderRadius: "9999px",
-                backgroundColor: "#B59352",
-                color: "#0B0B0B",
+                backgroundColor: "#D6A145",
+                color: "#000000",
                 fontFamily: "inherit",
                 fontSize: "12px",
                 fontWeight: 600,
@@ -147,8 +151,8 @@ export default function GlobalError({
                 justifyContent: "center",
                 padding: "0 24px",
                 borderRadius: "9999px",
-                border: "1px solid rgba(247, 245, 240, 0.3)",
-                color: "#F7F5F0",
+                border: "1px solid rgba(252, 252, 252, 0.3)",
+                color: "#FCFCFC",
                 fontSize: "12px",
                 fontWeight: 600,
                 letterSpacing: "0.22em",
@@ -168,7 +172,7 @@ export default function GlobalError({
                 fontWeight: 500,
                 letterSpacing: "0.18em",
                 textTransform: "uppercase",
-                color: "rgba(247, 245, 240, 0.4)",
+                color: "#8C8C8C",
               }}
             >
               Reference {error.digest}

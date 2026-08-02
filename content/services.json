@@ -22,8 +22,8 @@
       "laneNote": "Drop and hook",
       "leadTime": "24 to 48 hrs",
       "bestForShort": "Shippers with trailers",
-      "card": "/images/services/power-only.jpg",
-      "wide": "/images/services/power-only-wide.jpg",
+      "card": "/images/services/power-only.webp",
+      "wide": "/images/services/power-only-wide.webp",
       "dimensions": [
         {
           "ref": "A",
@@ -79,8 +79,8 @@
       "laneNote": "Regional or long haul",
       "leadTime": "24 to 48 hrs",
       "bestForShort": "Retail and packaged goods",
-      "card": "/images/services/dry-van.jpg",
-      "wide": "/images/services/dry-van-wide.jpg",
+      "card": "/images/services/dry-van.webp",
+      "wide": "/images/services/dry-van-wide.webp",
       "dimensions": [
         {
           "ref": "A",
@@ -136,8 +136,8 @@
       "laneNote": "Cold chain intact",
       "leadTime": "48 hrs",
       "bestForShort": "Produce and chilled food",
-      "card": "/images/services/reefer.jpg",
-      "wide": "/images/services/reefer-wide.jpg",
+      "card": "/images/services/reefer.webp",
+      "wide": "/images/services/reefer-wide.webp",
       "dimensions": [
         {
           "ref": "A",
@@ -193,8 +193,8 @@
       "laneNote": "Fixed schedule",
       "leadTime": "By contract",
       "bestForShort": "Weekly distribution runs",
-      "card": "/images/services/dedicated.jpg",
-      "wide": "/images/services/dedicated-wide.jpg",
+      "card": "/images/services/dedicated.webp",
+      "wide": "/images/services/dedicated-wide.webp",
       "dimensions": [
         {
           "ref": "A",
@@ -250,8 +250,8 @@
       "laneNote": "Same day where possible",
       "leadTime": "Same day",
       "bestForShort": "Georgia and neighboring states",
-      "card": "/images/services/regional.jpg",
-      "wide": "/images/services/regional-wide.jpg",
+      "card": "/images/services/regional.webp",
+      "wide": "/images/services/regional-wide.webp",
       "dimensions": [
         {
           "ref": "A",
@@ -307,8 +307,8 @@
       "laneNote": "Direct routing",
       "leadTime": "Immediate",
       "bestForShort": "Line down and hot loads",
-      "card": "/images/services/expedited.jpg",
-      "wide": "/images/services/expedited-wide.jpg",
+      "card": "/images/services/expedited.webp",
+      "wide": "/images/services/expedited-wide.webp",
       "dimensions": [
         {
           "ref": "A",
@@ -364,8 +364,8 @@
       "laneNote": "Planned before dispatch",
       "leadTime": "48 to 72 hrs",
       "bestForShort": "Cross country freight",
-      "card": "/images/services/otr.jpg",
-      "wide": "/images/services/otr-wide.jpg",
+      "card": "/images/services/otr.webp",
+      "wide": "/images/services/otr-wide.webp",
       "dimensions": [
         {
           "ref": "A",

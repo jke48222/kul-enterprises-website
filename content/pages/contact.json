@@ -8,7 +8,7 @@
     "lede": "There is no phone tree and no ticket queue. The number below reaches the person who drives the truck."
   },
   "locationCard": {
-    "image": "/images/services/regional-wide.jpg",
+    "image": "/images/services/regional-wide.webp",
     "imageAlt": "An open highway running toward distant hills",
     "heading": "{location}",
     "addressLines": ["{city}, Georgia 30052", "{serviceArea}"],
