@@ -17,11 +17,12 @@ import { useLit } from "./useLit";
  * captions on the photo, pagination) is all dropped: this seam is narrative.
  *
  * The layout divides down the centre while he is finding out who he is, and
- * the words close back over the seam when he claims both halves. The gold
- * hairline that splits the screen sits on the painted centre line of the road
- * in the photograph beside it: the road's line and the page's line are the
- * same line. That is the whole composition, and it is why the photograph's
- * object-position is hand-tuned and must not be re-cropped casually.
+ * the words close back over the seam when he claims both halves. The seam is
+ * the page's own line; the photograph beside it is cropped to the road's
+ * body. (An earlier cut aligned the road's painted centre line onto the seam
+ * itself. It was measured, it landed at one viewport geometry, and the audit
+ * caught it drifting at others, which its spec predicted would read as an
+ * accident. The crop note on the Image below records the retreat.)
  *
  * "Some were good." and "Some weren't." are byte-for-byte the same type spec,
  * the same distance off the seam, one on each side. The site refuses to rank
@@ -121,14 +122,16 @@ export default function Scene05Independence({ copy }: { copy: Scene05Copy }) {
               alt=""
               fill
               sizes="50vw"
-              // 62% was MEASURED, not guessed: the painted centre line was
-              // located by sampling the file (source x ~890 at mid frame) and
-              // the offset solved so it crosses the seam at the panel's
-              // vertical middle. Perspective tilts the line, so it can only be
-              // exact at one height; mid panel is where the eye reads the
-              // rhyme. Re-run the measurement if this file is re-exported.
+              // THE STRIPE-ON-SEAM RHYME WAS TRIED AND RETIRED. The painted
+              // centre line was measured onto the seam (62% at one panel
+              // geometry), and the 2 Aug audit found it drifting visibly off
+              // at other viewport widths: a rhyme that only sometimes lands
+              // reads as an accident, which the spec itself predicted. Its
+              // own escape hatch applies: crop to the road's body instead.
+              // 74% keeps the painted line safely inside the panel at every
+              // width, so the seam is the page's line and nothing competes.
               className="k-s05-photo object-cover"
-              style={{ objectPosition: "62% 62%" }}
+              style={{ objectPosition: "74% 62%" }}
             />
           </div>
           {/* The plate label sits on the photo panel's own ground, 24px in

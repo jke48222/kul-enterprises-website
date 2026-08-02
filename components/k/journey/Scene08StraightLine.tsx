@@ -121,7 +121,13 @@ export default function Scene08StraightLine({ copy }: { copy: Scene08Copy }) {
             <p className="mb-3 pl-0 font-display text-[11px] font-medium uppercase tracking-[0.1em] md:pl-[48px]">
               <span className="tabular-nums">{plateLabel(PLATE)}</span>
             </p>
-            <div className="k-s08-frame relative -ml-5 h-[38svh] w-[92%] max-w-[720px] md:-ml-10 md:h-[46svh] lg:-ml-24">
+            {/* ml 50%-50vw is the one margin that lands this element's
+                left edge exactly on the viewport's, whatever the container
+                caps at; the width buys the bleed distance back and then the
+                column's own measure. Fixed negative margins only reached
+                the edge below the container cap, so on wide screens the
+                "bleed" floated with a gutter. */}
+            <div className="k-s08-frame relative ml-[calc(50%-50vw)] h-[38svh] w-[calc(50vw-50%+min(92%,624px))] md:h-[46svh]">
               <Image
                 src={`/images/journey/${PLATE}.webp`}
                 alt={photo.alt}
