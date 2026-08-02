@@ -51,6 +51,10 @@ export async function sendViaResend({
   text: string;
   replyTo?: string;
 }): Promise<{ ok: boolean; delivered: boolean }> {
+  // The routes build subjects out of posted fields (a name, a lane), and a
+  // posted value can legally contain a newline. A mail subject cannot: it is
+  // one header line, so it is flattened here, once, for every caller.
+  subject = subject.replace(/[\r\n]+/g, " ").trim();
   const key = process.env.RESEND_API_KEY;
 
   if (!key) {
