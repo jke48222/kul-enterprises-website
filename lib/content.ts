@@ -29,7 +29,7 @@ import { site } from "@/lib/site";
  * fill() swaps the tokens in at render. The client can rewrite the whole
  * sentence, move the token, or drop it entirely, and the fact still comes
  * from Business Facts. Every field that accepts tokens says so in its CMS
- * description, and TOKEN_HELP below is the line those descriptions use.
+ * description.
  *
  * An unknown token is left alone rather than blanked, so a typo shows up on
  * the page as {locaton} instead of silently deleting itself.
@@ -47,10 +47,6 @@ const TOKENS: Record<string, string> = {
   mc: site.mc,
   serviceArea: site.serviceArea,
 };
-
-/** Pasted into the CMS description of any field that accepts tokens. */
-export const TOKEN_HELP =
-  "You can drop a business fact into this text with a token: {name}, {location}, {city}, {state}, {phone}, {email}, {usdot}, {mc}. They fill in from Business Facts, so you never have to retype a phone number here.";
 
 /**
  * Anything a CMS field can hand back.
@@ -70,11 +66,6 @@ export function fill(text: CmsText): string {
   return text.replace(/\{(\w+)\}/g, (whole, key: string) =>
     key in TOKENS ? TOKENS[key] : whole,
   );
-}
-
-/** fill() over a list, for the bullet arrays the CMS stores. */
-export function fillAll(items: readonly CmsText[] | null | undefined): string[] {
-  return (items ?? []).map((item) => fill(item));
 }
 
 /**

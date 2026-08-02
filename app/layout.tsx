@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Montserrat, Archivo, Inter } from "next/font/google";
+import { Archivo, Inter } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { MotionConfig } from "framer-motion";
 import "./globals.css";
@@ -9,14 +9,6 @@ import RouteTransition from "@/components/k/RouteTransition";
 import LoadingOverlay from "@/components/brand/LoadingOverlay";
 import Nav from "@/components/k/Nav";
 import Footer from "@/components/k/Footer";
-
-// Montserrat is the site-wide body font (intro overlay included).
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-mont",
-  display: "swap",
-});
 
 /**
  * Design system faces. Archivo Black 900 is the display voice: a squared
@@ -173,7 +165,7 @@ export default function RootLayout({
       // Third-party extensions routinely stamp attributes on <html> before
       // hydration; suppress React's root attribute mismatch warning for them.
       suppressHydrationWarning
-      className={`${archivo.variable} ${inter.variable} ${montserrat.variable}`}
+      className={`${archivo.variable} ${inter.variable} `}
     >
       <head>
         {/* ================================================================
@@ -247,7 +239,7 @@ export default function RootLayout({
         />
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[110] focus:bg-gold focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-ink"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[110] focus:bg-k-gold-lit focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-k-void"
         >
           Skip to content
         </a>

@@ -332,5 +332,3 @@ export function plateLabel(file: string): string {
  */
 export const NO_PLATE = "No photograph exists";
 
-/** Total scroll length, so the budget can be asserted in a test or a check. */
-export const TOTAL_VH = SCENES.reduce((sum, s) => sum + s.vh, 0);
