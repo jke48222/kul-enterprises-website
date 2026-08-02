@@ -10,7 +10,7 @@
     },
     {
       "q": "Are you licensed and insured?",
-      "a": "Yes. KUL operates under USDOT 7638788 and MC 66389691, with auto liability and cargo coverage. Check the authority on the FMCSA SAFER system whenever you like. A certificate of insurance naming your company as holder is issued by our insurance agent on request."
+      "a": "Yes. KUL operates under USDOT {usdot} and MC {mc}, with auto liability and cargo coverage. Check the authority on the FMCSA SAFER system whenever you like. A certificate of insurance naming your company as holder is issued by our insurance agent on request."
     },
     {
       "q": "Where do you run?",

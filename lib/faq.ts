@@ -1,4 +1,5 @@
 import faq from "@/content/faq.json";
+import { fill } from "@/lib/content";
 
 /**
  * THE QUESTIONS, AND THE STRUCTURED DATA THAT MIRRORS THEM.
@@ -19,7 +20,17 @@ import faq from "@/content/faq.json";
 
 export type FaqItem = { q: string; a: string };
 
-export const FAQ_ITEMS = faq.items as FaqItem[];
+/**
+ * Filled ONCE, here, for both consumers. The answers may carry {tokens}
+ * ({usdot}, {mc}, {location} and the rest), so an authority-number edit in
+ * Business Facts reaches the FAQ and its JSON-LD without anyone remembering
+ * this file exists. The literals this replaced were the one place on the
+ * site a number was typed twice.
+ */
+export const FAQ_ITEMS: FaqItem[] = (faq.items as FaqItem[]).map((item) => ({
+  q: fill(item.q),
+  a: fill(item.a),
+}));
 
 /** The same eight questions as schema.org FAQPage. */
 export function faqJsonLd() {

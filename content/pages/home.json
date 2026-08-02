@@ -76,7 +76,7 @@
     "intro": "If yours is not here, call dispatch on {phone}."
   },
   "journey": {
-    "eyebrow": "Six chapters · the story so far",
+    "eyebrow": "Five acts · the story so far",
     "heading": "Before the first truck, there was a boy on a plane.",
     "body": "Jamaica. Construction sites every school holiday. The Air Force. Eleven years driving for other people. The Journey is the long version, in Mark's own words.",
     "cta": { "label": "Begin the journey", "href": "/journey" },

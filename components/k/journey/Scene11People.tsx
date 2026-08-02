@@ -283,9 +283,12 @@ export default function Scene11People({ copy }: { copy: Scene11Copy }) {
                 )}
               </div>
               <p className="mt-3 flex items-baseline gap-4 font-display text-[11px] font-medium uppercase leading-[1.5] tracking-[0.1em]">
-                <span className="tabular-nums">
-                  {current.plateFile ? plateLabel(current.plateFile) : "PL. —"}
-                </span>
+                {/* An empty slot carries no plate label at all: the note
+                    beside it already says the honest sentence, and a dash
+                    would be the one banned character on the page. */}
+                {current.plateFile ? (
+                  <span className="tabular-nums">{plateLabel(current.plateFile)}</span>
+                ) : null}
                 <span>{current.note ?? NO_PLATE}</span>
               </p>
             </div>
