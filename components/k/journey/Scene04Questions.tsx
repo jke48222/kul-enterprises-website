@@ -124,7 +124,11 @@ export default function Scene04Questions({ copy }: { copy: Scene04Copy }) {
               <span
                 aria-hidden="true"
                 className="k-s04-rule mt-3 block h-px origin-left"
-                style={{ width: line.rule, background: gold ?? "currentColor", opacity: 0.7 }}
+                // The long rules are meant to leave the frame, not to widen
+                // it: capped at the container plus its own right padding, so
+                // the last one reaches the viewport edge exactly and nothing
+                // ever creates a horizontal scroll on a phone.
+                style={{ width: line.rule, maxWidth: "calc(100% + 20px)", background: gold ?? "currentColor", opacity: 0.7 }}
               />
             </li>
             );

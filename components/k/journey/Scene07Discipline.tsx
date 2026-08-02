@@ -88,7 +88,10 @@ export default function Scene07Discipline({ copy }: { copy: Scene07Copy }) {
       id={SCENE.slug}
       ref={trackRef as React.RefObject<HTMLElement>}
       aria-labelledby="discipline-heading"
-      className="relative"
+      // overflow-x-clip: the drilled words begin at wdth 125, wide and slack,
+      // and the widest can stand past a phone's edge until the scroll
+      // compresses it. clip (not hidden) so no scroll container is created.
+      className="relative overflow-x-clip"
       style={{
         height: `${SCENE.vh}svh`,
         background: `linear-gradient(180deg, ${SCENE.from} 0%, ${SCENE.to} 100%)`,
