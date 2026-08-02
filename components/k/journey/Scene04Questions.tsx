@@ -1,6 +1,7 @@
 "use client";
 
-import { SCENES, inkFor, goldFor } from "@/lib/journey-spine";
+import Image from "next/image";
+import { SCENES, inkFor, goldFor, plate } from "@/lib/journey-spine";
 import Furniture from "./Furniture";
 import { useLit } from "./useLit";
 
@@ -58,26 +59,52 @@ export type Scene04Copy = {
   lesson: string;
 };
 
+const PLATE = "s04-dawn-road-mist";
+
 export default function Scene04Questions({ copy }: { copy: Scene04Copy }) {
   const rootRef = useLit<HTMLElement>();
   const ink = inkFor(SCENE);
   const gold = goldFor(SCENE);
+  const photo = plate(PLATE);
 
   return (
     <section
       id={SCENE.slug}
       ref={rootRef}
       aria-labelledby={`${SCENE.slug}-heading`}
-      className="relative"
+      className="relative overflow-hidden"
       style={{
         minHeight: `${SCENE.vh}svh`,
         background: `linear-gradient(180deg, ${SCENE.from} 0%, ${SCENE.to} 100%)`,
         color: ink,
       }}
     >
+      {/* THE GROUND IS THE PHOTOGRAPH NOW. The screenplay sets this scene on
+          a "quiet road to horizon", and this is that road: full bleed,
+          graded down into the pre-dawn ramp, feathered top and bottom so the
+          sunrise passes through it unbroken, drifting slowly as the scene
+          crosses the viewport. The questions sit over a scrim column
+          measured against the scene's own ground colour, so every lit-floor
+          contrast sum still holds against known pixels. The first cut kept
+          this photograph as a small plate at the foot of a text column, and
+          the client read the scene as a slide. */}
+      <div aria-hidden="true" className="absolute inset-0">
+        <Image
+          src={`/images/journey/${PLATE}.webp`}
+          alt=""
+          fill
+          sizes="100vw"
+          className="k-s04-ground k-drift object-cover"
+          style={{ objectPosition: "50% 60%" }}
+        />
+        <div className="k-s04-scrim absolute inset-0" />
+      </div>
+      {/* The real caption for ears; the visible frame is presentation. */}
+      <p className="sr-only">{photo.alt}</p>
+
       {/* Nothing is centred. The whole scene hangs off one left edge, like a
           page of notes. */}
-      <div className="mx-auto w-full max-w-[1296px] px-5 py-[14svh] pb-[20svh] md:px-10 lg:px-24">
+      <div className="relative mx-auto w-full max-w-[1296px] px-5 py-[14svh] pb-[20svh] md:px-10 lg:px-24">
         <div className="max-w-[26ch]">
           <p data-lit className="k-jl font-text text-[clamp(1.0625rem,1.7vw,1.5rem)] leading-[1.5]">
             {copy.leadA}
@@ -150,7 +177,7 @@ export default function Scene04Questions({ copy }: { copy: Scene04Copy }) {
         </div>
       </div>
 
-      <Furniture scene={SCENE} />
+      <Furniture scene={SCENE} plateFile={PLATE} />
     </section>
   );
 }

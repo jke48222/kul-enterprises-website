@@ -128,6 +128,13 @@ export default function Scene12MoreThan({ copy }: { copy: Scene12Copy }) {
       }}
     >
       <div ref={stageRef} className="sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden">
+        {/* The screenplay's closing beat for this scene: "first sunlight
+            crosses the highway." It is done as light and only light, rising
+            with the last stretch of the same --s12-p every beat reads, in
+            the one scene whose rules forbid movement: opacity is the whole
+            event. The default is sunlight arrived. */}
+        <div aria-hidden="true" className="k-s12-light pointer-events-none absolute inset-0" />
+
         <div className="mx-auto grid w-full max-w-[1296px] grid-cols-1 gap-x-10 px-5 md:grid-cols-[200px_1fr] md:px-10 lg:px-24">
           {/* THE MARGINALIA. Stage directions in his own voice, hung in the
               margin like a documentary page rather than stacked. */}

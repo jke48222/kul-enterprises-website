@@ -107,7 +107,7 @@ export default function Scene06Challenge({ copy }: { copy: Scene06Copy }) {
               alt={`No photograph exists of this decision. The photograph shown is a road view taken by Mark Brown: ${photo.alt}`}
               fill
               sizes="(min-width: 768px) 560px, 100vw"
-              className="k-s06-photo object-cover"
+              className="k-s06-photo k-drift object-cover"
               style={{ objectPosition: "center 53%" }}
             />
             {/* The line he drew, resting on the ridge. Its stylesheet default

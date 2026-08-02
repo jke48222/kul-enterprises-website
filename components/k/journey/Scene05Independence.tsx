@@ -84,7 +84,7 @@ export default function Scene05Independence({ copy }: { copy: Scene05Copy }) {
             alt={photo.alt}
             fill
             sizes="100vw"
-            className="k-s05-photo object-cover"
+            className="k-s05-photo k-drift object-cover"
             style={{ objectPosition: "50% 62%" }}
           />
           <span
@@ -130,7 +130,7 @@ export default function Scene05Independence({ copy }: { copy: Scene05Copy }) {
               // own escape hatch applies: crop to the road's body instead.
               // 74% keeps the painted line safely inside the panel at every
               // width, so the seam is the page's line and nothing competes.
-              className="k-s05-photo object-cover"
+              className="k-s05-photo k-drift object-cover"
               style={{ objectPosition: "74% 62%" }}
             />
           </div>

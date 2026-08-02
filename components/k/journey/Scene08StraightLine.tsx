@@ -133,7 +133,7 @@ export default function Scene08StraightLine({ copy }: { copy: Scene08Copy }) {
                 alt={photo.alt}
                 fill
                 sizes="(min-width: 768px) 720px, 100vw"
-                className="k-s08-photo object-cover"
+                className="k-s08-photo k-drift object-cover"
                 style={{ objectPosition: "42% 60%" }}
               />
               <span aria-hidden="true" className="k-s08-scrim absolute inset-0" />

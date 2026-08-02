@@ -1,6 +1,7 @@
 "use client";
 
-import { SCENES, inkFor } from "@/lib/journey-spine";
+import Image from "next/image";
+import { SCENES, inkFor, plate } from "@/lib/journey-spine";
 import Furniture from "./Furniture";
 import { useLit } from "./useLit";
 
@@ -60,14 +61,30 @@ export default function Scene13Promise({ copy }: { copy: Scene13Copy }) {
       id={SCENE.slug}
       ref={rootRef}
       aria-labelledby={`${SCENE.slug}-heading`}
-      className="relative"
+      className="relative overflow-hidden"
       style={{
         minHeight: `${SCENE.vh}svh`,
         background: `linear-gradient(180deg, ${SCENE.from} 0%, ${SCENE.to} 100%)`,
         color: ink,
       }}
     >
-      <div className="mx-auto grid w-full max-w-[1296px] grid-cols-1 gap-x-14 px-5 py-[12svh] pb-[20svh] md:grid-cols-[240px_1fr] md:px-10 lg:px-24">
+      {/* FIRST FULL DAYLIGHT, the screenplay's setting for the promise. The
+          sky photograph is LIGHTENED toward the ground rather than darkened,
+          so ink holds over every pixel of it, and it is double-feathered so
+          it emerges from the page. It drifts slowly; the promise does not. */}
+      <div aria-hidden="true" className="absolute inset-y-0 right-0 w-full md:w-[72%]">
+        <Image
+          src="/images/journey/s13-first-daylight.webp"
+          alt=""
+          fill
+          sizes="72vw"
+          className="k-s13-day k-drift object-cover"
+          style={{ objectPosition: "50% 30%" }}
+        />
+      </div>
+      <p className="sr-only">{plate("s13-first-daylight").alt}</p>
+
+      <div className="relative mx-auto grid w-full max-w-[1296px] grid-cols-1 gap-x-14 px-5 py-[12svh] pb-[20svh] md:grid-cols-[240px_1fr] md:px-10 lg:px-24">
         {/* THE FILING LANE. The institution's texture, in the institution's
             voice, at the institution's size. Scenery, not information. */}
         {/* On a phone the ledger follows the words that explain it; on the
@@ -135,7 +152,7 @@ export default function Scene13Promise({ copy }: { copy: Scene13Copy }) {
         </div>
       </div>
 
-      <Furniture scene={SCENE} />
+      <Furniture scene={SCENE} plateFile="s13-first-daylight" />
     </section>
   );
 }

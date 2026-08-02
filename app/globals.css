@@ -1158,6 +1158,128 @@ body {
   background: #a05c08;
 }
 
+/* --- The route thread: one line down the whole journey ---------------- */
+/*
+ * Two layers sharing one gradient: headlight gold through the night half,
+ * ink from the sunrise on, because the spine's arithmetic forbids gold on
+ * the mid-grey scenes. The crossing stops are measured from scene 10's real
+ * position at runtime; these defaults land it where the spine's budgets put
+ * it if the script never runs. The travelled layer's default is FULLY DRAWN
+ * (--k-thread-clip: 0%), so no-JS and reduced motion see the whole route.
+ */
+.k-thread {
+  background: linear-gradient(
+    180deg,
+    #d6a145 0%,
+    #d6a145 var(--k-thread-cross-a, 56%),
+    #12141a var(--k-thread-cross-b, 62%),
+    #12141a 100%
+  );
+}
+.k-thread-faint {
+  opacity: 0.16;
+}
+.k-thread-bright {
+  clip-path: inset(0 0 var(--k-thread-clip, 0%) 0);
+  opacity: 0.55;
+}
+
+/* --- The plates breathe ------------------------------------------------ */
+/*
+ * A slow push-in on still photographs as their scene crosses the viewport.
+ * Compositor-only, scroll-driven where the browser can do that without a
+ * script, never applied to a playing film (resampling a decoded frame is
+ * the flicker scene 1 already paid for once). Everywhere else the plate is
+ * simply still, which is a complete state, not a fallback.
+ */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .k-drift {
+      animation: k-drift linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
+@keyframes k-drift {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1.09);
+  }
+}
+
+/* --- Scene 03, warm morning light -------------------------------------- */
+/* The screenplay sets this scene in "warm morning light" and no photograph
+   of it exists, so the warmth is done AS light: a low breathing glow in the
+   scene's own gold, ambient like the footer's, never carrying information. */
+.k-s03-warmth {
+  background: radial-gradient(
+    90% 60% at 30% 100%,
+    rgba(214, 161, 69, 0.14) 0%,
+    rgba(214, 161, 69, 0) 70%
+  );
+  animation: k-s03-breathe 14s ease-in-out infinite alternate;
+}
+@keyframes k-s03-breathe {
+  from {
+    opacity: 0.55;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* --- Scene 04, the road in mist as the ground -------------------------- */
+/* The photograph the screenplay assigns this scene ("quiet road to
+   horizon"), full bleed under the stack: graded down into the pre-dawn
+   ramp, feathered top and bottom so the sunrise passes through unbroken,
+   and scrimmed along the text column so every lit-floor sum still holds
+   against a known dark ground rather than a photograph's pixels. */
+.k-s04-ground {
+  filter: brightness(0.52) saturate(0.72) contrast(1.06);
+  mask-image: linear-gradient(180deg, transparent 0, #000 14%, #000 84%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 14%, #000 84%, transparent 100%);
+}
+.k-s04-scrim {
+  background: linear-gradient(
+    90deg,
+    rgba(16, 18, 22, 0.9) 0%,
+    rgba(16, 18, 22, 0.55) 44%,
+    rgba(16, 18, 22, 0.05) 100%
+  );
+}
+
+/* --- Scene 12, first sunlight ------------------------------------------ */
+/* The screenplay's beat at the end of the held statement: "first sunlight
+   crosses the highway." Done as light and only light, on the scene whose
+   rules forbid transforms: opacity is a pure function of the same --s12-p
+   every beat reads, and the default (driver never ran) is sunlight arrived. */
+.k-s12-light {
+  opacity: clamp(0, (var(--s12-p, 1) - 0.86) / 0.14 * 0.5, 0.5);
+  background: radial-gradient(
+    120% 90% at 78% 0%,
+    rgba(255, 213, 138, 0.9) 0%,
+    rgba(255, 213, 138, 0) 55%
+  );
+}
+
+/* --- Scene 13, the daylight band ---------------------------------------- */
+/* First full daylight behind the promise: lightened toward the ground
+   rather than darkened, so ink stays safe over every pixel of it, and
+   double-feathered so it emerges from the page rather than sitting on it. */
+.k-s13-day {
+  filter: brightness(1.12) saturate(0.55);
+  opacity: 0.5;
+  mask-image: linear-gradient(180deg, #000 0, #000 55%, transparent 100%),
+    linear-gradient(90deg, transparent 0, #000 25%, #000 100%);
+  mask-composite: intersect;
+  -webkit-mask-image: linear-gradient(180deg, #000 0, #000 55%, transparent 100%),
+    linear-gradient(90deg, transparent 0, #000 25%, #000 100%);
+  -webkit-mask-composite: source-in;
+}
+
 /* Anybody who asked for less movement is never armed by the driver, so none of
    the rules above ever apply to them. This is the second guarantee, in case
    the arming is ever changed: every scene stands still, fully readable. */
@@ -1185,10 +1307,14 @@ body {
   .k-s13-tick,
   .k-s15-row,
   .k-s17-thesis,
-  .k-s17-door {
+  .k-s17-door,
+  .k-drift {
     transform: none !important;
     opacity: 1 !important;
     transition: none !important;
+    animation: none !important;
+  }
+  .k-s03-warmth {
     animation: none !important;
   }
   /* The two settled marks whose finished state is not opacity 1. */

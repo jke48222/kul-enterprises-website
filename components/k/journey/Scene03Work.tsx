@@ -74,7 +74,12 @@ export default function Scene03Work({ copy }: { copy: Scene03Copy }) {
         color: ink,
       }}
     >
-      <div className="mx-auto w-full max-w-[1296px] px-5 py-[16svh] pb-[22svh] md:px-10 lg:px-24">
+      {/* The screenplay's "warm morning light", done as light: no photograph
+          of these summers exists and none may stand in, but the ground can
+          hold the warmth of the hour they happened in. */}
+      <div aria-hidden="true" className="k-s03-warmth pointer-events-none absolute inset-0" />
+
+      <div className="relative mx-auto w-full max-w-[1296px] px-5 py-[16svh] pb-[22svh] md:px-10 lg:px-24">
         {/* THE ARRIVAL. Three short declaratives, quiet, plain. */}
         <div className="max-w-[30ch]">
           {copy.opening.map((line) => (
