@@ -235,7 +235,11 @@ export default function RootLayout({
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{
+            // Editors are trusted, but a "<" in CMS copy must still never end
+            // the script tag early. \u003c renders identically inside JSON.
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          }}
         />
         <a
           href="#main"

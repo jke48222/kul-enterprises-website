@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useReducedMotionLive } from "@/components/k/useReducedMotionLive";
 
 /**
  * HOW A PINNED SCENE KNOWS HOW FAR THROUGH ITSELF IT IS.
@@ -67,6 +68,7 @@ export function useStageProgress(driver: StageDriver) {
   /** Kept in a ref so changing the callback never tears the listener down. */
   const driverRef = useRef(driver);
   driverRef.current = driver;
+  const reduced = useReducedMotionLive();
 
   useEffect(() => {
     const track = trackRef.current;
@@ -75,7 +77,8 @@ export function useStageProgress(driver: StageDriver) {
 
     // Nobody who asked for less movement is armed or driven. The stylesheet
     // defaults are the finished scene, so they already have everything.
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Observed live via the dependency below.
+    if (reduced) return;
 
     // THE SCENE IS ONLY ALLOWED TO HIDE ANYTHING ONCE WE ARE CERTAIN WE ARE
     // RUNNING. Anything faint is scoped to this class, so it cannot apply
@@ -114,7 +117,7 @@ export function useStageProgress(driver: StageDriver) {
       window.removeEventListener("resize", onScroll);
       track.classList.remove("is-armed");
     };
-  }, []);
+  }, [reduced]);
 
   return { trackRef, stageRef };
 }

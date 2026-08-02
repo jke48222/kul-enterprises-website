@@ -160,7 +160,7 @@ export default function Scene09Trust({ copy }: { copy: Scene09Copy }) {
                   <button
                     type="button"
                     onClick={openNote}
-                    className="k-s09-note relative font-display text-[11px] font-medium uppercase tracking-[0.1em] outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-current"
+                    className="k-s09-note relative font-display text-[11px] font-medium uppercase tracking-[0.1em] before:absolute before:-inset-x-2 before:-inset-y-2.5 before:content-[''] outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-current"
                   >
                     {copy.note}
                     <span

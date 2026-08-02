@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { useReducedMotionLive } from "@/components/k/useReducedMotionLive";
 import { flushSync } from "react-dom";
 import { SCENES, plate, plateLabel, inkFor, NO_PLATE } from "@/lib/journey-spine";
 import Furniture from "./Furniture";
@@ -97,8 +98,9 @@ export default function Scene11People({ copy }: { copy: Scene11Copy }) {
   /** So the scroll effect can call commit without tearing down its listener. */
   const commitRef = useRef<((i: number) => void) | null>(null);
 
+  const reduced = useReducedMotionLive();
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (reduced) return;
 
     // The row whose centre is nearest the reading line owns the well. One
     // observer-free rAF read, because six rects on a scroll frame is cheap and
@@ -143,7 +145,7 @@ export default function Scene11People({ copy }: { copy: Scene11Copy }) {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, []);
+  }, [reduced]);
 
   /**
    * THE WELL MORPHS BETWEEN ANSWERS RATHER THAN BLINKING.
@@ -169,7 +171,11 @@ export default function Scene11People({ copy }: { copy: Scene11Copy }) {
       setActive(i);
       return;
     }
-    document.startViewTransition(() => flushSync(() => setActive(i)));
+    const vt = document.startViewTransition(() => flushSync(() => setActive(i)));
+    // A transition interrupted by the next one (or a throttled tab) rejects
+    // these promises. That is normal operation, not an error.
+    vt.finished.catch(() => undefined);
+    vt.ready.catch(() => undefined);
   };
 
   const hold = (i: number) => {

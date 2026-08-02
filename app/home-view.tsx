@@ -655,7 +655,9 @@ THE ALPHAS ARE SET BY A CONTRAST SUM, NOT BY EYE, AND THE FIRST
       <section className="bg-k-surface px-6 py-32 md:px-12 lg:px-24">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd()) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(faqJsonLd()).replace(/</g, "\\u003c"),
+          }}
         />
         <div className="mx-auto flex max-w-[1248px] flex-col gap-12 lg:flex-row lg:gap-24">
           <Reveal variant="wipe" className="lg:w-[380px] lg:shrink-0">

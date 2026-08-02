@@ -193,7 +193,7 @@ export default function Scene01Beginning({ copy }: { copy: Scene01Copy }) {
             even once scrolling has faded it. */}
         <a
           href="#jamaica"
-          className="k-s01-cue group absolute bottom-24 left-1/2 z-30 -translate-x-1/2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D6A145] md:bottom-28"
+          className="k-s01-cue group absolute bottom-24 left-1/2 z-30 -translate-x-1/2 px-3 py-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D6A145] md:bottom-28"
         >
           <span className="sr-only">{copy.skip}</span>
           <span

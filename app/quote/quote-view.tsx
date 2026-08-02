@@ -176,12 +176,12 @@ export default function QuoteView(props: TinaPage<{ quotePage: unknown }>) {
               {page.request.nextSteps.map((step, i) => (
                 <li key={step.title}>
                   <Reveal variant="settle" index={i} className="flex flex-col gap-2">
-                    <h2
+                    <h3
               data-tina-field={tinaField(step, "title")}
               className="font-text text-k-micro uppercase text-k-gold-lit"
             >
               {fill(step.title)}
-            </h2>
+            </h3>
                     <Copy
                       text={step.body}
                       className="font-text text-k-small text-k-on-dark-soft"

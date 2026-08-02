@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useReducedMotionLive } from "@/components/k/useReducedMotionLive";
 import { createPortal } from "react-dom";
 
 /**
@@ -145,11 +146,19 @@ export default function HeroVideo({
    */
   const [playable, setPlayable] = useState(false);
 
+  // Observed live: flipping to reduce pauses the film and removes the
+  // control; flipping back restores both, because the effect re-runs.
+  const reduced = useReducedMotionLive();
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (reduced) {
+      el.pause();
+      setPlayable(false);
+      return;
+    }
     setPlayable(true);
 
     const onPlay = () => setPlaying(true);
@@ -178,7 +187,7 @@ export default function HeroVideo({
       el.removeEventListener("play", onPlay);
       el.removeEventListener("pause", onPause);
     };
-  }, []);
+  }, [reduced]);
 
   /**
    * A plain mirror of `userPaused` the observer can read without being torn down

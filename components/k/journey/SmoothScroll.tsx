@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { useReducedMotionLive } from "@/components/k/useReducedMotionLive";
 
 /**
  * THE SCROLL ITSELF, ON THE JOURNEY PAGE ONLY.
@@ -44,8 +45,11 @@ import { useEffect } from "react";
  *    transform-based smooth scroller, every pinned scene breaks at once.
  */
 export default function SmoothScroll() {
+  // Observed live: flipping the setting destroys or creates the smoothing
+  // without a reload, because the effect depends on it.
+  const reduced = useReducedMotionLive();
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (reduced) return;
 
     let lenis: {
       raf: (t: number) => void;
@@ -101,7 +105,7 @@ export default function SmoothScroll() {
         delete (window as unknown as Record<string, unknown>).__kulLenis;
       }
     };
-  }, []);
+  }, [reduced]);
 
   return null;
 }

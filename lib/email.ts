@@ -46,6 +46,7 @@ export async function sendViaResend({
   text,
   replyTo,
 }: {
+  /** Flattened before sending: header lines carry no interior newlines. */
   subject: string;
   text: string;
   replyTo?: string;
@@ -147,7 +148,11 @@ export async function readForm(
   }
 
   const data: Record<string, string> = {};
-  for (const [k, v] of Object.entries(raw)) {
+  // Values were always capped; the KEY COUNT now is too, so a body with ten
+  // thousand fields cannot flood the lead log or the webhook mirror. No form
+  // on the site posts more than a dozen fields; two dozen is headroom, not a
+  // constraint.
+  for (const [k, v] of Object.entries(raw).slice(0, 24)) {
     if (typeof v === "string") data[k] = v.trim().slice(0, 2000);
   }
   for (const field of required) {

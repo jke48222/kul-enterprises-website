@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useReducedMotionLive } from "@/components/k/useReducedMotionLive";
 
 /**
  * ONE-WAY LIGHTING FOR THE FLOW SCENES.
@@ -47,11 +48,14 @@ export function useLit<T extends HTMLElement>(options?: {
   const rootRef = useRef<T | null>(null);
   const optionsRef = useRef(options);
   optionsRef.current = options;
+  // Observed live: flipping the OS setting mid-session disarms or arms the
+  // scene there and then, because the effect depends on it.
+  const reduced = useReducedMotionLive();
 
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (reduced) return;
 
     // Only now may anything be quiet.
     root.classList.add("is-armed");
@@ -83,7 +87,7 @@ export function useLit<T extends HTMLElement>(options?: {
       io.disconnect();
       root.classList.remove("is-armed");
     };
-  }, []);
+  }, [reduced]);
 
   return rootRef;
 }

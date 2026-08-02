@@ -374,7 +374,9 @@ export default function Nav() {
             if (e.key === "Escape" && openPanel) setOpenPanel(null);
           }}
           {...(link.panel
-            ? { "aria-expanded": isOpen, "aria-controls": PANEL_ID }
+            ? // aria-controls only while the panel is actually in the DOM: a
+              // reference to an unmounted id is a broken promise to AT.
+              { "aria-expanded": isOpen, ...(isOpen ? { "aria-controls": PANEL_ID } : {}) }
             : {})}
           className={`whitespace-nowrap font-text text-k-label uppercase transition-colors duration-200 ${
             isOpen ? "text-k-gold" : linkColour

@@ -192,7 +192,7 @@ export default function Scene12MoreThan({ copy }: { copy: Scene12Copy }) {
           <button
             type="button"
             onClick={() => setFull(true)}
-            className="absolute bottom-16 right-5 font-display text-[11px] font-medium uppercase tracking-[0.1em] underline decoration-1 underline-offset-[3px] outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-current md:bottom-20 md:right-10"
+            className="absolute bottom-16 right-5 font-display text-[11px] font-medium uppercase tracking-[0.1em] underline decoration-1 underline-offset-[3px] before:absolute before:-inset-x-2 before:-inset-y-2.5 before:content-[''] outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-current md:bottom-20 md:right-10"
           >
             {copy.showFull}
           </button>

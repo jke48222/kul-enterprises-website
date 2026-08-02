@@ -249,7 +249,9 @@ export default function Scene17Next({ copy }: { copy: Scene17Copy }) {
 
       {/* [F] THE PLATE INDEX. Full width, breaking the margin rule once,
           deliberately: the archive is bigger than either voice. */}
-      <nav aria-label="Plate index" className="mx-auto mt-[14svh] w-full max-w-[1296px] px-5 md:px-10 lg:px-24">
+      {/* A section, not a nav: the rows are a record and none of them is a
+          link. The skip link stays, because 32 rows is still a long walk. */}
+      <section aria-label="Plate index" className="mx-auto mt-[14svh] w-full max-w-[1296px] px-5 md:px-10 lg:px-24">
         <a
           href="#journey-sign-off"
           className="sr-only focus:not-sr-only focus:inline-block focus:py-2 focus:font-display focus:text-[11px] focus:font-medium focus:uppercase focus:tracking-[0.1em]"
@@ -321,7 +323,7 @@ export default function Scene17Next({ copy }: { copy: Scene17Copy }) {
             </p>
           </div>
         </Margined>
-      </nav>
+      </section>
 
       {/* [G] THE SIGN-OFF. The last thing on the page is ground. */}
       <div id="journey-sign-off" className="mx-auto w-full max-w-[1296px] px-5 pb-[22svh] pt-[12svh] md:px-10 lg:px-24">
