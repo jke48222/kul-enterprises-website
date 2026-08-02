@@ -15,6 +15,19 @@ field, the dialog rendering, and the briefing request are in place), and the MC 
 remains his confirmation. ShapeGrid's motion gate still samples once at mount; its CSS
 layer responds live, and the residue is recorded here rather than half-fixed.
 
+**RE-AUDITED 2 August 2026, after the second fix round and the cinematic pass.**
+New score: **19/20, Excellent.** Accessibility 3/4 (held there by exactly one item:
+the field-note captions await Mark's own words; every engineered finding is closed),
+Performance 4/4 (dead font and dead dependency gone, the sleeve streams the 720 file
+only on request, 3.2 MB of orphans deleted), Responsive 4/4, Theming 4/4 (the dead
+strata are gone and the config tells the truth), Implementation integrity 4/4 (the
+detector still returns only the two verified false positives on the consent
+checkbox's drawn tick). The same run also folded every Tina Cloud media URL back to
+first-party paths, which was the cause of the broken images on the first Vercel
+deploy, re-gated the opening film to each new session's arrival at home, and gave
+the Journey its continuity layer: the route thread, the photographic grounds, and
+the first-sunlight event.
+
 One environment note so nobody re-litigates ghosts: the Chrome window was occluded during
 the run, which freezes CSS transitions, delays IntersectionObserver, and leaves loaded
 images unpainted. Everything that looked broken for that reason was re-verified against the
