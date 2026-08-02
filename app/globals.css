@@ -587,6 +587,338 @@ body {
   }
 }
 
+/* ==================================================================== */
+/* THE JOURNEY REBUILD. THE OTHER HALF OF components/k/journey/          */
+/* ==================================================================== */
+/*
+ * EVERY DEFAULT IN HERE IS THE FINISHED STATE OF THE SCENE. Read that again
+ * before changing any of it, because it is the whole safety argument.
+ *
+ * The scroll driver in useStageProgress.ts only ever WRITES a custom property.
+ * It is never the reason anything is visible. So `--s01-iris` defaults to 3.4,
+ * which is the iris fully open, and `--s02-photo` defaults to 1, which is the
+ * photograph fully arrived. If the script never runs, if the bundle fails, if
+ * hydration throws, every scene is simply already finished and completely
+ * legible.
+ *
+ * The same idea inverted is `.is-armed`, which the driver adds to a section on
+ * its first frame. Anything that is meant to arrive one at a time is written
+ * at full opacity here, and only the armed rule is allowed to make it faint.
+ * The page has to be provably alive before a single word is allowed to be dim.
+ *
+ * This is the same lesson as the header of components/k/Reveal.tsx, where
+ * fifteen elements on the About page went invisible at once because an
+ * animation was the only thing making them visible. Do not add `opacity: 0` to
+ * anything in this block that is not scoped to `.is-armed`.
+ */
+
+/* --- Scene 01, the aperture ---------------------------------------- */
+
+/*
+ * THE APERTURE, AND THE TWO TRAPS IN SCALING ONE.
+ *
+ * This is a single element being scaled, which is the only version of this the
+ * compositor can do without repainting.
+ *
+ * TRAP ONE, GEOMETRY. Scaling shrinks the DARK RING as well as the transparent
+ * core. The first version scaled a 300vmax box down to 0.1, at which point the
+ * whole element was smaller than the screen, and instead of a pool of light in
+ * darkness it drew a hard-edged dark rectangle floating in the middle of the
+ * film.
+ *
+ * TRAP TWO, MEMORY, AND THIS IS THE ONE THAT MADE IT FLICKER. That same 300vmax
+ * box carried will-change: transform, which pins an element as its own
+ * compositor texture at LAYOUT size. 300vmax square is 4,320px at a 1440px
+ * screen and 7,680px at 2560px: 19 to 59 megapixels, so 75MB to 236MB of
+ * texture for one gradient. Browsers cap a single layer at roughly 16 to 32MB,
+ * and past that it is re-rasterised or dropped every frame. That is what a
+ * flicker is.
+ *
+ * BOTH TRAPS HAVE THE SAME FIX: size the element to the viewport. It already
+ * covers the screen at scale 1 and only ever grows, so the ring can never
+ * uncover a corner, and the texture drops to about 5MB at 1440px and 15MB at
+ * 2560px.
+ *
+ * The scale range follows from the geometry. `closest-side` on a
+ * viewport-shaped box measures to the SHORTER side, so at rest the core is a
+ * circle of (min(vw,vh) / 2) x 44%, roughly a 200px pool. The frame reads as
+ * fully clear once the core passes the screen's half diagonal, which happens at
+ * about 4.3, and the scene lands on that at 62% of its travel.
+ *
+ * DO NOT PUT will-change BACK ON THIS. If something here ever needs promoting,
+ * promote the video underneath, which is a bounded viewport-sized layer.
+ *
+ * The last colour of a radial-gradient continues past its final stop, which is
+ * what fills the corners beyond the circle.
+ */
+.k-s01-iris {
+  position: absolute;
+  inset: 0;
+  transform-origin: center;
+  /* 4.3 is OPEN. With no script running the core is larger than the screen, so
+     this element is invisible and the film is simply uncovered. */
+  transform: scale(var(--s01-iris, 4.3));
+  /* `closest-side` on a viewport-shaped box measures to the SHORTER side, so
+     the core is a circle of (min(vw,vh) / 2) x 44% at rest, about a 200px
+     pool. The last colour of a radial-gradient continues past its final stop,
+     which is what fills the corners beyond the circle. */
+  /* The old separate corner vignette is folded into these stops. One fewer
+     full-screen composited layer over a playing video is one fewer thing that
+     can tear on a scroll frame, and the two were painting the same colour. */
+  background: radial-gradient(
+    circle closest-side,
+    rgba(8, 9, 10, 0) 0%,
+    rgba(8, 9, 10, 0.18) 38%,
+    rgba(8, 9, 10, 0.62) 50%,
+    rgba(8, 9, 10, 0.92) 62%,
+    #08090a 74%
+  );
+  pointer-events: none;
+}
+
+/* THE FILM CARRIES NO TRANSFORM AT ALL ANY MORE, ON PURPOSE.
+   It used to scale gently across the scene, and transform-scaling a PLAYING
+   video makes the compositor resample every decoded frame as it arrives, which
+   shimmers along every high-contrast edge in the shot. The aperture is the only
+   thing in this scene that moves. Do not give the video a transform again. */
+
+/* --- Scene 01, the lines lighting one after another ------------------ */
+/*
+ * Each line is FULL OPACITY here, so with no script every one of them is
+ * simply readable. Only an armed, running page may dim one.
+ *
+ * The clamp is doing the sequencing without needing a rule per line. The driver
+ * writes how many lines are lit as `--s01-lit`, each line carries its own index
+ * as `--i`, and the arithmetic resolves to 1 once lit reaches that index and to
+ * the floor before then:
+ *
+ *     lit 0, line 1  ->  (0 - 1 + 1) x 100 = 0     -> clamped to the floor
+ *     lit 1, line 1  ->  (1 - 1 + 1) x 100 = 100   -> clamped to 1
+ *     lit 1, line 2  ->  (1 - 2 + 1) x 100 = 0     -> clamped to the floor
+ *
+ * THE FLOOR IS 0.55 AND THAT IS A CONTRAST FIGURE, NOT A TASTE ONE. A reader
+ * can stop scrolling anywhere, including halfway through the sequence, so the
+ * unlit state is a resting state and has to be readable on its own. White at
+ * 0.55 over this ground holds about 6.9:1. Do not take it lower to make the
+ * effect more dramatic; the sequence is what carries it.
+ */
+.k-s01-line {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 620ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 620ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 620ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+/*
+ * OPACITY ALONE WAS NOT ENOUGH, AND THE RECORDING IS WHAT PROVED IT.
+ *
+ * The first version moved only between 0.55 and 1. Every measurement passed and
+ * the effect was invisible on film: 0.55 white on near-black already reads as
+ * lit, so five lines "lighting one after another" looked like five lines
+ * sitting there.
+ *
+ * The floor cannot come down. A reader can stop scrolling anywhere, including
+ * halfway through the sequence, so the unlit state is a RESTING state and has
+ * to hold contrast on its own. 0.55 is about 6.9:1 here; 0.3 would be 2.9:1.
+ *
+ * So the arrival carries three channels instead of one. Movement is far more
+ * perceptible than a brightness change, and a small defocus reads as a line
+ * coming INTO focus rather than merely getting brighter, which is what "lights
+ * up" actually looks like. Neither costs any contrast: both resolve to nothing
+ * the instant the line is lit, and both are ignored under reduced motion.
+ */
+.is-armed .k-s01-line {
+  --k-lit: clamp(0, calc((var(--s01-lit, 5) - var(--i) + 1) * 100), 1);
+  opacity: clamp(0.55, calc((var(--s01-lit, 5) - var(--i) + 1) * 100), 1);
+  transform: translate3d(0, calc(14px * (1 - var(--k-lit))), 0);
+  filter: blur(calc(2.4px * (1 - var(--k-lit))));
+}
+
+.k-s01-type {
+  transform: translate3d(0, var(--s01-lift, 0px), 0);
+  opacity: var(--s01-fade, 1);
+}
+
+.k-s01-cue {
+  opacity: var(--s01-cue, 1);
+}
+/* Focus always wins over scroll position, so a keyboard reader can see the
+   thing they are focused on even once it has faded on its way out. */
+.k-s01-cue:focus-visible {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .k-s01-dot {
+    animation: k-s01-dot 2400ms cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  }
+}
+@keyframes k-s01-dot {
+  0% {
+    transform: translate(-50%, 0);
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, 34px);
+    opacity: 0;
+  }
+}
+
+/* --- Scene 02, the print inside the setting ------------------------- */
+
+.k-s02-group {
+  transform: translate3d(0, var(--s02-exit, 0), 0);
+  opacity: var(--s02-gone, 1);
+}
+
+/* The mount is a hairline that is drawn from the very first frame and never
+   moves a pixel. Only what is inside it arrives. */
+.k-s02-mount {
+  border: 1px solid rgba(252, 252, 252, 0.14);
+  aspect-ratio: 1291 / 1920;
+}
+
+.k-s02-print {
+  opacity: var(--s02-photo, 1);
+  transform: scale(var(--s02-push, 1));
+}
+
+/* THE FLOAT, AND WHY IT IS ONLY ABOVE 1024px.
+   Below that the right-hand channel drops under about 560px, and display type
+   set into a channel that narrow rags badly enough to be worse than no float
+   at all. So the picture goes back into the run of sentences, in the same
+   order, saying the same thing. */
+@media (min-width: 1024px) {
+  .k-s02-figure {
+    float: left;
+    width: clamp(0px, 43vh, 420px);
+    margin-right: 56px;
+    margin-bottom: 24px;
+    shape-outside: inset(0);
+    shape-margin: 56px;
+  }
+  .k-s02-group::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+}
+
+/* The sentences are FULL OPACITY here. Only an armed, running page may dim
+   them, and once said they are never unsaid. */
+.k-s02-say {
+  margin-top: 0.42em;
+  transition:
+    opacity 520ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 520ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.is-armed .k-s02-say {
+  opacity: 0.3;
+  transform: translate3d(0, 12px, 0);
+}
+.is-armed .k-s02-stage[data-said="1"] .k-s02-say[data-say="1"],
+.is-armed .k-s02-stage[data-said="2"] .k-s02-say[data-say="1"],
+.is-armed .k-s02-stage[data-said="2"] .k-s02-say[data-say="2"],
+.is-armed .k-s02-stage[data-said="3"] .k-s02-say[data-say="1"],
+.is-armed .k-s02-stage[data-said="3"] .k-s02-say[data-say="2"],
+.is-armed .k-s02-stage[data-said="3"] .k-s02-say[data-say="3"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* --- Scene 14, the sentence assembling ------------------------------- */
+/*
+ * Each fragment interpolates between where it started and nothing, driven by
+ * its own 0..1 value. `translate3d(...) * (1 - t)` is not expressible in CSS,
+ * so the travel is done the other way round: the element sits at its finished
+ * position and is pushed BACK by its start offset scaled by (1 - t).
+ *
+ * Every default here is 1, meaning finished. With no script the sentence is
+ * simply assembled and the scene is complete.
+ */
+.k-s14-frag {
+  display: inline-block;
+  /* At t = 1 this resolves to translate3d(0,0,0) and opacity 1. */
+  transform: translate3d(
+    calc(var(--dx, 0px) * (1 - var(--t, 1))),
+    calc(var(--dy, 0px) * (1 - var(--t, 1))),
+    0
+  );
+  /* Each fragment fades up from nothing as it travels, so the words appear to
+     arrive out of the page rather than slide across it. The default is 1, so
+     with no script running all three are simply present and readable. */
+  opacity: var(--t, 1);
+}
+
+/* The assembled sentence does not move again. It arrives and it stays. */
+
+/* Everything else on the scene arrives the same way the fragments do: up out of
+   nothing, a short distance, and it stops. Each element is handed its own `--t`
+   so the portrait, the mark and his line land on three different beats rather
+   than all together.
+
+   The default is 1, so with no script the whole scene is simply assembled. */
+.k-s14-rise {
+  transform: translate3d(0, calc(26px * (1 - var(--t, 1))), 0);
+  opacity: var(--t, 1);
+}
+
+/* --- Scene 11, the well morphing between answers --------------------- */
+/*
+ * Naming the well is what lets a View Transition treat it as ONE element whose
+ * contents changed, rather than as an old box being replaced by a new one. The
+ * frame holds still and the answer inside it changes, which is what a catalogue
+ * drawer does and what this scene is arguing about.
+ *
+ * It is scoped to the well alone. Naming anything else would make the browser
+ * try to morph unrelated elements across the same transition.
+ */
+.k-s11-well {
+  view-transition-name: journey-plate;
+}
+
+/* A shade quicker than the default, because this fires on scroll as well as on
+   hover and anything slower starts to feel like lag rather than a query. */
+::view-transition-old(journey-plate),
+::view-transition-new(journey-plate) {
+  animation-duration: 280ms;
+  animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* THE SECOND GUARANTEE. commit() already refuses to start a transition under
+   reduced motion, but if that check is ever changed this stops the browser
+   animating anything anyway. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* Anybody who asked for less movement is never armed by the driver, so none of
+   the rules above ever apply to them. This is the second guarantee, in case
+   the arming is ever changed: every scene stands still, fully readable. */
+@media (prefers-reduced-motion: reduce) {
+  .k-s01-iris {
+    display: none;
+  }
+  .k-s01-film,
+  .k-s01-type,
+  .k-s01-cue,
+  .k-s01-line,
+  .k-s02-group,
+  .k-s02-print,
+  .k-s02-say {
+    transform: none !important;
+    opacity: 1 !important;
+    transition: none !important;
+  }
+}
+
 /* ------------------------------------------------------------------ */
 /* v1 compat: classes still referenced by not-yet-rebuilt v1 pages     */
 /* and forms. DELETE this block once the last v1 page is replaced.      */

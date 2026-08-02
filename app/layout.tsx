@@ -23,9 +23,26 @@ const montserrat = Montserrat({
  * industrial grotesque that matches the KUL wordmark. Inter carries text and
  * every numeric. Both are variable fonts, so one file covers the range.
  */
+/**
+ * NO `weight` ARRAY HERE, AND THAT IS THE WHOLE POINT.
+ *
+ * Asking next/font/google for a list of weights makes it ship four STATIC
+ * instances of Archivo. Asking for none ships the real variable font, which is
+ * a single file carrying every weight from 100 to 900 continuously, plus the
+ * `wdth` axis from 62 to 125 that the static instances throw away entirely.
+ *
+ * That width axis is not decoration. It is the axis the KUL wordmark itself
+ * lives on: the lockup's tagline is the same face condensed, which is why
+ * Archivo was chosen over every other grotesque in the first place. The site
+ * has been unable to set it since day one.
+ *
+ * Every existing font-bold and font-black on the site keeps working unchanged,
+ * because a variable font honours ordinary font-weight values. This is strictly
+ * more capable and, at one file instead of four, usually smaller.
+ */
 const archivo = Archivo({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "900"],
+  axes: ["wdth"],
   variable: "--font-archivo",
   display: "swap",
 });
@@ -184,7 +201,11 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen bg-k-void font-text text-k-on-dark antialiased">
+      {/* `dvh` rather than Tailwind's `min-h-screen`, which is 100vh. On a
+          phone 100vh is the height with the browser chrome hidden, so it is
+          taller than what is actually on screen and a page with almost no
+          content still scrolls a little. `dvh` tracks the chrome. */}
+      <body className="min-h-dvh bg-k-void font-text text-k-on-dark antialiased">
         {/* FIRST THING IN THE BODY, AND BLOCKING ON PURPOSE.
 
             The opening mounts after the first paint so the hero, not the
