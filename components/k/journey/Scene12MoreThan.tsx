@@ -36,8 +36,9 @@ import { useStageProgress } from "./useStageProgress";
  * certainly running, and the driver writes exactly one custom property per
  * frame, --s12-p; each beat computes its own opacity from it in CSS. No
  * script, failed script, reduced motion: the reader gets the finished page.
- * (components/k/PinnedStatement.tsx does this the wrong way round, rendering
- * dim from the server; the review flagged it and it must not be copied.)
+ * (The old PinnedStatement component did this the wrong way round, rendering
+ * dim from the server; the review flagged it and it was deleted with the
+ * six-chapter page rather than left around to be copied.)
  *
  * The ghost floor is 0.30, per the review's instruction, and the ghosts are
  * transient: every word reaches full ink before the reader is expected to
@@ -82,7 +83,23 @@ function beatVars(key: keyof typeof RAMPS): React.CSSProperties {
   return { "--in": String(RAMPS[key].in), "--out": String(RAMPS[key].out) } as React.CSSProperties;
 }
 
-export default function Scene12MoreThan() {
+/** His words, edited at /admin. The beat table above is the scene's clock
+ *  and stays in code. */
+export type Scene12Copy = {
+  b1: string;
+  b2: string;
+  b3: string;
+  b4: string;
+  b5: string;
+  b6: string;
+  b7: string;
+  b9: string;
+  closeA: string;
+  closeB: string;
+  showFull: string;
+};
+
+export default function Scene12MoreThan({ copy }: { copy: Scene12Copy }) {
   const [counter, setCounter] = useState(COUNTER[COUNTER.length - 1].label);
   const [full, setFull] = useState(false);
 
@@ -115,7 +132,7 @@ export default function Scene12MoreThan() {
           {/* THE MARGINALIA. Stage directions in his own voice, hung in the
               margin like a documentary page rather than stacked. */}
           <p data-s12 className="k-s12-beat self-start font-text text-[clamp(0.9375rem,1.3vw,1.25rem)] leading-[1.5] md:text-right" style={beatVars("b1")}>
-            There came a moment when I stopped asking:
+            {copy.b1}
           </p>
           <h2
             id={`${SCENE.slug}-heading`}
@@ -123,11 +140,11 @@ export default function Scene12MoreThan() {
             className="k-s12-beat k-s12-b2 font-display text-[clamp(1.625rem,3.4vw,3rem)] font-medium leading-[1.14] tracking-[-0.015em]"
             style={beatVars("b2")}
           >
-            what kind of business do I want to own?
+            {copy.b2}
           </h2>
 
           <p data-s12 className="k-s12-beat mt-[5svh] self-start font-text text-[clamp(0.9375rem,1.3vw,1.25rem)] leading-[1.5] md:text-right" style={beatVars("b3")}>
-            I began asking a different question.
+            {copy.b3}
           </p>
           {/* The new question: larger and heavier than the one it replaced.
               That difference is the argument. */}
@@ -136,7 +153,7 @@ export default function Scene12MoreThan() {
             className="k-s12-beat mt-[5svh] font-display text-[clamp(2rem,4.4vw,3.875rem)] font-black leading-[1.08] tracking-[-0.02em]"
             style={beatVars("b4")}
           >
-            What kind of company deserves to exist?
+            {copy.b4}
           </p>
 
           <div aria-hidden="true" className="hidden md:block" />
@@ -144,27 +161,25 @@ export default function Scene12MoreThan() {
             {/* The matched pair shares an indent; the operative nouns carry
                 weight, never colour, because colour is unavailable here. */}
             <p data-s12 className="k-s12-beat pl-6 font-text text-[clamp(1rem,1.5vw,1.375rem)] leading-[1.5] md:pl-12" style={beatVars("b5")}>
-              A company built on <strong className="font-semibold">honesty</strong>, when honesty
-              costs something.
+              <Operative sentence={copy.b5} />
             </p>
             <p data-s12 className="k-s12-beat mt-2 pl-6 font-text text-[clamp(1rem,1.5vw,1.375rem)] leading-[1.5] md:pl-12" style={beatVars("b6")}>
-              A company built on <strong className="font-semibold">integrity</strong>, even when no
-              one is watching.
+              <Operative sentence={copy.b6} />
             </p>
             {/* The un-indent is the turn in the argument, made structural. */}
             <p data-s12 className="k-s12-beat mt-[4svh] font-text text-[clamp(1rem,1.5vw,1.375rem)] leading-[1.5]" style={beatVars("b7")}>
-              I wasn&rsquo;t trying to build a trucking company.
+              {copy.b7}
             </p>
             <p
               data-s12
               className="k-s12-beat mt-[4svh] max-w-[26ch] font-display text-[clamp(1.5rem,3vw,2.625rem)] font-medium leading-[1.16] tracking-[-0.015em]"
               style={beatVars("b9")}
             >
-              I was trying to build something people could believe in.
+              {copy.b9}
             </p>
             <p data-s12 className="k-s12-beat mt-[4svh] font-text text-[clamp(1rem,1.5vw,1.375rem)] leading-[1.5]" style={beatVars("close")}>
-              The strongest foundation isn&rsquo;t concrete.{" "}
-              <strong className="font-semibold">It&rsquo;s character.</strong>
+              {copy.closeA}{" "}
+              <strong className="font-semibold">{copy.closeB}</strong>
             </p>
           </div>
         </div>
@@ -179,7 +194,7 @@ export default function Scene12MoreThan() {
             onClick={() => setFull(true)}
             className="absolute bottom-16 right-5 font-display text-[11px] font-medium uppercase tracking-[0.1em] underline decoration-1 underline-offset-[3px] outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-current md:bottom-20 md:right-10"
           >
-            Show full statement
+            {copy.showFull}
           </button>
         ) : null}
 
@@ -189,5 +204,23 @@ export default function Scene12MoreThan() {
         />
       </div>
     </section>
+  );
+}
+
+/**
+ * Mark's parallel construction, made visible with weight rather than colour,
+ * since colour is unavailable on this ground: the operative noun after
+ * "built on" carries font-weight 600. If an edit changes the sentence shape
+ * the line simply renders plain, which is the safe failure.
+ */
+function Operative({ sentence }: { sentence: string }) {
+  const m = sentence.match(/^(.*?built on )([a-zA-Z]+)(.*)$/);
+  if (!m) return <>{sentence}</>;
+  return (
+    <>
+      {m[1]}
+      <strong className="font-semibold">{m[2]}</strong>
+      {m[3]}
+    </>
   );
 }

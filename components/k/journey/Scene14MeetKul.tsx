@@ -71,13 +71,22 @@ const PORTRAIT = "mark-portrait";
  * read as a group sliding in together. They are separate journeys ending in the
  * same place, which is what the sentence says.
  */
-const FRAGMENTS = [
-  { text: "Every mile.", dx: -318, dy: -112 },
-  { text: "Every lesson.", dx: 292, dy: 96 },
-  { text: "Every decision.", dx: -96, dy: 178 },
+const OFFSETS = [
+  { dx: -318, dy: -112 },
+  { dx: 292, dy: 96 },
+  { dx: -96, dy: 178 },
 ] as const;
 
-export default function Scene14MeetKul() {
+/** His words, edited at /admin; the travel vectors above are design. */
+export type Scene14Copy = {
+  fragments: string[];
+  led: string;
+  say: string;
+  welcome: string;
+  portraitName: string;
+};
+
+export default function Scene14MeetKul({ copy }: { copy: Scene14Copy }) {
   const { trackRef, stageRef } = useStageProgress((p, stage) => {
     // Each fragment arrives over its own window, overlapping the next by a
     // couple of points so the three do not tick like a metronome.
@@ -129,9 +138,11 @@ export default function Scene14MeetKul() {
             {/* THE SENTENCE. Assembles, holds, then retreats to the left
                 margin to uncover the nameplate. */}
             <p className="k-s14-sentence flex flex-wrap items-baseline gap-x-[18px] gap-y-1 font-text text-[clamp(1.5rem,4vw,4rem)] font-normal leading-[1.15] tracking-[-0.006em]">
-              {FRAGMENTS.map((f, i) => (
+              {copy.fragments.map((text, i) => {
+                const f = OFFSETS[Math.min(i, OFFSETS.length - 1)];
+                return (
                 <span
-                  key={f.text}
+                  key={text}
                   className="k-s14-frag"
                   style={
                     {
@@ -141,12 +152,13 @@ export default function Scene14MeetKul() {
                     } as React.CSSProperties
                   }
                 >
-                  {f.text}
+                  {text}
                 </span>
-              ))}
+                );
+              })}
               {/* NO KEYFRAMES, EVER. This is the destination that was already
                   standing there. Do not give it an entrance. */}
-              <span className="font-semibold">Led here.</span>
+              <span className="font-semibold">{copy.led}</span>
             </p>
 
             {/* THE LOCKUP. Portrait left, nameplate and his greeting right. */}
@@ -171,7 +183,7 @@ export default function Scene14MeetKul() {
                   style={{ background: ink, color: "#FCFCFC" }}
                 >
                   <span className="tabular-nums">{plateLabel(PORTRAIT)}</span>
-                  <span>{port.when ? `Mark Brown · ${port.when}` : "Mark Brown, founder"}</span>
+                  <span>{port.when ? `Mark Brown · ${port.when}` : copy.portraitName}</span>
                 </figcaption>
               </figure>
 
@@ -203,8 +215,7 @@ export default function Scene14MeetKul() {
                   className="k-s14-rise mt-5 max-w-[46ch] font-text text-[clamp(1.0625rem,1.6vw,1.5rem)] leading-[1.45]"
                   style={{ "--t": "var(--s14-say, 1)" } as React.CSSProperties}
                 >
-                  We didn&rsquo;t build this company to be the biggest. We built
-                  it to be trusted.
+                  {copy.say}
                 </p>
                 {/* GOLD IS THE RULE, NOT THE WORDS, and that is measured
                     rather than styled. #A05C08 on this scene's ground is
@@ -222,7 +233,7 @@ export default function Scene14MeetKul() {
                     className="h-px w-10 shrink-0"
                     style={{ background: gold ?? "currentColor" }}
                   />
-                  Welcome to KUL Enterprises
+                  {copy.welcome}
                 </p>
               </div>
             </div>

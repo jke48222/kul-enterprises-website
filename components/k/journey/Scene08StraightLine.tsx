@@ -43,17 +43,26 @@ const PLATE = "s08b-rockcut-bend";
  * back inside for setbacks, resolving through line 6, home for the question.
  * These are the same numbers the gold path below is drawn through.
  */
-const STATEMENTS = [
-  { text: "I thought I knew where life was taking me.", inset: 0 },
-  { text: "I had a plan.", inset: 64 },
-  { text: "But plans have a way of changing.", inset: 148 },
-  { text: "There were victories.", inset: 264, pair: true },
-  { text: "There were setbacks.", inset: 96, pair: true },
-  { text: "Both became teachers.", inset: 148, resolve: true },
-  { text: "Life rarely asks whether you're ready.", inset: 48 },
+const DESIGN = [
+  { inset: 0 },
+  { inset: 64 },
+  { inset: 148 },
+  { inset: 264, pair: true },
+  { inset: 96, pair: true },
+  { inset: 148, resolve: true },
+  { inset: 48 },
 ] as const;
 
-export default function Scene08StraightLine() {
+/** His words, edited at /admin; the bend they trace is design and stays here. */
+export type Scene08Copy = {
+  statements: string[];
+  questionA: string;
+  questionB: string;
+  lessonA: string;
+  lessonB: string;
+};
+
+export default function Scene08StraightLine({ copy }: { copy: Scene08Copy }) {
   const rootRef = useLit<HTMLElement>();
   const ink = inkFor(SCENE);
   const gold = goldFor(SCENE);
@@ -97,8 +106,8 @@ export default function Scene08StraightLine() {
           </h2>
 
           <ol className="relative">
-            {STATEMENTS.slice(0, 3).map((s) => (
-              <StatementRow key={s.text} s={s} />
+            {copy.statements.slice(0, 3).map((text, i) => (
+              <StatementRow key={text} text={text} s={DESIGN[i]} />
             ))}
           </ol>
 
@@ -126,16 +135,16 @@ export default function Scene08StraightLine() {
           </div>
 
           <ol className="relative">
-            {STATEMENTS.slice(3).map((s) => (
-              <StatementRow key={s.text} s={s} />
+            {copy.statements.slice(3).map((text, i) => (
+              <StatementRow key={text} text={text} s={DESIGN[Math.min(i + 3, DESIGN.length - 1)]} />
             ))}
             {/* THE QUESTION. The largest type in the scene, home at the left
                 edge, broken where he broke it. */}
             <li data-lit className="k-jl mt-[6svh]" style={{ "--lit-floor": "0.55" } as React.CSSProperties}>
               <p className="max-w-[18ch] font-display text-[clamp(1.75rem,4vw,3.375rem)] font-black leading-[1.08] tracking-[-0.02em]">
-                It simply asks:
+                {copy.questionA}
                 <br />
-                what will you do now?
+                {copy.questionB}
               </p>
             </li>
           </ol>
@@ -146,9 +155,9 @@ export default function Scene08StraightLine() {
         <div className="mx-auto mt-[10svh] flex max-w-[30ch] flex-col items-center gap-4 text-center">
           <span aria-hidden="true" className="h-px w-16" style={{ background: gold ?? "currentColor" }} />
           <p className="font-text text-[clamp(1.125rem,2vw,1.75rem)] leading-[1.4]">
-            Resilience isn&rsquo;t refusing to fall.
+            {copy.lessonA}
             <br />
-            It&rsquo;s choosing to keep moving.
+            {copy.lessonB}
           </p>
         </div>
       </div>
@@ -159,9 +168,11 @@ export default function Scene08StraightLine() {
 }
 
 function StatementRow({
+  text,
   s,
 }: {
-  s: { text: string; inset: number; pair?: boolean; resolve?: boolean };
+  text: string;
+  s: { inset: number; pair?: boolean; resolve?: boolean };
 }) {
   return (
     <li
@@ -185,7 +196,7 @@ function StatementRow({
               : "max-w-[26ch] font-text text-[clamp(1.375rem,2.6vw,2.25rem)] leading-[1.3]"
         }
       >
-        {s.text}
+        {text}
       </p>
     </li>
   );

@@ -38,7 +38,22 @@ import { useLit } from "./useLit";
 const SCENE = SCENES[4];
 const PLATE = "hero-two-lane-centred";
 
-export default function Scene05Independence() {
+/** His words, edited at /admin. */
+export type Scene05Copy = {
+  momentA: string;
+  momentB: string;
+  mine: string;
+  leaving: string;
+  firstTime: string;
+  cross: string;
+  good: string;
+  bad: string;
+  belonged: string;
+  couplet: string;
+  lesson: string;
+};
+
+export default function Scene05Independence({ copy }: { copy: Scene05Copy }) {
   const rootRef = useLit<HTMLElement>();
   const ink = inkFor(SCENE);
   const gold = goldFor(SCENE);
@@ -78,7 +93,7 @@ export default function Scene05Independence() {
           />
         </div>
         <div className="px-5 pb-[18svh] pt-10">
-          <MobileCopy ink={ink} gold={gold} />
+          <MobileCopy copy={copy} ink={ink} gold={gold} />
         </div>
       </div>
 
@@ -130,17 +145,17 @@ export default function Scene05Independence() {
               is centred on the axis by spanning both halves. */}
           <div className="col-span-2 mx-auto max-w-[36ch] text-center">
             <p data-lit className="k-jl font-text text-[clamp(1.125rem,1.9vw,1.625rem)] leading-[1.5]">
-              Every life reaches a moment&hellip;
+              {copy.momentA}
             </p>
             <p data-lit className="k-jl font-text text-[clamp(1.125rem,1.9vw,1.625rem)] leading-[1.5]">
-              When someone else stops making the decisions.
+              {copy.momentB}
             </p>
             <h2
               id={`${SCENE.slug}-heading`}
               data-lit
               className="k-jl mt-[6svh] font-display text-[clamp(2.5rem,5.5vw,4.75rem)] font-black leading-[1.02] tracking-[-0.025em]"
             >
-              This was mine.
+              {copy.mine}
             </h2>
           </div>
 
@@ -148,10 +163,10 @@ export default function Scene05Independence() {
               the words never touch the line. */}
           <div className="mt-[10svh] pr-[8%]">
             <p data-lit className="k-jl max-w-[22ch] font-text text-[clamp(1.0625rem,1.7vw,1.5rem)] leading-[1.5]">
-              Leaving home wasn&rsquo;t just about finding a place to live.
+              {copy.leaving}
             </p>
             <p data-lit className="k-jl mt-2 max-w-[22ch] font-text text-[clamp(1.0625rem,1.7vw,1.5rem)] leading-[1.5]">
-              For the first time, I was making my own decisions.
+              {copy.firstTime}
             </p>
           </div>
           <div aria-hidden="true" />
@@ -163,7 +178,7 @@ export default function Scene05Independence() {
             data-lit
             className="k-jl k-s05-cross col-span-2 mx-auto mt-[9svh] max-w-[26ch] text-center font-display text-[clamp(1.75rem,3.6vw,3rem)] font-medium leading-[1.15] tracking-[-0.015em]"
           >
-            It was about finding out who I was.
+            {copy.cross}
           </p>
 
           {/* PHASE E: the pair. Identical spec, identical offset from the
@@ -172,13 +187,13 @@ export default function Scene05Independence() {
             data-lit
             className="k-jl mt-[9svh] pr-[12%] text-right font-display text-[clamp(1.625rem,3.2vw,2.75rem)] font-medium leading-[1.1] tracking-[-0.015em]"
           >
-            Some were good.
+            {copy.good}
           </p>
           <p
             data-lit
             className="k-jl k-s05-wash mt-[16svh] w-fit pl-[12%] text-left font-display text-[clamp(1.625rem,3.2vw,2.75rem)] font-medium leading-[1.1] tracking-[-0.015em]"
           >
-            Some weren&rsquo;t.
+            {copy.bad}
           </p>
 
           {/* PHASE F: the close. One measure again, landing on the centred
@@ -187,7 +202,7 @@ export default function Scene05Independence() {
             data-lit
             className="k-jl col-span-2 mx-auto mt-[10svh] max-w-[30ch] text-center font-display text-[clamp(1.75rem,3.6vw,3rem)] font-medium leading-[1.12] tracking-[-0.015em]"
           >
-            But every one of them belonged to me.
+            {copy.belonged}
           </p>
 
           {/* The conclusion, centred on the axis, with the last surviving
@@ -199,11 +214,10 @@ export default function Scene05Independence() {
               style={{ background: gold ?? "currentColor" }}
             />
             <p className="font-text text-[clamp(1.0625rem,1.7vw,1.5rem)] leading-[1.45]">
-              Independence isn&rsquo;t the freedom to avoid mistakes.
-              It&rsquo;s accepting responsibility for them.
+              {copy.couplet}
             </p>
             <p className="font-text text-[clamp(1.125rem,2vw,1.75rem)] leading-[1.4]">
-              Growth begins the moment excuses end.
+              {copy.lesson}
             </p>
           </div>
         </div>
@@ -216,40 +230,38 @@ export default function Scene05Independence() {
 
 /** The same beats, stacked for one column. The pair keeps its two sides as
  *  two alignments, which is the most a phone can honestly do with a seam. */
-function MobileCopy({ ink, gold }: { ink: string; gold: string | null }) {
+function MobileCopy({ copy, ink, gold }: { copy: Scene05Copy; ink: string; gold: string | null }) {
   void ink;
   return (
     <>
       <p data-lit className="k-jl font-text text-[1.0625rem] leading-[1.5]">
-        Every life reaches a moment&hellip;
+        {copy.momentA}
       </p>
       <p data-lit className="k-jl font-text text-[1.0625rem] leading-[1.5]">
-        When someone else stops making the decisions.
+        {copy.momentB}
       </p>
       <p data-lit className="k-jl mt-6 font-display text-[2.25rem] font-black leading-[1.04] tracking-[-0.02em]">
-        This was mine.
+        {copy.mine}
       </p>
       <p data-lit className="k-jl mt-8 max-w-[30ch] font-text text-[1.0625rem] leading-[1.5]">
-        Leaving home wasn&rsquo;t just about finding a place to live. It was
-        about finding out who I was.
+        {copy.leaving} {copy.cross}
       </p>
       <p data-lit className="k-jl mt-7 font-display text-[1.5rem] font-medium leading-[1.15]">
-        Some were good.
+        {copy.good}
       </p>
       <p data-lit className="k-jl mt-4 text-right font-display text-[1.5rem] font-medium leading-[1.15]">
-        Some weren&rsquo;t.
+        {copy.bad}
       </p>
       <p data-lit className="k-jl mt-7 max-w-[30ch] font-text text-[1.0625rem] leading-[1.5]">
-        But every one of them belonged to me.
+        {copy.belonged}
       </p>
       <div className="mt-8 flex max-w-[38ch] flex-col gap-3">
         <span aria-hidden="true" className="h-px w-16" style={{ background: gold ?? "currentColor" }} />
         <p className="font-text text-[1.0625rem] leading-[1.45]">
-          Independence isn&rsquo;t the freedom to avoid mistakes. It&rsquo;s
-          accepting responsibility for them.
+          {copy.couplet}
         </p>
         <p className="font-text text-[1.125rem] leading-[1.4]">
-          Growth begins the moment excuses end.
+          {copy.lesson}
         </p>
       </div>
     </>

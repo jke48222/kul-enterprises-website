@@ -67,16 +67,29 @@ const SCENE = SCENES[10];
  * Mark's six, verbatim, in his order. `plateFile` is null where the archive
  * genuinely has nothing, which is most of them.
  */
-const ROLL = [
-  { word: "Drivers.", plateFile: "mark-portrait", note: "The only driver this archive has a picture of is the man who made it." },
-  { word: "Dispatchers.", plateFile: null, note: null },
-  { word: "Mechanics.", plateFile: null, note: null },
-  { word: "Customers.", plateFile: null, note: null },
-  { word: "Brokers.", plateFile: null, note: null },
-  { word: "Families waiting at home.", plateFile: "s02-jamaica-childhood", note: "His own, in the only photograph of them." },
-] as const;
+const PLATE_FILES: ReadonlyArray<string | null> = [
+  "mark-portrait",
+  null,
+  null,
+  null,
+  null,
+  "s02-jamaica-childhood",
+];
 
-export default function Scene11People() {
+/** His words, edited at /admin. Which names the archive can answer with a
+ *  photograph is the register's business and stays in the list above. */
+export type Scene11Copy = {
+  premise: string;
+  people: string;
+  roll: { word: string; note: string }[];
+};
+
+export default function Scene11People({ copy }: { copy: Scene11Copy }) {
+  const ROLL = copy.roll.map((r, i) => ({
+    word: r.word,
+    note: r.note || null,
+    plateFile: PLATE_FILES[Math.min(i, PLATE_FILES.length - 1)],
+  }));
   const [active, setActive] = useState(0);
   const rowsRef = useRef<(HTMLLIElement | null)[]>([]);
   /** Set by hover or tap. While it holds, scroll does not move the answer. */
@@ -190,11 +203,10 @@ export default function Scene11People() {
             id="people-heading"
             className="font-text text-[clamp(1.125rem,2vw,1.75rem)] font-normal leading-[1.35]"
           >
-            Freight moved every day. But what truly kept the industry moving
-            wasn&rsquo;t trucks.
+            {copy.premise}
           </h2>
           <p className="mt-[8svh] font-display text-[clamp(2rem,5.4vw,4.5rem)] font-black leading-[1.02] tracking-[-0.025em]">
-            It was people.
+            {copy.people}
           </p>
         </div>
 

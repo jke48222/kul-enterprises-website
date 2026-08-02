@@ -42,20 +42,19 @@ import { useLit } from "./useLit";
 
 const SCENE = SCENES[2];
 
-/** His narration, in his order. The triplet is marked so it can be counted. */
-const OPENING = [
-  "America was different.",
-  "Everything moved faster.",
-  "Everything felt unfamiliar.",
-] as const;
+/** His narration, in his order, edited at /admin. */
+export type Scene03Copy = {
+  opening: string[];
+  turnA: string;
+  turnB: string;
+  triplet: string[];
+  father: string;
+  coupletA: string;
+  coupletB: string;
+  lesson: string;
+};
 
-const TRIPLET = [
-  "Every school break…",
-  "Every holiday…",
-  "Every vacation…",
-] as const;
-
-export default function Scene03Work() {
+export default function Scene03Work({ copy }: { copy: Scene03Copy }) {
   const rootRef = useLit<HTMLElement>();
   const ink = inkFor(SCENE);
   const gold = goldFor(SCENE);
@@ -78,7 +77,7 @@ export default function Scene03Work() {
       <div className="mx-auto w-full max-w-[1296px] px-5 py-[16svh] pb-[22svh] md:px-10 lg:px-24">
         {/* THE ARRIVAL. Three short declaratives, quiet, plain. */}
         <div className="max-w-[30ch]">
-          {OPENING.map((line) => (
+          {copy.opening.map((line) => (
             <p
               key={line}
               data-lit
@@ -95,13 +94,13 @@ export default function Scene03Work() {
           data-lit
           className="k-jl mt-[9svh] max-w-[24ch] font-display text-[clamp(1.75rem,4.2vw,3.5rem)] font-black leading-[1.06] tracking-[-0.02em]"
         >
-          While most kids spent their summers playing&hellip;
+          {copy.turnA}
         </h2>
         <p
           data-lit
           className="k-jl mt-4 max-w-[24ch] font-display text-[clamp(1.75rem,4.2vw,3.5rem)] font-black leading-[1.06] tracking-[-0.02em]"
         >
-          Mine were spent on construction sites.
+          {copy.turnB}
         </p>
 
         {/* THE LEDGER. Counted in the site's voice, ruled in gold, his words
@@ -114,7 +113,7 @@ export default function Scene03Work() {
             style={{ background: gold ?? "currentColor" }}
           />
           <ul className="flex flex-col gap-[14px]">
-            {TRIPLET.map((line, i) => (
+            {copy.triplet.map((line, i) => (
               <li key={line} data-lit className="k-jl flex items-baseline gap-5">
                 <span
                   className="w-6 shrink-0 font-display text-[11px] font-medium uppercase tabular-nums tracking-[0.1em]"
@@ -134,7 +133,7 @@ export default function Scene03Work() {
           data-lit
           className="k-jl mt-[9svh] max-w-[30ch] font-text text-[clamp(1.0625rem,1.7vw,1.5rem)] leading-[1.5]"
         >
-          I worked alongside my father.
+          {copy.father}
         </p>
 
         {/* THE CONCLUSION HE DREW. A couplet, then the lesson, closed with a
@@ -142,10 +141,10 @@ export default function Scene03Work() {
             because thirteen identical LESSON cards read as a template. */}
         <div className="mt-[9svh] max-w-[36ch]">
           <p data-lit className="k-jl font-text text-[clamp(1.0625rem,1.7vw,1.5rem)] leading-[1.45]">
-            Work isn&rsquo;t something to avoid.
+            {copy.coupletA}
           </p>
           <p data-lit className="k-jl font-text text-[clamp(1.0625rem,1.7vw,1.5rem)] font-semibold leading-[1.45]">
-            It&rsquo;s something to take pride in.
+            {copy.coupletB}
           </p>
         </div>
 
@@ -156,7 +155,7 @@ export default function Scene03Work() {
             style={{ background: gold ?? "currentColor" }}
           />
           <p className="font-text text-[clamp(1.125rem,2vw,1.75rem)] leading-[1.4]">
-            Character is often built long before opportunity arrives.
+            {copy.lesson}
           </p>
         </div>
       </div>

@@ -38,34 +38,20 @@ import { useLit } from "./useLit";
 
 const SCENE = SCENES[12];
 
-/** The sixteen real, generic filings. Names only, forever. */
-const FILINGS = [
-  "Articles of organization",
-  "EIN application",
-  "USDOT number",
-  "MC operating authority",
-  "BOC-3 process agent",
-  "UCR registration",
-  "IFTA license",
-  "IRP apportioned plate",
-  "Form 2290 heavy vehicle use tax",
-  "Certificate of insurance",
-  "Form W-9",
-  "Drug and alcohol consortium",
-  "ELD registration",
-  "Carrier packet",
-  "Notice of assignment",
-  "Rate confirmation",
-] as const;
+/** His words and the ledger's names, edited at /admin. */
+export type Scene13Copy = {
+  filingsLabel: string;
+  filings: string[];
+  coupletA: string;
+  coupletB: string;
+  hinge: string;
+  vows: string[];
+  closer: string;
+  lesson: string;
+  lessonWord: string;
+};
 
-const VOWS = [
-  "To do business with integrity.",
-  "To treat people with respect.",
-  "To never compromise safety for convenience.",
-  "To remember that behind every shipment, every invoice, every phone call, is a person who placed their trust in us.",
-] as const;
-
-export default function Scene13Promise() {
+export default function Scene13Promise({ copy }: { copy: Scene13Copy }) {
   const rootRef = useLit<HTMLElement>();
   const ink = inkFor(SCENE);
 
@@ -88,26 +74,26 @@ export default function Scene13Promise() {
             wide page it stands beside them as a margin. */}
         <div aria-hidden="true" className="order-last mt-12 md:order-none md:mt-0">
           <p className="font-display text-[11px] font-medium uppercase tracking-[0.2em] opacity-[0.72]">
-            Filings
+            {copy.filingsLabel}
           </p>
           <ul className="mt-4 columns-2 gap-8 font-display text-[11px] font-medium uppercase leading-[2.2] tracking-[0.1em] opacity-[0.72] md:columns-1">
-            {FILINGS.map((f) => (
+            {copy.filings.map((f) => (
               <li key={f}>{f}</li>
             ))}
           </ul>
           {/* The closer travels up the lane the paperwork occupied: his one
               sentence set where the filings were, after they end. */}
           <p className="mt-8 max-w-[16ch] font-text text-[clamp(1.125rem,1.7vw,1.5rem)] leading-[1.4]">
-            The trucks would come later.
+            {copy.closer}
           </p>
         </div>
 
         <div>
           <p data-lit className="k-jl k-jset font-text text-[clamp(1.0625rem,1.7vw,1.5rem)] leading-[1.5]">
-            Every company begins with paperwork.
+            {copy.coupletA}
           </p>
           <p data-lit className="k-jl k-jset font-text text-[clamp(1.0625rem,1.7vw,1.5rem)] leading-[1.5]">
-            But that&rsquo;s not where KUL began.
+            {copy.coupletB}
           </p>
 
           <h2
@@ -115,18 +101,18 @@ export default function Scene13Promise() {
             data-lit
             className="k-jl k-jset mt-[6svh] max-w-[16ch] font-display text-[clamp(2rem,4.6vw,4rem)] font-black leading-[1.05] tracking-[-0.02em]"
           >
-            KUL began with a promise.
+            {copy.hinge}
           </h2>
 
           <ul className="mt-[7svh] flex max-w-[46ch] flex-col gap-6">
-            {VOWS.map((vow, i) => (
+            {copy.vows.map((vow, i) => (
               <li key={vow} data-lit className="k-jl k-jset relative pl-7">
                 {/* The tick is ink, on the spine of the list. Gold cannot
                     appear on this ground at all; see the spine's gold note. */}
                 <span aria-hidden="true" className="k-s13-tick absolute left-0 top-[0.3em] h-5 w-[2px] origin-top bg-current" />
                 <p
                   className={
-                    i === VOWS.length - 1
+                    i === copy.vows.length - 1
                       ? "font-text text-[clamp(1rem,1.5vw,1.3125rem)] leading-[1.55]"
                       : "font-text text-[clamp(1.125rem,1.9vw,1.625rem)] leading-[1.45]"
                   }
@@ -140,11 +126,10 @@ export default function Scene13Promise() {
           {/* The one labelled lesson on the light half. The label is ink here
               for the same reason the ticks are. */}
           <div className="mt-[8svh] flex max-w-[40ch] flex-col gap-4">
-            <p className="font-display text-[11px] font-medium uppercase tracking-[0.2em]">Lesson</p>
+            <p className="font-display text-[11px] font-medium uppercase tracking-[0.2em]">{copy.lessonWord}</p>
             <span aria-hidden="true" className="h-[2px] w-16 bg-current" />
             <p className="font-text text-[clamp(1.125rem,2vw,1.75rem)] leading-[1.4]">
-              Principles are promises you keep, even when they&rsquo;re
-              difficult.
+              {copy.lesson}
             </p>
           </div>
         </div>

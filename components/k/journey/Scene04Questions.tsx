@@ -41,16 +41,24 @@ const SCENE = SCENES[3];
  * quick, quick, pause, hard on its heels, then the answer.
  * Rule is each line's road, growing until the last leaves the frame.
  */
-const STACK = [
-  { text: "I wasn't satisfied with simply being told how things were.", gap: 0, rule: "72px", ms: 65 },
-  { text: "I wanted to understand why they worked the way they did.", gap: 7, rule: "160px", ms: 145 },
-  { text: "Questions became part of the journey.", gap: 10, rule: "280px", ms: 255 },
-  { text: "Curiosity doesn't always give you immediate answers.", gap: 26, rule: "420px", ms: 382 },
-  { text: "Sometimes…", gap: 5, rule: "560px", ms: 509 },
-  { text: "It gives you a lifetime of learning.", gap: 4, rule: "80vw", ms: 1000 },
+const DESIGN = [
+  { gap: 0, rule: "72px", ms: 65 },
+  { gap: 7, rule: "160px", ms: 145 },
+  { gap: 10, rule: "280px", ms: 255 },
+  { gap: 26, rule: "420px", ms: 382 },
+  { gap: 5, rule: "560px", ms: 509 },
+  { gap: 4, rule: "80vw", ms: 1000 },
 ] as const;
 
-export default function Scene04Questions() {
+/** His words, edited at /admin; the gaps and rule lengths above are design. */
+export type Scene04Copy = {
+  leadA: string;
+  leadB: string;
+  stack: string[];
+  lesson: string;
+};
+
+export default function Scene04Questions({ copy }: { copy: Scene04Copy }) {
   const rootRef = useLit<HTMLElement>();
   const ink = inkFor(SCENE);
   const gold = goldFor(SCENE);
@@ -72,14 +80,14 @@ export default function Scene04Questions() {
       <div className="mx-auto w-full max-w-[1296px] px-5 py-[14svh] pb-[20svh] md:px-10 lg:px-24">
         <div className="max-w-[26ch]">
           <p data-lit className="k-jl font-text text-[clamp(1.0625rem,1.7vw,1.5rem)] leading-[1.5]">
-            As I grew older&hellip;
+            {copy.leadA}
           </p>
           <h2
             id={`${SCENE.slug}-heading`}
             data-lit
             className="k-jl font-text text-[clamp(1.0625rem,1.7vw,1.5rem)] leading-[1.5]"
           >
-            I began to notice something.
+            {copy.leadB}
           </h2>
         </div>
 
@@ -87,11 +95,13 @@ export default function Scene04Questions() {
             ARIA, five sentences in reading order. Hover lighting rides the
             same one-way class the scroll uses, desktop pointers only. */}
         <ol className="mt-[10svh]">
-          {STACK.map((line) => (
+          {copy.stack.map((text, i) => {
+            const line = DESIGN[Math.min(i, DESIGN.length - 1)];
+            return (
             // The line and its rule light as ONE unit, so the floor opacity
             // and the draw can never disagree about which state they are in.
             <li
-              key={line.text}
+              key={text}
               data-lit
               className="k-jl"
               style={
@@ -106,7 +116,7 @@ export default function Scene04Questions() {
               }
             >
               <p className="k-s04-line max-w-[24ch] font-display text-[clamp(1.375rem,2.9vw,2.5rem)] font-medium leading-[1.2] tracking-[-0.01em] md:max-w-none">
-                {line.text}
+                {text}
               </p>
               {/* The road this question opened. Decoration, drawn from the
                   left when its line lights; already drawn if the script never
@@ -117,7 +127,8 @@ export default function Scene04Questions() {
                 style={{ width: line.rule, background: gold ?? "currentColor", opacity: 0.7 }}
               />
             </li>
-          ))}
+            );
+          })}
         </ol>
 
         {/* THE LESSON. Its gold mark hangs to the LEFT of the first word, in
@@ -130,7 +141,7 @@ export default function Scene04Questions() {
             style={{ background: gold ?? "currentColor" }}
           />
           <p className="font-text text-[clamp(1.25rem,2.2vw,2rem)] leading-[1.35]">
-            Every road begins with a question.
+            {copy.lesson}
           </p>
         </div>
       </div>

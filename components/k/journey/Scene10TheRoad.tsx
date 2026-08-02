@@ -77,21 +77,28 @@ const SCENE = SCENES[9];
  * facts on a page whose whole argument is that nothing on it is invented. Mark
  * did not record when he took these.
  */
-const FRAMES = [
-  { file: "s12c-night-highway", light: "Night", line: "I thought I was learning how to drive a truck." },
-  { file: "s12-predawn-peaks", light: "Before first light", line: "What I didn't realize was that the road was teaching me something far greater." },
-  { file: "s13-first-daylight", light: "The sky begins to lift", line: "Every mile introduced me to a new place." },
-  { file: "s04-dawn-road-mist", light: "Dawn, in mist", line: "Every state introduced me to different people." },
-  { file: "s11-sunrise-band", light: "Sunrise", line: "Every delivery reminded me that trust travels farther than freight." },
-  { file: "s05-sunrise-horizon", light: "The sun clears the horizon", line: "I had a plan. But plans have a way of changing." },
-  { file: "s08-desert-bend", light: "Mid morning", line: "There were victories. There were setbacks. Both became teachers." },
-  { file: "s09-interstate-traffic", light: "Late morning", line: "I wasn't chasing titles. I was learning to become dependable." },
-  { file: "s06-wide-horizon", light: "Midday", line: "The country was changing. And so was I." },
-  { file: "s08b-rockcut-bend", light: "Afternoon", line: "Every load represented someone's trust. Every mile represented someone's promise." },
-  { file: "s17-road-to-horizon", light: "Sun high", line: "The farther I traveled, the more I realized every person has a story." },
+const FILES = [
+  "s12c-night-highway",
+  "s12-predawn-peaks",
+  "s13-first-daylight",
+  "s04-dawn-road-mist",
+  "s11-sunrise-band",
+  "s05-sunrise-horizon",
+  "s08-desert-bend",
+  "s09-interstate-traffic",
+  "s06-wide-horizon",
+  "s08b-rockcut-bend",
+  "s17-road-to-horizon",
 ] as const;
 
-const SOURCES = FRAMES.map((f) => `/images/journey/${f.file}.webp`);
+const SOURCES = FILES.map((f) => `/images/journey/${f}.webp`);
+
+/** His words and his descriptions of the light, edited at /admin. WHICH
+ *  photograph carries which line is decided by position against the file
+ *  list above, so the order there and the order in the CMS must agree. */
+export type Scene10Copy = {
+  frames: { light: string; line: string }[];
+};
 
 /**
  * Zero slope AND zero acceleration at both ends, which is what gives each
@@ -101,7 +108,12 @@ function smootherstep(f: number): number {
   return f * f * f * (f * (f * 6 - 15) + 10);
 }
 
-export default function Scene10TheRoad() {
+export default function Scene10TheRoad({ copy }: { copy: Scene10Copy }) {
+  const FRAMES = FILES.map((file, i) => ({
+    file,
+    light: copy.frames[i]?.light ?? "",
+    line: copy.frames[i]?.line ?? "",
+  }));
   const [current, setCurrent] = useState(0);
   const shader = useRef<RoadShaderHandle | null>(null);
 

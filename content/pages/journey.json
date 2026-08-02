@@ -3,140 +3,258 @@
     "title": "The Journey",
     "description": "How KUL Enterprises started. Jamaica, the Air Force, eleven years driving for other carriers, and the first truck of his own. The story behind the carrier in {location}."
   },
-  "pinnedStatement": "None of this is a sales argument. It is here because a carrier is a person, and the person hauling your freight spent eleven years learning the job on somebody else's trucks before he bought his own.",
-  "chapterOne": {
-    "eyebrow": "Chapter 01",
-    "heading": "Jamaica",
-    "paragraphs": [
+  "acts": [
+    { "title": "The Origin" },
+    { "title": "Formation" },
+    { "title": "The Road" },
+    { "title": "The Company" },
+    { "title": "The Institution" }
+  ],
+  "s01": {
+    "setup": [
+      "Every company has a story.",
+      "Ours began long before the first truck.",
+      "It began with character."
+    ],
+    "heading": "Every road has a beginning.",
+    "mine": "This is mine.",
+    "skip": "Skip to Jamaica, scene two"
+  },
+  "s02": {
+    "said": [
       "I was born in Jamaica.",
-      "My mother brought my sister and me to America. She told us we were spending the summer with our father."
+      "My mother brought my sister and me to America.",
+      "She told us we were spending the summer with our father."
     ],
-    "closingLine": "We never went back.",
-    "image": "/images/journey/s02-jamaica-childhood.webp",
-    "imageAlt": "Mark Brown and his sister in Jamaica, early 1980s"
+    "caption": "Mark and his sister. Jamaica, early 1980s.",
+    "alone": "We never went back.",
+    "lesson": "Sometimes life's greatest journeys begin without our permission."
   },
-  "chapterFive": {
-    "eyebrow": "Chapter 05",
-    "heading": "Eleven years, other people's trucks",
-    "body": "Every photograph from here on is one he took through a windscreen. They run in the order the light does, because that is the order he saw them in.",
-    "video": "dash-night",
-    "poster": "/videos/dash-night-poster.jpg",
+  "s03": {
+    "opening": [
+      "America was different.",
+      "Everything moved faster.",
+      "Everything felt unfamiliar."
+    ],
+    "turnA": "While most kids spent their summers playing…",
+    "turnB": "Mine were spent on construction sites.",
+    "triplet": ["Every school break…", "Every holiday…", "Every vacation…"],
+    "father": "I worked alongside my father.",
+    "coupletA": "Work isn't something to avoid.",
+    "coupletB": "It's something to take pride in.",
+    "lesson": "Character is often built long before opportunity arrives."
+  },
+  "s04": {
+    "leadA": "As I grew older…",
+    "leadB": "I began to notice something.",
+    "stack": [
+      "I wasn't satisfied with simply being told how things were.",
+      "I wanted to understand why they worked the way they did.",
+      "Questions became part of the journey.",
+      "Curiosity doesn't always give you immediate answers.",
+      "Sometimes…",
+      "It gives you a lifetime of learning."
+    ],
+    "lesson": "Every road begins with a question."
+  },
+  "s05": {
+    "momentA": "Every life reaches a moment…",
+    "momentB": "When someone else stops making the decisions.",
+    "mine": "This was mine.",
+    "leaving": "Leaving home wasn't just about finding a place to live.",
+    "firstTime": "For the first time, I was making my own decisions.",
+    "cross": "It was about finding out who I was.",
+    "good": "Some were good.",
+    "bad": "Some weren't.",
+    "belonged": "But every one of them belonged to me.",
+    "couplet": "Independence isn't the freedom to avoid mistakes. It's accepting responsibility for them.",
+    "lesson": "Growth begins the moment excuses end."
+  },
+  "s06": {
+    "freedomA": "Independence gave me freedom.",
+    "freedomB": "But freedom also brought a question.",
+    "question": "What kind of man did I want to become?",
+    "answerA": "I wanted structure.",
+    "answerB": "I wanted to be challenged.",
+    "airforce": "That's what led me to the United States Air Force.",
+    "noPhoto": "No photograph exists of this decision",
+    "credit": "Photograph by Mark Brown",
+    "lesson": "Discipline isn't about being controlled. It's about learning to control yourself."
+  },
+  "s07": {
+    "lead": "Some lessons can only be learned through discipline. It demanded:",
+    "drilled": ["Consistency.", "Accountability.", "Commitment."],
+    "couplet": "Discipline doesn't change who you are. It reveals who you're willing to become."
+  },
+  "s08": {
+    "statements": [
+      "I thought I knew where life was taking me.",
+      "I had a plan.",
+      "But plans have a way of changing.",
+      "There were victories.",
+      "There were setbacks.",
+      "Both became teachers.",
+      "Life rarely asks whether you're ready."
+    ],
+    "questionA": "It simply asks:",
+    "questionB": "what will you do now?",
+    "lessonA": "Resilience isn't refusing to fall.",
+    "lessonB": "It's choosing to keep moving."
+  },
+  "s09": {
+    "cards": [
+      "Opportunity has a way of finding people who are prepared for it.",
+      "I wasn't chasing titles.",
+      "I was learning to become dependable.",
+      "One responsibility became another.",
+      "One opportunity led to the next.",
+      "Before long, I found myself leading others.",
+      "Leadership isn't about being in front.",
+      "It's about being someone others can count on."
+    ],
+    "note": "Field note · 2022 · 0:17 · Sound",
+    "lesson": "Trust is earned long before it's ever expected."
+  },
+  "s10": {
     "frames": [
-      {
-        "src": "/images/journey/s12c-night-highway.webp",
-        "alt": "An interstate at night, headlights and lane markings drawing forward",
-        "time": "Night",
-        "line": "I thought I was learning how to drive a truck."
-      },
-      {
-        "src": "/images/journey/s12-predawn-peaks.webp",
-        "alt": "Mountain peaks in violet light before sunrise",
-        "time": "Before first light",
-        "line": "What I didn't realize was that the road was teaching me something far greater."
-      },
-      {
-        "src": "/images/journey/s13-first-daylight.webp",
-        "alt": "A grey blue sky lifting over the interstate before sunrise",
-        "time": "The sky begins to lift",
-        "line": "Every mile introduced me to a new place."
-      },
-      {
-        "src": "/images/journey/s04-dawn-road-mist.webp",
-        "alt": "A road running into low mist at dawn",
-        "time": "Dawn, in mist",
-        "line": "Every state introduced me to different people."
-      },
-      {
-        "src": "/images/journey/s11-sunrise-band.webp",
-        "alt": "A band of sunrise colour along the horizon above the highway",
-        "time": "Sunrise",
-        "line": "Every delivery reminded me that trust travels farther than freight."
-      },
-      {
-        "src": "/images/journey/s05-sunrise-horizon.webp",
-        "alt": "The sun breaking the horizon at the end of a straight road",
-        "time": "The sun clears the horizon",
-        "line": "I had a plan. But plans have a way of changing."
-      },
-      {
-        "src": "/images/journey/s08-desert-bend.webp",
-        "alt": "A desert highway bending out of sight",
-        "time": "Mid morning",
-        "line": "There were victories. There were setbacks. Both became teachers."
-      },
-      {
-        "src": "/images/journey/s09-interstate-traffic.webp",
-        "alt": "Traffic across several lanes of interstate in daylight",
-        "time": "Late morning",
-        "line": "I wasn't chasing titles. I was learning to become dependable."
-      },
-      {
-        "src": "/images/journey/s06-wide-horizon.webp",
-        "alt": "A wide horizon opening out on both sides of the road",
-        "time": "Midday",
-        "line": "Freight moved every day. But what truly kept the industry moving wasn't trucks. It was people."
-      },
-      {
-        "src": "/images/journey/s08b-rockcut-bend.webp",
-        "alt": "A highway curving through a rock cut under a bright sky",
-        "time": "Afternoon",
-        "line": "Every load represented someone's trust. Every mile represented someone's promise."
-      },
-      {
-        "src": "/images/journey/s17-road-to-horizon.webp",
-        "alt": "The road running on with the sun high and no destination visible",
-        "time": "Sun high",
-        "line": "The farther I traveled, the more I realized every person has a story."
-      }
+      { "light": "Night", "line": "I thought I was learning how to drive a truck." },
+      { "light": "Before first light", "line": "What I didn't realize was that the road was teaching me something far greater." },
+      { "light": "The sky begins to lift", "line": "Every mile introduced me to a new place." },
+      { "light": "Dawn, in mist", "line": "Every state introduced me to different people." },
+      { "light": "Sunrise", "line": "Every delivery reminded me that trust travels farther than freight." },
+      { "light": "The sun clears the horizon", "line": "I had a plan. But plans have a way of changing." },
+      { "light": "Mid morning", "line": "There were victories. There were setbacks. Both became teachers." },
+      { "light": "Late morning", "line": "I wasn't chasing titles. I was learning to become dependable." },
+      { "light": "Midday", "line": "The country was changing. And so was I." },
+      { "light": "Afternoon", "line": "Every load represented someone's trust. Every mile represented someone's promise." },
+      { "light": "Sun high", "line": "The farther I traveled, the more I realized every person has a story." }
     ]
   },
-  "contactSheet": {
-    "eyebrow": "Twenty-six kept, eleven shown",
-    "statement": "He did not photograph the road once. He photographed it for eleven years, and these are the ones that survived the cut.",
-    "tiles": [
-      "/images/journey/hero-open-road-blue.webp",
-      "/images/journey/s09b-elevated-traffic.webp",
-      "/images/journey/gal-alpine-lake.webp",
-      "/images/journey/s14-confident-highway.webp",
-      "/images/journey/hero-sage-plain.webp",
-      "/images/journey/s16-valley-from-height.webp",
-      "/images/journey/s10-endless-road.webp",
-      "/images/journey/gal-river-rocks.webp",
-      "/images/journey/s11b-sunrise-cloud.webp",
-      "/images/journey/hero-two-lane-centred.webp",
-      "/images/journey/s12b-predawn-peaks-alt.webp",
-      "/images/journey/s07-pines-road.webp",
-      "/images/journey/gal-waterfall-figure.webp",
-      "/images/journey/s02b-caribbean-water.webp",
-      "/images/journey/s08b-rockcut-bend.webp",
-      "/images/journey/s06-wide-horizon.webp",
-      "/images/journey/s04-dawn-road-mist.webp",
-      "/images/journey/s09-interstate-traffic.webp"
+  "s11": {
+    "premise": "Freight moved every day. But what truly kept the industry moving wasn't trucks.",
+    "people": "It was people.",
+    "roll": [
+      { "word": "Drivers.", "note": "The only driver this archive has a picture of is the man who made it." },
+      { "word": "Dispatchers.", "note": "" },
+      { "word": "Mechanics.", "note": "" },
+      { "word": "Customers.", "note": "" },
+      { "word": "Brokers.", "note": "" },
+      { "word": "Families waiting at home.", "note": "His own, in the only photograph of them." }
     ]
   },
-  "chapterSix": {
-    "eyebrow": "Chapter 06",
-    "heading": "One truck of his own",
-    "paragraphs": [
-      "Every company begins with paperwork. But that's not where KUL began. KUL began with a promise.",
-      "We didn't build this company to be the biggest. We built it to be trusted."
+  "s12": {
+    "b1": "There came a moment when I stopped asking:",
+    "b2": "what kind of business do I want to own?",
+    "b3": "I began asking a different question.",
+    "b4": "What kind of company deserves to exist?",
+    "b5": "A company built on honesty, when honesty costs something.",
+    "b6": "A company built on integrity, even when no one is watching.",
+    "b7": "I wasn't trying to build a trucking company.",
+    "b9": "I was trying to build something people could believe in.",
+    "closeA": "The strongest foundation isn't concrete.",
+    "closeB": "It's character.",
+    "showFull": "Show full statement"
+  },
+  "s13": {
+    "filingsLabel": "Filings",
+    "filings": [
+      "Articles of organization",
+      "EIN application",
+      "USDOT number",
+      "MC operating authority",
+      "BOC-3 process agent",
+      "UCR registration",
+      "IFTA license",
+      "IRP apportioned plate",
+      "Form 2290 heavy vehicle use tax",
+      "Certificate of insurance",
+      "Form W-9",
+      "Drug and alcohol consortium",
+      "ELD registration",
+      "Carrier packet",
+      "Notice of assignment",
+      "Rate confirmation"
     ],
-    "footnote": "KUL Enterprises LLC, from 2026. One tractor, one driver, and a phone number that reaches the person driving it.",
-    "imageWide": "/images/journey/s07-pines-road.webp",
-    "imageWideAlt": "A two lane road running on through dense pine forest",
-    "imageInset": "/images/journey/s16-valley-from-height.webp",
-    "imageInsetAlt": "A road seen from height, running down through a valley",
-    "imageInsetCaption": "There is no photograph of the KUL tractor here yet."
-  },
-  "close": {
-    "heading": "About the photographs",
-    "paragraphs": [
-      "Every image on this page is one Mark took himself, and none of it has been staged, bought or generated. Three of the six chapters have no photograph of what they describe, because none was ever taken: the construction sites, leaving home and the Air Force carry pictures from his own archive instead, and the words carry the rest.",
-      "The words are his too. They come from the story he wrote out for this page, kept as he wrote it."
+    "coupletA": "Every company begins with paperwork.",
+    "coupletB": "But that's not where KUL began.",
+    "hinge": "KUL began with a promise.",
+    "vows": [
+      "To do business with integrity.",
+      "To treat people with respect.",
+      "To never compromise safety for convenience.",
+      "To remember that behind every shipment, every invoice, every phone call, is a person who placed their trust in us."
     ],
-    "links": [
-      { "label": "More about the company", "href": "/about" },
-      { "label": "Get a rate", "href": "/quote" }
-    ]
-  }
+    "closer": "The trucks would come later.",
+    "lesson": "Principles are promises you keep, even when they're difficult."
+  },
+  "s14": {
+    "fragments": ["Every mile.", "Every lesson.", "Every decision."],
+    "led": "Led here.",
+    "say": "We didn't build this company to be the biggest. We built it to be trusted.",
+    "welcome": "Welcome to KUL Enterprises",
+    "portraitName": "Mark Brown, founder"
+  },
+  "s15": {
+    "kicker": "What we stand for",
+    "introA": "Every company has values.",
+    "introB": "Ours were learned… long before this company existed.",
+    "values": [
+      { "name": "Integrity", "promise": "We do the right thing… even when no one is watching." },
+      { "name": "Safety", "promise": "Every load matters. Every person matters more." },
+      { "name": "Communication", "promise": "Trust grows when people know what's happening." },
+      { "name": "Respect", "promise": "We believe relationships are built… one conversation at a time." },
+      { "name": "Excellence", "promise": "Good enough has never been our destination." },
+      { "name": "Accountability", "promise": "When we make a promise… We intend to keep it." }
+    ],
+    "closeA": "Values don't matter because they're written.",
+    "closeB": "They matter because they're lived."
+  },
+  "s16": {
+    "triad": [
+      "Every road leads somewhere.",
+      "Some journeys last a few miles.",
+      "Others shape an entire lifetime."
+    ],
+    "inService": "In service today",
+    "target": "Target, end of 2029",
+    "next": "Next",
+    "stations": [
+      "One shipment at a time.",
+      "One relationship at a time.",
+      "One promise kept at a time."
+    ],
+    "still": "KUL Enterprises is still writing its story.",
+    "aheadA": "We don't know every opportunity that lies ahead.",
+    "aheadB": "But we do know the principles that will guide us there.",
+    "lesson": "The journey never really ends. It simply becomes someone else's beginning."
+  },
+  "s17": {
+    "summation": [
+      "Every mile I've traveled…",
+      "Every lesson I've learned…",
+      "Every promise I've chosen to keep…",
+      "Has led to this moment."
+    ],
+    "turnA": "Not because my journey is complete.",
+    "turnB": "But because it's finally ready… to serve yours.",
+    "silenceWord": "Silence",
+    "thesisA": "Trust isn't given.",
+    "thesisB": "It's earned.",
+    "cadence": ["One mile.", "One decision.", "One relationship at a time."],
+    "invite": "Whenever you're ready… we'll be honored… to take the next one with you.",
+    "continueWord": "Continue",
+    "doors": [
+      { "label": "Request a rate", "path": "/quote" },
+      { "label": "What we haul", "path": "/services" }
+    ],
+    "indexLabel": "Plate index",
+    "indexTitle": "The Journey, 2026",
+    "skipIndex": "Skip the plate index",
+    "colophonWord": "Colophon",
+    "colophon": "This page is a record, not a brochure. Thirty-two plates from Mark Brown's own archive: twenty-four frames of road photographed through a windscreen over eleven years, two frames of Jamaica, three of a working life from 2021 to 2022, and three portraits. No photograph was staged, purchased, or generated. Three chapters of the story have no photograph at all, and the page says so rather than dressing the absence up.",
+    "setNote": "Set in Archivo and Inter",
+    "signoff": "Thank you for taking this journey with us.",
+    "endWord": "End"
+  },
+  "lessonWord": "Lesson"
 }

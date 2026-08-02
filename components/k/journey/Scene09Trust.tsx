@@ -47,23 +47,27 @@ import { useLit } from "./useLit";
 
 const SCENE = SCENES[8];
 
-const CARDS: ReadonlyArray<{
-  text: string;
-  width: string;
-  photo?: string;
-  note?: boolean;
-}> = [
-  { text: "Opportunity has a way of finding people who are prepared for it.", width: "min(46rem, 100%)" },
-  { text: "I wasn't chasing titles.", width: "min(35rem, 92%)" },
-  { text: "I was learning to become dependable.", width: "min(44rem, 100%)", photo: "jobsite-bay" },
-  { text: "One responsibility became another.", width: "min(44rem, 100%)", photo: "jobsite-install" },
-  { text: "One opportunity led to the next.", width: "min(40rem, 96%)" },
-  { text: "Before long, I found myself leading others.", width: "min(45rem, 100%)", photo: "jobsite-fixtures", note: true },
-  { text: "Leadership isn't about being in front.", width: "min(39rem, 94%)" },
-  { text: "It's about being someone others can count on.", width: "min(44rem, 100%)" },
+const DESIGN: ReadonlyArray<{ width: string; photo?: string; note?: boolean }> = [
+  { width: "min(46rem, 100%)" },
+  { width: "min(35rem, 92%)" },
+  { width: "min(44rem, 100%)", photo: "jobsite-bay" },
+  { width: "min(44rem, 100%)", photo: "jobsite-install" },
+  { width: "min(40rem, 96%)" },
+  { width: "min(45rem, 100%)", photo: "jobsite-fixtures", note: true },
+  { width: "min(39rem, 94%)" },
+  { width: "min(44rem, 100%)" },
 ];
 
-export default function Scene09Trust() {
+/** His words, edited at /admin; which strata carry photographs is the
+ *  register's business and stays above. */
+export type Scene09Copy = {
+  cards: string[];
+  note: string;
+  lesson: string;
+  lessonWord: string;
+};
+
+export default function Scene09Trust({ copy }: { copy: Scene09Copy }) {
   const rootRef = useLit<HTMLElement>();
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -104,9 +108,11 @@ export default function Scene09Trust() {
         </h2>
 
         <ol>
-          {CARDS.map((card, i) => (
+          {copy.cards.map((text, i) => {
+            const card = DESIGN[Math.min(i, DESIGN.length - 1)];
+            return (
             <li
-              key={card.text}
+              key={text}
               data-lit
               className="k-jl k-s09-card mt-3 first:mt-0"
               style={{ maxWidth: card.width, "--lit-floor": "0.66" } as React.CSSProperties}
@@ -137,7 +143,7 @@ export default function Scene09Trust() {
                     </figure>
                   ) : null}
                   <p className="font-text text-[clamp(1.125rem,1.9vw,1.625rem)] leading-[1.35]">
-                    {card.text}
+                    {text}
                   </p>
                 </div>
               </div>
@@ -152,7 +158,7 @@ export default function Scene09Trust() {
                     onClick={openNote}
                     className="k-s09-note relative font-display text-[11px] font-medium uppercase tracking-[0.1em] outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-current"
                   >
-                    Field note · 2022 · 0:17 · Sound
+                    {copy.note}
                     <span
                       aria-hidden="true"
                       className="absolute -bottom-1 left-0 h-px w-full"
@@ -162,7 +168,8 @@ export default function Scene09Trust() {
                 </div>
               ) : null}
             </li>
-          ))}
+            );
+          })}
         </ol>
 
         {/* The one labelled lesson in this act. The label is the site's voice
@@ -172,10 +179,10 @@ export default function Scene09Trust() {
             className="font-display text-[11px] font-medium uppercase tracking-[0.2em]"
             style={{ color: gold ?? "currentColor" }}
           >
-            Lesson
+            {copy.lessonWord}
           </p>
           <p className="font-text text-[clamp(1.25rem,2.2vw,2rem)] leading-[1.35]">
-            Trust is earned long before it&rsquo;s ever expected.
+            {copy.lesson}
           </p>
         </div>
       </div>

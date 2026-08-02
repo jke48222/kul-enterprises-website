@@ -44,7 +44,20 @@ import { useLit } from "./useLit";
 const SCENE = SCENES[5];
 const PLATE = "s06-wide-horizon";
 
-export default function Scene06Challenge() {
+/** His words, edited at /admin. */
+export type Scene06Copy = {
+  freedomA: string;
+  freedomB: string;
+  question: string;
+  answerA: string;
+  answerB: string;
+  airforce: string;
+  noPhoto: string;
+  credit: string;
+  lesson: string;
+};
+
+export default function Scene06Challenge({ copy }: { copy: Scene06Copy }) {
   const rootRef = useLit<HTMLElement>();
   const ink = inkFor(SCENE);
   const gold = goldFor(SCENE);
@@ -66,17 +79,17 @@ export default function Scene06Challenge() {
         {/* THE QUESTION. Above the plate, so the line is drawn in answer. */}
         <div className="max-w-[34ch] text-center">
           <p data-lit className="k-jl font-text text-[clamp(1.0625rem,1.7vw,1.5rem)] leading-[1.5]">
-            Independence gave me freedom.
+            {copy.freedomA}
           </p>
           <p data-lit className="k-jl font-text text-[clamp(1.0625rem,1.7vw,1.5rem)] leading-[1.5]">
-            But freedom also brought a question.
+            {copy.freedomB}
           </p>
           <h2
             id={`${SCENE.slug}-heading`}
             data-lit
             className="k-jl mt-[5svh] text-balance font-display text-[clamp(1.625rem,3.6vw,3rem)] font-medium leading-[1.12] tracking-[-0.015em]"
           >
-            What kind of man did I want to become?
+            {copy.question}
           </h2>
         </div>
 
@@ -103,8 +116,8 @@ export default function Scene06Challenge() {
             <span aria-hidden="true" className="k-s06-line absolute left-0 top-1/2 h-px w-full origin-left" style={{ background: gold ?? "currentColor" }} />
           </div>
           <figcaption className="mt-3 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 font-display text-[11px] font-medium uppercase leading-[1.5] tracking-[0.1em]">
-            <span>No photograph exists of this decision</span>
-            <span className="tabular-nums">{plateLabel(PLATE)} · Photograph by Mark Brown</span>
+            <span>{copy.noPhoto}</span>
+            <span className="tabular-nums">{plateLabel(PLATE)} · {copy.credit}</span>
           </figcaption>
         </figure>
 
@@ -112,21 +125,20 @@ export default function Scene06Challenge() {
             enlistment named at the quietest weight in the scene. */}
         <div className="mt-[8svh] max-w-[34ch] text-center">
           <p data-lit className="k-jl font-text text-[clamp(1.125rem,1.9vw,1.625rem)] font-semibold leading-[1.45]">
-            I wanted structure.
+            {copy.answerA}
           </p>
           <p data-lit className="k-jl font-text text-[clamp(1.125rem,1.9vw,1.625rem)] font-semibold leading-[1.45]">
-            I wanted to be challenged.
+            {copy.answerB}
           </p>
           <p data-lit className="k-jl mt-[4svh] font-text text-[clamp(1rem,1.5vw,1.3125rem)] leading-[1.55]">
-            That&rsquo;s what led me to the United States Air Force.
+            {copy.airforce}
           </p>
         </div>
 
         <div className="mt-[7svh] flex max-w-[40ch] flex-col items-center gap-4 text-center">
           <span aria-hidden="true" className="h-px w-16" style={{ background: gold ?? "currentColor" }} />
           <p className="font-text text-[clamp(1.0625rem,1.7vw,1.5rem)] leading-[1.45]">
-            Discipline isn&rsquo;t about being controlled. It&rsquo;s about
-            learning to control yourself.
+            {copy.lesson}
           </p>
         </div>
       </div>

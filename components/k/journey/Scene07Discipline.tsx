@@ -56,20 +56,24 @@ import { useStageProgress, span, lerp } from "./useStageProgress";
 
 const SCENE = SCENES[6];
 
-/** The three he names. Drilled, one after another. */
-const DRILLED = ["Consistency.", "Accountability.", "Commitment."] as const;
+/** His words, edited at /admin. The drill needs its three words separate. */
+export type Scene07Copy = {
+  lead: string;
+  drilled: string[];
+  couplet: string;
+};
 
-export default function Scene07Discipline() {
+export default function Scene07Discipline({ copy }: { copy: Scene07Copy }) {
   const { trackRef, stageRef } = useStageProgress((p, stage) => {
     // Each word is compressed over its own window, overlapping the next, so the
     // three read as a sequence of repetitions rather than one group move.
-    DRILLED.forEach((_, i) => {
+    for (let i = 0; i < 3; i++) {
       const t = span(p, 0.08 + i * 0.16, 0.34 + i * 0.16);
       // Rounded hard: font-variation-settings reflows, so it must only change
       // when it visibly should, not on every scroll tick.
       stage.style.setProperty(`--s07-w${i}`, String(Math.round(lerp(125, 62, t))));
       stage.style.setProperty(`--s07-b${i}`, String(Math.round(lerp(200, 900, t) / 25) * 25));
-    });
+    }
 
     // The closing couplet arrives only once the drilling is finished. It is the
     // conclusion drawn from it, so it must not share the screen with the work.
@@ -100,14 +104,14 @@ export default function Scene07Discipline() {
             id="discipline-heading"
             className="max-w-[30ch] font-text text-[clamp(1.0625rem,1.7vw,1.5rem)] font-normal leading-[1.4]"
           >
-            Some lessons can only be learned through discipline. It demanded:
+            {copy.lead}
           </h2>
 
           {/* THE DRILL. Three words, each compressed into strength. Set flush
               left on their own lines so a width change moves nothing but the
               word itself. */}
           <ul className="mt-[6svh] flex flex-col gap-[0.4svh]">
-            {DRILLED.map((word, i) => (
+            {copy.drilled.map((word, i) => (
               <li
                 key={word}
                 className="k-s07-drill w-fit font-display uppercase leading-[0.94] tracking-[-0.01em]"
@@ -133,8 +137,7 @@ export default function Scene07Discipline() {
               style={{ background: gold ?? "currentColor" }}
             />
             <p className="font-text text-[clamp(1.0625rem,1.7vw,1.5rem)] leading-[1.45]">
-              Discipline doesn&rsquo;t change who you are. It reveals who
-              you&rsquo;re willing to become.
+              {copy.couplet}
             </p>
           </div>
         </div>

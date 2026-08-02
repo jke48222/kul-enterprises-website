@@ -37,15 +37,15 @@ import { useLit } from "./useLit";
 
 const SCENE = SCENES[14];
 
-/** His six values, and what each one costs. Verbatim. */
-const VALUES = [
-  { name: "Integrity", promise: "We do the right thing… even when no one is watching." },
-  { name: "Safety", promise: "Every load matters. Every person matters more." },
-  { name: "Communication", promise: "Trust grows when people know what's happening." },
-  { name: "Respect", promise: "We believe relationships are built… one conversation at a time." },
-  { name: "Excellence", promise: "Good enough has never been our destination." },
-  { name: "Accountability", promise: "When we make a promise… We intend to keep it." },
-] as const;
+/** His words, edited at /admin. */
+export type Scene15Copy = {
+  kicker: string;
+  introA: string;
+  introB: string;
+  values: { name: string; promise: string }[];
+  closeA: string;
+  closeB: string;
+};
 
 /** Displacement away from the centre seam, and the outside-in stagger. */
 const SETTLE = [
@@ -57,7 +57,7 @@ const SETTLE = [
   { dy: 72, delay: 0 },
 ] as const;
 
-export default function Scene15Values() {
+export default function Scene15Values({ copy }: { copy: Scene15Copy }) {
   const rootRef = useLit<HTMLElement>();
   const ink = inkFor(SCENE);
   const gold = goldFor(SCENE);
@@ -76,15 +76,15 @@ export default function Scene15Values() {
     >
       <div className="mx-auto w-full max-w-[1296px] px-5 py-[12svh] pb-[20svh] md:px-10 lg:px-24">
         <p className="font-display text-[11px] font-medium uppercase tracking-[0.2em]">
-          What we stand for
+          {copy.kicker}
         </p>
 
         <div className="mt-8 max-w-[38ch]">
           <h2 id={`${SCENE.slug}-heading`} data-lit className="k-jl k-jset font-text text-[clamp(1.0625rem,1.7vw,1.5rem)] leading-[1.5]">
-            Every company has values.
+            {copy.introA}
           </h2>
           <p data-lit className="k-jl k-jset font-text text-[clamp(1.0625rem,1.7vw,1.5rem)] leading-[1.5]">
-            Ours were learned&hellip; long before this company existed.
+            {copy.introB}
           </p>
         </div>
 
@@ -99,7 +99,7 @@ export default function Scene15Values() {
             className="absolute inset-y-0 left-0 w-[3px] md:left-[calc(56px+min(24vw,280px))]"
             style={{ background: gold ?? "currentColor" }}
           />
-          {VALUES.map((v, i) => (
+          {copy.values.map((v, i) => (
             <li
               key={v.name}
               className="k-s15-row grid grid-cols-[40px_1fr] items-baseline gap-x-4 py-5 pl-4 md:grid-cols-[56px_min(24vw,280px)_1fr] md:gap-x-8 md:py-7 md:pl-0"
@@ -109,7 +109,7 @@ export default function Scene15Values() {
                   "--s15-delay": `${SETTLE[i].delay}ms`,
                   borderTop: "1px solid color-mix(in srgb, currentColor 22%, transparent)",
                   borderBottom:
-                    i === VALUES.length - 1
+                    i === copy.values.length - 1
                       ? "1px solid color-mix(in srgb, currentColor 40%, transparent)"
                       : undefined,
                 } as React.CSSProperties
@@ -132,10 +132,10 @@ export default function Scene15Values() {
             another piece of furniture would be one too many. */}
         <div className="mt-[7svh] max-w-[34ch] md:ml-[calc(56px+min(24vw,280px)+3px+2rem)]">
           <p data-lit className="k-jl k-jset font-text text-[clamp(1.25rem,2.2vw,2rem)] leading-[1.35]">
-            Values don&rsquo;t matter because they&rsquo;re written.
+            {copy.closeA}
           </p>
           <p data-lit className="k-jl k-jset font-text text-[clamp(1.25rem,2.2vw,2rem)] leading-[1.35]">
-            They matter because they&rsquo;re lived.
+            {copy.closeB}
           </p>
         </div>
       </div>

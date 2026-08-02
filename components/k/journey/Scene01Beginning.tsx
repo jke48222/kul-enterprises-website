@@ -40,14 +40,15 @@ import { useStageProgress, span, lerp } from "./useStageProgress";
 
 const SCENE = SCENES[0];
 
-/** Mark's opening, verbatim. The three-line setup, then the couplet. */
-const SETUP = [
-  "Every company has a story.",
-  "Ours began long before the first truck.",
-  "It began with character.",
-] as const;
+/** Every word here is Mark's, edited at /admin with the rest of the page. */
+export type Scene01Copy = {
+  setup: string[];
+  heading: string;
+  mine: string;
+  skip: string;
+};
 
-export default function Scene01Beginning() {
+export default function Scene01Beginning({ copy }: { copy: Scene01Copy }) {
   const { trackRef, stageRef } = useStageProgress((p, stage) => {
     // THE IRIS. Opens from a headlight-sized pool to wider than the screen, and
     // keeps opening past the point where it has left the frame so its edge is
@@ -146,7 +147,7 @@ export default function Scene01Beginning() {
             {/* Five lines, each lighting in turn. The index on each is what
                 drives its own reveal; see .k-s01-line in globals.css. */}
             <div className="flex flex-col gap-1.5 md:gap-2">
-              {SETUP.map((line, i) => (
+              {copy.setup.map((line, i) => (
                 <p
                   key={line}
                   className="k-s01-line font-text text-[17px] leading-[1.5] md:text-[26px] md:leading-[38px]"
@@ -165,7 +166,7 @@ export default function Scene01Beginning() {
                 className="k-s01-line block"
                 style={{ "--i": 4 } as React.CSSProperties}
               >
-                Every road has a beginning.
+                {copy.heading}
               </span>
               {/* The one line where he speaks about himself, and the only gold
                   in the scene. The rule is a mark in the margin, not a
@@ -178,7 +179,7 @@ export default function Scene01Beginning() {
                   aria-hidden="true"
                   className="absolute -left-4 top-[0.18em] h-[0.62em] w-[2px] bg-[#D6A145] md:-left-6"
                 />
-                This is mine.
+                {copy.mine}
               </span>
             </h1>
           </div>
@@ -192,7 +193,7 @@ export default function Scene01Beginning() {
           href="#jamaica"
           className="k-s01-cue group absolute bottom-24 left-1/2 z-30 -translate-x-1/2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D6A145] md:bottom-28"
         >
-          <span className="sr-only">Skip to Jamaica, scene two</span>
+          <span className="sr-only">{copy.skip}</span>
           <span
             aria-hidden="true"
             className="block h-10 w-px bg-[rgba(252,252,252,0.24)]"

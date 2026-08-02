@@ -55,14 +55,17 @@ import { useStageProgress, span, lerp } from "./useStageProgress";
 const SCENE = SCENES[1];
 const PLATE_FILE = "s02-jamaica-childhood";
 
-/** Mark's own words. Copy is sacred on this project; do not rewrite these. */
-const SAID = [
-  "I was born in Jamaica.",
-  "My mother brought my sister and me to America.",
-  "She told us we were spending the summer with our father.",
-] as const;
+/** Mark's own words, edited at /admin. Copy is sacred; the fields carry his
+ *  sentences and the component only decides where they stand. */
+export type Scene02Copy = {
+  said: string[];
+  caption: string;
+  alone: string;
+  lesson: string;
+  lessonWord: string;
+};
 
-export default function Scene02Jamaica() {
+export default function Scene02Jamaica({ copy }: { copy: Scene02Copy }) {
   const { trackRef, stageRef } = useStageProgress((p, stage) => {
     // THE PRINT ARRIVES FIRST, AND ALONE. The mount hairline is drawn from the
     // very start; what comes up inside it is the photograph. Eighteen per cent
@@ -139,9 +142,7 @@ export default function Scene02Jamaica() {
                 </div>
                 <figcaption className="mt-5 font-display text-[11px] font-medium uppercase leading-[1.6] tracking-[0.1em]">
                   <span className="block tabular-nums">{plateLabel(PLATE_FILE)}</span>
-                  <span className="block opacity-80">
-                    Mark and his sister. Jamaica, {p1.when?.toLowerCase()}.
-                  </span>
+                  <span className="block opacity-80">{copy.caption}</span>
                 </figcaption>
               </figure>
 
@@ -149,7 +150,7 @@ export default function Scene02Jamaica() {
                 {SCENE.title}
               </h2>
 
-              {SAID.map((line, i) => (
+              {copy.said.map((line, i) => (
                 <p
                   key={line}
                   data-say={i + 1}
@@ -179,7 +180,7 @@ export default function Scene02Jamaica() {
         className="grid items-center px-5 md:px-10 lg:px-24"
       >
         <p className="mx-auto w-full max-w-[1200px] font-display text-[clamp(2.25rem,6vw,5rem)] font-black leading-[1.02] tracking-[-0.025em]">
-          We never went back.
+          {copy.alone}
         </p>
       </div>
 
@@ -191,11 +192,10 @@ export default function Scene02Jamaica() {
       >
         <div className="mx-auto w-full max-w-[1200px]">
           <p className="font-display text-[11px] font-medium uppercase tracking-[0.2em] text-[#D6A145]">
-            Lesson
+            {copy.lessonWord}
           </p>
           <p className="mt-4 max-w-[42ch] font-text text-[clamp(1.0625rem,2vw,1.375rem)] leading-[1.5]">
-            Sometimes life&rsquo;s greatest journeys begin without our
-            permission.
+            {copy.lesson}
           </p>
         </div>
       </div>

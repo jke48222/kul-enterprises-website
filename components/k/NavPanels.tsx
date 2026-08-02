@@ -331,13 +331,13 @@ export function AboutPanel() {
 /* ------------------------------------------------------------------ */
 
 /**
- * Six sleeves off the shelf, in order, straight to their chapter.
+ * Five sleeves off the shelf, in order, each straight to the scene its act
+ * opens on.
  *
- * They are read from the same lib/journey.ts the page reads, so a chapter
- * cannot be renamed in one place and go stale in the other. The three with no
- * photograph keep their typographic sleeve here too, at this size a strip of
- * six covers where three are type is the quickest way to see that the story has
- * gaps in it, which is the truth the page is built around.
+ * They are read from lib/journey.ts, which zips the act structure with the
+ * titles the CMS holds, so an act cannot be renamed in one place and go stale
+ * in the other. The seventeen scenes divide into five acts at the page's own
+ * curtains; seventeen menu items would be a table of contents, not a shelf.
  */
 export function JourneyPanel() {
   return (
@@ -351,22 +351,22 @@ export function JourneyPanel() {
     // A panel narrower than the bar above it is not available here, because
     // both are drawn inside one pill that has to stay the width of the
     // navigation. So the chapters take the width instead. `basis-0 flex-1`
-    // makes all six exactly equal and lets them divide whatever is left after
+    // makes all five exactly equal and lets them divide whatever is left after
     // the gaps, at any pill width, which also means the covers arrive larger
-    // than they were. Nothing scrolls: six is the whole set and always fits.
+    // than they were. Nothing scrolls: five is the whole set and always fits.
     <div className="px-6 pb-5 pt-3">
-      <PanelLabel>Six chapters</PanelLabel>
+      <PanelLabel>Five acts</PanelLabel>
 
       <ul className="flex gap-3">
         {CHAPTERS.map((chapter) => (
           <li key={chapter.n} className="min-w-0 flex-1 basis-0">
             <Link href={`/journey${chapter.href}`} className="group block">
               <span className="relative block aspect-square w-full overflow-hidden rounded-2xl">
-                {/* TWO OF THE SIX MOVE, AND THEY ARE THE TWO ABOUT DRIVING.
-                    Six still photographs in a row reads as a contact sheet;
-                    two of them running turns it into a shelf you want to take
-                    something off. Which two is decided in lib/journey.ts and
-                    not here, because the footage has to be of the chapter it
+                {/* ONE OF THE FIVE MOVES, AND IT IS THE ONE ABOUT DRIVING.
+                    Five still photographs in a row reads as a contact sheet;
+                    one of them running turns it into a shelf you want to take
+                    something off. Which one is decided in lib/journey.ts and
+                    not here, because the footage has to be of the act it
                     is on.
 
                     Every attribute below is doing a job. `poster` is the same

@@ -47,7 +47,21 @@ const PITCH = (COMB_W - 4) / (TICKS - 1);
 /** Where each graduation sits, integer-rounded so the comb stays crisp. */
 const tickX = (i: number) => Math.round(2 + i * PITCH);
 
-export default function Scene16RoadAhead() {
+/** His words, edited at /admin. The instrument's arithmetic (fifty marks,
+ *  the numerals, the probe answers) is the site's and stays in code. */
+export type Scene16Copy = {
+  triad: string[];
+  inService: string;
+  target: string;
+  next: string;
+  stations: string[];
+  still: string;
+  aheadA: string;
+  aheadB: string;
+  lesson: string;
+};
+
+export default function Scene16RoadAhead({ copy }: { copy: Scene16Copy }) {
   const rootRef = useLit<HTMLElement>();
   const combRef = useRef<HTMLDivElement | null>(null);
   const [probe, setProbe] = useState<number | null>(null);
@@ -81,13 +95,13 @@ export default function Scene16RoadAhead() {
             data-lit
             className="k-jl k-jset max-w-[18ch] font-display text-[clamp(1.875rem,4.2vw,3.625rem)] font-black leading-[1.06] tracking-[-0.02em]"
           >
-            Every road leads somewhere.
+            {copy.triad[0]}
           </h2>
           <p data-lit className="k-jl k-jset mt-4 pl-6 font-text text-[clamp(1.125rem,1.9vw,1.625rem)] leading-[1.4] md:pl-12">
-            Some journeys last a few miles.
+            {copy.triad[1]}
           </p>
           <p data-lit className="k-jl k-jset mt-1 pl-6 font-text text-[clamp(1.125rem,1.9vw,1.625rem)] leading-[1.4] md:pl-12">
-            Others shape an entire lifetime.
+            {copy.triad[2]}
           </p>
         </div>
 
@@ -177,20 +191,20 @@ export default function Scene16RoadAhead() {
                 style={{ left: `${(tickX(1) / COMB_W) * 100}%` }}
               >
                 02
-                <span className="mt-0.5 block">Next</span>
+                <span className="mt-0.5 block">{copy.next}</span>
               </span>
               <span className="absolute right-0 tabular-nums">50</span>
             </div>
             <div className="flex items-baseline justify-between gap-6 font-display text-[11px] font-medium uppercase tracking-[0.1em]">
-              <span>In service today</span>
-              <span className="text-right">Target, end of 2029</span>
+              <span>{copy.inService}</span>
+              <span className="text-right">{copy.target}</span>
             </div>
           </div>
 
           {/* THE STATIONS. What actually closes the gap, in his words, with
               the drawn underlines of promises already being kept. */}
           <div className="mt-[6svh] flex flex-col gap-5 border-t pt-6 md:flex-row md:justify-between md:gap-8" style={{ borderColor: "color-mix(in srgb, currentColor 40%, transparent)" }}>
-            {["One shipment at a time.", "One relationship at a time.", "One promise kept at a time."].map((s) => (
+            {copy.stations.map((s) => (
               <p key={s} className="font-text text-[clamp(1.0625rem,1.5vw,1.3125rem)] leading-[1.4]">
                 {s}
                 <span aria-hidden="true" className="mt-2 block h-px w-[140px]" style={{ background: gold ?? "currentColor" }} />
@@ -202,21 +216,20 @@ export default function Scene16RoadAhead() {
         {/* THE CALIBRATION. What guides the run to the far end. */}
         <div className="mt-[8svh] max-w-[38ch]">
           <p data-lit className="k-jl k-jset font-text text-[clamp(1.25rem,2.2vw,2rem)] leading-[1.35]">
-            KUL Enterprises is still writing its story.
+            {copy.still}
           </p>
           <p data-lit className="k-jl k-jset mt-4 font-text text-[clamp(1.0625rem,1.7vw,1.5rem)] leading-[1.5]">
-            We don&rsquo;t know every opportunity that lies ahead.
+            {copy.aheadA}
           </p>
           <p data-lit className="k-jl k-jset font-text text-[clamp(1.0625rem,1.7vw,1.5rem)] leading-[1.5]">
-            But we do know the principles that will guide us there.
+            {copy.aheadB}
           </p>
         </div>
 
         <div className="mt-[7svh] flex max-w-[40ch] flex-col gap-4">
           <span aria-hidden="true" className="h-px w-16" style={{ background: gold ?? "currentColor" }} />
           <p className="font-text text-[clamp(1.125rem,2vw,1.75rem)] leading-[1.4]">
-            The journey never really ends. It simply becomes someone
-            else&rsquo;s beginning.
+            {copy.lesson}
           </p>
         </div>
       </div>
