@@ -246,6 +246,22 @@ export default function RoadShader({
 
     let visible = false;
     let last = { a: -1, b: -1, p: -1 };
+    /**
+     * THE LAST INSTRUCTION THAT ARRIVED TOO EARLY.
+     *
+     * set() is refused while the scene is off screen, and the scene's driver
+     * only calls it when progress MOVES. Those two together have one dead
+     * spot: a reader who arrives with the scene already on screen and then
+     * stops (a hash link, a restored scroll position, a jump from the act
+     * nav that lands and settles) can leave the last instruction refused
+     * because the observer had not fired yet, and then nothing ever asks
+     * again. The canvas stays black under the words.
+     *
+     * So a refused call is kept rather than dropped, and replayed the moment
+     * the observer says the scene is in shot. It is one instruction, not a
+     * queue: only the newest position matters.
+     */
+    let deferred: { a: number; b: number; p: number } | null = null;
 
     const resize = () => {
       // Capped at 1.5: the shader is a dissolve between photographs, and past
@@ -278,7 +294,10 @@ export default function RoadShader({
     // nothing draws at any other time: there is no animation loop here.
     handleRef.current = {
       set(fromIndex, toIndex, progress) {
-        if (!visible) return;
+        if (!visible) {
+          deferred = { a: fromIndex, b: toIndex, p: progress };
+          return;
+        }
         const q = Math.round(progress * 100) / 100;
         if (fromIndex === last.a && toIndex === last.b && q === last.p) return;
         last = { a: fromIndex, b: toIndex, p: q };
@@ -299,6 +318,14 @@ export default function RoadShader({
           // Give the memory back the moment the scene leaves.
           evict([]);
           last = { a: -1, b: -1, p: -1 };
+          return;
+        }
+        // In shot now. Anything the driver asked for while it was not gets
+        // played, so the frame is never black waiting for the next scroll.
+        if (deferred) {
+          const d = deferred;
+          deferred = null;
+          handleRef.current?.set(d.a, d.b, d.p);
         }
       },
       { rootMargin: "20% 0px" },

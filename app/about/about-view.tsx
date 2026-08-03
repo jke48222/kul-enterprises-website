@@ -182,7 +182,29 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
                 />
               ))}
             </Reveal>
-            <Reveal variant="settle" className="mt-7 flex flex-col gap-1">
+            {/* THE PHOTOGRAPH OF MARK, added 2 Aug at the client's word.
+                It is the only picture of a person on the page, so it is
+                deliberately the smallest: 148px, the size of a print clipped
+                to a document, sitting directly above the name it belongs to
+                rather than out in the layout as a hero. A founder's note is a
+                signed thing, and this is the part of a signed thing that says
+                who signed it.
+
+                It carries a real alt: unlike the mark in the imprint, the
+                sentence beside it is a name and a role, not a description of
+                a face, so a screen reader would otherwise be told a picture
+                is here and nothing about it. */}
+            <Reveal variant="settle" className="mt-9">
+              <Image
+                src={about.founder.portrait}
+                alt={fill(about.founder.portraitAlt)}
+                width={1122}
+                height={1402}
+                sizes="148px"
+                className="h-auto w-[132px] lg:w-[148px]"
+              />
+            </Reveal>
+            <Reveal variant="settle" className="mt-5 flex flex-col gap-1">
               <span className="font-text text-k-small font-semibold text-k-ink">
                 {fill(about.founder.signatureName)}
               </span>
@@ -192,9 +214,11 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
             </Reveal>
           </div>
 
-          {/* The picture has no person in it on purpose. A stock photograph of
-              a stranger sitting beside a note signed by Mark would read as a
-              picture of Mark, and it is not one. */}
+          {/* THIS HALF STILL HAS NO PERSON IN IT, and that is unchanged by the
+              portrait now sitting in the column. The rule it was written for
+              still holds: no stranger stands in for Mark anywhere on this
+              site. His own face is in the note, at the size of a signature;
+              this half is the work, at the size of a wall. */}
           {/* IT IS FOOTAGE NOW, NOT A STILL, at the client's word. It was a
               photograph of a road between pines; this is Mark's own dashcam,
               filmed forward from the cab, which is a better answer to the note

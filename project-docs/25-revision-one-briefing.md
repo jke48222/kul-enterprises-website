@@ -63,9 +63,6 @@ photographs have been ready for the build.
   lookup.
 - Commit a packet turnaround in writing, or the page keeps stating none.
 - Measured trailer dimensions, or the nominal 53-foot block comes off the service pages.
-- The exact words he says in the seventeen-second field note video, written
-  down. They become the transcript under the film, which is what makes it
-  accessible to a deaf reader; nobody but him should write his speech.
 - One flag to raise, not to relitigate: his date of birth from the screenplay was left off
   scene 2 deliberately (full DOB beside a full legal name is an identity risk). Putting it
   back is his call.

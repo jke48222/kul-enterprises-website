@@ -324,11 +324,13 @@ export function plateLabel(file: string): string {
 /**
  * THE ONE WAY THE PAGE SAYS A PHOTOGRAPH DOES NOT EXIST.
  *
- * Five scenes each invented their own wording for this. It is furniture, so it
- * gets one form. Three chapters of Mark's life genuinely have no photograph:
- * the construction sites of his childhood, leaving home, and the Air Force. The
- * page says so the same way every time rather than dressing the absence up
- * differently whenever it comes round.
+ * There is no constant here any more, and that is deliberate rather than an
+ * oversight. Scene 11 was the last caller: it drew an empty frame four times
+ * out of six, and on 2 Aug the client replaced that with Mark's portrait
+ * standing for the whole roll call. The two absences that remain are stated
+ * in the client's own sentences, in the CMS, because each one is about a
+ * different missing thing: scene 3's childhood summers and scene 6's
+ * enlistment. If a third scene ever needs to say it, phrase it there, in his
+ * words, rather than reviving a house form for absence.
  */
-export const NO_PLATE = "No photograph exists";
 

@@ -1,41 +1,36 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import { useReducedMotionLive } from "@/components/k/useReducedMotionLive";
-import { flushSync } from "react-dom";
-import { SCENES, plate, plateLabel, inkFor, NO_PLATE } from "@/lib/journey-spine";
+import { SCENES, plate, plateLabel, inkFor } from "@/lib/journey-spine";
 import Furniture from "./Furniture";
 
 /**
  * SCENE 11 — A VISION BEGINS TO FORM.
  *
- * The roll call. Six words, and an archive being asked, name by name, whether
- * it has a photograph of that person.
+ * The roll call. Six words, and one face.
  *
  * ============================================================================
- * THE MOTION: THE ARCHIVE IS INTERROGATED AND MOSTLY ANSWERS NO
+ * WHAT THIS SCENE USED TO BE, AND WHY IT IS NOT THAT ANY MORE (2 Aug, client)
  * ============================================================================
- * Reference: Freshman's directors index, where a name stack at display scale IS
- * the composition, the register metadata hangs outside the row in a narrow
- * margin column, and the revealed image is a modest plate parked in the margin
- * rather than a full-bleed takeover, so the list stays the subject and the
- * photograph is subordinate evidence.
- * https://mobbin.com/sites/sections/3641b988-b26c-471d-a177-c5fc2254b123
+ * It was an archive being interrogated: the well answered whichever name was
+ * level with it, and four times out of six the answer was a drawn empty
+ * frame. The argument was honest and the machinery was not worth it. Driving
+ * it took a per-frame rect read of six rows, a held-hover override, a state
+ * commit deferred out of the measurement pass, and a View Transition on every
+ * change. On a page with smoothed scrolling, that last part is what the client
+ * saw: the transition snapshots the document, so the whole page stalled for a
+ * beat every time a name went by, six times in one scene, and a scene about
+ * people read as a stutter.
  *
- * FOUR OF THE SIX ANSWERS ARE AN EMPTY FRAME, AND THAT IS THE POINT OF THE
- * SCENE RATHER THAN A SHORTAGE OF ASSETS. Mark's argument here is that what
- * keeps freight moving is not trucks but people, and the honest fact about his
- * own archive is that in eleven years he photographed the road constantly and
- * the people almost never. The empty frame says that better than a stock
- * photograph of a smiling dispatcher ever could, and it has the advantage of
- * being true.
+ * The instruction was to use Mark's picture through Drivers to Brokers. Taken
+ * at its word it removes the swap entirely, and with the swap goes every one
+ * of those moving parts: THIS FILE NOW CONTAINS NO JAVASCRIPT AT ALL. No
+ * state, no effect, no observer, no ref. One photograph stands for the list,
+ * the caption says why it is the one, and the roll call is type.
  *
- * The two that ARE answered are answered truthfully:
- *   Drivers                  he is one, so the plate is his own portrait
- *   Families waiting at home his own family, in the only photograph of them
- * Neither is a decorative match. Both are the archive genuinely having
- * something to say.
+ * If a future round wants the archive interrogated again, do it with a
+ * scroll-driven CSS timeline and no snapshotting transition. Do not put the
+ * rect reader back.
  *
  * ============================================================================
  * WHY NOTHING HERE EVER CHANGES OPACITY
@@ -45,151 +40,28 @@ import Furniture from "./Furniture";
  * for full-strength text and none at all for a dimmed state: ink at 55% over
  * this ground composites to roughly 2.5:1, which is unreadable.
  *
- * So the active row is NEVER carried by alpha. It is carried by weight, by a
- * gold tick in the margin, and by the plate well changing. Every one of the six
- * words sits at full ink permanently, in every state, including while a
- * transition is running. Do not add an opacity to this list.
- *
- * ============================================================================
- * WHY THIS SCENE DOES NOT PIN
- * ============================================================================
- * The obvious build is a pinned stage with the names walking past a fixed well.
- * That would be a fifth pinned scene, and pinning is the thing that took the
- * first draft of this page to sixty-four screens.
- *
- * It does not need one. The list scrolls normally and only the plate well is
- * sticky, which is the same reading experience for a fraction of the scroll:
- * the well stays in view and answers each name as it comes level with it.
+ * So the name being called is NEVER carried by alpha. It is carried by weight
+ * and by the tick in the margin, both of which are driven by the scroll
+ * position of the row itself, in CSS, with no script (see .k-s11-row in
+ * globals.css). Every one of the six words sits at full ink permanently, in
+ * every state, in every browser, including one that has never heard of a
+ * scroll timeline. Do not add an opacity to this list.
  */
 
 const SCENE = SCENES[10];
+const PLATE_FILE = "mark-portrait";
 
-/**
- * Mark's six, verbatim, in his order. `plateFile` is null where the archive
- * genuinely has nothing, which is most of them.
- */
-const PLATE_FILES: ReadonlyArray<string | null> = [
-  "mark-portrait",
-  null,
-  null,
-  null,
-  null,
-  "s02-jamaica-childhood",
-];
-
-/** His words, edited at /admin. Which names the archive can answer with a
- *  photograph is the register's business and stays in the list above. */
+/** His words, edited at /admin. */
 export type Scene11Copy = {
   premise: string;
   people: string;
-  roll: { word: string; note: string }[];
+  roll: string[];
+  plateNote: string;
 };
 
 export default function Scene11People({ copy }: { copy: Scene11Copy }) {
-  const ROLL = copy.roll.map((r, i) => ({
-    word: r.word,
-    note: r.note || null,
-    plateFile: PLATE_FILES[Math.min(i, PLATE_FILES.length - 1)],
-  }));
-  const [active, setActive] = useState(0);
-  const rowsRef = useRef<(HTMLLIElement | null)[]>([]);
-  /** Set by hover or tap. While it holds, scroll does not move the answer. */
-  const heldRef = useRef<number | null>(null);
-  /** So the scroll effect can call commit without tearing down its listener. */
-  const commitRef = useRef<((i: number) => void) | null>(null);
-
-  const reduced = useReducedMotionLive();
-  useEffect(() => {
-    if (reduced) return;
-
-    // The row whose centre is nearest the reading line owns the well. One
-    // observer-free rAF read, because six rects on a scroll frame is cheap and
-    // an IntersectionObserver cannot express "nearest to a line".
-    let frame = 0;
-    let queued = false;
-    const read = () => {
-      queued = false;
-      if (heldRef.current !== null) return;
-      const line = window.innerHeight * 0.46;
-      let best = 0;
-      let bestDist = Infinity;
-      rowsRef.current.forEach((el, i) => {
-        if (!el) return;
-        const r = el.getBoundingClientRect();
-        const d = Math.abs(r.top + r.height / 2 - line);
-        if (d < bestDist) {
-          bestDist = d;
-          best = i;
-        }
-      });
-      setActive((prev) => {
-        if (prev === best) return prev;
-        // Scroll changes the answer as well as hover, and it must morph the
-        // same way, or the well behaves differently depending on how you got
-        // there. Deferred out of the rAF read so the transition is not started
-        // inside a measurement pass.
-        queueMicrotask(() => commitRef.current?.(best));
-        return prev;
-      });
-    };
-    const onScroll = () => {
-      if (queued) return;
-      queued = true;
-      frame = requestAnimationFrame(read);
-    };
-    read();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, [reduced]);
-
-  /**
-   * THE WELL MORPHS BETWEEN ANSWERS RATHER THAN BLINKING.
-   *
-   * This scene is an archive being asked, name by name, whether it has a
-   * photograph of that person, and four times out of six the answer is an empty
-   * frame. A hard swap makes that read as a slideshow. A View Transition makes
-   * the well itself persist and its CONTENTS change, which is what a catalogue
-   * drawer does, and it is the difference between six pictures and one
-   * instrument being queried six times.
-   *
-   * flushSync is required, not stylistic: startViewTransition snapshots the DOM
-   * inside its callback, and React would otherwise batch the state update to
-   * after the snapshot, so the transition would capture no change at all.
-   *
-   * IT IS PURE ENHANCEMENT. No View Transitions support, or reduced motion, and
-   * this is exactly the plain setState it always was.
-   */
-  const commit = (i: number) => {
-    const reduced = typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced || typeof document.startViewTransition !== "function") {
-      setActive(i);
-      return;
-    }
-    const vt = document.startViewTransition(() => flushSync(() => setActive(i)));
-    // A transition interrupted by the next one (or a throttled tab) rejects
-    // these promises. That is normal operation, not an error.
-    vt.finished.catch(() => undefined);
-    vt.ready.catch(() => undefined);
-  };
-
-  const hold = (i: number) => {
-    heldRef.current = i;
-    commit(i);
-  };
-  const release = () => {
-    heldRef.current = null;
-  };
-
-  commitRef.current = commit;
-
-  const current = ROLL[active];
   const ink = inkFor(SCENE);
+  const portrait = plate(PLATE_FILE);
 
   return (
     <section
@@ -197,12 +69,14 @@ export default function Scene11People({ copy }: { copy: Scene11Copy }) {
       aria-labelledby="people-heading"
       className="relative"
       style={{
-        height: `${SCENE.vh}svh`,
+        // min-height, not height: the roll call is six lines of copy the
+        // client can lengthen, and a fixed height would clip a seventh.
+        minHeight: `${SCENE.vh}svh`,
         background: `linear-gradient(180deg, ${SCENE.from} 0%, ${SCENE.to} 100%)`,
         color: ink,
       }}
     >
-      <div className="k-cine mx-auto flex h-full w-full max-w-[1296px] flex-col px-5 pt-[12svh] md:px-10 lg:px-24">
+      <div className="k-cine mx-auto flex w-full max-w-[1296px] flex-col px-5 pb-[16svh] pt-[12svh] md:px-10 lg:px-24">
         {/* THE PREMISE. The answer arrives alone, in empty ground. */}
         <div className="max-w-[34ch]">
           <h2
@@ -216,93 +90,66 @@ export default function Scene11People({ copy }: { copy: Scene11Copy }) {
           </p>
         </div>
 
-        {/* THE ROLL CALL. Names left, the archive's answer sticky on the right. */}
-        <div className="mt-[10svh] grid grid-cols-1 gap-10 lg:grid-cols-[1fr_360px] lg:gap-20">
-          <ul className="flex flex-col">
-            {ROLL.map((r, i) => {
-              const on = i === active;
-              return (
-                <li
-                  key={r.word}
-                  ref={(el) => {
-                    rowsRef.current[i] = el;
-                  }}
-                  // Pointer only, on purpose. These are sentences, not
-                  // controls: scroll answers them for everyone, hover lets a
-                  // pointer peek ahead, and a tab stop that operates nothing
-                  // (and drives a well that is display:none below lg) would
-                  // cost a keyboard reader six stops for nothing.
-                  onMouseEnter={() => hold(i)}
-                  onMouseLeave={release}
-                  className="group relative flex items-baseline gap-5 py-[1.4svh]"
-                >
-                  {/* The tick is the margin marker, and it is the only thing on
-                      this scene that moves. Scale rather than width, so it
-                      cannot cause a layout pass. */}
-                  <span
-                    aria-hidden="true"
-                    className="mt-[0.5em] h-px w-8 shrink-0 origin-left bg-current transition-transform duration-300 ease-out"
-                    style={{ transform: `scaleX(${on ? 1 : 0.18})` }}
-                  />
-                  {/* WEIGHT, NEVER ALPHA. See the note at the top of this file:
-                      a dimmed state on this ground is unreadable. */}
-                  <span
-                    className="font-display text-[clamp(1.75rem,4.6vw,3.75rem)] leading-[1.06] tracking-[-0.02em] transition-[font-variation-settings,letter-spacing] duration-300 ease-out"
-                    style={{
-                      fontVariationSettings: on ? "'wght' 900" : "'wght' 400",
-                    }}
-                  >
-                    {r.word}
-                  </span>
-                </li>
-              );
-            })}
+        {/* THE ROLL CALL. Names left, the one face the archive has on the
+            right. Below lg the portrait comes first, at a little over half
+            the column: a phone reads the picture, then the list it stands
+            for, which is the same order the eye takes on the wide page. */}
+        <div className="mt-[10svh] flex flex-col gap-12 lg:grid lg:grid-cols-[1fr_360px] lg:gap-20">
+          {/* Source order puts the list first so the wide page can hang the
+              portrait in the right-hand column; on a phone the order flips
+              back visually and the reading order is unaffected either way,
+              because a photograph and a list of nouns have no sequence. */}
+          <ul className="order-2 flex flex-col lg:order-none">
+            {copy.roll.map((word) => (
+              <li key={word} className="flex items-baseline gap-5 py-[1.4svh]">
+                {/* The margin tick and the weight are the whole signal, and
+                    both are scroll-driven CSS. See globals.css. */}
+                <span
+                  aria-hidden="true"
+                  className="k-s11-tick mt-[0.5em] h-px w-8 shrink-0 origin-left bg-current"
+                />
+                {/* font-black is the RESTING state, not the styling: a
+                    browser with no scroll timelines, or a reader who asked
+                    for no motion, gets all six names called at once, which
+                    is a complete roll call. The keyframes drive the wght
+                    axis directly, and font-variation-settings outranks
+                    font-weight, so the animation still wins where it runs. */}
+                <span className="k-s11-row font-display text-[clamp(1.75rem,4.6vw,3.75rem)] font-black leading-[1.06] tracking-[-0.02em]">
+                  {word}
+                </span>
+              </li>
+            ))}
           </ul>
 
-          {/* THE WELL. It answers whichever name is level with it, and four
-              times out of six the honest answer is that there is no picture. */}
-          <div className="hidden lg:block">
-            <div className="sticky top-[30svh]">
+          {/* THE FACE. On the wide page it is sticky, so it holds the reader's
+              eye level for the whole roll call rather than scrolling out from
+              under the third name. */}
+          <figure className="order-1 w-[62%] max-w-[280px] lg:order-none lg:w-full lg:max-w-none">
+            <div className="lg:sticky lg:top-[30svh]">
               <div
                 className="k-s11-well relative aspect-[3/4] w-full overflow-hidden"
                 style={{ outline: `1px solid ${ink}`, outlineOffset: "-1px" }}
               >
-                {current.plateFile ? (
-                  <Image
-                    key={current.plateFile}
-                    src={`/images/journey/${current.plateFile}.webp`}
-                    alt={plate(current.plateFile).alt}
-                    fill
-                    sizes="360px"
-                    className="object-cover"
-                  />
-                ) : (
-                  // The drawn empty frame. It is the dominant visual event of
-                  // the scene and it is deliberately not styled as a loading
-                  // state or an error: it is a catalogue card with nothing
-                  // filed behind it.
-                  <div className="flex h-full items-center justify-center p-6">
-                    <span className="font-display text-[11px] font-medium uppercase tracking-[0.14em]">
-                      {NO_PLATE}
-                    </span>
-                  </div>
-                )}
+                <Image
+                  src={`/images/journey/${PLATE_FILE}.webp`}
+                  alt={portrait.alt}
+                  fill
+                  sizes="(min-width: 1024px) 360px, 62vw"
+                  className="k-drift object-cover"
+                />
               </div>
-              <p className="mt-3 flex items-baseline gap-4 font-display text-[11px] font-medium uppercase leading-[1.5] tracking-[0.1em]">
-                {/* An empty slot carries no plate label at all: the note
-                    beside it already says the honest sentence, and a dash
-                    would be the one banned character on the page. */}
-                {current.plateFile ? (
-                  <span className="tabular-nums">{plateLabel(current.plateFile)}</span>
-                ) : null}
-                <span>{current.note ?? NO_PLATE}</span>
-              </p>
+              <figcaption className="mt-3 flex flex-col gap-1.5 font-display text-[11px] font-medium uppercase leading-[1.5] tracking-[0.1em]">
+                <span className="tabular-nums">{plateLabel(PLATE_FILE)}</span>
+                <span className="normal-case tracking-normal font-text text-[13px] leading-[1.5] opacity-[0.85]">
+                  {copy.plateNote}
+                </span>
+              </figcaption>
             </div>
-          </div>
+          </figure>
         </div>
       </div>
 
-      <Furniture scene={SCENE} plateFile={current.plateFile ?? undefined} />
+      <Furniture scene={SCENE} plateFile={PLATE_FILE} />
     </section>
   );
 }

@@ -565,6 +565,8 @@ export default defineConfig({
         group("founder", "The founder's note", [
           text("eyebrow", "Small gold label"),
           paragraphs("paragraphs", "The note", "Three paragraphs. A fourth pushes the signature off the picture beside it."),
+          image("portrait", "Mark's photograph", "Sits above the signature, in the column, at the size of a passport print. It is a person, not a picture of a road, so it stays small and it stays beside his name."),
+          text("portraitAlt", "Photograph description"),
           text("signatureName", "Name"),
           text("signatureRole", "Role", TOKENS),
           image("posterImage", "Still frame beside the note"),
@@ -687,13 +689,9 @@ export default defineConfig({
           text("lessonB", "The lesson, second line"),
         ]),
         group("s09", "Scene 09, earning trust", [
-          paragraphs("cards", "The eight strata", "Three of them carry the working-life photographs from 2021 and 2022; which three is structure and lives in code."),
-          text("note", "The field note label", "The seventeen-second video with sound. It only ever plays when asked."),
-          longText(
-            "transcript",
-            "What Mark says in the field note",
-            "Word for word. Shown under the film and read by anyone who cannot hear it; until it is filled in, deaf readers get only the label. Nobody but Mark should write this.",
-          ),
+          paragraphs("cards", "The eight strata", "Each one is a layer that stays; nothing later covers anything earlier."),
+          text("recordLabel", "The contact sheet's label", "Sits over the three working-life photographs from 2021 and 2022."),
+          longText("recordNote", "What the contact sheet is", "One sentence saying whose photographs these are and when. Which three photographs, and their dates, come from the plate register in code."),
           longText("lesson", "The lesson"),
         ]),
         group("s10", "Scene 10, the road", [
@@ -714,19 +712,8 @@ export default defineConfig({
         group("s11", "Scene 11, people", [
           longText("premise", "The premise"),
           text("people", "The answer", "Set very large."),
-          {
-            type: "object",
-            name: "roll",
-            label: "The roll call",
-            description:
-              "Six names, and the archive answers each one. Four answers are honestly empty; the two photographs are decided in code because they are the register's business.",
-            list: true,
-            ui: { itemProps: (item) => ({ label: item?.word || "Name" }) },
-            fields: [
-              text("word", "The name"),
-              text("note", "The note beside its plate, if it has one"),
-            ],
-          },
+          paragraphs("roll", "The roll call", "Six names, one to a line. The reading line calls each one as it passes; which photograph stands beside them is the register's business and lives in code."),
+          longText("plateNote", "The caption under the portrait", "One sentence saying who this is and why one face stands for a list of six."),
         ]),
         group("s12", "Scene 12, more than a business", [
           text("b1", "Margin note, first"),

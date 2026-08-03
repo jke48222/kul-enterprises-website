@@ -130,9 +130,9 @@
       "Leadership isn't about being in front.",
       "It's about being someone others can count on."
     ],
-    "note": "Field note · 2022 · 0:17 · Sound",
-    "lesson": "Trust is earned long before it's ever expected.",
-    "transcript": ""
+    "recordLabel": "The record",
+    "recordNote": "His own photographs from the years he was learning it. Warehouse fit-outs and installations, 2021 into 2022.",
+    "lesson": "Trust is earned long before it's ever expected."
   },
   "s10": {
     "frames": [
@@ -186,31 +186,14 @@
     "premise": "Freight moved every day. But what truly kept the industry moving wasn't trucks.",
     "people": "It was people.",
     "roll": [
-      {
-        "word": "Drivers.",
-        "note": "The only driver this archive has a picture of is the man who made it."
-      },
-      {
-        "word": "Dispatchers.",
-        "note": ""
-      },
-      {
-        "word": "Mechanics.",
-        "note": ""
-      },
-      {
-        "word": "Customers.",
-        "note": ""
-      },
-      {
-        "word": "Brokers.",
-        "note": ""
-      },
-      {
-        "word": "Families waiting at home.",
-        "note": "His own, in the only photograph of them."
-      }
-    ]
+      "Drivers.",
+      "Dispatchers.",
+      "Mechanics.",
+      "Customers.",
+      "Brokers.",
+      "Families waiting at home."
+    ],
+    "plateNote": "Mark Brown. The only one of the six this archive has a picture of is the man who took all the others."
   },
   "s12": {
     "b1": "There came a moment when I stopped asking:",

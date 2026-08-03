@@ -15,9 +15,16 @@ field, the dialog rendering, and the briefing request are in place), and the MC 
 remains his confirmation. ShapeGrid's motion gate still samples once at mount; its CSS
 layer responds live, and the residue is recorded here rather than half-fixed.
 
+**CLOSED BY REMOVAL, 2 August 2026.** Finding 13, the field note's missing captions,
+is settled: the client asked for the field note film to come out, so the video, its
+dialog, its button, its `note` and `transcript` CMS fields and the briefing request
+for Mark's words all went with it. Nothing on the site plays speech any more, so
+WCAG 1.2.2 no longer applies to it. **Accessibility is 4/4 and the score is 20/20.**
+The MC number remains the one open client-side item.
+
 **RE-AUDITED 2 August 2026, after the second fix round and the cinematic pass.**
-New score: **19/20, Excellent.** Accessibility 3/4 (held there by exactly one item:
-the field-note captions await Mark's own words; every engineered finding is closed),
+Score at that point: **19/20, Excellent.** Accessibility 3/4 (held there by exactly one
+item: the field-note captions, now closed by the removal recorded above),
 Performance 4/4 (dead font and dead dependency gone, the sleeve streams the 720 file
 only on request, 3.2 MB of orphans deleted), Responsive 4/4, Theming 4/4 (the dead
 strata are gone and the config tells the truth), Implementation integrity 4/4 (the
@@ -107,7 +114,8 @@ side-accent card. False positives, verified.
     because `Faq.tsx` never runs `fill()`; an authority-number correction would silently
     miss the FAQ and its JSON-LD. Wire `fill()` through FAQ strings and tokenize.
 13. **The field-note video has speech and no captions or transcript** (WCAG 1.2.2). Add a
-    captions track or a transcript block in the dialog.
+    captions track or a transcript block in the dialog. **Closed by removal on 2 Aug: the
+    client withdrew the film. See the note at the head of this document.**
 14. **Autoplay loops without a pause control** on the About founder film and the nav
     sleeve (the HeroVideo header itself states the standard). Route through HeroVideo.
 15. **Scene 11's roll-call rows are six focusable non-controls**, and below `lg` the well

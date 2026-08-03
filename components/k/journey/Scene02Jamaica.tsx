@@ -90,11 +90,13 @@ export default function Scene02Jamaica({ copy }: { copy: Scene02Copy }) {
       p >= 0.3 ? 3 : p >= 0.16 ? 2 : p >= 0.04 ? 1 : 0,
     );
 
-    // THE PRINT AND THE WORDS LEAVE TOGETHER, RIGIDLY, as one object. They are
-    // the same artefact: the photograph and the account of it. Neither survives
-    // without the other, so neither leaves without the other.
-    stage.style.setProperty("--s02-exit", `${lerp(0, -30, span(p, 0.62, 0.86))}vh`);
-    stage.style.setProperty("--s02-gone", String(1 - span(p, 0.74, 0.92)));
+    // THE PHOTOGRAPH DOES NOT FADE OUT, at the client's word on 2 Aug. The
+    // print and its account used to lift 30vh and dissolve to nothing while
+    // still on screen, as one rigid object. On the most important photograph
+    // on the site that read as the page taking it away from you. The stage
+    // simply unsticks at the end of its track and the picture leaves the way
+    // everything else on the page leaves, by being scrolled past, at full
+    // strength the whole way. Do not put an exit on this scene.
   });
 
   const p1 = plate(PLATE_FILE);

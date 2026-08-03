@@ -665,9 +665,11 @@ body {
 
 /* --- Scene 02, the print inside the setting ------------------------- */
 
+/* The group carries no exit of any kind: no lift, no fade. See the note in
+   Scene02Jamaica.tsx. It is here as the float's containing block and as the
+   thing ::after clears. */
 .k-s02-group {
-  transform: translate3d(0, var(--s02-exit, 0), 0);
-  opacity: var(--s02-gone, 1);
+  position: relative;
 }
 
 /* The mount is a hairline that is drawn from the very first frame and never
@@ -687,6 +689,18 @@ body {
    set into a channel that narrow rags badly enough to be worse than no float
    at all. So the picture goes back into the run of sentences, in the same
    order, saying the same thing. */
+/* BELOW 1024px THE PRINT IS A PLATE, NOT A PAGE. It used to run the full
+   width of the column, which on a phone is a 1291x1920 frame roughly 580px
+   tall: the photograph filled the screen on its own and the three sentences
+   it belongs to were pushed off the bottom of the sticky stage. It is bound
+   by the viewport's HEIGHT as well as its width, so a short phone shrinks it
+   rather than clipping the account beneath it. */
+@media (max-width: 1023.98px) {
+  .k-s02-figure {
+    width: min(46vw, 30svh);
+  }
+}
+
 @media (min-width: 1024px) {
   .k-s02-figure {
     float: left;
@@ -762,36 +776,58 @@ body {
   opacity: var(--t, 1);
 }
 
-/* --- Scene 11, the well morphing between answers --------------------- */
+/* --- Scene 11, the roll call ----------------------------------------- */
 /*
- * Naming the well is what lets a View Transition treat it as ONE element whose
- * contents changed, rather than as an old box being replaced by a new one. The
- * frame holds still and the answer inside it changes, which is what a catalogue
- * drawer does and what this scene is arguing about.
+ * THE READING LINE CALLS EACH NAME AS IT PASSES, AND NO SCRIPT IS INVOLVED.
+ * Each row runs its own scroll timeline: the word takes full display weight
+ * and its margin tick draws out to full length as the row crosses the middle
+ * of the viewport, and both settle back as it leaves. That is the entire
+ * mechanism, and its resting state, in a browser with no scroll timelines or
+ * a reader who has asked for no motion, is EVERY NAME AT FULL WEIGHT WITH ITS
+ * TICK DRAWN. Nothing here is ever hidden or dimmed waiting to be called; see
+ * the note at the top of Scene11People.tsx for why alpha is banned on this
+ * ground.
  *
- * It is scoped to the well alone. Naming anything else would make the browser
- * try to morph unrelated elements across the same transition.
+ * A View Transition used to morph the well between six different answers.
+ * It stalled the whole document on every change, six times per scene, and it
+ * is gone with the swap it served.
  */
-.k-s11-well {
-  view-transition-name: journey-plate;
+@keyframes k-s11-call {
+  0% {
+    font-variation-settings: "wght" 420;
+  }
+  44%,
+  56% {
+    font-variation-settings: "wght" 900;
+  }
+  100% {
+    font-variation-settings: "wght" 420;
+  }
 }
-
-/* A shade quicker than the default, because this fires on scroll as well as on
-   hover and anything slower starts to feel like lag rather than a query. */
-::view-transition-old(journey-plate),
-::view-transition-new(journey-plate) {
-  animation-duration: 280ms;
-  animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+@keyframes k-s11-mark {
+  0% {
+    transform: scaleX(0.18);
+  }
+  44%,
+  56% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(0.18);
+  }
 }
-
-/* THE SECOND GUARANTEE. commit() already refuses to start a transition under
-   reduced motion, but if that check is ever changed this stops the browser
-   animating anything anyway. */
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-group(*),
-  ::view-transition-old(*),
-  ::view-transition-new(*) {
-    animation: none !important;
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .k-s11-row {
+      animation: k-s11-call linear both;
+      animation-timeline: view();
+      animation-range: cover 22% cover 78%;
+    }
+    .k-s11-tick {
+      animation: k-s11-mark linear both;
+      animation-timeline: view();
+      animation-range: cover 22% cover 78%;
+    }
   }
 }
 
@@ -1025,16 +1061,19 @@ body {
   opacity: 1;
 }
 
-/* The field note's dialog. Native <dialog>, so the platform owns the focus
-   trap and Esc; this only dresses it in the scene's own night. */
-.k-s09-dialog {
-  border: none;
-  padding: 20px;
-  width: min(430px, calc(100vw - 40px));
-  background: #101216;
+/* THE CONTACT SHEET. Three phone frames at the shape they were taken in.
+   They carry the same hairline as the strata above them, because they are
+   the same document: the stack is what he learned, the sheet is where. */
+.k-s09-frame {
+  outline: 1px solid rgba(252, 252, 252, 0.14);
+  outline-offset: -1px;
+  background: rgba(252, 252, 252, 0.045);
 }
-.k-s09-dialog::backdrop {
-  background: rgba(10, 11, 13, 0.82);
+/* Snap padding matches the gutter the row is bled out of, so a snapped
+   frame lands exactly on the text column's left edge rather than 20px
+   short of it. */
+.k-s09-sheet {
+  scroll-padding-inline: 20px;
 }
 
 /* --- Scene 12, scroll raises the light ------------------------------- */
@@ -1158,31 +1197,13 @@ body {
   background: #a05c08;
 }
 
-/* --- The route thread: one line down the whole journey ---------------- */
-/*
- * Two layers sharing one gradient: headlight gold through the night half,
- * ink from the sunrise on, because the spine's arithmetic forbids gold on
- * the mid-grey scenes. The crossing stops are measured from scene 10's real
- * position at runtime; these defaults land it where the spine's budgets put
- * it if the script never runs. The travelled layer's default is FULLY DRAWN
- * (--k-thread-clip: 0%), so no-JS and reduced motion see the whole route.
- */
-.k-thread {
-  background: linear-gradient(
-    180deg,
-    #d6a145 0%,
-    #d6a145 var(--k-thread-cross-a, 56%),
-    #12141a var(--k-thread-cross-b, 62%),
-    #12141a 100%
-  );
-}
-.k-thread-faint {
-  opacity: 0.16;
-}
-.k-thread-bright {
-  clip-path: inset(0 0 var(--k-thread-clip, 0%) 0);
-  opacity: 0.55;
-}
+/* THE ROUTE THREAD WAS HERE AND IS GONE, at the client's word on 2 Aug.
+   It was one gold line running the height of all seventeen scenes, filling
+   as the reader travelled. It read as a decoration drawn over the film
+   rather than as part of it, and it fought every scene that already had a
+   drawn line of its own: scene 4's growing rules, scene 5's seam, scene 8's
+   bend. Those are the lines that mean something, and they are clearer now
+   that nothing runs past them. Do not put a page-length rule back. */
 
 /* --- The plates breathe ------------------------------------------------ */
 /*

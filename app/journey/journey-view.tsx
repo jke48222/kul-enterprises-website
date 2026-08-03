@@ -3,7 +3,6 @@
 import { useTina } from "tinacms/dist/react";
 import type { TinaPage } from "@/lib/tina";
 import SmoothScroll from "@/components/k/journey/SmoothScroll";
-import RouteThread from "@/components/k/journey/RouteThread";
 import Scene01Beginning from "@/components/k/journey/Scene01Beginning";
 import Scene02Jamaica from "@/components/k/journey/Scene02Jamaica";
 import Scene03Work from "@/components/k/journey/Scene03Work";
@@ -53,11 +52,6 @@ export default function JourneyView(props: TinaPage<{ journeyPage: unknown }>) {
           is smoothed here and nowhere else on the site. See the header of
           SmoothScroll.tsx for why this is the one dependency worth adding. */}
       <SmoothScroll />
-
-      {/* One continuous route line from scene 1 to the sign-off, filling as
-          the reader travels. The film's answer to reading as slides: the
-          seams stay, the line does not break. See RouteThread.tsx. */}
-      <RouteThread />
 
       <Scene01Beginning copy={page.s01} />
       <Scene02Jamaica copy={{ ...page.s02, lessonWord: page.lessonWord }} />
