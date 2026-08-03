@@ -164,10 +164,9 @@ export default function ServiceMap() {
                     textAnchor="middle"
                     // `central` rather than `middle`: middle centres on the
                     // x-height and leaves two-letter caps sitting visibly high
-                    // in the shape. The label positions themselves are the
-                    // polygon's area centroid, computed in lib/map-states.ts,
-                    // not the mean of the outline points, which on a coastal
-                    // state drags the label out to sea.
+                    // in the shape. Where each label sits is decided in
+                    // lib/map-states.ts, which explains why Florida's is not
+                    // worked out the same way as everybody else's.
                     dominantBaseline="central"
                     className="pointer-events-none select-none font-text text-[15px] font-semibold uppercase"
                     style={{

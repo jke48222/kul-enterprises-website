@@ -59,11 +59,18 @@ import type { Service } from "@/lib/services";
  * Animating the actual width instead would re-measure the whole row on every
  * frame, and because the row is being scrolled at the same time, the moving
  * card positions would fight the scroll position underneath the pointer.
+ *
+ * HOW BIG THE CARDS ACTUALLY ARE IS SET IN CSS, NOT HERE. The four numbers
+ * that used to live on this line (card width, how much the middle one grows,
+ * how much the side ones shrink, and the gap) are now the --k-sc-* settings
+ * on `.k-service-rail` in app/globals.css, because a phone needs different
+ * ones: the desktop numbers put a 560px card on a 375px screen. They are read
+ * straight out of the style rules below, so there is one place to change them
+ * and it is the one with the comment explaining the sizes.
+ *
+ * None of the scrolling code needs them. It measures the real cards on the
+ * page, so whatever CSS decides, the arrows and dots follow.
  */
-const SLOT = 400;
-const ACTIVE_SCALE = 1.4;
-const SIDE_SCALE = 0.8;
-const GAP = 64;
 
 /**
  * How long one glide takes, in milliseconds, however far it has to travel.
@@ -404,8 +411,8 @@ export default function ServiceCarousel({ services }: ServiceCarouselProps) {
         onPointerCancel={endDrag}
         onClickCapture={onClickCapture}
         onWheel={stopGlide}
-        className="flex touch-pan-y select-none items-center overflow-x-auto py-[100px] pl-[max(1.5rem,calc((100vw-400px)/2))] pr-[max(1.5rem,calc((100vw-400px)/2))] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        style={{ gap: GAP, cursor: "grab" }}
+        className="k-service-rail flex touch-pan-y select-none items-center overflow-x-auto py-[var(--k-sc-air)] pl-[max(1.5rem,calc((100vw-var(--k-sc-slot))/2))] pr-[max(1.5rem,calc((100vw-var(--k-sc-slot))/2))] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        style={{ gap: "var(--k-sc-gap)", cursor: "grab" }}
       >
         {services.map((service, i) => {
           const isActive = i === active;
@@ -416,9 +423,9 @@ export default function ServiceCarousel({ services }: ServiceCarouselProps) {
               draggable={false}
               className="flex shrink-0 flex-col gap-5"
               style={{
-                width: SLOT,
+                width: "var(--k-sc-slot)",
                 zIndex: isActive ? 1 : 0,
-                transform: `scale(${isActive ? ACTIVE_SCALE : SIDE_SCALE})`,
+                transform: `scale(var(${isActive ? "--k-sc-active" : "--k-sc-side"}))`,
                 transition: "transform 0.5s cubic-bezier(0.16,1,0.3,1)",
               }}
             >
@@ -439,8 +446,8 @@ export default function ServiceCarousel({ services }: ServiceCarouselProps) {
                   // Divided by the scale so the corner looks the same size
                   // however far the card has been scaled up or down.
                   borderRadius: isActive
-                    ? 35 / ACTIVE_SCALE
-                    : 18 / SIDE_SCALE,
+                    ? "calc(35px / var(--k-sc-active))"
+                    : "calc(18px / var(--k-sc-side))",
                 }}
               />
               <div

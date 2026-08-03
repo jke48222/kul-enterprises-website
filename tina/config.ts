@@ -109,7 +109,7 @@ export default defineConfig({
           text("city", "City"),
           text("state", "State"),
           text("serviceArea", "Service area line", "For example: Southeast Based · Nationwide Authority."),
-          text("url", "Website address", "Leave as-is unless the domain changes."),
+          text("url", "Website address", "The address this site is actually served from right now, with no trailing slash. It is not a label: when someone shares a link, the preview picture is fetched from this address, and search engines treat it as the site's real home. Point it at a domain the site is not on yet and the preview picture and the search listing both break. Change it on the day the new domain starts serving the site, not before."),
           {
             type: "object",
             name: "geo",

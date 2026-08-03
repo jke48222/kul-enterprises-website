@@ -1301,6 +1301,47 @@ body {
   -webkit-mask-composite: source-in;
 }
 
+/* --- The services carousel, sized for the screen it is on ------------- */
+/*
+ * The row is built from three numbers: how much floor each card is given,
+ * how much the middle one grows, and the gap between them. They were chosen
+ * on a desktop artboard, where a 400px card grown to 1.4 comes out 560px
+ * wide on a screen with well over a thousand pixels to spare.
+ *
+ * On a phone those same numbers put a 560px card on a 375px screen. The
+ * middle photograph ends up half again wider than the window and 560px tall,
+ * and the row alone eats 674px of an 812px screen before the service name
+ * underneath it has started. It stops reading as a card you flick through
+ * and starts reading as a wall.
+ *
+ * So the numbers live here as settings instead, and a phone gets its own
+ * set: the card is measured from the screen rather than fixed, the middle
+ * one grows far less, and the space above and below shrinks to match the
+ * smaller growth. Nothing else about the row changes. The code that scrolls
+ * it measures the real elements on the page, so it follows these values on
+ * its own without being told.
+ *
+ * TO MAKE THE CARDS BIGGER OR SMALLER ON PHONES, change --k-sc-slot below.
+ * 72vw means one card takes 72 percent of the screen's width.
+ */
+.k-service-rail {
+  --k-sc-slot: 400px;
+  --k-sc-active: 1.4;
+  --k-sc-side: 0.8;
+  --k-sc-gap: 64px;
+  --k-sc-air: 100px;
+}
+
+@media (max-width: 767px) {
+  .k-service-rail {
+    --k-sc-slot: 72vw;
+    --k-sc-active: 1.08;
+    --k-sc-side: 0.86;
+    --k-sc-gap: 28px;
+    --k-sc-air: 30px;
+  }
+}
+
 /* ==================================================================== */
 /* THE CINEMA LAYER (client direction, 2 Aug 2026)                       */
 /* ==================================================================== */

@@ -161,15 +161,39 @@ export default function Scene14MeetKul({ copy }: { copy: Scene14Copy }) {
               <span className="font-semibold">{copy.led}</span>
             </p>
 
-            {/* THE LOCKUP. Portrait left, nameplate and his greeting right. */}
-            <div className="mt-10 grid grid-cols-1 gap-8 md:mt-14 lg:grid-cols-[330px_1fr] lg:gap-14">
+            {/* THE LOCKUP. Portrait left, nameplate and his greeting right.
+
+                EVERYTHING HERE HAS TO FIT INSIDE ONE SCREEN, because the stage
+                above is pinned at exactly one screen tall and clips whatever
+                does not fit. At the sizes this was first drawn at, the scene
+                came to 955px of content on a 375 by 812 phone, so 143px was
+                being cut off: Mark's sentence lost its top line and his last
+                line was sliced off the bottom, which are the two things the
+                scene exists to say.
+
+                ON A PHONE THE PORTRAIT AND THE MARK SIT SIDE BY SIDE, which is
+                the client's own instruction. Stacked, the two of them ate the
+                whole screen and pushed the sentence off the top. Beside each
+                other they take one row instead of two, and the sentence, his
+                line and the welcome all fit underneath with room to spare.
+
+                The right-hand column is `contents` while that is true, so the
+                mark, his line and the welcome become items of this same grid
+                rather than a block sitting inside one cell. That lets the mark
+                take the second column beside the portrait while the two lines
+                of text below run the full width. From `lg` the column becomes
+                a real flex column again and the desktop layout is untouched.
+
+                IF ANYTHING IS EVER ADDED TO THIS SCENE, check it on a phone:
+                the stage clips silently and gives no warning. */}
+            <div className="mt-6 grid grid-cols-2 items-center gap-x-4 gap-y-5 sm:mt-10 sm:gap-x-6 md:mt-14 lg:grid-cols-[330px_1fr] lg:items-stretch lg:gap-14">
               <figure className="k-s14-rise w-full max-w-[330px]" style={{ "--t": "var(--s14-portrait, 1)" } as React.CSSProperties}>
                 <div className="relative aspect-[330/412] w-full overflow-hidden">
                   <Image
                     src={`/images/journey/${PORTRAIT}.webp`}
                     alt={port.alt}
                     fill
-                    sizes="330px"
+                    sizes="(max-width: 1023px) 45vw, 330px"
                     // No filter. See the note at the top of this file: this
                     // frame does not need rescuing and touching it would only
                     // move it away from what the photographer delivered.
@@ -177,9 +201,11 @@ export default function Scene14MeetKul({ copy }: { copy: Scene14Copy }) {
                   />
                 </div>
                 {/* The one dark element on a light scene. It is the caption
-                    bar, so it reads as a label fixed to the print. */}
+                    bar, so it reads as a label fixed to the print. The two
+                    labels stack in the narrow phone column and sit on one line
+                    from `lg`, where the column is wide enough to hold them. */}
                 <figcaption
-                  className="flex items-center justify-between gap-4 px-3 py-3 font-display text-[11px] font-medium uppercase tracking-[0.1em]"
+                  className="flex flex-col gap-0.5 px-2.5 py-2 font-display text-[10px] font-medium uppercase leading-tight tracking-[0.08em] lg:flex-row lg:items-center lg:justify-between lg:gap-4 lg:px-3 lg:py-3 lg:text-[11px] lg:tracking-[0.1em]"
                   style={{ background: ink, color: "#FCFCFC" }}
                 >
                   <span className="tabular-nums">{plateLabel(PORTRAIT)}</span>
@@ -187,7 +213,7 @@ export default function Scene14MeetKul({ copy }: { copy: Scene14Copy }) {
                 </figcaption>
               </figure>
 
-              <div className="flex flex-col justify-center">
+              <div className="contents lg:flex lg:flex-col lg:justify-center">
                 {/* A nameplate, not speech, so it is correctly sans. */}
                 <h2 id="meet-kul-heading" className="k-s14-rise max-w-[320px]" style={{ "--t": "var(--s14-mark, 1)" } as React.CSSProperties}>
                   {/* THE REAL MARK IN FULL COLOUR, not the name set in Archivo
@@ -212,7 +238,7 @@ export default function Scene14MeetKul({ copy }: { copy: Scene14Copy }) {
                   />
                 </h2>
                 <p
-                  className="k-s14-rise mt-5 max-w-[46ch] font-text text-[clamp(1.0625rem,1.6vw,1.5rem)] leading-[1.45]"
+                  className="k-s14-rise col-span-2 max-w-[46ch] font-text text-[clamp(1.0625rem,1.6vw,1.5rem)] leading-[1.45] lg:col-span-1 lg:mt-5"
                   style={{ "--t": "var(--s14-say, 1)" } as React.CSSProperties}
                 >
                   {copy.say}
@@ -225,7 +251,7 @@ export default function Scene14MeetKul({ copy }: { copy: Scene14Copy }) {
                     the gold note in lib/journey-spine.ts; scenes 11 to 13
                     cannot carry gold at all. */}
                 <p
-                  className="k-s14-rise mt-8 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.2em]"
+                  className="k-s14-rise col-span-2 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.2em] lg:col-span-1 lg:mt-8"
                   style={{ "--t": "var(--s14-say, 1)" } as React.CSSProperties}
                 >
                   <span
