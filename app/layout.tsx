@@ -67,9 +67,15 @@ export const metadata: Metadata = {
     url: "./",
     images: [
       {
-        // The file lives at public/images/og.jpg, so "/og.jpg" 404s.
-        // Dimensions verified against the real file (sips): 1200x630.
-        url: "/images/og.jpg",
+        // The file lives at public/images/, so a bare "/og-…jpg" 404s.
+        // Dimensions verified against the real file: 1200x630.
+        //
+        // The filename carries the "-primary-logo" suffix on purpose. Every
+        // scraper (LinkedIn, iMessage, Slack, Facebook) caches share cards by
+        // URL for days, so replacing the artwork at the old /images/og.jpg
+        // would have left the old card in circulation. A new path forces a
+        // fresh fetch everywhere the site has already been shared.
+        url: "/images/og-primary-logo.jpg",
         width: 1200,
         height: 630,
         alt: `${site.name}. ${site.tagline}`,
@@ -78,7 +84,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    images: ["/images/og.jpg"],
+    images: ["/images/og-primary-logo.jpg"],
   },
   // Search Console ownership: set NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION in
   // the hosting env at launch and the tag renders on every page.
@@ -105,7 +111,7 @@ const jsonLd = {
   url: site.url,
   email: site.email,
   telephone: site.phoneHref.replace("tel:", ""),
-  image: `${site.url}/images/og.jpg`,
+  image: `${site.url}/images/og-primary-logo.jpg`,
   logo: `${site.url}/images/brand/kul-logo-lockup.png`,
   // streetAddress intentionally omitted until the client confirms the
   // publishable business address (locality-level NAP is valid schema).
