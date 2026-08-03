@@ -27,8 +27,30 @@ const CAP_MS = 5000;
 const EXIT_MS = 500;
 /** How long the still frame stands in for the film when motion is unwelcome. */
 const REDUCED_MS = 400;
-/** How long the film gets to actually start moving before we give up on it. */
-const PLAY_DEADLINE_MS = 1500;
+/**
+ * How long the film gets to actually start moving before we give up on it.
+ *
+ * IT WAS 1500 AND THAT WAS A PHONE-ONLY BUG. iOS does not honour
+ * `preload="auto"` on a cellular connection, so on mobile data the fetch of a
+ * 900KB film does not even begin until `play()` is called, and a second and a
+ * half is not enough to get from nothing to a decoded first frame. The
+ * deadline fired, the overlay abandoned, and the opening was never seen by
+ * anybody who arrived on a phone away from wifi.
+ *
+ * Waiting longer costs nothing now, because what is on screen while we wait is
+ * the poster, which is the closing lockup rather than a black frame.
+ */
+const PLAY_DEADLINE_MS = 4000;
+/**
+ * The outside edge of the whole ceremony, measured from the mount.
+ *
+ * The cap below is timed from the film's FIRST FRAME so that a slow start
+ * yields the whole film rather than its tail. That alone has no upper bound,
+ * so this is the bound: whatever happens, the overlay is gone by here. It sits
+ * under the 8000ms failsafe on the pre-paint cover in app/layout.tsx, so the
+ * two can never disagree about which one is still holding the screen.
+ */
+const CEILING_MS = 7500;
 /** The film's own ground, so any letterboxing is invisible against it. */
 const GROUND = "#050301";
 
@@ -54,11 +76,11 @@ type Phase = "idle" | "show" | "still" | "exit" | "done";
  * gathers into the KUL lion. The lion then slides right and the same gold
  * writes the wordmark in beside it, closing on the full lockup. Then it gets
  * out of the way. This is Mark's brief, and it is now a rendered film rather
- * than CSS: public/videos/kul-intro.{mp4,webm}.
+ * than CSS: public/videos/kul-intro.mp4.
  *
  * WHY A FILM AND NOT DRAWN MARKUP. The version before this one faked the whole
  * thing with two images and keyframes, because an earlier generated video cost
- * a megabyte and a half. This one is 941KB for 3.75 seconds and it does what
+ * a megabyte and a half. This one is 895KB for 5 seconds and it does what
  * markup cannot: a bird with real wings, seen in perspective, dissolving into
  * thirty thousand points of gold that reassemble as the mark. The Blender file
  * on the desktop that builds it is the editable source now, not this
@@ -193,9 +215,36 @@ export default function LoadingOverlay() {
   // screen for the entire cap and the film was never seen. There is nothing to
   // fade in from anyway, because the cover is already the film's own ground
   // colour, so the overlay simply paints opaque on its first frame.
+  //
+  // THE CAP IS TIMED FROM THE FIRST FRAME, NOT FROM THE MOUNT, and that is
+  // the second half of the phone fix. Started at the mount, every second the
+  // film spent fetching came out of the film's own running time, so a visitor
+  // on mobile data who waited three seconds for it to arrive was then shown
+  // the last two seconds of it: the lockup, with the bird and the lion it is
+  // made of already over. The ceremony is five seconds of film or it is
+  // nothing. CEILING_MS is what stops that promise being open ended.
   useEffect(() => {
-    if (phase !== "show" && phase !== "still") return;
-    push(setTimeout(dismiss, (phase === "still" ? REDUCED_MS : CAP_MS) - EXIT_MS));
+    if (phase === "still") {
+      push(setTimeout(dismiss, REDUCED_MS - EXIT_MS));
+      return;
+    }
+    if (phase !== "show") return;
+    const v = videoRef.current;
+    if (!v) return;
+
+    let capped = false;
+    const startCap = () => {
+      if (capped) return;
+      capped = true;
+      push(setTimeout(dismiss, CAP_MS - EXIT_MS));
+    };
+    // Already running by the time this effect got here, which is the ordinary
+    // case on a fast connection with the file in cache.
+    if (!v.paused && v.currentTime > 0) startCap();
+    v.addEventListener("playing", startCap);
+
+    push(setTimeout(dismiss, CEILING_MS - EXIT_MS));
+    return () => v.removeEventListener("playing", startCap);
   }, [phase, dismiss]);
 
   // Autoplay is muted and inline, which every current browser allows, but a
@@ -212,20 +261,47 @@ export default function LoadingOverlay() {
     if (phase !== "show") return;
     const v = videoRef.current;
     if (!v) return;
+    // Whether a frame has actually been put on the screen. The `playing`
+    // event is the only thing that means that, and it is what the watchdog
+    // below stands down for.
+    let started = false;
+    const onPlaying = () => {
+      started = true;
+    };
+    v.addEventListener("playing", onPlaying);
+
     const played = v.play();
     if (played && typeof played.catch === "function") {
       played.catch(() => {
-        // The poster frame is still up, so let the cap run rather than
-        // snatching the mark away the instant playback is declined.
+        // AUTOPLAY REFUSED, WHICH ON A PHONE USUALLY MEANS LOW POWER MODE.
+        // iOS blocks even a muted inline film once the battery saver is on,
+        // and there is no gesture coming to unblock it, because the visitor
+        // has not been asked for one and must not be.
+        //
+        // The old behaviour was to say nothing and let the full cap run,
+        // which meant four and a half seconds of a still frame for somebody
+        // whose phone had simply decided not to play video today. Take the
+        // reduced-motion treatment instead: the closing lockup is on screen
+        // as the poster, hold it for a beat the way the reduced-motion path
+        // does, and give them the site.
+        push(setTimeout(dismiss, REDUCED_MS));
       });
     }
     push(
       setTimeout(() => {
-        const stalled = v.currentTime === 0 && v.readyState < 3;
-        if (stalled && document.visibilityState === "visible") abandon();
+        // Nothing is moving and nothing has arrived to move with: a 404, a
+        // codec this browser cannot decode, a dead connection. `readyState`
+        // 3 is HAVE_FUTURE_DATA, so a film that has got that far is about to
+        // start and must not be taken away one frame short.
+        //
+        // A HIDDEN TAB IS EXEMPT BY DESIGN. Browsers stall media in the
+        // background on purpose, and nobody is watching it there anyway.
+        if (started || v.readyState >= 3) return;
+        if (document.visibilityState === "visible") abandon();
       }, PLAY_DEADLINE_MS),
     );
-  }, [phase, abandon]);
+    return () => v.removeEventListener("playing", onPlaying);
+  }, [phase, dismiss, abandon]);
 
   // Escape, or any press anywhere, ends it.
   useEffect(() => {
@@ -293,6 +369,39 @@ export default function LoadingOverlay() {
           className="object-contain"
         />
       ) : (
+        /* ================================================================
+           ONE SOURCE, AND IT IS THE MP4. DO NOT PUT A WEBM BACK IN FRONT
+           OF IT.
+           ================================================================
+           There used to be a `<source>` for kul-intro.webm above this one,
+           and it is the reason the opening never played on an iPhone.
+
+           Measured in Mobile Safari on iOS 26, 3 Aug 2026:
+
+             canPlayType('video/webm')                -> "maybe"
+             canPlayType('video/webm; codecs="vp9"')  -> ""
+             mediaCapabilities VP9 profile 0 and 1    -> NOT SUPPORTED
+             mediaCapabilities H.264 High             -> SUPPORTED
+
+           Those first two lines are the whole trap. WebKit says "maybe" to
+           the bare container type, so the resource selection algorithm
+           COMMITS to the webm, and only then discovers it cannot decode VP9,
+           which it has never supported in any profile. What it does at that
+           point is not fail. It sits at readyState 0 forever with
+           `video.error` still null, so no error event is dispatched, the
+           `onError` below never runs, and the mp4 underneath is never
+           reached. The film simply never arrives and the watchdog takes the
+           overlay away.
+
+           A `codecs` parameter on the type would be enough to make Safari
+           skip the source honestly, but the webm earns nothing here even
+           where it does decode: it was 1.28MB against the mp4's 895KB, so it
+           was the larger file as well as the unplayable one. The mp4 is
+           H.264 High, level 3.2, yuv420p, 1280x720, which is the one
+           encoding every browser and every phone decodes in hardware.
+
+           If a second encoding is ever wanted (AV1, say), it goes AFTER this
+           one and its type carries a full `codecs` string. */
         <video
           ref={videoRef}
           poster="/videos/kul-intro-poster.jpg"
@@ -304,8 +413,7 @@ export default function LoadingOverlay() {
           onError={abandon}
           className="h-full w-full object-contain"
         >
-          <source src="/videos/kul-intro.webm" type="video/webm" />
-          <source src="/videos/kul-intro.mp4" type="video/mp4" />
+          <source src="/videos/kul-intro.mp4" type='video/mp4; codecs="avc1.640020"' />
         </video>
       )}
 
