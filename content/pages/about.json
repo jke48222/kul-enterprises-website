@@ -59,11 +59,6 @@
         "label": "Dispatch",
         "gold": true,
         "body": "{phone}\n{email}\nOne number, answered by the driver."
-      },
-      {
-        "label": "Credits",
-        "gold": false,
-        "body": "The opening film's gold Doctor Bird is built on [Swallow-tailed Hummingbird](https://sketchfab.com/3d-models/swallow-tailed-hummingbird-db761226ef2b41b5b6dbdae5a80e715b) by Rodrigo Gelmi, shared under Creative Commons Attribution, refinished in gold and filmed in Blender for KUL."
       }
     ]
   }

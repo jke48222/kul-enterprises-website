@@ -7,16 +7,13 @@ const SEEN_KEY = "kul-intro-seen";
 /**
  * Total ceremony cap, exit fade included.
  *
- * It was 2500 when the film ended on the bare lion, 3750 when the lockup
- * arrived, 5000 when the piece slowed down, and it is 8000 now that the
- * opening is the client's eight second story: the distant light, the arrival,
- * the hover, the strike at the centre of the screen, and the lion born out of
- * the burst with the name and tagline beneath it. It has to be at least the
- * length of the film, or the cap cuts the ending off. Every escape hatch
- * below is unchanged, so the visitor who does not want to watch still pays
- * nothing.
+ * It was 2500 when the film ended on the bare lion, then 3750 when the lockup
+ * arrived, and it is 5000 now that the whole piece runs slower and holds the
+ * finished lockup for a full second. It has to be at least the length of the
+ * film, or the cap cuts the ending off. Every escape hatch below is unchanged,
+ * so the visitor who does not want to watch still pays nothing.
  */
-const CAP_MS = 8000;
+const CAP_MS = 5000;
 /**
  * How long the panel takes to climb off the top of the screen.
  *
@@ -35,7 +32,7 @@ const REDUCED_MS = 400;
  *
  * IT WAS 1500 AND THAT WAS A PHONE-ONLY BUG. iOS does not honour
  * `preload="auto"` on a cellular connection, so on mobile data the fetch of a
- * 2.1MB film does not even begin until `play()` is called, and a second and a
+ * 900KB film does not even begin until `play()` is called, and a second and a
  * half is not enough to get from nothing to a decoded first frame. The
  * deadline fired, the overlay abandoned, and the opening was never seen by
  * anybody who arrived on a phone away from wifi.
@@ -50,10 +47,10 @@ const PLAY_DEADLINE_MS = 4000;
  * The cap below is timed from the film's FIRST FRAME so that a slow start
  * yields the whole film rather than its tail. That alone has no upper bound,
  * so this is the bound: whatever happens, the overlay is gone by here. It sits
- * under the 11000ms failsafe on the pre-paint cover in app/layout.tsx, so the
+ * under the 8000ms failsafe on the pre-paint cover in app/layout.tsx, so the
  * two can never disagree about which one is still holding the screen.
  */
-const CEILING_MS = 10500;
+const CEILING_MS = 7500;
 /** The film's own ground, so any letterboxing is invisible against it. */
 const GROUND = "#050301";
 
@@ -74,27 +71,25 @@ type Phase = "idle" | "show" | "still" | "exit" | "done";
 /**
  * THE OPENING
  *
- * Eight seconds, nine beats, exactly as the client storyboarded it: a black
- * screen; a tiny gold light far off that grows until it is understood to be
- * the Doctor Bird flying at the viewer; the arrival, each slow wingbeat
- * shedding a little gold dust; a hover at the centre where the film breathes;
- * the bird's attention turning to the exact centre of the screen; a sudden
- * dart and a gentle beak tap on that centre; a molten pulse; the lion
- * materialising out of the burst; and the name with the tagline fading in
- * beneath. The bird introduces the lion and never competes with it. It is a
- * rendered film: public/videos/kul-intro.mp4.
+ * A Doctor Bird comes in from far off, flying straight at the lens with its
+ * wings beating, turns broadside as it arrives, and comes apart into gold that
+ * gathers into the KUL lion. The lion then slides right and the same gold
+ * writes the wordmark in beside it, closing on the full lockup. Then it gets
+ * out of the way. This is Mark's brief, and it is now a rendered film rather
+ * than CSS: public/videos/kul-intro.mp4.
  *
- * WHY A FILM AND NOT DRAWN MARKUP. A film does what markup cannot: a real
- * gold bird with feathered wings under studio light, depth of field, and
- * thirty thousand points of gold that assemble into the actual lion artwork.
- * The Blender file on the desktop (~/Desktop/kul/kul.blend) is the editable
- * source, not this component; the lion and the lettering in it are sampled
- * from the brand artwork, so both are the real marks. The hero bird is built
- * on a CC-licensed Sketchfab base model, credited in the colophon.
+ * WHY A FILM AND NOT DRAWN MARKUP. The version before this one faked the whole
+ * thing with two images and keyframes, because an earlier generated video cost
+ * a megabyte and a half. This one is 895KB for 5 seconds and it does what
+ * markup cannot: a bird with real wings, seen in perspective, dissolving into
+ * thirty thousand points of gold that reassemble as the mark. The Blender file
+ * on the desktop that builds it is the editable source now, not this
+ * component; the wordmark in it is sampled from the brand artwork, so the
+ * lettering is the real thing rather than a font that looks close.
  *
- * IT PLAYS ONCE PER TAB SESSION, home page only (client direction,
- * 2 Aug 2026). A new tab, window or browser session replays it; moving
- * around the site inside one session never does.
+ * IT PLAYS ONCE IN A VISITOR'S LIFE, not once per visit. The flag is in the
+ * browser's own storage, so somebody who comes back next week to check a rate
+ * never sees it again.
  *
  * SIX THINGS PROTECT THE VISITOR FROM IT, and none are optional:
  *   1. Anybody who has asked their computer to reduce motion gets the closing
@@ -226,7 +221,7 @@ export default function LoadingOverlay() {
   // film spent fetching came out of the film's own running time, so a visitor
   // on mobile data who waited three seconds for it to arrive was then shown
   // the last two seconds of it: the lockup, with the bird and the lion it is
-  // made of already over. The ceremony is eight seconds of film or it is
+  // made of already over. The ceremony is five seconds of film or it is
   // nothing. CEILING_MS is what stops that promise being open ended.
   useEffect(() => {
     if (phase === "still") {
@@ -399,13 +394,11 @@ export default function LoadingOverlay() {
            overlay away.
 
            A `codecs` parameter on the type would be enough to make Safari
-           skip the source honestly, but the webm earned nothing here even
-           where it did decode: it was the larger file as well as the
-           unplayable one, and it was deleted. The mp4 is H.264 High, level
-           3.2, yuv420p, 1280x720 at 60fps (2.1MB for the eight-second
-           story), which is the one encoding every browser and every phone
-           decodes in hardware. A 1080p master lives beside the .blend on
-           the desktop if a heavier trade-up is ever wanted.
+           skip the source honestly, but the webm earns nothing here even
+           where it does decode: it was 1.28MB against the mp4's 895KB, so it
+           was the larger file as well as the unplayable one. The mp4 is
+           H.264 High, level 3.2, yuv420p, 1280x720, which is the one
+           encoding every browser and every phone decodes in hardware.
 
            If a second encoding is ever wanted (AV1, say), it goes AFTER this
            one and its type carries a full `codecs` string. */
