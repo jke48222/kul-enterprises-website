@@ -27,10 +27,12 @@ import ManageCookiesView from "./cookies-view";
  *     to do (no ad targeting, no cross-site following, no selling), which
  *     holds in both builds; the mechanics of GA live in the clause marked
  *     "only when analytics is on" instead.
- *  2. kul-intro-seen is localStorage, NOT a session cookie. See
- *     components/brand/LoadingOverlay.tsx (SEEN_KEY, "first visit EVER"). It
- *     does not expire and it survives closing the tab. The old copy claimed
- *     both the opposite things.
+ *  2. kul-intro-seen is sessionStorage, per tab, since the 2 Aug 2026 client
+ *     direction (see components/brand/LoadingOverlay.tsx, SEEN_KEY). It is
+ *     cleared when the tab closes, and a new tab replays the film. This claim
+ *     has now flipped twice, once in each direction. Whenever the gate
+ *     changes, change the "What we store" body in content/legal/cookies.json
+ *     in the same commit, or this page lies to visitors.
  */
 
 export const metadata: Metadata = {

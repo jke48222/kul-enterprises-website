@@ -15,7 +15,7 @@
     },
     {
       "heading": "What we store",
-      "body": "One entry, named kul-intro-seen, which records that our opening film has already played so that it does not greet you a second time. Its value is the single character 1. It holds nothing about you, and it is never transmitted to us or to anyone else.\n\nIt is kept in your browser's local storage rather than in a cookie, and that distinction is worth stating precisely: it does not expire on a schedule, and it is not cleared when you close the tab. It stays until you clear this site's data , which is what lets the film play once in your life rather than on every visit.",
+      "body": "One entry, named kul-intro-seen, which records that our opening film has already played in this tab so that it does not greet you a second time as you move around the site. Its value is the single character 1. It holds nothing about you, and it is never transmitted to us or to anyone else.\n\nIt is kept in your browser's session storage rather than in a cookie, and that distinction is worth stating precisely: it belongs to the tab you are reading in, it is cleared automatically when that tab closes, and it never leaves your machine. Open the site in a new tab or window and the film simply plays again.",
       "onlyWithAnalytics": false
     },
     {

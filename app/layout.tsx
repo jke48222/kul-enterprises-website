@@ -238,7 +238,7 @@ export default function RootLayout({
               "d.style.cssText='position:fixed;inset:0;z-index:99;background:#050301;pointer-events:none';" +
               "document.body.appendChild(d);" +
               "setTimeout(function(){var n=document.getElementById('kul-intro-cover');" +
-              "if(n&&n.parentNode)n.parentNode.removeChild(n)},8000);" +
+              "if(n&&n.parentNode)n.parentNode.removeChild(n)},11000);" +
               "}catch(e){}})()",
           }}
         />
