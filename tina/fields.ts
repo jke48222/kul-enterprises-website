@@ -23,7 +23,7 @@ import type { TinaField } from "tinacms";
  * own by the tinacms build and must not pull the site's runtime in with it.
  */
 export const TOKENS =
-  "Tip: type {phone}, {email}, {location}, {city}, {state}, {usdot}, {mc} or {name} and it fills in from Business Facts, so you never retype a phone number here.";
+  "Tip: type {phone}, {email}, {location}, {city}, {state}, {usdot}, {mc}, {name} or {tagline} and it fills in from Business Facts, so you never retype a phone number here.";
 
 /** The same, plus how to write a link. For anything longer than a line. */
 export const TOKENS_AND_LINKS = `${TOKENS} A link is written [the words you see](/the-page), for example [our safety page](/safety).`;

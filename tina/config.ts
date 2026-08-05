@@ -562,27 +562,75 @@ export default defineConfig({
           image("image", "Photograph"),
           text("imageAlt", "Photograph description"),
         ]),
-        group("founder", "The founder's note", [
+        group("community", "The belief", [
+          text("eyebrow", "Small label in the margin", TOKENS),
+          longText(
+            "statement",
+            "The line set large",
+            "One sentence. The same sentence closes the page in Our Commitment below; if it changes here, change it there too.",
+          ),
+          paragraphs("paragraphs", "The paragraphs under it", "Two paragraphs."),
+        ]),
+        group("founding", "More than transportation", [
           text("eyebrow", "Small gold label"),
-          paragraphs("paragraphs", "The note", "Three paragraphs. A fourth pushes the signature off the picture beside it."),
-          image("portrait", "Mark's photograph", "Sits above the signature, in the column, at the size of a passport print. It is a person, not a picture of a road, so it stays small and it stays beside his name."),
-          text("portraitAlt", "Photograph description"),
-          text("signatureName", "Name"),
-          text("signatureRole", "Role", TOKENS),
-          image("posterImage", "Still frame beside the note"),
+          longText(
+            "lead",
+            "The founding belief, set large on the left",
+            "Keep it to a sentence or two. If it grows past that it stops reading as a lead.",
+          ),
+          paragraphs("paragraphs", "The paragraphs on the right"),
+        ]),
+        group("experience", "Built through experience", [
+          text("eyebrow", "Small gold label"),
+          paragraphs(
+            "paragraphs",
+            "The column of text",
+            "Four short paragraphs beside the film. The column is narrow, so a long paragraph reads as a wall.",
+          ),
+          image("posterImage", "Still frame behind the film"),
           text("posterImageAlt", "Still frame description"),
           text("video", "Video file", "The dashcam clip that plays in place of the still."),
         ]),
-        group("today", "How it runs today", [
+        group("standards", "The way we do business", [
           text("eyebrow", "Small label"),
           paragraphs(
             "paragraphs",
-            "The statement",
-            "Two paragraphs. At this size the type is doing the work of a headline, which is why the section has no headline, and a third stops reading as a statement and starts reading as an essay.",
+            "The paragraphs above the grid",
+            "The last entry is the lead-in that ends with a colon.",
+          ),
+          {
+            type: "string",
+            name: "commitments",
+            label: "The six commitments",
+            description:
+              "One entry per square on the grid. Keep each to a few words: they are set at display size, and one that wraps to three lines stops reading as a standard.",
+            list: true,
+          },
+          longText("closing", "The line under the grid"),
+        ]),
+        group("forward", "Looking forward", [
+          text("eyebrow", "Small gold label"),
+          paragraphs(
+            "paragraphs",
+            "The column of text",
+            "Growth in words, not figures. The numbers live on the Road Ahead page; keep them there so the two pages cannot drift apart.",
+          ),
+        ]),
+        group("commitment", "Our commitment", [
+          text("eyebrow", "Small gold label"),
+          paragraphs("paragraphs", "The quiet paragraphs"),
+          longText(
+            "closing",
+            "The last line, set large",
+            "The same sentence the page opened on, on purpose. If it changes in The Belief above, change it here too.",
           ),
         ]),
         group("imprint", "The particulars", [
-          longText("statement", "The sentence beside the mark", TOKENS),
+          longText(
+            "statement",
+            "The sentence beside the mark",
+            "It is the tagline, filled in by the {tagline} token, so the words live once in Business Facts.",
+          ),
           image("logo", "The mark"),
           {
             type: "object",

@@ -19,10 +19,6 @@ import type { TinaPage } from "@/lib/tina";
  *
  * Outside the editor useTina hands back exactly what it was given, so on the
  * live site this renders once and costs nothing.
- *
- * The markup below was moved here unchanged. Only the data source differs: it
- * is the live document now rather than the JSON file, and lib/tina.ts falls
- * back to that file whenever Tina cannot be reached.
  */
 
 /**
@@ -33,13 +29,8 @@ import type { TinaPage } from "@/lib/tina";
  * is otherwise readable. The JSON on disk is the canonical shape and the
  * schema mirrors it, so the live data is read against that. `typeof
  * import(...)` is type-only and adds nothing to the browser bundle.
- *
- * Fields really can come back empty, so fill() and link() tolerate null and
- * every list is guarded before it is mapped.
  */
 type Content = typeof import("@/content/pages/about.json");
-
-
 
 export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
   // Outside the editor this hands straight back what the server fetched.
@@ -50,43 +41,40 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
   });
   const about = data.aboutPage as unknown as Content;
 
-  // Derived from the content, so it has to be built per render now that
-  // the content arrives at runtime rather than from a static import.
   /**
    * ABOUT
    *
-   * This page answers one question a broker actually asks: who is behind the
-   * authority. It is not a company history and it is not a second helping of
-   * the safety page.
+   * THE WORDS ARE THE CLIENT'S OWN STATEMENT, received 5 August 2026 and set
+   * here in full. It replaced the founder's note and the "how it runs today"
+   * section that used to make up this page. Three small corrections were made
+   * in the setting, none of them a rewrite: "were not built" became "was not
+   * built", "Continuously improving" became "Improve continuously" so the six
+   * commitments all give an instruction the same way, and one sentence was
+   * restructured to lose an em dash, which this site does not use.
    *
    * WHAT EACH PAGE ON THE SITE OWNS, so none of them repeat each other:
    *   Safety      what KUL holds itself to, written as policy
    *   Road Ahead  the growth plan and the figures as they stand
-   *   About       the person, the licence, and how a one truck carrier runs
+   *   About       the statement of purpose, and the licence particulars
    *
-   * ON THE LAYOUT. Every section here is a different shape on purpose, because
-   * the version of this site the client rejected used one shape eleven times
-   * over. Each shape below was taken from a real site, named in the comment
-   * above it, so nothing here is a house template.
+   * "Looking Forward" below speaks of growth in the client's words and names
+   * no figures. The figures stay on the Road Ahead page; do not copy them in
+   * here, or the two pages will drift apart the first time one is updated.
    *
-   * ON THE WRITING. Short plain sentences and operational nouns. An earlier
-   * draft of this page said things like "trust is in our DNA" and "every mile
-   * teaches something new", which is the sort of line that reads as an advert
-   * rather than as a carrier talking to a customer. If a sentence could be
-   * printed on a poster, it is the wrong sentence.
+   * ON THE LAYOUT. Every section is a different shape on purpose, because the
+   * version of this site the client rejected used one shape eleven times over.
+   * The shapes that carried the old page were kept and the new words were laid
+   * into them; each one is named in the comment above it.
    *
    * TO UPDATE IT: every word is in content/pages/about.json and is edited at
-   * /admin under "About page". The phone number, email, DOT and MC numbers are
-   * not written there either: the copy carries {phone} and {usdot} tokens that
-   * fill from Business Facts, so those exist in exactly one place on the site.
+   * /admin under "About page". The phone number, email, DOT and MC numbers and
+   * the tagline are not written there either: the copy carries {phone},
+   * {usdot} and {tagline} tokens that fill from Business Facts, so each fact
+   * exists in exactly one place on the site.
    *
-   * A SIXTH PARTICULAR headed "Not yet" listed what KUL does not have: no
-   * published safety rating history, no customer references. It came out on
-   * 29 Jul 2026 at the client's word. It was honest and it was the last thing
-   * in an imprint, which is the position a reader remembers, so the block ended
-   * on an absence. Nothing that was in it is contradicted anywhere else on the
-   * site; the safety page still says in its own first line that there is no long
-   * record yet, which is where a broker looking for one will be.
+   * MARK'S PORTRAIT AND SIGNATURE left with the founder's note. His face is
+   * on the Journey page, which is the page about him; this page is now the
+   * company speaking, and it ends on the imprint, signed with the mark.
    */
 
   return (
@@ -97,8 +85,9 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
           held in below it with a wide margin on one side, and a small line of
           tracked capitals keyed to the picture's top corner.
 
-          The picture is indented from the left and runs out to the right
-          margin, so it leans the opposite way to the headline above it. */}
+          The headline is the statement's own subtitle. The picture is
+          indented from the left and runs out to the right margin, so it
+          leans the opposite way to the headline above it. */}
       <section className="bg-k-paper px-6 pb-32 pt-36 md:px-12 lg:px-24 lg:pt-44">
         <div className="mx-auto max-w-[1248px]">
           <Breadcrumb
@@ -125,10 +114,9 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
             </Reveal>
             <Reveal className="mt-3.5">
               <div className="relative aspect-[16/9] w-full">
-                {/* Mark's own photograph. Everything on this site is now a
-                    picture he took, which is the point: a carrier that runs
-                    one truck should not illustrate itself with somebody
-                    else's fleet. */}
+                {/* Mark's own photograph. Everything on this site is a picture
+                    he took, which is the point: a carrier should not
+                    illustrate itself with somebody else's fleet. */}
                 <Image
                   src={about.opening.image}
                   alt={fill(about.opening.imageAlt)}
@@ -143,7 +131,86 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
         </div>
       </section>
 
-      {/* THE FOUNDER'S NOTE
+      {/* THE BELIEF
+          Shape taken from the mymind principles page: a small label out in
+          the left margin, then one line set much larger than everything
+          around it, with the supporting paragraphs a step smaller and softer
+          beneath. The size is doing the work of a headline, which is why
+          there is no headline.
+
+          The large line returns in the closing section at the foot of the
+          page. That repeat is deliberate, the statement opens and closes on
+          the same sentence, so if the words change here they must change
+          there too. Both live in the same file in the CMS. */}
+      <section className="bg-k-coal px-6 py-32 md:px-12 lg:px-24 lg:py-36">
+        <div className="mx-auto flex max-w-[1248px] flex-col gap-10 lg:flex-row lg:gap-24">
+          <Reveal variant="settle" className="lg:w-[192px] lg:shrink-0 lg:pt-3">
+            <span className="font-text text-k-micro uppercase text-k-on-dark-soft">
+              {fill(about.community.eyebrow)}
+            </span>
+          </Reveal>
+          <div className="flex flex-1 flex-col">
+            <Reveal>
+              <p
+                data-tina-field={tinaField(about.community, "statement")}
+                className="max-w-[900px] font-text text-k-d3 leading-[1.33] tracking-[-0.01em] text-k-on-dark"
+              >
+                {fill(about.community.statement)}
+              </p>
+            </Reveal>
+            <div className="mt-10 flex max-w-[720px] flex-col gap-6">
+              {about.community.paragraphs.map((paragraph, i) => (
+                <Reveal key={paragraph.slice(0, 40)} index={i}>
+                  <Copy
+                    text={paragraph}
+                    className="font-text text-k-lede text-k-on-dark-soft"
+                    linkClassName="underline underline-offset-4"
+                  />
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* MORE THAN TRANSPORTATION
+          A split lead: the founding belief set large on the left, and what
+          follows from it in ordinary type on the right, the two halves of one
+          thought sitting level with each other. The lead is one sentence
+          pair; if it grows past that it stops being a lead and should move
+          into the right-hand column with the rest. */}
+      <section className="bg-k-paper px-6 py-32 md:px-12 lg:px-24 lg:py-36">
+        <div className="mx-auto max-w-[1248px]">
+          <Reveal variant="settle">
+            <span className="font-text text-k-micro uppercase text-k-gold">
+              {fill(about.founding.eyebrow)}
+            </span>
+          </Reveal>
+          <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-24">
+            <Reveal variant="wipe">
+              <p
+                data-tina-field={tinaField(about.founding, "lead")}
+                className="font-text text-k-d3 leading-[1.33] tracking-[-0.01em] text-k-ink"
+              >
+                {fill(about.founding.lead)}
+              </p>
+            </Reveal>
+            <div className="flex flex-col gap-6 lg:pt-2">
+              {about.founding.paragraphs.map((paragraph, i) => (
+                <Reveal key={paragraph.slice(0, 40)} index={i}>
+                  <Copy
+                    text={paragraph}
+                    className="font-text text-k-body text-k-ink"
+                    linkClassName="underline underline-offset-4"
+                  />
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* BUILT THROUGH EXPERIENCE
           Shape taken from the KÖPPEN founders' note: a narrow column of small
           dense type on one side, a very large picture filling the other and
           running off the edge of the screen, and a wide empty gutter left
@@ -151,8 +218,13 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
 
           The contrast in size is the whole idea. The type stays small even
           though there is room to enlarge it, because a quiet column beside a
-          big picture reads as a note somebody wrote, and the same words set
-          large would read as a slogan. */}
+          big picture reads as something written, and the same words set large
+          would read as a slogan.
+
+          The film is Mark's own dashcam, filmed forward from the cab. The
+          column speaks of thousands of miles and the picture is a recording
+          of them, which is why this section kept the film when the founder's
+          note it belonged to came off the page. */}
       <section className="bg-k-surface">
         <div className="flex flex-col lg:flex-row lg:items-stretch lg:justify-between">
           {/* 396px is the 96px left margin plus a 300px column of text. The
@@ -161,19 +233,14 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
           <div className="px-6 py-24 md:px-12 lg:w-[396px] lg:shrink-0 lg:py-32 lg:pl-24 lg:pr-0">
             <Reveal variant="settle">
               <span className="font-text text-k-micro uppercase text-k-gold">
-                {fill(about.founder.eyebrow)}
+                {fill(about.experience.eyebrow)}
               </span>
             </Reveal>
-            {/* The tail of the last paragraph used to spell out "one tractor,
-                one driver, and the person who answers dispatch is the person
-                behind the wheel", which is the whole of the "How it runs
-                today" section a few inches below, written out in advance. The
-                founder note ends on the principle and lets that section carry
-                the arrangement. Keep it to three paragraphs: the column is
-                300px wide and a fourth pushes the signature off the picture
-                beside it. */}
+            {/* Four short paragraphs fit the column now that no signature
+                sits under them. If one grows long, split it or cut it: at
+                300px wide a long paragraph reads as a wall. */}
             <Reveal className="mt-5 flex flex-col gap-4">
-              {about.founder.paragraphs.map((paragraph) => (
+              {about.experience.paragraphs.map((paragraph) => (
                 <Copy
                   key={paragraph.slice(0, 40)}
                   text={paragraph}
@@ -182,64 +249,17 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
                 />
               ))}
             </Reveal>
-            {/* THE PHOTOGRAPH OF MARK, added 2 Aug at the client's word.
-                It is the only picture of a person on the page, so it is
-                deliberately the smallest: 148px, the size of a print clipped
-                to a document, sitting directly above the name it belongs to
-                rather than out in the layout as a hero. A founder's note is a
-                signed thing, and this is the part of a signed thing that says
-                who signed it.
-
-                It carries a real alt: unlike the mark in the imprint, the
-                sentence beside it is a name and a role, not a description of
-                a face, so a screen reader would otherwise be told a picture
-                is here and nothing about it. */}
-            <Reveal variant="settle" className="mt-9">
-              <Image
-                src={about.founder.portrait}
-                alt={fill(about.founder.portraitAlt)}
-                width={1122}
-                height={1402}
-                sizes="148px"
-                className="h-auto w-[132px] lg:w-[148px]"
-              />
-            </Reveal>
-            <Reveal variant="settle" className="mt-5 flex flex-col gap-1">
-              <span className="font-text text-k-small font-semibold text-k-ink">
-                {fill(about.founder.signatureName)}
-              </span>
-              <span className="font-text text-k-micro uppercase text-k-ink-soft">
-                {fill(about.founder.signatureRole)}
-              </span>
-            </Reveal>
           </div>
 
-          {/* THIS HALF STILL HAS NO PERSON IN IT, and that is unchanged by the
-              portrait now sitting in the column. The rule it was written for
-              still holds: no stranger stands in for Mark anywhere on this
-              site. His own face is in the note, at the size of a signature;
-              this half is the work, at the size of a wall. */}
-          {/* IT IS FOOTAGE NOW, NOT A STILL, at the client's word. It was a
-              photograph of a road between pines; this is Mark's own dashcam,
-              filmed forward from the cab, which is a better answer to the note
-              beside it: the column is about what he does all day and now the
-              picture is a recording of him doing it.
-
-              The still it replaced is the poster, so the column is never an
-              empty half-screen while the video loads and anyone who has asked
-              for reduced motion keeps a picture rather than a blank. That
-              switch is in CSS in app/globals.css, not in a JavaScript branch
-              here, for the reason set out in components/k/Reveal.tsx.
-
-              `preload="metadata"` rather than auto: this sits well down the
-              page and most readers never reach it, so it fetches the header
-              and waits. Muted is what makes autoplay legal, playsInline stops
-              iOS taking it fullscreen, and it is decoration beside a signed
-              note, so it is hidden from assistive technology entirely. */}
-          <div className="relative min-h-[420px] w-full lg:min-h-[760px] lg:w-1/2">
+          {/* The still behind the film is the poster, so the column is never
+              an empty half-screen while the video loads and anyone who has
+              asked for reduced motion keeps a picture rather than a blank.
+              That switch is in CSS in app/globals.css, not in a JavaScript
+              branch here, for the reason set out in components/k/Reveal.tsx. */}
+          <div className="relative min-h-[420px] w-full lg:min-h-[640px] lg:w-1/2">
             <Image
-              src={about.founder.posterImage}
-              alt={fill(about.founder.posterImageAlt)}
+              src={about.experience.posterImage}
+              alt={fill(about.experience.posterImageAlt)}
               fill
               sizes="(min-width:1024px) 50vw, 100vw"
               className="object-cover"
@@ -249,48 +269,38 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
                 fallback either way. The name is derived from the CMS path
                 so the field keeps its one job: naming the file. */}
             <HeroVideo
-              name={about.founder.video.replace(/^\/videos\//, "").replace(/(-720)?\.mp4$/, "")}
-              poster={about.founder.posterImage}
-              label="the founder film"
+              name={about.experience.video.replace(/^\/videos\//, "").replace(/(-720)?\.mp4$/, "")}
+              poster={about.experience.posterImage}
+              label="the road film"
               className="absolute inset-0 h-full w-full object-cover"
             />
           </div>
         </div>
       </section>
 
-      {/* HOW IT RUNS TODAY
-          Shape taken from the mymind principles page: no columns, no rules
-          and no list, just a short passage of running text set much larger
-          than ordinary body copy, with a small label out in the left margin.
+      {/* THE WAY WE DO BUSINESS
+          Two paragraphs and a lead-in line, then the six commitments counted
+          out on a ruled grid, each under a small gold number. The grid is the
+          reason this section sits on the dark ground: six short instructions
+          in a row read as a list anywhere else, and here they read as the
+          standards the section says they are.
 
-          The size is doing the work of a headline, which is why there is no
-          headline. Keep this to two paragraphs. At this scale a third one
-          stops reading as a statement and starts reading as an essay. */}
+          KEEP EACH COMMITMENT TO A FEW WORDS. They are set at display size,
+          and a commitment that wraps to three lines stops reading as a
+          standard and starts reading as a paragraph that lost its way. */}
       <section className="bg-k-coal px-6 py-32 md:px-12 lg:px-24 lg:py-36">
-        <div className="mx-auto flex max-w-[1248px] flex-col gap-10 lg:flex-row lg:gap-24">
-          <Reveal variant="settle" className="lg:w-[192px] lg:shrink-0 lg:pt-3">
+        <div className="mx-auto max-w-[1248px]">
+          <Reveal variant="settle">
             <span className="font-text text-k-micro uppercase text-k-on-dark-soft">
-              {fill(about.today.eyebrow)}
+              {fill(about.standards.eyebrow)}
             </span>
           </Reveal>
-          {/* KEEP THIS TO TWO PARAGRAPHS. At this size the type is doing the
-              work of a headline, which is why the section has no headline, and
-              a third paragraph stops reading as a statement and starts reading
-              as an essay. The first is set in full strength, everything after
-              it a step softer, so the eye is told which one to read.
-
-              THE HEADCOUNT CAME OFF THE FRONT OF BOTH OF THESE and the
-              substance of both is untouched. What KUL can and cannot commit to
-              is a real limit and a broker is entitled to it before they book,
-              so the second paragraph still says it. It says it as a scheduling
-              fact, which is what a broker acts on, rather than as a headcount,
-              which is only ever an apology. See the note in app/page.tsx. */}
-          <div className="flex flex-1 flex-col gap-9">
-            {about.today.paragraphs.map((paragraph, i) => (
+          <div className="mt-8 flex max-w-[720px] flex-col gap-6">
+            {about.standards.paragraphs.map((paragraph, i) => (
               <Reveal key={paragraph.slice(0, 40)} index={i}>
                 <Copy
                   text={paragraph}
-                  className={`font-text text-k-d3 leading-[1.33] tracking-[-0.01em] ${
+                  className={`font-text text-k-lede ${
                     i === 0 ? "text-k-on-dark" : "text-k-on-dark-soft"
                   }`}
                   linkClassName="underline underline-offset-4"
@@ -298,6 +308,100 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
               </Reveal>
             ))}
           </div>
+
+          <div className="mt-14 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+            {about.standards.commitments.map((commitment, i) => (
+              <Reveal
+                key={commitment}
+                variant="settle"
+                index={i}
+                className="flex flex-col gap-4 border-t border-white/15 pt-5"
+              >
+                <span className="font-text text-k-micro uppercase tabular-nums text-k-gold">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="font-display text-k-d3 font-bold text-k-on-dark">
+                  {fill(commitment)}
+                </span>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal className="mt-12">
+            <Copy
+              text={about.standards.closing}
+              className="max-w-[560px] font-text text-k-small text-k-on-dark-soft"
+              linkClassName="underline underline-offset-4"
+            />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* LOOKING FORWARD
+          A single indented column, pushed off the left margin the same
+          distance the opening photograph is, so the two ends of the page
+          lean the same way. Five short paragraphs, the first at full
+          strength and the rest a step softer.
+
+          This section speaks of growth and names no figures. The numbers
+          live on the Road Ahead page; keep them there. */}
+      <section className="bg-k-paper px-6 py-32 md:px-12 lg:px-24 lg:py-36">
+        <div className="mx-auto max-w-[1248px]">
+          <div className="lg:pl-[100px]">
+            <Reveal variant="settle">
+              <span className="font-text text-k-micro uppercase text-k-gold">
+                {fill(about.forward.eyebrow)}
+              </span>
+            </Reveal>
+            <div className="mt-8 flex max-w-[760px] flex-col gap-6">
+              {about.forward.paragraphs.map((paragraph, i) => (
+                <Reveal key={paragraph.slice(0, 40)} index={i}>
+                  <Copy
+                    text={paragraph}
+                    className={`font-text text-k-lede ${
+                      i === 0 ? "text-k-ink" : "text-k-ink-soft"
+                    }`}
+                    linkClassName="underline underline-offset-4"
+                  />
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* OUR COMMITMENT
+          The belief section turned the other way up: the quiet paragraphs
+          come first and the large line lands last, because it is the line
+          the whole statement has been walking towards, and it is the same
+          sentence the page opened on. That repeat is the point. If the
+          sentence changes in the belief section it must change here too. */}
+      <section className="bg-k-surface px-6 py-32 md:px-12 lg:px-24 lg:py-36">
+        <div className="mx-auto max-w-[1248px]">
+          <Reveal variant="settle">
+            <span className="font-text text-k-micro uppercase text-k-gold">
+              {fill(about.commitment.eyebrow)}
+            </span>
+          </Reveal>
+          <div className="mt-8 flex max-w-[720px] flex-col gap-6">
+            {about.commitment.paragraphs.map((paragraph, i) => (
+              <Reveal key={paragraph.slice(0, 40)} index={i}>
+                <Copy
+                  text={paragraph}
+                  className="font-text text-k-lede text-k-ink-soft"
+                  linkClassName="underline underline-offset-4"
+                />
+              </Reveal>
+            ))}
+          </div>
+          <Reveal className="mt-12">
+            <p
+              data-tina-field={tinaField(about.commitment, "closing")}
+              className="max-w-[900px] font-text text-k-d3 leading-[1.33] tracking-[-0.01em] text-k-ink"
+            >
+              {fill(about.commitment.closing)}
+            </p>
+          </Reveal>
         </div>
       </section>
 
@@ -306,35 +410,27 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
           line of capitals across the top, a rule under it, then a row of
           narrow columns of small print, each headed by a tiny label.
 
+          The sentence beside the mark is the tagline, filled from Business
+          Facts by the {tagline} token, so the statement closes on the same
+          three lines the lockup carries and the words exist in one place.
+
           This is where the page ends. There is no closing call to action
           because the dispatch column below is one, and because a band saying
           "get a quote" under an imprint would undo the register the whole
           page is written in. The footer carries the rest. */}
       <section className="bg-k-paper px-6 py-32 md:px-12 lg:px-24 lg:py-36">
-        {/* THE MARK MOVED RATHER THAN LEAVING, AND IT IS A DIFFERENT FILE.
-            It used to sit alone above the sentence at 112px, which left the
-            imprint opening on a small floating image with nothing beside it.
-            It was struck out, then asked back with two corrections: move it,
-            and use the right logo.
+        {/* The mark sits opposite the sentence, so the row reads as a
+            signature at the end of a document, which is what an imprint is.
+            Below lg it goes after the sentence rather than before, because
+            stacked, a logo above a line of type reads as a header, and this
+            is a foot.
 
-            WHERE: opposite the sentence rather than above it, so the row reads
-            as a signature at the end of a document, which is what an imprint
-            is. Below lg it goes after the sentence rather than before, because
-            stacked, a logo above a line of type is the arrangement that was
-            wrong in the first place.
-
-            WHICH FILE: logo-lockup.webp, the full colour lion with the wordmark
-            and the tagline. The one that was here was lockup-dark.webp, a flat
-            monochrome trace, which put the brand on the page in a completely
-            different language from the gold lion in the bar a few hundred
-            pixels above it. Both files are genuinely cut out, checked over a
-            magenta ground rather than assumed: neither carries a white matte.
-            This one is also 1024x867 rather than 320 square, so it survives
-            being printed at any size worth printing it at.
-
-            It carries an empty alt. The sentence beside it is the company's
-            legal name, so a screen reader that read the mark as well would
-            hear the name twice in a row. */}
+            The file is logo-lockup.webp, the full colour lion with the
+            wordmark and the tagline, genuinely cut out and checked over a
+            magenta ground: it carries no white matte. It carries an empty
+            alt because the sentence beside it is the tagline the lockup
+            itself prints, so a screen reader would otherwise hear the same
+            words twice in a row. */}
         <div className="mx-auto flex max-w-[1248px] flex-col">
           <Reveal
             variant="wipe"

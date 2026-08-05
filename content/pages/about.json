@@ -1,38 +1,79 @@
 {
   "meta": {
     "title": "About",
-    "description": "KUL Enterprises is a licensed freight carrier in {location}, founded by a driver with eleven years on the road. USDOT {usdot}, MC {mc}."
+    "description": "{legalName} is a licensed motor carrier in {location}, built on purpose and guided by integrity. Every shipment is a promise kept. USDOT {usdot}, MC {mc}."
   },
   "opening": {
-    "heading": "Eleven years for other carriers. Now under our own authority.",
+    "heading": "Built on Purpose. Guided by Integrity.",
     "caption": "{serviceArea}",
     "image": "/images/journey/s14-confident-highway.webp",
     "imageAlt": "An open highway running ahead under clear sky"
   },
-  "founder": {
-    "eyebrow": "The founder",
+  "community": {
+    "eyebrow": "About {legalName}",
+    "statement": "A transportation company without our community is simply moving freight.",
     "paragraphs": [
-      "Mark Brown drove for other carriers for eleven years before KUL Enterprises carried its first load. Mountain passes, port towns, long runs through the middle of the country, and the kind of dock where a driver waits four hours and nobody comes out to say why.",
-      "Eleven years is long enough to learn what a shipper is actually paying for. It is whether the person on the phone knows where the truck is, and whether the answer still comes when the news is bad.",
-      "KUL was set up to run that way from the first load."
+      "At {name}, transportation is more than moving freight from one destination to the next. Every shipment represents a customer's business, every delivery represents a promise, and every mile is an opportunity to earn trust. While trucks move freight, people build relationships that keep business moving forward.",
+      "That is why our company is built around our community: our drivers, our customers, our employees, our business partners, and every person who contributes to our success."
+    ]
+  },
+  "founding": {
+    "eyebrow": "More Than Transportation",
+    "lead": "{name} was founded on a simple belief: success is not measured only by miles driven or loads delivered. It is measured by the trust we earn, the relationships we build, and the promises we keep.",
+    "paragraphs": [
+      "We believe every customer deserves honest communication, every driver deserves respect, every employee deserves the opportunity to grow, and every business partner deserves professionalism and transparency.",
+      "These principles shape every decision we make."
+    ]
+  },
+  "experience": {
+    "eyebrow": "Built Through Experience",
+    "paragraphs": [
+      "{name} was not built overnight. It was built through years of experience, thousands of miles traveled, countless lessons learned, and an unwavering commitment to continual improvement.",
+      "Every challenge encountered throughout that journey helped shape the company we are building today.",
+      "Those experiences reinforced one simple truth: trust is never given; it is earned through consistent action.",
+      "That belief continues to guide us to communicate, solve problems, serve our customers, and support one another every day."
     ],
-    "portrait": "/images/journey/mark-portrait.webp",
-    "portraitAlt": "Mark Brown, founder of KUL Enterprises",
-    "signatureName": "Mark Brown",
-    "signatureRole": "Founder, {name}",
     "posterImage": "/images/journey/s07-pines-road.webp",
     "posterImageAlt": "A road running between ordered pines before dawn",
     "video": "/videos/dash-daylight-720.mp4"
   },
-  "today": {
-    "eyebrow": "How it runs today",
+  "standards": {
+    "eyebrow": "The Way We Do Business",
     "paragraphs": [
-      "Mark drives the truck, takes the booking, runs the lane and signs at the receiver. That is why there is one phone number on this site and not a switchboard.",
-      "It also means capacity is committed rather than pooled. KUL cannot cover a lane on a day it is already booked, and it holds nothing back for a surge. When a load does not fit the schedule we say so on the call rather than take it and work it out later."
+      "At {name}, doing what is right is always the best long-term business decision. We do not cut corners, and we do not sacrifice integrity for short-term profit.",
+      "We believe that when the right people are working together toward a common purpose, success naturally follows.",
+      "Our commitment is simple:"
+    ],
+    "commitments": [
+      "Communicate openly.",
+      "Honor every commitment.",
+      "Accept responsibility.",
+      "Learn from every challenge.",
+      "Improve continuously.",
+      "Build relationships that last."
+    ],
+    "closing": "These are not marketing statements; they are the standards by which we intend to operate every day."
+  },
+  "forward": {
+    "eyebrow": "Looking Forward",
+    "paragraphs": [
+      "{name} begins with ground transportation, but our vision extends much further.",
+      "As we continue to grow, our goal is to become a complete logistics organization serving customers across ground, air, and maritime transportation.",
+      "Growth matters, but purpose comes first.",
+      "Every new customer, employee, truck, and opportunity should strengthen the values that define this company, not compromise them.",
+      "We are committed to building an organization known for professionalism, accountability, dependable service, and long-term relationships."
     ]
   },
+  "commitment": {
+    "eyebrow": "Our Commitment",
+    "paragraphs": [
+      "At {name}, trust is earned one conversation, one relationship, one shipment, and one kept promise at a time.",
+      "Our commitment is to build a transportation company that people are proud to work for, confident to do business with, and eager to grow alongside."
+    ],
+    "closing": "Because in the end, a transportation company without our community is simply moving freight."
+  },
   "imprint": {
-    "statement": "{legalName} is a licensed motor carrier based in {location}.",
+    "statement": "{tagline}",
     "logo": "/images/brand/logo-lockup.webp",
     "particulars": [
       {

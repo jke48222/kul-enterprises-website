@@ -46,6 +46,7 @@ const TOKENS: Record<string, string> = {
   usdot: site.usdot,
   mc: site.mc,
   serviceArea: site.serviceArea,
+  tagline: site.tagline,
 };
 
 /**
