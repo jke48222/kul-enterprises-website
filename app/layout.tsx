@@ -9,6 +9,7 @@ import RouteTransition from "@/components/k/RouteTransition";
 import LoadingOverlay from "@/components/brand/LoadingOverlay";
 import Nav from "@/components/k/Nav";
 import Footer from "@/components/k/Footer";
+import BackToTop from "@/components/k/BackToTop";
 
 /**
  * Design system faces. Archivo Black 900 is the display voice: a squared
@@ -283,6 +284,10 @@ export default function RootLayout({
               <div data-content-end aria-hidden />
             </div>
             <Footer />
+            {/* The way back up, in the bottom right on the search circle's
+                own vertical line. It keeps itself hidden until the reader is
+                a screen down; everything about it is in the component. */}
+            <BackToTop />
           </MotionConfig>
         </MotionProvider>
         {/* GA4: renders only when the property id is configured (set

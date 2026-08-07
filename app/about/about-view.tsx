@@ -187,7 +187,10 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
             </span>
           </Reveal>
           <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-24">
-            <Reveal variant="wipe">
+            {/* The default rise, not the wipe: the wipe is for headlines
+                that hold one or two lines, and this lead runs to seven, so
+                a wipe shows a sliver of every line at once mid-move. */}
+            <Reveal>
               <p
                 data-tina-field={tinaField(about.founding, "lead")}
                 className="font-text text-k-d3 leading-[1.33] tracking-[-0.01em] text-k-ink"
