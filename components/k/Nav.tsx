@@ -4,9 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, m, useReducedMotion } from "framer-motion";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import MenuOverlay from "@/components/k/MenuOverlay";
 import MenuMark from "@/components/k/MenuMark";
+import { SearchBarButton, SearchCorner, SearchPanel } from "@/components/k/Search";
 import { NAV_PANELS, type PanelKey } from "@/components/k/NavPanels";
 import { fill } from "@/lib/content";
 import nav from "@/content/navigation.json";
@@ -117,10 +118,17 @@ const SCROLL_TRIGGER_PX = 60;
  * the menu out across the pill; below it the menu is put away behind a Menu
  * button and MenuOverlay.tsx takes over.
  *
- * Where 1180 comes from. The pill is 94% of the window, the lion sits dead
- * centre, and the two halves either side of it are given equal width for that
- * to hold, so the bar is governed by whichever half is wider. Measured in the
- * browser at the 12px tracked caps the links are set in:
+ * Where 1240 comes from. Two things have to fit across the window: the pill,
+ * and the search circle that owns the top right corner from this width up.
+ * The pill's menus need 1036 pixels, measured out below, and the corner
+ * needs 80 a side: 16 of edge, the 56 circle, 8 of clearance, reserved on
+ * BOTH sides so the pill stays centred and the lion stays on the window's
+ * centre line. 1036 plus 160 is 1196, at which the bar would be running at
+ * its own limit; at 1240 the pill still has about 44 pixels of slack.
+ *
+ * The halves, with the lion dead centre and both given equal width so that
+ * holds, governed by whichever is wider. Measured in the browser at the 12px
+ * tracked caps the links are set in:
  *
  *   RIGHT HALF, 457px   About 51, The Journey 103, Contact 71, two 28px gaps
  *                       between them, a 28px gap after them, and the 148px
@@ -131,22 +139,19 @@ const SCROLL_TRIGGER_PX = 60;
  *                       and Carrier Packet 125 with three 28px gaps.
  *
  * Two of the wider half, plus the lion column at 102 and the pill's own 20 of
- * padding, is 1036 pixels of pill, which the window reaches at 1102.
+ * padding, is 1036 pixels of pill.
  *
- * The number here is 1180 rather than 1102 so the bar is never asked to run at
- * its own limit. That leaves about 78 pixels of window spare. It used to be
- * about 30: the Carrier Packet moving to the left half took the longest label
- * on the bar off the half that governs, which bought back more room than The
- * Journey spends.
- *
- * ADDING A LINK OR LENGTHENING A LABEL widens one half and eats that margin,
+ * ADDING A LINK OR LENGTHENING A LABEL widens one half and eats the slack,
  * and once it is gone this number has to rise or the bar starts clipping
  * again. Every extra pixel on the wider half costs two pixels of pill and a
- * little over two pixels here. Measure it in a browser rather than trusting
- * the sum, and change the number in the class names below to match, because
- * Tailwind cannot read a constant.
+ * little over two pixels here, and the search corner has already spent what
+ * the number used to hold in reserve. Measure it in a browser rather than
+ * trusting the sum, and change the min-[1240px] in the class names below to
+ * match, because Tailwind cannot read a constant. The corner's own width
+ * lives in components/k/Search.tsx and the reservation is the third term in
+ * the pill's width clamp; the three have to agree.
  */
-const MENU_BREAKPOINT = 1180;
+const MENU_BREAKPOINT = 1240;
 
 /**
  * THE BAR AS A MATERIAL, NOT A BOX.
@@ -288,6 +293,7 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [openPanel, setOpenPanel] = useState<PanelKey | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   /**
    * Kept stable rather than written inline where it is used. The menu panel
@@ -297,6 +303,10 @@ export default function Nav() {
    * mid-way through someone tabbing through the menu.
    */
   const closeMenu = useCallback(() => setMenuOpen(false), []);
+
+  // Stable for the same reason as closeMenu above: the search panel builds
+  // its keyboard trap around this function and rebuilds it when it changes.
+  const closeSearch = useCallback(() => setSearchOpen(false), []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > SCROLL_TRIGGER_PX);
@@ -311,7 +321,47 @@ export default function Nav() {
   useEffect(() => {
     setOpenPanel(null);
     setMenuOpen(false);
+    setSearchOpen(false);
   }, [pathname]);
+
+  /**
+   * Command K on a Mac, Control K elsewhere, opens the search from anywhere
+   * on the page, which is the shortcut every search on the web has settled
+   * on, and presses it closed again. It closes the menu on its way in: two
+   * sheets over the page at once and the reader is under a pile, not on a
+   * site.
+   */
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        setMenuOpen(false);
+        setOpenPanel(null);
+        setSearchOpen((v) => !v);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  /**
+   * A press anywhere off the bar closes the search, which is how every
+   * dropdown on the web says "never mind". pointerdown rather than click,
+   * so it is gone before the page underneath acts on the press, and only
+   * while the search is out, so the page is never carrying a listener for
+   * a panel that is not there.
+   */
+  const headerRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (!searchOpen) return;
+    const onPointerDown = (event: PointerEvent) => {
+      if (!headerRef.current?.contains(event.target as Node)) {
+        setSearchOpen(false);
+      }
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => document.removeEventListener("pointerdown", onPointerDown);
+  }, [searchOpen]);
 
   // Widening the window past the swap point puts the laid-out menu back and
   // takes the Menu button away with it. Without this the menu panel would be
@@ -331,7 +381,9 @@ export default function Nav() {
 
   // Interior pages have no hero picture, so the glass starts firm there.
   const onHome = pathname === "/";
-  const panelOpen = openPanel !== null;
+  // The pill is "open" whether it grew a services panel on hover or the
+  // search on click; the material change is the same event either way.
+  const panelOpen = openPanel !== null || searchOpen;
   // WITH THE MENU OPEN THE PILL IS SITTING ON THE MENU, NOT ON THE PAGE. The
   // hero surface is nearly clear glass, which is right over a photograph and
   // wrong over a flat dark panel: the pill loses its edge entirely and the
@@ -347,6 +399,12 @@ export default function Nav() {
   const linkColour = panelOpen
     ? "text-k-ink hover:text-k-gold"
     : "text-k-on-dark hover:text-k-gold-lit";
+
+  // The search circle in the corner follows the page's scroll state and
+  // never the services panel. The panel is the pill's own event; the circle
+  // is a separate object on the window and whitening with it would look
+  // like a mistake in the glass.
+  const circleSurface = scrolled || !onHome ? SURFACE.firm : SURFACE.hero;
 
   /**
    * One row of the menu.
@@ -368,8 +426,15 @@ export default function Nav() {
       <li key={link.href}>
         <Link
           href={link.href}
-          onMouseEnter={() => setOpenPanel(link.panel)}
-          onFocus={() => setOpenPanel(link.panel)}
+          // While the search is out, wandering the pointer across the menu
+          // must not swap the panel away mid-thought: typed words outrank a
+          // stray hover. The links still navigate; only the previews wait.
+          onMouseEnter={() => {
+            if (!searchOpen) setOpenPanel(link.panel);
+          }}
+          onFocus={() => {
+            if (!searchOpen) setOpenPanel(link.panel);
+          }}
           onKeyDown={(e) => {
             if (e.key === "Escape" && openPanel) setOpenPanel(null);
           }}
@@ -403,8 +468,12 @@ export default function Nav() {
         // so a keyboard reader who tabbed INTO the open panel had no way
         // back except through every link in it.
         onKeyDown={(e) => {
-          if (e.key === "Escape") setOpenPanel(null);
+          if (e.key === "Escape") {
+            setOpenPanel(null);
+            setSearchOpen(false);
+          }
         }}
+        ref={headerRef}
       >
         {/* The pill. It carries the width for everything inside it, which is
             what keeps the bar and the services panel below it exactly the same
@@ -432,7 +501,7 @@ export default function Nav() {
             the top-lit hairline that makes the glass read as a curved edge. An
             inset shadow costs no layout at all. */}
         <div
-          className="mt-4 w-[min(1180px,94vw)] max-w-full overflow-hidden"
+          className="mt-4 w-[min(1180px,94vw)] max-w-full overflow-hidden min-[1240px]:w-[min(1180px,94vw,100vw_-_160px)]"
           style={{
             borderRadius: panelOpen ? 28 : 999,
             backgroundColor: surface.tint,
@@ -455,7 +524,7 @@ export default function Nav() {
         >
           {/* One fixed width bar, in two arrangements.
 
-              FROM 1180 PIXELS WIDE AND UP the bar is laid out as three columns.
+              FROM 1240 PIXELS WIDE AND UP the bar is laid out as three columns.
               The outer two are always given exactly the same width and the lion
               sits in the column between them, which is what puts it on the dead
               centre of the bar. The menus are then pushed out to the two ends,
@@ -466,20 +535,21 @@ export default function Nav() {
               For that to hold, the padding on the two ends has to stay equal. If
               you change one side, change the other by the same amount.
 
-              BELOW 1180 PIXELS the menu is put away. The bar becomes the lion at
-              one end and the Menu and quote buttons at the other, and the menu
-              itself moves into the panel in MenuOverlay.tsx, which is also the
-              only place The Road Ahead appears. There is no third arrangement in
-              between, because there is no width between a phone and 1180 where
-              seven links, the lion and the quote button fit on one line with
-              room to breathe. See MENU_BREAKPOINT above. */}
+              BELOW 1240 PIXELS the menu is put away. The bar becomes the lion at
+              one end and the search, Menu and quote buttons at the other, and
+              the menu itself moves into the panel in MenuOverlay.tsx, which is
+              also the only place The Road Ahead appears. There is no third
+              arrangement in between, because there is no width between a phone
+              and the swap point where seven links, the lion, the quote button
+              and the search fit on one line with room to breathe. See
+              MENU_BREAKPOINT above. */}
           <nav
             aria-label="Primary"
-            className="flex w-full items-center justify-between py-2.5 pl-6 pr-2.5 min-[1180px]:grid min-[1180px]:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] min-[1180px]:px-2.5"
+            className="flex w-full items-center justify-between py-2.5 pl-6 pr-2.5 min-[1240px]:grid min-[1240px]:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] min-[1240px]:px-2.5"
           >
             {/* The menu to the left of the lion, packed against the near end of
                 the bar. Below the swap point it is not rendered at all. */}
-            <ul className="hidden items-center gap-x-7 pl-6 min-[1180px]:flex">
+            <ul className="hidden items-center gap-x-7 pl-6 min-[1240px]:flex">
               {LEFT_LINKS.map(renderLink)}
             </ul>
 
@@ -496,7 +566,7 @@ export default function Nav() {
             <Link
               href="/"
               aria-label="KUL Enterprises, back to the home page"
-              className="relative shrink-0 before:absolute before:-inset-[3px] before:content-[''] min-[1180px]:justify-self-center min-[1180px]:px-8"
+              className="relative shrink-0 before:absolute before:-inset-[3px] before:content-[''] min-[1240px]:justify-self-center min-[1240px]:px-8"
             >
               <Image
                 src="/images/brand/lion-mark.webp"
@@ -507,13 +577,33 @@ export default function Nav() {
               />
             </Link>
 
-            {/* Everything at the far end of the bar. Which of the three is
+            {/* Everything at the far end of the bar. Which of the four is
                 showing changes with the width, but they always sit together and
-                always end flush with the quote button. */}
-            <div className="flex items-center gap-x-2 min-[1180px]:justify-end min-[1180px]:gap-x-7">
-              <ul className="hidden items-center gap-x-7 min-[1180px]:flex">
+                always end flush with the quote button.
+
+                THE GAP DROPS TO 4px UNDER 360, measured on the 344 pixel
+                cover screen of a folded phone: at 8px the row runs 2px past
+                the pill there and the pill shaves the end off the quote
+                button. Two 4px gaps buy the row 8px back, which is 6 more
+                than it needs. */}
+            <div className="flex items-center gap-x-1 min-[360px]:gap-x-2 min-[1240px]:justify-end min-[1240px]:gap-x-7">
+              <ul className="hidden items-center gap-x-7 min-[1240px]:flex">
                 {RIGHT_LINKS.map(renderLink)}
               </ul>
+
+              {/* THE SEARCH, at every width below the corner circle. The same
+                  44 pixel square as the menu mark beside it. Pressing it
+                  swaps whatever the pill was showing for the search; pressing
+                  it again puts the search away. */}
+              <SearchBarButton
+                colour={linkColour}
+                open={searchOpen}
+                onToggle={() => {
+                  setOpenPanel(null);
+                  setMenuOpen(false);
+                  setSearchOpen((v) => !v);
+                }}
+              />
 
               {/* THE MENU BUTTON IS A MARK, NOT THE WORD, AND IT IS ALSO THE
                   CLOSE BUTTON.
@@ -536,12 +626,15 @@ export default function Nav() {
                   thumb can be asked to find. */}
               <button
                 type="button"
-                onClick={() => setMenuOpen((v) => !v)}
+                onClick={() => {
+                  setSearchOpen(false);
+                  setMenuOpen((v) => !v);
+                }}
                 aria-expanded={menuOpen}
                 aria-haspopup="dialog"
                 aria-controls="k-menu"
                 aria-label={menuOpen ? "Close menu" : "Menu"}
-                className={`flex h-11 w-11 shrink-0 items-center justify-center transition-colors duration-200 min-[1180px]:hidden ${linkColour}`}
+                className={`flex h-11 w-11 shrink-0 items-center justify-center transition-colors duration-200 min-[1240px]:hidden ${linkColour}`}
               >
                 <MenuMark open={menuOpen} />
               </button>
@@ -570,8 +663,37 @@ export default function Nav() {
               key, React reuses the same element and the new panel's markup
               appears inside the old one's height animation, which reads as the
               menu stuttering. */}
-          <AnimatePresence initial={false} mode="wait">
-            {openPanel ? (
+          {/* KEYED ON THE PATH ON PURPOSE. The closing animation is run by
+              JavaScript, and a browser stops running that for any tab that
+              is not on screen, so a panel closed by a navigation the reader
+              made in another tab, a control-click, a middle-click, would
+              wait half-open until this tab was next looked at, and "wait"
+              holds the next panel back until the old one has finished
+              leaving. Remounting on navigation throws a dying panel away at
+              once instead of animating it: nobody can watch a collapse
+              through a page swap anyway, and a panel must never outlive the
+              page it was opened over. */}
+          <AnimatePresence key={pathname} initial={false} mode="wait">
+            {searchOpen ? (
+              /* THE SEARCH GROWS OUT OF THE PILL exactly as the services
+                 panels do, through the same animation with the same easing,
+                 because it is the same event: the bar opening. The only
+                 difference is the trigger. Hover opens a menu being skimmed;
+                 a click opens a tool being used, so the search waits to be
+                 pressed and does not close when the pointer wanders. It is
+                 keyed apart from the panels so moving between the two swaps
+                 the contents rather than reopening the shape. */
+              <m.div
+                key="search"
+                initial={reduced ? false : { height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={reduced ? undefined : { height: 0, opacity: 0 }}
+                transition={sweep}
+                className="overflow-hidden"
+              >
+                <SearchPanel onClose={closeSearch} />
+              </m.div>
+            ) : openPanel ? (
               <m.div
                 key={openPanel}
                 initial={reduced ? false : { height: 0, opacity: 0 }}
@@ -589,6 +711,21 @@ export default function Nav() {
             ) : null}
           </AnimatePresence>
         </div>
+
+        {/* THE SEARCH, from 1240 up: a circle of the bar's own glass holding
+            the top right corner of the window, on the pill's midline. The
+            pill's width clamp above is what reserves this corner; the two
+            agree through MENU_BREAKPOINT, and the note on that constant is
+            where the arithmetic lives. Pressing it opens the search out of
+            the pill; pressing it again puts the search away. */}
+        <SearchCorner
+          surface={circleSurface}
+          open={searchOpen}
+          onToggle={() => {
+            setOpenPanel(null);
+            setSearchOpen((v) => !v);
+          }}
+        />
       </header>
 
       {/* The menu panel for every width below the swap point. It sits outside

@@ -111,7 +111,7 @@ function Panel({ onClose, links }: Omit<MenuOverlayProps, "open">) {
       aria-label="Menu"
       // Once it is on its way out it stops taking taps, so the last frames of
       // the closing animation cannot swallow a press meant for the page.
-      className={`fixed inset-0 z-[90] flex flex-col bg-k-coal text-k-on-dark min-[1180px]:hidden ${
+      className={`fixed inset-0 z-[90] flex flex-col bg-k-coal text-k-on-dark min-[1240px]:hidden ${
         present ? "" : "pointer-events-none"
       }`}
       // The panel wipes down from the top edge rather than fading, so it
