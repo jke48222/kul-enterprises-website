@@ -1055,27 +1055,17 @@ export default defineConfig({
             "What the search is called",
             "Read aloud by screen readers on the magnifier button, and carried by the panel itself.",
           ),
-          text("placeholder", "The grey line in the empty box"),
-          longText("hint", "The line shown before anything is typed"),
+          text(
+            "placeholder",
+            "The grey line in the empty box",
+            "The invitation. Before anything is typed the panel is only this box, so this line does the welcoming.",
+          ),
           longText(
             "empty",
             "The line when nothing matches",
             "Write {query} where the words the visitor typed should be quoted back.",
           ),
           longText("emptyAction", "The line under it", "A good place for the phone number."),
-          text(
-            "quickLabel",
-            "Heading over the page list",
-            "Before anything is typed, the panel lists the menu's own pages under this heading.",
-          ),
-          text("footMove", "The words after the arrow keys", "Keyboard hints along the panel's foot."),
-          text("footNavigate", "The words after the enter key"),
-          text("footClose", "The words after the escape key"),
-          text(
-            "footCount",
-            "The count in the corner",
-            "Write {count} where the number of results should appear.",
-          ),
         ],
       },
 

@@ -400,11 +400,15 @@ export default function Nav() {
     ? "text-k-ink hover:text-k-gold"
     : "text-k-on-dark hover:text-k-gold-lit";
 
-  // The search circle in the corner follows the page's scroll state and
-  // never the services panel. The panel is the pill's own event; the circle
-  // is a separate object on the window and whitening with it would look
-  // like a mistake in the glass.
-  const circleSurface = scrolled || !onHome ? SURFACE.firm : SURFACE.hero;
+  // The search circle wears the page's glass until it is pressed, and then
+  // it turns to paper WITH the pill, at the client's word: the press is one
+  // event and the two objects answer it in the same material. It still never
+  // follows the hover panels, which are the pill's own affair.
+  const circleSurface = searchOpen
+    ? SURFACE.panel
+    : scrolled || !onHome
+      ? SURFACE.firm
+      : SURFACE.hero;
 
   /**
    * One row of the menu.

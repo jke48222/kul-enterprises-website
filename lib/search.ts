@@ -21,6 +21,13 @@
  *                         letters swapped; a small typo should not turn a
  *                         real page into "no results"
  *   INSIDE A WORD         typed "route" and the page says "reroute"
+ *   TWO WORDS RUN         typed "dryvan", the page says "dry van"
+ *   TOGETHER
+ *
+ * A question works as a question: "how do i get a quote" sets aside the
+ * words that only carry the sentence and searches for "quote", and in a
+ * long query one word the site never uses is forgiven rather than turning
+ * everything the other words found into "no results".
  *
  * Singular and plural are treated as the same word, so "commitment" finds
  * "commitments". When more than one word is typed, every word has to match
@@ -29,10 +36,66 @@
  * sentence that actually says "kept promise" above one that merely contains
  * both words a paragraph apart.
  *
+ * WORDS THAT MEAN THE SAME THING COUNT FOR EACH OTHER. A shipper types the
+ * industry's words, not necessarily the site's: "refrigerated" for the
+ * service the site calls Reefer, "rates" for the quote page, "hiring" for
+ * Drivers. The synonym sheet below carries those meanings across, at a
+ * slight discount so the literal word always wins when both appear.
+ *
  * A match in a page's title or a section heading outranks the same match in
  * running text, because somebody typing "services" wants the services page
  * before every sentence that mentions the word.
  */
+
+/**
+ * THE SYNONYM SHEET. Each entry reads: somebody who types the word on the
+ * left may mean any of the words on the right, where the right-hand words
+ * are words the site actually uses. It is written from the freight
+ * industry's vocabulary toward the site's, not the other way round, and it
+ * lives in code rather than the CMS because it is ranking behaviour, like
+ * the scores above it, not copy anyone reads.
+ *
+ * TO ADD ONE: the right-hand words must exist on the site, or the entry
+ * does nothing. Lowercase, single words only.
+ */
+const SYNONYMS: Record<string, readonly string[]> = {
+  refrigerated: ["reefer"],
+  refrigeration: ["reefer"],
+  cold: ["reefer", "refrigerated"],
+  chilled: ["reefer", "refrigerated"],
+  frozen: ["reefer", "refrigerated"],
+  temperature: ["reefer", "refrigerated"],
+  reefer: ["refrigerated"],
+  otr: ["road"],
+  truck: ["tractor"],
+  rig: ["tractor", "truck"],
+  semi: ["tractor", "truck"],
+  job: ["drivers", "seat", "apply"],
+  jobs: ["drivers", "seat", "apply"],
+  career: ["drivers", "seat", "apply"],
+  careers: ["drivers", "seat", "apply"],
+  hiring: ["drivers", "seat", "apply"],
+  work: ["drivers", "seat"],
+  price: ["quote", "rate"],
+  prices: ["quote", "rates"],
+  pricing: ["quote", "rates"],
+  cost: ["quote", "rate"],
+  rates: ["quote"],
+  rate: ["quote"],
+  call: ["dispatch", "phone", "contact"],
+  number: ["phone", "dispatch"],
+  reach: ["contact", "dispatch"],
+  paperwork: ["packet", "carrier"],
+  setup: ["packet", "carrier"],
+  onboarding: ["packet", "carrier"],
+  coi: ["insurance", "certificate"],
+  story: ["journey", "about"],
+  history: ["journey", "about"],
+  founder: ["journey", "about", "mark"],
+  dot: ["usdot"],
+  compliance: ["safety"],
+  fmcsa: ["safety", "authority"],
+};
 
 /** One searchable piece of the site, as lib/search-data.ts produces it. */
 export type SearchRecord = {
@@ -198,6 +261,24 @@ function scoreWord(typed: string, word: string): number {
   return 0;
 }
 
+/**
+ * How well one typed word matches one word on the page, with the synonym
+ * sheet consulted. A synonym hit is taken at 85 percent, so when the page
+ * contains both the typed word and its synonym, the typed word's own
+ * appearance is always the one that wins.
+ */
+function scoreExpanded(typed: string, word: string): number {
+  let best = scoreWord(typed, word);
+  const meanings = SYNONYMS[typed];
+  if (meanings) {
+    for (const meaning of meanings) {
+      const value = Math.round(scoreWord(meaning, word) * 0.85);
+      if (value > best) best = value;
+    }
+  }
+  return best;
+}
+
 /** The best match for one typed word anywhere in one record. */
 function bestInRecord(
   typed: string,
@@ -206,15 +287,42 @@ function bestInRecord(
   let score = 0;
   let at = -1;
   for (let i = 0; i < prepared.words.length; i++) {
-    const value = scoreWord(typed, prepared.words[i]);
+    const value = scoreExpanded(typed, prepared.words[i]);
     if (value > score) {
       score = value;
       at = i;
       if (value === 100) break;
     }
   }
+  // A word typed without its space, "dryvan", "poweronly", is two of the
+  // page's words run together. Tried only when nothing matched normally,
+  // and taken at a discount below the properly spaced spelling.
+  if (score === 0 && typed.length >= 5) {
+    for (let i = 0; i < prepared.words.length - 1; i++) {
+      const joined = prepared.words[i] + prepared.words[i + 1];
+      const value = Math.round(scoreWord(typed, joined) * 0.9);
+      if (value > score) {
+        score = value;
+        at = i;
+      }
+    }
+  }
   return { score, at };
 }
+
+/**
+ * Words that carry a sentence but not a search: typed as part of a question,
+ * "how do i get a quote", they would demand that every result contain "how"
+ * and "do" and "i". When a query is long enough to be a phrase or a
+ * question, these are set aside and the words that mean something do the
+ * searching. A query made only of these still searches for them, so "the
+ * road ahead" keeps working as typed.
+ */
+const STOPWORDS = new Set([
+  "a", "an", "and", "are", "as", "at", "be", "can", "do", "does", "for",
+  "get", "how", "i", "in", "is", "it", "my", "of", "on", "or", "our",
+  "the", "to", "we", "what", "when", "where", "who", "with", "you", "your",
+]);
 
 /**
  * Cut the sentence around the first matched word down to about this many
@@ -253,7 +361,10 @@ function excerpt(
   let cursor = from;
   for (let i = 0; i < words.length; i++) {
     if (starts[i] < from || starts[i] >= to) continue;
-    const matched = typedWords.some((typed) => scoreWord(typed, words[i]) > 0);
+    // Expanded, so the word that answered a synonym is printed in gold too:
+    // when "refrigerated" finds the Reefer service, the reader should see
+    // which word did it.
+    const matched = typedWords.some((typed) => scoreExpanded(typed, words[i]) > 0);
     if (!matched) continue;
     if (starts[i] > cursor) {
       segments.push({ text: text.slice(cursor, starts[i]), hit: false });
@@ -287,7 +398,12 @@ const MOST_HITS_PER_GROUP = 2;
  * it hands back the pages that match, best first, each with its best lines.
  */
 export function search(index: Prepared[], query: string): SearchGroup[] {
-  const typedWords = splitWords(normalise(query)).words.filter(Boolean);
+  let typedWords = splitWords(normalise(query)).words.filter(Boolean);
+  // Questions search by their meaningful words; see STOPWORDS above.
+  if (typedWords.length > 2) {
+    const meaningful = typedWords.filter((word) => !STOPWORDS.has(word));
+    if (meaningful.length > 0) typedWords = meaningful;
+  }
   if (typedWords.length === 0) return [];
 
   const hits: SearchHit[] = [];
@@ -296,13 +412,13 @@ export function search(index: Prepared[], query: string): SearchGroup[] {
     let firstAt = -1;
     let previousAt = -2;
     let adjacent = 0;
-    let everyWordFound = true;
+    let missed = 0;
 
     for (const typed of typedWords) {
       const { score, at } = bestInRecord(typed, prepared);
       if (score === 0) {
-        everyWordFound = false;
-        break;
+        missed += 1;
+        continue;
       }
       total += score;
       if (firstAt === -1) firstAt = at;
@@ -311,7 +427,12 @@ export function search(index: Prepared[], query: string): SearchGroup[] {
       if (at === previousAt + 1) adjacent += 30;
       previousAt = at;
     }
-    if (!everyWordFound) continue;
+    // Every word has to be found, with one allowance: in a query of three
+    // meaningful words or more, one stray word is forgiven at a heavy
+    // discount, so a question with one word the site never uses still finds
+    // the page the rest of it describes, underneath every complete match.
+    if (missed > 0 && !(typedWords.length >= 3 && missed === 1)) continue;
+    if (missed === 1) total = Math.round(total * 0.55);
 
     total = (total + adjacent) * KIND_WEIGHT[prepared.record.kind];
     // Of two equal matches, the one in fewer words is the more exact.

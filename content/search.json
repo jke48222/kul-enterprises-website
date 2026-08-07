@@ -1,12 +1,6 @@
 {
   "label": "Search the site",
-  "placeholder": "Search the site",
-  "hint": "Every page is searched as you type: the freight, the safety record, the paperwork, the journey.",
+  "placeholder": "What are you looking for?",
   "empty": "Nothing on the site says \"{query}\".",
-  "emptyAction": "If it is a question about a load, call {phone} and ask the driver.",
-  "quickLabel": "Pages",
-  "footNavigate": "to open",
-  "footMove": "to move",
-  "footClose": "to close",
-  "footCount": "{count} results"
+  "emptyAction": "If it is a question about a load, call {phone} and ask the driver."
 }

@@ -14,7 +14,6 @@ import Copy from "@/components/k/Copy";
 import { fill } from "@/lib/content";
 import { prepare, search, type SearchHit } from "@/lib/search";
 import searchContent from "@/content/search.json";
-import navContent from "@/content/navigation.json";
 
 /**
  * SITE SEARCH
@@ -51,22 +50,22 @@ import navContent from "@/content/navigation.json";
  * in the manner of every shape on this site:
  *
  *   Vapi `593d7acd`      the box on top, results grouped under small capital
- *                        headings, the count in the foot.
- *   Magnific `14ceb943`  and Mistral `8450c1c7`: before anything is typed
- *                        the panel is already useful, a short list of places
- *                        to go rather than an empty room.
+ *                        headings.
  *   Juicebox `2af813bf`  the thin accent bar standing in the margin of the
  *                        row the keyboard is on; here it is gold.
+ *
+ * BEFORE ANYTHING IS TYPED THE PANEL IS ONLY THE BOX. It held a hint line, a
+ * list of the site's pages and a row of keyboard hints; all three came out
+ * on 7 Aug 2026 at the client's word. The menu is one button away and did
+ * not need an understudy, and a search that opens quiet reads as a tool, not
+ * a brochure. Do not put furniture back in the idle state.
  *
  * The words the search reads come from lib/search-data.ts, and the ranking
  * lives in lib/search.ts. Neither is loaded until the panel first opens, so
  * carrying a search costs the pages nothing.
  *
- * TO CHANGE THE WORDING of the box itself, placeholder, hints and the empty
- * state, edit it at /admin under "Search", which writes content/search.json.
- * The pages listed before anything is typed are the menu's own lists from
- * "Menu & Footer", so the menu and the search can never disagree about what
- * the site contains.
+ * TO CHANGE THE WORDING of the box itself, placeholder and the empty state,
+ * edit it at /admin under "Search", which writes content/search.json.
  */
 
 /** The glass the bar hands down so the corner circle matches it exactly. */
@@ -130,10 +129,13 @@ function GoIcon({ className }: { className?: string }) {
  * The corner circle. 56 pixels, centred on the bar's own midline, in the
  * bar's own glass: the reservation that keeps the pill clear of it is the
  * width clamp on the pill in Nav.tsx, and the two agree through the same
- * 1240 breakpoint. It deliberately never takes the white panel surface the
- * pill wears while a panel is open; it is a separate object and follows the
- * page, not the panel. The icon alone goes gold while the search is out,
- * which is how the circle says it is the thing that was pressed.
+ * 1240 breakpoint.
+ *
+ * PRESSED, IT TURNS TO PAPER WITH THE PILL, at the client's word: the same
+ * white the bar wears while a panel is open arrives through the surface
+ * handed down from Nav.tsx, so the circle and the pill read as one event in
+ * the same material, and the icon holds gold on the paper for as long as
+ * the search is out.
  */
 export function SearchCorner({
   surface,
@@ -154,8 +156,10 @@ export function SearchCorner({
       // top-[18px] is measured, not guessed: the pill is 60 tall from y 16,
       // so its midline is 46, and 46 less half of 56 is 18. If the bar's
       // height ever changes, re-measure this rather than re-deriving it.
-      className={`absolute right-4 top-[18px] hidden h-14 w-14 items-center justify-center rounded-full min-[1240px]:flex ${
-        open ? "text-k-gold-lit" : "text-k-on-dark hover:text-k-gold-lit"
+      // The focus outline is suppressed at the client's word: pressing this
+      // turns it to paper and opens the panel, which is its own announcement.
+      className={`absolute right-4 top-[18px] hidden h-14 w-14 items-center justify-center rounded-full focus-visible:outline-none min-[1240px]:flex ${
+        open ? "text-k-gold" : "text-k-on-dark hover:text-k-gold-lit"
       }`}
       style={{
         backgroundColor: surface.tint,
@@ -193,7 +197,7 @@ export function SearchBarButton({
       aria-label={fill(searchContent.label)}
       aria-expanded={open}
       {...(open ? { "aria-controls": SEARCH_PANEL_ID } : {})}
-      className={`flex h-11 w-11 shrink-0 items-center justify-center transition-colors duration-200 min-[1240px]:hidden ${
+      className={`flex h-11 w-11 shrink-0 items-center justify-center transition-colors duration-200 focus-visible:outline-none min-[1240px]:hidden ${
         open ? "text-k-gold" : colour
       }`}
     >
@@ -224,18 +228,13 @@ function keyName(event: { key?: string; keyCode?: number }): string {
   }
 }
 
-/**
- * One row of the list, whatever put it there. Before anything is typed the
- * rows are the site's pages; once letters land they are the matches. Keeping
- * both in one shape is what lets the arrow keys, Enter and the gold marker
- * work identically on either.
- */
+/** One row of the results, flattened so the keyboard can count them. */
 type Row = {
   href: string;
-  /** The small capitals heading this row sits under. */
+  /** The small capitals heading this row sits under: the page's name. */
   group: string;
-  kind: "quick" | "title" | "prose";
-  /** For quick rows the page's name; for title rows its address. */
+  kind: "title" | "prose";
+  /** For title rows, the page's address, printed beside the arrow. */
   primary?: string;
   /** For prose rows, the heading over the matched passage, when it has one. */
   section?: string;
@@ -290,26 +289,8 @@ export function SearchPanel({ onClose }: { onClose(): void }) {
     [index, trimmed],
   );
 
-  /**
-   * The panel before anything is typed: the menu's own pages, in the menu's
-   * own order, so the search opens as a place to go rather than an empty
-   * room. Read from the same lists the bar reads; add a page there and it
-   * appears here without anyone remembering to do it twice.
-   */
-  const quickRows = useMemo<Row[]>(() => {
-    const bar = navContent.bar;
-    return [...bar.leftLinks, ...bar.menuOnlyLinks, ...bar.rightLinks].map(
-      (link) => ({
-        href: link.href,
-        group: fill(searchContent.quickLabel),
-        kind: "quick" as const,
-        primary: fill(link.label),
-      }),
-    );
-  }, []);
-
   const rows = useMemo<Row[]>(() => {
-    if (!trimmed) return quickRows;
+    if (!trimmed) return [];
     return groups.flatMap((group) =>
       group.hits.map((hit): Row => {
         if (hit.record.kind === "title") {
@@ -332,7 +313,7 @@ export function SearchPanel({ onClose }: { onClose(): void }) {
         };
       }),
     );
-  }, [trimmed, groups, quickRows]);
+  }, [trimmed, groups]);
 
   // A new set of results starts from its best answer.
   useEffect(() => setActive(0), [trimmed]);
@@ -385,7 +366,10 @@ export function SearchPanel({ onClose }: { onClose(): void }) {
               onClose();
             }
           }}
-          className="min-w-0 flex-1 appearance-none bg-transparent py-3 font-text text-[16px] leading-normal text-k-ink caret-k-gold outline-none placeholder:text-k-ink-soft"
+          // The global gold focus outline is suppressed here at the client's
+          // word. The box does not need a second frame: the panel opening is
+          // what focus looks like, and the caret carries it from there.
+          className="min-w-0 flex-1 appearance-none bg-transparent py-3 font-text text-[16px] leading-normal text-k-ink caret-k-gold outline-none focus-visible:outline-none placeholder:text-k-ink-soft"
         />
         <button
           type="button"
@@ -404,18 +388,13 @@ export function SearchPanel({ onClose }: { onClose(): void }) {
         </button>
       </div>
 
-      {/* The list: the pages before anything is typed, the matches after,
-          grouped under small capitals with the matched words in gold and a
-          gold hairline standing in the margin of the row the keyboard is
-          on. The whole row is the link. */}
+      {/* The matches, grouped under small capitals with the matched words in
+          gold and a gold hairline standing in the margin of the row the
+          keyboard is on. The whole row is the link. Before anything is typed
+          there is nothing here at all, and that is the design: see the note
+          at the top of the file. */}
       {rows.length > 0 ? (
-        <>
-          {!trimmed ? (
-            <p className="px-6 pb-1 pt-4 font-text text-k-small text-k-ink-soft">
-              {fill(searchContent.hint)}
-            </p>
-          ) : null}
-          <ul
+        <ul
             id="k-search-results"
             role="listbox"
             aria-label={fill(searchContent.label)}
@@ -483,13 +462,7 @@ export function SearchPanel({ onClose }: { onClose(): void }) {
                         </>
                       ) : (
                         <span className="flex items-center justify-between gap-4">
-                          <span
-                            className={`truncate font-text text-k-small ${
-                              row.kind === "quick"
-                                ? "font-semibold text-k-ink"
-                                : "text-k-ink-soft"
-                            }`}
-                          >
+                          <span className="truncate font-text text-k-small text-k-ink-soft">
                             {row.primary}
                           </span>
                           <GoIcon
@@ -504,8 +477,7 @@ export function SearchPanel({ onClose }: { onClose(): void }) {
                 </Fragment>
               );
             })}
-          </ul>
-        </>
+        </ul>
       ) : trimmed && index ? (
         <div className="flex flex-col gap-3 px-6 py-8">
           <p className="font-text text-k-small text-k-ink">
@@ -518,33 +490,6 @@ export function SearchPanel({ onClose }: { onClose(): void }) {
           />
         </div>
       ) : null}
-
-      {/* The foot: the keys on the left, the count on the right, in the
-          manner of the Vapi palette. Hidden on phones, where the keys do
-          not exist and the count is not worth a row of the screen. */}
-      <div className="hidden items-center gap-5 border-t border-black/[0.06] px-6 py-3 sm:flex">
-        {(
-          [
-            ["↑↓", searchContent.footMove],
-            ["↵", searchContent.footNavigate],
-            ["esc", searchContent.footClose],
-          ] as const
-        ).map(([key, words]) => (
-          <span key={key} className="flex items-center gap-2">
-            <kbd className="rounded-[5px] border border-black/15 px-1.5 py-0.5 font-text text-k-micro text-k-ink-soft">
-              {key}
-            </kbd>
-            <span className="font-text text-k-micro uppercase text-k-ink-soft">
-              {fill(words)}
-            </span>
-          </span>
-        ))}
-        {trimmed && rows.length > 0 ? (
-          <span className="ml-auto font-text text-k-micro uppercase text-k-ink-soft">
-            {fill(searchContent.footCount).replace("{count}", String(rows.length))}
-          </span>
-        ) : null}
-      </div>
     </div>
   );
 }
