@@ -112,6 +112,13 @@ export type SearchRecord = {
    * services page itself outranks a sentence that mentions services.
    */
   kind: "title" | "heading" | "prose";
+  /**
+   * Title records only: the page's own one-line description, shown under
+   * its name in the results. It is display, not evidence: the search never
+   * matches against it, so a page cannot be found by words that are only
+   * in its listing.
+   */
+  blurb?: string;
 };
 
 /** A record that matched, with everything the panel needs to draw it. */

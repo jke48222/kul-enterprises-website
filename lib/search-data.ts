@@ -156,8 +156,16 @@ function page(
   route: string,
   name: string,
   content: unknown,
+  /**
+   * The line printed under the page's name in the results. Left unset, it
+   * is taken from the page's own search engine description, which is the
+   * sentence already written for exactly this job.
+   */
+  blurb?: string,
 ): void {
-  out.push({ route, page: name, section: "", text: name, kind: "title" });
+  const meta = (content as { meta?: { description?: string } })?.meta;
+  const line = plain(blurb ?? meta?.description ?? "");
+  out.push({ route, page: name, section: "", text: name, kind: "title", blurb: line });
   walk(content, route, name, "", out);
 }
 
@@ -174,7 +182,8 @@ export function buildIndex(): SearchRecord[] {
   page(out, "/about", "About", about);
   page(out, "/services", "Services", servicesIndex);
   for (const service of services.services) {
-    page(out, `/services/${service.slug}`, fill(service.name), service);
+    // A service's own one-liner beats a search engine line it does not have.
+    page(out, `/services/${service.slug}`, fill(service.name), service, service.blurb);
   }
   page(out, "/drivers", "Drivers", drivers);
   page(out, "/safety", "Safety", safety);

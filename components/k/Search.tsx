@@ -234,7 +234,12 @@ type Row = {
   /** The small capitals heading this row sits under: the page's name. */
   group: string;
   kind: "title" | "prose";
-  /** For title rows, the page's address, printed beside the arrow. */
+  /**
+   * For title rows, the page's own one-line description beside the arrow.
+   * It used to be the page's address, "/services/dry-van", which came out
+   * at the client's word: an address is plumbing, and the line under a
+   * page's name should say what the page is.
+   */
   primary?: string;
   /** For prose rows, the heading over the matched passage, when it has one. */
   section?: string;
@@ -298,7 +303,7 @@ export function SearchPanel({ onClose }: { onClose(): void }) {
             href: group.route,
             group: group.page,
             kind: "title",
-            primary: group.route,
+            primary: hit.record.blurb || group.page,
           };
         }
         return {
