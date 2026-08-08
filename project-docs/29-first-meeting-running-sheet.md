@@ -26,6 +26,9 @@ it is ready.
   so the screen he sees first is the right one.
 - Print three things: this sheet, the agenda PDF, and the doc 19 shot list to hand him.
 - Phone charged, live site loaded on it, for the mobile beat at the end of the walkthrough.
+- Host the Zoom from the desktop app and press Record the moment the call starts (choose
+  "Record on this Computer"). Tell Mark at the open that you are recording so none of his
+  notes get lost. The mp4 lands in Documents/Zoom when the call ends.
 
 ## Shape of the hour
 
