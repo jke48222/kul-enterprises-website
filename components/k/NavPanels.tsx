@@ -185,8 +185,8 @@ export function SafetyPanel() {
       <div className="flex flex-col gap-6 md:flex-row md:items-end md:gap-14">
         {[
           ["USDOT", content.usdot],
-          // MC joins the plate only once it exists. The field sits empty in
-          // site.json until the first tractor is registered.
+          // MC renders only while site.json holds a number; clearing that
+          // one field retires it everywhere at once.
           ...(content.mc ? [["MC", content.mc]] : []),
         ].map(([label, value]) => (
           <div key={label}>
@@ -344,7 +344,7 @@ export function JourneyPanel() {
     <div className={PAD}>
       <PanelLabel>The Journey</PanelLabel>
 
-      <div className="flex flex-col gap-2 md:flex-row md:items-baseline md:justify-between md:gap-8">
+      <div className="flex flex-col gap-2 border-b border-k-rule pb-6 md:flex-row md:items-baseline md:justify-between md:gap-8">
         <p className="max-w-[40ch] font-display text-[21px] font-black leading-7 tracking-[-0.02em] text-k-ink">
           The story, told as a film.
         </p>
@@ -353,6 +353,21 @@ export function JourneyPanel() {
           className="shrink-0 whitespace-nowrap border-b border-k-gold pb-0.5 font-text text-k-label uppercase text-k-gold"
         >
           Watch
+        </Link>
+      </div>
+
+      {/* The Road Ahead moved onto this shelf from the phone menu at Mark's
+          word (9 Aug): the plan is the story's forward half, so its door
+          belongs beside the film's. The footer still lists it under Company. */}
+      <div className="flex flex-col gap-2 pt-5 md:flex-row md:items-baseline md:justify-between md:gap-8">
+        <p className="max-w-[44ch] font-text text-k-body text-k-ink-soft">
+          Where it goes next: the plan in order, and the figures as they stand.
+        </p>
+        <Link
+          href="/road-ahead"
+          className="shrink-0 whitespace-nowrap border-b border-k-gold pb-0.5 font-text text-k-label uppercase text-k-gold"
+        >
+          The Road Ahead
         </Link>
       </div>
     </div>

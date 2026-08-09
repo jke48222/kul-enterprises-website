@@ -85,16 +85,15 @@ const RIGHT_LINKS = withPanel(nav.bar.rightLinks);
 /**
  * Pages the menu carries but the wide bar has no room for.
  *
- * Seven top-level links, the lion and the quote button already filled the bar;
- * the arithmetic under MENU_BREAKPOINT below is how close it was. An eighth
- * did not fit at any width the bar is asked to work at, so one link had to come
- * off, and The Road Ahead is the one that costs least. It is a vision page with
- * nothing transactional on it, the home page links to it directly from the
- * fleet numbers, the Drivers page links to it in the body copy, and the footer
- * lists it under Company. Nothing else on the bar has that many ways in.
+ * The list is empty today, and that is Mark's word (9 Aug): The Road Ahead,
+ * which lived here, moved onto the Journey panel's shelf instead, so the
+ * phone menu and the wide bar now carry the same seven pages. The footer
+ * still lists Road Ahead under Company and the body copy still links it.
  *
- * TO PUT IT BACK ON THE BAR something else has to leave, because the widths
- * below have no slack for a fourth link on the right of the lion.
+ * The machinery stays because the splice order below is the design: anything
+ * added here lands between the left and right link groups in the menu.
+ * TO PUT A PAGE ON THE BAR ITSELF something else has to leave, because the
+ * widths under MENU_BREAKPOINT have no slack for an eighth link.
  */
 const MENU_ONLY_LINKS = withPanel(nav.bar.menuOnlyLinks);
 

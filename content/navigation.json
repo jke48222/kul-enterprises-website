@@ -15,9 +15,7 @@
       { "href": "/journey", "label": "The Journey", "panel": "journey" },
       { "href": "/contact", "label": "Contact", "panel": "contact" }
     ],
-    "menuOnlyLinks": [
-      { "href": "/road-ahead", "label": "The Road Ahead", "panel": "" }
-    ]
+    "menuOnlyLinks": []
   },
   "footer": {
     "heading": "Ready when you are.",

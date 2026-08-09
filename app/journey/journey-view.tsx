@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { useTina, tinaField } from "tinacms/dist/react";
 import { useReducedMotionLive } from "@/components/k/useReducedMotionLive";
@@ -26,11 +27,19 @@ import type { TinaPage } from "@/lib/tina";
  * because a clip that autoplays with audio is not legal in any browser; the
  * real film will need a deliberate play-with-sound moment instead).
  *
- * WHY IT IS position: fixed OVER THE CHROME. "The screen turns into a
+ * WHY IT PORTALS TO document.body AT z-[120]. "The screen turns into a
  * documentary movie" is the brief; a film sitting between the nav and the
  * footer is a page with a video on it, which is exactly what this replaced.
- * Body scroll is locked while it is mounted so the page behind it cannot
- * wander.
+ * The bar rides at z-[95], and no z-index inside the page can beat it,
+ * because the layout wraps every page in a `relative z-[1]` container whose
+ * stacking context caps its children. So the player renders through
+ * createPortal onto body, the same door HeroVideo's slotted control uses,
+ * and z-[120] then genuinely sits above the bar and the phone menu both.
+ * Until the portal mounts, an inline black frame holds the viewport so
+ * hydration never flashes the page underneath. The first cut kept the
+ * player under the bar and the bar covered the film's own exit control,
+ * which is why exit now lives at the bottom beside pause. Body scroll is
+ * locked while it is mounted so the page behind it cannot wander.
  *
  * SPACE IS AN EXIT EVERYWHERE EXCEPT ON A CONTROL. For a keyboard reader
  * whose focus is on a chapter button, space is the activation key, and
@@ -57,6 +66,8 @@ export default function JourneyView(props: TinaPage<{ journeyPage: unknown }>) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const chapters = page.chapters ?? [];
 
@@ -141,8 +152,15 @@ export default function JourneyView(props: TinaPage<{ journeyPage: unknown }>) {
     }
   };
 
-  return (
-    <main className="fixed inset-0 z-[80] bg-k-void">
+  /* The pre-portal frame: black, full viewport, nothing else. It exists so
+     the server render and the first client frame agree, and the page behind
+     never shows through while the portal mounts. */
+  if (!mounted) {
+    return <main className="fixed inset-0 z-[120] bg-k-void" aria-hidden="true" />;
+  }
+
+  return createPortal(
+    <main className="fixed inset-0 z-[120] bg-k-void">
       <h1 className="sr-only">The Journey</h1>
 
       {src ? (
@@ -169,36 +187,14 @@ export default function JourneyView(props: TinaPage<{ journeyPage: unknown }>) {
         />
       )}
 
-      {/* The chrome bands. Dark where the controls sit, clear in the middle
-          so the film is the page. */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-32 bg-[linear-gradient(180deg,rgba(0,0,0,0.72)_0%,rgba(0,0,0,0)_100%)]"
-      />
+      {/* The one chrome band. Dark where the controls sit, clear everywhere
+          else so the film is the page. There is nothing at the top any more:
+          the first cut put the exit up there and it sat under the nav, so
+          the top of the frame now belongs entirely to the picture. */}
       <div
         aria-hidden="true"
         className="absolute inset-x-0 bottom-0 h-48 bg-[linear-gradient(0deg,rgba(0,0,0,0.78)_0%,rgba(0,0,0,0)_100%)]"
       />
-
-      {/* Leave, top right, with the keys beside it. */}
-      <div className="absolute right-6 top-6 flex items-center gap-4 md:right-10 md:top-8">
-        <span
-          data-tina-field={tinaField(page, "exitHint")}
-          className="font-text text-k-micro uppercase text-k-on-dark-soft"
-        >
-          {fill(page.exitHint)}
-        </span>
-        <button
-          type="button"
-          onClick={leave}
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-k-on-dark-faint text-k-on-dark transition-colors duration-200 hover:border-k-on-dark"
-        >
-          <span aria-hidden="true" className="text-[18px] leading-none">
-            &#215;
-          </span>
-          <span className="sr-only">{fill(page.exitLabel)}</span>
-        </button>
-      </div>
 
       {/* The index, bottom left. Each entry drops the playhead on a section. */}
       <nav
@@ -234,14 +230,27 @@ export default function JourneyView(props: TinaPage<{ journeyPage: unknown }>) {
         </ol>
       </nav>
 
-      {/* Pause, bottom right. WCAG 2.2.2; see the header note. */}
-      <button
-        type="button"
-        onClick={togglePlay}
-        className="absolute bottom-8 right-6 font-text text-k-micro uppercase text-k-on-dark-soft transition-colors duration-200 hover:text-k-on-dark md:bottom-10 md:right-10"
-      >
-        {paused ? fill(page.playLabel) : fill(page.pauseLabel)}
-      </button>
-    </main>
+      {/* Pause and Exit share the bottom right, exit holding the corner.
+          Pause is WCAG 2.2.2 (see the header note); Exit is Mark's control,
+          moved down here from the top when the nav covered it. Esc and
+          space still leave without either button. */}
+      <div className="absolute bottom-8 right-6 flex items-center gap-6 md:bottom-10 md:right-10">
+        <button
+          type="button"
+          onClick={togglePlay}
+          className="font-text text-k-micro uppercase text-k-on-dark-soft transition-colors duration-200 hover:text-k-on-dark"
+        >
+          {paused ? fill(page.playLabel) : fill(page.pauseLabel)}
+        </button>
+        <button
+          type="button"
+          onClick={leave}
+          className="rounded-full border border-k-on-dark-faint px-5 py-2 font-text text-k-micro uppercase text-k-on-dark transition-colors duration-200 hover:border-k-on-dark"
+        >
+          {fill(page.exitLabel)}
+        </button>
+      </div>
+    </main>,
+    document.body,
   );
 }

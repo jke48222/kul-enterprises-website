@@ -7,8 +7,7 @@
     "video": "dash-night",
     "poster": "/videos/dash-night-poster.jpg"
   },
-  "exitLabel": "Leave the film",
-  "exitHint": "Esc or space",
+  "exitLabel": "Exit",
   "pauseLabel": "Pause",
   "playLabel": "Play",
   "indexLabel": "Index",

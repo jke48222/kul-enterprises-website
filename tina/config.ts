@@ -341,7 +341,6 @@ export default defineConfig({
               text("alt", "Description"),
             ],
           },
-          text("photosCaption", "Word under the photographs"),
         ]),
       ], "/"),
 
@@ -695,8 +694,7 @@ export default defineConfig({
           ),
           image("poster", "The still shown before it loads"),
         ]),
-        text("exitLabel", "The leave control", "Read to screen readers and shown at the top right."),
-        text("exitHint", "The keys reminder", "For example: Esc or space"),
+        text("exitLabel", "The exit button's word", "Sits beside pause at the bottom right. Esc and the space bar also leave."),
         text("pauseLabel", "The pause control's word"),
         text("playLabel", "The play control's word"),
         text("indexLabel", "The word above the index"),

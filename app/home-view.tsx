@@ -724,17 +724,17 @@ THE ALPHAS ARE SET BY A CONTRAST SUM, NOT BY EYE, AND THE FIRST
 
             {/* The slogan is read from Business Facts rather than retyped
                 here, so the trademark line on the terms page, this close, and
-                anywhere else it appears can never drift apart. */}
-            <p className="font-display text-k-d2 font-black text-k-ink">
-              {site.taglineLines.map((lineText) => (
-                <span key={lineText} className="block">
-                  {lineText}
-                </span>
-              ))}
+                anywhere else it appears can never drift apart. ONE LINE at
+                Mark's word (9 Aug): the three sentences run together, and on
+                a phone they wrap naturally rather than break on a stack. */}
+            <p className="max-w-[1100px] font-display text-k-d3 font-black text-k-ink">
+              {site.tagline}
             </p>
           </Reveal>
 
           <Reveal index={1} className="w-full">
+            {/* The photographs carry no caption at Mark's word (9 Aug): the
+                pair says where the story starts without being told to. */}
             <div className="grid gap-4 md:grid-cols-2 md:gap-6">
               {(home.closing.photos ?? []).map((photo) => (
                 <Image
@@ -748,12 +748,6 @@ THE ALPHAS ARE SET BY A CONTRAST SUM, NOT BY EYE, AND THE FIRST
                 />
               ))}
             </div>
-            <p
-              data-tina-field={tinaField(home.closing, "photosCaption")}
-              className="pt-5 font-text text-k-micro uppercase text-k-ink-faint"
-            >
-              {fill(home.closing.photosCaption)}
-            </p>
           </Reveal>
         </div>
       </section>
