@@ -6,36 +6,61 @@
   "start": {
     "heading": "The packet comes by email.",
     "body": "Ask here and the documents come back by email, usually the same business day. The authority and the insurance filing are on the federal record below if you would rather check them yourself.",
-    "cta": { "label": "Request the packet", "href": "#request" },
+    "cta": {
+      "label": "Request the packet",
+      "href": "#request"
+    },
     "listLabel": "What you get",
     "documents": [
       {
         "name": "Operating authority",
-        "note": "KUL's own, and already public. It is set out on the federal record below."
+        "note": "KUL's own, and already public. It is set out on the federal record below.",
+        "file": ""
       },
       {
         "name": "W-9",
-        "note": "KUL's own, completed and signed for KUL Enterprises LLC."
+        "note": "KUL's own, completed and signed for KUL Enterprises LLC.",
+        "file": ""
       },
       {
         "name": "Certificate of insurance",
-        "note": "Issued by KUL's insurance agent rather than by KUL. Your company is named as holder on request, which the agent has to do."
+        "note": "Issued by KUL's insurance agent rather than by KUL. Your company is named as holder on request, which the agent has to do.",
+        "file": ""
       },
       {
         "name": "Carrier or broker agreement",
-        "note": "KUL signs your paper rather than sending its own. Send the agreement with the packet request and it comes back executed."
+        "note": "KUL signs your paper rather than sending its own. Send the agreement with the packet request and it comes back executed.",
+        "file": ""
       }
     ]
   },
   "record": {
     "heading": "On the federal record",
     "rows": [
-      { "field": "Legal name", "value": "{legalName}" },
-      { "field": "USDOT number", "value": "{usdot}" },
-      { "field": "Entity type", "value": "Carrier" },
-      { "field": "Operating status", "value": "Active" },
-      { "field": "Physical address", "value": "{location}" },
-      { "field": "Operating radius", "value": "48 states" }
+      {
+        "field": "Legal name",
+        "value": "{legalName}"
+      },
+      {
+        "field": "USDOT number",
+        "value": "{usdot}"
+      },
+      {
+        "field": "Entity type",
+        "value": "Carrier"
+      },
+      {
+        "field": "Operating status",
+        "value": "Active"
+      },
+      {
+        "field": "Physical address",
+        "value": "{location}"
+      },
+      {
+        "field": "Operating radius",
+        "value": "48 states"
+      }
     ],
     "note": "Both of these are the government's own lookups, not ours. Neither needs an account and neither tells us you looked.",
     "links": [

@@ -50,12 +50,19 @@ type Content = typeof import("@/content/pages/carrier-packet.json");
  * which is the house rule, and this one is the exception rather than a new
  * precedent.
  *
- * THE HONEST POSITION, AND WHY THE PAGE IS SHAPED LIKE THIS. KUL has not
- * supplied those documents to the website, so there is nothing here to
- * download and this page does not pretend otherwise. What it can do is tell a
- * broker where each document comes from, hand them the two facts they can
- * check for themselves right now without asking anybody, and take the request
- * in three fields.
+ * THE HONEST POSITION, AND WHY THE PAGE IS SHAPED LIKE THIS. KUL has not yet
+ * supplied the real documents, and this page does not pretend otherwise: the
+ * download machinery below is built and waiting, but every document row
+ * ships with an empty `file` field, so nothing renders as downloadable until
+ * a real file exists. What the page can do meanwhile is tell a broker where
+ * each document comes from, hand them the facts they can check for
+ * themselves right now, and take the request in three fields.
+ *
+ * THE PLACEHOLDER DOCUMENTS ARE DEV-ONLY. public/packet/ holds watermarked
+ * placeholder PDFs for building against, and that folder is gitignored so
+ * they can never deploy. The day Mark's real documents arrive: commit them
+ * to public/packet (remove the ignore line), and write each file's address
+ * into its row's "Download file" field in the CMS. Nothing else changes.
  *
  * WHAT WAS REMOVED AND MUST NOT COME BACK. The old version promised the full
  * packet "the same business day", four times over, for documents nobody had
@@ -68,8 +75,9 @@ type Content = typeof import("@/content/pages/carrier-packet.json");
  * because those are KUL's own facts under the government's labels. It must
  * never carry FMCSA marks, colours or chrome: the moment it looks like an
  * official screenshot it stops being a summary and becomes a forged record.
- * Power units and drivers both read 1 on purpose. A broker who learns that
- * later feels misled; a broker who reads it here reads it as candour.
+ * The fleet counts it used to carry came off at the first walkthrough
+ * (project-docs/32) and must not come back; the SAFER links let a broker
+ * read those from the government's own page instead.
  */
 
 
@@ -80,11 +88,9 @@ type Content = typeof import("@/content/pages/carrier-packet.json");
  * issue its own certificate, the agent does, which is why no turnaround is
  * promised for it. Do not add one in the CMS.
  *
- * THE FEDERAL RECORD BELOW IT is set out in the register's own vocabulary, and
- * every value is either a token filled from Business Facts or a plain count.
- * CHANGE THE COUNTS THE DAY A SECOND TRUCK OR A SECOND DRIVER IS REAL, and not
- * before. Power units and drivers both read 1 on purpose: a broker who learns
- * that later feels misled, and one who reads it here reads it as candour.
+ * THE FEDERAL RECORD BELOW IT is set out in the register's own vocabulary,
+ * and every value is a token filled from Business Facts or a plain label.
+ * The fleet counts were removed at the first walkthrough and stay removed.
  */
 
 export default function CarrierPacketView(props: TinaPage<{ carrierPacketPage: unknown }>) {
@@ -178,6 +184,18 @@ export default function CarrierPacketView(props: TinaPage<{ carrierPacketPage: u
                       className="font-text text-k-small text-k-ink-soft"
                       linkClassName="underline underline-offset-4"
                     />
+                    {/* The download exists the moment the CMS names a file,
+                        and not a moment before. Rows ship empty until Mark's
+                        real documents land; see the header note. */}
+                    {fill(doc.file) ? (
+                      <a
+                        href={fill(doc.file)}
+                        download
+                        className="w-fit border-b border-k-gold pb-0.5 font-text text-k-micro uppercase text-k-gold"
+                      >
+                        Download
+                      </a>
+                    ) : null}
                   </span>
                 </Reveal>
               ))}

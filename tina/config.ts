@@ -547,7 +547,15 @@ export default defineConfig({
               "NO TURNAROUND IS PROMISED ANYWHERE ON THIS PAGE and none should be added. The certificate of insurance is issued by the agent rather than by KUL, so it is not KUL's to promise.",
             list: true,
             ui: { itemProps: (item) => ({ label: item?.name || "Document" }) },
-            fields: [text("name", "Document"), longText("note", "Who issues it and what it is")],
+            fields: [
+              text("name", "Document"),
+              longText("note", "Who issues it and what it is"),
+              text(
+                "file",
+                "Download file",
+                "Leave empty until the real document exists; an empty field means the row simply has no download. When it arrives, put the file in public/packet and write its address here, for example /packet/w9.pdf.",
+              ),
+            ],
           },
         ]),
         group("record", "The federal record", [
@@ -557,7 +565,7 @@ export default defineConfig({
             name: "rows",
             label: "The record",
             description:
-              "CHANGE THE COUNTS THE DAY A SECOND TRUCK OR A SECOND DRIVER IS REAL, and not before. Power units and drivers both read 1 on purpose.",
+              "Only what the federal register itself shows, under its own labels. The fleet counts were removed at the first walkthrough and must not come back; the SAFER links below let a broker read them from the government instead.",
             list: true,
             ui: { itemProps: (item) => ({ label: `${item?.field ?? ""}: ${item?.value ?? ""}` }) },
             fields: [text("field", "Field"), text("value", "Value", TOKENS)],

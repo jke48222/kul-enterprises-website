@@ -41,3 +41,7 @@ tina/__generated__
 public/admin
 assets-inbox/
 
+
+# Placeholder carrier-packet documents: dev only, never deployed.
+# The real documents are committed here the day Mark supplies them.
+/public/packet/
