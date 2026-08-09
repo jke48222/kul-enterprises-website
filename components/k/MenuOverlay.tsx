@@ -239,7 +239,7 @@ function Panel({ onClose, links }: Omit<MenuOverlayProps, "open">) {
           </a>
         </div>
         <p className="mt-4 font-text text-k-micro uppercase tabular-nums text-k-on-dark-faint">
-          {`${site.city}, ${site.state} · USDOT ${site.usdot} · MC ${site.mc}`}
+          {`${site.city}, ${site.state} · USDOT ${site.usdot}${site.mc ? ` · MC ${site.mc}` : ""}`}
         </p>
       </m.div>
     </m.div>

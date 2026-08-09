@@ -474,9 +474,9 @@ export default function ServicesView(props: TinaPage<{ servicesPage: unknown }>)
             </h2>
               {/* A lede sat here reading "Six fields in, one phone number
                   throughout." Step 01 below it already names the six fields and
-                  lists them, and step 04 already ends on "one phone number
-                  throughout", so the summary was made entirely of the two lines
-                  directly underneath it. */}
+                  lists them, and step 04 already closes on dispatch being
+                  reachable throughout, so the summary was made entirely of the
+                  two lines directly underneath it. */}
             </div>
             <Link
               href={link(page.howItMoves.cta).href}

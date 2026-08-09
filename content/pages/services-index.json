@@ -52,12 +52,12 @@
       {
         "n": "03",
         "name": "Dispatch",
-        "body": "You get the route, the timing and the driver before the wheels turn."
+        "body": "You get the route, the timing and the driver assignment before the wheels turn."
       },
       {
         "n": "04",
         "name": "Delivery",
-        "body": "Updates on the way, proof on arrival, one phone number throughout."
+        "body": "Updates on the way, proof on arrival, and dispatch reachable throughout."
       }
     ]
   }

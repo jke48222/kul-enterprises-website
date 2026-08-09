@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Request a Freight Quote",
-    "description": "Get a freight quote from KUL Enterprises. Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited and Over the Road. Licensed carrier in {location}, USDOT {usdot}. The owner answers dispatch."
+    "description": "Get a freight quote from KUL Enterprises. Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited and Over the Road. Licensed carrier in {location}, USDOT {usdot}."
   },
   "opening": {
     "heading": "Tell us about the load.",
@@ -15,7 +15,7 @@
     "nextSteps": [
       {
         "title": "It reaches dispatch",
-        "body": "There is no shared inbox and no ticketing system in between."
+        "body": "Quote requests go to dispatch directly, not into a ticketing system."
       },
       {
         "title": "You get a real number",
@@ -30,9 +30,8 @@
   "credentials": {
     "items": [
       "USDOT {usdot}",
-      "MC {mc}",
       "Licensed and insured",
-      "Owner answers dispatch"
+      "Dispatch answers 24/7"
     ],
     "locationLine": "{location} · {serviceArea}"
   }

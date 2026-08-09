@@ -164,7 +164,7 @@ export default function ServiceSpecs({ service }: { service: Service }) {
     { label: "Service area", value: site.serviceArea },
     {
       label: "Operating authority",
-      items: [`USDOT ${site.usdot}`, `MC ${site.mc}`],
+      items: [`USDOT ${site.usdot}`, ...(site.mc ? [`MC ${site.mc}`] : [])],
     },
     {
       label: "Insurance",

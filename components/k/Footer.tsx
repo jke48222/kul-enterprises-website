@@ -270,14 +270,20 @@ export default function Footer() {
                     {site.usdot}
                   </dd>
                 </div>
-                <div>
-                  <dt className="font-text text-k-micro uppercase text-k-on-dark-soft">
-                    {fill(t.mcLabel)}
-                  </dt>
-                  <dd className="font-display text-k-d3 font-black tabular-nums text-k-on-dark">
-                    {site.mc}
-                  </dd>
-                </div>
+                {/* The MC row renders only once the number exists. The field
+                    sits empty in site.json until the first tractor is
+                    registered, and filling it in there brings this back
+                    without touching code. */}
+                {site.mc ? (
+                  <div>
+                    <dt className="font-text text-k-micro uppercase text-k-on-dark-soft">
+                      {fill(t.mcLabel)}
+                    </dt>
+                    <dd className="font-display text-k-d3 font-black tabular-nums text-k-on-dark">
+                      {site.mc}
+                    </dd>
+                  </div>
+                ) : null}
               </dl>
               <a
                 href={linkHref(t.verifyHref)}

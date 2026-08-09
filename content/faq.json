@@ -2,7 +2,7 @@
   "items": [
     {
       "q": "How fast do I get a freight quote?",
-      "a": "The same business day. Send the lane through the quote form or call dispatch. The person who prices it is the person who commits the truck."
+      "a": "The same business day. Send the lane through the quote form or call dispatch."
     },
     {
       "q": "What freight does KUL haul?",
@@ -10,7 +10,7 @@
     },
     {
       "q": "Are you licensed and insured?",
-      "a": "Yes. KUL operates under USDOT {usdot} and MC {mc}, with auto liability and cargo coverage. Check the authority on the FMCSA SAFER system whenever you like. A certificate of insurance naming your company as holder is issued by our insurance agent on request."
+      "a": "Yes. KUL operates under USDOT {usdot}, with auto liability and cargo coverage. Check the authority on the FMCSA SAFER system whenever you like. A certificate of insurance naming your company as holder is issued by our insurance agent on request."
     },
     {
       "q": "Where do you run?",
@@ -18,11 +18,11 @@
     },
     {
       "q": "How do brokers set KUL up as a carrier?",
-      "a": "Send your company name and MC or USDOT number through the carrier packet page. The operating authority, a signed W-9 and a certificate of insurance come back by email from the person who drives the truck. The authority and the insurance filing are both on the federal record, so you can check those two before we reply."
+      "a": "Send your company name and MC or USDOT number through the carrier packet page. The operating authority, a signed W-9 and a certificate of insurance come back by email. The authority and the insurance filing are both on the federal record, so you can check those two before we reply."
     },
     {
       "q": "How do I start driving for KUL?",
-      "a": "Leave your name, a contact and how long you have held a CDL-A on the drivers page. Everybody on the list is called when the seat opens. There is no start date to give you yet."
+      "a": "Leave your name, a contact and how long you have held a CDL-A on the drivers page. Everybody on the list is called when a seat opens. There is no start date to give you yet."
     },
     {
       "q": "What happens if something changes in transit?",
@@ -30,7 +30,7 @@
     },
     {
       "q": "Can I get updates while my freight moves?",
-      "a": "Yes. Milestone updates at pickup, in transit, and delivery are standard, and the dispatch line reaches the person driving the truck."
+      "a": "Yes. Milestone updates at pickup, in transit, and delivery are standard, and the dispatch line is answered around the clock."
     }
   ]
 }

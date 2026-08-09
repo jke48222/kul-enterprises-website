@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     default: `${site.name} | Reliable Freight Transportation Built on Trust`,
     template: `%s | ${site.name}`,
   },
-  description: `${site.legalName} is a licensed and insured freight carrier based in ${site.location}. Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited, and Over-the-Road service. Southeast based, nationwide. USDOT ${site.usdot}, MC ${site.mc}.`,
+  description: `${site.legalName} is a licensed and insured freight carrier based in ${site.location}. Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited, and Over-the-Road service. Southeast based, nationwide. USDOT ${site.usdot}${site.mc ? `, MC ${site.mc}` : ""}.`,
   // Relative canonical: resolves per route against metadataBase, so every
   // page self-canonicalizes without repeating the URL in 13 files.
   alternates: { canonical: "./" },
@@ -130,7 +130,12 @@ const jsonLd = {
   areaServed: "United States",
   identifier: [
     { "@type": "PropertyValue", propertyID: "USDOT", value: site.usdot },
-    { "@type": "PropertyValue", propertyID: "MC", value: site.mc },
+    // The MC identifier returns the day the number is registered and filled
+    // in site.json; until then the empty value must not ship as structured
+    // data a broker's tooling could read as an authority claim.
+    ...(site.mc
+      ? [{ "@type": "PropertyValue", propertyID: "MC", value: site.mc }]
+      : []),
   ],
   knowsAbout: [
     "Power Only",

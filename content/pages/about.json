@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "About",
-    "description": "{legalName} is a licensed motor carrier in {location}, built on purpose and guided by integrity. Every shipment is a promise kept. USDOT {usdot}, MC {mc}."
+    "description": "{legalName} is a licensed motor carrier in {location}, built on purpose and guided by integrity. Every shipment is a promise kept. USDOT {usdot}."
   },
   "opening": {
     "heading": "Built on Purpose. Guided by Integrity.",
@@ -84,7 +84,7 @@
       {
         "label": "Authority",
         "gold": false,
-        "body": "USDOT {usdot}. MC {mc}. Federal operating authority, active, valid in 48 states. The record is public and the links to check it are on the [safety page](/safety)."
+        "body": "USDOT {usdot}. Federal operating authority, active, valid in 48 states. The record is public and the links to check it are on the [safety page](/safety)."
       },
       {
         "label": "Base",
@@ -99,7 +99,7 @@
       {
         "label": "Dispatch",
         "gold": true,
-        "body": "{phone}\n{email}\nOne number, answered by the driver."
+        "body": "{phone}\n{email}\nAnswered around the clock."
       }
     ]
   }

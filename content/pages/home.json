@@ -1,20 +1,20 @@
 {
   "meta": {
     "title": "KUL Enterprises | Reliable Freight Transportation Built on Trust",
-    "description": "KUL Enterprises LLC is a licensed and insured freight carrier based in {location}. Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited, and Over-the-Road service. Southeast based, nationwide. USDOT {usdot}, MC {mc}."
+    "description": "KUL Enterprises LLC is a licensed and insured freight carrier based in {location}. Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited, and Over-the-Road service. Southeast based, nationwide. USDOT {usdot}."
   },
   "hero": {
-    "headlineLines": ["Every mile.", "Owner driven."],
-    "lede": "Freight services out of {location}, authorized in 48 states, dispatched by the person driving.",
+    "headlineLines": ["Every mile.", "On schedule."],
+    "lede": "Freight services out of {location}, authorized in 48 states, dispatched around the clock.",
     "primaryCta": { "label": "Request a quote", "href": "/quote" },
     "secondaryCta": { "label": "Call dispatch · {phone}", "href": "{phone}" },
-    "credentials": "USDOT {usdot} · MC {mc}",
+    "credentials": "USDOT {usdot}",
     "locationLine": "{location}",
     "poster": "/videos/kul-hero-poster.jpg"
   },
   "statement": {
-    "heading": "You will always be talking to the driver.",
-    "body": "Dispatch at KUL is Mark Brown. He drove for other carriers for eleven years before starting it.",
+    "heading": "Every shipment is a promise.",
+    "body": "A customer's business rides on every load we move. Communication stays honest, commitments are kept, and problems are solved on the road.",
     "cta": { "label": "Read the full story", "href": "/about" }
   },
   "equipment": {

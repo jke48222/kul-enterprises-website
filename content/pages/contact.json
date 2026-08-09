@@ -1,24 +1,24 @@
 {
   "meta": {
     "title": "Contact Dispatch",
-    "description": "Contact KUL Enterprises. Dispatch is {phone}, answered by the driver. Freight quotes, carrier packet requests and driver enquiries. Based in {location}."
+    "description": "Contact KUL Enterprises. Dispatch is {phone}, answered around the clock. Freight quotes, carrier packet requests and driver enquiries. Based in {location}."
   },
   "opening": {
-    "heading": "One number, and it is answered.",
-    "lede": "There is no phone tree and no ticket queue. The number below reaches the person who drives the truck."
+    "heading": "The number is answered.",
+    "lede": "No phone tree and no ticket queue. Calls go straight to dispatch, any hour."
   },
   "locationCard": {
     "image": "/images/services/regional-wide.webp",
     "imageAlt": "An open highway running toward distant hills",
     "heading": "{location}",
     "addressLines": ["{city}, Georgia 30052", "{serviceArea}"],
-    "hoursLines": ["Dispatch: 24 hours", "USDOT {usdot} · MC {mc}"],
+    "hoursLines": ["Dispatch: 24 hours", "USDOT {usdot}"],
     "emailCta": { "label": "Email dispatch", "href": "{email}" },
     "mapCta": { "label": "See the service area", "href": "#service-area" }
   },
   "dispatchCard": {
     "eyebrow": "Dispatch, around the clock",
-    "heading": "Call the person driving.",
+    "heading": "Call dispatch.",
     "body": "If a load is moving today, this is faster than any form.",
     "cta": { "label": "Call {phone}", "href": "{phone}" }
   },

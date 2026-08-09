@@ -124,21 +124,15 @@ export function DriversPanel() {
       <PanelLabel>Driving for KUL</PanelLabel>
 
       <div className="flex flex-col gap-2 border-b border-k-rule pb-6 md:flex-row md:items-baseline md:justify-between md:gap-8">
-        {/* The second half read "The seat opens when the second truck does".
-            The fact is still on the Drivers page, where a driver needs it
-            before applying; a menu is not the place to lead with the fleet
-            count. See the note on headcount in app/page.tsx. */}
-        {/* The second half read "The seat opens when the second truck does".
-            The fact is still on the Drivers page, where a driver needs it
-            before applying; a menu is not the place to lead with the fleet
-            count. See the note on headcount in app/page.tsx.
+        {/* This line has been cut back twice. It once read "The seat opens
+            when the second truck does", then "read by the person you would be
+            driving for"; the fleet count and the headcount both came off the
+            site at the first walkthrough (project-docs/32).
 
             AND IT DOES NOT NAME A DATE. There is no start date anywhere in
-            content/ or on /road-ahead, so a panel cannot invent one. What is
-            here instead is true and checkable: applications go to Mark. */}
+            content/ or on /road-ahead, so a panel cannot invent one. */}
         <p className="max-w-[34ch] font-display text-[21px] font-black leading-7 tracking-[-0.02em] text-k-ink">
-          Applications are open now, and read by the person you would be
-          driving for.
+          Applications are open now, ahead of the next seat.
         </p>
         <Link
           href="/drivers"
@@ -194,7 +188,9 @@ export function SafetyPanel() {
       <div className="flex flex-col gap-6 md:flex-row md:items-end md:gap-14">
         {[
           ["USDOT", content.usdot],
-          ["MC", content.mc],
+          // MC joins the plate only once it exists. The field sits empty in
+          // site.json until the first tractor is registered.
+          ...(content.mc ? [["MC", content.mc]] : []),
         ].map(([label, value]) => (
           <div key={label}>
             <span className="block font-text text-k-micro uppercase text-k-ink-faint">
@@ -307,11 +303,11 @@ export function AboutPanel() {
           className="h-auto w-[132px] shrink-0"
         />
 
-        {/* "One tractor, one driver, and a phone number that reaches the
-            person driving it." The last clause was always the point; the
-            headcount in front of it was not. */}
+        {/* Mark's own subtitle for the About page. The line that lived here
+            before it counted heads, and every headcount came off the site at
+            his first walkthrough (project-docs/32). */}
         <p className="max-w-[38ch] font-display text-[20px] font-black leading-7 tracking-[-0.02em] text-k-ink">
-          One phone number, and it reaches the person driving the truck.
+          Built on Purpose. Guided by Integrity.
         </p>
 
         <dl className="flex gap-8 md:ml-auto">

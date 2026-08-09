@@ -69,8 +69,8 @@
     "submitLabel": "Send my details",
     "successHeading": "You are on the list.",
     "successThanks": "Thank you, {sender}.",
-    "successBody": "Your details are with Mark. There is no call today, because the seat is not open today. When the second truck is booked, everybody on this list is called.",
-    "successAnnouncement": "Your details are on the list. Nobody is called until the seat opens.",
+    "successBody": "Your details are on the list. There is no call today, because a seat is not open today. When the next seat opens, everybody on this list is called.",
+    "successAnnouncement": "Your details are on the list. Nobody is called until a seat opens.",
     "error": "That did not send. Call dispatch on {phone} and your details can be taken over the phone instead."
   },
   "packet": {
@@ -88,7 +88,7 @@
     "consent": "We use this to send the packet and nothing else. You are not added to a mailing list and your details are not passed on.",
     "submitLabel": "Send the request",
     "successHeading": "The request reached dispatch.",
-    "successBody": "The person who drives the truck attaches it to his reply, so it comes back when he is not on a load. If you need it inside a fixed window, call and say so.",
+    "successBody": "The documents come back by email, usually the same business day. If you need them inside a fixed window, call and say so.",
     "successAnnouncement": "The packet request reached dispatch.",
     "error": "That did not send. Call dispatch on {phone} and the packet can be sent from the phone instead."
   }

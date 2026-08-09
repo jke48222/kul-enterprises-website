@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Safety and Compliance",
-    "description": "KUL Enterprises is a licensed and insured freight carrier, USDOT {usdot}, MC {mc}. Verify our authority and insurance filing directly with the FMCSA."
+    "description": "KUL Enterprises is a licensed and insured freight carrier, USDOT {usdot}. Verify our authority and insurance filing directly with the FMCSA."
   },
   "opening": {
     "eyebrow": "Safety and compliance",
@@ -11,19 +11,13 @@
   "credentials": {
     "heading": "Authority and insurance",
     "decal": "/images/brand/door-decal.webp",
-    "decalAlt": "The decal on the tractor door, reading KUL Enterprises LLC, USDOT {usdot}, MC {mc}, {location}",
+    "decalAlt": "The KUL Enterprises LLC decal on the tractor door, {location}",
     "items": [
       {
         "label": "USDOT number",
         "value": "{usdot}",
         "note": "Look this up on the FMCSA SAFER system",
         "href": "https://safer.fmcsa.dot.gov/query.asp?searchtype=ANY&query_type=queryCarrierSnapshot&query_param=USDOT&query_string={usdot}"
-      },
-      {
-        "label": "MC number",
-        "value": "{mc}",
-        "note": "Operating authority, active",
-        "href": ""
       },
       {
         "label": "Insurance",
@@ -61,7 +55,7 @@
       {
         "icon": "communication",
         "title": "Communication",
-        "body": "You hear about a delay from us first. One phone number reaches the person driving the truck, around the clock."
+        "body": "You hear about a delay from us first. The dispatch line is answered around the clock."
       },
       {
         "icon": "cargo",

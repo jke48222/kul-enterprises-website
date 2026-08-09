@@ -13,7 +13,7 @@
       "commitments": [
         "On-time hook and drop, confirmed in writing",
         "Trailer condition documented at pickup and delivery",
-        "One dispatch line, answered by the driver"
+        "Dispatch reachable around the clock"
       ],
       "blurb": "Tractor and driver for your loaded trailer.",
       "equipment": "Tractor only",
@@ -232,7 +232,7 @@
       "slug": "regional",
       "name": "Regional",
       "short": "Same-day and next-day coverage across Georgia and the Southeast.",
-      "description": "KUL is based in Loganville, Georgia. Regional service means same-day and next-day coverage across Georgia, Alabama, Tennessee, and the Carolinas, run by a driver who knows the docks and the traffic on those lanes.",
+      "description": "KUL is based in Loganville, Georgia. Regional service means same-day and next-day coverage across Georgia, Alabama, Tennessee, and the Carolinas, run by drivers who know the docks and the traffic on those lanes.",
       "bestFor": [
         "Georgia, Alabama, Tennessee, and Carolinas lanes",
         "Next-day and two-day regional distribution",
@@ -346,7 +346,7 @@
       "slug": "otr",
       "name": "Over-the-Road",
       "short": "Nationwide long-haul with a route and transit plan shared before pickup.",
-      "description": "KUL over-the-road moves full truckloads from the Southeast to either coast and across all 48 states. The route and the transit time are given before pickup, and the person who quoted the load is the person driving it.",
+      "description": "KUL over-the-road moves full truckloads from the Southeast to either coast and across all 48 states. The route and the transit time are given before pickup, and dispatch stays reachable the whole way.",
       "bestFor": [
         "Full truckload moves beyond the regional footprint",
         "Cross-country lanes that need honest transit times",

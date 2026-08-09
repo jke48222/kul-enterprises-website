@@ -1,12 +1,12 @@
 {
   "meta": {
     "title": "Drive With KUL",
-    "description": "KUL Enterprises is taking driver applications now, ahead of the seat opening. CDL-A, Southeast regional out of {location}, with over the road available."
+    "description": "KUL Enterprises is taking driver applications now, ahead of the next seat opening. CDL-A, Southeast regional out of {location}, with over the road available."
   },
   "notice": {
     "heading": "Driving for KUL",
-    "lead": "Applications are open now. The seat opens with the second truck.",
-    "body": "A second tractor goes on the road once there is repeat freight to keep both loaded through a full month, and the driver's seat opens at the same time. We take applications before that happens so the seat goes to somebody already spoken to, rather than whoever answers an advert on the day. There is no start date to give you, and everybody who has applied is called when there is. The plan is on [the road ahead page](/road-ahead)."
+    "lead": "Applications are open now, ahead of the next seat.",
+    "body": "Seats open as tractors are added, and applications are taken before that happens so a seat goes to somebody already spoken to, rather than whoever answers an advert on the day. There is no start date to give you, and everybody who has applied is called when there is one. The plan is on [the road ahead page](/road-ahead)."
   },
   "seat": {
     "heading": "The seat, when it opens",
@@ -25,7 +25,7 @@
       },
       {
         "lead": "The dispatch.",
-        "body": "You will be talking to Mark, who drives the truck himself. Hours are planned before dispatch."
+        "body": "Hours are planned before dispatch, and no load is accepted onto a clock it cannot legally fit."
       }
     ],
     "rail": [
@@ -36,14 +36,14 @@
       },
       {
         "label": "The standards",
-        "body": "A second driver is held to what is written on the safety page from the first load. Read it before you apply.",
+        "body": "Every driver is held to what is written on the safety page from the first load. Read it before you apply.",
         "cta": { "label": "Read the safety page", "href": "/safety" }
       }
     ]
   },
   "form": {
     "heading": "Leave your details",
-    "intro": "Four questions. Nobody is called today, because the seat is not open today.",
+    "intro": "Four questions. You are called when a seat opens, and not before.",
     "equalOpportunityLine": "{legalName} is an equal opportunity employer"
   }
 }
