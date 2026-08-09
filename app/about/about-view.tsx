@@ -16,9 +16,6 @@ import type { TinaPage } from "@/lib/tina";
  * subscribes with useTina, which is what makes the visual editor work: inside
  * /admin the page redraws as the client types, and any element carrying a
  * data-tina-field can be clicked to jump straight to its field.
- *
- * Outside the editor useTina hands back exactly what it was given, so on the
- * live site this renders once and costs nothing.
  */
 
 /**
@@ -42,63 +39,80 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
   const about = data.aboutPage as unknown as Content;
 
   /**
-   * ABOUT
+   * ABOUT, REBUILT WHOLE AT THE FIRST WALKTHROUGH (project-docs/32).
    *
    * THE WORDS ARE THE CLIENT'S OWN STATEMENT, received 5 August 2026 and set
-   * here in full. It replaced the founder's note and the "how it runs today"
-   * section that used to make up this page. Three small corrections were made
-   * in the setting, none of them a rewrite: "were not built" became "was not
-   * built", "Continuously improving" became "Improve continuously" so the six
-   * commitments all give an instruction the same way, and one sentence was
-   * restructured to lose an em dash, which this site does not use.
+   * here in full, in his order, verbatim. Three small corrections were made
+   * in the setting and must survive every future pass: "were not built"
+   * became "was not built", "Continuously improving" became "Improve
+   * continuously" so the six commitments all give an instruction the same
+   * way, and one sentence was restructured to lose an em dash, which this
+   * site does not use.
    *
-   * REBUILT DOCUMENT-FIRST AT THE FIRST WALKTHROUGH (project-docs/32). Mark
-   * asked for the page to match his email, and the honest reading of that is
-   * structural: his email has section titles, and the first setting hid them
-   * in small capitals, so his document's shape was invisible on its own
-   * page. His titles are display headings now, in his order, the photograph
-   * came off the opening so the page opens on his words alone (the Maersk
-   * about page's move: the purpose is the hero), and the three transport
-   * modes his vision names are set out as a row where he names them.
+   * THE SHAPE IS A DOCUMENT WITH A CONTENTS PAGE, and it was built from
+   * three references, each contributing one move:
+   *
+   *   Maersk /about        the purpose line is the hero: the page opens on
+   *                        the statement's own words on a dark cover, with
+   *                        nothing else on the fold competing, and closes on
+   *                        a plate of plain facts.
+   *   37signals.com        the manifesto reads as a numbered index. Their
+   *                        whole site opens as "00. Start here" down a
+   *                        numbered list of beliefs; this cover does the
+   *                        same with Mark's five section titles, each an
+   *                        anchor down into its chapter.
+   *   Mobbin (web, about)  the numbered values grid: short imperatives
+   *                        counted out under small numerals, which is how
+   *                        the six commitments are set.
+   *
+   * THE CONTENTS LIST IS DERIVED FROM THE CHAPTER FIELDS, not written twice:
+   * each entry reads the same CMS field its chapter heading reads, so a
+   * renamed section renames itself in the index and the two can never
+   * drift apart.
    *
    * WHAT EACH PAGE ON THE SITE OWNS, so none of them repeat each other:
    *   Safety      what KUL holds itself to, written as policy
    *   Road Ahead  the growth plan and the figures as they stand
    *   About       the statement of purpose, and the licence particulars
    *
-   * "Looking Forward" below speaks of growth in the client's words and names
-   * no figures. The figures stay on the Road Ahead page; do not copy them in
-   * here, or the two pages will drift apart the first time one is updated.
+   * "Looking Forward" speaks of growth in the client's words and names no
+   * figures. The figures stay on the Road Ahead page; do not copy them in
+   * here, or the two pages drift apart the first time one is updated.
    *
-   * ON THE LAYOUT. Every section is a different shape on purpose, because the
-   * version of this site the client rejected used one shape eleven times over.
-   * The shapes that carried the old page were kept and the new words were laid
-   * into them; each one is named in the comment above it.
-   *
-   * TO UPDATE IT: every word is in content/pages/about.json and is edited at
-   * /admin under "About page". The phone number, email, DOT and MC numbers and
-   * the tagline are not written there either: the copy carries {phone},
-   * {usdot} and {tagline} tokens that fill from Business Facts, so each fact
-   * exists in exactly one place on the site.
-   *
-   * MARK'S PORTRAIT AND SIGNATURE left with the founder's note. His face is
-   * on the Journey page, which is the page about him; this page is now the
-   * company speaking, and it ends on the imprint, signed with the mark.
+   * MARK'S PORTRAIT AND SIGNATURE left with the founder's note in the
+   * August rebuild. This page is the company speaking; the one photograph
+   * on it is his own dashcam film, beside the words about the miles it
+   * records, and the page ends on the imprint, signed with the mark.
    */
+
+  /**
+   * The five chapters, in the email's order. Each entry couples the CMS
+   * group that owns the title to the anchor its cover line jumps to. The
+   * ids are structural and stay out of the CMS on purpose: an anchor that
+   * can be retyped in a sidebar is a broken contents page waiting to
+   * happen.
+   */
+  const chapters = [
+    { id: "c1", group: about.founding, n: "01" },
+    { id: "c2", group: about.experience, n: "02" },
+    { id: "c3", group: about.standards, n: "03" },
+    { id: "c4", group: about.forward, n: "04" },
+    { id: "c5", group: about.commitment, n: "05" },
+  ];
 
   return (
     <>
-      {/* THE OPENING
-          Type alone. The Face Formula photograph arrangement this opened
-          with was retired at the first walkthrough rebuild: the page is
-          Mark's statement, and a statement opens on its title, not on
-          scenery. The move is the Maersk about page's, where the purpose
-          line is the hero and there is nothing else on the fold to compete
-          with it. The one photograph left on this page is the dashcam film
-          further down, beside the words about the miles it records. */}
-      <section className="bg-k-paper px-6 pb-24 pt-36 md:px-12 lg:px-24 lg:pt-44">
+      {/* ================================================================
+          THE COVER. Coal, and nothing on it but the document itself: the
+          title, the purpose line, its two paragraphs, and the contents.
+          The Maersk move (purpose as hero) opens it and the 37signals move
+          (the numbered index) closes it, so the fold reads as the front
+          page of a statement rather than as a website's hero.
+          ================================================================ */}
+      <section className="bg-k-coal px-6 pb-24 pt-36 md:px-12 lg:px-24 lg:pt-44">
         <div className="mx-auto max-w-[1248px]">
           <Breadcrumb
+            tone="dark"
             className="pb-10"
             items={[{ label: "KUL", href: "/" }, { label: "About" }]}
           />
@@ -106,7 +120,7 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
           <Reveal variant="settle">
             <span
               data-tina-field={tinaField(about.opening, "eyebrow")}
-              className="font-text text-k-micro uppercase text-k-gold"
+              className="font-text text-k-micro uppercase text-k-gold-lit"
             >
               {fill(about.opening.eyebrow)}
             </span>
@@ -114,34 +128,19 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
           <Reveal variant="wipe" className="mt-6">
             <h1
               data-tina-field={tinaField(about.opening, "heading")}
-              className="max-w-[1060px] font-display text-k-d1 font-black text-k-ink"
+              className="max-w-[1060px] font-display text-k-d1 font-black text-k-on-dark"
             >
               {fill(about.opening.heading)}
             </h1>
           </Reveal>
-        </div>
-      </section>
 
-      {/* THE BELIEF
-          Shape taken from the mymind principles page: a small label out in
-          the left margin, then one line set much larger than everything
-          around it, with the supporting paragraphs a step smaller and softer
-          beneath. The size is doing the work of a headline, which is why
-          there is no headline.
-
-          The large line returns in the closing section at the foot of the
-          page. That repeat is deliberate, the statement opens and closes on
-          the same sentence, so if the words change here they must change
-          there too. Both live in the same file in the CMS. */}
-      <section className="bg-k-coal px-6 py-32 md:px-12 lg:px-24 lg:py-36">
-        <div className="mx-auto max-w-[1248px]">
-          {/* The margin label that sat beside this moved up to the opening
-              at the rebuild, so the sentence now takes the whole measure the
-              way it does in his email: first line of the document proper. */}
-          <Reveal>
+          {/* The purpose line, and the two paragraphs that explain it. The
+              same sentence closes the page in chapter 05; that repeat is
+              the statement's own bookend and both ends read one CMS file. */}
+          <Reveal className="mt-16">
             <p
               data-tina-field={tinaField(about.community, "statement")}
-              className="max-w-[980px] font-text text-k-d3 leading-[1.33] tracking-[-0.01em] text-k-on-dark"
+              className="max-w-[880px] font-text text-k-d3 leading-[1.33] tracking-[-0.01em] text-k-on-dark"
             >
               {fill(about.community.statement)}
             </p>
@@ -157,26 +156,50 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
               </Reveal>
             ))}
           </div>
+
+          {/* THE CONTENTS. Five titles, five anchors, every one read from
+              the field its chapter heading reads. Muted by default and lit
+              on hover, the way 37signals dims the beliefs below the fold. */}
+          <Reveal variant="settle" className="mt-20">
+            <ol className="flex flex-col border-t border-white/15">
+              {chapters.map((chapter) => (
+                <li key={chapter.id} className="border-b border-white/15">
+                  <a
+                    href={`#${chapter.id}`}
+                    className="group flex items-baseline gap-6 py-5 transition-colors duration-200"
+                  >
+                    <span className="font-text text-k-micro uppercase tabular-nums text-k-gold-lit">
+                      {chapter.n}
+                    </span>
+                    <span className="font-display text-k-d3 font-black text-k-on-dark-soft transition-colors duration-200 group-hover:text-k-on-dark">
+                      {fill(chapter.group.eyebrow)}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </Reveal>
         </div>
       </section>
 
-      {/* MORE THAN TRANSPORTATION
-          A split lead: the founding belief set large on the left, and what
-          follows from it in ordinary type on the right, the two halves of one
-          thought sitting level with each other. The lead is one sentence
-          pair; if it grows past that it stops being a lead and should move
-          into the right-hand column with the rest. */}
-      <section className="bg-k-paper px-6 py-32 md:px-12 lg:px-24 lg:py-36">
+      {/* ================================================================
+          01 · MORE THAN TRANSPORTATION. The founding belief set large on
+          the left, what follows from it on the right, under the first
+          numbered chapter head.
+          ================================================================ */}
+      <section id="c1" className="scroll-mt-24 bg-k-paper px-6 py-32 md:px-12 lg:px-24 lg:py-36">
         <div className="mx-auto max-w-[1248px]">
-          {/* His title, at title size. The email divides itself with these
-              headings and the first setting shrank them to small capitals,
-              which is the thing the walkthrough rebuild reversed. */}
           <Reveal variant="wipe">
-            <h2
-              data-tina-field={tinaField(about.founding, "eyebrow")}
-              className="font-display text-k-d2 font-black text-k-ink"
-            >
-              {fill(about.founding.eyebrow)}
+            <h2 className="flex items-baseline gap-6">
+              <span className="font-text text-k-micro uppercase tabular-nums text-k-gold">
+                01
+              </span>
+              <span
+                data-tina-field={tinaField(about.founding, "eyebrow")}
+                className="font-display text-k-d2 font-black text-k-ink"
+              >
+                {fill(about.founding.eyebrow)}
+              </span>
             </h2>
           </Reveal>
           <div className="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-24">
@@ -206,41 +229,37 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
         </div>
       </section>
 
-      {/* BUILT THROUGH EXPERIENCE
-          Shape taken from the KÖPPEN founders' note: a narrow column of small
-          dense type on one side, a very large picture filling the other and
-          running off the edge of the screen, and a wide empty gutter left
-          between the two.
-
-          The contrast in size is the whole idea. The type stays small even
-          though there is room to enlarge it, because a quiet column beside a
-          big picture reads as something written, and the same words set large
-          would read as a slogan.
-
-          The film is Mark's own dashcam, filmed forward from the cab. The
-          column speaks of thousands of miles and the picture is a recording
-          of them, which is why this section kept the film when the founder's
-          note it belonged to came off the page. */}
-      <section className="bg-k-surface">
+      {/* ================================================================
+          02 · BUILT THROUGH EXPERIENCE. A narrow column of small dense
+          type beside the dashcam film. The column speaks of thousands of
+          miles and the picture is a recording of them, which is why this
+          chapter keeps the page's one photograph.
+          ================================================================ */}
+      <section id="c2" className="scroll-mt-24 bg-k-surface">
         <div className="flex flex-col lg:flex-row lg:items-stretch lg:justify-between">
           {/* 396px is the 96px left margin plus a 300px column of text. The
               two are added together because the padding sits inside the
               width, and a 300px box here would leave only 204px to read. */}
           <div className="px-6 py-24 md:px-12 lg:w-[396px] lg:shrink-0 lg:py-32 lg:pl-24 lg:pr-0">
-            {/* His title, a step smaller than the other sections' because
-                the column is 300px and a d2 line would wrap to four. */}
             <Reveal variant="wipe">
-              <h2
-                data-tina-field={tinaField(about.experience, "eyebrow")}
-                className="font-display text-k-d3 font-black text-k-ink"
-              >
-                {fill(about.experience.eyebrow)}
+              {/* A step smaller than the other chapter heads because the
+                  column is 300px wide and a d2 line would wrap to four. */}
+              <h2 className="flex items-baseline gap-4">
+                <span className="font-text text-k-micro uppercase tabular-nums text-k-gold">
+                  02
+                </span>
+                <span
+                  data-tina-field={tinaField(about.experience, "eyebrow")}
+                  className="font-display text-k-d3 font-black text-k-ink"
+                >
+                  {fill(about.experience.eyebrow)}
+                </span>
               </h2>
             </Reveal>
-            {/* Four short paragraphs fit the column now that no signature
-                sits under them. If one grows long, split it or cut it: at
-                300px wide a long paragraph reads as a wall. */}
-            <Reveal className="mt-5 flex flex-col gap-4">
+            {/* Four short paragraphs fit the column. If one grows long,
+                split it or cut it: at 300px wide a long paragraph reads as
+                a wall. */}
+            <Reveal className="mt-6 flex flex-col gap-4">
               {about.experience.paragraphs.map((paragraph) => (
                 <Copy
                   key={paragraph.slice(0, 40)}
@@ -254,9 +273,7 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
 
           {/* The still behind the film is the poster, so the column is never
               an empty half-screen while the video loads and anyone who has
-              asked for reduced motion keeps a picture rather than a blank.
-              That switch is in CSS in app/globals.css, not in a JavaScript
-              branch here, for the reason set out in components/k/Reveal.tsx. */}
+              asked for reduced motion keeps a picture rather than a blank. */}
           <div className="relative min-h-[420px] w-full lg:min-h-[640px] lg:w-1/2">
             <Image
               src={about.experience.posterImage}
@@ -279,24 +296,28 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
         </div>
       </section>
 
-      {/* THE WAY WE DO BUSINESS
-          Two paragraphs and a lead-in line, then the six commitments counted
-          out on a ruled grid, each under a small gold number. The grid is the
-          reason this section sits on the dark ground: six short instructions
-          in a row read as a list anywhere else, and here they read as the
-          standards the section says they are.
+      {/* ================================================================
+          03 · THE WAY WE DO BUSINESS. Two paragraphs and a lead-in, then
+          the six commitments counted out on the dark ground, where six
+          short instructions read as standards rather than as a list.
 
-          KEEP EACH COMMITMENT TO A FEW WORDS. They are set at display size,
-          and a commitment that wraps to three lines stops reading as a
-          standard and starts reading as a paragraph that lost its way. */}
-      <section className="bg-k-coal px-6 py-32 md:px-12 lg:px-24 lg:py-36">
+          KEEP EACH COMMITMENT TO A FEW WORDS. They are set at display
+          size, and one that wraps to three lines stops reading as a
+          standard and starts reading as a paragraph that lost its way.
+          ================================================================ */}
+      <section id="c3" className="scroll-mt-24 bg-k-coal px-6 py-32 md:px-12 lg:px-24 lg:py-36">
         <div className="mx-auto max-w-[1248px]">
           <Reveal variant="wipe">
-            <h2
-              data-tina-field={tinaField(about.standards, "eyebrow")}
-              className="font-display text-k-d2 font-black text-k-on-dark"
-            >
-              {fill(about.standards.eyebrow)}
+            <h2 className="flex items-baseline gap-6">
+              <span className="font-text text-k-micro uppercase tabular-nums text-k-gold-lit">
+                03
+              </span>
+              <span
+                data-tina-field={tinaField(about.standards, "eyebrow")}
+                className="font-display text-k-d2 font-black text-k-on-dark"
+              >
+                {fill(about.standards.eyebrow)}
+              </span>
             </h2>
           </Reveal>
           <div className="mt-12 flex max-w-[720px] flex-col gap-6">
@@ -341,79 +362,82 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
         </div>
       </section>
 
-      {/* LOOKING FORWARD
-          A single indented column, pushed off the left margin the same
-          distance the opening photograph is, so the two ends of the page
-          lean the same way. Five short paragraphs, the first at full
-          strength and the rest a step softer.
-
-          This section speaks of growth and names no figures. The numbers
-          live on the Road Ahead page; keep them there. */}
-      <section className="bg-k-paper px-6 py-32 md:px-12 lg:px-24 lg:py-36">
+      {/* ================================================================
+          04 · LOOKING FORWARD. The three modes his vision names, set as a
+          row where he names them, then the paragraphs. His words made
+          visible, not a claim of services: the paragraphs say plainly this
+          is a goal, and no figure or date is attached to any of them.
+          ================================================================ */}
+      <section id="c4" className="scroll-mt-24 bg-k-paper px-6 py-32 md:px-12 lg:px-24 lg:py-36">
         <div className="mx-auto max-w-[1248px]">
-          <div className="lg:pl-[100px]">
-            <Reveal variant="wipe">
-              <h2
+          <Reveal variant="wipe">
+            <h2 className="flex items-baseline gap-6">
+              <span className="font-text text-k-micro uppercase tabular-nums text-k-gold">
+                04
+              </span>
+              <span
                 data-tina-field={tinaField(about.forward, "eyebrow")}
                 className="font-display text-k-d2 font-black text-k-ink"
               >
                 {fill(about.forward.eyebrow)}
-              </h2>
-            </Reveal>
+              </span>
+            </h2>
+          </Reveal>
 
-            {/* The three modes his vision names, in his email's order. They
-                are his words made visible, not a claim of services: the
-                paragraphs underneath say plainly that this is a goal, and no
-                figure or date is attached to any of them. */}
-            <Reveal variant="settle" className="mt-10">
-              <ol className="flex max-w-[560px] flex-col gap-x-6 gap-y-4 sm:flex-row">
-                {(about.forward.modes ?? []).map((mode, i) => (
-                  <li
-                    key={mode}
-                    className="flex flex-1 items-baseline gap-3 border-t border-k-ink/15 pt-4"
-                  >
-                    <span className="font-text text-k-micro uppercase tabular-nums text-k-gold">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span className="font-text text-k-body font-semibold uppercase tracking-[0.08em] text-k-ink">
-                      {fill(mode)}
-                    </span>
-                  </li>
-                ))}
-              </ol>
-            </Reveal>
-
-            <div className="mt-12 flex max-w-[760px] flex-col gap-6">
-              {about.forward.paragraphs.map((paragraph, i) => (
-                <Reveal key={paragraph.slice(0, 40)} index={i}>
-                  <Copy
-                    text={paragraph}
-                    className={`font-text text-k-lede ${
-                      i === 0 ? "text-k-ink" : "text-k-ink-soft"
-                    }`}
-                    linkClassName="underline underline-offset-4"
-                  />
-                </Reveal>
+          <Reveal variant="settle" className="mt-12">
+            <ol className="flex max-w-[640px] flex-col gap-x-6 gap-y-4 sm:flex-row">
+              {(about.forward.modes ?? []).map((mode, i) => (
+                <li
+                  key={mode}
+                  className="flex flex-1 items-baseline gap-3 border-t border-k-ink/15 pt-4"
+                >
+                  <span className="font-text text-k-micro uppercase tabular-nums text-k-gold">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="font-text text-k-body font-semibold uppercase tracking-[0.08em] text-k-ink">
+                    {fill(mode)}
+                  </span>
+                </li>
               ))}
-            </div>
+            </ol>
+          </Reveal>
+
+          <div className="mt-12 flex max-w-[760px] flex-col gap-6">
+            {about.forward.paragraphs.map((paragraph, i) => (
+              <Reveal key={paragraph.slice(0, 40)} index={i}>
+                <Copy
+                  text={paragraph}
+                  className={`font-text text-k-lede ${
+                    i === 0 ? "text-k-ink" : "text-k-ink-soft"
+                  }`}
+                  linkClassName="underline underline-offset-4"
+                />
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* OUR COMMITMENT
-          The belief section turned the other way up: the quiet paragraphs
-          come first and the large line lands last, because it is the line
-          the whole statement has been walking towards, and it is the same
-          sentence the page opened on. That repeat is the point. If the
-          sentence changes in the belief section it must change here too. */}
-      <section className="bg-k-surface px-6 py-32 md:px-12 lg:px-24 lg:py-36">
+      {/* ================================================================
+          05 · OUR COMMITMENT. The quiet paragraphs first, then the line
+          the whole statement has been walking towards, which is the same
+          sentence the cover opened on. The cover and this close are the
+          document's two dark ends; the repeat is the point, and both read
+          one CMS file.
+          ================================================================ */}
+      <section id="c5" className="scroll-mt-24 bg-k-surface px-6 py-32 md:px-12 lg:px-24 lg:py-36">
         <div className="mx-auto max-w-[1248px]">
           <Reveal variant="wipe">
-            <h2
-              data-tina-field={tinaField(about.commitment, "eyebrow")}
-              className="font-display text-k-d2 font-black text-k-ink"
-            >
-              {fill(about.commitment.eyebrow)}
+            <h2 className="flex items-baseline gap-6">
+              <span className="font-text text-k-micro uppercase tabular-nums text-k-gold">
+                05
+              </span>
+              <span
+                data-tina-field={tinaField(about.commitment, "eyebrow")}
+                className="font-display text-k-d2 font-black text-k-ink"
+              >
+                {fill(about.commitment.eyebrow)}
+              </span>
             </h2>
           </Reveal>
           <div className="mt-12 flex max-w-[720px] flex-col gap-6">
@@ -438,19 +462,16 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
         </div>
       </section>
 
-      {/* THE PARTICULARS
-          Shape taken from the colophon on Runway's Telescope site: one wide
-          line of capitals across the top, a rule under it, then a row of
-          narrow columns of small print, each headed by a tiny label.
+      {/* ================================================================
+          THE PARTICULARS. One wide line of capitals, a rule, then narrow
+          columns of small print: the imprint at the foot of the document,
+          signed with the mark. Maersk closes its about page on a plate of
+          plain facts for the same reason.
 
-          The sentence beside the mark is the tagline, filled from Business
-          Facts by the {tagline} token, so the statement closes on the same
-          three lines the lockup carries and the words exist in one place.
-
-          This is where the page ends. There is no closing call to action
-          because the dispatch column below is one, and because a band saying
-          "get a quote" under an imprint would undo the register the whole
-          page is written in. The footer carries the rest. */}
+          There is no closing call to action, because a band saying "get a
+          quote" under an imprint would undo the register the whole page is
+          written in. The footer carries the rest.
+          ================================================================ */}
       <section className="bg-k-paper px-6 py-32 md:px-12 lg:px-24 lg:py-36">
         {/* The mark sits opposite the sentence, so the row reads as a
             signature at the end of a document, which is what an imprint is.
