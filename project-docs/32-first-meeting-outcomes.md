@@ -196,6 +196,37 @@ the CMS), the packet documents (drop into public/packet plus one CMS field
 each), and word on whether the rebuilt About now matches what he meant by
 his email.
 
+## Second pass, August 9 evening (Jalen's corrections)
+
+Jalen reviewed the first pass and corrected five things, all shipped and
+deployed the same evening:
+
+- **The MC went back on.** It is the same MC and the truck is coming soon,
+  so 66389691 is published again everywhere it was before. The conditional
+  rendering stays: emptying the one site.json field is still the single
+  switch that retires it sitewide. Priority zero above is closed, inverted.
+- **The map is interactive again.** Hover and the state pill buttons
+  returned; the printed titles stay deleted and the live announcement is
+  screen-reader-only. That is the standing synthesis of Mark's
+  delete-the-titles and Jalen's keep-it-interactive.
+- **The close tightened.** The tagline is one line, not the three-line
+  stack, and the photographs carry no caption.
+- **The film's chrome moved down and the film moved up.** The top exit was
+  sitting under the nav; there is no top chrome at all now, EXIT sits in a
+  pill beside PAUSE at the bottom right, and the player portals to
+  document.body at z-[120] because the layout's `relative z-[1]` page
+  wrapper caps any in-page z-index below the z-[95] bar.
+- **Road Ahead re-homed.** Off the phone menu, onto the Journey dropdown
+  panel as a second row. The footer's Company list still carries it.
+
+Two repairs rode along: the services carousel's sizing CSS (never journey
+code, cut by accident with the journey stylesheet) was restored, and About
+was rebuilt whole rather than adjusted: a coal cover with the purpose line
+and a numbered contents (the 37signals move) over five numbered chapters
+(Maersk's purpose-hero and facts plate; Mobbin's numbered values grid),
+every word of the email verbatim, the index reading the same CMS fields as
+the chapter headings so the two cannot drift.
+
 ## Standing rules this meeting created
 
 - No copy anywhere that frames KUL as one driver answering one phone.
