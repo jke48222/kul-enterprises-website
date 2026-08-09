@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { services } from "@/lib/services";
-import { CHAPTERS, GROUND_CLASS } from "@/lib/journey";
 import { site } from "@/lib/site";
 import content from "@/content/site.json";
 
@@ -21,7 +20,7 @@ import content from "@/content/site.json";
  *   Carrier Packet  A manifest, with a column saying what is already in the
  *                   packet and what has to be asked for.
  *   About           A calling card. One photograph, one line, three facts.
- *   The Journey     Five act sleeves off the shelf, in order.
+ *   The Journey     One line and the door: the page is a film.
  *   Contact         Three lanes on one baseline, all of them live links.
  *
  * WHY THE SHAPES DIFFER RATHER THAN MATCH. The client rejected an earlier
@@ -30,14 +29,12 @@ import content from "@/content/site.json";
  * Safety and then opens Carrier Packet should be able to tell them apart with
  * the type blurred out.
  *
- * EVERY FIGURE HERE IS REAL and comes from content/site.json, lib/journey.ts or
- * the page it belongs to. Nothing in a menu may be written for the menu: if it
- * is not true on the page, it does not belong in the panel that opens onto it.
+ * EVERY FIGURE HERE IS REAL and comes from content/site.json or the page it
+ * belongs to. Nothing in a menu may be written for the menu: if it is not
+ * true on the page, it does not belong in the panel that opens onto it.
  *
- * THE PANELS ARE MOSTLY PLAIN MARKUP. The bar that opens them is a client
- * component and handles the open state; the one behaviour in this file is the
- * journey sleeve's play-on-hover, which exists so nothing in a menu ever moves
- * without the reader asking it to.
+ * THE PANELS ARE PLAIN MARKUP. The bar that opens them is a client component
+ * and handles the open state; nothing in a menu moves on its own.
  */
 
 /** The width the pill gives a panel to work in, matched across all of them. */
@@ -334,124 +331,30 @@ export function AboutPanel() {
 /* ------------------------------------------------------------------ */
 
 /**
- * Five sleeves off the shelf, in order, each straight to the scene its act
- * opens on.
+ * One line and the door.
  *
- * They are read from lib/journey.ts, which zips the act structure with the
- * titles the CMS holds, so an act cannot be renamed in one place and go stale
- * in the other. The seventeen scenes divide into five acts at the page's own
- * curtains; seventeen menu items would be a table of contents, not a shelf.
+ * The five act sleeves that lived here went with the scene build at the
+ * first walkthrough (project-docs/32): the Journey is a film now, starting
+ * fresh, and until the real film arrives with its own sections there is
+ * nothing honest for a menu to shelve. The panel says what the page is and
+ * opens it, and that is all it should do until then.
  */
 export function JourneyPanel() {
   return (
-    // THE SLEEVES SHARE THE BAR RATHER THAN SITTING IN A ROW AT ONE END.
-    //
-    // They were 132px wide and fixed, which is 852px of content in a 1180px
-    // pill, so the panel opened with a third of itself empty and white down
-    // the right hand side. The client drew a line round it: the panel is
-    // supposed to end where the chapters end.
-    //
-    // A panel narrower than the bar above it is not available here, because
-    // both are drawn inside one pill that has to stay the width of the
-    // navigation. So the chapters take the width instead. `basis-0 flex-1`
-    // makes all five exactly equal and lets them divide whatever is left after
-    // the gaps, at any pill width, which also means the covers arrive larger
-    // than they were. Nothing scrolls: five is the whole set and always fits.
-    <div className="px-6 pb-5 pt-3">
-      <PanelLabel>Five acts</PanelLabel>
+    <div className={PAD}>
+      <PanelLabel>The Journey</PanelLabel>
 
-      <ul className="flex gap-3">
-        {CHAPTERS.map((chapter) => (
-          <li key={chapter.n} className="min-w-0 flex-1 basis-0">
-            <Link
-              href={`/journey${chapter.href}`}
-              className="group block"
-              // The clip runs only while this sleeve is under the pointer or
-              // holding focus. Nothing in the menu moves on its own, so the
-              // pause-control requirement never arises, and the film costs
-              // nothing until somebody shows interest in exactly this act.
-              onMouseEnter={(e) => {
-                const v = e.currentTarget.querySelector("video");
-                if (v) void v.play().catch(() => undefined);
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.querySelector("video")?.pause();
-              }}
-              onFocus={(e) => {
-                const v = e.currentTarget.querySelector("video");
-                if (v) void v.play().catch(() => undefined);
-              }}
-              onBlur={(e) => {
-                e.currentTarget.querySelector("video")?.pause();
-              }}
-            >
-              <span className="relative block aspect-square w-full overflow-hidden rounded-2xl">
-                {/* ONE OF THE FIVE MOVES, AND IT IS THE ONE ABOUT DRIVING.
-                    Five still photographs in a row reads as a contact sheet;
-                    one of them running turns it into a shelf you want to take
-                    something off. Which one is decided in lib/journey.ts and
-                    not here, because the footage has to be of the act it
-                    is on.
-
-                    Every attribute below is doing a job. `poster` is the same
-                    file the still sleeves use, so the tile is never empty
-                    while the clip loads. `preload="metadata"` fetches the
-                    header and not the video: this panel is behind a hover and
-                    most visitors never open it, so pulling two megabytes on
-                    every page load to decorate a menu would be indefensible.
-                    `playsInline` stops iOS taking the clip fullscreen, `muted`
-                    is what makes autoplay legal at all, and `tabIndex={-1}`
-                    keeps a decorative element out of the tab order inside a
-                    link that is already focusable.
-
-                    ANYONE WHO HAS ASKED FOR REDUCED MOTION GETS THE POSTER.
-                    That switch is in CSS, in app/globals.css, rather than in a
-                    JavaScript branch here: useReducedMotion() returns false on
-                    the server every time, so branching the markup on it would
-                    ship the video to those readers and then take it away. */}
-                {chapter.cover ? (
-                  <>
-                    <Image
-                      src={chapter.cover}
-                      alt=""
-                      fill
-                      sizes="200px"
-                      className="object-cover"
-                    />
-                    {chapter.clip ? (
-                      <video
-                        className="kul-sleeve-clip absolute inset-0 h-full w-full object-cover"
-                        src={chapter.clip}
-                        poster={chapter.cover}
-                        muted
-                        loop
-                        playsInline
-                        preload="none"
-                        tabIndex={-1}
-                        aria-hidden="true"
-                      />
-                    ) : null}
-                  </>
-                ) : (
-                  <span
-                    className={`absolute inset-0 flex items-end p-3 ${GROUND_CLASS[chapter.ground]}`}
-                  >
-                    <span className="font-text text-k-micro uppercase text-k-on-dark-faint">
-                      No photograph
-                    </span>
-                  </span>
-                )}
-                <span className="absolute left-3 top-2.5 font-text text-k-micro uppercase tabular-nums text-k-on-dark">
-                  {chapter.n}
-                </span>
-              </span>
-              <span className="block pt-2.5 font-text text-[12px] leading-[17px] text-k-ink">
-                {chapter.title}
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <div className="flex flex-col gap-2 md:flex-row md:items-baseline md:justify-between md:gap-8">
+        <p className="max-w-[40ch] font-display text-[21px] font-black leading-7 tracking-[-0.02em] text-k-ink">
+          The story, told as a film.
+        </p>
+        <Link
+          href="/journey"
+          className="shrink-0 whitespace-nowrap border-b border-k-gold pb-0.5 font-text text-k-label uppercase text-k-gold"
+        >
+          Watch
+        </Link>
+      </div>
     </div>
   );
 }

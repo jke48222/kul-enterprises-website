@@ -667,204 +667,42 @@ export default defineConfig({
       ], "/about"),
 
       /**
-       * THE JOURNEY: SEVENTEEN SCENES, ONE SUNRISE.
+       * THE JOURNEY: A FILM AND AN INDEX.
        *
-       * Every word on the page lives here, one group per scene, in scene
-       * order. EVERY LINE IS MARK'S OWN, from his screenplay; copy is sacred
-       * on this project, so edits here should be his call. What is NOT here:
-       * the colours, the plate numbers and the scene heights, which live in
-       * lib/journey-spine.ts because they are the page's structure rather
-       * than its words, and the photograph register, which is the developer's
-       * record of the files on disk.
+       * The seventeen-scene scroll build and every line of its screenplay
+       * were removed at the first walkthrough (project-docs/32): the page
+       * starts fresh as a documentary film. A dashcam clip stands in until
+       * the real film arrives from Mark's family; the index entries are
+       * placeholders for the film's eventual sections.
        */
       page("journeyPage", "The Journey page", "journey", [
         seo(),
+        group("film", "The film", [
+          text(
+            "video",
+            "Which film plays",
+            "The file name with no .mp4 on the end. A dashcam clip stands in until the real Journey film arrives; the day it lands, put the file and its -720 version in the videos folder and change this.",
+          ),
+          image("poster", "The still shown before it loads"),
+        ]),
+        text("exitLabel", "The leave control", "Read to screen readers and shown at the top right."),
+        text("exitHint", "The keys reminder", "For example: Esc or space"),
+        text("pauseLabel", "The pause control's word"),
+        text("playLabel", "The play control's word"),
+        text("indexLabel", "The word above the index"),
         {
           type: "object",
-          name: "acts",
-          label: "The five acts, as the menu names them",
+          name: "chapters",
+          label: "The index",
           description:
-            "The navigation's shelf for this page. Which scene each act opens at, and its cover, is structure and lives in code; the names are yours.",
+            "Each entry is a click-to-jump point in the film: a name and the second it starts at. Placeholders until the real film arrives with its own sections.",
           list: true,
-          ui: { itemProps: (item) => ({ label: item?.title || "Act" }) },
-          fields: [text("title", "Act title")],
+          ui: { itemProps: (item) => ({ label: item?.label || "Chapter" }) },
+          fields: [
+            text("label", "Section name"),
+            { type: "number", name: "time", label: "Starts at (seconds)" },
+          ],
         },
-        group("s01", "Scene 01, the title card", [
-          paragraphs("setup", "The three-line setup"),
-          text("heading", "The title"),
-          text("mine", "The line about himself", "The only gold-marked sentence in the scene."),
-          text("skip", "The skip link, read by screen readers"),
-        ]),
-        group("s02", "Scene 02, Jamaica", [
-          paragraphs("said", "The three sentences"),
-          text("caption", "The caption under the photograph"),
-          text("alone", "The sentence that stands alone", "It has no motion of any kind, on purpose. The long pause before it is scroll distance."),
-          longText("lesson", "The lesson"),
-        ]),
-        group("s03", "Scene 03, the value of work", [
-          paragraphs("opening", "The arrival, three lines"),
-          text("turnA", "The turn, first line"),
-          text("turnB", "The turn, second line"),
-          paragraphs("triplet", "The ledger of three summers", "Counted 01 02 03 in the margin with the gold rule."),
-          text("father", "The line about his father"),
-          text("coupletA", "The conclusion, first line"),
-          text("coupletB", "The conclusion, second line"),
-          longText("lesson", "The lesson"),
-        ]),
-        group("s04", "Scene 04, questions", [
-          text("leadA", "Lead-in, first line"),
-          text("leadB", "Lead-in, second line"),
-          paragraphs("stack", "The six questions", "Each line's gold rule grows longer than the last; the sixth runs off the page. The uneven gaps between them are the design and live in code."),
-          longText("lesson", "The lesson"),
-        ]),
-        group("s05", "Scene 05, independence", [
-          text("momentA", "The moment, first line"),
-          text("momentB", "The moment, second line"),
-          text("mine", "The claim", "The largest type in the scene."),
-          text("leaving", "Leaving home"),
-          text("firstTime", "First decisions"),
-          text("cross", "The sentence that crosses the seam"),
-          text("good", "One half of the pair"),
-          text("bad", "The other half", "Set byte-for-byte the same as its partner, on the other side of the line. The page refuses to rank them."),
-          text("belonged", "The line that closes the seam"),
-          longText("couplet", "The conclusion"),
-          text("lesson", "The lesson"),
-        ]),
-        group("s06", "Scene 06, the Air Force", [
-          text("freedomA", "First line"),
-          text("freedomB", "Second line"),
-          text("question", "The question"),
-          text("answerA", "First answer"),
-          text("answerB", "Second answer"),
-          text("airforce", "The enlistment", "Deliberately the quietest sentence on screen: service, not a trophy."),
-          text("noPhoto", "The empty-plate caption", "True, and it must stay true: no photograph of this decision exists."),
-          text("credit", "The photograph credit"),
-          longText("lesson", "The lesson"),
-        ]),
-        group("s07", "Scene 07, discipline", [
-          longText("lead", "The lead-in"),
-          paragraphs("drilled", "The three drilled words", "Each one is compressed and made heavier as you scroll: the same word, made stronger."),
-          longText("couplet", "The conclusion"),
-        ]),
-        group("s08", "Scene 08, the bend", [
-          paragraphs("statements", "The seven statements", "Their left edges trace the bend down the page. Victories and setbacks sit on opposite swings and are never ranked."),
-          text("questionA", "The question, first part"),
-          text("questionB", "The question, second part"),
-          text("lessonA", "The lesson, first line"),
-          text("lessonB", "The lesson, second line"),
-        ]),
-        group("s09", "Scene 09, earning trust", [
-          paragraphs("cards", "The eight strata", "Each one is a layer that stays; nothing later covers anything earlier."),
-          text("recordLabel", "The contact sheet's label", "Sits over the three working-life photographs from 2021 and 2022."),
-          longText("recordNote", "What the contact sheet is", "One sentence saying whose photographs these are and when. Which three photographs, and their dates, come from the plate register in code."),
-          longText("lesson", "The lesson"),
-        ]),
-        group("s10", "Scene 10, the road", [
-          {
-            type: "object",
-            name: "frames",
-            label: "The eleven photographs' words",
-            description:
-              "THE ORDER IS THE ORDER OF THE LIGHT and must not change: which photograph carries which line is decided here by position. The light labels are descriptions, never clock times; a false time would be the one lie on the page.",
-            list: true,
-            ui: { itemProps: (item) => ({ label: item?.light || "Frame" }) },
-            fields: [
-              text("light", "What the light is doing"),
-              longText("line", "The line over it"),
-            ],
-          },
-        ]),
-        group("s11", "Scene 11, people", [
-          longText("premise", "The premise"),
-          text("people", "The answer", "Set very large."),
-          paragraphs("roll", "The roll call", "Six names, one to a line. The reading line calls each one as it passes; which photograph stands beside them is the register's business and lives in code."),
-          longText("plateNote", "The caption under the portrait", "One sentence saying who this is and why one face stands for a list of six."),
-        ]),
-        group("s12", "Scene 12, more than a business", [
-          text("b1", "Margin note, first"),
-          text("b2", "The outgrown question", "Comes to full ink, holds alone, then falls back and stays faint on the page. Outgrown is not deleted."),
-          text("b3", "Margin note, second"),
-          text("b4", "The new question", "Larger and heavier than the one it replaced. That difference is the argument."),
-          text("b5", "First requirement"),
-          text("b6", "Second requirement"),
-          text("b7", "The turn"),
-          text("b9", "The payoff"),
-          text("closeA", "The closing line, first sentence"),
-          text("closeB", "The closing line, second sentence"),
-          text("showFull", "The escape control", "For a reader who does not want to be held in the pin. Do not remove it."),
-        ]),
-        group("s13", "Scene 13, the promise", [
-          text("filingsLabel", "The ledger's label"),
-          paragraphs("filings", "The sixteen filings", "Real, generic filings a US motor carrier actually makes. Names only, forever: no numbers, no dates, no seals. The moment one carries a number it becomes a fabricated document."),
-          text("coupletA", "The couplet, first line"),
-          text("coupletB", "The couplet, second line"),
-          text("hinge", "The hinge"),
-          paragraphs("vows", "The four vows"),
-          text("closer", "The closer", "Set in the lane the paperwork occupied."),
-          longText("lesson", "The lesson"),
-        ]),
-        group("s14", "Scene 14, meet KUL", [
-          paragraphs("fragments", "The three travelling fragments"),
-          text("led", "The destination", "It never moves: three things travel and stop against the one that was already standing there."),
-          longText("say", "His greeting"),
-          text("welcome", "The welcome line"),
-          text("portraitName", "The caption on the portrait when no date is known"),
-        ]),
-        group("s15", "Scene 15, what we stand for", [
-          text("kicker", "The small label above the scene"),
-          text("introA", "Intro, first line"),
-          text("introB", "Intro, second line"),
-          {
-            type: "object",
-            name: "values",
-            label: "The six values",
-            description: "Each one is a name and what it costs. The laminate's geometry is derived from these words.",
-            list: true,
-            ui: { itemProps: (item) => ({ label: item?.name || "Value" }) },
-            fields: [text("name", "The value"), longText("promise", "The promise")],
-          },
-          text("closeA", "The closing pair, first line"),
-          text("closeB", "The closing pair, second line"),
-        ]),
-        group("s16", "Scene 16, the road ahead", [
-          paragraphs("triad", "The opening triad"),
-          text("inService", "The left endpoint caption"),
-          text("target", "The right endpoint caption", "The fifty-tractor target is Mark's own stated vision. If the vision changes, change it here and on the Road Ahead page together."),
-          text("next", "The word under the hollow second mark"),
-          paragraphs("stations", "The three stations", "What actually closes the gap, in his words."),
-          text("still", "Still writing"),
-          text("aheadA", "The couplet, first line"),
-          text("aheadB", "The couplet, second line"),
-          longText("lesson", "The lesson"),
-        ]),
-        group("s17", "Scene 17, the record", [
-          paragraphs("summation", "The four summation lines"),
-          text("turnA", "The turn, first line"),
-          text("turnB", "The turn, second line"),
-          text("silenceWord", "The margin word over the silence"),
-          text("thesisA", "The thesis, quiet half"),
-          text("thesisB", "The thesis, heavy half", "The page's one dramatic weight step: the earned half is physically heavier ink than the given half."),
-          paragraphs("cadence", "The cadence, three lines"),
-          longText("invite", "The invitation above the doors"),
-          text("continueWord", "The margin word beside the doors"),
-          {
-            type: "object",
-            name: "doors",
-            label: "The two doors",
-            list: true,
-            ui: { itemProps: (item) => ({ label: item?.label || "Door" }) },
-            fields: [text("label", "Door label"), text("path", "Where it goes")],
-          },
-          text("indexLabel", "The index rail, left"),
-          text("indexTitle", "The index rail, centre"),
-          text("skipIndex", "The skip link over the index"),
-          text("colophonWord", "The margin word beside the colophon"),
-          longText("colophon", "The colophon", "Keep it true: the counts in it describe the register in lib/journey-spine.ts."),
-          text("setNote", "The set note"),
-          text("signoff", "The sign-off"),
-          text("endWord", "The margin word at the end"),
-        ]),
-        text("lessonWord", "The word the site uses for a lesson", "Printed by the furniture wherever a scene labels its lesson."),
       ], "/journey"),
 
       page("roadAheadPage", "Road Ahead page", "road-ahead", [
