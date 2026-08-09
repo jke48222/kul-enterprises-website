@@ -12,7 +12,7 @@
     "imageAlt": "An open highway running toward distant hills",
     "heading": "{location}",
     "addressLines": ["{city}, Georgia 30052", "{serviceArea}"],
-    "hoursLines": ["Dispatch: 24 hours", "USDOT {usdot}"],
+    "hoursLines": ["Dispatch: 24 hours", "USDOT {usdot} · MC {mc}"],
     "emailCta": { "label": "Email dispatch", "href": "{email}" },
     "mapCta": { "label": "See the service area", "href": "#service-area" }
   },

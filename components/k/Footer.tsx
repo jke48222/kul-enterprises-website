@@ -270,10 +270,10 @@ export default function Footer() {
                     {site.usdot}
                   </dd>
                 </div>
-                {/* The MC row renders only once the number exists. The field
-                    sits empty in site.json until the first tractor is
-                    registered, and filling it in there brings this back
-                    without touching code. */}
+                {/* The MC row renders only while site.json holds a number,
+                    so clearing that one field retires it from every surface
+                    at once. It holds the number today at Mark's word: same
+                    MC, truck coming soon. */}
                 {site.mc ? (
                   <div>
                     <dt className="font-text text-k-micro uppercase text-k-on-dark-soft">

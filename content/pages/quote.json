@@ -30,6 +30,7 @@
   "credentials": {
     "items": [
       "USDOT {usdot}",
+      "MC {mc}",
       "Licensed and insured",
       "Dispatch answers 24/7"
     ],

@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Safety and Compliance",
-    "description": "KUL Enterprises is a licensed and insured freight carrier, USDOT {usdot}. Verify our authority and insurance filing directly with the FMCSA."
+    "description": "KUL Enterprises is a licensed and insured freight carrier, USDOT {usdot}, MC {mc}. Verify our authority and insurance filing directly with the FMCSA."
   },
   "opening": {
     "eyebrow": "Safety and compliance",
@@ -11,13 +11,19 @@
   "credentials": {
     "heading": "Authority and insurance",
     "decal": "/images/brand/door-decal.webp",
-    "decalAlt": "The KUL Enterprises LLC decal on the tractor door, {location}",
+    "decalAlt": "The decal on the tractor door, reading KUL Enterprises LLC, USDOT {usdot}, MC {mc}, {location}",
     "items": [
       {
         "label": "USDOT number",
         "value": "{usdot}",
         "note": "Look this up on the FMCSA SAFER system",
         "href": "https://safer.fmcsa.dot.gov/query.asp?searchtype=ANY&query_type=queryCarrierSnapshot&query_param=USDOT&query_string={usdot}"
+      },
+      {
+        "label": "MC number",
+        "value": "{mc}",
+        "note": "Operating authority, active",
+        "href": ""
       },
       {
         "label": "Insurance",

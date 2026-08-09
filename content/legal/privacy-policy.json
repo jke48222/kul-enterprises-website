@@ -15,7 +15,7 @@
     },
     {
       "heading": "About us",
-      "body": "{legalName} is a for-hire interstate motor carrier based in {location}, operating under USDOT {usdot}. We provide freight transportation services across the United States, directly for shippers and through freight brokers, in accordance with federal motor carrier regulations.",
+      "body": "{legalName} is a for-hire interstate motor carrier based in {location}, operating under USDOT {usdot} and MC {mc}. We provide freight transportation services across the United States, directly for shippers and through freight brokers, in accordance with federal motor carrier regulations.",
       "onlyWithAnalytics": false
     },
     {

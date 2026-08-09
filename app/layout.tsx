@@ -130,9 +130,9 @@ const jsonLd = {
   areaServed: "United States",
   identifier: [
     { "@type": "PropertyValue", propertyID: "USDOT", value: site.usdot },
-    // The MC identifier returns the day the number is registered and filled
-    // in site.json; until then the empty value must not ship as structured
-    // data a broker's tooling could read as an authority claim.
+    // The MC identifier ships only while site.json holds a number, so an
+    // empty field can never publish an empty authority claim as structured
+    // data.
     ...(site.mc
       ? [{ "@type": "PropertyValue", propertyID: "MC", value: site.mc }]
       : []),

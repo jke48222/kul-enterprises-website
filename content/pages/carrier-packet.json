@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Carrier Packet",
-    "description": "Operating authority, W-9 and certificate of insurance for KUL Enterprises, USDOT {usdot}. Authority and insurance can be checked on the federal record without asking us."
+    "description": "Operating authority, W-9 and certificate of insurance for KUL Enterprises, USDOT {usdot}, MC {mc}. Authority and insurance can be checked on the federal record without asking us."
   },
   "start": {
     "heading": "The packet comes by email.",
@@ -44,6 +44,10 @@
       {
         "field": "USDOT number",
         "value": "{usdot}"
+      },
+      {
+        "field": "MC number",
+        "value": "{mc}"
       },
       {
         "field": "Entity type",
