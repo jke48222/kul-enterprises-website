@@ -154,6 +154,48 @@ Page stands as built. No action.
    here.)
 3. Does the people-imagery instruction reach About? Ask Mark before acting.
 
+## Executed, August 9 (addendum)
+
+Jalen answered the open questions the same day and the whole wave shipped to
+main, which auto-deploys. Decisions taken in execution:
+
+- The hero H1 counted as one-driver signaling and became "Every mile. On
+  schedule." (241px at the 36px floor, measured; the wrap note in
+  home-view.tsx has the figures.)
+- Replacement copy is direct and neutral throughout: dispatch is a function
+  that answers around the clock, never a person who drives. Road Ahead was
+  retitled "Fifty tractors by 2029" and its 1-truck 1-driver tiles came out,
+  as did the SAFER-style Power units and Drivers rows on the packet page and
+  both form success messages that named Mark or the second truck.
+- The Drivers film is dash-daylight, in colour: rain belongs to the 404 and
+  night to Safety, and Mark's conditions were "not the 404's clip" and "not
+  black and white". Scrim stops were set by measurement against the poster
+  frame: 3.36:1 on the h1, 5.38:1 on the lede, 6.95:1 on the body, all in
+  full k-on-dark after the usual soft grey measured 2.52:1.
+- The Journey teardown was total: seventeen scene components, the spine, the
+  journey half of globals.css, the five-sleeve nav panel and the screenplay
+  content all came out. /journey is now a fullscreen player: dash-night as
+  the placeholder reel, Esc and space to leave (space defers to a focused
+  control, where it is the activation key), and a four-entry placeholder
+  index that seeks the playhead. All of it CMS-wired for the real film.
+- The homepage close uses gal-river-rocks and s02b-caribbean-water (the
+  sanctioned originals; waterfall-figure was excluded for the figure in it),
+  the lion mark blended multiply onto the warm ground, and the lion links to
+  /journey as the "journey icon".
+- The carrier packet grew a download per document row, driven by a CMS file
+  field that ships empty; watermarked placeholder PDFs live in public/packet
+  which is gitignored, so they can never deploy.
+- About was rebuilt document-first: his email's titles at display size in
+  his order, the opening stripped to type (the Maersk purpose-as-hero move),
+  the six commitments numbered, and the Ground / Air / Maritime modes of his
+  vision set as a row. Every word verbatim; the three standing corrections
+  held.
+
+Still owed by Mark, unchanged: the stepmom's film (drops into the player via
+the CMS), the packet documents (drop into public/packet plus one CMS field
+each), and word on whether the rebuilt About now matches what he meant by
+his email.
+
 ## Standing rules this meeting created
 
 - No copy anywhere that frames KUL as one driver answering one phone.
