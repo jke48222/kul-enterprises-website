@@ -546,9 +546,13 @@ export default function Nav() {
               and the swap point where seven links, the lion, the quote button
               and the search fit on one line with room to breathe. See
               MENU_BREAKPOINT above. */}
+          {/* py-1.5 since 9 Aug at Mark's word: a thinner bar. The 44px tap
+              targets inside it are the floor the pill cannot go under, so
+              thinner is bought from the wrapper's padding alone: 64px down
+              to 56px. */}
           <nav
             aria-label="Primary"
-            className="flex w-full items-center justify-between py-2.5 pl-6 pr-2.5 min-[1240px]:grid min-[1240px]:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] min-[1240px]:px-2.5"
+            className="flex w-full items-center justify-between py-1.5 pl-6 pr-2.5 min-[1240px]:grid min-[1240px]:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] min-[1240px]:px-2.5"
           >
             {/* The menu to the left of the lion, packed against the near end of
                 the bar. Below the swap point it is not rendered at all. */}
