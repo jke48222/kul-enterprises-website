@@ -3,6 +3,10 @@
     "title": "Drive With KUL",
     "description": "KUL Enterprises is taking driver applications now, ahead of the next seat opening. CDL-A, Southeast regional out of {location}, with over the road available."
   },
+  "film": {
+    "video": "dash-daylight",
+    "poster": "/videos/dash-daylight-poster.jpg"
+  },
   "notice": {
     "heading": "Driving for KUL",
     "lead": "Applications are open now, ahead of the next seat.",

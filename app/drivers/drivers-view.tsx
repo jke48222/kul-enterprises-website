@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import DriverForm from "@/components/forms/DriverForm";
+import HeroVideo from "@/components/k/HeroVideo";
 import Reveal from "@/components/k/Reveal";
 import Breadcrumb from "@/components/k/Breadcrumb";
 import Copy from "@/components/k/Copy";
@@ -98,18 +99,44 @@ export default function DriversView(props: TinaPage<{ driversPage: unknown }>) {
 
   return (
     <>
-      {/* THE NOTICE
-          Shape taken from the Lyssna careers page, which states its hiring
-          position in plain bold text at reading size rather than dressing it
-          up as a headline.
+      {/* THE NOTICE, OVER THE FILM.
+          The shape is still the Lyssna careers notice: the hiring position in
+          plain bold text at reading size rather than dressed up as a
+          headline, with the two rules running the full width while the words
+          sit in a narrow column inside them. What changed at the first
+          walkthrough (project-docs/32) is the ground: Mark asked for a film
+          behind this page the way the 404 has one, with two conditions, that
+          it is not the 404's clip and that it is not black and white.
+          dash-rain belongs to the 404 and dash-night to Safety, so the
+          daylight dashcam runs here, in colour, which is also the right
+          register for a recruiting page.
 
-          The two rules run the full width of the page while the words sit in a
-          narrow column inside them. That is what makes the empty half look
-          like part of the design rather than a gap somebody forgot to fill,
-          and it is why the rules are not cropped to the text. */}
-      <section className="bg-k-paper px-6 pb-32 pt-36 md:px-12 lg:px-24 lg:pt-44">
-        <div className="mx-auto max-w-[1248px]">
+          THE WORDS COME FIRST. His one hard rule for the film is that the
+          words stay readable, and it was measured rather than eyeballed:
+          sampling the 98th-percentile brightness of the poster frame under
+          each text block and applying the gradient's value at the top of
+          that block, white type holds 3.36:1 on the h1 (display size needs
+          3:1), 5.38:1 on the lede and 6.95:1 on the body. The soft grey this
+          site usually gives a sub-line fell to 2.52:1 against the pale road,
+          the same failure the 404 measured against its bright sky, so every
+          line here is full k-on-dark. Re-measure if the film, the stops or
+          the text positions change: the three of them together decide this,
+          not any one alone. */}
+      <section className="relative isolate flex min-h-[560px] flex-col justify-end overflow-hidden bg-k-void px-6 pb-16 pt-40 md:px-12 lg:min-h-[660px] lg:px-24">
+        <HeroVideo
+          name={page.film.video ?? "dash-daylight"}
+          poster={page.film.poster ?? "/videos/dash-daylight-poster.jpg"}
+          label="the drivers film"
+          className="absolute inset-0 -z-10 h-full w-full object-cover"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(0,0,0,0.42)_0%,rgba(0,0,0,0.55)_35%,rgba(0,0,0,0.74)_55%,rgba(0,0,0,0.9)_100%)]"
+        />
+
+        <div className="mx-auto w-full max-w-[1248px]">
           <Breadcrumb
+            tone="dark"
             className="pb-10"
             items={[{ label: "KUL", href: "/" }, { label: "Drivers" }]}
           />
@@ -117,36 +144,34 @@ export default function DriversView(props: TinaPage<{ driversPage: unknown }>) {
           <Reveal variant="wipe">
             <h1
               data-tina-field={tinaField(page.notice, "heading")}
-              className="pb-14 font-display text-k-d3 font-black text-k-ink"
+              className="pb-12 font-display text-k-d3 font-black text-k-on-dark"
             >
               {fill(page.notice.heading)}
             </h1>
           </Reveal>
 
-          <div className="border-y border-k-ink">
+          <div className="border-y border-white/30">
             <Reveal className="max-w-[640px] py-8">
               {/* ============================================================
-                  THIS IS THE ONE PLACE ON THE SITE THAT STILL SAYS IT PLAINLY,
-                  AND IT HAS TO.
+                  THIS BLOCK STAYS PLAIN WITH APPLICANTS, AND IT HAS TO.
                   ============================================================
-                  The headcount framing came off the commercial pages on
-                  29 Jul 2026 because it read as an apology to a broker. It
-                  cannot come off here. A driver is being asked to hand over a
-                  licence number and a work history for a seat that does not
-                  exist yet, and the reason it does not exist yet is the fleet
-                  size. Softening that would be taking applications under a
-                  false impression, which is worse than sounding small.
-
-                  What did go is the repetition. It was said four times on this
-                  page and twice more in the form; it is said once now, in the
-                  first block, where a driver meets it before spending any
-                  time. */}
-              <p className="font-text text-k-lede font-semibold text-k-ink">
+                  The fleet count itself came off the whole site at the first
+                  walkthrough (project-docs/32), this page included. What
+                  cannot come off is the plain truth underneath it: there is
+                  no seat today and no start date to give, and a driver is
+                  being asked for a licence number and a work history all the
+                  same. The body says exactly that. Softening it would be
+                  taking applications under a false impression, which is
+                  worse than sounding small. */}
+              <p className="font-text text-k-lede font-semibold text-k-on-dark">
                 {fill(page.notice.lead)}
               </p>
+              {/* Full k-on-dark, not the usual soft grey: measured at 2.52:1
+                  against the pale road through the scrim, which is under the
+                  4.5:1 this size needs. See the section comment. */}
               <Copy
                 text={page.notice.body}
-                className="pt-5 font-text text-k-small text-k-ink-soft"
+                className="pt-5 font-text text-k-small text-k-on-dark"
                 linkClassName="underline underline-offset-4"
               />
             </Reveal>

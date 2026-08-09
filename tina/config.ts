@@ -405,13 +405,21 @@ export default defineConfig({
 
       page("driversPage", "Drivers page", "drivers", [
         seo(),
+        group("film", "The film behind the notice", [
+          text(
+            "video",
+            "Which film plays",
+            "The file name with no .mp4 on the end, for example dash-daylight. It plays in colour on this page. Both that file and its -720 version have to be in the videos folder.",
+          ),
+          image("poster", "The still shown before it loads"),
+        ]),
         group("notice", "The notice at the top", [
           text("heading", "Page title"),
           longText("lead", "The bold line"),
           longText(
             "body",
             "The paragraph under it",
-            "This is the one place on the site that still says plainly that the seat opens with the second truck, and it has to. A driver is being asked for a licence number and a work history for a seat that does not exist yet.",
+            "This paragraph must stay plain with applicants: there is no seat today and no start date to give, and a driver is being asked for a licence number and a work history all the same.",
           ),
         ]),
         group("seat", "The seat, when it opens", [
