@@ -153,12 +153,16 @@ export function SearchCorner({
       aria-label={fill(searchContent.label)}
       aria-expanded={open}
       {...(open ? { "aria-controls": SEARCH_PANEL_ID } : {})}
-      // top-[18px] is measured, not guessed: the pill is 60 tall from y 16,
-      // so its midline is 46, and 46 less half of 56 is 18. If the bar's
-      // height ever changes, re-measure this rather than re-deriving it.
+      // top-[20px] is measured, not guessed: since the bar thinned (9 Aug)
+      // the pill is 52 tall from y 16, so its midline is 42, and 42 less
+      // half of 44 is 20. The circle itself came down from 56 to 44 at
+      // Mark's word the same day: at 56 it stood taller than the pill it
+      // belongs to. 44 is the same square as every other control in the
+      // bar, and the smallest a thumb target may be. If the bar's height
+      // ever changes, re-measure this rather than re-deriving it.
       // The focus outline is suppressed at the client's word: pressing this
       // turns it to paper and opens the panel, which is its own announcement.
-      className={`absolute right-4 top-[18px] hidden h-14 w-14 items-center justify-center rounded-full focus-visible:outline-none min-[1240px]:flex ${
+      className={`absolute right-4 top-[20px] hidden h-11 w-11 items-center justify-center rounded-full focus-visible:outline-none min-[1240px]:flex ${
         open ? "text-k-gold" : "text-k-on-dark hover:text-k-gold-lit"
       }`}
       style={{
