@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { site } from "@/lib/site";
 import { MAP_STATES, MAP_VIEWBOX, HOME_BASE } from "@/lib/map-states";
 
@@ -8,12 +11,13 @@ import { MAP_STATES, MAP_VIEWBOX, HOME_BASE } from "@/lib/map-states";
  * list of the states beside it.
  *
  * This began as Mark's own request, spelled out in project-docs/18-v3-build-plan.md
- * §8.4, and was cut back to a still figure at his first walkthrough
- * (project-docs/32-first-meeting-outcomes.md): the hover titles that named a
- * state in full ("Alabama · home region") and the row of state-name buttons
- * under the map are removed at his instruction, and nothing replaces them.
- * Do not add a readout, tooltip, or button row back here without him asking
- * for it.
+ * §8.4. At his first walkthrough (project-docs/32) the hover titles that
+ * named a state in full ("Alabama · home region") were removed at his word,
+ * and on 9 Aug Jalen confirmed the interaction itself stays: the state
+ * buttons and the hover highlight are back, and the only thing that remains
+ * gone is the printed title. The live announcement survives for screen
+ * readers alone, and it says the state's name and nothing else. Do not give
+ * it a visible rendering back without Mark asking for it.
  *
  * ============================================================================
  * ONE. THE GEOGRAPHY IS REAL.
@@ -38,23 +42,27 @@ import { MAP_STATES, MAP_VIEWBOX, HOME_BASE } from "@/lib/map-states";
  * ============================================================================
  * WCAG 1.4.1. Every home state carries its abbreviation drawn on it, so the
  * region is legible in greyscale, to a colour-blind reader, and in a
- * screenshot. With the hover readout gone, the abbreviations and the written
- * list beside the map are the two remaining signals, which is why neither
- * may be removed.
+ * screenshot. With the printed readout gone, the abbreviations and the
+ * written list beside the map are the remaining always-visible signals,
+ * which is why neither may be removed.
  *
  * ============================================================================
  * FOUR. IT WORKS WITHOUT A POINTER AND WITHOUT SCRIPT.
  * ============================================================================
- * The written list beside the map is the primary content for anyone reading
+ * Every home state has a real <button> under the map, so the interaction is
+ * tabbable, operable with Enter and Space, and announced by name. The
+ * written list beside the map is the primary content for anyone reading
  * with their ears, for a crawler, and for anybody whose script did not run,
- * and it says exactly what the picture says. The SVG is one labelled image,
- * so a screen reader is never made to walk 49 anonymous paths.
+ * and it says exactly what the picture says.
  */
 
 /** The written region, in the order a reader would say them. */
 const HOME_STATES = MAP_STATES.filter((s) => s.home);
 
 export default function ServiceMap() {
+  const [active, setActive] = useState<string | null>(null);
+  const current = HOME_STATES.find((s) => s.code === active) ?? null;
+
   return (
     <div className="flex flex-col gap-12 lg:flex-row lg:items-center lg:gap-20">
       <div className="order-2 flex w-full flex-col gap-6 lg:order-1 lg:w-[340px] lg:shrink-0">
@@ -93,6 +101,14 @@ export default function ServiceMap() {
       </div>
 
       <div className="order-1 w-full lg:order-2 lg:flex-1">
+        {/* The announcement a keyboard reader needs when a state button takes
+            focus. SCREEN-READER-ONLY BY CLIENT INSTRUCTION: the printed
+            "Alabama · home region" title this used to render was removed at
+            the first walkthrough, and only the interaction came back. */}
+        <p aria-live="polite" className="sr-only">
+          {current ? current.name : null}
+        </p>
+
         <svg
           viewBox={`0 0 ${MAP_VIEWBOX.width} ${MAP_VIEWBOX.height}`}
           className="h-auto w-full"
@@ -112,42 +128,50 @@ export default function ServiceMap() {
             ))}
           </g>
 
-          {/* The home region, gold and still. */}
+          {/* The home region. Hover lights a state; the buttons below do the
+              same job for keyboards and phones. */}
           <g>
-            {HOME_STATES.map((s) => (
-              <g key={s.code}>
-                <path
-                  d={s.d}
-                  className="fill-[#c9a25e] stroke-[#fcfcfc]"
-                  strokeWidth={1.2}
-                />
-                {/* THE ABBREVIATION IS THE ACCESSIBLE SIGNAL, not decoration.
-                    It is what makes the region readable when the fill cannot
-                    be relied on. `paint-order: stroke` draws a white halo
-                    behind the letters first, so two-letter codes stay legible
-                    where a state is narrow and the gold runs under them. */}
-                <text
-                  x={s.cx}
-                  y={s.cy}
-                  textAnchor="middle"
-                  // `central` rather than `middle`: middle centres on the
-                  // x-height and leaves two-letter caps sitting visibly high
-                  // in the shape. Where each label sits is decided in
-                  // lib/map-states.ts, which explains why Florida's is not
-                  // worked out the same way as everybody else's.
-                  dominantBaseline="central"
-                  className="pointer-events-none select-none font-text text-[15px] font-semibold uppercase"
-                  style={{
-                    fill: "#2c2c2c",
-                    stroke: "#fcfcfc",
-                    strokeWidth: 3,
-                    paintOrder: "stroke",
-                  }}
-                >
-                  {s.code}
-                </text>
-              </g>
-            ))}
+            {HOME_STATES.map((s) => {
+              const on = active === s.code;
+              return (
+                <g key={s.code}>
+                  <path
+                    d={s.d}
+                    className={`cursor-pointer transition-colors duration-200 ${
+                      on ? "fill-k-gold" : "fill-[#c9a25e]"
+                    } stroke-[#fcfcfc]`}
+                    strokeWidth={1.2}
+                    onMouseEnter={() => setActive(s.code)}
+                    onMouseLeave={() => setActive(null)}
+                  />
+                  {/* THE ABBREVIATION IS THE ACCESSIBLE SIGNAL, not decoration.
+                      It is what makes the region readable when the fill cannot
+                      be relied on. `paint-order: stroke` draws a white halo
+                      behind the letters first, so two-letter codes stay legible
+                      where a state is narrow and the gold runs under them. */}
+                  <text
+                    x={s.cx}
+                    y={s.cy}
+                    textAnchor="middle"
+                    // `central` rather than `middle`: middle centres on the
+                    // x-height and leaves two-letter caps sitting visibly high
+                    // in the shape. Where each label sits is decided in
+                    // lib/map-states.ts, which explains why Florida's is not
+                    // worked out the same way as everybody else's.
+                    dominantBaseline="central"
+                    className="pointer-events-none select-none font-text text-[15px] font-semibold uppercase"
+                    style={{
+                      fill: "#2c2c2c",
+                      stroke: "#fcfcfc",
+                      strokeWidth: 3,
+                      paintOrder: "stroke",
+                    }}
+                  >
+                    {s.code}
+                  </text>
+                </g>
+              );
+            })}
           </g>
 
           {/* The base. A ring rather than a dot, so it reads as a location
@@ -157,6 +181,36 @@ export default function ServiceMap() {
             <circle cx={HOME_BASE.x} cy={HOME_BASE.y} r={3.2} fill="#2c2c2c" />
           </g>
         </svg>
+
+        {/* THE BUTTONS. They are outside the SVG rather than inside it, and
+            that is not laziness: a <button> inside SVG is not focusable in
+            every browser, and the ones that do focus it do not all give it a
+            visible ring. Out here they are ordinary buttons with ordinary
+            focus behaviour, they carry the same hover state as the shapes,
+            and they double as the tap targets on a phone, where hovering a
+            state the size of a fingernail is not a real interaction. */}
+        <ul className="flex flex-wrap gap-2 pt-5">
+          {HOME_STATES.map((s) => (
+            <li key={s.code}>
+              <button
+                type="button"
+                aria-pressed={active === s.code}
+                onMouseEnter={() => setActive(s.code)}
+                onMouseLeave={() => setActive(null)}
+                onFocus={() => setActive(s.code)}
+                onBlur={() => setActive(null)}
+                onClick={() => setActive(active === s.code ? null : s.code)}
+                className={`rounded-full border px-4 py-2 font-text text-k-micro uppercase transition-colors duration-200 ${
+                  active === s.code
+                    ? "border-k-gold bg-k-gold text-k-surface"
+                    : "border-k-rule-strong text-k-ink-soft hover:border-k-ink hover:text-k-ink"
+                }`}
+              >
+                {s.name}
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
