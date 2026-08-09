@@ -52,6 +52,15 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
    * commitments all give an instruction the same way, and one sentence was
    * restructured to lose an em dash, which this site does not use.
    *
+   * REBUILT DOCUMENT-FIRST AT THE FIRST WALKTHROUGH (project-docs/32). Mark
+   * asked for the page to match his email, and the honest reading of that is
+   * structural: his email has section titles, and the first setting hid them
+   * in small capitals, so his document's shape was invisible on its own
+   * page. His titles are display headings now, in his order, the photograph
+   * came off the opening so the page opens on his words alone (the Maersk
+   * about page's move: the purpose is the hero), and the three transport
+   * modes his vision names are set out as a row where he names them.
+   *
    * WHAT EACH PAGE ON THE SITE OWNS, so none of them repeat each other:
    *   Safety      what KUL holds itself to, written as policy
    *   Road Ahead  the growth plan and the figures as they stand
@@ -80,22 +89,29 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
   return (
     <>
       {/* THE OPENING
-          Shape taken from the Face Formula about page: the headline set very
-          large and hard against the left margin, then a single photograph
-          held in below it with a wide margin on one side, and a small line of
-          tracked capitals keyed to the picture's top corner.
-
-          The headline is the statement's own subtitle. The picture is
-          indented from the left and runs out to the right margin, so it
-          leans the opposite way to the headline above it. */}
-      <section className="bg-k-paper px-6 pb-32 pt-36 md:px-12 lg:px-24 lg:pt-44">
+          Type alone. The Face Formula photograph arrangement this opened
+          with was retired at the first walkthrough rebuild: the page is
+          Mark's statement, and a statement opens on its title, not on
+          scenery. The move is the Maersk about page's, where the purpose
+          line is the hero and there is nothing else on the fold to compete
+          with it. The one photograph left on this page is the dashcam film
+          further down, beside the words about the miles it records. */}
+      <section className="bg-k-paper px-6 pb-24 pt-36 md:px-12 lg:px-24 lg:pt-44">
         <div className="mx-auto max-w-[1248px]">
           <Breadcrumb
             className="pb-10"
             items={[{ label: "KUL", href: "/" }, { label: "About" }]}
           />
 
-          <Reveal variant="wipe">
+          <Reveal variant="settle">
+            <span
+              data-tina-field={tinaField(about.opening, "eyebrow")}
+              className="font-text text-k-micro uppercase text-k-gold"
+            >
+              {fill(about.opening.eyebrow)}
+            </span>
+          </Reveal>
+          <Reveal variant="wipe" className="mt-6">
             <h1
               data-tina-field={tinaField(about.opening, "heading")}
               className="max-w-[1060px] font-display text-k-d1 font-black text-k-ink"
@@ -103,31 +119,6 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
               {fill(about.opening.heading)}
             </h1>
           </Reveal>
-
-          <div className="pt-[clamp(3.5rem,2rem+6vw,7.5rem)] lg:pl-[100px]">
-            <Reveal variant="settle">
-              {/* This line describes the company, not the photograph. Do not
-                  turn it into a caption claiming where the picture was taken. */}
-              <span className="font-text text-k-micro uppercase text-k-ink-soft">
-                {fill(about.opening.caption)}
-              </span>
-            </Reveal>
-            <Reveal className="mt-3.5">
-              <div className="relative aspect-[16/9] w-full">
-                {/* Mark's own photograph. Everything on this site is a picture
-                    he took, which is the point: a carrier should not
-                    illustrate itself with somebody else's fleet. */}
-                <Image
-                  src={about.opening.image}
-                  alt={fill(about.opening.imageAlt)}
-                  fill
-                  sizes="(min-width:1024px) 1148px, 100vw"
-                  className="object-cover"
-                  priority
-                />
-              </div>
-            </Reveal>
-          </div>
         </div>
       </section>
 
@@ -143,32 +134,28 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
           the same sentence, so if the words change here they must change
           there too. Both live in the same file in the CMS. */}
       <section className="bg-k-coal px-6 py-32 md:px-12 lg:px-24 lg:py-36">
-        <div className="mx-auto flex max-w-[1248px] flex-col gap-10 lg:flex-row lg:gap-24">
-          <Reveal variant="settle" className="lg:w-[192px] lg:shrink-0 lg:pt-3">
-            <span className="font-text text-k-micro uppercase text-k-on-dark-soft">
-              {fill(about.community.eyebrow)}
-            </span>
+        <div className="mx-auto max-w-[1248px]">
+          {/* The margin label that sat beside this moved up to the opening
+              at the rebuild, so the sentence now takes the whole measure the
+              way it does in his email: first line of the document proper. */}
+          <Reveal>
+            <p
+              data-tina-field={tinaField(about.community, "statement")}
+              className="max-w-[980px] font-text text-k-d3 leading-[1.33] tracking-[-0.01em] text-k-on-dark"
+            >
+              {fill(about.community.statement)}
+            </p>
           </Reveal>
-          <div className="flex flex-1 flex-col">
-            <Reveal>
-              <p
-                data-tina-field={tinaField(about.community, "statement")}
-                className="max-w-[900px] font-text text-k-d3 leading-[1.33] tracking-[-0.01em] text-k-on-dark"
-              >
-                {fill(about.community.statement)}
-              </p>
-            </Reveal>
-            <div className="mt-10 flex max-w-[720px] flex-col gap-6">
-              {about.community.paragraphs.map((paragraph, i) => (
-                <Reveal key={paragraph.slice(0, 40)} index={i}>
-                  <Copy
-                    text={paragraph}
-                    className="font-text text-k-lede text-k-on-dark-soft"
-                    linkClassName="underline underline-offset-4"
-                  />
-                </Reveal>
-              ))}
-            </div>
+          <div className="mt-10 flex max-w-[720px] flex-col gap-6">
+            {about.community.paragraphs.map((paragraph, i) => (
+              <Reveal key={paragraph.slice(0, 40)} index={i}>
+                <Copy
+                  text={paragraph}
+                  className="font-text text-k-lede text-k-on-dark-soft"
+                  linkClassName="underline underline-offset-4"
+                />
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
@@ -181,12 +168,18 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
           into the right-hand column with the rest. */}
       <section className="bg-k-paper px-6 py-32 md:px-12 lg:px-24 lg:py-36">
         <div className="mx-auto max-w-[1248px]">
-          <Reveal variant="settle">
-            <span className="font-text text-k-micro uppercase text-k-gold">
+          {/* His title, at title size. The email divides itself with these
+              headings and the first setting shrank them to small capitals,
+              which is the thing the walkthrough rebuild reversed. */}
+          <Reveal variant="wipe">
+            <h2
+              data-tina-field={tinaField(about.founding, "eyebrow")}
+              className="font-display text-k-d2 font-black text-k-ink"
+            >
               {fill(about.founding.eyebrow)}
-            </span>
+            </h2>
           </Reveal>
-          <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-24">
+          <div className="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-24">
             {/* The default rise, not the wipe: the wipe is for headlines
                 that hold one or two lines, and this lead runs to seven, so
                 a wipe shows a sliver of every line at once mid-move. */}
@@ -234,10 +227,15 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
               two are added together because the padding sits inside the
               width, and a 300px box here would leave only 204px to read. */}
           <div className="px-6 py-24 md:px-12 lg:w-[396px] lg:shrink-0 lg:py-32 lg:pl-24 lg:pr-0">
-            <Reveal variant="settle">
-              <span className="font-text text-k-micro uppercase text-k-gold">
+            {/* His title, a step smaller than the other sections' because
+                the column is 300px and a d2 line would wrap to four. */}
+            <Reveal variant="wipe">
+              <h2
+                data-tina-field={tinaField(about.experience, "eyebrow")}
+                className="font-display text-k-d3 font-black text-k-ink"
+              >
                 {fill(about.experience.eyebrow)}
-              </span>
+              </h2>
             </Reveal>
             {/* Four short paragraphs fit the column now that no signature
                 sits under them. If one grows long, split it or cut it: at
@@ -293,12 +291,15 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
           standard and starts reading as a paragraph that lost its way. */}
       <section className="bg-k-coal px-6 py-32 md:px-12 lg:px-24 lg:py-36">
         <div className="mx-auto max-w-[1248px]">
-          <Reveal variant="settle">
-            <span className="font-text text-k-micro uppercase text-k-on-dark-soft">
+          <Reveal variant="wipe">
+            <h2
+              data-tina-field={tinaField(about.standards, "eyebrow")}
+              className="font-display text-k-d2 font-black text-k-on-dark"
+            >
               {fill(about.standards.eyebrow)}
-            </span>
+            </h2>
           </Reveal>
-          <div className="mt-8 flex max-w-[720px] flex-col gap-6">
+          <div className="mt-12 flex max-w-[720px] flex-col gap-6">
             {about.standards.paragraphs.map((paragraph, i) => (
               <Reveal key={paragraph.slice(0, 40)} index={i}>
                 <Copy
@@ -351,12 +352,38 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
       <section className="bg-k-paper px-6 py-32 md:px-12 lg:px-24 lg:py-36">
         <div className="mx-auto max-w-[1248px]">
           <div className="lg:pl-[100px]">
-            <Reveal variant="settle">
-              <span className="font-text text-k-micro uppercase text-k-gold">
+            <Reveal variant="wipe">
+              <h2
+                data-tina-field={tinaField(about.forward, "eyebrow")}
+                className="font-display text-k-d2 font-black text-k-ink"
+              >
                 {fill(about.forward.eyebrow)}
-              </span>
+              </h2>
             </Reveal>
-            <div className="mt-8 flex max-w-[760px] flex-col gap-6">
+
+            {/* The three modes his vision names, in his email's order. They
+                are his words made visible, not a claim of services: the
+                paragraphs underneath say plainly that this is a goal, and no
+                figure or date is attached to any of them. */}
+            <Reveal variant="settle" className="mt-10">
+              <ol className="flex max-w-[560px] flex-col gap-x-6 gap-y-4 sm:flex-row">
+                {(about.forward.modes ?? []).map((mode, i) => (
+                  <li
+                    key={mode}
+                    className="flex flex-1 items-baseline gap-3 border-t border-k-ink/15 pt-4"
+                  >
+                    <span className="font-text text-k-micro uppercase tabular-nums text-k-gold">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="font-text text-k-body font-semibold uppercase tracking-[0.08em] text-k-ink">
+                      {fill(mode)}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </Reveal>
+
+            <div className="mt-12 flex max-w-[760px] flex-col gap-6">
               {about.forward.paragraphs.map((paragraph, i) => (
                 <Reveal key={paragraph.slice(0, 40)} index={i}>
                   <Copy
@@ -381,12 +408,15 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
           sentence changes in the belief section it must change here too. */}
       <section className="bg-k-surface px-6 py-32 md:px-12 lg:px-24 lg:py-36">
         <div className="mx-auto max-w-[1248px]">
-          <Reveal variant="settle">
-            <span className="font-text text-k-micro uppercase text-k-gold">
+          <Reveal variant="wipe">
+            <h2
+              data-tina-field={tinaField(about.commitment, "eyebrow")}
+              className="font-display text-k-d2 font-black text-k-ink"
+            >
               {fill(about.commitment.eyebrow)}
-            </span>
+            </h2>
           </Reveal>
-          <div className="mt-8 flex max-w-[720px] flex-col gap-6">
+          <div className="mt-12 flex max-w-[720px] flex-col gap-6">
             {about.commitment.paragraphs.map((paragraph, i) => (
               <Reveal key={paragraph.slice(0, 40)} index={i}>
                 <Copy

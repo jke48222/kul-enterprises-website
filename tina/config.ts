@@ -582,13 +582,10 @@ export default defineConfig({
       page("aboutPage", "About page", "about", [
         seo(),
         group("opening", "The opening", [
-          text("heading", "Headline"),
-          text("caption", "Small line above the photograph", `This describes the company, not the photograph. ${TOKENS}`),
-          image("image", "Photograph"),
-          text("imageAlt", "Photograph description"),
+          text("eyebrow", "Small line above the headline", TOKENS),
+          text("heading", "Headline", "The statement's own subtitle. The page opens on type alone; the photograph it once carried came off at the first walkthrough rebuild."),
         ]),
         group("community", "The belief", [
-          text("eyebrow", "Small label in the margin", TOKENS),
           longText(
             "statement",
             "The line set large",
@@ -597,7 +594,7 @@ export default defineConfig({
           paragraphs("paragraphs", "The paragraphs under it", "Two paragraphs."),
         ]),
         group("founding", "More than transportation", [
-          text("eyebrow", "Small gold label"),
+          text("eyebrow", "Section title", "His own title for the section, set at display size."),
           longText(
             "lead",
             "The founding belief, set large on the left",
@@ -606,7 +603,7 @@ export default defineConfig({
           paragraphs("paragraphs", "The paragraphs on the right"),
         ]),
         group("experience", "Built through experience", [
-          text("eyebrow", "Small gold label"),
+          text("eyebrow", "Section title", "His own title for the section. It sits in the narrow column, so it is set a step smaller than the other titles."),
           paragraphs(
             "paragraphs",
             "The column of text",
@@ -617,7 +614,7 @@ export default defineConfig({
           text("video", "Video file", "The dashcam clip that plays in place of the still."),
         ]),
         group("standards", "The way we do business", [
-          text("eyebrow", "Small label"),
+          text("eyebrow", "Section title", "His own title for the section, set at display size."),
           paragraphs(
             "paragraphs",
             "The paragraphs above the grid",
@@ -634,7 +631,12 @@ export default defineConfig({
           longText("closing", "The line under the grid"),
         ]),
         group("forward", "Looking forward", [
-          text("eyebrow", "Small gold label"),
+          text("eyebrow", "Section title", "His own title for the section, set at display size."),
+          paragraphs(
+            "modes",
+            "The three modes",
+            "One word each, in his email's order: Ground, Air, Maritime. They are set as a row under the title because the vision names them.",
+          ),
           paragraphs(
             "paragraphs",
             "The column of text",
@@ -642,7 +644,7 @@ export default defineConfig({
           ),
         ]),
         group("commitment", "Our commitment", [
-          text("eyebrow", "Small gold label"),
+          text("eyebrow", "Section title", "His own title for the section, set at display size."),
           paragraphs("paragraphs", "The quiet paragraphs"),
           longText(
             "closing",

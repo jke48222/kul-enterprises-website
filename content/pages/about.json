@@ -4,13 +4,10 @@
     "description": "{legalName} is a licensed motor carrier in {location}, built on purpose and guided by integrity. Every shipment is a promise kept. USDOT {usdot}."
   },
   "opening": {
-    "heading": "Built on Purpose. Guided by Integrity.",
-    "caption": "{serviceArea}",
-    "image": "/images/journey/s14-confident-highway.webp",
-    "imageAlt": "An open highway running ahead under clear sky"
+    "eyebrow": "About {legalName}",
+    "heading": "Built on Purpose. Guided by Integrity."
   },
   "community": {
-    "eyebrow": "About {legalName}",
     "statement": "A transportation company without our community is simply moving freight.",
     "paragraphs": [
       "At {name}, transportation is more than moving freight from one destination to the next. Every shipment represents a customer's business, every delivery represents a promise, and every mile is an opportunity to earn trust. While trucks move freight, people build relationships that keep business moving forward.",
@@ -56,6 +53,7 @@
   },
   "forward": {
     "eyebrow": "Looking Forward",
+    "modes": ["Ground", "Air", "Maritime"],
     "paragraphs": [
       "{name} begins with ground transportation, but our vision extends much further.",
       "As we continue to grow, our goal is to become a complete logistics organization serving customers across ground, air, and maritime transportation.",
