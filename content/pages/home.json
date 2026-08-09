@@ -75,12 +75,20 @@
     "heading": "Questions we get asked.",
     "intro": "If yours is not here, call dispatch on {phone}."
   },
-  "journey": {
-    "eyebrow": "Five acts · the story so far",
-    "heading": "Before the first truck, there was a boy on a plane.",
-    "body": "Jamaica. Construction sites every school holiday. The Air Force. Eleven years driving for other people. The Journey is the long version, in Mark's own words.",
-    "cta": { "label": "Begin the journey", "href": "/journey" },
-    "image": "/images/journey/s02-jamaica-childhood.webp",
-    "imageAlt": "Mark Brown and his sister in Jamaica, early 1980s"
+  "closing": {
+    "mark": "/images/brand/lion-mark.webp",
+    "markAlt": "The KUL lion",
+    "journeyLabel": "The Journey",
+    "photos": [
+      {
+        "image": "/images/journey/gal-river-rocks.webp",
+        "alt": "A river running over stones under the trees in Jamaica"
+      },
+      {
+        "image": "/images/journey/s02b-caribbean-water.webp",
+        "alt": "Caribbean water off a white sand shore in Jamaica"
+      }
+    ],
+    "photosCaption": "Jamaica"
   }
 }

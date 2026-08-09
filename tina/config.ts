@@ -326,13 +326,22 @@ export default defineConfig({
           text("heading", "Headline"),
           longText("intro", "Sentence underneath", "Put {phone} where the number should fall and it becomes a working click-to-call link."),
         ]),
-        group("journey", "The Journey invitation", [
-          text("eyebrow", "Small gold label"),
-          text("heading", "Headline"),
-          longText("body", "Paragraph"),
-          cta("cta", "Link"),
-          image("image", "Photograph"),
-          text("imageAlt", "Photograph description"),
+        group("closing", "The closing: lion, slogan, Jamaica", [
+          image("mark", "The lion mark"),
+          text("markAlt", "Lion description", "Read aloud to screen readers and shown if the image fails."),
+          text("journeyLabel", "The line under the lion", "The lion and this line together are the door into the Journey."),
+          {
+            type: "object",
+            name: "photos",
+            label: "Jamaica photographs",
+            list: true,
+            ui: { itemProps: (item) => ({ label: item?.alt ?? "Photograph" }) },
+            fields: [
+              image("image", "Photograph"),
+              text("alt", "Description"),
+            ],
+          },
+          text("photosCaption", "Word under the photographs"),
         ]),
       ], "/"),
 

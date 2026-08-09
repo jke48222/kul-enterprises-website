@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTina, tinaField } from "tinacms/dist/react";
 import { services } from "@/lib/services";
+import { site } from "@/lib/site";
 import HeroVideo from "@/components/k/HeroVideo";
 import Reveal from "@/components/k/Reveal";
 import ShapeGrid from "@/components/k/ShapeGrid";
@@ -115,8 +116,9 @@ export default function HomeView(props: TinaPage<{ homePage: unknown }>) {
             headline sitting in the left third of a wide frame, which is where
             it sits on a laptop. On a phone the headline is the full width of
             the column, so a left-to-right ramp leaves its right-hand end over
-            open picture: measured at 375px, the last third of "Owner driven."
-            sat on scrim of 0.28 while the first third had 0.92. Vertical puts
+            open picture: measured at 375px with the pre-walkthrough headline,
+            the last third of its second line sat on scrim of 0.28 while the
+            first third had 0.92. Vertical puts
             the dark where the type actually is at this width, and keeps the top
             of the frame clear so the truck still reads. */}
         <div
@@ -137,10 +139,11 @@ export default function HomeView(props: TinaPage<{ homePage: unknown }>) {
             {/* MEASURE LINE TWO BEFORE CHANGING IT. The break is hard, so the
                 second line has to fit its own line at 375px or the hero
                 becomes three lines on a phone. At the 36px floor the column is
-                327px wide: "Owner driven." is 236px, "Driven personally."
-                (the previous wording) was 331px and already wrapped, and
-                "Driven by the owner." is 370px and wraps up to about 460px,
-                which covers most phones in use. */}
+                327px wide: "On schedule." measures 241px and "Every mile."
+                204px, both measured in-browser after the first-walkthrough
+                rewording. The old "Owner driven." was 236px, and "Driven
+                personally." at 331px already wrapped, which is how tight this
+                line runs. */}
             {/* One line per entry in the CMS, with a hard break between them.
                 Adding a third line is allowed and will simply stack; read the
                 measurement note above before doing it on a headline this
@@ -214,10 +217,11 @@ export default function HomeView(props: TinaPage<{ homePage: unknown }>) {
             Two things are left, and they are the two a broker checks before
             anything else: the authority numbers, which they copy into their
             own system, and where the truck is based. Everything cut from here
-            is still on the page or one click away. "Licensed & insured" and
-            "Owner answers dispatch" are both said properly on the safety and
-            about pages rather than asserted in six words on a hero, and the
-            service area is in the footer of every page.
+            is still on the page or one click away. "Licensed & insured" is
+            said properly on the safety page rather than asserted in six words
+            on a hero, the owner-answers line left the site altogether at the
+            first walkthrough (project-docs/32), and the service area is in
+            the footer of every page.
 
             The numbers stay together on one line at every width, which is why
             they are one span with a separator rather than two items in a wrap
@@ -682,53 +686,76 @@ THE ALPHAS ARE SET BY A CONTRAST SUM, NOT BY EYE, AND THE FIRST
         </div>
       </section>
 
-      {/* The Journey, an invitation, not a nav item. */}
-      <section className="bg-k-warm px-6 py-28 md:px-12 lg:px-24">
-        <Reveal className="mx-auto flex max-w-[1248px] flex-col items-center gap-12 lg:flex-row lg:gap-24">
-          <Image
-            src={home.journey.image}
-            alt={fill(home.journey.imageAlt)}
-            width={1291}
-            height={1920}
-            className="h-auto w-[280px] shrink-0 object-cover lg:w-[380px]"
-          />
-          <div className="flex flex-1 flex-col gap-6">
-            <p className="flex items-center gap-4">
-              <span className="h-px w-12 shrink-0 bg-k-gold" aria-hidden="true" />
-              {/* This used to advertise seventeen scenes and a twelve minute
-                  running time. Neither exists yet, so it now says what the
-                  Journey page actually holds today. */}
-              <span className="font-text text-k-label uppercase text-k-gold">
-                {fill(home.journey.eyebrow)}
+      {/* THE CLOSE: THE LION, THE WORDS, AND JAMAICA.
+          This slot held the Journey invitation, with the photograph of Mark
+          and his sister and three lines about the story. It was replaced at
+          the first walkthrough (project-docs/32): the Journey is
+          self-contained now, the childhood photograph lives only inside it,
+          and the home page closes on the brand instead. The lion is the door.
+          It is the "journey icon" Mark described, so the whole figure links
+          to /journey.
+
+          The mark sits on a white plate rather than a transparent one (the
+          supplied kit is opaque; see the brand-assets note in project-docs),
+          so it is blended onto the warm ground with multiply, the same
+          treatment the equipment elevations use above. Do not move this
+          section onto a dark ground without replacing the asset: multiply on
+          ink turns the plate black. */}
+      <section className="bg-k-warm px-6 py-32 md:px-12 lg:px-24">
+        <div className="mx-auto flex max-w-[1248px] flex-col items-center gap-12 text-center">
+          <Reveal variant="settle" className="flex flex-col items-center gap-10">
+            <Link href="/journey" className="group flex flex-col items-center gap-6">
+              <Image
+                src={home.closing.mark}
+                alt={fill(home.closing.markAlt)}
+                width={512}
+                height={512}
+                sizes="164px"
+                className="h-auto w-[132px] md:w-[164px]"
+                style={{ mixBlendMode: "multiply" }}
+              />
+              <span
+                data-tina-field={tinaField(home.closing, "journeyLabel")}
+                className="border-b border-k-gold pb-1 font-text text-k-label uppercase text-k-ink transition-colors duration-200 group-hover:text-k-gold"
+              >
+                {fill(home.closing.journeyLabel)}
               </span>
-            </p>
-            <h2
-              data-tina-field={tinaField(home.journey, "heading")}
-              className="font-display text-k-d2 font-black text-k-ink"
-            >
-              {fill(home.journey.heading)}
-            </h2>
-            <Copy
-              text={home.journey.body}
-              className="max-w-[560px] font-text text-k-body text-k-ink-soft"
-              linkClassName="text-k-ink underline underline-offset-4"
-            />
-            {/* A second paragraph sat here saying "You do not need to read it
-                to book a load. It is here for the people who want to know who
-                is driving." It went on 29 Jul 2026. Both halves say the same
-                thing, once negatively and once positively, which is a shape
-                that reads as writing rather than as information, and the
-                paragraph above already ends by saying what the Journey is. A
-                section that has to reassure you it is optional is a section
-                that does not trust its own first line. */}
-            <Link
-              href="/journey"
-              className="w-fit border-b border-k-gold pb-1 font-text text-k-label uppercase text-k-ink"
-            >
-              Begin the journey
             </Link>
-          </div>
-        </Reveal>
+
+            {/* The slogan is read from Business Facts rather than retyped
+                here, so the trademark line on the terms page, this close, and
+                anywhere else it appears can never drift apart. */}
+            <p className="font-display text-k-d2 font-black text-k-ink">
+              {site.taglineLines.map((lineText) => (
+                <span key={lineText} className="block">
+                  {lineText}
+                </span>
+              ))}
+            </p>
+          </Reveal>
+
+          <Reveal index={1} className="w-full">
+            <div className="grid gap-4 md:grid-cols-2 md:gap-6">
+              {(home.closing.photos ?? []).map((photo) => (
+                <Image
+                  key={photo.image}
+                  src={photo.image}
+                  alt={fill(photo.alt)}
+                  width={1920}
+                  height={1280}
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className="aspect-[3/2] w-full object-cover"
+                />
+              ))}
+            </div>
+            <p
+              data-tina-field={tinaField(home.closing, "photosCaption")}
+              className="pt-5 font-text text-k-micro uppercase text-k-ink-faint"
+            >
+              {fill(home.closing.photosCaption)}
+            </p>
+          </Reveal>
+        </div>
       </section>
     </>
   );
