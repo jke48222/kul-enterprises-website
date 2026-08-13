@@ -241,10 +241,13 @@ export default function RootLayout({
               "if(sessionStorage.getItem('kul-intro-seen')==='1')return;" +
               "var d=document.createElement('div');d.id='kul-intro-cover';" +
               "d.setAttribute('aria-hidden','true');" +
-              "d.style.cssText='position:fixed;inset:0;z-index:99;background:#050301;pointer-events:none';" +
+              // True black, matching GROUND in components/brand/LoadingOverlay
+              // and the films themselves, so cover, letterbox and picture are
+              // one field of black with no seam between them.
+              "d.style.cssText='position:fixed;inset:0;z-index:99;background:#000;pointer-events:none';" +
               "document.body.appendChild(d);" +
               "setTimeout(function(){var n=document.getElementById('kul-intro-cover');" +
-              "if(n&&n.parentNode)n.parentNode.removeChild(n)},8000);" +
+              "if(n&&n.parentNode)n.parentNode.removeChild(n)},19000);" +
               "}catch(e){}})()",
           }}
         />

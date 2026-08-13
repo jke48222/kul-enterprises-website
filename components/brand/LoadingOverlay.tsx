@@ -7,38 +7,41 @@ const SEEN_KEY = "kul-intro-seen";
 /**
  * Total ceremony cap, exit fade included.
  *
- * It was 2500 when the film ended on the bare lion, then 3750 when the lockup
- * arrived, and it is 5000 now that the whole piece runs slower and holds the
- * finished lockup for a full second. It has to be at least the length of the
- * film, or the cap cuts the ending off. Every escape hatch below is unchanged,
- * so the visitor who does not want to watch still pays nothing.
+ * It was 2500 when the film ended on the bare lion, 3750 when the lockup
+ * arrived, 5000 for the five-second Blender film, and it is 15950 for the
+ * Higgsfield film, which runs 15.93 seconds and spends its final two
+ * seconds dissolving into the page. It has to be at least the length of the
+ * film, or the cap cuts the ending off. Every escape hatch below is
+ * unchanged, so the visitor who does not want to watch still pays nothing.
  */
-const CAP_MS = 5000;
+const CAP_MS = 15950;
 /**
- * How long the panel takes to climb off the top of the screen.
- *
- * Matched to the OUT of components/k/RouteTransition.tsx, and for its reason:
- * the opening and the cut between pages are the same gesture, so they should
- * take the same time and use the same curve. A crossfade was here before; it is
- * the same picture at two opacities, so there is nothing to watch. One upward
- * pass has a direction, and the page is uncovered by it rather than revealed
- * underneath it.
+ * How long the closing fade takes, and WHEN: the fade IS the film's final
+ * two seconds (Jalen, 13 Aug 2026). The exit starts at CAP_MS minus this,
+ * while the closing card is still playing, and completes exactly as the
+ * film ends, so the homepage comes up through the gold lockup: "one
+ * continuous experience", the brief's own words. The overlay used to climb
+ * off the top of the screen instead; that gesture put a direction on a
+ * moment that is meant to dissolve.
  */
-const EXIT_MS = 500;
+const EXIT_MS = 2000;
 /** How long the still frame stands in for the film when motion is unwelcome. */
 const REDUCED_MS = 400;
 /**
  * How long the film gets to actually start moving before we give up on it.
  *
  * IT WAS 1500 AND THAT WAS A PHONE-ONLY BUG. iOS does not honour
- * `preload="auto"` on a cellular connection, so on mobile data the fetch of a
- * 900KB film does not even begin until `play()` is called, and a second and a
+ * `preload="auto"` on a cellular connection, so on mobile data the fetch of
+ * the film does not even begin until `play()` is called, and a second and a
  * half is not enough to get from nothing to a decoded first frame. The
  * deadline fired, the overlay abandoned, and the opening was never seen by
  * anybody who arrived on a phone away from wifi.
  *
- * Waiting longer costs nothing now, because what is on screen while we wait is
- * the poster, which is the closing lockup rather than a black frame.
+ * What is on screen while we wait is the overlay's own black ground. The
+ * video used to carry the closing lockup as its poster, and that painted
+ * the ENDING for a flash on every single load before the first frame
+ * decoded, spoiling the reveal (caught by Jalen, 13 Aug 2026). The film
+ * opens from black, so black is the only honest waiting image.
  */
 const PLAY_DEADLINE_MS = 4000;
 /**
@@ -47,12 +50,39 @@ const PLAY_DEADLINE_MS = 4000;
  * The cap below is timed from the film's FIRST FRAME so that a slow start
  * yields the whole film rather than its tail. That alone has no upper bound,
  * so this is the bound: whatever happens, the overlay is gone by here. It sits
- * under the 8000ms failsafe on the pre-paint cover in app/layout.tsx, so the
+ * under the 19000ms failsafe on the pre-paint cover in app/layout.tsx, so the
  * two can never disagree about which one is still holding the screen.
  */
-const CEILING_MS = 7500;
-/** The film's own ground, so any letterboxing is invisible against it. */
-const GROUND = "#050301";
+const CEILING_MS = 18500;
+/**
+ * The film's own ground, so any letterboxing is invisible against it.
+ *
+ * It was #050301 for years, because the Blender film was composited onto
+ * that near-black. Both client cuts are grounded in TRUE black: sampled at
+ * four points across each film, every corner reads 0,0,0. Against #050301
+ * the letterbox bands were faintly but visibly lighter than the picture
+ * they framed, which is the one thing a letterbox must never be. Keep this
+ * equal to whatever the shipped films actually measure, and keep the
+ * pre-paint cover in app/layout.tsx equal to this.
+ */
+const GROUND = "#000000";
+
+/**
+ * When each cut may be cropped to fill the screen instead of letterboxed.
+ *
+ * The landscape cut is 16:9 (1.78) and the portrait cut is 9:16 (0.5625);
+ * each band brackets its own film loosely enough to swallow ordinary window
+ * shapes and tightly enough that the crop never reaches the lockup. Written
+ * as media queries rather than measured in JS on purpose: a window resized
+ * or a phone turned over re-evaluates them for free, with no React state and
+ * no risk of restarting the film.
+ */
+const FIT_COVER = {
+  landscape:
+    "[@media(min-aspect-ratio:3/2)_and_(max-aspect-ratio:2/1)]:object-cover",
+  portrait:
+    "[@media(min-aspect-ratio:1/2)_and_(max-aspect-ratio:3/4)]:object-cover",
+} as const;
 
 /**
  * Drop the pre-paint cover that the blocking script in app/layout.tsx put over
@@ -71,25 +101,24 @@ type Phase = "idle" | "show" | "still" | "exit" | "done";
 /**
  * THE OPENING
  *
- * A Doctor Bird comes in from far off, flying straight at the lens with its
- * wings beating, turns broadside as it arrives, and comes apart into gold that
- * gathers into the KUL lion. The lion then slides right and the same gold
- * writes the wordmark in beside it, closing on the full lockup. Then it gets
- * out of the way. This is Mark's brief, and it is now a rendered film rather
- * than CSS: public/videos/kul-intro.mp4.
+ * A distant gold star grows into the Doctor Bird flying at the lens. It
+ * arrives, breathes, fixes its eye on the viewer, then darts and taps the
+ * screen; the tap ignites a molten whiteout, the gold spirals, and the KUL
+ * lockup materialises out of the settling particles, closing on the full
+ * gold mark. This is Mark's twenty-panel storyboard, produced in Higgsfield
+ * Cinema Studio 3.5 and cut in Final Cut Pro (production guide:
+ * project-docs/33-higgsfield-intro-plan.md; master export:
+ * ~/Movies/kul-intro.mp4 and ~/Movies/mobile-intro.mp4). There are TWO
+ * cuts, both from the client: kul-intro.mp4 is 1080p landscape, 15.93s,
+ * ~9MB; kul-intro-mobile.mp4 is 720x1280 portrait, 15.79s, ~3MB, and a
+ * phone gets that one. Both are silent, and both carry the tagline
+ * composited beneath the closing card at encode time (neither Final Cut
+ * master has it), one line on the wide cut and three on the tall one, so
+ * each poster carries it too.
  *
- * WHY A FILM AND NOT DRAWN MARKUP. The version before this one faked the whole
- * thing with two images and keyframes, because an earlier generated video cost
- * a megabyte and a half. This one is 895KB for 5 seconds and it does what
- * markup cannot: a bird with real wings, seen in perspective, dissolving into
- * thirty thousand points of gold that reassemble as the mark. The Blender file
- * on the desktop that builds it is the editable source now, not this
- * component; the wordmark in it is sampled from the brand artwork, so the
- * lettering is the real thing rather than a font that looks close.
- *
- * IT PLAYS ONCE IN A VISITOR'S LIFE, not once per visit. The flag is in the
- * browser's own storage, so somebody who comes back next week to check a rate
- * never sees it again.
+ * IT PLAYS ONCE PER TAB SESSION, home page only, and never replays while the
+ * visitor moves around inside that session. The gate below and the pre-paint
+ * cover in app/layout.tsx read the same flag.
  *
  * SIX THINGS PROTECT THE VISITOR FROM IT, and none are optional:
  *   1. Anybody who has asked their computer to reduce motion gets the closing
@@ -116,6 +145,19 @@ type Phase = "idle" | "show" | "still" | "exit" | "done";
  */
 export default function LoadingOverlay() {
   const [phase, setPhase] = useState<Phase>("idle");
+  /**
+   * Which cut to play. There are two films, not one film letterboxed: a
+   * 16:9 landscape cut and a 9:16 portrait cut, both edited by the client
+   * from the same footage, so a phone gets a film composed for a phone
+   * rather than a wide frame stranded in bars.
+   *
+   * Chosen ONCE, at mount, and never re-chosen: swapping `src` mid-play
+   * restarts the film, so somebody who turns their phone over halfway
+   * through keeps the cut they started. It is decided in the mount effect
+   * rather than during render because the server has no viewport and
+   * guessing one would hydrate wrong.
+   */
+  const [portrait, setPortrait] = useState(false);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
   const finishedRef = useRef(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -174,12 +216,16 @@ export default function LoadingOverlay() {
     };
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Taller than it is wide gets the portrait cut. Square lands on
+    // landscape, which is the safer of the two to letterbox.
+    const isPortrait = window.matchMedia("(max-aspect-ratio: 1/1)").matches;
 
     let raf1 = 0;
     let raf2 = 0;
     let idleId: number | undefined;
     const mount = () => {
       markSeen();
+      setPortrait(isPortrait);
       setPhase(reduced ? "still" : "show");
     };
     // Two frames guarantees the page has painted before the idle callback is
@@ -221,7 +267,7 @@ export default function LoadingOverlay() {
   // film spent fetching came out of the film's own running time, so a visitor
   // on mobile data who waited three seconds for it to arrive was then shown
   // the last two seconds of it: the lockup, with the bird and the lion it is
-  // made of already over. The ceremony is five seconds of film or it is
+  // made of already over. The ceremony is the whole film or it is
   // nothing. CEILING_MS is what stops that promise being open ended.
   useEffect(() => {
     if (phase === "still") {
@@ -278,13 +324,11 @@ export default function LoadingOverlay() {
         // and there is no gesture coming to unblock it, because the visitor
         // has not been asked for one and must not be.
         //
-        // The old behaviour was to say nothing and let the full cap run,
-        // which meant four and a half seconds of a still frame for somebody
-        // whose phone had simply decided not to play video today. Take the
-        // reduced-motion treatment instead: the closing lockup is on screen
-        // as the poster, hold it for a beat the way the reduced-motion path
-        // does, and give them the site.
-        push(setTimeout(dismiss, REDUCED_MS));
+        // Take the reduced-motion treatment: switch to the still (the
+        // closing lockup card), hold it for a beat, and give them the site.
+        // The video no longer carries a poster (it flashed the ending at
+        // the start), so the still phase is what provides the lockup here.
+        setPhase("still");
       });
     }
     push(
@@ -334,39 +378,36 @@ export default function LoadingOverlay() {
     <div
       role="status"
       aria-label="KUL Enterprises opening"
-      style={{
-        backgroundColor: GROUND,
-        // The route transition's curve, so the two gestures are the same
-        // gesture. Tailwind has no token for it.
-        transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
-      }}
-      // IT LEAVES UPWARD, THE WAY THE PANEL BETWEEN PAGES DOES. The whole
-      // thing, film and all, travels off the top and uncovers the site as it
-      // goes, rather than dissolving in place. It never comes back down the way
-      // it came: arriving and leaving by the same edge undoes itself.
-      //
-      // Under reduced motion it does not travel at all. Sliding a full screen
-      // of anything past somebody who asked for less movement is exactly the
-      // thing they turned off, so that case keeps the old opacity exit.
-      className={`fixed inset-0 z-[100] overflow-hidden transition-transform duration-500 motion-reduce:transition-opacity ${
-        phase === "exit"
-          ? "pointer-events-none -translate-y-full motion-reduce:translate-y-0 motion-reduce:opacity-0"
-          : "translate-y-0 opacity-100"
+      style={{ backgroundColor: GROUND }}
+      // IT FADES INTO THE SITE. The film closes holding the gold lockup, and
+      // the homepage comes up through it as one continuous experience; that
+      // is the brief's own sentence, and a slide would put a direction on a
+      // moment that is meant to dissolve. A fade is also inherently
+      // reduced-motion-safe, so the old motion-reduce special case is gone.
+      className={`fixed inset-0 z-[100] overflow-hidden transition-opacity duration-[2000ms] ease-linear ${
+        phase === "exit" ? "pointer-events-none opacity-0" : "opacity-100"
       }`}
     >
-      {/* CONTAIN, NOT COVER. The film is 16:9 and a tall phone is far taller
-          than that, so cover would crop the lion's mane off at the sides. The
-          letterbox is the same near-black the film is grounded in, so on any
-          shape of screen it reads as one field of black. */}
+      {/* FILL THE SCREEN WHEN THE CROP IS CHEAP, LETTERBOX WHEN IT IS NOT.
+          Each cut gets a band of viewport shapes close enough to its own
+          that covering costs only a few percent off an edge, and inside
+          that band the film runs genuinely fullscreen (Jalen, 13 Aug 2026:
+          a MacBook was showing bars). Outside it the crop turns
+          destructive, because the closing lockup spans about ninety percent
+          of the frame's width and the tagline sits near its bottom edge:
+          a long window would shave the tagline off, a very tall phone would
+          cut the lion and the K. Those fall back to contain, and the bars
+          are the film's own near-black on the overlay's identical ground,
+          so the seam cannot be seen. */}
       {phase === "still" ? (
         <Image
-          src="/videos/kul-intro-poster.jpg"
+          src={portrait ? "/videos/kul-intro-poster-mobile.jpg" : "/videos/kul-intro-poster.jpg"}
           alt=""
           aria-hidden="true"
           fill
           priority
           sizes="100vw"
-          className="object-contain"
+          className={`object-contain ${FIT_COVER[portrait ? "portrait" : "landscape"]}`}
         />
       ) : (
         /* ================================================================
@@ -395,45 +436,58 @@ export default function LoadingOverlay() {
 
            A `codecs` parameter on the type would be enough to make Safari
            skip the source honestly, but the webm earns nothing here even
-           where it does decode: it was 1.28MB against the mp4's 895KB, so it
-           was the larger file as well as the unplayable one. The mp4 is
-           H.264 High, level 3.2, yuv420p, 1280x720, which is the one
-           encoding every browser and every phone decodes in hardware.
+           where it does decode: it was the larger file as well as the
+           unplayable one. Both cuts are H.264 High, level 4.0, yuv420p,
+           which every browser and every phone decodes in hardware.
+
+           THE TWO CUTS ARE CHOSEN IN JAVASCRIPT, NOT BY A `media` ATTRIBUTE
+           ON A SECOND `<source>`. That attribute looks like the obvious
+           answer and does nothing: browsers dropped support for media on
+           video sources years ago and evaluate only the first playable
+           entry, so both phones and desktops would have got whichever came
+           first. `key` on the element forces React to build a new one when
+           the cut changes, because swapping a `<source>` child in place
+           leaves the already-committed media element pointed at the old
+           file until load() is called by hand.
 
            If a second encoding is ever wanted (AV1, say), it goes AFTER this
            one and its type carries a full `codecs` string. */
         <video
+          key={portrait ? "portrait" : "landscape"}
           ref={videoRef}
-          poster="/videos/kul-intro-poster.jpg"
           muted
           playsInline
           autoPlay
           preload="auto"
           aria-hidden="true"
           onError={abandon}
-          className="h-full w-full object-contain"
+          className={`h-full w-full object-contain ${FIT_COVER[portrait ? "portrait" : "landscape"]}`}
         >
-          <source src="/videos/kul-intro.mp4" type='video/mp4; codecs="avc1.640020"' />
+          <source
+            src={portrait ? "/videos/kul-intro-mobile.mp4" : "/videos/kul-intro.mp4"}
+            type='video/mp4; codecs="avc1.640028"'
+          />
         </video>
       )}
 
       {/* NO TAGLINE OVER THE TOP. There used to be one here, from when the
-          opening ended on the bare lion and the frame had something left to
-          say. The film now closes on the full lockup, wordmark and all, so a
-          line of HTML text laid over it would only compete with the thing it
-          was standing in for. */}
+          opening ended on the bare lion. The tagline now lives INSIDE the
+          encode, composited beneath the closing card from the brand tokens
+          and ArchivoBlack (13 Aug 2026), fading in at 12.9s. HTML text
+          floated over the film would only compete with it. */}
 
       {/* SKIP, AS A MARK RATHER THAN A WORD.
 
           The glyph is the skip-to-end symbol every player uses, which is
-          literally what the control does: jump past the film to the site. It
-          keeps its accessible name, so a screen reader still hears "Skip
-          intro" and the target stays a full 44px even though the drawn ring
-          is smaller than the word ever was. */}
+          literally what the control does: jump past the film to the site.
+          The ring that used to be drawn around it is gone (Jalen, 13 Aug
+          2026): the bare glyph sits quieter over the film. The accessible
+          name stays, the target stays a full 44px, and keyboard focus gets
+          a gold ring that pointer users never see. */}
       <button
         type="button"
         onClick={dismiss}
-        className="group absolute bottom-[max(1.5rem,env(safe-area-inset-bottom))] right-6 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/25 text-white/70 transition-colors duration-200 hover:border-k-gold-lit hover:text-k-gold-lit focus-visible:border-k-gold-lit focus-visible:text-k-gold-lit focus-visible:outline-none"
+        className="group absolute bottom-[max(1.5rem,env(safe-area-inset-bottom))] right-6 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full text-white/70 transition-colors duration-200 hover:text-k-gold-lit focus-visible:text-k-gold-lit focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-k-gold-lit/60"
       >
         <span className="sr-only">Skip intro</span>
         <svg
