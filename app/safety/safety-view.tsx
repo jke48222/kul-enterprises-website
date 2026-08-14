@@ -131,22 +131,18 @@ const ICONS = {
 } as const;
 
 /**
- * Written as policy, because a policy is true from day one.
- *
- * ONE "X RATHER THAN Y" IN THIS SECTION, AND IT IS SPENT. It is "we say so
- * when you ask, not when we are late", where the contrast carries a real
- * difference in behaviour. There used to be four of them across these clauses
- * and the section rail above, and at that density the shape reads as a house
- * tic rather than as a distinction. If you add another, take that one out.
- */
-/**
  * The clauses, written as policy, because a policy is true from day one.
  *
- * ONE "X RATHER THAN Y" IN THIS SECTION, AND IT IS SPENT. It is "we say so
- * when you ask, not when we are late", where the contrast carries a real
- * difference in behaviour. There used to be four of them across these clauses
- * and the section rail above, and at that density the shape reads as a house
- * tic rather than as a distinction. If you add another, take that one out.
+ * THE WORDING OF ALL FOUR IS MARK'S OWN, from his direction of 13 August
+ * 2026, adjusted only where a standing rule required it: the em dashes were
+ * restructured into commas and the contractions opened, because the site
+ * carries neither. Do not tighten or "improve" these clauses for style; they
+ * say what the company decided, in the order it decided it. Change them at
+ * /admin under "Safety page", or not at all.
+ *
+ * Two of the clauses end on a "before X, not after Y" turn. That repetition
+ * is his, and it is doing work: the same shape twice is the philosophy
+ * repeating, not a tic. Resist adding a third.
  *
  * A clause whose `icon` does not name one of the four drawings above prints
  * without a mark rather than failing, so a fifth clause added in the CMS
@@ -189,6 +185,10 @@ export default function SafetyView(props: TinaPage<{ safetyPage: unknown }>) {
   // the content arrives at runtime rather than from a static import.
   const COMMITMENTS = page.commitments.items;
   const TESTIMONIALS: Testimonial[] = page.testimonials.items;
+  const MANIFESTO = page.manifesto;
+  // The list can be emptied in the CMS, and an emptied list arrives as
+  // nothing at all rather than as zero entries.
+  const STEPS = MANIFESTO.steps ?? [];
 
   return (
     <>
@@ -391,6 +391,100 @@ export default function SafetyView(props: TinaPage<{ safetyPage: unknown }>) {
             ))}
             <RuleDraw index={COMMITMENTS.length} />
           </ol>
+        </div>
+      </section>
+
+      {/* THE BLACK STATEMENT BAND, added 13 August 2026 at Mark's direction.
+
+          This is the page's answer to the question the four clauses raise:
+          what actually happens when one of them stops a load. The words are
+          Mark's own, from his written direction, with only the standing rules
+          applied to them, so the em dash became a comma and "doesn't" opened
+          to "does not". The message he wants a visitor to leave with is that
+          KUL stops the unsafe part of the operation and immediately starts
+          finding a safe way forward, and this band is where the site says it
+          once, plainly, at size.
+
+          IT IS DELIBERATELY EMPTY OTHERWISE. No photograph sits behind it,
+          by his instruction: the only honest pictures for this band would be
+          a real inspection, a technician at the tractor, or a pre-trip in
+          progress, and no such photograph of KUL's own operation exists yet.
+          He would rather have the clean black than a stock stand-in, so until
+          one is taken the type carries the whole band. When a real one
+          exists, it belongs behind this section at low opacity, the way the
+          dashcam band above does it.
+
+          NOTHING GETS ADDED HERE. No "safety first", no "industry leading",
+          no awards, technology, certifications or training systems the
+          company has not built. When those programs become real they get
+          their own sections between this band and the foot of the page, each
+          added to content/pages/safety.json and the schema like everything
+          else, and only then.
+
+          The entrances are the site's shared ones and nothing more: the
+          statement rises once, and the five recovery words arrive one at a
+          time on the same sixty millisecond stagger every grouped row on the
+          site uses. He asked for a message that owns the moment without
+          feeling like an advertisement, which is exactly the register the
+          quiet entrance and the empty ground are for. */}
+      <section className="bg-k-void px-6 py-32 md:px-12 md:py-44 lg:px-24">
+        <div className="mx-auto flex max-w-[1100px] flex-col items-center gap-9 text-center">
+          <Reveal>
+            {/* One heading holding both lines, so a screen reader hears the
+                full statement as a single thought: the rule, then the turn.
+
+                d2, NOT d1, and it was measured: at the biggest step each line
+                is wider than the column, so the statement broke into four
+                ragged lines and "problem-solving" split across its own
+                hyphen. At this step each line holds whole on one line all the
+                way down to a tablet, which is what lets two lines read as one
+                statement. It is also the scale of "Ready when you are." in
+                the footer below, so the page's two dark declarations agree
+                with each other. */}
+            <h2 className="font-display text-k-d2 font-black">
+              <span
+                data-tina-field={tinaField(MANIFESTO, "line1")}
+                className="block text-k-on-dark"
+              >
+                {fill(MANIFESTO.line1)}
+              </span>
+              <span
+                data-tina-field={tinaField(MANIFESTO, "line2")}
+                className="block text-k-gold-lit"
+              >
+                {fill(MANIFESTO.line2)}
+              </span>
+            </h2>
+          </Reveal>
+          <Reveal index={1}>
+            <Copy
+              text={MANIFESTO.body}
+              className="max-w-[620px] font-text text-k-lede text-k-on-dark-soft"
+              linkClassName="underline underline-offset-4"
+            />
+          </Reveal>
+          {/* The recovery sequence. Each word is its own entrance so the row
+              arrives in reading order, which is as far as the movement goes. */}
+          <ul className="flex flex-wrap items-baseline justify-center gap-x-7 gap-y-3 pt-2">
+            {STEPS.map((step, i) => (
+              <li key={`${i}-${step}`}>
+                <Reveal index={2 + i} variant="settle">
+                  <span className="font-text text-k-label uppercase text-k-on-dark-faint">
+                    {fill(step)}
+                  </span>
+                </Reveal>
+              </li>
+            ))}
+          </ul>
+          {/* The landing. Full white on purpose, after the softer paragraph
+              above it: the last line is the one to leave with. */}
+          <Reveal index={2 + STEPS.length} className="pt-2">
+            <Copy
+              text={MANIFESTO.close}
+              className="max-w-[620px] font-text text-k-lede text-k-on-dark"
+              linkClassName="underline underline-offset-4"
+            />
+          </Reveal>
         </div>
       </section>
 

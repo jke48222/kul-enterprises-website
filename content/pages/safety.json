@@ -51,24 +51,37 @@
       {
         "icon": "maintenance",
         "title": "Maintenance",
-        "body": "The truck is inspected before every dispatch. Anything found is fixed before the load moves, even when that costs us the load."
+        "body": "Safety concerns are addressed before schedule pressure. Equipment is inspected and maintained with one objective in mind: if something may affect safe operation, we evaluate it before asking the driver to continue. A change the driver notices in steering, braking, vibration, sound, or handling is reason enough to check it, with or without a warning light."
       },
       {
         "icon": "hours",
         "title": "Hours of service",
-        "body": "Hours are planned before dispatch. If a lane cannot be run legally inside the clock, we say so when you ask, not when we are late."
+        "body": "Hours are planned before dispatch. If a lane cannot be completed legally or safely, we say so before accepting it, not after we are already late."
       },
       {
         "icon": "communication",
         "title": "Communication",
-        "body": "You hear about a delay from us first. The dispatch line is answered around the clock."
+        "body": "When a meaningful delay or safety concern develops, we communicate early. You hear the problem from us while there is still time to respond, not after the outcome is unavoidable."
       },
       {
         "icon": "cargo",
         "title": "Cargo",
-        "body": "Freight is secured to FMCSA standards and sealed at origin where a seal applies. The seal number goes on the paperwork so the receiver can check it."
+        "body": "Every load is handled as a responsibility entrusted to us. Proper securement, documentation, equipment condition, and careful handling protect more than freight; they protect our customer's business and reputation."
       }
     ]
+  },
+  "manifesto": {
+    "line1": "Stop the unsafe operation.",
+    "line2": "Not the problem-solving.",
+    "body": "When a legitimate safety concern arises, the unsafe operation stops. Then our team goes to work finding another way forward.",
+    "steps": [
+      "Inspection.",
+      "Repair.",
+      "Replacement equipment.",
+      "Load recovery.",
+      "Customer communication."
+    ],
+    "close": "Safety does not mean we stop moving. It means we find a safer way to move forward."
   },
   "testimonials": {
     "heading": "What customers say",

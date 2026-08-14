@@ -511,6 +511,29 @@ export default defineConfig({
             ],
           },
         ]),
+        group(
+          "manifesto",
+          "The black statement band",
+          [
+            text("line1", "First line", "Printed large, in white."),
+            text("line2", "Second line", "Printed large, in gold, directly under the first."),
+            longText("body", "The paragraph beneath the statement"),
+            {
+              type: "string",
+              name: "steps",
+              label: "The recovery sequence",
+              description:
+                "The short words under the paragraph, shown in a row and arriving one at a time. Keep each to a word or two, and type the full stop yourself: what you write here is exactly what prints.",
+              list: true,
+            },
+            longText(
+              "close",
+              "The closing line",
+              "The last sentence in the band, printed full white.",
+            ),
+          ],
+          "The black band between the four clauses and the foot of the page: what happens when a real safety concern stops a load, and what starts the moment it does.",
+        ),
         group("testimonials", "Customer quotations", [
           text("heading", "Section heading"),
           {
