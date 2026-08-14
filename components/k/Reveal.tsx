@@ -94,6 +94,20 @@ type RevealProps = {
   variant?: RevealVariant;
   /** Position within a group. Each step adds 60ms, so a row arrives in order. */
   index?: number;
+  /**
+   * Wait exactly this many milliseconds before the entrance starts, instead
+   * of the 60ms-per-index house rhythm. For the rare section that is paced by
+   * hand, like the black band on the safety page. When this is set, `index`
+   * no longer affects the delay.
+   */
+  delayMs?: number;
+  /**
+   * How long the entrance itself runs, in milliseconds. Bigger is slower.
+   * Leave it unset everywhere the shared rhythm is wanted, which is nearly
+   * everywhere: an entrance that runs at its own speed on an ordinary page
+   * reads as a mistake, not a mood.
+   */
+  durationMs?: number;
   className?: string;
 };
 
@@ -199,6 +213,8 @@ export default function Reveal({
   children,
   variant = "rise",
   index = 0,
+  delayMs,
+  durationMs,
   className,
 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -235,14 +251,23 @@ export default function Reveal({
     };
   }, []);
 
+  // The timing rides on custom properties rather than classes, because the
+  // values are arbitrary numbers Tailwind cannot generate a class for. They
+  // are written inline so a hand-set delay or length always beats the
+  // variant's own value in the stylesheet.
+  const delay = delayMs ?? index * 60;
+  const timing: Record<string, string> = {};
+  if (delay) timing["--rv-delay"] = `${delay}ms`;
+  if (durationMs) timing["--rv-dur"] = `${durationMs}ms`;
+
   return (
     <div
       ref={ref}
       className={`kul-rv ${className ?? ""}`}
       data-rv={variant}
-      // The stagger is a custom property rather than a class, because the
-      // index is arbitrary and Tailwind cannot generate a class per number.
-      style={index ? ({ "--rv-delay": `${index * 60}ms` } as React.CSSProperties) : undefined}
+      style={
+        Object.keys(timing).length ? (timing as React.CSSProperties) : undefined
+      }
     >
       {children}
     </div>

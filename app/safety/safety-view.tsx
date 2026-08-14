@@ -421,15 +421,21 @@ export default function SafetyView(props: TinaPage<{ safetyPage: unknown }>) {
           added to content/pages/safety.json and the schema like everything
           else, and only then.
 
-          The entrances are the site's shared ones and nothing more: the
-          statement rises once, and the five recovery words arrive one at a
-          time on the same sixty millisecond stagger every grouped row on the
-          site uses. He asked for a message that owns the moment without
-          feeling like an advertisement, which is exactly the register the
-          quiet entrance and the empty ground are for. */}
+          The entrances are the site's shared ones, paced by hand and slower
+          than everywhere else, asked for on 13 Aug 2026. The statement takes
+          the atmospheric length instead of the standard one, the paragraph
+          follows a beat behind it, each recovery word lands about a fifth of
+          a second after the one before so they can actually be read as they
+          arrive, and the closing line waits for the whole row plus a breath.
+          The numbers live here in the code rather than in the CMS because
+          motion always stays in code; the two knobs they turn are described
+          at the top of components/k/Reveal.tsx. He asked for a message that
+          owns the moment without feeling like an advertisement, which is
+          exactly the register the slow entrance and the empty ground are
+          for. */}
       <section className="bg-k-void px-6 py-32 md:px-12 md:py-44 lg:px-24">
         <div className="mx-auto flex max-w-[1100px] flex-col items-center gap-9 text-center">
-          <Reveal>
+          <Reveal durationMs={1600}>
             {/* One heading holding both lines, so a screen reader hears the
                 full statement as a single thought: the rule, then the turn.
 
@@ -456,7 +462,7 @@ export default function SafetyView(props: TinaPage<{ safetyPage: unknown }>) {
               </span>
             </h2>
           </Reveal>
-          <Reveal index={1}>
+          <Reveal delayMs={350} durationMs={1600}>
             <Copy
               text={MANIFESTO.body}
               className="max-w-[620px] font-text text-k-lede text-k-on-dark-soft"
@@ -464,11 +470,11 @@ export default function SafetyView(props: TinaPage<{ safetyPage: unknown }>) {
             />
           </Reveal>
           {/* The recovery sequence. Each word is its own entrance so the row
-              arrives in reading order, which is as far as the movement goes. */}
+              arrives strictly in reading order, one word every 220ms. */}
           <ul className="flex flex-wrap items-baseline justify-center gap-x-7 gap-y-3 pt-2">
             {STEPS.map((step, i) => (
               <li key={`${i}-${step}`}>
-                <Reveal index={2 + i} variant="settle">
+                <Reveal delayMs={650 + i * 220} durationMs={900} variant="settle">
                   <span className="font-text text-k-label uppercase text-k-on-dark-faint">
                     {fill(step)}
                   </span>
@@ -477,8 +483,10 @@ export default function SafetyView(props: TinaPage<{ safetyPage: unknown }>) {
             ))}
           </ul>
           {/* The landing. Full white on purpose, after the softer paragraph
-              above it: the last line is the one to leave with. */}
-          <Reveal index={2 + STEPS.length} className="pt-2">
+              above it: the last line is the one to leave with. Its delay is
+              computed from however many words the CMS holds, so it always
+              starts a breath after the final one rather than cutting in. */}
+          <Reveal delayMs={650 + STEPS.length * 220 + 150} durationMs={1600} className="pt-2">
             <Copy
               text={MANIFESTO.close}
               className="max-w-[620px] font-text text-k-lede text-k-on-dark"
