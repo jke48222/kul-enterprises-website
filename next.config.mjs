@@ -56,16 +56,29 @@ const nextConfig = {
             value: "strict-origin-when-cross-origin",
           },
           /**
-           * NO X-Frame-Options ON PUBLIC PAGES, AND THE ABSENCE IS DELIBERATE
-           * (17 Aug 2026): the site is embedded as an <iframe> on the
-           * developer's portfolio, and any framing restriction on this source
-           * breaks that embed wherever the portfolio is hosted. The
-           * clickjacking guard did not disappear, it moved to the /admin rule
-           * below, the one surface where a hidden frame and a misdirected
-           * click could change something. A brochure page has no
-           * state-changing click to steal. TinaCMS's visual editor frames
-           * these pages same-origin, so an open policy costs it nothing.
+           * FRAMING IS AN ALLOW LIST, NOT A BAN AND NOT A FREE-FOR-ALL
+           * (17 Aug 2026). The site is embedded as an <iframe> on the
+           * developer's portfolio, so the old X-Frame-Options: SAMEORIGIN had
+           * to go: XFO cannot name an allowed origin, only self or nobody.
+           * Its modern replacement below names exactly who may frame these
+           * pages: this site itself (TinaCMS's visual editor frames pages
+           * same-origin), the portfolio on both its hosts, and the
+           * portfolio's local dev server. Everyone else is refused, which
+           * keeps the clickjacking protection XFO used to provide.
+           *
+           * IF THE PORTFOLIO EVER MOVES DOMAINS THE EMBED BREAKS HERE, in
+           * this list, not in the portfolio's own code. Add the new origin.
+           *
+           * No X-Frame-Options fallback on public pages on purpose: any XFO
+           * value would block the portfolio in the old browsers that need the
+           * fallback, and browsers that understand frame-ancestors ignore XFO
+           * entirely.
            */
+          {
+            key: "Content-Security-Policy",
+            value:
+              "frame-ancestors 'self' https://www.jalenedusei.com https://jalenedusei.com http://localhost:3000",
+          },
           // The site asks for no device permissions; deny the three that
           // matter most, for this document and every embed within it.
           {
@@ -76,13 +89,21 @@ const nextConfig = {
       },
       {
         /**
-         * The CMS keeps the clickjacking guard the public pages gave up: an
-         * attacker's origin cannot frame the editor. SAMEORIGIN rather than
-         * DENY so nothing same-origin is ever refused; DENY's blast radius
-         * cost a debugging session once (29 Jul, the visual-editing trap).
+         * The CMS is framed by nobody but this origin, portfolio included:
+         * the CSP here overrides the public allow list for /admin, and the
+         * X-Frame-Options rides along for browsers that predate
+         * frame-ancestors. SAMEORIGIN rather than DENY so nothing same-origin
+         * is ever refused; DENY's blast radius cost a debugging session once
+         * (29 Jul, the visual-editing trap).
          */
         source: "/admin/:path*",
-        headers: [{ key: "X-Frame-Options", value: "SAMEORIGIN" }],
+        headers: [
+          {
+            key: "Content-Security-Policy",
+            value: "frame-ancestors 'self'",
+          },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+        ],
       },
     ];
   },
