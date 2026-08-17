@@ -91,7 +91,7 @@ export default function QuoteView(props: TinaPage<{ quotePage: unknown }>) {
         <div className="mx-auto flex max-w-[1248px] flex-col gap-7">
           <Breadcrumb
             className=""
-            items={[{ label: "KUL", href: "/" }, { label: "Quote" }]}
+            items={[{ label: "Quote" }]}
           />
           <h1
               data-tina-field={tinaField(page.opening, "heading")}

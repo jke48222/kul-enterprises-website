@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Service } from "@/lib/services";
+import { fill } from "@/lib/content";
+import nav from "@/content/navigation.json";
 
 /**
  * SERVICES CAROUSEL
@@ -476,7 +478,7 @@ export default function ServiceCarousel({ services }: ServiceCarouselProps) {
         <button
           type="button"
           onClick={() => step(-1)}
-          aria-label="Previous service"
+          aria-label={fill(nav.chrome.carouselPrevLabel)}
           className="flex h-11 w-11 items-center justify-center rounded-full border border-k-rule-strong font-text text-k-small text-k-ink-faint transition-colors duration-200 hover:border-k-ink hover:text-k-ink"
         >
           &#8592;
@@ -514,7 +516,7 @@ export default function ServiceCarousel({ services }: ServiceCarouselProps) {
         <button
           type="button"
           onClick={() => step(1)}
-          aria-label="Next service"
+          aria-label={fill(nav.chrome.carouselNextLabel)}
           className="flex h-11 w-11 items-center justify-center rounded-full bg-k-ink font-text text-k-small text-k-paper transition-opacity duration-200 hover:opacity-85"
         >
           &#8594;

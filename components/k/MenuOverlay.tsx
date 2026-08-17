@@ -10,6 +10,8 @@ import {
 import { useEffect, useRef } from "react";
 import { services } from "@/lib/services";
 import { site } from "@/lib/site";
+import { fill } from "@/lib/content";
+import nav from "@/content/navigation.json";
 
 /**
  * THE MENU PANEL
@@ -108,7 +110,7 @@ function Panel({ onClose, links }: Omit<MenuOverlayProps, "open">) {
       id="k-menu"
       role="dialog"
       aria-modal="true"
-      aria-label="Menu"
+      aria-label={fill(nav.chrome.menuOpenLabel)}
       // Once it is on its way out it stops taking taps, so the last frames of
       // the closing animation cannot swallow a press meant for the page.
       className={`fixed inset-0 z-[90] flex flex-col bg-k-coal text-k-on-dark min-[1240px]:hidden ${
@@ -152,7 +154,7 @@ function Panel({ onClose, links }: Omit<MenuOverlayProps, "open">) {
         onClick={onClose}
         className="sr-only left-6 top-6 z-10 rounded-full bg-k-on-dark px-6 py-3 font-text text-k-label uppercase text-k-ink focus:not-sr-only focus:absolute"
       >
-        Close menu
+        {fill(nav.chrome.menuCloseLabel)}
       </button>
 
       {/* The middle scrolls on its own if a short screen cannot hold the
@@ -160,7 +162,7 @@ function Panel({ onClose, links }: Omit<MenuOverlayProps, "open">) {
           The top padding is the height of the bar hanging over it, so the
           first link is never delivered underneath the pill. */}
       <div className="min-h-0 flex-1 overflow-y-auto px-6 pb-8 pt-[104px] sm:px-8">
-        <nav aria-label="Menu">
+        <nav aria-label={fill(nav.chrome.menuOpenLabel)}>
           <ul>
             {links.map((link, index) => (
               <li key={link.href} className="overflow-hidden">
@@ -198,7 +200,7 @@ function Panel({ onClose, links }: Omit<MenuOverlayProps, "open">) {
           className="mt-8 border-t border-k-rule-dark pt-6"
         >
           <h2 className="font-text text-k-micro uppercase text-k-on-dark-faint">
-            Freight services
+            {fill(nav.chrome.menuServicesHeading)}
           </h2>
           <ul className="mt-4 grid grid-cols-2 gap-x-6 gap-y-1">
             {services.map((service) => (
@@ -229,7 +231,7 @@ function Panel({ onClose, links }: Omit<MenuOverlayProps, "open">) {
             onClick={onClose}
             className="rounded-full bg-k-gold-lit px-6 py-3 font-text text-k-label uppercase text-k-void transition-opacity duration-200 hover:opacity-90"
           >
-            Get a quote
+            {fill(nav.bar.quoteLabel)}
           </Link>
           <a
             href={site.phoneHref}
@@ -239,7 +241,9 @@ function Panel({ onClose, links }: Omit<MenuOverlayProps, "open">) {
           </a>
         </div>
         <p className="mt-4 font-text text-k-micro uppercase tabular-nums text-k-on-dark-faint">
-          {`${site.city}, ${site.state} · USDOT ${site.usdot}${site.mc ? ` · MC ${site.mc}` : ""}`}
+          {/* The labels come from the footer's own fields, so the menu and
+              the footer can never spell the authority differently. */}
+          {`${site.city}, ${site.state} · ${fill(nav.footer.usdotLabel)} ${site.usdot}${site.mc ? ` · ${fill(nav.footer.mcLabel)} ${site.mc}` : ""}`}
         </p>
       </m.div>
     </m.div>

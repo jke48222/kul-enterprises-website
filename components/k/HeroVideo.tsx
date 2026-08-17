@@ -3,6 +3,16 @@
 import { useEffect, useRef, useState } from "react";
 import { useReducedMotionLive } from "@/components/k/useReducedMotionLive";
 import { createPortal } from "react-dom";
+import { fill } from "@/lib/content";
+import nav from "@/content/navigation.json";
+
+/**
+ * The control's two words, from Interface words in the CMS. One field feeds
+ * the visible word AND the accessible name, which is what keeps WCAG 2.5.3
+ * Label in Name true by construction however the client rewords them.
+ */
+const playWord = fill(nav.chrome.playWord);
+const pauseWord = fill(nav.chrome.pauseWord);
 
 /**
  * One rule of the fold, and the three states it moves between.
@@ -254,10 +264,9 @@ export default function HeroVideo({
         // THE VISIBLE WORD IS THE FIRST WORD OF THAT NAME, deliberately. WCAG
         // 2.5.3 Label in Name wants the visible text to open the accessible
         // name, so somebody driving this page by voice can say "pause" and hit
-        // the thing that reads Pause. Do not change the visible word to
-        // "Pause film": it is not a substring of "Pause the hero film" and it
-        // would break exactly those readers.
-        aria-label={`${playing ? "Pause" : "Play"} ${label}`}
+        // the thing that reads Pause. The same CMS field renders both, so the
+        // rule survives any rewording at /admin.
+        aria-label={`${playing ? pauseWord : playWord} ${label}`}
         className={[
           // POSITION IS SET ONCE, IN THE CONDITIONAL BELOW, AND NEVER HERE.
           // `relative` used to sit in this line and `absolute` was added lower
@@ -327,9 +336,11 @@ export default function HeroVideo({
             actually rendering, whatever face the reader ends up with. */}
         <span className="relative grid">
           <span aria-hidden="true" className="invisible col-start-1 row-start-1">
-            Pause
+            {/* Whichever of the two words is longer, so the cell is measured
+                from the widest word the control can ever show. */}
+            {pauseWord.length >= playWord.length ? pauseWord : playWord}
           </span>
-          <span className="col-start-1 row-start-1">{playing ? "Pause" : "Play"}</span>
+          <span className="col-start-1 row-start-1">{playing ? pauseWord : playWord}</span>
           {/* The hairline is the hover, which is the idiom this site already
               teaches for interactive type. It is also what stops the word
               reading as a fourth credential in a row of three. */}

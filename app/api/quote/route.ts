@@ -1,11 +1,13 @@
 import { NextResponse } from "next/server";
 import { isEmail, readForm, recordLead, sendViaResend } from "@/lib/email";
 import { clientIp, rateLimit } from "@/lib/ratelimit";
+import { fill } from "@/lib/content";
+import forms from "@/content/forms.json";
 
 export async function POST(req: Request) {
   if (!rateLimit(`quote:${clientIp(req)}`).allowed) {
     return NextResponse.json(
-      { ok: false, error: "Too many requests. Please try again shortly." },
+      { ok: false, error: fill(forms.shared.rateLimited) },
       { status: 429 }
     );
   }
@@ -52,7 +54,7 @@ export async function POST(req: Request) {
 
   if (!result.ok) {
     return NextResponse.json(
-      { ok: false, error: "Email delivery failed." },
+      { ok: false, error: fill(forms.shared.deliveryFailed) },
       { status: 502 }
     );
   }

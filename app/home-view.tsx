@@ -93,6 +93,7 @@ export default function HomeView(props: TinaPage<{ homePage: unknown }>) {
           instead of reflowing when the chrome slides away. */}
       <section className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden bg-k-void md:min-h-[820px]">
         <HeroVideo
+          name={home.hero.video}
           poster={home.hero.poster}
           label="the hero film"
           controlSlotId="hero-film-control"

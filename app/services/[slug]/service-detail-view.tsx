@@ -99,7 +99,6 @@ export default function ServiceDetailView({
               <Breadcrumb
                 tone="dark"
                 items={[
-                  { label: "KUL", href: "/" },
                   { label: "Services", href: "/services" },
                   { label: service.name },
                 ]}

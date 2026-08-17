@@ -75,7 +75,7 @@ export default function ContactView(props: TinaPage<{ contactPage: unknown }>) {
         <div className="mx-auto flex max-w-[1248px] flex-col gap-7">
           <Breadcrumb
             className=""
-            items={[{ label: "KUL", href: "/" }, { label: "Contact" }]}
+            items={[{ label: "Contact" }]}
           />
           <h1
               data-tina-field={tinaField(page.opening, "heading")}

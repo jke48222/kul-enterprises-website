@@ -138,7 +138,7 @@ export default function DriversView(props: TinaPage<{ driversPage: unknown }>) {
           <Breadcrumb
             tone="dark"
             className="pb-10"
-            items={[{ label: "KUL", href: "/" }, { label: "Drivers" }]}
+            items={[{ label: "Drivers" }]}
           />
 
           <Reveal variant="wipe">

@@ -10,6 +10,7 @@
     "secondaryCta": { "label": "Call dispatch · {phone}", "href": "{phone}" },
     "credentials": "USDOT {usdot} · MC {mc}",
     "locationLine": "{location}",
+    "video": "kul-hero",
     "poster": "/videos/kul-hero-poster.jpg"
   },
   "statement": {

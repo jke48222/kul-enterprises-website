@@ -210,7 +210,7 @@ export default function ServicesView(props: TinaPage<{ servicesPage: unknown }>)
         <div className="mx-auto max-w-[1248px]">
           <Breadcrumb
             className="pb-5"
-            items={[{ label: "KUL", href: "/" }, { label: "Services" }]}
+            items={[{ label: "Services" }]}
           />
           <div className="flex flex-col gap-6 border-b border-k-rule pb-6 lg:flex-row lg:items-end lg:justify-between">
             <h1

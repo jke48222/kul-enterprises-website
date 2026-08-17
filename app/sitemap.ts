@@ -5,6 +5,13 @@ import { services } from "@/lib/services";
 /**
  * One tree, at the root. Every public page is listed here; the demo-era
  * version prefixes and exploration routes are gone, so nothing is withheld.
+ *
+ * THE STATIC ROUTES ARE A DELIBERATE HAND-KEPT LIST, not an oversight of the
+ * everything-in-the-CMS rule. Each entry mirrors a folder under app/, which
+ * is code, and the client cannot add or remove pages at /admin, only edit
+ * them. Deriving this list from the menus was considered and rejected: it
+ * would mean removing a footer link quietly unpublishes a page from search.
+ * The one list that does grow in the CMS, the services, is derived below.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

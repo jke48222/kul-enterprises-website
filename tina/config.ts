@@ -102,6 +102,22 @@ export default defineConfig({
             description: "One entry per line, as it appears in the opening film.",
             list: true,
           },
+          text(
+            "titleTail",
+            "Words after the company name in the browser tab",
+            "Shown on any page that has no search listing of its own, as: company name, a vertical bar, then these words.",
+          ),
+          image(
+            "shareImage",
+            "The picture shown when a link is shared",
+            "1200 by 630. WHEN REPLACING IT, UPLOAD UNDER A NEW FILE NAME: iMessage, LinkedIn and Slack cache the card by its address for days, so new artwork at the old address keeps showing the old card.",
+          ),
+          image("logoLockup", "The logo given to search engines", "Used in search listings and knowledge panels, never on the page itself."),
+          links(
+            "social",
+            "Social profiles",
+            "Company pages only, full addresses. They are handed to search engines so the profiles and the site vouch for each other. Nothing shows on the site itself yet; where they appear visually is a separate decision.",
+          ),
           text("usdot", "USDOT number", "Printed on the home page, the safety page, the carrier packet and the footer. Type it once here."),
           text("mc", "MC number", "Same as above: this is the only place it is written down."),
           text("email", "Dispatch email", "Form replies and every mailto link use this address."),
@@ -265,6 +281,11 @@ export default defineConfig({
           cta("secondaryCta", "Outlined button"),
           text("credentials", "Authority line", `Bottom left of the opening screen. ${TOKENS}`),
           text("locationLine", "Location line", `Bottom right, in gold. ${TOKENS}`),
+          text(
+            "video",
+            "Which film plays",
+            "The file name with no .mp4 on the end, for example kul-hero. Both that file and its -720 version have to be in the videos folder. This is the looping background film, not the opening title sequence.",
+          ),
           image("poster", "Film still", "Shown before the film loads, and instead of it for anyone who has asked their computer to reduce motion."),
         ]),
         group("statement", "The driver statement", [
@@ -737,6 +758,11 @@ export default defineConfig({
        */
       page("journeyPage", "The Journey page", "journey", [
         seo(),
+        text(
+          "title",
+          "The page's hidden title",
+          "Never printed: the film is the page. Read aloud as the page heading, and search engines treat it the same way.",
+        ),
         group("film", "The film", [
           text(
             "video",
@@ -880,7 +906,18 @@ export default defineConfig({
             ],
           },
         ]),
-        group("map", "The service area map", [text("heading", "Headline")]),
+        group("map", "The service area map", [
+          text("heading", "Headline"),
+          text("homeRegionLabel", "The legend's first entry", "The sentence under it is built from the map itself: the state count and the state names come from the drawing, so they can never disagree with it."),
+          text("elsewhereLabel", "The legend's second entry"),
+          longText("elsewhereBody", "The paragraph under it"),
+          text("dispatchedLabel", "The label at the marked city", "The city itself comes from Business Facts."),
+          longText(
+            "ariaDescription",
+            "The map, described aloud",
+            "Never printed. A screen reader speaks this instead of the drawing. Write {states} where the list of home-region states should be read; it fills in from the map.",
+          ),
+        ]),
         group("catchAll", "Anything else", [
           text("heading", "Section heading"),
           text("emailLabel", "The address", TOKENS),
@@ -951,6 +988,7 @@ export default defineConfig({
               links("leftLinks", "Left of the lion", "The freight: what we haul, who drives it, how it is kept safe, and the paperwork a broker needs."),
               links("rightLinks", "Right of the lion", "The company and the conversation."),
               links("menuOnlyLinks", "In the menu only", "Pages the bar has no room for. THE BAR IS FULL: adding a link to either side above will start clipping it on medium screens. Read the note on MENU_BREAKPOINT in components/k/Nav.tsx before moving anything up."),
+              text("quoteLabel", "The gold pill", "The words on the bar's gold button, and on its twin at the bottom of the phone menu. It also names the quote page in search result groups."),
             ],
             "Each link can also name a preview panel. Leave that alone unless a panel has been built for the page.",
           ),
@@ -1050,6 +1088,27 @@ export default defineConfig({
             links("legalLinks", "Legal links"),
             image("logo", "The mark in the corner"),
           ]),
+          group(
+            "chrome",
+            "Interface words",
+            [
+              text("crumbRoot", "The first word of every breadcrumb trail", "The short company mark that starts the KUL / Page line at the top of most pages."),
+              text("crumbAria", "What the breadcrumb calls itself", "Never printed; read aloud so a screen reader can jump to it by name."),
+              text("skipLabel", "The skip link", "The first thing a keyboard reaches on any page; it jumps past the menu."),
+              text("homeLabel", "The home page's name", "Used where a list needs to name the home page, such as search result groups."),
+              text("playWord", "The word on a film's play control"),
+              text("pauseWord", "The word on a film's pause control"),
+              text("menuOpenLabel", "The menu button, before it opens"),
+              text("menuCloseLabel", "The menu button, when it is open"),
+              text("menuServicesHeading", "The heading over the services in the phone menu"),
+              text("logoAria", "The lion button, for screen readers", "Read aloud on the lion in the bar. Type {name} for the company name."),
+              text("backToTopLabel", "The back-to-top circle, for screen readers"),
+              text("carouselPrevLabel", "The carousel's back arrow, for screen readers"),
+              text("carouselNextLabel", "The carousel's forward arrow, for screen readers"),
+              text("newTabAnnouncement", "Read aloud after a link that opens a new tab", "Never printed. Keep the brackets."),
+            ],
+            "The small words on shared controls. Many are read aloud rather than printed; each one says which.",
+          ),
           group("legalChrome", "Wording shared by the legal documents", [
             text("updatedPrefix", "Before the date", "For example: Last updated"),
             text("indexLabel", "Heading above the clause list"),
@@ -1084,6 +1143,8 @@ export default defineConfig({
             "Write {query} where the words the visitor typed should be quoted back.",
           ),
           longText("emptyAction", "The line under it", "A good place for the phone number."),
+          text("closeLabel", "The close button, for screen readers", "Never printed; read aloud on the button that shuts the search."),
+          text("faqLabel", "The heading over question results", "Results from the home page's questions are grouped under this word."),
         ],
       },
 
@@ -1098,6 +1159,10 @@ export default defineConfig({
           group("shared", "Used by every form", [
             text("sendingLabel", "Button text while sending"),
             longText("genericError", "Fallback failure message"),
+            text("requiredError", "The empty-field message", "Shown under a field somebody skipped. The browser's own wording is used where it offers one; this is the fallback."),
+            longText("rateLimited", "The too-many-attempts message", "Shown when the same visitor sends many times in quick succession."),
+            longText("deliveryFailed", "The delivery-failure message", "Shown when the email behind the form cannot be sent. The phone number is the visitor's way around it, so it belongs in this sentence."),
+            text("invalidBody", "The unreadable-submission message", "Almost nobody ever sees this one; it answers a submission the server could not read at all."),
           ]),
           ...(
             [

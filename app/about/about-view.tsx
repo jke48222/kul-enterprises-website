@@ -114,7 +114,7 @@ export default function AboutView(props: TinaPage<{ aboutPage: unknown }>) {
           <Breadcrumb
             tone="dark"
             className="pb-10"
-            items={[{ label: "KUL", href: "/" }, { label: "About" }]}
+            items={[{ label: "About" }]}
           />
 
           <Reveal variant="settle">

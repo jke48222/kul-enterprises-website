@@ -214,7 +214,7 @@ export function SafetyPanel() {
             className="whitespace-nowrap border-b border-k-gold pb-0.5 font-text text-k-label uppercase text-k-gold"
           >
             {fill(nav.panels.safety.verifyLabel)}
-            <span className="sr-only"> (opens in a new tab)</span>
+            <span className="sr-only"> {fill(nav.chrome.newTabAnnouncement)}</span>
           </a>
           <Link
             href="/safety"

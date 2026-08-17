@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
+import { fill } from "@/lib/content";
+import nav from "@/content/navigation.json";
 
 /**
  * BACK TO TOP
@@ -93,7 +95,7 @@ export default function BackToTop() {
   return (
     <button
       type="button"
-      aria-label="Back to top"
+      aria-label={fill(nav.chrome.backToTopLabel)}
       // Anyone who asked for reduced motion gets the top at once; everyone
       // else is carried there. On the Journey, Lenis reads the position back
       // from the browser, so this works there without knowing about it.

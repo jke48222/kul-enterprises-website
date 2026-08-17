@@ -13,6 +13,8 @@ import quote from "@/content/pages/quote.json";
 import journey from "@/content/pages/journey.json";
 import services from "@/content/services.json";
 import faq from "@/content/faq.json";
+import nav from "@/content/navigation.json";
+import searchContent from "@/content/search.json";
 import privacyPolicy from "@/content/legal/privacy-policy.json";
 import termsConditions from "@/content/legal/terms-conditions.json";
 import cookies from "@/content/legal/cookies.json";
@@ -170,6 +172,25 @@ function page(
 }
 
 /**
+ * The name printed over a page's result group, read from the menus rather
+ * than kept here as a second copy: the bar, the menu-only list and the
+ * footer's page list are the places the visitor already learned these names.
+ * The two pages the menus do not name have fields of their own: the home
+ * page in Interface words, the quote page on the bar's gold pill.
+ */
+const NAV_LABELS = new Map<string, string>();
+for (const link of [
+  ...nav.bar.leftLinks,
+  ...nav.bar.rightLinks,
+  ...nav.bar.menuOnlyLinks,
+  ...nav.footer.pages,
+]) {
+  if (!NAV_LABELS.has(link.href)) NAV_LABELS.set(link.href, fill(link.label));
+}
+const navLabel = (href: string, fallback: string): string =>
+  NAV_LABELS.get(href) ?? fallback;
+
+/**
  * Build the whole index. Called once, behind the panel's first opening.
  * The page names here are what the results print over each group, so they
  * are the short names a visitor knows the pages by, not the longer lines
@@ -178,23 +199,23 @@ function page(
 export function buildIndex(): SearchRecord[] {
   const out: SearchRecord[] = [];
 
-  page(out, "/", "Home", home);
-  page(out, "/about", "About", about);
-  page(out, "/services", "Services", servicesIndex);
+  page(out, "/", fill(nav.chrome.homeLabel), home);
+  page(out, "/about", navLabel("/about", "About"), about);
+  page(out, "/services", navLabel("/services", "Services"), servicesIndex);
   for (const service of services.services) {
     // A service's own one-liner beats a search engine line it does not have.
     page(out, `/services/${service.slug}`, fill(service.name), service, service.blurb);
   }
-  page(out, "/drivers", "Drivers", drivers);
-  page(out, "/safety", "Safety", safety);
-  page(out, "/road-ahead", "The Road Ahead", roadAhead);
-  page(out, "/carrier-packet", "Carrier Packet", carrierPacket);
-  page(out, "/contact", "Contact", contact);
-  page(out, "/quote", "Get a Quote", quote);
-  page(out, "/journey", "The Journey", journey);
+  page(out, "/drivers", navLabel("/drivers", "Drivers"), drivers);
+  page(out, "/safety", navLabel("/safety", "Safety"), safety);
+  page(out, "/road-ahead", navLabel("/road-ahead", "The Road Ahead"), roadAhead);
+  page(out, "/carrier-packet", navLabel("/carrier-packet", "Carrier Packet"), carrierPacket);
+  page(out, "/contact", navLabel("/contact", "Contact"), contact);
+  page(out, "/quote", fill(nav.bar.quoteLabel), quote);
+  page(out, "/journey", navLabel("/journey", "The Journey"), journey);
 
   // The questions live on the home page, so that is where they link.
-  walk(faq, "/", "Home", "Questions", out);
+  walk(faq, "/", fill(nav.chrome.homeLabel), fill(searchContent.faqLabel), out);
 
   page(out, "/privacy-policy", plain(privacyPolicy.title), privacyPolicy);
   page(out, "/terms-conditions", plain(termsConditions.title), termsConditions);

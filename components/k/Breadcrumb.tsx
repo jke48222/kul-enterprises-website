@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { fill } from "@/lib/content";
+import nav from "@/content/navigation.json";
 
 /**
  * THE TRAIL AT THE TOP OF A PAGE
@@ -43,11 +45,20 @@ export default function Breadcrumb({
   const current = tone === "dark" ? "text-k-gold-lit" : "text-k-gold";
   const hoverTo = tone === "dark" ? "hover:text-k-on-dark" : "hover:text-k-ink";
 
+  // The first step is the same on every page, so it lives here and in one
+  // CMS field rather than in nine call sites. It used to be nine hardcoded
+  // copies of "KUL", which was the single most repeated string outside the
+  // CMS on the whole site.
+  const trail: readonly Crumb[] = [
+    { label: fill(nav.chrome.crumbRoot), href: "/" },
+    ...items,
+  ];
+
   return (
-    <nav aria-label="Breadcrumb" className={className}>
+    <nav aria-label={fill(nav.chrome.crumbAria)} className={className}>
       <ol className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
-        {items.map((item, i) => {
-          const last = i === items.length - 1;
+        {trail.map((item, i) => {
+          const last = i === trail.length - 1;
           return (
             <li
               key={item.label}

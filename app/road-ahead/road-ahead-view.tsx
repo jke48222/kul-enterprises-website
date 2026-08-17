@@ -87,7 +87,7 @@ export default function RoadAheadView(props: TinaPage<{ roadAheadPage: unknown }
         <div className="mx-auto max-w-[1248px]">
           <Breadcrumb
             className="pb-10"
-            items={[{ label: "KUL", href: "/" }, { label: "Road Ahead" }]}
+            items={[{ label: "Road Ahead" }]}
           />
 
           <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between lg:gap-24">

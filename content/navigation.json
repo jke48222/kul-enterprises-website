@@ -15,7 +15,24 @@
       { "href": "/journey", "label": "The Journey", "panel": "journey" },
       { "href": "/contact", "label": "Contact", "panel": "contact" }
     ],
-    "menuOnlyLinks": []
+    "menuOnlyLinks": [],
+    "quoteLabel": "Get a quote"
+  },
+  "chrome": {
+    "crumbRoot": "KUL",
+    "crumbAria": "Breadcrumb",
+    "skipLabel": "Skip to content",
+    "homeLabel": "Home",
+    "playWord": "Play",
+    "pauseWord": "Pause",
+    "menuOpenLabel": "Menu",
+    "menuCloseLabel": "Close menu",
+    "menuServicesHeading": "Freight services",
+    "logoAria": "{name}, back to the home page",
+    "backToTopLabel": "Back to top",
+    "carouselPrevLabel": "Previous service",
+    "carouselNextLabel": "Next service",
+    "newTabAnnouncement": "(opens in a new tab)"
   },
   "panels": {
     "services": {

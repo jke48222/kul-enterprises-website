@@ -117,7 +117,7 @@ export function LegalPage({
           <Breadcrumb
             className="pb-10"
             tone="dark"
-            items={[{ label: "KUL", href: "/" }, { label: eyebrow }]}
+            items={[{ label: eyebrow }]}
           />
 
           <Reveal variant="wipe">

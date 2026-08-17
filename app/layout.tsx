@@ -4,6 +4,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import { MotionConfig } from "framer-motion";
 import "./globals.css";
 import { site } from "@/lib/site";
+import { services } from "@/lib/services";
 import MotionProvider from "@/components/motion/MotionProvider";
 import RouteTransition from "@/components/k/RouteTransition";
 import LoadingOverlay from "@/components/brand/LoadingOverlay";
@@ -48,13 +49,26 @@ const inter = Inter({
 });
 
 
+/**
+ * The service names, written as a sentence fragment. Both the site-wide
+ * description and the JSON-LD knowsAbout below read the Services collection
+ * rather than keeping their own copy of the list, so the client adding an
+ * eighth service in /admin updates the metadata in the same edit. A
+ * hand-maintained copy of this list went stale the day it was written.
+ */
+const serviceNames = services.map((s) => s.name);
+const serviceList =
+  serviceNames.length > 1
+    ? `${serviceNames.slice(0, -1).join(", ")}, and ${serviceNames[serviceNames.length - 1]}`
+    : serviceNames.join("");
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} | Reliable Freight Transportation Built on Trust`,
+    default: site.titleTail ? `${site.name} | ${site.titleTail}` : site.name,
     template: `%s | ${site.name}`,
   },
-  description: `${site.legalName} is a licensed and insured freight carrier based in ${site.location}. Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited, and Over-the-Road service. Southeast based, nationwide. USDOT ${site.usdot}${site.mc ? `, MC ${site.mc}` : ""}.`,
+  description: `${site.legalName} is a licensed and insured freight carrier based in ${site.location}. ${serviceList} service. Southeast based, nationwide. USDOT ${site.usdot}${site.mc ? `, MC ${site.mc}` : ""}.`,
   // Relative canonical: resolves per route against metadataBase, so every
   // page self-canonicalizes without repeating the URL in 13 files.
   alternates: { canonical: "./" },
@@ -68,15 +82,17 @@ export const metadata: Metadata = {
     url: "./",
     images: [
       {
-        // The file lives at public/images/, so a bare "/og-…jpg" 404s.
-        // Dimensions verified against the real file: 1200x630.
+        // The path comes from Business Facts (shareImage), so the client can
+        // swap the artwork at /admin. The field's own description carries the
+        // rule that matters: upload replacements under a NEW file name,
+        // because every scraper (LinkedIn, iMessage, Slack, Facebook) caches
+        // share cards by URL for days, and new artwork at the old address
+        // keeps showing the old card.
         //
-        // The filename carries the "-primary-logo" suffix on purpose. Every
-        // scraper (LinkedIn, iMessage, Slack, Facebook) caches share cards by
-        // URL for days, so replacing the artwork at the old /images/og.jpg
-        // would have left the old card in circulation. A new path forces a
-        // fresh fetch everywhere the site has already been shared.
-        url: "/images/og-primary-logo.jpg",
+        // The dimensions describe the current 1200x630 file. They are hints
+        // to the scraper, not constraints: a swapped image with another shape
+        // still renders, so they are not worth two number fields in the CMS.
+        url: site.shareImage,
         width: 1200,
         height: 630,
         alt: `${site.name}. ${site.tagline}`,
@@ -85,7 +101,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    images: ["/images/og-primary-logo.jpg"],
+    images: [site.shareImage],
   },
   // Search Console ownership: set NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION in
   // the hosting env at launch and the tag renders on every page.
@@ -112,8 +128,8 @@ const jsonLd = {
   url: site.url,
   email: site.email,
   telephone: site.phoneHref.replace("tel:", ""),
-  image: `${site.url}/images/og-primary-logo.jpg`,
-  logo: `${site.url}/images/brand/kul-logo-lockup.png`,
+  image: `${site.url}${site.shareImage}`,
+  logo: `${site.url}${site.logoLockup}`,
   // streetAddress intentionally omitted until the client confirms the
   // publishable business address (locality-level NAP is valid schema).
   address: {
@@ -137,15 +153,18 @@ const jsonLd = {
       ? [{ "@type": "PropertyValue", propertyID: "MC", value: site.mc }]
       : []),
   ],
-  knowsAbout: [
-    "Power Only",
-    "Dry Van",
-    "Refrigerated Freight",
-    "Dedicated Lanes",
-    "Regional Trucking",
-    "Expedited Freight",
-    "Over-the-Road Trucking",
-  ],
+  // The service names as the client wrote them, straight from the Services
+  // collection. This used to be a hand-kept list of longer variants
+  // ("Refrigerated Freight" for Reefer) that nothing regenerated.
+  knowsAbout: serviceNames,
+  // Social profiles vouch for the site and the site for them; the list lives
+  // in Business Facts and ships only once it holds something. Where the
+  // profiles appear visually on the site is a separate, later decision.
+  // The parameter is annotated because the list ships empty today, which
+  // TypeScript narrows to never[]; the shape is the links() field's pair.
+  ...(site.social.length
+    ? { sameAs: site.social.map((profile: { href: string }) => profile.href) }
+    : {}),
 };
 
 /**

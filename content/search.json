@@ -2,5 +2,7 @@
   "label": "Search the site",
   "placeholder": "What are you looking for?",
   "empty": "Nothing on the site says \"{query}\".",
-  "emptyAction": "If it is a question about a load, call {phone} and ask dispatch."
+  "emptyAction": "If it is a question about a load, call {phone} and ask dispatch.",
+  "closeLabel": "Close search",
+  "faqLabel": "Questions"
 }

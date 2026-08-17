@@ -293,7 +293,7 @@ export default function Footer() {
               >
                 {fill(t.verifyLabel)}
                 <span aria-hidden="true">&#8599;</span>
-                <span className="sr-only">(opens in a new tab)</span>
+                <span className="sr-only">{fill(nav.chrome.newTabAnnouncement)}</span>
               </a>
             </div>
           </div>

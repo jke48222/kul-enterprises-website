@@ -1,5 +1,7 @@
 import { after } from "next/server";
 import { site } from "./site";
+import { fill } from "./content";
+import forms from "@/content/forms.json";
 
 /**
  * Resend delivery, env-guarded (07-design-research / tech foundation):
@@ -38,7 +40,7 @@ function senderAddress(): string {
       `sender is being used. Resend will reject delivery to ${site.email}. ` +
       "Verify the domain in Resend and set RESEND_FROM to fix this."
   );
-  return "KUL Website <onboarding@resend.dev>";
+  return `${site.name} Website <onboarding@resend.dev>`;
 }
 
 export async function sendViaResend({
@@ -139,7 +141,7 @@ export async function readForm(
   try {
     body = await req.json();
   } catch {
-    return { error: "Invalid request body." };
+    return { error: fill(forms.shared.invalidBody) };
   }
   const raw = (body ?? {}) as Record<string, unknown>;
 

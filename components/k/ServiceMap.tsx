@@ -2,7 +2,17 @@
 
 import { useState } from "react";
 import { site } from "@/lib/site";
+import { fill } from "@/lib/content";
+import contactPage from "@/content/pages/contact.json";
 import { MAP_STATES, MAP_VIEWBOX, HOME_BASE } from "@/lib/map-states";
+
+/**
+ * The legend's words, from the contact page's map group in the CMS. The
+ * facts beside them stay derived: the state count, the state list and the
+ * city all come from the map data and Business Facts, so the words can be
+ * reworded without the figures ever drifting from the drawing.
+ */
+const t = contactPage.map;
 
 /**
  * WHERE KUL RUNS
@@ -68,7 +78,7 @@ export default function ServiceMap() {
       <div className="order-2 flex w-full flex-col gap-6 lg:order-1 lg:w-[340px] lg:shrink-0">
         <div>
           <p className="font-text text-k-micro uppercase text-k-ink-faint">
-            Home region
+            {fill(t.homeRegionLabel)}
           </p>
           <p className="pt-3 font-text text-k-body text-k-ink">
             Same-day and next-day coverage across {HOME_STATES.length} states:{" "}
@@ -81,18 +91,16 @@ export default function ServiceMap() {
 
         <div className="border-t border-k-rule pt-6">
           <p className="font-text text-k-micro uppercase text-k-ink-faint">
-            Everywhere else
+            {fill(t.elsewhereLabel)}
           </p>
           <p className="pt-3 font-text text-k-body text-k-ink-soft">
-            Operating authority is active in 48 states. Outside the home region
-            a truck goes when the lane is booked rather than on a schedule, so
-            ask before you count on it.
+            {fill(t.elsewhereBody)}
           </p>
         </div>
 
         <div className="border-t border-k-rule pt-6">
           <p className="font-text text-k-micro uppercase text-k-ink-faint">
-            Dispatched from
+            {fill(t.dispatchedLabel)}
           </p>
           <p className="pt-3 font-text text-k-body text-k-ink">
             {site.city}, {site.state} 30052
@@ -113,7 +121,13 @@ export default function ServiceMap() {
           viewBox={`0 0 ${MAP_VIEWBOX.width} ${MAP_VIEWBOX.height}`}
           className="h-auto w-full"
           role="img"
-          aria-label={`Map of the lower 48 states with KUL's home region highlighted: ${HOME_STATES.map((s) => s.name).join(", ")}. Operating authority is active in 48 states.`}
+          // The sentence is the CMS field; the state list is the map's own,
+          // spliced in where the field writes {states} so the words can never
+          // name states the drawing does not shade.
+          aria-label={fill(t.ariaDescription).replace(
+            "{states}",
+            HOME_STATES.map((s) => s.name).join(", "),
+          )}
         >
           {/* The rest of the country. Drawn first so the home region sits on
               top of it, and drawn faint because authority is not coverage. */}

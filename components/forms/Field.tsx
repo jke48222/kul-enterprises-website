@@ -1,6 +1,8 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { fill } from "@/lib/content";
+import forms from "@/content/forms.json";
 
 /**
  * THE SHARED FIELD BEHAVIOUR
@@ -56,7 +58,9 @@ export function useUnderlineField<E extends ValidityElement>({
     onChange?.(e);
   };
   const handleInvalid: React.FormEventHandler<E> = (e) => {
-    setError(e.currentTarget.validationMessage || "This field is required.");
+    // The browser's own localized wording wins where it offers one; the CMS
+    // string is the fallback for the browsers that stay silent.
+    setError(e.currentTarget.validationMessage || fill(forms.shared.requiredError));
     onInvalid?.(e);
   };
 

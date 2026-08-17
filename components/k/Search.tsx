@@ -383,7 +383,7 @@ export function SearchPanel({ onClose }: { onClose(): void }) {
         <button
           type="button"
           onClick={onClose}
-          aria-label="Close search"
+          aria-label={fill(searchContent.closeLabel)}
           className="flex h-11 w-11 shrink-0 items-center justify-center text-k-ink-soft transition-colors duration-200 hover:text-k-ink"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">

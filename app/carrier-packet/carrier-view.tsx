@@ -116,7 +116,7 @@ export default function CarrierPacketView(props: TinaPage<{ carrierPacketPage: u
         <div className="mx-auto max-w-[1248px]">
           <Breadcrumb
             className="pb-10"
-            items={[{ label: "KUL", href: "/" }, { label: "Carrier Packet" }]}
+            items={[{ label: "Carrier Packet" }]}
           />
 
           <div className="max-w-[640px]">

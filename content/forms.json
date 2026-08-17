@@ -1,7 +1,11 @@
 {
   "shared": {
     "sendingLabel": "Sending",
-    "genericError": "That did not send. Call dispatch on {phone} and it can be handled on the phone instead."
+    "genericError": "That did not send. Call dispatch on {phone} and it can be handled on the phone instead.",
+    "requiredError": "This field is required.",
+    "rateLimited": "Too many requests. Please try again shortly.",
+    "deliveryFailed": "Email delivery failed.",
+    "invalidBody": "Invalid request body."
   },
   "quote": {
     "fields": {

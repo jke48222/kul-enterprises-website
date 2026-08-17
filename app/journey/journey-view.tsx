@@ -161,7 +161,7 @@ export default function JourneyView(props: TinaPage<{ journeyPage: unknown }>) {
 
   return createPortal(
     <main className="fixed inset-0 z-[120] bg-k-void">
-      <h1 className="sr-only">The Journey</h1>
+      <h1 className="sr-only">{fill(page.title)}</h1>
 
       {src ? (
         <video

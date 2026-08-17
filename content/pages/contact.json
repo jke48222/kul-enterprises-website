@@ -47,7 +47,12 @@
     ]
   },
   "map": {
-    "heading": "Southeast based, authorized nationwide."
+    "heading": "Southeast based, authorized nationwide.",
+    "homeRegionLabel": "Home region",
+    "elsewhereLabel": "Everywhere else",
+    "elsewhereBody": "Operating authority is active in 48 states. Outside the home region a truck goes when the lane is booked rather than on a schedule, so ask before you count on it.",
+    "dispatchedLabel": "Dispatched from",
+    "ariaDescription": "Map of the lower 48 states with KUL's home region highlighted: {states}. Operating authority is active in 48 states."
   },
   "catchAll": {
     "heading": "Anything else",

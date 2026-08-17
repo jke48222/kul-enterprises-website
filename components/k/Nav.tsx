@@ -572,12 +572,15 @@ export default function Nav() {
                 was still 38. */}
             <Link
               href="/"
-              aria-label="KUL Enterprises, back to the home page"
+              aria-label={fill(nav.chrome.logoAria)}
               className="relative shrink-0 before:absolute before:-inset-[3px] before:content-[''] min-[1240px]:justify-self-center min-[1240px]:px-8"
             >
               <Image
                 src="/images/brand/lion-mark.webp"
-                alt="KUL Enterprises"
+                // Empty on purpose: the link around it already carries the
+                // accessible name, and a filled alt made readers announce the
+                // company twice on one control.
+                alt=""
                 width={38}
                 height={38}
                 priority
@@ -640,7 +643,7 @@ export default function Nav() {
                 aria-expanded={menuOpen}
                 aria-haspopup="dialog"
                 aria-controls="k-menu"
-                aria-label={menuOpen ? "Close menu" : "Menu"}
+                aria-label={menuOpen ? fill(nav.chrome.menuCloseLabel) : fill(nav.chrome.menuOpenLabel)}
                 className={`flex h-11 w-11 shrink-0 items-center justify-center transition-colors duration-200 min-[1240px]:hidden ${linkColour}`}
               >
                 <MenuMark open={menuOpen} />
@@ -656,7 +659,7 @@ export default function Nav() {
                    the bar at every width. */
                 className="relative shrink-0 whitespace-nowrap rounded-full bg-k-gold-lit px-6 py-3 font-text text-k-label uppercase text-k-void transition-opacity duration-200 before:absolute before:-inset-y-0.5 before:inset-x-0 before:content-[''] hover:opacity-90"
               >
-                Get a quote
+                {fill(nav.bar.quoteLabel)}
               </Link>
             </div>
           </nav>
