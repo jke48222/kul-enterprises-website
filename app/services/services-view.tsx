@@ -330,10 +330,13 @@ export default function ServicesView(props: TinaPage<{ servicesPage: unknown }>)
                         {service.name}
                       </h3>
                       <span className="font-text text-k-micro uppercase tabular-nums text-k-ink-faint">
-                        {/* "By contract" is not a lead time, so it is printed
-                            as it stands rather than being prefixed into
-                            "Lead time By contract". */}
-                        {service.leadTime === "By contract"
+                        {/* Some entries are not a time ("By contract") and
+                            carry a flag in the CMS that prints them as they
+                            stand rather than prefixed into "Lead time By
+                            contract". The flag, never the text: the text is
+                            editable and a comparison against it would break
+                            the day the client rewords it. */}
+                        {service.leadTimeNoPrefix
                           ? service.leadTime
                           : `${fill(page.compare.leadTimePrefix)} ${service.leadTime}`}
                       </span>

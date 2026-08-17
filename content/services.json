@@ -192,6 +192,7 @@
       "lane": "Recurring",
       "laneNote": "Fixed schedule",
       "leadTime": "By contract",
+      "leadTimeNoPrefix": true,
       "bestForShort": "Weekly distribution runs",
       "card": "/images/services/dedicated.webp",
       "wide": "/images/services/dedicated-wide.webp",

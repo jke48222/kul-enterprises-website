@@ -74,13 +74,18 @@ export default function QuoteForm() {
    */
   const [freightType, setFreightType] = useState("");
 
+  // The last option's submitted value IS its CMS label, not a twin of it kept
+  // in code: the label is editable at /admin, and a hardcoded value here would
+  // silently stop matching it the day the client rewords the option.
+  const notSure = fill(t.fields.freightType.notSureOption);
+
   useEffect(() => {
     const slug = new URLSearchParams(window.location.search).get("service");
     if (!slug) return;
     const match = services.find((s) => s.slug === slug);
     if (match) setFreightType(match.name);
-    else if (slug === "not-sure") setFreightType("Not sure");
-  }, []);
+    else if (slug === "not-sure") setFreightType(notSure);
+  }, [notSure]);
 
   // The lane is read back so the thank you can repeat it to the sender.
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -179,9 +184,7 @@ export default function QuoteForm() {
                     {s.name}
                   </option>
                 ))}
-                <option value="Not sure">
-                  {fill(t.fields.freightType.notSureOption)}
-                </option>
+                <option value={notSure}>{notSure}</option>
               </PanelSelect>
               <PanelField
                 id={`${uid}-pickupDate`}

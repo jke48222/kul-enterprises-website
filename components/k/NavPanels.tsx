@@ -3,6 +3,8 @@ import Link from "next/link";
 import { services } from "@/lib/services";
 import { site } from "@/lib/site";
 import content from "@/content/site.json";
+import { fill } from "@/lib/content";
+import nav from "@/content/navigation.json";
 
 /**
  * WHAT DROPS OUT OF THE BAR, PAGE BY PAGE
@@ -29,9 +31,11 @@ import content from "@/content/site.json";
  * Safety and then opens Carrier Packet should be able to tell them apart with
  * the type blurred out.
  *
- * EVERY FIGURE HERE IS REAL and comes from content/site.json or the page it
- * belongs to. Nothing in a menu may be written for the menu: if it is not
- * true on the page, it does not belong in the panel that opens onto it.
+ * EVERY WORD HERE IS EDITABLE and lives in content/navigation.json under
+ * panels; every figure, the phone number and the email come from
+ * content/site.json. Nothing in a menu may be written for the menu: if it is
+ * not true on the page, it does not belong in the panel that opens onto it,
+ * and the field descriptions in /admin say so to the client.
  *
  * THE PANELS ARE PLAIN MARKUP. The bar that opens them is a client component
  * and handles the open state; nothing in a menu moves on its own.
@@ -93,10 +97,10 @@ export function ServicesPanel() {
         className="flex w-[180px] shrink-0 flex-col items-center justify-center gap-3 rounded-2xl border border-k-rule bg-k-paper px-5 text-center"
       >
         <span className="font-display text-[19px] font-black leading-6 tracking-[-0.02em] text-k-ink">
-          Compare all
+          {fill(nav.panels.services.compareHeading)}
         </span>
         <span className="border-b border-k-gold pb-0.5 font-text text-k-label uppercase text-k-gold">
-          View services
+          {fill(nav.panels.services.compareLabel)}
         </span>
       </Link>
     </div>
@@ -118,7 +122,7 @@ export function ServicesPanel() {
 export function DriversPanel() {
   return (
     <div className={PAD}>
-      <PanelLabel>Driving for KUL</PanelLabel>
+      <PanelLabel>{fill(nav.panels.drivers.label)}</PanelLabel>
 
       <div className="flex flex-col gap-2 border-b border-k-rule pb-6 md:flex-row md:items-baseline md:justify-between md:gap-8">
         {/* This line has been cut back twice. It once read "The seat opens
@@ -129,13 +133,13 @@ export function DriversPanel() {
             AND IT DOES NOT NAME A DATE. There is no start date anywhere in
             content/ or on /road-ahead, so a panel cannot invent one. */}
         <p className="max-w-[34ch] font-display text-[21px] font-black leading-7 tracking-[-0.02em] text-k-ink">
-          Applications are open now, ahead of the next seat.
+          {fill(nav.panels.drivers.status)}
         </p>
         <Link
           href="/drivers"
           className="shrink-0 whitespace-nowrap border-b border-k-gold pb-0.5 font-text text-k-label uppercase text-k-gold"
         >
-          Apply
+          {fill(nav.panels.drivers.applyLabel)}
         </Link>
       </div>
 
@@ -149,14 +153,10 @@ export function DriversPanel() {
           because it is the third thing a driver actually asks after the licence
           and the lanes, and it matches what the Drivers page already says. */}
       <dl className="grid gap-x-10 gap-y-5 pt-6 md:grid-cols-3">
-        {[
-          ["The licence", "CDL-A, with a work history we can verify and a motor vehicle record we can pull."],
-          ["The lanes", `Southeast regional out of ${site.location}, with over the road available.`],
-          ["The equipment", "A 53 foot dry van behind a sleeper tractor, inspected before every dispatch."],
-        ].map(([term, detail]) => (
-          <div key={term}>
-            <dt className="font-text text-k-micro uppercase text-k-gold">{term}</dt>
-            <dd className="pt-2 font-text text-[13px] leading-5 text-k-ink-soft">{detail}</dd>
+        {nav.panels.drivers.facts.map((fact) => (
+          <div key={fact.term}>
+            <dt className="font-text text-k-micro uppercase text-k-gold">{fill(fact.term)}</dt>
+            <dd className="pt-2 font-text text-[13px] leading-5 text-k-ink-soft">{fill(fact.detail)}</dd>
           </div>
         ))}
       </dl>
@@ -180,14 +180,14 @@ export function DriversPanel() {
 export function SafetyPanel() {
   return (
     <div className={PAD}>
-      <PanelLabel>Operating authority</PanelLabel>
+      <PanelLabel>{fill(nav.panels.safety.label)}</PanelLabel>
 
       <div className="flex flex-col gap-6 md:flex-row md:items-end md:gap-14">
         {[
-          ["USDOT", content.usdot],
+          [fill(nav.panels.safety.usdotLabel), content.usdot],
           // MC renders only while site.json holds a number; clearing that
           // one field retires it everywhere at once.
-          ...(content.mc ? [["MC", content.mc]] : []),
+          ...(content.mc ? [[fill(nav.panels.safety.mcLabel), content.mc]] : []),
         ].map(([label, value]) => (
           <div key={label}>
             <span className="block font-text text-k-micro uppercase text-k-ink-faint">
@@ -200,25 +200,27 @@ export function SafetyPanel() {
         ))}
 
         <p className="max-w-[30ch] font-text text-[13px] leading-5 text-k-ink-soft md:pb-1">
-          Active authority, and insurance on file. Both are public, so check
-          them rather than take our word for it.
+          {fill(nav.panels.safety.note)}
         </p>
 
         <div className="flex flex-col gap-2.5 md:ml-auto md:items-end md:pb-1">
+          {/* One link, shared with the footer's verify button, so the two can
+              never point a broker at different lookups again. The footer's
+              field carries {usdot}, which deep-links the company snapshot. */}
           <a
-            href="https://safer.fmcsa.dot.gov/CompanySnapshot.aspx"
+            href={fill(nav.footer.verifyHref)}
             target="_blank"
             rel="noopener noreferrer"
             className="whitespace-nowrap border-b border-k-gold pb-0.5 font-text text-k-label uppercase text-k-gold"
           >
-            Verify on FMCSA SAFER
+            {fill(nav.panels.safety.verifyLabel)}
             <span className="sr-only"> (opens in a new tab)</span>
           </a>
           <Link
             href="/safety"
             className="whitespace-nowrap font-text text-k-label uppercase text-k-ink-soft"
           >
-            How the truck is kept
+            {fill(nav.panels.safety.safetyLabel)}
           </Link>
         </div>
       </div>
@@ -240,22 +242,17 @@ export function SafetyPanel() {
 export function CarrierPacketPanel() {
   return (
     <div className={PAD}>
-      <PanelLabel>What the packet holds</PanelLabel>
+      <PanelLabel>{fill(nav.panels.packet.label)}</PanelLabel>
 
       <ul className="border-t border-k-rule">
-        {[
-          ["Operating authority", "Public record"],
-          ["W-9", "Signed, in the packet"],
-          ["Certificate of insurance", "Issued to you by name"],
-          ["Carrier or broker agreement", "Yours or ours"],
-        ].map(([document, state]) => (
+        {nav.panels.packet.documents.map((doc) => (
           <li
-            key={document}
+            key={doc.name}
             className="flex items-baseline justify-between gap-6 border-b border-k-rule py-3"
           >
-            <span className="font-text text-[14px] text-k-ink">{document}</span>
+            <span className="font-text text-[14px] text-k-ink">{fill(doc.name)}</span>
             <span className="shrink-0 font-text text-k-micro uppercase text-k-ink-faint">
-              {state}
+              {fill(doc.state)}
             </span>
           </li>
         ))}
@@ -265,7 +262,7 @@ export function CarrierPacketPanel() {
         href="/carrier-packet"
         className="mt-5 inline-block border-b border-k-gold pb-0.5 font-text text-k-label uppercase text-k-gold"
       >
-        Request the packet
+        {fill(nav.panels.packet.requestLabel)}
       </Link>
     </div>
   );
@@ -288,12 +285,12 @@ export function AboutPanel() {
   return (
     <div className={PAD}>
       <span className="block pb-4 text-right font-text text-k-micro uppercase text-k-ink-faint">
-        About KUL
+        {fill(nav.panels.about.label)}
       </span>
 
       <div className="flex flex-col gap-6 md:flex-row md:items-center md:gap-8">
         <Image
-          src="/images/brand/lockup-colour.webp"
+          src={nav.panels.about.lockup}
           alt=""
           width={760}
           height={643}
@@ -304,19 +301,15 @@ export function AboutPanel() {
             before it counted heads, and every headcount came off the site at
             his first walkthrough (project-docs/32). */}
         <p className="max-w-[38ch] font-display text-[20px] font-black leading-7 tracking-[-0.02em] text-k-ink">
-          Built on Purpose. Guided by Integrity.
+          {fill(nav.panels.about.line)}
         </p>
 
         <dl className="flex gap-8 md:ml-auto">
-          {[
-            ["Based", site.location],
-            ["Authority", "48 states"],
-            ["Trading since", "2026"],
-          ].map(([term, detail]) => (
-            <div key={term}>
-              <dt className="font-text text-k-micro uppercase text-k-ink-faint">{term}</dt>
+          {nav.panels.about.facts.map((fact) => (
+            <div key={fact.term}>
+              <dt className="font-text text-k-micro uppercase text-k-ink-faint">{fill(fact.term)}</dt>
               <dd className="whitespace-nowrap pt-1.5 font-text text-[14px] text-k-ink">
-                {detail}
+                {fill(fact.detail)}
               </dd>
             </div>
           ))}
@@ -342,17 +335,17 @@ export function AboutPanel() {
 export function JourneyPanel() {
   return (
     <div className={PAD}>
-      <PanelLabel>The Journey</PanelLabel>
+      <PanelLabel>{fill(nav.panels.journey.label)}</PanelLabel>
 
       <div className="flex flex-col gap-2 border-b border-k-rule pb-6 md:flex-row md:items-baseline md:justify-between md:gap-8">
         <p className="max-w-[40ch] font-display text-[21px] font-black leading-7 tracking-[-0.02em] text-k-ink">
-          The story, told as a film.
+          {fill(nav.panels.journey.line)}
         </p>
         <Link
           href="/journey"
           className="shrink-0 whitespace-nowrap border-b border-k-gold pb-0.5 font-text text-k-label uppercase text-k-gold"
         >
-          Watch
+          {fill(nav.panels.journey.watchLabel)}
         </Link>
       </div>
 
@@ -361,13 +354,13 @@ export function JourneyPanel() {
           belongs beside the film's. The footer still lists it under Company. */}
       <div className="flex flex-col gap-2 pt-5 md:flex-row md:items-baseline md:justify-between md:gap-8">
         <p className="max-w-[44ch] font-text text-k-body text-k-ink-soft">
-          Where it goes next: the plan in order, and the figures as they stand.
+          {fill(nav.panels.journey.roadAheadLine)}
         </p>
         <Link
           href="/road-ahead"
           className="shrink-0 whitespace-nowrap border-b border-k-gold pb-0.5 font-text text-k-label uppercase text-k-gold"
         >
-          The Road Ahead
+          {fill(nav.panels.journey.roadAheadLabel)}
         </Link>
       </div>
     </div>
@@ -387,12 +380,12 @@ export function JourneyPanel() {
 export function ContactPanel() {
   return (
     <div className={PAD}>
-      <PanelLabel>Reach dispatch</PanelLabel>
+      <PanelLabel>{fill(nav.panels.contact.label)}</PanelLabel>
 
       <div className="flex flex-col gap-5 md:flex-row md:items-baseline md:gap-14">
         <a href={site.phoneHref} className="group block">
           <span className="block font-text text-k-micro uppercase text-k-ink-faint">
-            Phone
+            {fill(nav.panels.contact.phoneLabel)}
           </span>
           <span className="block pt-1 font-display text-[26px] font-black leading-none tracking-[-0.02em] tabular-nums text-k-ink">
             {content.phone}
@@ -401,7 +394,7 @@ export function ContactPanel() {
 
         <a href={`mailto:${content.email}`} className="block">
           <span className="block font-text text-k-micro uppercase text-k-ink-faint">
-            Email
+            {fill(nav.panels.contact.emailLabel)}
           </span>
           <span className="block pt-1.5 font-text text-[15px] text-k-ink underline underline-offset-4">
             {content.email}
@@ -410,7 +403,7 @@ export function ContactPanel() {
 
         <div>
           <span className="block font-text text-k-micro uppercase text-k-ink-faint">
-            Based
+            {fill(nav.panels.contact.basedLabel)}
           </span>
           <span className="block pt-1.5 font-text text-[15px] text-k-ink">
             {site.location}
@@ -421,7 +414,7 @@ export function ContactPanel() {
           href="/quote"
           className="whitespace-nowrap border-b border-k-gold pb-0.5 font-text text-k-label uppercase text-k-gold md:ml-auto"
         >
-          Send a load
+          {fill(nav.panels.contact.quoteLabel)}
         </Link>
       </div>
     </div>

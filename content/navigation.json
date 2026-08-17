@@ -17,6 +17,73 @@
     ],
     "menuOnlyLinks": []
   },
+  "panels": {
+    "services": {
+      "compareHeading": "Compare all",
+      "compareLabel": "View services"
+    },
+    "drivers": {
+      "label": "Driving for KUL",
+      "status": "Applications are open now, ahead of the next seat.",
+      "applyLabel": "Apply",
+      "facts": [
+        {
+          "term": "The licence",
+          "detail": "CDL-A, with a work history we can verify and a motor vehicle record we can pull."
+        },
+        {
+          "term": "The lanes",
+          "detail": "Southeast regional out of {location}, with over the road available."
+        },
+        {
+          "term": "The equipment",
+          "detail": "A 53 foot dry van behind a sleeper tractor, inspected before every dispatch."
+        }
+      ]
+    },
+    "safety": {
+      "label": "Operating authority",
+      "usdotLabel": "USDOT",
+      "mcLabel": "MC",
+      "note": "Active authority, and insurance on file. Both are public, so check them rather than take our word for it.",
+      "verifyLabel": "Verify on FMCSA SAFER",
+      "safetyLabel": "How the truck is kept"
+    },
+    "packet": {
+      "label": "What the packet holds",
+      "documents": [
+        { "name": "Operating authority", "state": "Public record" },
+        { "name": "W-9", "state": "Signed, in the packet" },
+        { "name": "Certificate of insurance", "state": "Issued to you by name" },
+        { "name": "Carrier or broker agreement", "state": "Yours or ours" }
+      ],
+      "requestLabel": "Request the packet"
+    },
+    "about": {
+      "label": "About KUL",
+      "lockup": "/images/brand/lockup-colour.webp",
+      "line": "Built on Purpose. Guided by Integrity.",
+      "facts": [
+        { "term": "Based", "detail": "{location}" },
+        { "term": "Authority", "detail": "48 states" },
+        { "term": "Trading since", "detail": "2026" }
+      ]
+    },
+    "journey": {
+      "label": "The Journey",
+      "line": "The story, told as a film.",
+      "watchLabel": "Watch",
+      "roadAheadLine": "Where it goes next: the plan in order, and the figures as they stand.",
+      "roadAheadLabel": "The Road Ahead"
+    },
+    "contact": {
+      "label": "Reach dispatch",
+      "phoneLabel": "Phone",
+      "emailLabel": "Email",
+      "basedLabel": "Based",
+      "quoteLabel": "Send a load"
+    }
+  },
   "footer": {
     "heading": "Ready when you are.",
     "dispatchLead": "Reach dispatch directly at",

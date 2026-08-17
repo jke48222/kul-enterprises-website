@@ -26,6 +26,13 @@ export type Service = {
   lane: string;
   laneNote: string;
   leadTime: string;
+  /**
+   * Print the lead time as it stands, with no "Lead time" prefix. For entries
+   * that are not a time, like "By contract". The comparison list reads this
+   * flag; nothing may compare against the leadTime text itself, because that
+   * text is editable in the CMS.
+   */
+  leadTimeNoPrefix?: boolean;
   bestForShort: string;
   /** Square photograph for the carousel card. */
   card: string;

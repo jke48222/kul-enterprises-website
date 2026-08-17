@@ -189,7 +189,10 @@ export function LegalPage({
 
             {showIndex ? (
               <nav
-                aria-label="On this page"
+                // The same words the sighted reader gets five lines down, from
+                // the same field, so renaming the index at /admin renames it
+                // for a screen reader too.
+                aria-label={fill(chrome.indexLabel)}
                 className="hidden lg:block lg:w-[240px] lg:shrink-0"
               >
                 <div className="sticky top-28">
