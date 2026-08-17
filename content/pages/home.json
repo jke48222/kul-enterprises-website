@@ -4,7 +4,7 @@
     "description": "KUL Enterprises LLC is a licensed and insured freight carrier based in {location}. Power Only, Dry Van, Reefer, Dedicated, Regional, Expedited, and Over-the-Road service. Southeast based, nationwide. USDOT {usdot}, MC {mc}."
   },
   "hero": {
-    "headlineLines": ["Every mile.", "On schedule."],
+    "headlineLines": ["On the road.", "On your side."],
     "lede": "Freight services out of {location}, authorized in 48 states, dispatched around the clock.",
     "primaryCta": { "label": "Request a quote", "href": "/quote" },
     "secondaryCta": { "label": "Call dispatch · {phone}", "href": "{phone}" },
