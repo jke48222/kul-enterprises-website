@@ -1,0 +1,11 @@
+{
+  "copy": {
+    "eyebrow": "Something broke",
+    "heading": "This one is on us.",
+    "body": "The page hit an error on our side. Loading it again usually works. If it does not, call dispatch and we will sort it out on the phone.",
+    "retryLabel": "Try again",
+    "callLabel": "Call dispatch · {phone}",
+    "homeLabel": "Back to the home page",
+    "referencePrefix": "Reference"
+  }
+}

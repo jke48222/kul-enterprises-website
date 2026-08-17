@@ -387,6 +387,27 @@ export default defineConfig({
           ),
           text("previousLabel", "Previous service label"),
           text("nextLabel", "Next service label"),
+          group("specs", "The In detail section", [
+            text("heading", "Section heading"),
+            text("equipmentLabel", "Equipment tile label"),
+            text("laneLabel", "Lane tile label"),
+            text("leadTimeLabel", "Lead time tile label"),
+            text("carriesLabel", "Typically-carries tile label"),
+            text("basedLabel", "Dispatched-from tile label", "The place itself comes from Business Facts."),
+            text("questionsLabel", "The action tile's label"),
+            cta("questionsCta", "The action tile's link", "The one tile whose value is a link rather than a fact."),
+            text("serviceAreaLabel", "Service area row label", "The value comes from Business Facts."),
+            text("authorityLabel", "Authority row label"),
+            text("usdotPrefix", "Word before the USDOT number"),
+            text("mcPrefix", "Word before the MC number", "The MC line only shows while Business Facts holds an MC number."),
+            text("insuranceLabel", "Insurance row label"),
+            text("insuranceValue", "Insurance row value"),
+            longText(
+              "insuranceNote",
+              "The line under it",
+              "THIS IS A COMPLIANCE CLAIM a broker relies on. It describes how the certificate of insurance is issued, and it must keep matching what your agent actually does.",
+            ),
+          ]),
         ]),
         group("howItMoves", "How a load moves", [
           text("eyebrow", "Small gold label"),
@@ -887,6 +908,28 @@ export default defineConfig({
           text("heading", "Headline"),
           longText("subheading", "Line under the headline"),
           cta("cta", "Button", "The only way out on this page. It should go to the home page."),
+        ]),
+      ]),
+
+      /**
+       * NO route HERE EITHER, for a harder reason than the 404's: this page
+       * has no address at all. It renders in place of whatever page threw,
+       * and only then, so there is nothing to preview and the ordinary form
+       * edits it fine. The words live in the CMS because a visitor reads
+       * them at the worst possible moment, which is exactly when the client
+       * should get to choose them. app/global-error.tsx stays hardcoded and
+       * is the one sanctioned exception: it renders when the layout itself
+       * has died and must depend on nothing.
+       */
+      page("errorPage", "Error page", "error", [
+        group("copy", "The whole page", [
+          text("eyebrow", "The small gold label at the top"),
+          text("heading", "Headline"),
+          longText("body", "Paragraph", "What broke and what to do next. Keep it calm."),
+          text("retryLabel", "The filled button", "Reloads the page that broke."),
+          text("callLabel", "The outlined button", "Type {phone} where the number should fall and it prints from Business Facts."),
+          text("homeLabel", "The quiet link back home"),
+          text("referencePrefix", "Word before the reference code", "The code itself is generated fresh for every error and cannot be edited."),
         ]),
       ]),
 

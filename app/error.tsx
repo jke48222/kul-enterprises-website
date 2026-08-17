@@ -3,6 +3,8 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { site } from "@/lib/site";
+import { fill } from "@/lib/content";
+import content from "@/content/pages/error.json";
 
 /**
  * THE ERROR PAGE
@@ -18,6 +20,15 @@ import { site } from "@/lib/site";
  * plain CSS for the same reason, and it is switched off for anybody who has
  * asked their computer to reduce motion.
  *
+ * EVERY WORD COMES FROM content/pages/error.json, and that is safe here where
+ * it would not be in global-error.tsx. This boundary renders inside a living
+ * layout, its imports are static and bundled at build time, nothing fetches,
+ * and fill() is written to swallow empty fields rather than throw. The visitor
+ * reads this page at the worst possible moment, which is exactly when the
+ * client should get to choose the words. global-error.tsx stays hardcoded as
+ * the one sanctioned exception, because it renders when the layout itself has
+ * died and must depend on nothing at all.
+ *
  * ON THE SHAPE. Deliberately the plainest page on the site. A 404 can afford
  * to be helpful and offer somewhere else to go, because the visitor typed
  * something wrong. This is the other case: they did nothing wrong, we broke,
@@ -25,6 +36,7 @@ import { site } from "@/lib/site";
  * work, and print the reference they can read back to us. Anything more
  * decorative here would be the site preening while it is failing.
  */
+const t = content.copy;
 export default function Error({
   error,
   reset,
@@ -56,17 +68,16 @@ export default function Error({
           <p className="flex items-center gap-4 pb-10">
             <span className="h-px w-12 shrink-0 bg-k-gold-lit" aria-hidden="true" />
             <span className="font-text text-k-label uppercase text-k-gold-lit">
-              Something broke
+              {fill(t.eyebrow)}
             </span>
           </p>
 
           <h1 className="max-w-[16ch] font-display text-k-d1 font-black text-k-on-dark">
-            This one is on us.
+            {fill(t.heading)}
           </h1>
 
           <p className="max-w-[54ch] pt-8 font-text text-k-lede text-k-on-dark-soft">
-            The page hit an error on our side. Loading it again usually works.
-            If it does not, call dispatch and we will sort it out on the phone.
+            {fill(t.body)}
           </p>
 
           <div className="flex flex-wrap items-center gap-4 pt-10">
@@ -75,19 +86,19 @@ export default function Error({
               onClick={reset}
               className="rounded-full bg-k-on-dark px-8 py-4 font-text text-k-label uppercase text-k-ink transition-opacity duration-200 hover:opacity-85"
             >
-              Try again
+              {fill(t.retryLabel)}
             </button>
             <a
               href={site.phoneHref}
               className="rounded-full border border-k-on-dark-faint px-8 py-4 font-text text-k-label uppercase tabular-nums text-k-on-dark transition-colors duration-200 hover:border-k-on-dark"
             >
-              Call dispatch · {site.phone}
+              {fill(t.callLabel)}
             </a>
             <Link
               href="/"
               className="font-text text-k-small text-k-on-dark-soft underline underline-offset-4 transition-colors duration-200 hover:text-k-on-dark"
             >
-              Back to the home page
+              {fill(t.homeLabel)}
             </Link>
           </div>
 
@@ -95,7 +106,7 @@ export default function Error({
               rather than only logged. */}
           {error.digest ? (
             <p className="pt-12 font-text text-k-micro uppercase tabular-nums text-k-on-dark-soft">
-              Reference {error.digest}
+              {fill(t.referencePrefix)} {error.digest}
             </p>
           ) : null}
         </div>

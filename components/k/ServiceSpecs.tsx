@@ -3,6 +3,16 @@ import Link from "next/link";
 import Reveal from "@/components/k/Reveal";
 import type { Service } from "@/lib/services";
 import { site } from "@/lib/site";
+import { fill } from "@/lib/content";
+import indexPage from "@/content/pages/services-index.json";
+
+/**
+ * The section's own words: the heading, every tile and row label, and the
+ * insurance sentence. They live with the rest of the service-page template
+ * chrome in the Services page collection, under detail → specs. The values
+ * beside them keep coming from the service itself and from Business Facts.
+ */
+const t = indexPage.detail.specs;
 
 /**
  * THE SPECIFICATION BLOCK ON A SERVICE PAGE
@@ -106,17 +116,17 @@ export default function ServiceSpecs({ service }: { service: Service }) {
   const tiles: SpecTile[] = [
     {
       key: "equipment",
-      label: "Equipment",
+      label: fill(t.equipmentLabel),
       value: service.equipment,
       note: service.equipmentNote,
     },
     {
       key: "lane",
-      label: "Typical lane",
+      label: fill(t.laneLabel),
       value: service.lane,
       note: service.laneNote,
     },
-    { key: "lead", label: "Lead time", value: service.leadTime },
+    { key: "lead", label: fill(t.leadTimeLabel), value: service.leadTime },
     // "Best for" until 29 Jul 2026, which put two different lists under the
     // same label on one page: this tile carries the one-line summary from
     // content/services.json, while the section directly above carries the
@@ -124,13 +134,13 @@ export default function ServiceSpecs({ service }: { service: Service }) {
     // answers under it. The values are a mix of what moves and who ships it
     // ("Produce and chilled food", "Shippers with trailers"), so the label has
     // to cover both.
-    { key: "best", label: "Typically carries", value: service.bestForShort },
-    { key: "based", label: "Dispatched from", value: site.location },
+    { key: "best", label: fill(t.carriesLabel), value: service.bestForShort },
+    { key: "based", label: fill(t.basedLabel), value: site.location },
     {
       key: "questions",
-      label: "Questions?",
-      value: "Contact dispatch",
-      href: "/contact",
+      label: fill(t.questionsLabel),
+      value: fill(t.questionsCta.label),
+      href: t.questionsCta.href,
     },
   ];
 
@@ -161,15 +171,21 @@ export default function ServiceSpecs({ service }: { service: Service }) {
    * content/site.json or repeats what the safety page already publishes.
    */
   const rows: PanelRow[] = [
-    { label: "Service area", value: site.serviceArea },
+    { label: fill(t.serviceAreaLabel), value: site.serviceArea },
     {
-      label: "Operating authority",
-      items: [`USDOT ${site.usdot}`, ...(site.mc ? [`MC ${site.mc}`] : [])],
+      label: fill(t.authorityLabel),
+      items: [
+        `${fill(t.usdotPrefix)} ${site.usdot}`,
+        ...(site.mc ? [`${fill(t.mcPrefix)} ${site.mc}`] : []),
+      ],
     },
     {
-      label: "Insurance",
-      value: "Licensed and insured",
-      note: "Certificate issued by our agent, with your company named as holder",
+      label: fill(t.insuranceLabel),
+      value: fill(t.insuranceValue),
+      // The note is the compliance sentence a broker relies on. It is a CMS
+      // field so the client can keep it matching what their agent actually
+      // does; its description in /admin says exactly that.
+      note: fill(t.insuranceNote),
     },
   ];
 
@@ -178,7 +194,7 @@ export default function ServiceSpecs({ service }: { service: Service }) {
       <div className="mx-auto max-w-[1248px]">
         <Reveal variant="wipe">
           <h2 className="font-display text-k-d2 font-black text-k-ink">
-            In detail
+            {fill(t.heading)}
           </h2>
         </Reveal>
 

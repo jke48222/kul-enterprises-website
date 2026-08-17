@@ -32,7 +32,24 @@
     "sizeHeading": "Size it up",
     "dimensionsCaveat": "Dimensions are nominal for a standard 53 foot van. Confirm at booking.",
     "previousLabel": "Previous",
-    "nextLabel": "Next"
+    "nextLabel": "Next",
+    "specs": {
+      "heading": "In detail",
+      "equipmentLabel": "Equipment",
+      "laneLabel": "Typical lane",
+      "leadTimeLabel": "Lead time",
+      "carriesLabel": "Typically carries",
+      "basedLabel": "Dispatched from",
+      "questionsLabel": "Questions?",
+      "questionsCta": { "label": "Contact dispatch", "href": "/contact" },
+      "serviceAreaLabel": "Service area",
+      "authorityLabel": "Operating authority",
+      "usdotPrefix": "USDOT",
+      "mcPrefix": "MC",
+      "insuranceLabel": "Insurance",
+      "insuranceValue": "Licensed and insured",
+      "insuranceNote": "Certificate issued by our agent, with your company named as holder"
+    }
   },
   "howItMoves": {
     "eyebrow": "How a load moves",
