@@ -56,26 +56,16 @@ const nextConfig = {
             value: "strict-origin-when-cross-origin",
           },
           /**
-           * Clickjacking guard, for browsers predating frame-ancestors.
-           *
-           * SAMEORIGIN RATHER THAN DENY, AND THE DIFFERENCE IS LOAD BEARING.
-           * DENY forbids framing by everyone including this site itself, which
-           * is fine right up until something on the same origin needs to frame
-           * a page. TinaCMS's visual editor at /admin does exactly that: it
-           * loads the real page in an iframe beside the fields so the client
-           * can watch their edits land. Under DENY the browser refuses, the
-           * panel shows a broken document, and the editor waits forever for a
-           * page that will never announce itself.
-           *
-           * SAMEORIGIN keeps the entire protection that matters. An attacker's
-           * site is a different origin and is still refused, which is the whole
-           * clickjacking threat. What it now permits is this origin framing
-           * itself, and /admin is served from this origin.
-           *
-           * Do not put it back to DENY without also accepting that visual
-           * editing stops working.
+           * NO X-Frame-Options ON PUBLIC PAGES, AND THE ABSENCE IS DELIBERATE
+           * (17 Aug 2026): the site is embedded as an <iframe> on the
+           * developer's portfolio, and any framing restriction on this source
+           * breaks that embed wherever the portfolio is hosted. The
+           * clickjacking guard did not disappear, it moved to the /admin rule
+           * below, the one surface where a hidden frame and a misdirected
+           * click could change something. A brochure page has no
+           * state-changing click to steal. TinaCMS's visual editor frames
+           * these pages same-origin, so an open policy costs it nothing.
            */
-          { key: "X-Frame-Options", value: "SAMEORIGIN" },
           // The site asks for no device permissions; deny the three that
           // matter most, for this document and every embed within it.
           {
@@ -83,6 +73,16 @@ const nextConfig = {
             value: "camera=(), microphone=(), geolocation=()",
           },
         ],
+      },
+      {
+        /**
+         * The CMS keeps the clickjacking guard the public pages gave up: an
+         * attacker's origin cannot frame the editor. SAMEORIGIN rather than
+         * DENY so nothing same-origin is ever refused; DENY's blast radius
+         * cost a debugging session once (29 Jul, the visual-editing trap).
+         */
+        source: "/admin/:path*",
+        headers: [{ key: "X-Frame-Options", value: "SAMEORIGIN" }],
       },
     ];
   },
