@@ -77,7 +77,7 @@ const nextConfig = {
           {
             key: "Content-Security-Policy",
             value:
-              "frame-ancestors 'self' https://www.jalenedusei.com https://jalenedusei.com http://localhost:3000",
+              "frame-ancestors 'self' https://www.jalenedusei.com https://jalenedusei.com http://localhost:3000 http://localhost:3001",
           },
           // The site asks for no device permissions; deny the three that
           // matter most, for this document and every embed within it.
