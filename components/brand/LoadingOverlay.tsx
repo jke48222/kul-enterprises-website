@@ -384,7 +384,7 @@ export default function LoadingOverlay() {
       // is the brief's own sentence, and a slide would put a direction on a
       // moment that is meant to dissolve. A fade is also inherently
       // reduced-motion-safe, so the old motion-reduce special case is gone.
-      className={`fixed inset-0 z-[100] overflow-hidden transition-opacity duration-[2000ms] ease-linear ${
+      className={`fixed inset-0 z-100 overflow-hidden transition-opacity duration-2000 ease-linear ${
         phase === "exit" ? "pointer-events-none opacity-0" : "opacity-100"
       }`}
     >
@@ -487,7 +487,7 @@ export default function LoadingOverlay() {
       <button
         type="button"
         onClick={dismiss}
-        className="group absolute bottom-[max(1.5rem,env(safe-area-inset-bottom))] right-6 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full text-white/70 transition-colors duration-200 hover:text-k-gold-lit focus-visible:text-k-gold-lit focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-k-gold-lit/60"
+        className="group absolute bottom-[max(1.5rem,env(safe-area-inset-bottom))] right-6 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full text-white/70 transition-colors duration-200 hover:text-k-gold-lit focus-visible:text-k-gold-lit focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-k-gold-lit/60"
       >
         <span className="sr-only">Skip intro</span>
         <svg

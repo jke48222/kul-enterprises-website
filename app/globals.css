@@ -1,6 +1,84 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --color-k-paper: var(--color-paper);
+  --color-k-surface: var(--color-surface);
+  --color-k-warm: var(--color-warm-panel);
+  --color-k-blueprint: var(--color-blueprint);
+  --color-k-coal: var(--color-charcoal);
+  --color-k-void: var(--color-black);
+  --color-k-ink: var(--color-ink);
+  --color-k-ink-soft: var(--color-ink-soft);
+  --color-k-ink-faint: var(--color-ink-faint);
+  --color-k-on-dark: var(--color-on-dark);
+  --color-k-on-dark-soft: var(--color-on-dark-soft);
+  --color-k-on-dark-faint: var(--color-on-dark-faint);
+  --color-k-rule: var(--color-rule);
+  --color-k-rule-strong: var(--color-rule-strong);
+  --color-k-rule-dark: var(--color-rule-dark);
+  --color-k-gold: var(--color-gold);
+  --color-k-gold-lit: var(--color-gold-lit);
+  --color-k-success: var(--color-success);
+  --color-k-error: var(--color-error);
+
+  --font-display: var(--font-archivo), Helvetica Neue, Arial, sans-serif;
+  --font-text: var(--font-inter), system-ui, -apple-system, sans-serif;
+
+  --text-k-hero: clamp(3rem, 1.05rem + 8vw, 8.25rem);
+  --text-k-hero--line-height: 0.91;
+  --text-k-hero--letter-spacing: -0.035em;
+  --text-k-d1: clamp(2.25rem, 1.04rem + 4.95vw, 5.5rem);
+  --text-k-d1--line-height: 0.955;
+  --text-k-d1--letter-spacing: -0.02em;
+  --text-k-d2: clamp(1.75rem, 1.1rem + 2.67vw, 3.5rem);
+  --text-k-d2--line-height: 1;
+  --text-k-d2--letter-spacing: -0.02em;
+  --text-k-d3: clamp(1.5rem, 1.22rem + 1.14vw, 2.25rem);
+  --text-k-d3--line-height: 1.11;
+  --text-k-d3--letter-spacing: -0.02em;
+  --text-k-lede: clamp(1.0625rem, 0.99rem + 0.29vw, 1.25rem);
+  --text-k-lede--line-height: 1.5;
+  --text-k-lede--letter-spacing: 0;
+  --text-k-body: 1rem;
+  --text-k-body--line-height: 1.625;
+  --text-k-body--letter-spacing: 0;
+  --text-k-small: 0.875rem;
+  --text-k-small--line-height: 1.571;
+  --text-k-small--letter-spacing: 0;
+  --text-k-label: 0.75rem;
+  --text-k-label--line-height: 1.333;
+  --text-k-label--letter-spacing: 0.14em;
+  --text-k-label--font-weight: 600;
+  --text-k-micro: 0.6875rem;
+  --text-k-micro--line-height: 1.455;
+  --text-k-micro--letter-spacing: 0.1em;
+  --text-k-micro--font-weight: 600;
+
+  --tracking-tight: -0.02em;
+
+  --ease-out: cubic-bezier(0.165, 0.84, 0.44, 1);
+  --ease-inout: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-kul: cubic-bezier(0.4, 0, 0, 1);
+  --ease-micro: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
 
 /* ------------------------------------------------------------------ */
 /* Design system. The Paper file is the source of truth                */

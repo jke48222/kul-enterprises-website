@@ -413,7 +413,7 @@ export default function ServiceCarousel({ services }: ServiceCarouselProps) {
         onPointerCancel={endDrag}
         onClickCapture={onClickCapture}
         onWheel={stopGlide}
-        className="k-service-rail flex touch-pan-y select-none items-center overflow-x-auto py-[var(--k-sc-air)] pl-[max(1.5rem,calc((100vw-var(--k-sc-slot))/2))] pr-[max(1.5rem,calc((100vw-var(--k-sc-slot))/2))] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="k-service-rail flex touch-pan-y select-none items-center overflow-x-auto py-(--k-sc-air) pl-[max(1.5rem,calc((100vw-var(--k-sc-slot))/2))] pr-[max(1.5rem,calc((100vw-var(--k-sc-slot))/2))] scrollbar-none [&::-webkit-scrollbar]:hidden"
         style={{ gap: "var(--k-sc-gap)", cursor: "grab" }}
       >
         {services.map((service, i) => {
@@ -455,7 +455,7 @@ export default function ServiceCarousel({ services }: ServiceCarouselProps) {
               <div
                 className={`flex flex-col gap-1.5 ${isActive ? "items-center text-center" : ""}`}
               >
-                <h3 className="font-display text-[26px] font-black leading-8 tracking-[-0.02em] text-k-ink">
+                <h3 className="font-display text-[26px] font-black leading-8 tracking-tight text-k-ink">
                   {service.name}
                 </h3>
                 <p
@@ -506,7 +506,7 @@ export default function ServiceCarousel({ services }: ServiceCarouselProps) {
               onClick={() => scrollTo(i)}
               aria-label={`Show ${service.name}`}
               aria-current={i === active}
-              className={`relative h-1.5 rounded-full transition-all duration-300 before:absolute before:-inset-x-[10px] before:-inset-y-[19px] before:content-[''] md:before:-inset-x-[5px] ${
+              className={`relative h-1.5 rounded-full transition-all duration-300 before:absolute before:inset-x-[-10px] before:inset-y-[-19px] before:content-[''] md:before:inset-x-[-5px] ${
                 i === active ? "w-6 bg-k-gold" : "w-1.5 bg-k-rule-strong"
               }`}
             />

@@ -241,7 +241,7 @@ export default function RouteTransition() {
           // aria-hidden and pointer-events-none: it is scenery, and a reader
           // on a screen reader should never be told the page went black.
           aria-hidden="true"
-          className="pointer-events-none fixed inset-0 z-[200] flex items-center justify-center bg-k-void"
+          className="pointer-events-none fixed inset-0 z-200 flex items-center justify-center bg-k-void"
           // THE WHOLE PANEL TRAVELS UP, AND IT NEVER STOPS TO GO BACK. It
           // starts a full screen below the fold, settles over the page, and
           // then carries on off the top. The percentages are of the element,

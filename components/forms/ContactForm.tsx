@@ -50,7 +50,7 @@ export default function ContactForm() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: DUR.base, ease: [...EASE.out] }}
-            className="flex max-w-[760px] flex-col gap-5 rounded-sm border border-k-rule bg-k-surface p-9"
+            className="flex max-w-[760px] flex-col gap-5 rounded-xs border border-k-rule bg-k-surface p-9"
           >
             <p className="font-display text-k-d3 font-black text-k-ink">
               {fill(t.successHeading)}

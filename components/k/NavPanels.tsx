@@ -65,7 +65,7 @@ function PanelLabel({ children }: { children: React.ReactNode }) {
  */
 export function ServicesPanel() {
   return (
-    <div className="flex w-full gap-4 overflow-x-auto px-5 pb-6 pt-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    <div className="flex w-full gap-4 overflow-x-auto px-5 pb-6 pt-2 scrollbar-none [&::-webkit-scrollbar]:hidden">
       {services.map((service) => (
         <Link
           key={service.slug}
@@ -79,7 +79,7 @@ export function ServicesPanel() {
             height={900}
             className="h-[150px] w-full rounded-2xl object-cover"
           />
-          <span className="font-display text-[19px] font-black leading-6 tracking-[-0.02em] text-k-ink">
+          <span className="font-display text-[19px] font-black leading-6 tracking-tight text-k-ink">
             {service.name}
           </span>
           <span className="font-text text-[12px] leading-[18px] text-k-ink-soft">
@@ -96,7 +96,7 @@ export function ServicesPanel() {
         href="/services"
         className="flex w-[180px] shrink-0 flex-col items-center justify-center gap-3 rounded-2xl border border-k-rule bg-k-paper px-5 text-center"
       >
-        <span className="font-display text-[19px] font-black leading-6 tracking-[-0.02em] text-k-ink">
+        <span className="font-display text-[19px] font-black leading-6 tracking-tight text-k-ink">
           {fill(nav.panels.services.compareHeading)}
         </span>
         <span className="border-b border-k-gold pb-0.5 font-text text-k-label uppercase text-k-gold">
@@ -132,7 +132,7 @@ export function DriversPanel() {
 
             AND IT DOES NOT NAME A DATE. There is no start date anywhere in
             content/ or on /road-ahead, so a panel cannot invent one. */}
-        <p className="max-w-[34ch] font-display text-[21px] font-black leading-7 tracking-[-0.02em] text-k-ink">
+        <p className="max-w-[34ch] font-display text-[21px] font-black leading-7 tracking-tight text-k-ink">
           {fill(nav.panels.drivers.status)}
         </p>
         <Link
@@ -193,7 +193,7 @@ export function SafetyPanel() {
             <span className="block font-text text-k-micro uppercase text-k-ink-faint">
               {label}
             </span>
-            <span className="block pt-1 font-display text-[34px] font-black leading-none tracking-[-0.02em] tabular-nums text-k-ink">
+            <span className="block pt-1 font-display text-[34px] font-black leading-none tracking-tight tabular-nums text-k-ink">
               {value}
             </span>
           </div>
@@ -300,7 +300,7 @@ export function AboutPanel() {
         {/* Mark's own subtitle for the About page. The line that lived here
             before it counted heads, and every headcount came off the site at
             his first walkthrough (project-docs/32). */}
-        <p className="max-w-[38ch] font-display text-[20px] font-black leading-7 tracking-[-0.02em] text-k-ink">
+        <p className="max-w-[38ch] font-display text-[20px] font-black leading-7 tracking-tight text-k-ink">
           {fill(nav.panels.about.line)}
         </p>
 
@@ -338,7 +338,7 @@ export function JourneyPanel() {
       <PanelLabel>{fill(nav.panels.journey.label)}</PanelLabel>
 
       <div className="flex flex-col gap-2 border-b border-k-rule pb-6 md:flex-row md:items-baseline md:justify-between md:gap-8">
-        <p className="max-w-[40ch] font-display text-[21px] font-black leading-7 tracking-[-0.02em] text-k-ink">
+        <p className="max-w-[40ch] font-display text-[21px] font-black leading-7 tracking-tight text-k-ink">
           {fill(nav.panels.journey.line)}
         </p>
         <Link
@@ -387,7 +387,7 @@ export function ContactPanel() {
           <span className="block font-text text-k-micro uppercase text-k-ink-faint">
             {fill(nav.panels.contact.phoneLabel)}
           </span>
-          <span className="block pt-1 font-display text-[26px] font-black leading-none tracking-[-0.02em] tabular-nums text-k-ink">
+          <span className="block pt-1 font-display text-[26px] font-black leading-none tracking-tight tabular-nums text-k-ink">
             {content.phone}
           </span>
         </a>

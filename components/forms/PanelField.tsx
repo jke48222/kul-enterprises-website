@@ -101,7 +101,7 @@ function Panel({
        at the same height instead of one sitting proud of the other. */
     <div className={`flex flex-col ${className ?? ""}`}>
       <div
-        className={`flex flex-1 flex-col gap-0.5 rounded-sm border px-[18px] pb-2.5 pt-3 transition-colors duration-200 ${t.panel} ${t.focus} ${
+        className={`flex flex-1 flex-col gap-0.5 rounded-xs border px-[18px] pb-2.5 pt-3 transition-colors duration-200 ${t.panel} ${t.focus} ${
           error ? t.error : t.idle
         }`}
       >
@@ -148,7 +148,7 @@ function Panel({
  * artboard still matches at 1440.
  */
 const CONTROL =
-  "w-full appearance-none border-0 bg-transparent p-0 font-text text-base caret-current outline-none focus-visible:outline-none md:text-k-small";
+  "w-full appearance-none border-0 bg-transparent p-0 font-text text-base caret-current outline-hidden focus-visible:outline-hidden md:text-k-small";
 
 export type PanelFieldProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,

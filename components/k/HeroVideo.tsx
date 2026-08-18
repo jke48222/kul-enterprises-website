@@ -27,10 +27,10 @@ const pauseWord = fill(nav.chrome.pauseWord);
  * browser has to infer one, and this is not a place to rely on inference.
  */
 const RULE =
-  "absolute top-0 h-[9px] w-[1.5px] origin-center rounded-full bg-current transition-transform duration-[340ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none";
-const MARK_REST = "[transform:translate(0px,0px)_rotate(0deg)_scaleY(1)]";
-const MARK_FOLD_UPPER = "[transform:translate(2.5px,-2.25px)_rotate(-45deg)_scaleY(0.707)]";
-const MARK_FOLD_LOWER = "[transform:translate(-2px,2.25px)_rotate(45deg)_scaleY(0.707)]";
+  "absolute top-0 h-[9px] w-[1.5px] origin-center rounded-full bg-current transition-transform duration-340 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none";
+const MARK_REST = "transform-[translate(0px,0px)_rotate(0deg)_scaleY(1)]";
+const MARK_FOLD_UPPER = "transform-[translate(2.5px,-2.25px)_rotate(-45deg)_scaleY(0.707)]";
+const MARK_FOLD_LOWER = "transform-[translate(-2px,2.25px)_rotate(45deg)_scaleY(0.707)]";
 
 type HeroVideoProps = {
   poster: string;
@@ -296,7 +296,7 @@ export default function HeroVideo({
           // takes the hit area to roughly 32px without adding a single pixel
           // to the row it sits in, so the credential strip keeps its height.
           "before:absolute before:-inset-x-3 before:-inset-y-2 before:content-['']",
-          "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-k-on-dark",
+          "focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-k-on-dark",
           // The three floating call sites sit over moving film, where a bright
           // frame can pass under the type. The shadow keeps it readable there.
           // In the strip it costs nothing, so it is simply not applied.

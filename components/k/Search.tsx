@@ -162,7 +162,7 @@ export function SearchCorner({
       // ever changes, re-measure this rather than re-deriving it.
       // The focus outline is suppressed at the client's word: pressing this
       // turns it to paper and opens the panel, which is its own announcement.
-      className={`absolute right-4 top-[20px] hidden h-11 w-11 items-center justify-center rounded-full focus-visible:outline-none min-[1240px]:flex ${
+      className={`absolute right-4 top-[20px] hidden h-11 w-11 items-center justify-center rounded-full focus-visible:outline-hidden min-[1240px]:flex ${
         open ? "text-k-gold" : "text-k-on-dark hover:text-k-gold-lit"
       }`}
       style={{
@@ -201,7 +201,7 @@ export function SearchBarButton({
       aria-label={fill(searchContent.label)}
       aria-expanded={open}
       {...(open ? { "aria-controls": SEARCH_PANEL_ID } : {})}
-      className={`flex h-11 w-11 shrink-0 items-center justify-center transition-colors duration-200 focus-visible:outline-none min-[1240px]:hidden ${
+      className={`flex h-11 w-11 shrink-0 items-center justify-center transition-colors duration-200 focus-visible:outline-hidden min-[1240px]:hidden ${
         open ? "text-k-gold" : colour
       }`}
     >
@@ -331,11 +331,11 @@ export function SearchPanel({ onClose }: { onClose(): void }) {
   }, [active]);
 
   return (
-    <div id={SEARCH_PANEL_ID} className="border-t border-black/[0.06]">
+    <div id={SEARCH_PANEL_ID} className="border-t border-black/6">
       {/* The box. The type is 16 pixels, not the site's 14, because iOS
           zooms the whole page into any box set smaller than 16 and never
           zooms back out; see the note in the mobile styles. */}
-      <div className="flex items-center gap-3.5 border-b border-black/[0.06] py-1.5 pl-6 pr-2.5">
+      <div className="flex items-center gap-3.5 border-b border-black/6 py-1.5 pl-6 pr-2.5">
         <SearchIcon className="shrink-0 text-k-ink-soft" />
         <input
           ref={inputRef}
@@ -378,7 +378,7 @@ export function SearchPanel({ onClose }: { onClose(): void }) {
           // The global gold focus outline is suppressed here at the client's
           // word. The box does not need a second frame: the panel opening is
           // what focus looks like, and the caret carries it from there.
-          className="min-w-0 flex-1 appearance-none bg-transparent py-3 font-text text-[16px] leading-normal text-k-ink caret-k-gold outline-none focus-visible:outline-none placeholder:text-k-ink-soft"
+          className="min-w-0 flex-1 appearance-none bg-transparent py-3 font-text text-[16px] leading-normal text-k-ink caret-k-gold outline-hidden focus-visible:outline-hidden placeholder:text-k-ink-soft"
         />
         <button
           type="button"
@@ -418,7 +418,7 @@ export function SearchPanel({ onClose }: { onClose(): void }) {
                   {header ? (
                     <li
                       role="presentation"
-                      className={i > 0 ? "mt-1 border-t border-black/[0.05]" : ""}
+                      className={i > 0 ? "mt-1 border-t border-black/5" : ""}
                     >
                       <span className="block px-6 pb-1.5 pt-3.5 font-text text-k-micro uppercase text-k-gold">
                         {header}

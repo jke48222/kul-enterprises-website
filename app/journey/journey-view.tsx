@@ -31,10 +31,10 @@ import type { TinaPage } from "@/lib/tina";
  * documentary movie" is the brief; a film sitting between the nav and the
  * footer is a page with a video on it, which is exactly what this replaced.
  * The bar rides at z-[95], and no z-index inside the page can beat it,
- * because the layout wraps every page in a `relative z-[1]` container whose
+ * because the layout wraps every page in a `relative z-1` container whose
  * stacking context caps its children. So the player renders through
  * createPortal onto body, the same door HeroVideo's slotted control uses,
- * and z-[120] then genuinely sits above the bar and the phone menu both.
+ * and z-120 then genuinely sits above the bar and the phone menu both.
  * Until the portal mounts, an inline black frame holds the viewport so
  * hydration never flashes the page underneath. The first cut kept the
  * player under the bar and the bar covered the film's own exit control,
@@ -156,11 +156,11 @@ export default function JourneyView(props: TinaPage<{ journeyPage: unknown }>) {
      the server render and the first client frame agree, and the page behind
      never shows through while the portal mounts. */
   if (!mounted) {
-    return <main className="fixed inset-0 z-[120] bg-k-void" aria-hidden="true" />;
+    return <main className="fixed inset-0 z-120 bg-k-void" aria-hidden="true" />;
   }
 
   return createPortal(
-    <main className="fixed inset-0 z-[120] bg-k-void">
+    <main className="fixed inset-0 z-120 bg-k-void">
       <h1 className="sr-only">{fill(page.title)}</h1>
 
       {src ? (

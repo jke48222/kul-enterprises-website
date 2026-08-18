@@ -58,7 +58,7 @@ export default function NotFoundView(
   const { hero } = page;
 
   return (
-    <section className="relative isolate flex min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-k-void px-6 py-32 text-center">
+    <section className="relative isolate flex min-h-svh flex-col items-center justify-center overflow-hidden bg-k-void px-6 py-32 text-center">
       {/* THE FILM, DRAINED OF COLOUR, which is what Rivian's page does.
           It is the wet-interstate dashcam: Mark's own footage, shot forward
           out of the truck, and the only one of the three clips not already
@@ -72,7 +72,7 @@ export default function NotFoundView(
         name={hero.video ?? "dash-rain"}
         poster={hero.poster ?? "/videos/dash-rain-poster.jpg"}
         label="the background film"
-        className="absolute inset-0 -z-10 h-full w-full object-cover [filter:grayscale(1)_contrast(1.08)_brightness(0.5)]"
+        className="absolute inset-0 -z-10 h-full w-full object-cover filter-[grayscale(1)_contrast(1.08)_brightness(0.5)]"
       />
       {/* Sits the type on ink rather than on whichever frame happens to be
           passing. A dashcam clip changes exposure as it drives, so the type
@@ -99,7 +99,7 @@ export default function NotFoundView(
       {/* text-wrap balance so a short sentence does not drop its last word
           onto a line of its own. Without it "That page does not exist." breaks
           after "not" and leaves "exist." stranded under a full-width line. */}
-      <h1 className="mt-10 max-w-[22ch] text-balance font-display text-[clamp(2rem,5vw,4rem)] font-black leading-[1.05] tracking-[-0.02em] text-k-on-dark">
+      <h1 className="mt-10 max-w-[22ch] text-balance font-display text-[clamp(2rem,5vw,4rem)] font-black leading-[1.05] tracking-tight text-k-on-dark">
         {fill(hero.heading)}
       </h1>
 

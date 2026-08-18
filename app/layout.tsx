@@ -280,7 +280,7 @@ export default function RootLayout({
         />
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[110] focus:bg-k-gold-lit focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-k-void"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-110 focus:bg-k-gold-lit focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-k-void"
         >
           Skip to content
         </a>
@@ -306,7 +306,7 @@ export default function RootLayout({
             <RouteTransition />
             <LoadingOverlay />
             <Nav />
-            <div className="relative z-[1] bg-k-paper">
+            <div className="relative z-1 bg-k-paper">
               <main id="main">{children}</main>
               <div data-content-end aria-hidden />
             </div>

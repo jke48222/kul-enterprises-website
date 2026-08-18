@@ -375,7 +375,7 @@ export default function SafetyView(props: TinaPage<{ safetyPage: unknown }>) {
                       </svg>
                       <h3
               data-tina-field={tinaField(item, "title")}
-              className="font-text text-k-small font-semibold uppercase tracking-[0.1em] text-k-ink"
+              className="font-text text-k-small font-semibold uppercase tracking-widest text-k-ink"
             >
               {fill(item.title)}
             </h3>

@@ -228,7 +228,7 @@ export function Prose({
           const selfLabelled =
             plain || items.every((t) => /^\(?[a-z0-9]{1,4}[).]\s/i.test(t));
           return (
-            <ul key={i} className={selfLabelled ? "!list-none !pl-0" : undefined}>
+            <ul key={i} className={selfLabelled ? "list-none! pl-0!" : undefined}>
               {items.map((item, li) => (
                 <li key={li}>{renderCopy(item, linkClassName)}</li>
               ))}

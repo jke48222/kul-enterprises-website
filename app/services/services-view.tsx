@@ -311,7 +311,7 @@ export default function ServicesView(props: TinaPage<{ servicesPage: unknown }>)
                     href={`/services/${service.slug}`}
                     tabIndex={-1}
                     aria-hidden="true"
-                    className="block overflow-hidden rounded-sm"
+                    className="block overflow-hidden rounded-xs"
                   >
                     <Image
                       src={service.card}

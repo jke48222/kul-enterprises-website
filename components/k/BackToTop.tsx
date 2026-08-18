@@ -111,7 +111,7 @@ export default function BackToTop() {
 
          pointer-events comes off while it is hidden so an invisible button
          can never swallow a tap meant for the page under it. */
-      className={`fixed bottom-4 right-4 z-[70] flex h-12 w-12 items-center justify-center rounded-full text-k-on-dark transition-[opacity,transform] duration-[400ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:text-k-gold-lit motion-reduce:transition-none min-[1240px]:right-5 ${
+      className={`fixed bottom-4 right-4 z-70 flex h-12 w-12 items-center justify-center rounded-full text-k-on-dark transition-[opacity,transform] duration-400 ease-in-out hover:text-k-gold-lit motion-reduce:transition-none min-[1240px]:right-5 ${
         shown
           ? "translate-y-0 opacity-100"
           : "pointer-events-none translate-y-3 opacity-0"

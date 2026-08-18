@@ -91,7 +91,7 @@ export default function HomeView(props: TinaPage<{ homePage: unknown }>) {
           the height with the browser chrome shown, so it is the smallest the
           viewport ever gets and the content is laid out to fit the worst case
           instead of reflowing when the chrome slides away. */}
-      <section className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden bg-k-void md:min-h-[820px]">
+      <section className="relative flex min-h-svh flex-col justify-end overflow-hidden bg-k-void md:min-h-[820px]">
         <HeroVideo
           name={home.hero.video}
           poster={home.hero.poster}
@@ -745,7 +745,7 @@ THE ALPHAS ARE SET BY A CONTRAST SUM, NOT BY EYE, AND THE FIRST
                   width={1920}
                   height={1280}
                   sizes="(min-width: 768px) 50vw, 100vw"
-                  className="aspect-[3/2] w-full object-cover"
+                  className="aspect-3/2 w-full object-cover"
                 />
               ))}
             </div>

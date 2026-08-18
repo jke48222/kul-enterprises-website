@@ -465,7 +465,7 @@ export default function Nav() {
         // differently placed Close control. Above it, one button does both
         // jobs without moving, and the pill it lives in stays where the reader
         // last saw it. The route transition is at 200 and still covers both.
-        className="fixed inset-x-0 top-0 z-[95] flex justify-center px-4"
+        className="fixed inset-x-0 top-0 z-95 flex justify-center px-4"
         onMouseLeave={() => setOpenPanel(null)}
         // Escape works wherever focus is. It sat on the trigger link alone,
         // so a keyboard reader who tabbed INTO the open panel had no way
@@ -504,7 +504,7 @@ export default function Nav() {
             the top-lit hairline that makes the glass read as a curved edge. An
             inset shadow costs no layout at all. */}
         <div
-          className="mt-4 w-[min(1180px,94vw)] max-w-full overflow-hidden min-[1240px]:w-[min(1180px,94vw,100vw_-_160px)]"
+          className="mt-4 w-[min(1180px,94vw)] max-w-full overflow-hidden min-[1240px]:w-[min(1180px,94vw,100vw-160px)]"
           style={{
             borderRadius: panelOpen ? 28 : 999,
             backgroundColor: surface.tint,
@@ -573,7 +573,7 @@ export default function Nav() {
             <Link
               href="/"
               aria-label={fill(nav.chrome.logoAria)}
-              className="relative shrink-0 before:absolute before:-inset-[3px] before:content-[''] min-[1240px]:justify-self-center min-[1240px]:px-8"
+              className="relative shrink-0 before:absolute before:inset-[-3px] before:content-[''] min-[1240px]:justify-self-center min-[1240px]:px-8"
             >
               <Image
                 src="/images/brand/lion-mark.webp"

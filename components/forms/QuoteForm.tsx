@@ -244,7 +244,7 @@ export default function QuoteForm() {
                   type="checkbox"
                   name="consent"
                   required
-                  className="relative mt-px h-[18px] w-[18px] shrink-0 cursor-pointer appearance-none rounded-[3px] border border-k-rule-dark bg-k-blueprint transition-colors duration-200 checked:border-k-gold-lit checked:bg-k-gold-lit focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-k-gold-lit checked:after:absolute checked:after:left-[5.5px] checked:after:top-[1.5px] checked:after:h-[9px] checked:after:w-[4px] checked:after:rotate-45 checked:after:border-b-2 checked:after:border-r-2 checked:after:border-k-void checked:after:content-['']"
+                  className="relative mt-px h-[18px] w-[18px] shrink-0 cursor-pointer appearance-none rounded-[3px] border border-k-rule-dark bg-k-blueprint transition-colors duration-200 checked:border-k-gold-lit checked:bg-k-gold-lit focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-k-gold-lit checked:after:absolute checked:after:left-[5.5px] checked:after:top-[1.5px] checked:after:h-[9px] checked:after:w-[4px] checked:after:rotate-45 checked:after:border-b-2 checked:after:border-r-2 checked:after:border-k-void checked:after:content-['']"
                 />
                 <span className="font-text text-[12px] leading-[19px] text-k-on-dark-soft">
                   {copyNodes(
