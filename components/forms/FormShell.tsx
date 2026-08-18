@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { useReducedMotion } from "framer-motion";
+import { useState } from "react";
 import { fill } from "@/lib/content";
 import forms from "@/content/forms.json";
 
