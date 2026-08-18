@@ -248,12 +248,13 @@ export default function RouteTransition() {
           // which is inset-0, so one of them is exactly one screen.
           initial={{ y: "100%" }}
           animate={{ y: "0%" }}
-          exit={{ y: "-100%" }}
-          transition={{
-            duration: IN,
-            ease: [...EASE],
-            exit: { duration: OUT, ease: [...EASE] },
+          // The departure timing rides inside the exit target itself: motion 13
+          // dropped the per-state keys the old top-level transition carried.
+          exit={{
+            y: "-100%",
+            transition: { duration: OUT, ease: [...EASE] },
           }}
+          transition={{ duration: IN, ease: [...EASE] }}
         >
           {/* The mark rides the panel rather than sitting still behind it, so
               there is one moving object on screen instead of two disagreeing
@@ -263,13 +264,12 @@ export default function RouteTransition() {
           <m.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.04 }}
-            transition={{
-              duration: 0.34,
-              ease: [...EASE],
-              delay: IN * 0.55,
-              exit: { duration: 0.2, ease: [...EASE], delay: 0 },
+            exit={{
+              opacity: 0,
+              scale: 1.04,
+              transition: { duration: 0.2, ease: [...EASE], delay: 0 },
             }}
+            transition={{ duration: 0.34, ease: [...EASE], delay: IN * 0.55 }}
           >
             <Image
               src="/images/brand/lion-mark.webp"
