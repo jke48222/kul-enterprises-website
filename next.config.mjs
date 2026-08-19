@@ -10,7 +10,7 @@ const nextConfig = {
     qualities: [75],
     // FOR THE VISUAL EDITOR'S LIVE PREVIEW ONLY. Public pages never render
     // this host: lib/tina.ts folds every assets.tina.io URL back to the
-    // repo's own /images path before content reaches a page. But inside
+    // repo's own first-party path before content reaches a page. But inside
     // /admin, useTina re-fetches over its own connection and hands the raw
     // CDN URLs straight to next/image, and without this entry the optimiser
     // answers 400 and the editor previews broken images.

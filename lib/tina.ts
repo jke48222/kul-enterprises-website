@@ -66,17 +66,37 @@ type QueryResult<T> = { data: T; query: string; variables: object };
  * stated rule is that the editor may fail but the website may not.
  *
  * So every string in a cloud result is walked once, here, and any
- * assets.tina.io URL is folded back to the first-party /images path. The
- * one thing this forbids is uploading media that exists ONLY in Tina's
- * store: media belongs in the repo, where the client owns it.
+ * assets.tina.io URL is folded back to the first-party path it names.
+ * Which path that is depends on the first segment after the CDN root.
+ * Media picked in the editor lives under public/images, the media root,
+ * so most URLs fold to /images. But an image field may also hold a path
+ * the site serves from a SIBLING of images: the film posters live in
+ * public/videos, the carrier documents in public/packet. Tina Cloud
+ * prefixes those with the CDN root all the same, and folding them under
+ * /images would invent /images/videos/..., a path that exists nowhere;
+ * the home film's poster 404ed on the live site exactly this way. So a
+ * URL whose first segment names one of those real top-level directories
+ * folds to the site root instead. The one thing all of this forbids is
+ * uploading media that exists ONLY in Tina's store: media belongs in the
+ * repo, where the client owns it.
  */
 const TINA_ASSET_URL = /^https:\/\/assets\.tina\.io\/[0-9a-f-]+\//;
 
+/**
+ * The top-level public/ directories that hold served files beside images.
+ * A folded path that starts with one of these belongs at the site root;
+ * everything else is media-store media and belongs under /images. A new
+ * sibling directory whose files the CMS can reference must be added here,
+ * or its URLs will fold into /images and 404.
+ */
+const PUBLIC_SIBLINGS = /^(?:videos|packet)\//;
+
 function localizeMedia<T>(value: T): T {
   if (typeof value === "string") {
-    return (TINA_ASSET_URL.test(value)
-      ? value.replace(TINA_ASSET_URL, "/images/")
-      : value) as unknown as T;
+    if (!TINA_ASSET_URL.test(value)) return value;
+    const path = value.replace(TINA_ASSET_URL, "");
+    const root = PUBLIC_SIBLINGS.test(path) ? "/" : "/images/";
+    return (root + path) as unknown as T;
   }
   if (Array.isArray(value)) {
     return value.map((item) => localizeMedia(item)) as unknown as T;
