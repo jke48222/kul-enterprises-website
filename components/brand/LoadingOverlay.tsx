@@ -8,13 +8,14 @@ const SEEN_KEY = "kul-intro-seen";
  * Total ceremony cap, exit fade included.
  *
  * It was 2500 when the film ended on the bare lion, 3750 when the lockup
- * arrived, 5000 for the five-second Blender film, and it is 15950 for the
- * Higgsfield film, which runs 15.93 seconds and spends its final two
- * seconds dissolving into the page. It has to be at least the length of the
+ * arrived, 5000 for the five-second Blender film, 15950 for the first
+ * Higgsfield cut, and it is 15700 for the polished cut (3 Sep 2026), which
+ * runs 15.70 seconds and spends its final two seconds dissolving into the
+ * page. It has to be at least the length of the
  * film, or the cap cuts the ending off. Every escape hatch below is
  * unchanged, so the visitor who does not want to watch still pays nothing.
  */
-const CAP_MS = 15950;
+const CAP_MS = 15700;
 /**
  * How long the closing fade takes, and WHEN: the fade IS the film's final
  * two seconds (Jalen, 13 Aug 2026). The exit starts at CAP_MS minus this,
@@ -50,10 +51,10 @@ const PLAY_DEADLINE_MS = 4000;
  * The cap below is timed from the film's FIRST FRAME so that a slow start
  * yields the whole film rather than its tail. That alone has no upper bound,
  * so this is the bound: whatever happens, the overlay is gone by here. It sits
- * under the 19000ms failsafe on the pre-paint cover in app/layout.tsx, so the
+ * under the 18750ms failsafe on the pre-paint cover in app/layout.tsx, so the
  * two can never disagree about which one is still holding the screen.
  */
-const CEILING_MS = 18500;
+const CEILING_MS = 18250;
 /**
  * The film's own ground, so any letterboxing is invisible against it.
  *
@@ -109,9 +110,15 @@ type Phase = "idle" | "show" | "still" | "exit" | "done";
  * Cinema Studio 3.5 and cut in Final Cut Pro (production guide:
  * project-docs/33-higgsfield-intro-plan.md; master export:
  * ~/Movies/kul-intro.mp4 and ~/Movies/mobile-intro.mp4). There are TWO
- * cuts, both from the client: kul-intro.mp4 is 1080p landscape, 15.93s,
- * ~9MB; kul-intro-mobile.mp4 is 720x1280 portrait, 15.79s, ~3MB, and a
- * phone gets that one. Both are silent, and both carry the tagline
+ * cuts, both from the client: kul-intro.mp4 is 1080p landscape, 15.70s,
+ * ~10MB; kul-intro-mobile.mp4 is 720x1280 portrait, 15.58s, ~3MB, and a
+ * phone gets that one. Both were re-cut on 3 Sep 2026 for Mark's two polish
+ * notes: the frontal hold runs half a second longer (Topaz frame
+ * interpolation via Higgsfield, picked on an S-curve so the bird lingers
+ * mid-hold), and the gold burst is softened at its peak with the vortex
+ * eased about 0.6s shorter, so the energy reveals the lockup instead of
+ * playing as its own effect. Every seam is the same footage continuing;
+ * there are no cuts. Both are silent, and both carry the tagline
  * composited beneath the closing card at encode time (neither Final Cut
  * master has it), one line on the wide cut and three on the tall one, so
  * each poster carries it too.
