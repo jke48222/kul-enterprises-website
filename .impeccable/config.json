@@ -4,6 +4,13 @@
     "ignoreFiles": [
       "multiverse/index.html"
     ],
-    "ignoreValues": []
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-09-05T00:44:29.200Z",
+        "reason": "User confirmed Inter is intentional: body face of the KUL design system of record (Archivo headings, Inter text)"
+      }
+    ]
   }
 }

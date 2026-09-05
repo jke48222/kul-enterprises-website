@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useSyncExternalStore } from "react";
 import { useReducedMotionLive } from "@/components/k/useReducedMotionLive";
 import { createPortal } from "react-dom";
 import { fill } from "@/lib/content";
@@ -13,6 +13,9 @@ import nav from "@/content/navigation.json";
  */
 const playWord = fill(nav.chrome.playWord);
 const pauseWord = fill(nav.chrome.pauseWord);
+
+/** A store that never changes: the snapshot functions do all the work. */
+const noopSubscribe = () => () => {};
 
 /**
  * One rule of the fold, and the three states it moves between.
@@ -99,7 +102,7 @@ type HeroVideoProps = {
  * WHAT THE BUTTON DOES AND DOES NOT DO. Pressing pause is a decision, so the
  * viewport observer stops overriding it: a film the reader paused must not
  * start again because they scrolled past and came back. That is what
- * `userPaused` is for, and it is separate from `playing`, which is only ever
+ * `pausedRef` is for, and it is separate from `playing`, which is only ever
  * what the element itself reports.
  *
  * ON WHERE IT SITS. Bottom right of the film, small, low contrast until
@@ -124,17 +127,17 @@ export default function HeroVideo({
   /**
    * The element the control is portalled into, once it exists.
    *
-   * Resolved in an effect rather than during render, because the slot is
-   * markup from a server component and is not in the document while this is
-   * first rendering. Until it resolves, a slotted control renders nothing at
-   * all: showing it in the corner for one frame and then moving it into the
-   * strip is worse than showing it a frame late.
+   * Read through useSyncExternalStore with a null server snapshot, because the
+   * slot is markup from a server component and is not in the document while
+   * the server render runs. Until hydration resolves it, a slotted control
+   * renders nothing at all: showing it in the corner for one frame and then
+   * moving it into the strip is worse than showing it a frame late.
    */
-  const [slot, setSlot] = useState<HTMLElement | null>(null);
-  useEffect(() => {
-    if (!controlSlotId) return;
-    setSlot(document.getElementById(controlSlotId));
-  }, [controlSlotId]);
+  const slot = useSyncExternalStore(
+    noopSubscribe,
+    () => (controlSlotId ? document.getElementById(controlSlotId) : null),
+    () => null,
+  );
   const ref = useRef<HTMLVideoElement>(null);
   /**
    * WHETHER THE FILM IS ACTUALLY RUNNING, READ FROM THE ELEMENT.
@@ -146,19 +149,40 @@ export default function HeroVideo({
    * control. The video's own play and pause events are the source of truth,
    * which also covers the browser refusing autoplay outright.
    */
-  const [playing, setPlaying] = useState(false);
-  /** Whether the reader pressed pause. Their decision outranks scrolling. */
-  const [userPaused, setUserPaused] = useState(false);
+  const subscribePlaying = useCallback((onChange: () => void) => {
+    const el = ref.current;
+    if (!el) return () => undefined;
+    el.addEventListener("play", onChange);
+    el.addEventListener("pause", onChange);
+    return () => {
+      el.removeEventListener("play", onChange);
+      el.removeEventListener("pause", onChange);
+    };
+  }, []);
+  const playing = useSyncExternalStore(
+    subscribePlaying,
+    () => !(ref.current?.paused ?? true),
+    () => false,
+  );
   /**
-   * Whether there is a film to control at all. False under reduced motion, and
-   * false until mount, so the server never renders a button for a video that
-   * this reader is not going to be shown.
+   * Whether the reader pressed pause. Their decision outranks scrolling. A ref
+   * and not state, because nothing renders from it: the observer below reads
+   * it, and it must read the current answer without being torn down and
+   * rebuilt on every press, which would re-fire the callback and restart the
+   * film, the exact thing the check exists to prevent.
    */
-  const [playable, setPlayable] = useState(false);
+  const pausedRef = useRef(false);
 
   // Observed live: flipping to reduce pauses the film and removes the
   // control; flipping back restores both, because the effect re-runs.
   const reduced = useReducedMotionLive();
+  /**
+   * Whether there is a film to control at all. False under reduced motion, and
+   * false in the server render, so the server never paints a button for a
+   * video that this reader is not going to be shown.
+   */
+  const mounted = useSyncExternalStore(noopSubscribe, () => true, () => false);
+  const playable = mounted && !reduced;
 
   useEffect(() => {
     const el = ref.current;
@@ -166,16 +190,8 @@ export default function HeroVideo({
 
     if (reduced) {
       el.pause();
-      setPlayable(false);
       return;
     }
-    setPlayable(true);
-
-    const onPlay = () => setPlaying(true);
-    const onPause = () => setPlaying(false);
-    el.addEventListener("play", onPlay);
-    el.addEventListener("pause", onPause);
-    setPlaying(!el.paused);
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -192,33 +208,17 @@ export default function HeroVideo({
     );
 
     observer.observe(el);
-    return () => {
-      observer.disconnect();
-      el.removeEventListener("play", onPlay);
-      el.removeEventListener("pause", onPause);
-    };
+    return () => observer.disconnect();
   }, [reduced]);
-
-  /**
-   * A plain mirror of `userPaused` the observer can read without being torn down
-   * and rebuilt every time it changes. Putting it in the effect's
-   * dependencies instead would disconnect and reconnect the observer on every
-   * press, which re-fires the callback and restarts the film: the exact thing
-   * the check above exists to prevent.
-   */
-  const pausedRef = useRef(false);
-  useEffect(() => {
-    pausedRef.current = userPaused;
-  }, [userPaused]);
 
   const toggle = () => {
     const el = ref.current;
     if (!el) return;
     if (el.paused) {
-      setUserPaused(false);
+      pausedRef.current = false;
       void el.play().catch(() => undefined);
     } else {
-      setUserPaused(true);
+      pausedRef.current = true;
       el.pause();
     }
     // `playing` is not set here on purpose. The element's own play and pause

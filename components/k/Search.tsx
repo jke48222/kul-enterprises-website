@@ -324,8 +324,14 @@ export function SearchPanel({ onClose }: { onClose(): void }) {
     );
   }, [trimmed, groups]);
 
-  // A new set of results starts from its best answer.
-  useEffect(() => setActive(0), [trimmed]);
+  // A new set of results starts from its best answer. Reset during render,
+  // against the last query seen, rather than in an effect that would paint
+  // the old cursor over the new list for a frame.
+  const [seenQuery, setSeenQuery] = useState(trimmed);
+  if (trimmed !== seenQuery) {
+    setSeenQuery(trimmed);
+    setActive(0);
+  }
   useEffect(() => {
     optionRefs.current[active]?.scrollIntoView({ block: "nearest" });
   }, [active]);

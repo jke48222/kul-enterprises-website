@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { useTina, tinaField } from "tinacms/dist/react";
@@ -50,6 +50,18 @@ import type { TinaPage } from "@/lib/tina";
  * film only plays if they start it themselves.
  */
 
+/** A store that never changes: the snapshot functions below do all the work. */
+const noopSubscribe = () => () => {};
+
+/**
+ * Whether this is a phone-width screen, decided once per page load. Pinned on
+ * purpose: the value picks which film file loads, and a value that followed
+ * the viewport would swap the file, and restart the film, on a rotation.
+ */
+let smallOnce: boolean | null = null;
+const getSmallOnce = () =>
+  (smallOnce ??= window.matchMedia("(max-width: 767px)").matches);
+
 /** The shape of the content, taken from the file itself. See quote-view.tsx. */
 type Content = typeof import("@/content/pages/journey.json");
 
@@ -66,8 +78,10 @@ export default function JourneyView(props: TinaPage<{ journeyPage: unknown }>) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  // True on the client, false in the server render: the same split the old
+  // mounted flag drew, read through useSyncExternalStore instead of a state
+  // write inside an effect.
+  const mounted = useSyncExternalStore(noopSubscribe, () => true, () => false);
 
   const chapters = page.chapters ?? [];
 
@@ -115,16 +129,15 @@ export default function JourneyView(props: TinaPage<{ journeyPage: unknown }>) {
 
   /**
    * The file is chosen on the client so phones get the -720 cut, the same
-   * bargain HeroVideo strikes. Until the effect runs the poster holds the
-   * frame, which is also the whole story for reduced-motion readers unless
-   * they press play themselves.
+   * bargain HeroVideo strikes. The server render carries no file, so the
+   * poster holds the frame until hydration, which is also the whole story for
+   * reduced-motion readers unless they press play themselves. The width is
+   * measured once per page load and pinned (see getSmallOnce), so rotating a
+   * phone mid-film does not swap the file and restart it.
    */
-  const [src, setSrc] = useState<string | null>(null);
-  useEffect(() => {
-    const name = page.film.video || "dash-night";
-    const small = window.matchMedia("(max-width: 767px)").matches;
-    setSrc(`/videos/${name}${small ? "-720" : ""}.mp4`);
-  }, [page.film.video]);
+  const small = useSyncExternalStore(noopSubscribe, getSmallOnce, () => null);
+  const filmName = page.film.video || "dash-night";
+  const src = small === null ? null : `/videos/${filmName}${small ? "-720" : ""}.mp4`;
 
   const onTimeUpdate = () => {
     const t = videoRef.current?.currentTime ?? 0;

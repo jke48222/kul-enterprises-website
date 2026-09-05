@@ -316,12 +316,17 @@ export default function Nav() {
 
   // Closing both on route change stops them hanging open after a click. The
   // menu links close the menu on their way out too, but this also covers the
-  // back button, which they never see.
-  useEffect(() => {
+  // back button, which they never see. It happens during render, against the
+  // last path this bar saw, the way React documents resetting state when a
+  // value changes: an effect would paint the open sheet over the new page for
+  // a frame before closing it.
+  const [seenPath, setSeenPath] = useState(pathname);
+  if (pathname !== seenPath) {
+    setSeenPath(pathname);
     setOpenPanel(null);
     setMenuOpen(false);
     setSearchOpen(false);
-  }, [pathname]);
+  }
 
   /**
    * Command K on a Mac, Control K elsewhere, opens the search from anywhere

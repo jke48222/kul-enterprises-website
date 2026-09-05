@@ -159,14 +159,6 @@ export default function ServiceCarousel({ services }: ServiceCarouselProps) {
     }
   }, []);
 
-  useEffect(
-    () => () => {
-      stopGlide();
-      if (rest.current) clearTimeout(rest.current);
-    },
-    [stopGlide],
-  );
-
   /**
    * Scrolls so the chosen service sits in the middle of the screen.
    *
@@ -184,6 +176,45 @@ export default function ServiceCarousel({ services }: ServiceCarouselProps) {
     [glideTo],
   );
 
+  /**
+   * GRAB AND PULL.
+   *
+   * Pointer events rather than mouse events, so a pen works and a touch screen
+   * is handled by the same code path if it ever needs to be. Touch is left to
+   * the browser: `touch-action: pan-y` on the rail keeps native sideways
+   * scrolling, with its own momentum and rubber banding, which is better than
+   * anything reproduced here.
+   *
+   * THE POINTER IS NOT CAPTURED UNTIL IT HAS ACTUALLY MOVED. Capturing on the
+   * press would swallow the click that follows, and every card is a link: the
+   * row would move beautifully and nothing in it could be opened. So the press
+   * only records where it started, and the capture happens on the first move
+   * past DRAG_SLOP. A press that never travels that far stays an ordinary
+   * click on a link.
+   */
+  const DRAG_SLOP = 4;
+  const drag = useRef<{ id: number; x: number; left: number; live: boolean } | null>(null);
+
+  /**
+   * Set the instant a pull ends, and read by the click handler below.
+   *
+   * IT CANNOT BE THE DRAG ITSELF, AND THIS IS THE PART THAT WAS WRONG.
+   * `click` does not fire during the drag; it fires after `pointerup`, by
+   * which time the drag has already been torn down and there is nothing left
+   * to test. Measured, with the drag as the only guard: pull the row, let go,
+   * and the release lands a click on whichever photograph is under the pointer
+   * and opens that service page. Which is precisely the thing the guard was
+   * written to stop.
+   *
+   * So the flag outlives the drag by exactly one click, and it is also cleared
+   * on the next press in case a pull ever ends without one following.
+   */
+  const swallowClick = useRef(false);
+
+  // The settle timer and the pull state are declared above this point, and
+  // the callbacks below that read them follow the declarations: React's
+  // compiler treats a ref that is read before its useRef line as a frozen
+  // value and flags every later write to it as a mutation.
   /**
    * THE ROW SETTLES ON WHOEVER IT LANDS ON.
    *
@@ -232,40 +263,13 @@ export default function ServiceCarousel({ services }: ServiceCarouselProps) {
     [scrollTo, services.length],
   );
 
-  /**
-   * GRAB AND PULL.
-   *
-   * Pointer events rather than mouse events, so a pen works and a touch screen
-   * is handled by the same code path if it ever needs to be. Touch is left to
-   * the browser: `touch-action: pan-y` on the rail keeps native sideways
-   * scrolling, with its own momentum and rubber banding, which is better than
-   * anything reproduced here.
-   *
-   * THE POINTER IS NOT CAPTURED UNTIL IT HAS ACTUALLY MOVED. Capturing on the
-   * press would swallow the click that follows, and every card is a link: the
-   * row would move beautifully and nothing in it could be opened. So the press
-   * only records where it started, and the capture happens on the first move
-   * past DRAG_SLOP. A press that never travels that far stays an ordinary
-   * click on a link.
-   */
-  const DRAG_SLOP = 4;
-  const drag = useRef<{ id: number; x: number; left: number; live: boolean } | null>(null);
-
-  /**
-   * Set the instant a pull ends, and read by the click handler below.
-   *
-   * IT CANNOT BE THE DRAG ITSELF, AND THIS IS THE PART THAT WAS WRONG.
-   * `click` does not fire during the drag; it fires after `pointerup`, by
-   * which time the drag has already been torn down and there is nothing left
-   * to test. Measured, with the drag as the only guard: pull the row, let go,
-   * and the release lands a click on whichever photograph is under the pointer
-   * and opens that service page. Which is precisely the thing the guard was
-   * written to stop.
-   *
-   * So the flag outlives the drag by exactly one click, and it is also cleared
-   * on the next press in case a pull ever ends without one following.
-   */
-  const swallowClick = useRef(false);
+  useEffect(
+    () => () => {
+      stopGlide();
+      if (rest.current) clearTimeout(rest.current);
+    },
+    [stopGlide],
+  );
 
   const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     if (e.pointerType === "touch") return;

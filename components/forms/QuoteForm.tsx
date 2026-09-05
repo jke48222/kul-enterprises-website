@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useState } from "react";
+import { useId, useState, useSyncExternalStore } from "react";
 import { AnimatePresence, m } from "framer-motion";
 import { services } from "@/lib/services";
 import { DUR, EASE } from "@/components/k/motion";
@@ -12,6 +12,12 @@ import forms from "@/content/forms.json";
 
 /** Everything this form says. Edited at /admin under "Forms". */
 const t = forms.quote;
+
+/** A store that never changes; the snapshot below is read once per render. */
+const noopSubscribe = () => () => {};
+/** The ?service= slug, straight from the address. Untrusted; see below. */
+const getServiceSlug = () =>
+  new URLSearchParams(window.location.search).get("service");
 
 /**
  * THE QUOTE FORM
@@ -72,20 +78,24 @@ export default function QuoteForm() {
    * option values are service names, so what goes into state is the name we
    * found, never the string that arrived.
    */
-  const [freightType, setFreightType] = useState("");
+  const [chosen, setChosen] = useState<string | null>(null);
 
   // The last option's submitted value IS its CMS label, not a twin of it kept
   // in code: the label is editable at /admin, and a hardcoded value here would
   // silently stop matching it the day the client rewords the option.
   const notSure = fill(t.fields.freightType.notSureOption);
 
-  useEffect(() => {
-    const slug = new URLSearchParams(window.location.search).get("service");
-    if (!slug) return;
-    const match = services.find((s) => s.slug === slug);
-    if (match) setFreightType(match.name);
-    else if (slug === "not-sure") setFreightType(notSure);
-  }, [notSure]);
+  // The slug is read from the address on the client; the server render sees
+  // no address and shows the placeholder, and hydration fills the answer in.
+  // What the reader picks afterwards (`chosen`) outranks what the URL said.
+  const slug = useSyncExternalStore(noopSubscribe, getServiceSlug, () => null);
+  const fromUrl =
+    slug === null
+      ? ""
+      : slug === "not-sure"
+        ? notSure
+        : (services.find((s) => s.slug === slug)?.name ?? "");
+  const freightType = chosen ?? fromUrl;
 
   // The lane is read back so the thank you can repeat it to the sender.
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -170,11 +180,12 @@ export default function QuoteForm() {
                 label={fill(t.fields.freightType.label)}
                 name="freightType"
                 required
-                // Controlled, because the effect above may set it from the URL
-                // after the first render. An uncontrolled select with a
-                // defaultValue would ignore that.
+                // Controlled, because the address may answer this question
+                // before the reader does and hydration fills it in after the
+                // first render. An uncontrolled select with a defaultValue
+                // would ignore that.
                 value={freightType}
-                onChange={(e) => setFreightType(e.target.value)}
+                onChange={(e) => setChosen(e.target.value)}
               >
                 <option value="" disabled>
                   {fill(t.fields.freightType.placeholder)}
